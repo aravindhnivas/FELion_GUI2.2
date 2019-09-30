@@ -1397,7 +1397,7 @@ class Filebrowser extends SvelteComponent {
 
 const { spawn, exec } = child_process;
 
-const pythonPath = path__default.join(__dirname, "/python3.7/python");
+const pythonPath = path__default.join(__dirname, "../python3.7/python");
 const functions_path = path__default.join(__dirname, "/python_files/");
 
 const plot_width = window.screen.width * .625;
@@ -1871,7 +1871,7 @@ function create_each_block_3(ctx) {
 		c() {
 			div = element("div");
 			t = text(t_value);
-			attr(div, "class", "level-item button funcBtn is-link animated svelte-1m5dpe9");
+			attr(div, "class", "level-item button funcBtn is-link animated svelte-d3u2tl");
 			attr(div, "id", div_id_value = ctx.id);
 			dispose = listen(div, "click", ctx.functionRun);
 		},
@@ -2395,7 +2395,7 @@ function create_fragment$4(ctx) {
 			}
 			attr(div0, "class", "column is-3");
 			attr(div0, "id", div0_id_value = "" + ctx.filetag + "filebrowserColumn");
-			attr(input, "class", "input locationLabel svelte-1m5dpe9");
+			attr(input, "class", "input locationLabel svelte-d3u2tl");
 			attr(input, "type", "text");
 			attr(input, "placeholder", "Location will be displayed");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "LocationLabel");
@@ -2404,22 +2404,22 @@ function create_fragment$4(ctx) {
 			attr(div2, "data-tippy", div2_data_tippy_value = "Browse " + ctx.filetag + " file");
 			attr(div3, "class", "control");
 			attr(div4, "class", "field has-addons");
-			attr(div5, "class", "row svelte-1m5dpe9");
+			attr(div5, "class", "row svelte-d3u2tl");
 			attr(div6, "class", "level-left animated fadeIn");
 			attr(div7, "class", "level");
-			attr(div8, "class", "row svelte-1m5dpe9");
+			attr(div8, "class", "row svelte-d3u2tl");
 			set_style(hr, "margin", "0.5em 0");
 			attr(h1, "class", "subtitle");
-			attr(img, "class", "data-loading svelte-1m5dpe9");
+			attr(img, "class", "data-loading svelte-d3u2tl");
 			attr(img, "id", img_id_value = "" + ctx.filetag + "loading");
 			attr(img, "src", "./icons/loadingBar.svg");
 			attr(img, "alt", "loading data");
 			attr(div9, "class", "container is-fluid");
 			attr(div9, "id", div9_id_value = "" + ctx.filetag + "plotContainer");
-			attr(div10, "class", "row box plotContainer svelte-1m5dpe9");
+			attr(div10, "class", "row box plotContainer svelte-d3u2tl");
 			attr(div11, "class", "column");
 			attr(div12, "class", "columns");
-			attr(section, "class", "section svelte-1m5dpe9");
+			attr(section, "class", "section svelte-d3u2tl");
 			attr(section, "id", ctx.id);
 			attr(section, "style", style);
 

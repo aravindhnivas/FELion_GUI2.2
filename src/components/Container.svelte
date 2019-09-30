@@ -247,7 +247,7 @@
     display: none;
   }
 
-  @media (min-width: 1000px) {
+  @media (max-width: 1200px) {
     .plotContainer {
       max-height: 27rem;
     }

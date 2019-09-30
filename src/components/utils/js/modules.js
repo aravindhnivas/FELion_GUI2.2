@@ -1,6 +1,6 @@
 const { spawn, exec } = require("child_process");
 const path = require('path');
-const pythonPath = path.join(__dirname, "/python3.7/python")
+const pythonPath = path.join(__dirname, "../python3.7/python")
 const functions_path = path.join(__dirname, "/python_files/")
 
 const plot_width = window.screen.width * .625;
