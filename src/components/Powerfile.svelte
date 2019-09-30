@@ -107,7 +107,7 @@ label {color: white}
                 <div class="field" id="powfileContent_mainContainer">
                     <label class="label">File Contents</label>
                     <div class="control" id="powfileContent_Container">
-                        <textarea class="textarea is-dark" placeholder="Textarea" id="powfileContents" bind:value={fileContent}></textarea>
+                        <textarea class="textarea" placeholder="Textarea" id="powfileContents" bind:value={fileContent}></textarea>
                     </div>
                 </div>
 
