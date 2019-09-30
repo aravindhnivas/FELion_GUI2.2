@@ -3128,7 +3128,7 @@ function create_fragment$6(ctx) {
 	return {
 		c() {
 			nav = element("nav");
-			nav.innerHTML = `<div class="navbar-menu"><div class="navbar-start"><div class="navbar-item"><p>Developed at Dr.Sandra's group FELion@FELIX</p></div></div> <div class="navbar-end"><div class="navbar-item"><p>© MIT License 2019 by A.N.Marimuthu</p><p></p></div></div></div>`;
+			nav.innerHTML = `<div class="navbar-menu"><div class="navbar-start"><div class="navbar-item"><p>Developed at Dr.Brünken's group FELion@FELIX</p></div></div> <div class="navbar-end"><div class="navbar-item"><p>2019 © MIT License</p><p></p></div></div></div>`;
 			attr(nav, "class", "navbar is-fixed-bottom is-dark");
 			attr(nav, "id", "footer");
 		},
