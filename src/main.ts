@@ -30,7 +30,7 @@ function createWindow() {
 	);
 
 	// Open the DevTools.
-	mainWindow.openDevTools({ mode: "detach" });
+	// mainWindow.openDevTools({ mode: "detach" });
 
 	mainWindow.once("ready-to-show", () => {
 		if (mainWindow!=null){mainWindow.show();}

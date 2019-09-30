@@ -27,7 +27,7 @@ function createWindow() {
         slashes: true
     }));
     // Open the DevTools.
-    mainWindow.openDevTools({ mode: "detach" });
+    // mainWindow.openDevTools({ mode: "detach" });
     mainWindow.once("ready-to-show", () => {
         if (mainWindow != null) {
             mainWindow.show();
@@ -49,5 +49,4 @@ electron.app.on("activate", function () {
         createWindow();
     }
 });
-//# sourceMappingURL=main.js.map
 //# sourceMappingURL=main.js.map
