@@ -2943,7 +2943,7 @@ function create_fragment$5(ctx) {
 			attr(div4, "class", "control svelte-2n12qe");
 			attr(div5, "class", "field svelte-2n12qe");
 			attr(label1, "class", "label svelte-2n12qe");
-			attr(textarea, "class", "textarea is-dark svelte-2n12qe");
+			attr(textarea, "class", "textarea svelte-2n12qe");
 			attr(textarea, "placeholder", "Textarea");
 			attr(textarea, "id", "powfileContents");
 			attr(div6, "class", "control svelte-2n12qe");
@@ -5757,7 +5757,6 @@ var Popper = function () {
 Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
 Popper.placements = placements;
 Popper.Defaults = Defaults;
-//# sourceMappingURL=popper.js.map
 
 /**!
 * tippy.js v4.3.5
@@ -7697,7 +7696,6 @@ function injectCSS(css) {
 }
 
 injectCSS(css);
-//# sourceMappingURL=index.all.js.map
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -18592,7 +18590,6 @@ const app = new App({
     target: document.body,
     props: { mainPages }
 });
-//# sourceMappingURL=renderer.js.map
 
 module.exports = app;
 //# sourceMappingURL=renderer.js.map
