@@ -1,0 +1,65 @@
+@charset "utf-8";
+
+// Variables
+$white: #fafafa;
+$black: black;
+
+// Changing default values
+
+$text: $white;
+$text-strong: $white;
+$success: #09814a;
+
+// Background Colors
+
+$backgroundGrey: #363636;
+$background1: #46307d;
+
+$background1_dark: #2a1a52;
+
+$dark: $background1_dark;
+
+// Background and hover-background color
+
+$background: $background1;
+$hoverBackground: lighten($background, 50%);
+
+// Navbar
+$navbar-height: 2rem;
+
+// Tabs-boxed
+$tabs-boxed-link-hover-background-color: $background;
+$tabs-boxed-link-hover-border-bottom-color: lighten($background, 10%);
+$tabs-boxed-link-active-background-color: $background;
+$tabs-link-active-color: $text;
+$tabs-link-hover-color: $text;
+
+// Section
+$section-padding: 1.5rem;
+
+// Box
+$box-background-color: lighten($background, 10%);
+
+// Panel
+$panel-heading-background-color: darken($background, 10%);
+$panel-block-active-icon-color: $white;
+$panel-block-active-color: $white;
+$panel-block-hover-background-color: $hoverBackground;
+
+// Navbar color:
+
+body,
+html {
+	background-color: $background !important;
+}
+.tabs {
+	background: lighten($background, 5%);
+	border-radius: 20px;
+}
+#min:hover,
+#max:hover {
+	background: lighten($background, 10%);
+}
+// Importing bulma
+@import "./node_modules/bulma/bulma.sass";
+@import "./node_modules/pretty-checkbox/src/pretty-checkbox.scss";

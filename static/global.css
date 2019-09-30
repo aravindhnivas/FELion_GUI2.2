@@ -1,0 +1,44 @@
+@import url("../node_modules/@fortawesome/fontawesome-free/css/all.min.css");
+body,
+html {
+	background-image: url(css/intro.svg);
+	user-select: none;
+}
+
+body::-webkit-scrollbar {
+	width: 0 !important;
+}
+
+.navbar {
+	height: 2rem;
+}
+
+.title {
+	color: #fafafa !important;
+}
+
+.subtitle {
+	color: #b5b5b5 !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px grey;
+	border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #f1f1f19d;
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #f1f1f1;
+}

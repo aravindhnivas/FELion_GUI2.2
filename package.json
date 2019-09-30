@@ -1,0 +1,47 @@
+{
+    "name": "FELion_GUI2",
+    "productName": "FELion_GUI2.2",
+    "description": "To analyse FELIX data for FELion Instrument",
+    "version": "2.2.0",
+    "license": "MIT",
+    "author": "A.N.Marimuthu",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/aravindhnivas/FELion_GUI2.1.git"
+    },
+    "main": "dist/main.js",
+    "scripts": {
+        "start": "cross-env NODE_ENV=development electron .",
+        "dev": "rollup -cw",
+        "build": "rollup -c",
+        "postinstall": "electron-builder install-app-deps",
+        "css-build": "node-sass --omit-source-map-url static/sass/mystyles.scss static/css/mystyles.css",
+        "css-watch": "npm run css-build -- --watch"
+    },
+    "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.10.2",
+        "bulma": "^0.7.5",
+        "electron": "^5.0.1",
+        "electron-builder": "^20.40.2",
+        "node-sass": "^4.12.0",
+        "rollup": "^1.21.0",
+        "rollup-plugin-commonjs": "^9.3.4",
+        "rollup-plugin-json": "^4.0.0",
+        "rollup-plugin-node-resolve": "^4.2.4",
+        "rollup-plugin-svelte": "^5.0.3",
+        "rollup-plugin-typescript": "^1.0.1",
+        "svelte": "^3.3.0",
+        "tslib": "^1.9.3",
+        "typescript": "^3.4.5"
+    },
+    "dependencies": {
+        "aos": "^2.3.4",
+        "chokidar": "^3.0.0",
+        "cross-env": "^5.2.0",
+        "directory-tree": "^2.2.4",
+        "jquery": "^3.4.1",
+        "jquery-ui": "^1.12.1",
+        "pretty-checkbox": "^3.0.3",
+        "tippy.js": "^4.3.5"
+    }
+}
