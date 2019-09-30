@@ -8,13 +8,14 @@
 
     <div class="navbar-start">
       <div class="navbar-item">
-        <p>Developed at Dr.Sandra's group FELion@FELIX</p>
+        <p>Developed at Dr.Br&uuml;nken's group FELion@FELIX</p>
       </div>
     </div>
 
     <div class="navbar-end">
       <div class="navbar-item">
-        <p>&copy; MIT License 2019 by A.N.Marimuthu<p>
+
+        <p>2019 &copy; MIT License<p>
       </div>
     </div>
 
