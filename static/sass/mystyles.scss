@@ -15,9 +15,9 @@ $dark: $background1_dark;
 $background: $background1;
 $hoverBackground: lighten($background, 50%);
 // Input focus
-$skyBlue:#0c8de2;
+$skyBlue:#6db1df;
 $input-focus-border-color: $skyBlue;
-$input-focus-box-shadow-size: 0 0 0 0.25em; //0 0 0 0.125em
+$input-focus-box-shadow-size: 0 0 0 0.125em; //0 0 0 0.125em
 $input-focus-box-shadow-color: rgba($skyBlue, 0.7);
 // Navbar
 $navbar-height: 2rem;
