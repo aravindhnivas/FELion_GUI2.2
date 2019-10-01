@@ -357,7 +357,7 @@
 
       </div>
 
-      <hr style="margin: 0.5em 0" />
+      <hr style="margin: 0.5em 0; background-color:#bdc3c7" />
       <h1 class="subtitle">Data Visualisation</h1>
 
       <div class="row box plotContainer">

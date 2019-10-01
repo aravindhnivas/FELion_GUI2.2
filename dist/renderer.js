@@ -2426,6 +2426,7 @@ function create_fragment$4(ctx) {
 			attr(div7, "class", "level");
 			attr(div8, "class", "row svelte-d3u2tl");
 			set_style(hr, "margin", "0.5em 0");
+			set_style(hr, "background-color", "#bdc3c7");
 			attr(h1, "class", "subtitle");
 			attr(img, "class", "data-loading svelte-d3u2tl");
 			attr(img, "id", img_id_value = "" + ctx.filetag + "loading");
