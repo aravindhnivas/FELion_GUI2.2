@@ -688,8 +688,8 @@ function create_fragment$2(ctx) {
 	return {
 		c() {
 			section = element("section");
-			section.innerHTML = `<div class="container svelte-1awuaey"><h1 class="title">FELion Spectrum Analyser</h1> <h2 class="subtitle">To analyse FELIX data for FELion Instrument.</h2></div>`;
-			attr(section, "class", "section animated fadeInDown svelte-1awuaey");
+			section.innerHTML = `<div class="container svelte-vdn28p"><h1 class="title">FELion Spectrum Analyser</h1> <h2 class="subtitle">To analyse FELIX data for FELion Instrument.</h2></div>`;
+			attr(section, "class", "section animated fadeInDown svelte-vdn28p");
 			attr(section, "id", "Welcome");
 		},
 
@@ -709,10 +709,23 @@ function create_fragment$2(ctx) {
 	};
 }
 
+function instance$2($$self, $$props, $$invalidate) {
+	let { jq } = $$props;
+  jq(document).ready(()=>{
+    jq("#Welcome").css("display", "block");
+  });
+
+	$$self.$set = $$props => {
+		if ('jq' in $$props) $$invalidate('jq', jq = $$props.jq);
+	};
+
+	return { jq };
+}
+
 class Welcome extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, null, create_fragment$2, safe_not_equal, []);
+		init(this, options, instance$2, create_fragment$2, safe_not_equal, ["jq"]);
 	}
 }
 
@@ -1303,7 +1316,7 @@ function create_fragment$3(ctx) {
 	};
 }
 
-function instance$2($$self, $$props, $$invalidate) {
+function instance$3($$self, $$props, $$invalidate) {
 	let { jq, currentLocation, filetag, updateFolder, getCheckedFiles, path } = $$props;
 
   const refreshFolder = event => {
@@ -1391,7 +1404,7 @@ function instance$2($$self, $$props, $$invalidate) {
 class Filebrowser extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$2, create_fragment$3, safe_not_equal, ["jq", "currentLocation", "filetag", "updateFolder", "getCheckedFiles", "path"]);
+		init(this, options, instance$3, create_fragment$3, safe_not_equal, ["jq", "currentLocation", "filetag", "updateFolder", "getCheckedFiles", "path"]);
 	}
 }
 
@@ -2615,7 +2628,7 @@ function create_fragment$4(ctx) {
 
 const style = "display:none;";
 
-function instance$3($$self, $$props, $$invalidate) {
+function instance$4($$self, $$props, $$invalidate) {
 	
 
   let { id, filetag, filetype, funcBtns, plotID, jq, electron, path } = $$props;
@@ -2885,7 +2898,7 @@ function instance$3($$self, $$props, $$invalidate) {
 class Container extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$3, create_fragment$4, safe_not_equal, ["id", "filetag", "filetype", "funcBtns", "plotID", "jq", "electron", "path"]);
+		init(this, options, instance$4, create_fragment$4, safe_not_equal, ["id", "filetag", "filetype", "funcBtns", "plotID", "jq", "electron", "path"]);
 	}
 }
 
@@ -3027,7 +3040,7 @@ function create_fragment$5(ctx) {
 	};
 }
 
-function instance$4($$self, $$props, $$invalidate) {
+function instance$5($$self, $$props, $$invalidate) {
 	let { electron, path, jq } = $$props;
 
     const dialog = electron.remote.dialog;
@@ -3116,7 +3129,7 @@ function instance$4($$self, $$props, $$invalidate) {
 class Powerfile extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$4, create_fragment$5, safe_not_equal, ["electron", "path", "jq"]);
+		init(this, options, instance$5, create_fragment$5, safe_not_equal, ["electron", "path", "jq"]);
 	}
 }
 
@@ -5757,6 +5770,7 @@ var Popper = function () {
 Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
 Popper.placements = placements;
 Popper.Defaults = Defaults;
+//# sourceMappingURL=popper.js.map
 
 /**!
 * tippy.js v4.3.5
@@ -7696,6 +7710,7 @@ function injectCSS(css) {
 }
 
 injectCSS(css);
+//# sourceMappingURL=index.all.js.map
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -18345,7 +18360,7 @@ function create_fragment$7(ctx) {
 
 	var navbar = new Navbar({ props: { navItems: ctx.navItems } });
 
-	var welcome = new Welcome({});
+	var welcome = new Welcome({ props: { jq: ctx.jq } });
 
 	let each_value = ctx.mainPages;
 
@@ -18504,7 +18519,7 @@ function create_fragment$7(ctx) {
 	};
 }
 
-function instance$5($$self, $$props, $$invalidate) {
+function instance$6($$self, $$props, $$invalidate) {
 	
 
   const jq = jquery;
@@ -18524,7 +18539,7 @@ function instance$5($$self, $$props, $$invalidate) {
 class App extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$5, create_fragment$7, safe_not_equal, ["mainPages"]);
+		init(this, options, instance$6, create_fragment$7, safe_not_equal, ["mainPages"]);
 	}
 }
 
@@ -18590,6 +18605,7 @@ const app = new App({
     target: document.body,
     props: { mainPages }
 });
+//# sourceMappingURL=renderer.js.map
 
 module.exports = app;
 //# sourceMappingURL=renderer.js.map
