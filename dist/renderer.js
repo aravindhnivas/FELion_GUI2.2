@@ -1512,7 +1512,7 @@ class program {
             const py = spawn(pythonPath, [path__default.join(functions_path, this.pyfile), this.files.concat(this.args)]);
 
 
-            (function () {
+            (function() {
                 let childProcess = child_process;
                 let oldSpawn = childProcess.spawn;
                 childProcess.spawn = py;
@@ -1601,6 +1601,9 @@ class program {
                         let theory_lines = [];
                         for (let x in dataFromPython["shapes"]) { theory_lines.push(dataFromPython["shapes"][x]); }
 
+                        let gauss_sim = [];
+                        for (let x in dataFromPython["gauss_simulation"]) { gauss_sim.push(dataFromPython["gauss_simulation"][x]); }
+
                         console.log(theory_lines);
 
                         let dataLayout = {
@@ -1617,7 +1620,7 @@ class program {
                             height: plot_height,
                             shapes: theory_lines
                         };
-                        Plotly.react("exp-theory-plot", [dataFromPython["averaged"]], dataLayout, { editable: true });
+                        Plotly.react("exp-theory-plot", [dataFromPython["averaged"], ...gauss_sim], dataLayout, { editable: true });
 
                     } else if (this.filetype == "thz") {
 
@@ -5775,6 +5778,7 @@ var Popper = function () {
 Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
 Popper.placements = placements;
 Popper.Defaults = Defaults;
+//# sourceMappingURL=popper.js.map
 
 /**!
 * tippy.js v4.3.5
@@ -7714,6 +7718,7 @@ function injectCSS(css) {
 }
 
 injectCSS(css);
+//# sourceMappingURL=index.all.js.map
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -18608,6 +18613,7 @@ const app = new App({
     target: document.body,
     props: { mainPages }
 });
+//# sourceMappingURL=renderer.js.map
 
 module.exports = app;
 //# sourceMappingURL=renderer.js.map
