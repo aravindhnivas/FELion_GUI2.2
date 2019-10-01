@@ -292,8 +292,8 @@ class normplot:
         else:
             intensity = (baseCounts-counts)/total_power
         
-        # relative_depletion =(1-ratio)*100
-        relative_depletion = (baseCounts-counts)/total_power
+        relative_depletion =(1-ratio)*100
+        # relative_depletion = (baseCounts-counts)/total_power
 
         return wavelength, intensity, data[1], relative_depletion
 

@@ -164,19 +164,19 @@ class program {
                         );
                         let signal_formula;
 
-                        normlog ? signal_formula = "Signal = -ln(C/B)/Power(in J)" : signal_formula = "Signal = (B-C)/Power";
+                        normlog ? signal_formula = "Signal = -ln(C/B)/Power(in J)" : signal_formula = "Signal = (1-C/B)*100";
 
                         plot(
                             `Normalized Spectrum (delta=${delta})<br>${signal_formula}; {C=Measured Count, B=Baseline Count}`,
                             "Calibrated Wavelength (cm-1)",
-                            normlog ? "Normalised Intesity" : "Relative depletion (Power Norm.)",
+                            normlog ? "Normalised Intesity" : "Relative depletion (%)",
                             felixdataToPlot,
                             "nplot"
                         );
                         plot(
                             `Average of Normalised Spectrum (delta=${delta})`,
                             "Calibrated Wavelength (cm-1)",
-                            normlog ? "Normalised Intesity" : "Relative depletion (Power Norm.)",
+                            normlog ? "Normalised Intesity" : "Relative depletion (%)",
                             avgdataToPlot,
                             "avgplot"
                         );
