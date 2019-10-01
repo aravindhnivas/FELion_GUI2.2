@@ -1,7 +1,14 @@
+<script>
+  export let jq;
+  jq(document).ready(()=>{
+    jq("#Welcome").css("display", "block");
+  })
+</script>
+
 <style>
   #Welcome {
     margin-top: 15% !important;
-    display: block;
+    display: none;
   }
   .container {
     border: 5px solid #fafafaa6;
@@ -10,7 +17,6 @@
   }
 </style>
 
-<!-- Welcome page -->
 <section class="section animated fadeInDown" id="Welcome">
   <div class="container">
     <h1 class="title">FELion Spectrum Analyser</h1>

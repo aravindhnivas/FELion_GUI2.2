@@ -24,7 +24,7 @@
 
 <Navbar {navItems}/>
 
-<Welcome />
+<Welcome {jq}/>
 
 {#each mainPages as { id, filetag, filetype, funcBtns, plotID }}
   <Container {id} {filetag} {filetype} {funcBtns} {plotID} {jq} {electron} {path}/>
