@@ -96,17 +96,21 @@ class normplot:
 
             # Wavelength and intensity of individuals without binning
             wavelength, intensity, raw_intensity, relative_depletion = self.norm_line_felix()
+            wavelength_rel = np.copy(wavelength)
 
             # collecting Wavelength and intensity to average spectrum with binning
             xs = np.append(xs, wavelength)
             ys = np.append(ys, intensity)
 
-            xs_r = np.append(xs_r, wavelength)
+            xs_r = np.append(xs_r, wavelength_rel)
             ys_r = np.append(ys_r, relative_depletion)
 
             # Wavelength and intensity of individuals with binning
             wavelength, intensity = self.felix_binning(
                 wavelength, intensity)
+
+            wavelength_rel, relative_depletion = self.felix_binning(
+                wavelength_rel, relative_depletion)
 
             self.powerPlot(powerfile, wavelength)
             ##################################
@@ -156,7 +160,7 @@ class normplot:
 
 
             dataToSend["felix_rel"][f"{felixfile}_histo"] = {
-                "x": list(wavelength),
+                "x": list(wavelength_rel),
                 "y": list(relative_depletion),
                 "name": felixfile,
                 "type": "bar",
@@ -165,7 +169,7 @@ class normplot:
             }
 
             dataToSend["felix_rel"][felixfile] = {
-                "x": list(wavelength),
+                "x": list(wavelength_rel),
                 "y": list(relative_depletion),
                 "name": felixfile,
                 "type": "scatter",
@@ -182,7 +186,7 @@ class normplot:
             }
 
             dataToSend["average_rel"][felixfile] = {
-                "x": list(wavelength),
+                "x": list(wavelength_rel),
                 "y": list(relative_depletion),
                 "name": felixfile,
                 "mode": "markers",
