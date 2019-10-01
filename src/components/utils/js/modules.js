@@ -14,7 +14,7 @@ function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
         title: mainTitle,
 
         xaxis: {
-            domain: [0, 0.5],
+            domain: [0, 0.45],
             title: xtitle
         },
         yaxis: {
@@ -102,7 +102,7 @@ class program {
             const py = spawn(pythonPath, [path.join(functions_path, this.pyfile), this.files.concat(this.args)]);
 
 
-            (function() {
+            (function () {
                 let childProcess = require("child_process");
                 let oldSpawn = childProcess.spawn;
 
@@ -162,17 +162,21 @@ class program {
                             dataFromPython["base"],
                             "bplot"
                         );
+                        let signal_formula;
+
+                        normlog ? signal_formula = "Signal = -ln(C/B)/Power(in J)" : signal_formula = "Signal = (B-C)/Power";
+
                         plot(
-                            `Normalized Spectrum (delta=${delta})`,
+                            `Normalized Spectrum (delta=${delta})<br>${signal_formula}; {C=Measured Count, B=Baseline Count}`,
                             "Calibrated Wavelength (cm-1)",
-                            normlog ? "Normalised Intesity" : "Relative depletion (%)",
+                            normlog ? "Normalised Intesity" : "Relative depletion (Power Norm.)",
                             felixdataToPlot,
                             "nplot"
                         );
                         plot(
                             `Average of Normalised Spectrum (delta=${delta})`,
                             "Calibrated Wavelength (cm-1)",
-                            normlog ? "Normalised Intesity" : "Relative depletion (%)",
+                            normlog ? "Normalised Intesity" : "Relative depletion (Power Norm.)",
                             avgdataToPlot,
                             "avgplot"
                         );

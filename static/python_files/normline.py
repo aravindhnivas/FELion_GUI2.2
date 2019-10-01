@@ -280,23 +280,20 @@ class normplot:
 
         wavelength = self.saCal.sa_cm(data[0])
 
+        total_power = powCal.power(data[0])*powCal.shots(data[0])
+        counts = data[1]
+        baseCounts = baseCal.val(data[0])
+        ratio = counts/baseCounts
+        
         # Normalise the intensity
         # multiply by 1000 because of mJ but ONLY FOR PD!!!
         if PD:
-            intensity = (
-                -np.log(data[1] / baseCal.val(data[0]))
-                / powCal.power(data[0])
-                / powCal.shots(data[0])
-                * 1000
-            )
+            intensity = (-np.log(ratio)/total_power)*1000
         else:
-            intensity = (
-                (data[1] - baseCal.val(data[0]))
-                / powCal.power(data[0])
-                / powCal.shots(data[0])
-            )
+            intensity = (baseCounts-counts)/total_power
         
-        relative_depletion = (1-(data[1]/baseCal.val(data[0])))*100
+        # relative_depletion =(1-ratio)*100
+        relative_depletion = (baseCounts-counts)/total_power
 
         return wavelength, intensity, data[1], relative_depletion
 
