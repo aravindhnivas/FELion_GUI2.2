@@ -6,6 +6,8 @@ import numpy as np
 import sys
 from pathlib import Path as pt
 
+def gaussian(x, A, sig, center):
+    return A*np.exp(-0.5*((x-center)/sig)**2)
 
 def exp_theory(theoryfile, felixfiles, norm_method):
 
@@ -29,7 +31,7 @@ def exp_theory(theoryfile, felixfiles, norm_method):
     norm_factor = ys.max()/y.max()
     y = norm_factor*y
 
-    data = {"shapes": {},
+    data = {"shapes": {}, "gauss_simulation":{},
             "averaged": {
             "x": list(xs), "y": list(ys),  "name": "Exp", "showlegend": True,
         "mode": "lines",
@@ -45,6 +47,16 @@ def exp_theory(theoryfile, felixfiles, norm_method):
                                               "width": 3
                                           }}
 
+        sig = 10
+        size = 1000
+
+        x = np.random.normal(wn, sig, size)
+        x = np.sort(x, axis=0)
+        y = gaussian(x, inten, sig, wn)
+        data["gauss_simulation"][f"{wn}_sim"] = {
+            "x":list(x), "y":list(y), "type": "scatter",  "line": {"color": "rgb(55, 128, 191)"}, "showlegend":False
+        }
+
     data_tosend = json.dumps(data)
     print(data_tosend)
 
@@ -56,6 +68,7 @@ if __name__ == "__main__":
     if(norm_method):
         norm_method="log" 
     else: norm_method="rel"
+
     felixfiles = args[2:]
 
     exp_theory(theory_file, felixfiles, norm_method)

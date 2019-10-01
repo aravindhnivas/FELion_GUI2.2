@@ -102,7 +102,7 @@ class program {
             const py = spawn(pythonPath, [path.join(functions_path, this.pyfile), this.files.concat(this.args)]);
 
 
-            (function () {
+            (function() {
                 let childProcess = require("child_process");
                 let oldSpawn = childProcess.spawn;
 
@@ -198,6 +198,9 @@ class program {
                         let theory_lines = [];
                         for (let x in dataFromPython["shapes"]) { theory_lines.push(dataFromPython["shapes"][x]) }
 
+                        let gauss_sim = [];
+                        for (let x in dataFromPython["gauss_simulation"]) { gauss_sim.push(dataFromPython["gauss_simulation"][x]) }
+
                         console.log(theory_lines)
 
                         let dataLayout = {
@@ -214,7 +217,7 @@ class program {
                             height: plot_height,
                             shapes: theory_lines
                         };
-                        Plotly.react("exp-theory-plot", [dataFromPython["averaged"]], dataLayout, { editable: true });
+                        Plotly.react("exp-theory-plot", [dataFromPython["averaged"], ...gauss_sim], dataLayout, { editable: true });
 
                     } else if (this.filetype == "thz") {
 
