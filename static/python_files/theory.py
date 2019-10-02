@@ -9,7 +9,7 @@ from pathlib import Path as pt
 def gaussian(x, A, sig, center):
     return A*np.exp(-0.5*((x-center)/sig)**2)
 
-def exp_theory(theoryfile, felixfiles, norm_method):
+def exp_theory(theoryfile, felixfiles, norm_method, sigma, scale):
 
     felixfiles = [pt(felixfile) for felixfile in felixfiles]
     theoryfile = pt(theoryfile)
@@ -22,12 +22,10 @@ def exp_theory(theoryfile, felixfiles, norm_method):
     xs, ys = np.genfromtxt(
         f"{datfile_location}/averaged_{norm_method}.dat").T
 
-    try:
-        x, y = np.genfromtxt(theoryfile).T[:2]
-    except:
-        raise Exception(
-            "Please select a theory file with 2-column\nYou can add comments by adding # in the beginning of the sentences")
+    x, y = np.genfromtxt(theoryfile).T[:2]
 
+    x = x*scale
+    
     norm_factor = ys.max()/y.max()
     y = norm_factor*y
 
@@ -47,7 +45,7 @@ def exp_theory(theoryfile, felixfiles, norm_method):
                                               "width": 3
                                           }}
 
-        sig = 10
+        sig = sigma
         size = 1000
 
         x = np.random.normal(wn, sig, size)
@@ -69,6 +67,9 @@ if __name__ == "__main__":
         norm_method="log" 
     else: norm_method="rel"
 
-    felixfiles = args[2:]
+    sigma = float(args[2])
 
-    exp_theory(theory_file, felixfiles, norm_method)
+    scale = float(args[3])
+    felixfiles = args[4:]
+
+    exp_theory(theory_file, felixfiles, norm_method, sigma, scale)

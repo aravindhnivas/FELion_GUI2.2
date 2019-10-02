@@ -13,13 +13,11 @@
   export let jq;
   export let electron;
   export let path;
-
   const dialog = electron.remote.dialog;
 
   jq(document).ready(() => {
     jq("#theoryBtn")
-      .addClass("fadeInUp")
-      .css("display", "none");
+      .addClass("fadeInUp").css("display", "block");
   });
 
   const join = file => {
@@ -118,6 +116,7 @@
   };
 
   function browseFile({theory=false}) {
+
     if (theory == true) {
       return new Promise((resolve, reject) => {
         let files;
@@ -221,21 +220,29 @@
 
   let theoryfiles=[];
   $: theoryfilenames = theoryfiles.map(file=>path.basename(file))
-  $: console.log("Theory files: ", theoryfilenames);
+  
   function opentheory() {
     browseFile({theory:true})
-        .then(file =>  theoryfiles = file)
-        .catch(err => console.log(err));
+      .then(file =>  theoryfiles = file).catch(err => console.log(err));
   }
-  function runtheory(event) {
+
+
+  function runtheory() {
     runPlot({fullfiles: theoryfiles, filetype: "theory", 
-      btname: event.target.id, pyfile: "theory.py", args: [normlog, fullfiles[0]] });
+      btname: "appendTheory", pyfile: "theory.py", args: [normlog, sigma, scale, fullfiles[0]] });
   }
+  const runtheory_keyup = (event) => {if(event.key=="Enter") runtheory()}
+  let sigma=20; //Sigma value for felixplot thoery gaussian profile
+
+  let scale=1;
 
 </script>
-
 <style>
-  label{color:white}
+  label{
+    color:white;
+    border:solid 3px #bdc3c7; 
+    padding:0.4em;
+  }
   .locationLabel {
     text-align: center;
   }
@@ -272,7 +279,10 @@
     }
   }
 
-  #theoryContainer {margin-left: 20%;}
+  #theoryContainer {
+    margin-left: 20%;
+    margin-right:20%;
+  }
 </style>
 
 <section class="section" {id} {style}>
@@ -342,7 +352,7 @@
                   <div class="control">
                     <input
                       class="input"
-                      type="text"
+                      type="number" step="0.5"
                       id="delta_value"
                       placeholder="Delta value"
                       data-tippy="Delta value for averaging FELIX spectrum"
@@ -380,9 +390,13 @@
          <div class="row" id="theoryRow" style="display:none">
             <div class="container" id="theoryContainer">
               <div class="field">
-                <label class="label" style="border:solid 3px #bdc3c7; padding:0.4em;"><h1 class="subtitle" id="theoryfilename">{theoryfilenames}</h1></label>
+                <label class="label" >
+                  <h1 class="subtitle" id="theoryfilename">{theoryfilenames}</h1>
+                </label>
                 <div class="control">
                     <button class="button is-warning" on:click={opentheory}>Choose file</button>
+                    <input class="input" type="number" on:keyup={runtheory_keyup} bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
+                    <input class="input" type="number" on:keyup={runtheory_keyup} step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
                     <button class="button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
                 </div>
               </div>
