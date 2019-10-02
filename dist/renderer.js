@@ -1517,6 +1517,7 @@ class program {
 
                 let dataFromPython;
                 dataFromPython = data.toString("utf8");
+
                 // console.log("Before JSON parse :" + dataFromPython)
 
                 if (this.filetype == "general") {
@@ -1590,14 +1591,16 @@ class program {
 
                     } else if (this.filetype == "theory") {
 
-                        console.log(this.files.length);
+                        let log = this.args[0];
+                        console.log(":: run -> log", log);
+
                         let theoryData = [];
                         for (let x in dataFromPython["line_simulation"]) { theoryData.push(dataFromPython["line_simulation"][x]); }
 
                         plot(
                             "Experimental vs Theory",
                             "Calibrated Wavelength (cm-1)",
-                            "Normalised Intesity",
+                            log == "Log" ? "Normalised Intesity" : "Relative depletion (%)",
                             [dataFromPython["averaged"], ...theoryData],
                             "exp-theory-plot"
                         );
@@ -2976,7 +2979,7 @@ function instance$4($$self, $$props, $$invalidate) {
 
   function runtheory() {
     runPlot({fullfiles: theoryfiles, filetype: "theory", 
-      btname: "appendTheory", pyfile: "theory.py", args: [normlog, sigma, scale, currentLocation] });
+      btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation] });
   }
   const runtheory_keyup = (event) => {if(event.key=="Enter") runtheory();};
   let sigma=20; //Sigma value for felixplot thoery gaussian profile
