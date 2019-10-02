@@ -104,6 +104,7 @@ class program {
 
                 let dataFromPython;
                 dataFromPython = data.toString("utf8");
+
                 // console.log("Before JSON parse :" + dataFromPython)
 
                 if (this.filetype == "general") {
@@ -177,14 +178,16 @@ class program {
 
                     } else if (this.filetype == "theory") {
 
-                        console.log(this.files.length)
+                        let log = this.args[0];
+                        console.log(":: run -> log", log);
+
                         let theoryData = [];
                         for (let x in dataFromPython["line_simulation"]) { theoryData.push(dataFromPython["line_simulation"][x]) }
 
                         plot(
                             "Experimental vs Theory",
                             "Calibrated Wavelength (cm-1)",
-                            "Normalised Intesity",
+                            log == "Log" ? "Normalised Intesity" : "Relative depletion (%)",
                             [dataFromPython["averaged"], ...theoryData],
                             "exp-theory-plot"
                         );

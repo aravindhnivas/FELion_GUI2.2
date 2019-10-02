@@ -242,7 +242,7 @@ class normplot:
             c += 2
 
         binns, intens = self.felix_binning(xs, ys)
-        self.export_file("averaged_log", binns, intens)
+        self.export_file("averaged_Log", binns, intens)
 
         dataToSend["average"]["average"] = {
             "x": list(binns),
@@ -254,7 +254,7 @@ class normplot:
 
         # For relative
         binns_r, intens_r = self.felix_binning(xs_r, ys_r)
-        self.export_file("averaged_rel", binns_r, intens_r)
+        self.export_file("averaged_Relative", binns_r, intens_r)
         
         dataToSend["average_rel"]["average"] = {
             "x": list(binns_r),

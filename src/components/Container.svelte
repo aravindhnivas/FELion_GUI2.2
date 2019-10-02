@@ -229,7 +229,7 @@
 
   function runtheory() {
     runPlot({fullfiles: theoryfiles, filetype: "theory", 
-      btname: "appendTheory", pyfile: "theory.py", args: [normlog, sigma, scale, currentLocation] });
+      btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation] });
   }
   const runtheory_keyup = (event) => {if(event.key=="Enter") runtheory()}
   let sigma=20; //Sigma value for felixplot thoery gaussian profile

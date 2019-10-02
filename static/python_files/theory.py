@@ -81,12 +81,13 @@ if __name__ == "__main__":
     args = sys.argv[1:][0].split(",")
 
     theory_file = args[0:-4]
-
     norm_method = args[-4]
-    norm_method = "log" if norm_method else "rel"
+
+    # if args[-4]: norm_method = "log"  
+    # else: norm_method = "rel"
+    # print(":: norm_method", norm_method)
 
     sigma = float(args[-3])
-
     scale = float(args[-2])
     location = args[-1]
     exp_theory(theory_file, location, norm_method, sigma, scale)
