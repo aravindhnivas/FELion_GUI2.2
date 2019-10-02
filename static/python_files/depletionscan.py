@@ -41,6 +41,11 @@ class depletionplot:
         self.get_depletion_fit(Koff, N, uKoff, uN, Na0, Nn0, Kon, uNa0, uNn0, uKon)
         self.get_relative_abundance_fit()
 
+
+        for ax in (self.ax0, self.ax1):
+            ax.grid()
+            ax.legend()
+        
         plt.show()
 
     def get_timescan_data(self):
@@ -60,7 +65,7 @@ class depletionplot:
             self.error[index] = np.array(error[self.massIndex][self.timeStart:])
 
             self.power[index] = np.array((self.power[index] * self.nshots * self.time[index]))
-            self.ax0.errorbar(self.power[index], self.counts[index], yerr=self.error[index], fmt=f"C{i}.")
+            self.ax0.errorbar(self.power[index], self.counts[index], yerr=self.error[index], fmt=f"C{i}.", label=f"{index}")
         
     def N_OFF(self, x, K_OFF, N): return (N)*np.exp(-K_OFF*x)
 
@@ -155,8 +160,8 @@ class depletionplot:
         depletion_exp_err = unp.std_devs(depletion_exp_with_err)
         
 
-        self.ax1.errorbar(self.fitX, depletion_fitted, yerr=depletion_fitted_err)
-        self.ax1.errorbar(self.power["resOn"], depletion_exp, yerr=depletion_exp_err, fmt="k.")
+        self.ax1.errorbar(self.fitX, depletion_fitted, yerr=depletion_fitted_err, label=f"Fitted")
+        self.ax1.errorbar(self.power["resOn"], depletion_exp, yerr=depletion_exp_err, fmt="k.", label="Experiment")
 
 
         A_init = 0.5
@@ -174,7 +179,7 @@ class depletionplot:
         uA = uf(A, A_err)
 
         relative_abundance = self.Depletion(self.fitX, A)
-        self.ax1.plot(self.fitX, relative_abundance)
+        self.ax1.plot(self.fitX, relative_abundance, label=f"A: {uA:.3uP}")
         print(f"A: {uA:.3uP}")
         
 if __name__ == "__main__":
