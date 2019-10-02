@@ -1475,14 +1475,13 @@ function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
         autosize: true,
         width: plot_width,
         height: plot_height,
-        // paper_bgcolor: '#c7c7c7',
-        // plot_bgcolor: '#c7c7c7'
+
     };
 
     if (filetype == 'mass') { dataLayout.yaxis.type = "log"; }
-
     let dataPlot = [];
     for (let x in data) { dataPlot.push(data[x]); }
+
     try { Plotly.react(plotArea, dataPlot, dataLayout, { editable: true }); } catch (err) { console.log(err); }
 }
 
@@ -1591,30 +1590,13 @@ class program {
 
                     } else if (this.filetype == "theory") {
 
-                        let theory_lines = [];
-                        for (let x in dataFromPython["shapes"]) { theory_lines.push(dataFromPython["shapes"][x]); }
-
-                        let gauss_sim = [];
-                        for (let x in dataFromPython["gauss_simulation"]) { gauss_sim.push(dataFromPython["gauss_simulation"][x]); }
-
-                        console.log(theory_lines);
-
-                        let dataLayout = {
-
-                            title: "Experimental vs Theory",
-                            xaxis: {
-                                title: "Calibrated Wavelength (cm-1)"
-                            },
-                            yaxis: {
-                                title: "Normalised Intesity"
-                            },
-                            autosize: true,
-                            width: plot_width,
-                            height: plot_height,
-                            shapes: theory_lines
-                        };
-                        Plotly.react("exp-theory-plot", [dataFromPython["averaged"], ...gauss_sim], dataLayout, { editable: true });
-
+                        plot(
+                            "Experimental vs Theory",
+                            "Calibrated Wavelength (cm-1)",
+                            "Normalised Intesity",
+                            [dataFromPython["averaged"], dataFromPython["line_simulation"]],
+                            "exp-theory-plot"
+                        );
                     } else if (this.filetype == "thz") {
 
                         let lines = [];
