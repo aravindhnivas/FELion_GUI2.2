@@ -26,7 +26,7 @@ function runPlot({ fullfiles, filetype, btname, pyfile, args = [], plotArea = ""
 
     $target.addClass("is-loading");
     $(`#${filetype}loading`).css("display", "block");
-    if (filetype == "felix") { $("#theoryBtn").css("display", "none") }
+    if (filetype == "felix") { $("#theoryBtn").css("display", "none"); $("#theoryRow").css("display", "none") }
 
     let start = new program(obj)
     start.filecheck()

@@ -101,21 +101,6 @@ class program {
 
             const py = spawn(pythonPath, [path.join(functions_path, this.pyfile), this.files.concat(this.args)]);
 
-
-            (function() {
-                let childProcess = require("child_process");
-                let oldSpawn = childProcess.spawn;
-
-                function mySpawn() {
-                    console.log('spawn called');
-                    console.log(arguments);
-                    let result = oldSpawn.apply(this, arguments);
-                    return result;
-                }
-                childProcess.spawn = py;
-
-            })();
-
             py.stdout.on("data", data => {
 
                 let dataFromPython;
@@ -139,8 +124,6 @@ class program {
 
                         let normlog = this.obj.normethod;
                         let delta = this.args;
-
-                        console.log(":: run -> delta", delta);
 
                         let felixdataToPlot;
                         let avgdataToPlot;

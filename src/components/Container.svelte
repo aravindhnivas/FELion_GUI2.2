@@ -117,8 +117,8 @@
     return folderFile;
   };
 
-  function browseFile(optionalFile = false) {
-    if (optionalFile == true) {
+  function browseFile({theory=false}) {
+    if (theory == true) {
       return new Promise((resolve, reject) => {
         let files;
 
@@ -155,15 +155,17 @@
 
   const functionRun = event => {
     let btname = event.target.id;
-    if (btname == "felixPlotBtn")
+    if (btname == "felixPlotBtn") {
+
+      Plotly.purge("exp-theory-plot");
       runPlot({
-        fullfiles: fullfiles,
-        filetype: filetag,
-        btname: btname,
-        pyfile: "normline.py",
-        normethod: normlog,
-        args: delta
+        fullfiles: fullfiles, filetype: filetag, btname: btname,
+        pyfile: "normline.py", normethod: normlog, args: delta
       });
+
+
+    }
+      
     if (btname == "createBaselineBtn")
       runPlot({
         fullfiles: fullfiles,
@@ -201,22 +203,39 @@
       });
     }
     if (btname == "theoryBtn") {
-      browseFile(true)
-        .then(theoryfile => {
-          runPlot({
-            fullfiles: theoryfile,
-            filetype: "theory",
-            btname: btname,
-            pyfile: "theory.py",
-            args: [normlog, fullfiles[0]]
-          });
-        })
-        .catch(err => console.log(err));
+
+      jq("#theoryRow").toggle()
+      // browseFile(true)
+      //   .then(theoryfile => {
+      //     runPlot({
+      //       fullfiles: theoryfile,
+      //       filetype: "theory",
+      //       btname: btname,
+      //       pyfile: "theory.py",
+      //       args: [normlog, fullfiles[0]]
+      //     });
+      //   })
+      //   .catch(err => console.log(err));
     }
   };
+
+  let theoryfiles=[];
+  $: theoryfilenames = theoryfiles.map(file=>path.basename(file))
+  $: console.log("Theory files: ", theoryfilenames);
+  function opentheory() {
+    browseFile({theory:true})
+        .then(file =>  theoryfiles = file)
+        .catch(err => console.log(err));
+  }
+  function runtheory(event) {
+    runPlot({fullfiles: theoryfiles, filetype: "theory", 
+      btname: event.target.id, pyfile: "theory.py", args: [normlog, fullfiles[0]] });
+  }
+
 </script>
 
 <style>
+  label{color:white}
   .locationLabel {
     text-align: center;
   }
@@ -252,6 +271,8 @@
       max-height: 27rem;
     }
   }
+
+  #theoryContainer {margin-left: 20%;}
 </style>
 
 <section class="section" {id} {style}>
@@ -292,9 +313,7 @@
       </div>
 
       <div class="row">
-
         <div class="level">
-
           <div class="level-left animated fadeIn">
 
             {#each funcBtns as { id, name }}
@@ -356,6 +375,20 @@
         </div>
 
       </div>
+
+      {#if filetag=="felix"}
+         <div class="row" id="theoryRow" style="display:none">
+            <div class="container" id="theoryContainer">
+              <div class="field">
+                <label class="label" style="border:solid 3px #bdc3c7; padding:0.4em;"><h1 class="subtitle" id="theoryfilename">{theoryfilenames}</h1></label>
+                <div class="control">
+                    <button class="button is-warning" on:click={opentheory}>Choose file</button>
+                    <button class="button is-link" on:click={runtheory} id="appendTheory">Submit</button>
+                </div>
+              </div>
+            </div>
+         </div>
+      {/if}
 
       <hr style="margin: 0.5em 0; background-color:#bdc3c7" />
       <h1 class="subtitle">Data Visualisation</h1>
