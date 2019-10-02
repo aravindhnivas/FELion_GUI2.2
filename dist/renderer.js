@@ -1520,9 +1520,8 @@ class program {
 
                 // console.log("Before JSON parse :" + dataFromPython)
 
-                if (this.filetype == "general") {
-                    console.log(dataFromPython);
-                } else {
+                if (this.filetype == "general") { console.log(dataFromPython); }
+                else {
                     dataFromPython = JSON.parse(dataFromPython);
                     console.log("After JSON parse :", dataFromPython);
                 }
