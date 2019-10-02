@@ -6,6 +6,29 @@ import numpy as np
 import sys
 from pathlib import Path as pt
 
+colors = [
+    (31, 119, 180),
+    (174, 199, 232),
+    (255, 127, 14),
+    (255, 187, 120),
+    (44, 160, 44),
+    (152, 223, 138),
+    (214, 39, 40),
+    (255, 152, 150),
+    (148, 103, 189),
+    (197, 176, 213),
+    (140, 86, 75),
+    (196, 156, 148),
+    (227, 119, 194),
+    (247, 182, 210),
+    (127, 127, 127),
+    (199, 199, 199),
+    (188, 189, 34),
+    (219, 219, 141),
+    (23, 190, 207),
+    (158, 218, 229),
+]
+
 def gaussian(x, A, sig, center):
     return A*np.exp(-0.5*((x-center)/sig)**2)
 
@@ -25,36 +48,29 @@ def exp_theory(theoryfile, felixfiles, norm_method, sigma, scale):
     x, y = np.genfromtxt(theoryfile).T[:2]
 
     x = x*scale
-    
     norm_factor = ys.max()/y.max()
     y = norm_factor*y
 
-    data = {"shapes": {}, "gauss_simulation":{},
-            "averaged": {
-            "x": list(xs), "y": list(ys),  "name": "Exp", "showlegend": True,
-        "mode": "lines",
-        "marker": {"color": "black"},
-        "opacity": 0.7
+    data = {"averaged": {
+            "x": list(xs), "y": list(ys),  "name": "Exp",
+            "mode": "lines", "marker": {"color": "black"},
     }}
 
+    theory_x, theory_y = [], []
     for wn, inten in zip(x, y):
 
-        data["shapes"][f"shapes_{wn}"] = {"type": "line", "x0": wn, "y0": 0, "x1": wn, "y1": inten,
-                                          "line": {
-                                              "color": 'rgb(55, 128, 191)',
-                                              "width": 3
-                                          }}
-
-        sig = sigma
         size = 1000
 
-        x = np.random.normal(wn, sig, size)
-        x = np.sort(x, axis=0)
-        y = gaussian(x, inten, sig, wn)
-        data["gauss_simulation"][f"{wn}_sim"] = {
-            "x":list(x), "y":list(y), "type": "scatter",  "line": {"color": "rgb(55, 128, 191)"}, "showlegend":False
-        }
+        diff = 4*sigma
+        x = np.linspace(wn - diff, wn + diff, size)
 
+        y = gaussian(x, inten, sigma, wn)
+        theory_x = np.append(theory_x, x)
+        theory_y = np.append(theory_y, y)
+
+    data["line_simulation"] = {
+            "x":list(theory_x), "y":list(theory_y),  "name":f"{theoryfile.stem}", "fill":"tozerox"
+        }
     data_tosend = json.dumps(data)
     print(data_tosend)
 
