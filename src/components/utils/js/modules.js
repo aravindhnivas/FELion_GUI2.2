@@ -177,11 +177,15 @@ class program {
 
                     } else if (this.filetype == "theory") {
 
+                        console.log(this.files.length)
+                        let theoryData = [];
+                        for (let x in dataFromPython["line_simulation"]) { theoryData.push(dataFromPython["line_simulation"][x]) }
+
                         plot(
                             "Experimental vs Theory",
                             "Calibrated Wavelength (cm-1)",
                             "Normalised Intesity",
-                            [dataFromPython["averaged"], dataFromPython["line_simulation"]],
+                            [dataFromPython["averaged"], ...theoryData],
                             "exp-theory-plot"
                         );
                     } else if (this.filetype == "thz") {

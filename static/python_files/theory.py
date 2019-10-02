@@ -32,60 +32,61 @@ colors = [
 def gaussian(x, A, sig, center):
     return A*np.exp(-0.5*((x-center)/sig)**2)
 
-def exp_theory(theoryfile, felixfiles, norm_method, sigma, scale):
 
-    felixfiles = [pt(felixfile) for felixfile in felixfiles]
-    theoryfile = pt(theoryfile)
+def exp_theory(theoryfiles, location, norm_method, sigma, scale):
 
-    if felixfiles[0].parent.name is "DATA":
-        datfile_location = felixfiles[0].parent.parent/"EXPORT"
-    else:
-        datfile_location = felixfiles[0].parent/"EXPORT"
+    location = pt(location)
 
-    xs, ys = np.genfromtxt(
-        f"{datfile_location}/averaged_{norm_method}.dat").T
+    if location.name is "DATA": datfile_location = location.parent/"EXPORT"
+    else: datfile_location = location/"EXPORT"
 
-    x, y = np.genfromtxt(theoryfile).T[:2]
+    xs, ys = np.genfromtxt(f"{datfile_location}/averaged_{norm_method}.dat").T
 
-    x = x*scale
-    norm_factor = ys.max()/y.max()
-    y = norm_factor*y
+    data = {"line_simulation":{}, "averaged": {
+                "x": list(xs), "y": list(ys),  "name": "Exp",
+                "mode": "lines", "marker": {"color": "black"},
+        }}
 
-    data = {"averaged": {
-            "x": list(xs), "y": list(ys),  "name": "Exp",
-            "mode": "lines", "marker": {"color": "black"},
-    }}
+    for theoryfile in theoryfiles:
 
-    theory_x, theory_y = [], []
-    for wn, inten in zip(x, y):
+        theoryfile = pt(theoryfile)
 
-        size = 1000
+        x, y = np.genfromtxt(theoryfile).T[:2]
+        x = x*scale
 
-        diff = 4*sigma
-        x = np.linspace(wn - diff, wn + diff, size)
+        norm_factor = ys.max()/y.max()
+        y = norm_factor*y
 
-        y = gaussian(x, inten, sigma, wn)
-        theory_x = np.append(theory_x, x)
-        theory_y = np.append(theory_y, y)
+        theory_x, theory_y = [], []
+        for wn, inten in zip(x, y):
 
-    data["line_simulation"] = {
-            "x":list(theory_x), "y":list(theory_y),  "name":f"{theoryfile.stem}", "fill":"tozerox"
-        }
+            size = 1000
+
+            diff = 4*sigma
+            x = np.linspace(wn - diff, wn + diff, size)
+
+            y = gaussian(x, inten, sigma, wn)
+            theory_x = np.append(theory_x, x)
+            theory_y = np.append(theory_y, y)
+
+        data["line_simulation"][f"{theoryfile.name}"] = {
+                "x":list(theory_x), "y":list(theory_y),  "name":f"{theoryfile.stem}", "fill":"tozerox"
+            }
+
+
     data_tosend = json.dumps(data)
     print(data_tosend)
 
-
 if __name__ == "__main__":
     args = sys.argv[1:][0].split(",")
-    theory_file = args[0]
-    norm_method = args[1]
-    if(norm_method):
-        norm_method="log" 
-    else: norm_method="rel"
 
-    sigma = float(args[2])
+    theory_file = args[0:-4]
 
-    scale = float(args[3])
-    felixfiles = args[4:]
+    norm_method = args[-4]
+    norm_method = "log" if norm_method else "rel"
 
-    exp_theory(theory_file, felixfiles, norm_method, sigma, scale)
+    sigma = float(args[-3])
+
+    scale = float(args[-2])
+    location = args[-1]
+    exp_theory(theory_file, location, norm_method, sigma, scale)
