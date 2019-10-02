@@ -17,7 +17,7 @@
 
   jq(document).ready(() => {
     jq("#theoryBtn")
-      .addClass("fadeInUp").css("display", "block");
+      .addClass("fadeInUp").css("display", "none");
   });
 
   const join = file => {
