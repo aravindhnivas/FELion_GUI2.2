@@ -383,7 +383,7 @@
                 <label class="label" style="border:solid 3px #bdc3c7; padding:0.4em;"><h1 class="subtitle" id="theoryfilename">{theoryfilenames}</h1></label>
                 <div class="control">
                     <button class="button is-warning" on:click={opentheory}>Choose file</button>
-                    <button class="button is-link" on:click={runtheory} id="appendTheory">Submit</button>
+                    <button class="button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
                 </div>
               </div>
             </div>
