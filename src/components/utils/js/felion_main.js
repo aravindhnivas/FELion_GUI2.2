@@ -42,7 +42,6 @@ function runPlot({ fullfiles, filetype, btname, pyfile, args = [], plotArea = ""
                     $(`#${filetype}loading`).css("display", "none")
                     $target.removeClass(loadAnimation).addClass(successAnimation);
                     if (filetype == "felix") { $("#theoryBtn").css("display", "block") }
-                    if (filetype == "theory") { $("#theoryBtn").addClass("fadeInUp") }
                 })
                 .catch(pythonError => {
                     $(`#${filetype}loading`).css("display", "none")
@@ -62,8 +61,14 @@ $(document).on('animationend', '.funcBtn', (event) => {
     $target.addClass("is-link");
     if ($target.hasClass("shake")) $target.removeClass(dangerAnimation);
     if ($target.hasClass("bounce")) $target.removeClass(successAnimation);
+});
 
-    if ($target.hasClass("fadeInUp")) $target.removeClass("fadeInUp");
+$(document).on('animationend', '#appendTheory', (event) => {
+
+    let $target = $("#appendTheory")
+    $target.addClass("is-link");
+    if ($target.hasClass("shake")) $target.removeClass(dangerAnimation);
+    if ($target.hasClass("bounce")) $target.removeClass(successAnimation);
 });
 
 export { runPlot };
