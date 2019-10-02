@@ -238,7 +238,7 @@
 
 </script>
 <style>
-  label{
+  #theorylabel{
     color:white;
     border:solid 3px #bdc3c7; 
     padding:0.4em;
@@ -390,7 +390,7 @@
          <div class="row" id="theoryRow" style="display:none">
             <div class="container" id="theoryContainer">
               <div class="field">
-                <label class="label" >
+                <label class="label" id="theorylabel">
                   <h1 class="subtitle" id="theoryfilename">{theoryfilenames}</h1>
                 </label>
                 <div class="control">

@@ -1877,7 +1877,7 @@ function create_each_block_3(ctx) {
 		c() {
 			div = element("div");
 			t = text(t_value);
-			attr(div, "class", "level-item button funcBtn is-link animated svelte-5o6w6");
+			attr(div, "class", "level-item button funcBtn is-link animated svelte-1dkm6wk");
 			attr(div, "id", div_id_value = ctx.id);
 			dispose = listen(div, "click", ctx.functionRun);
 		},
@@ -2001,13 +2001,13 @@ function create_if_block_3(ctx) {
 			input = element("input");
 			t0 = space();
 			div0 = element("div");
-			div0.innerHTML = `<label class="svelte-5o6w6">Log</label>`;
+			div0.innerHTML = `<label>Log</label>`;
 			t2 = space();
 			div1 = element("div");
-			div1.innerHTML = `<label class="svelte-5o6w6">Linear</label>`;
+			div1.innerHTML = `<label>Linear</label>`;
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "linearlog");
-			attr(input, "class", "svelte-5o6w6");
+			attr(input, "class", "svelte-1dkm6wk");
 			attr(div0, "class", "state p-success p-on");
 			attr(div1, "class", "state p-danger p-off");
 			attr(div2, "class", "pretty p-default p-curve p-toggle");
@@ -2085,7 +2085,8 @@ function create_if_block_2(ctx) {
 			button1.textContent = "Submit";
 			attr(h1, "class", "subtitle");
 			attr(h1, "id", "theoryfilename");
-			attr(label, "class", "label svelte-5o6w6");
+			attr(label, "class", "label svelte-1dkm6wk");
+			attr(label, "id", "theorylabel");
 			attr(button0, "class", "button is-warning");
 			attr(input0, "class", "input");
 			attr(input0, "type", "number");
@@ -2100,9 +2101,9 @@ function create_if_block_2(ctx) {
 			attr(button1, "id", "appendTheory");
 			attr(div0, "class", "control");
 			attr(div1, "class", "field");
-			attr(div2, "class", "container svelte-5o6w6");
+			attr(div2, "class", "container svelte-1dkm6wk");
 			attr(div2, "id", "theoryContainer");
-			attr(div3, "class", "row svelte-5o6w6");
+			attr(div3, "class", "row svelte-1dkm6wk");
 			attr(div3, "id", "theoryRow");
 			set_style(div3, "display", "none");
 
@@ -2170,7 +2171,7 @@ function create_else_block$2(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-5o6w6");
+			attr(div, "class", "svelte-1dkm6wk");
 		},
 
 		m(target, anchor) {
@@ -2214,7 +2215,7 @@ function create_if_block_1$1(ctx) {
 			t = space();
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-5o6w6");
+			attr(div, "class", "svelte-1dkm6wk");
 		},
 
 		m(target, anchor) {
@@ -2288,7 +2289,7 @@ function create_if_block$2(ctx) {
 			t = space();
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-5o6w6");
+			attr(div, "class", "svelte-1dkm6wk");
 		},
 
 		m(target, anchor) {
@@ -2348,7 +2349,7 @@ function create_each_block_2(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = "" + ctx.thzfile + "_plot");
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-5o6w6");
+			attr(div, "class", "svelte-1dkm6wk");
 		},
 
 		m(target, anchor) {
@@ -2378,7 +2379,7 @@ function create_each_block_1$1(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = "" + ctx.scanfile + "_tplot");
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-5o6w6");
+			attr(div, "class", "svelte-1dkm6wk");
 		},
 
 		m(target, anchor) {
@@ -2527,9 +2528,9 @@ function create_fragment$4(ctx) {
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
-			attr(div0, "class", "column is-3 svelte-5o6w6");
+			attr(div0, "class", "column is-3 svelte-1dkm6wk");
 			attr(div0, "id", div0_id_value = "" + ctx.filetag + "filebrowserColumn");
-			attr(input, "class", "input locationLabel svelte-5o6w6");
+			attr(input, "class", "input locationLabel svelte-1dkm6wk");
 			attr(input, "type", "text");
 			attr(input, "placeholder", "Location will be displayed");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "LocationLabel");
@@ -2538,23 +2539,23 @@ function create_fragment$4(ctx) {
 			attr(div2, "data-tippy", div2_data_tippy_value = "Browse " + ctx.filetag + " file");
 			attr(div3, "class", "control");
 			attr(div4, "class", "field has-addons");
-			attr(div5, "class", "row svelte-5o6w6");
+			attr(div5, "class", "row svelte-1dkm6wk");
 			attr(div6, "class", "level-left animated fadeIn");
 			attr(div7, "class", "level");
-			attr(div8, "class", "row svelte-5o6w6");
+			attr(div8, "class", "row svelte-1dkm6wk");
 			set_style(hr, "margin", "0.5em 0");
 			set_style(hr, "background-color", "#bdc3c7");
 			attr(h1, "class", "subtitle");
-			attr(img, "class", "data-loading svelte-5o6w6");
+			attr(img, "class", "data-loading svelte-1dkm6wk");
 			attr(img, "id", img_id_value = "" + ctx.filetag + "loading");
 			attr(img, "src", "./icons/loadingBar.svg");
 			attr(img, "alt", "loading data");
-			attr(div9, "class", "container is-fluid svelte-5o6w6");
+			attr(div9, "class", "container is-fluid svelte-1dkm6wk");
 			attr(div9, "id", div9_id_value = "" + ctx.filetag + "plotContainer");
-			attr(div10, "class", "row box plotContainer svelte-5o6w6");
+			attr(div10, "class", "row box plotContainer svelte-1dkm6wk");
 			attr(div11, "class", "column");
 			attr(div12, "class", "columns");
-			attr(section, "class", "section svelte-5o6w6");
+			attr(section, "class", "section svelte-1dkm6wk");
 			attr(section, "id", ctx.id);
 			attr(section, "style", style);
 
