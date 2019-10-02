@@ -746,7 +746,7 @@ function get_each_context_1(ctx, list, i) {
 	return child_ctx;
 }
 
-// (191:2) {:else}
+// (190:2) {:else}
 function create_else_block_1(ctx) {
 	var div;
 
@@ -771,7 +771,7 @@ function create_else_block_1(ctx) {
 	};
 }
 
-// (125:2) {#if folderFile != undefined}
+// (124:2) {#if folderFile != undefined}
 function create_if_block$1(ctx) {
 	var div1, aside, div0, span0, t0, span1, t1_value = ctx.folderFile.parentFolder + "", t1, div0_id_value, t2, ul, t3, ul_id_value, aside_id_value, t4, each1_anchor, dispose;
 
@@ -960,7 +960,7 @@ function create_if_block$1(ctx) {
 	};
 }
 
-// (153:10) {:else}
+// (152:10) {:else}
 function create_else_block$1(ctx) {
 	var h1, t0, t1, t2;
 
@@ -994,7 +994,7 @@ function create_else_block$1(ctx) {
 	};
 }
 
-// (140:10) {#if folderFile.files.length > 0}
+// (139:10) {#if folderFile.files.length > 0}
 function create_if_block_1(ctx) {
 	var li, div1, input, input_id_value, t, div0, dispose;
 
@@ -1039,7 +1039,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (157:10) {#each folderFile.files as filename}
+// (156:10) {#each folderFile.files as filename}
 function create_each_block_1(ctx) {
 	var li, div1, input, input_id_value, input_class_value, t0, div0, i, t1, label, t2_value = ctx.filename + "", t2, label_for_value, t3, li_class_value, dispose;
 
@@ -1113,7 +1113,7 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (177:4) {#each folderFile.folders as foldername}
+// (176:4) {#each folderFile.folders as foldername}
 function create_each_block$1(ctx) {
 	var div1, aside, div0, span0, t0, span1, t1_value = ctx.foldername + "", t1, span1_id_value, t2, dispose;
 
@@ -1343,7 +1343,6 @@ function instance$3($$self, $$props, $$invalidate) {
         val.checked = event.target.checked;
       }
     });
-
     getCheckedFiles();
   }
 
@@ -1724,14 +1723,6 @@ $(document).on('animationend', '.funcBtn', (event) => {
     if ($target.hasClass("bounce")) $target.removeClass(successAnimation);
 });
 
-$(document).on('animationend', '#appendTheory', (event) => {
-
-    let $target = $("#appendTheory");
-    $target.addClass("is-link");
-    if ($target.hasClass("shake")) $target.removeClass(dangerAnimation);
-    if ($target.hasClass("bounce")) $target.removeClass(successAnimation);
-});
-
 const constants = {
 	DIRECTORY: 'directory',
 	FILE: 'file'
@@ -1864,20 +1855,42 @@ function get_each_context$2(ctx, list, i) {
 
 function get_each_context_3(ctx, list, i) {
 	const child_ctx = Object.create(ctx);
+	child_ctx.name = list[i].name;
+	child_ctx.id = list[i].id;
+	child_ctx.value = list[i].value;
+	child_ctx.each_value_3 = list;
+	child_ctx.each_index = i;
+	return child_ctx;
+}
+
+function get_each_context_5(ctx, list, i) {
+	const child_ctx = Object.create(ctx);
+	child_ctx.scanfile = list[i];
+	return child_ctx;
+}
+
+function get_each_context_4(ctx, list, i) {
+	const child_ctx = Object.create(ctx);
+	child_ctx.name = list[i];
+	return child_ctx;
+}
+
+function get_each_context_6(ctx, list, i) {
+	const child_ctx = Object.create(ctx);
 	child_ctx.id = list[i].id;
 	child_ctx.name = list[i].name;
 	return child_ctx;
 }
 
-// (329:12) {#each funcBtns as { id, name }}
-function create_each_block_3(ctx) {
+// (348:12) {#each funcBtns as { id, name }}
+function create_each_block_6(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
 	return {
 		c() {
 			div = element("div");
 			t = text(t_value);
-			attr(div, "class", "level-item button funcBtn is-link animated svelte-1dkm6wk");
+			attr(div, "class", "level-item button funcBtn is-link animated svelte-9uv9aa");
 			attr(div, "id", div_id_value = ctx.id);
 			dispose = listen(div, "click", ctx.functionRun);
 		},
@@ -1907,8 +1920,8 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (338:12) {#if filetag == 'felix'}
-function create_if_block_4(ctx) {
+// (357:12) {#if filetag == 'felix'}
+function create_if_block_6(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
 	function input_input_handler_1() {
@@ -1990,8 +2003,8 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (366:12) {#if filetag == 'mass' || filetag == 'scan'}
-function create_if_block_3(ctx) {
+// (385:12) {#if filetag == 'mass' || filetag == 'scan'}
+function create_if_block_5(ctx) {
 	var div3, div2, input, input_id_value, t0, div0, t2, div1, dispose;
 
 	return {
@@ -2001,13 +2014,13 @@ function create_if_block_3(ctx) {
 			input = element("input");
 			t0 = space();
 			div0 = element("div");
-			div0.innerHTML = `<label>Log</label>`;
+			div0.innerHTML = `<label class="svelte-9uv9aa">Log</label>`;
 			t2 = space();
 			div1 = element("div");
-			div1.innerHTML = `<label>Linear</label>`;
+			div1.innerHTML = `<label class="svelte-9uv9aa">Linear</label>`;
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "linearlog");
-			attr(input, "class", "svelte-1dkm6wk");
+			attr(input, "class", "svelte-9uv9aa");
 			attr(div0, "class", "state p-success p-on");
 			attr(div1, "class", "state p-danger p-off");
 			attr(div2, "class", "pretty p-default p-curve p-toggle");
@@ -2050,8 +2063,8 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (389:6) {#if filetag=="felix"}
-function create_if_block_2(ctx) {
+// (408:6) {#if filetag=="felix"}
+function create_if_block_4(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, dispose;
 
 	function input0_input_handler() {
@@ -2085,7 +2098,7 @@ function create_if_block_2(ctx) {
 			button1.textContent = "Submit";
 			attr(h1, "class", "subtitle");
 			attr(h1, "id", "theoryfilename");
-			attr(label, "class", "label svelte-1dkm6wk");
+			attr(label, "class", "label svelte-9uv9aa");
 			attr(label, "id", "theorylabel");
 			attr(button0, "class", "button is-warning");
 			attr(input0, "class", "input");
@@ -2097,13 +2110,13 @@ function create_if_block_2(ctx) {
 			attr(input1, "step", "0.001");
 			set_style(input1, "width", "150px");
 			attr(input1, "data-tippy", "Scaling factor (to shift in position)");
-			attr(button1, "class", "button is-link animated");
+			attr(button1, "class", "funcBtn button is-link animated svelte-9uv9aa");
 			attr(button1, "id", "appendTheory");
 			attr(div0, "class", "control");
 			attr(div1, "class", "field");
-			attr(div2, "class", "container svelte-1dkm6wk");
+			attr(div2, "class", "container svelte-9uv9aa");
 			attr(div2, "id", "theoryContainer");
-			attr(div3, "class", "row svelte-1dkm6wk");
+			attr(div3, "class", "row svelte-9uv9aa");
 			attr(div3, "id", "theoryRow");
 			set_style(div3, "display", "none");
 
@@ -2162,7 +2175,371 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (430:12) {:else}
+// (426:6) {#if filetag=="scan"}
+function create_if_block_2(ctx) {
+	var div3, div1, div0, t0, t1, div2, button, dispose;
+
+	let each_value_4 = ["ResON", "ResOFF"];
+
+	let each_blocks_1 = [];
+
+	for (let i = 0; i < 2; i += 1) {
+		each_blocks_1[i] = create_each_block_4(get_each_context_4(ctx, each_value_4, i));
+	}
+
+	let each_value_3 = ctx.depletionLabels;
+
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value_3.length; i += 1) {
+		each_blocks[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
+	}
+
+	return {
+		c() {
+			div3 = element("div");
+			div1 = element("div");
+			div0 = element("div");
+
+			for (let i = 0; i < 2; i += 1) {
+				each_blocks_1[i].c();
+			}
+
+			t0 = space();
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			t1 = space();
+			div2 = element("div");
+			button = element("button");
+			button.textContent = "Submit";
+			attr(div0, "class", "level-left");
+			attr(div1, "class", "level");
+			attr(button, "class", "funcBtn button is-link animated svelte-9uv9aa");
+			attr(button, "id", "depletionSubmit");
+			attr(div2, "class", "control");
+			attr(div3, "class", "row svelte-9uv9aa");
+			attr(div3, "id", "depletionRow");
+			dispose = listen(button, "click", ctx.depletionPlot);
+		},
+
+		m(target, anchor) {
+			insert(target, div3, anchor);
+			append(div3, div1);
+			append(div1, div0);
+
+			for (let i = 0; i < 2; i += 1) {
+				each_blocks_1[i].m(div0, null);
+			}
+
+			append(div0, t0);
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(div0, null);
+			}
+
+			append(div3, t1);
+			append(div3, div2);
+			append(div2, button);
+		},
+
+		p(changed, ctx) {
+			if (changed.folderFile || changed.undefined) {
+				each_value_4 = ["ResON", "ResOFF"];
+
+				let i;
+				for (i = 0; i < each_value_4.length; i += 1) {
+					const child_ctx = get_each_context_4(ctx, each_value_4, i);
+
+					if (each_blocks_1[i]) {
+						each_blocks_1[i].p(changed, child_ctx);
+					} else {
+						each_blocks_1[i] = create_each_block_4(child_ctx);
+						each_blocks_1[i].c();
+						each_blocks_1[i].m(div0, t0);
+					}
+				}
+
+				for (; i < 2; i += 1) {
+					each_blocks_1[i].d(1);
+				}
+			}
+
+			if (changed.depletionLabels) {
+				each_value_3 = ctx.depletionLabels;
+
+				let i;
+				for (i = 0; i < each_value_3.length; i += 1) {
+					const child_ctx = get_each_context_3(ctx, each_value_3, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(changed, child_ctx);
+					} else {
+						each_blocks[i] = create_each_block_3(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(div0, null);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+				each_blocks.length = each_value_3.length;
+			}
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(div3);
+			}
+
+			destroy_each(each_blocks_1, detaching);
+
+			destroy_each(each_blocks, detaching);
+
+			dispose();
+		}
+	};
+}
+
+// (439:28) {#if folderFile.files != undefined}
+function create_if_block_3(ctx) {
+	var each_1_anchor;
+
+	let each_value_5 = ctx.folderFile.files;
+
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value_5.length; i += 1) {
+		each_blocks[i] = create_each_block_5(get_each_context_5(ctx, each_value_5, i));
+	}
+
+	return {
+		c() {
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			each_1_anchor = empty();
+		},
+
+		m(target, anchor) {
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(target, anchor);
+			}
+
+			insert(target, each_1_anchor, anchor);
+		},
+
+		p(changed, ctx) {
+			if (changed.folderFile) {
+				each_value_5 = ctx.folderFile.files;
+
+				let i;
+				for (i = 0; i < each_value_5.length; i += 1) {
+					const child_ctx = get_each_context_5(ctx, each_value_5, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(changed, child_ctx);
+					} else {
+						each_blocks[i] = create_each_block_5(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+				each_blocks.length = each_value_5.length;
+			}
+		},
+
+		d(detaching) {
+			destroy_each(each_blocks, detaching);
+
+			if (detaching) {
+				detach(each_1_anchor);
+			}
+		}
+	};
+}
+
+// (440:31) {#each folderFile.files as scanfile}
+function create_each_block_5(ctx) {
+	var option, t_value = ctx.scanfile + "", t, option_value_value;
+
+	return {
+		c() {
+			option = element("option");
+			t = text(t_value);
+			option.__value = option_value_value = ctx.scanfile;
+			option.value = option.__value;
+		},
+
+		m(target, anchor) {
+			insert(target, option, anchor);
+			append(option, t);
+		},
+
+		p(changed, ctx) {
+			if ((changed.folderFile) && t_value !== (t_value = ctx.scanfile + "")) {
+				set_data(t, t_value);
+			}
+
+			if ((changed.folderFile) && option_value_value !== (option_value_value = ctx.scanfile)) {
+				option.__value = option_value_value;
+			}
+
+			option.value = option.__value;
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(option);
+			}
+		}
+	};
+}
+
+// (431:16) {#each ["ResON", "ResOFF"] as name}
+function create_each_block_4(ctx) {
+	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
+
+	var if_block = (ctx.folderFile.files != ctx.undefined) && create_if_block_3(ctx);
+
+	return {
+		c() {
+			div3 = element("div");
+			div2 = element("div");
+			label = element("label");
+			h1 = element("h1");
+			t0 = text(ctx.name);
+			t1 = text(" file");
+			t2 = space();
+			div1 = element("div");
+			div0 = element("div");
+			select = element("select");
+			if (if_block) if_block.c();
+			attr(h1, "class", "subtitle");
+			attr(label, "class", "label svelte-9uv9aa");
+			attr(select, "id", ctx.name);
+			attr(select, "class", "svelte-9uv9aa");
+			attr(div0, "class", "select");
+			attr(div1, "class", "control");
+			attr(div2, "class", "field");
+			attr(div3, "class", "level-item");
+		},
+
+		m(target, anchor) {
+			insert(target, div3, anchor);
+			append(div3, div2);
+			append(div2, label);
+			append(label, h1);
+			append(h1, t0);
+			append(h1, t1);
+			append(div2, t2);
+			append(div2, div1);
+			append(div1, div0);
+			append(div0, select);
+			if (if_block) if_block.m(select, null);
+		},
+
+		p(changed, ctx) {
+			if (ctx.folderFile.files != ctx.undefined) {
+				if (if_block) {
+					if_block.p(changed, ctx);
+				} else {
+					if_block = create_if_block_3(ctx);
+					if_block.c();
+					if_block.m(select, null);
+				}
+			} else if (if_block) {
+				if_block.d(1);
+				if_block = null;
+			}
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(div3);
+			}
+
+			if (if_block) if_block.d();
+		}
+	};
+}
+
+// (451:16) {#each depletionLabels as {name, id, value}}
+function create_each_block_3(ctx) {
+	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, input, input_id_value, t2, dispose;
+
+	function input_input_handler_2() {
+		ctx.input_input_handler_2.call(input, ctx);
+	}
+
+	return {
+		c() {
+			div2 = element("div");
+			div1 = element("div");
+			label = element("label");
+			h1 = element("h1");
+			t0 = text(t0_value);
+			t1 = space();
+			div0 = element("div");
+			input = element("input");
+			t2 = space();
+			attr(h1, "class", "subtitle");
+			attr(label, "class", "label svelte-9uv9aa");
+			attr(input, "class", "input svelte-9uv9aa");
+			attr(input, "id", input_id_value = ctx.id);
+			attr(div0, "class", "control");
+			attr(div1, "class", "field");
+			attr(div2, "class", "level-item");
+			dispose = listen(input, "input", input_input_handler_2);
+		},
+
+		m(target, anchor) {
+			insert(target, div2, anchor);
+			append(div2, div1);
+			append(div1, label);
+			append(label, h1);
+			append(h1, t0);
+			append(div1, t1);
+			append(div1, div0);
+			append(div0, input);
+
+			set_input_value(input, ctx.value);
+
+			append(div2, t2);
+		},
+
+		p(changed, new_ctx) {
+			ctx = new_ctx;
+			if ((changed.depletionLabels) && t0_value !== (t0_value = ctx.name + "")) {
+				set_data(t0, t0_value);
+			}
+
+			if (changed.depletionLabels && (input.value !== ctx.value)) set_input_value(input, ctx.value);
+
+			if ((changed.depletionLabels) && input_id_value !== (input_id_value = ctx.id)) {
+				attr(input, "id", input_id_value);
+			}
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(div2);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (494:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2171,7 +2548,7 @@ function create_else_block$2(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-1dkm6wk");
+			attr(div, "class", "svelte-9uv9aa");
 		},
 
 		m(target, anchor) {
@@ -2192,7 +2569,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (424:39) 
+// (488:39) 
 function create_if_block_1$1(ctx) {
 	var div, t, div_id_value;
 
@@ -2215,7 +2592,7 @@ function create_if_block_1$1(ctx) {
 			t = space();
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-1dkm6wk");
+			attr(div, "class", "svelte-9uv9aa");
 		},
 
 		m(target, anchor) {
@@ -2266,7 +2643,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (418:12) {#if filetag == 'scan'}
+// (482:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -2289,7 +2666,7 @@ function create_if_block$2(ctx) {
 			t = space();
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-1dkm6wk");
+			attr(div, "class", "svelte-9uv9aa");
 		},
 
 		m(target, anchor) {
@@ -2340,7 +2717,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (426:16) {#each fileChecked as thzfile}
+// (490:16) {#each fileChecked as thzfile}
 function create_each_block_2(ctx) {
 	var div, div_id_value;
 
@@ -2349,7 +2726,7 @@ function create_each_block_2(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = "" + ctx.thzfile + "_plot");
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-1dkm6wk");
+			attr(div, "class", "svelte-9uv9aa");
 		},
 
 		m(target, anchor) {
@@ -2370,7 +2747,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (420:16) {#each fileChecked as scanfile}
+// (484:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -2379,7 +2756,7 @@ function create_each_block_1$1(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = "" + ctx.scanfile + "_tplot");
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-1dkm6wk");
+			attr(div, "class", "svelte-9uv9aa");
 		},
 
 		m(target, anchor) {
@@ -2400,7 +2777,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (417:10) {#each plotID as id}
+// (481:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -2448,7 +2825,7 @@ function create_each_block$2(ctx) {
 }
 
 function create_fragment$4(ctx) {
-	var section, div12, div0, div0_id_value, t0, div11, div5, div4, div1, input, input_id_value, t1, div3, div2, t2, div2_data_tippy_value, t3, div8, div7, div6, t4, t5, t6, t7, hr, t8, h1, t10, div10, img, img_id_value, t11, div9, div9_id_value, current, dispose;
+	var section, div12, div0, div0_id_value, t0, div11, div5, div4, div1, input, input_id_value, t1, div3, div2, t2, div2_data_tippy_value, t3, div8, div7, div6, t4, t5, t6, t7, t8, hr, t9, h1, t11, div10, img, img_id_value, t12, div9, div9_id_value, current, dispose;
 
 	var filebrowser = new Filebrowser({
 		props: {
@@ -2461,19 +2838,21 @@ function create_fragment$4(ctx) {
 	}
 	});
 
-	let each_value_3 = ctx.funcBtns;
+	let each_value_6 = ctx.funcBtns;
 
 	let each_blocks_1 = [];
 
-	for (let i = 0; i < each_value_3.length; i += 1) {
-		each_blocks_1[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
+	for (let i = 0; i < each_value_6.length; i += 1) {
+		each_blocks_1[i] = create_each_block_6(get_each_context_6(ctx, each_value_6, i));
 	}
 
-	var if_block0 = (ctx.filetag == 'felix') && create_if_block_4(ctx);
+	var if_block0 = (ctx.filetag == 'felix') && create_if_block_6(ctx);
 
-	var if_block1 = (ctx.filetag == 'mass' || ctx.filetag == 'scan') && create_if_block_3(ctx);
+	var if_block1 = (ctx.filetag == 'mass' || ctx.filetag == 'scan') && create_if_block_5(ctx);
 
-	var if_block2 = (ctx.filetag=="felix") && create_if_block_2(ctx);
+	var if_block2 = (ctx.filetag=="felix") && create_if_block_4(ctx);
+
+	var if_block3 = (ctx.filetag=="scan") && create_if_block_2(ctx);
 
 	let each_value = ctx.plotID;
 
@@ -2515,22 +2894,24 @@ function create_fragment$4(ctx) {
 			t6 = space();
 			if (if_block2) if_block2.c();
 			t7 = space();
-			hr = element("hr");
+			if (if_block3) if_block3.c();
 			t8 = space();
+			hr = element("hr");
+			t9 = space();
 			h1 = element("h1");
 			h1.textContent = "Data Visualisation";
-			t10 = space();
+			t11 = space();
 			div10 = element("div");
 			img = element("img");
-			t11 = space();
+			t12 = space();
 			div9 = element("div");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
-			attr(div0, "class", "column is-3 svelte-1dkm6wk");
+			attr(div0, "class", "column is-3 svelte-9uv9aa");
 			attr(div0, "id", div0_id_value = "" + ctx.filetag + "filebrowserColumn");
-			attr(input, "class", "input locationLabel svelte-1dkm6wk");
+			attr(input, "class", "input locationLabel svelte-9uv9aa");
 			attr(input, "type", "text");
 			attr(input, "placeholder", "Location will be displayed");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "LocationLabel");
@@ -2539,23 +2920,23 @@ function create_fragment$4(ctx) {
 			attr(div2, "data-tippy", div2_data_tippy_value = "Browse " + ctx.filetag + " file");
 			attr(div3, "class", "control");
 			attr(div4, "class", "field has-addons");
-			attr(div5, "class", "row svelte-1dkm6wk");
+			attr(div5, "class", "row svelte-9uv9aa");
 			attr(div6, "class", "level-left animated fadeIn");
 			attr(div7, "class", "level");
-			attr(div8, "class", "row svelte-1dkm6wk");
+			attr(div8, "class", "row svelte-9uv9aa");
 			set_style(hr, "margin", "0.5em 0");
 			set_style(hr, "background-color", "#bdc3c7");
 			attr(h1, "class", "subtitle");
-			attr(img, "class", "data-loading svelte-1dkm6wk");
+			attr(img, "class", "data-loading svelte-9uv9aa");
 			attr(img, "id", img_id_value = "" + ctx.filetag + "loading");
 			attr(img, "src", "./icons/loadingBar.svg");
 			attr(img, "alt", "loading data");
-			attr(div9, "class", "container is-fluid svelte-1dkm6wk");
+			attr(div9, "class", "container is-fluid svelte-9uv9aa");
 			attr(div9, "id", div9_id_value = "" + ctx.filetag + "plotContainer");
-			attr(div10, "class", "row box plotContainer svelte-1dkm6wk");
+			attr(div10, "class", "row box plotContainer svelte-9uv9aa");
 			attr(div11, "class", "column");
 			attr(div12, "class", "columns");
-			attr(section, "class", "section svelte-1dkm6wk");
+			attr(section, "class", "section svelte-9uv9aa");
 			attr(section, "id", ctx.id);
 			attr(section, "style", style);
 
@@ -2599,13 +2980,15 @@ function create_fragment$4(ctx) {
 			append(div11, t6);
 			if (if_block2) if_block2.m(div11, null);
 			append(div11, t7);
-			append(div11, hr);
+			if (if_block3) if_block3.m(div11, null);
 			append(div11, t8);
+			append(div11, hr);
+			append(div11, t9);
 			append(div11, h1);
-			append(div11, t10);
+			append(div11, t11);
 			append(div11, div10);
 			append(div10, img);
-			append(div10, t11);
+			append(div10, t12);
 			append(div10, div9);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -2638,16 +3021,16 @@ function create_fragment$4(ctx) {
 			}
 
 			if (changed.funcBtns) {
-				each_value_3 = ctx.funcBtns;
+				each_value_6 = ctx.funcBtns;
 
 				let i;
-				for (i = 0; i < each_value_3.length; i += 1) {
-					const child_ctx = get_each_context_3(ctx, each_value_3, i);
+				for (i = 0; i < each_value_6.length; i += 1) {
+					const child_ctx = get_each_context_6(ctx, each_value_6, i);
 
 					if (each_blocks_1[i]) {
 						each_blocks_1[i].p(changed, child_ctx);
 					} else {
-						each_blocks_1[i] = create_each_block_3(child_ctx);
+						each_blocks_1[i] = create_each_block_6(child_ctx);
 						each_blocks_1[i].c();
 						each_blocks_1[i].m(div6, t4);
 					}
@@ -2656,14 +3039,14 @@ function create_fragment$4(ctx) {
 				for (; i < each_blocks_1.length; i += 1) {
 					each_blocks_1[i].d(1);
 				}
-				each_blocks_1.length = each_value_3.length;
+				each_blocks_1.length = each_value_6.length;
 			}
 
 			if (ctx.filetag == 'felix') {
 				if (if_block0) {
 					if_block0.p(changed, ctx);
 				} else {
-					if_block0 = create_if_block_4(ctx);
+					if_block0 = create_if_block_6(ctx);
 					if_block0.c();
 					if_block0.m(div6, t5);
 				}
@@ -2676,7 +3059,7 @@ function create_fragment$4(ctx) {
 				if (if_block1) {
 					if_block1.p(changed, ctx);
 				} else {
-					if_block1 = create_if_block_3(ctx);
+					if_block1 = create_if_block_5(ctx);
 					if_block1.c();
 					if_block1.m(div6, null);
 				}
@@ -2689,13 +3072,26 @@ function create_fragment$4(ctx) {
 				if (if_block2) {
 					if_block2.p(changed, ctx);
 				} else {
-					if_block2 = create_if_block_2(ctx);
+					if_block2 = create_if_block_4(ctx);
 					if_block2.c();
 					if_block2.m(div11, t7);
 				}
 			} else if (if_block2) {
 				if_block2.d(1);
 				if_block2 = null;
+			}
+
+			if (ctx.filetag=="scan") {
+				if (if_block3) {
+					if_block3.p(changed, ctx);
+				} else {
+					if_block3 = create_if_block_2(ctx);
+					if_block3.c();
+					if_block3.m(div11, t8);
+				}
+			} else if (if_block3) {
+				if_block3.d(1);
+				if_block3 = null;
 			}
 
 			if ((!current || changed.filetag) && img_id_value !== (img_id_value = "" + ctx.filetag + "loading")) {
@@ -2757,6 +3153,7 @@ function create_fragment$4(ctx) {
 			if (if_block0) if_block0.d();
 			if (if_block1) if_block1.d();
 			if (if_block2) if_block2.d();
+			if (if_block3) if_block3.d();
 
 			destroy_each(each_blocks, detaching);
 
@@ -2766,6 +3163,14 @@ function create_fragment$4(ctx) {
 }
 
 const style = "display:none;";
+
+let powerinfo = "21, 21";
+
+let nshots = 10;
+
+let massIndex = 0;
+
+let timestartIndex = 1;
 
 function instance$4($$self, $$props, $$invalidate) {
 	
@@ -2857,9 +3262,9 @@ function instance$4($$self, $$props, $$invalidate) {
         ? (file = [folderChild[i].name, ...file])
         : (folder = [folderChild[i].name, ...folder]);
     }
-    folderFile.parentFolder = folderTree.name;
-    folderFile.folders = folder;
-    folderFile.files = file;
+    $$invalidate('folderFile', folderFile.parentFolder = folderTree.name, folderFile);
+    $$invalidate('folderFile', folderFile.folders = folder, folderFile);
+    $$invalidate('folderFile', folderFile.files = file, folderFile);
 
     console.log("Folder updated");
 
@@ -2898,7 +3303,7 @@ function instance$4($$self, $$props, $$invalidate) {
       dialog.showOpenDialog(null, options, filePaths => {
         if (filePaths == undefined) return console.log("No files selected");
         $$invalidate('currentLocation', currentLocation = path.dirname(filePaths[0]));
-        folderFile = updateFolder(currentLocation);
+        $$invalidate('folderFile', folderFile = updateFolder(currentLocation));
       });
     }
   }
@@ -2952,21 +3357,8 @@ function instance$4($$self, $$props, $$invalidate) {
         });
       });
     }
-    if (btname == "theoryBtn") {
-
-      jq("#theoryRow").toggle();
-      // browseFile(true)
-      //   .then(theoryfile => {
-      //     runPlot({
-      //       fullfiles: theoryfile,
-      //       filetype: "theory",
-      //       btname: btname,
-      //       pyfile: "theory.py",
-      //       args: [normlog, fullfiles[0]]
-      //     });
-      //   })
-      //   .catch(err => console.log(err));
-    }
+    if (btname == "theoryBtn") jq("#theoryRow").toggle();
+    if (btname == "depletionscanBtn") jq("#depletionRow").toggle();
   };
 
   let theoryfiles=[];
@@ -2983,8 +3375,36 @@ function instance$4($$self, $$props, $$invalidate) {
   }
   const runtheory_keyup = (event) => {if(event.key=="Enter") runtheory();};
   let sigma=20; //Sigma value for felixplot thoery gaussian profile
-
   let scale=1;
+
+  let depletionLabels = [
+    {
+      name: "Power (ON, OFF)",
+      id: "powerinfo",
+      value:powerinfo
+    },
+    {
+      name: "FELIX Hz",
+      id: "nshots",
+      value:nshots
+    },
+    {
+      name: "Mass Index",
+      id: "massIndex",
+      value:massIndex
+    },
+    {
+      name: "TimeStart Index",
+      id: "timeIndex",
+      value:timestartIndex
+    }
+  ];
+
+  const depletionPlot = () => {
+
+    runPlot({fullfiles: [currentLocation], filetype: "general", 
+      btname: "depletionSubmit", pyfile: "depletionscan.py", args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] });
+  };
 
 	function input_input_handler() {
 		currentLocation = this.value;
@@ -3014,6 +3434,11 @@ function instance$4($$self, $$props, $$invalidate) {
 	function input1_input_handler() {
 		scale = to_number(this.value);
 		$$invalidate('scale', scale);
+	}
+
+	function input_input_handler_2({ value, each_value_3, each_index }) {
+		each_value_3[each_index].value = this.value;
+		$$invalidate('depletionLabels', depletionLabels);
 	}
 
 	$$self.$set = $$props => {
@@ -3052,6 +3477,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		normMethod,
 		log,
 		linearlogCheck,
+		folderFile,
 		currentLocation,
 		getCheckedFiles,
 		updateFolder,
@@ -3062,14 +3488,18 @@ function instance$4($$self, $$props, $$invalidate) {
 		runtheory_keyup,
 		sigma,
 		scale,
+		depletionLabels,
+		depletionPlot,
 		fileChecked,
+		undefined,
 		theoryfilenames,
 		input_input_handler,
 		select_change_handler,
 		input_input_handler_1,
 		input_change_handler,
 		input0_input_handler,
-		input1_input_handler
+		input1_input_handler,
+		input_input_handler_2
 	};
 }
 
@@ -18762,6 +19192,10 @@ const mainPages = [
             {
                 id: "timescanBtn",
                 name: "Timescan Plot"
+            },
+            {
+                id: "depletionscanBtn",
+                name: "Depletion Plot"
             }
         ],
         plotID: ["tplot_container"]

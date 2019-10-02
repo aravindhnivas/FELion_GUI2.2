@@ -30,7 +30,6 @@
         val.checked = event.target.checked;
       }
     });
-
     getCheckedFiles();
   }
 

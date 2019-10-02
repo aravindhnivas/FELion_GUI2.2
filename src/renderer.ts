@@ -42,6 +42,10 @@ const mainPages = [
 			{
 				id: "timescanBtn",
 				name: "Timescan Plot"
+			}, 
+			{
+				id: "depletionscanBtn",
+				name: "Depletion Plot"
 			}
 		],
 		plotID: ["tplot_container"]

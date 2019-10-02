@@ -63,12 +63,4 @@ $(document).on('animationend', '.funcBtn', (event) => {
     if ($target.hasClass("bounce")) $target.removeClass(successAnimation);
 });
 
-$(document).on('animationend', '#appendTheory', (event) => {
-
-    let $target = $("#appendTheory")
-    $target.addClass("is-link");
-    if ($target.hasClass("shake")) $target.removeClass(dangerAnimation);
-    if ($target.hasClass("bounce")) $target.removeClass(successAnimation);
-});
-
 export { runPlot };

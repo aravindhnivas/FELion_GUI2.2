@@ -201,21 +201,8 @@
         });
       });
     }
-    if (btname == "theoryBtn") {
-
-      jq("#theoryRow").toggle()
-      // browseFile(true)
-      //   .then(theoryfile => {
-      //     runPlot({
-      //       fullfiles: theoryfile,
-      //       filetype: "theory",
-      //       btname: btname,
-      //       pyfile: "theory.py",
-      //       args: [normlog, fullfiles[0]]
-      //     });
-      //   })
-      //   .catch(err => console.log(err));
-    }
+    if (btname == "theoryBtn") jq("#theoryRow").toggle()
+    if (btname == "depletionscanBtn") jq("#depletionRow").toggle()
   };
 
   let theoryfiles=[];
@@ -233,11 +220,47 @@
   }
   const runtheory_keyup = (event) => {if(event.key=="Enter") runtheory()}
   let sigma=20; //Sigma value for felixplot thoery gaussian profile
-
   let scale=1;
 
+  // let resOnFile="onFile";
+  // let resOffFile="offFile";
+  let powerinfo = "21, 21";
+  let nshots = 10;
+  let massIndex = 0;
+  let timestartIndex = 1;
+
+  let depletionLabels = [
+    {
+      name: "Power (ON, OFF)",
+      id: "powerinfo",
+      value:powerinfo
+    },
+    {
+      name: "FELIX Hz",
+      id: "nshots",
+      value:nshots
+    },
+    {
+      name: "Mass Index",
+      id: "massIndex",
+      value:massIndex
+    },
+    {
+      name: "TimeStart Index",
+      id: "timeIndex",
+      value:timestartIndex
+    }
+  ]
+
+  const depletionPlot = () => {
+
+    runPlot({fullfiles: [currentLocation], filetype: "general", 
+      btname: "depletionSubmit", pyfile: "depletionscan.py", args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] });
+  }
 </script>
+
 <style>
+  label {color:white;}
   #theorylabel{
     color:white;
     border:solid 3px #bdc3c7; 
@@ -291,12 +314,8 @@
 
     <div class="column is-3" id="{filetag}filebrowserColumn">
       <Filebrowser
-        {filetag}
-        {currentLocation}
-        {updateFolder}
-        {getCheckedFiles}
-        {jq}
-        {path} />
+        {filetag} {currentLocation} {updateFolder}
+        {getCheckedFiles} {jq} {path} />
     </div>
 
     <div class="column">
@@ -397,9 +416,54 @@
                     <button class="button is-warning" on:click={opentheory}>Choose file</button>
                     <input class="input" type="number" on:keyup={runtheory_keyup} bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
                     <input class="input" type="number" on:keyup={runtheory_keyup} step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
-                    <button class="button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
+                    <button class="funcBtn button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
                 </div>
               </div>
+            </div>
+         </div>
+      {/if}
+
+      {#if filetag=="scan"}
+         <div class="row" id="depletionRow">
+            <div class="level">
+              <div class="level-left">
+
+                {#each ["ResON", "ResOFF"] as name}
+
+                  <div class="level-item">
+                    <div class="field">
+                      <label class="label"><h1 class="subtitle">{name} file</h1></label>
+                      <div class="control">
+                        <div class="select">
+                          <select id={name}>
+                            {#if folderFile.files != undefined}
+                               {#each folderFile.files as scanfile}
+                                  <option value={scanfile}>{scanfile}</option>
+                               {/each}
+                            {/if}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {/each}
+
+                {#each depletionLabels as {name, id, value}}
+                  <div class="level-item">
+                    <div class="field">
+                      <label class="label"><h1 class="subtitle">{name}</h1></label>
+                      <div class="control">
+                          <input class="input" bind:value={value} {id}>
+                      </div>
+                    </div>
+                  </div>
+                {/each}
+              
+              </div>
+            </div>
+
+            <div class="control">
+              <button class="funcBtn button is-link animated" id="depletionSubmit" on:click={depletionPlot}>Submit</button>
             </div>
          </div>
       {/if}
