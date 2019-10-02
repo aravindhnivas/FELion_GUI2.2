@@ -1712,7 +1712,6 @@ function runPlot({ fullfiles, filetype, btname, pyfile, args = [], plotArea = ""
                     $(`#${filetype}loading`).css("display", "none");
                     $target.removeClass(loadAnimation).addClass(successAnimation);
                     if (filetype == "felix") { $("#theoryBtn").css("display", "block"); }
-                    if (filetype == "theory") { $("#theoryBtn").addClass("fadeInUp"); }
                 })
                 .catch(pythonError => {
                     $(`#${filetype}loading`).css("display", "none");
@@ -1732,8 +1731,14 @@ $(document).on('animationend', '.funcBtn', (event) => {
     $target.addClass("is-link");
     if ($target.hasClass("shake")) $target.removeClass(dangerAnimation);
     if ($target.hasClass("bounce")) $target.removeClass(successAnimation);
+});
 
-    if ($target.hasClass("fadeInUp")) $target.removeClass("fadeInUp");
+$(document).on('animationend', '#appendTheory', (event) => {
+
+    let $target = $("#appendTheory");
+    $target.addClass("is-link");
+    if ($target.hasClass("shake")) $target.removeClass(dangerAnimation);
+    if ($target.hasClass("bounce")) $target.removeClass(successAnimation);
 });
 
 const constants = {
@@ -2072,7 +2077,7 @@ function create_if_block_2(ctx) {
 			set_style(label, "border", "solid 3px #bdc3c7");
 			set_style(label, "padding", "0.4em");
 			attr(button0, "class", "button is-warning");
-			attr(button1, "class", "button is-link");
+			attr(button1, "class", "button is-link animated");
 			attr(button1, "id", "appendTheory");
 			attr(div0, "class", "control");
 			attr(div1, "class", "field");
