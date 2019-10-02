@@ -1511,14 +1511,6 @@ class program {
 
             const py = spawn(pythonPath, [path__default.join(functions_path, this.pyfile), this.files.concat(this.args)]);
 
-
-            (function() {
-                let childProcess = child_process;
-                let oldSpawn = childProcess.spawn;
-                childProcess.spawn = py;
-
-            })();
-
             py.stdout.on("data", data => {
 
                 let dataFromPython;
@@ -1542,8 +1534,6 @@ class program {
 
                         let normlog = this.obj.normethod;
                         let delta = this.args;
-
-                        console.log(":: run -> delta", delta);
 
                         let felixdataToPlot;
                         let avgdataToPlot;
@@ -1706,7 +1696,7 @@ function runPlot({ fullfiles, filetype, btname, pyfile, args = [], plotArea = ""
 
     $target.addClass("is-loading");
     $(`#${filetype}loading`).css("display", "block");
-    if (filetype == "felix") { $("#theoryBtn").css("display", "none"); }
+    if (filetype == "felix") { $("#theoryBtn").css("display", "none"); $("#theoryRow").css("display", "none"); }
 
     let start = new program_1(obj);
     start.filecheck()
@@ -1883,7 +1873,7 @@ function get_each_context_3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (300:12) {#each funcBtns as { id, name }}
+// (319:12) {#each funcBtns as { id, name }}
 function create_each_block_3(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -1891,7 +1881,7 @@ function create_each_block_3(ctx) {
 		c() {
 			div = element("div");
 			t = text(t_value);
-			attr(div, "class", "level-item button funcBtn is-link animated svelte-d3u2tl");
+			attr(div, "class", "level-item button funcBtn is-link animated svelte-qn8xrv");
 			attr(div, "id", div_id_value = ctx.id);
 			dispose = listen(div, "click", ctx.functionRun);
 		},
@@ -1921,8 +1911,8 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (309:12) {#if filetag == 'felix'}
-function create_if_block_3(ctx) {
+// (328:12) {#if filetag == 'felix'}
+function create_if_block_4(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, dispose;
 
 	return {
@@ -1997,8 +1987,8 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (337:12) {#if filetag == 'mass' || filetag == 'scan'}
-function create_if_block_2(ctx) {
+// (356:12) {#if filetag == 'mass' || filetag == 'scan'}
+function create_if_block_3(ctx) {
 	var div3, div2, input, input_id_value, t0, div0, t2, div1, dispose;
 
 	return {
@@ -2008,12 +1998,13 @@ function create_if_block_2(ctx) {
 			input = element("input");
 			t0 = space();
 			div0 = element("div");
-			div0.innerHTML = `<label>Log</label>`;
+			div0.innerHTML = `<label class="svelte-qn8xrv">Log</label>`;
 			t2 = space();
 			div1 = element("div");
-			div1.innerHTML = `<label>Linear</label>`;
+			div1.innerHTML = `<label class="svelte-qn8xrv">Linear</label>`;
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "linearlog");
+			attr(input, "class", "svelte-qn8xrv");
 			attr(div0, "class", "state p-success p-on");
 			attr(div1, "class", "state p-danger p-off");
 			attr(div2, "class", "pretty p-default p-curve p-toggle");
@@ -2056,7 +2047,78 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (383:12) {:else}
+// (379:6) {#if filetag=="felix"}
+function create_if_block_2(ctx) {
+	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, button1, dispose;
+
+	return {
+		c() {
+			div3 = element("div");
+			div2 = element("div");
+			div1 = element("div");
+			label = element("label");
+			h1 = element("h1");
+			t0 = text(ctx.theoryfilenames);
+			t1 = space();
+			div0 = element("div");
+			button0 = element("button");
+			button0.textContent = "Choose file";
+			t3 = space();
+			button1 = element("button");
+			button1.textContent = "Submit";
+			attr(h1, "class", "subtitle");
+			attr(h1, "id", "theoryfilename");
+			attr(label, "class", "label svelte-qn8xrv");
+			set_style(label, "border", "solid 3px #bdc3c7");
+			set_style(label, "padding", "0.4em");
+			attr(button0, "class", "button is-warning");
+			attr(button1, "class", "button is-link");
+			attr(button1, "id", "appendTheory");
+			attr(div0, "class", "control");
+			attr(div1, "class", "field");
+			attr(div2, "class", "container svelte-qn8xrv");
+			attr(div2, "id", "theoryContainer");
+			attr(div3, "class", "row svelte-qn8xrv");
+			attr(div3, "id", "theoryRow");
+			set_style(div3, "display", "none");
+
+			dispose = [
+				listen(button0, "click", ctx.opentheory),
+				listen(button1, "click", ctx.runtheory)
+			];
+		},
+
+		m(target, anchor) {
+			insert(target, div3, anchor);
+			append(div3, div2);
+			append(div2, div1);
+			append(div1, label);
+			append(label, h1);
+			append(h1, t0);
+			append(div1, t1);
+			append(div1, div0);
+			append(div0, button0);
+			append(div0, t3);
+			append(div0, button1);
+		},
+
+		p(changed, ctx) {
+			if (changed.theoryfilenames) {
+				set_data(t0, ctx.theoryfilenames);
+			}
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(div3);
+			}
+
+			run_all(dispose);
+		}
+	};
+}
+
+// (416:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2065,6 +2127,7 @@ function create_else_block$2(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
+			attr(div, "class", "svelte-qn8xrv");
 		},
 
 		m(target, anchor) {
@@ -2085,7 +2148,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (377:39) 
+// (410:39) 
 function create_if_block_1$1(ctx) {
 	var div, t, div_id_value;
 
@@ -2108,6 +2171,7 @@ function create_if_block_1$1(ctx) {
 			t = space();
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
+			attr(div, "class", "svelte-qn8xrv");
 		},
 
 		m(target, anchor) {
@@ -2158,7 +2222,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (371:12) {#if filetag == 'scan'}
+// (404:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -2181,6 +2245,7 @@ function create_if_block$2(ctx) {
 			t = space();
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
+			attr(div, "class", "svelte-qn8xrv");
 		},
 
 		m(target, anchor) {
@@ -2231,7 +2296,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (379:16) {#each fileChecked as thzfile}
+// (412:16) {#each fileChecked as thzfile}
 function create_each_block_2(ctx) {
 	var div, div_id_value;
 
@@ -2240,6 +2305,7 @@ function create_each_block_2(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = "" + ctx.thzfile + "_plot");
 			set_style(div, "padding-bottom", "1em");
+			attr(div, "class", "svelte-qn8xrv");
 		},
 
 		m(target, anchor) {
@@ -2260,7 +2326,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (373:16) {#each fileChecked as scanfile}
+// (406:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -2269,6 +2335,7 @@ function create_each_block_1$1(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = "" + ctx.scanfile + "_tplot");
 			set_style(div, "padding-bottom", "1em");
+			attr(div, "class", "svelte-qn8xrv");
 		},
 
 		m(target, anchor) {
@@ -2289,7 +2356,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (370:10) {#each plotID as id}
+// (403:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -2337,7 +2404,7 @@ function create_each_block$2(ctx) {
 }
 
 function create_fragment$4(ctx) {
-	var section, div12, div0, div0_id_value, t0, div11, div5, div4, div1, input, input_id_value, t1, div3, div2, t2, div2_data_tippy_value, t3, div8, div7, div6, t4, t5, t6, hr, t7, h1, t9, div10, img, img_id_value, t10, div9, div9_id_value, current, dispose;
+	var section, div12, div0, div0_id_value, t0, div11, div5, div4, div1, input, input_id_value, t1, div3, div2, t2, div2_data_tippy_value, t3, div8, div7, div6, t4, t5, t6, t7, hr, t8, h1, t10, div10, img, img_id_value, t11, div9, div9_id_value, current, dispose;
 
 	var filebrowser = new Filebrowser({
 		props: {
@@ -2358,9 +2425,11 @@ function create_fragment$4(ctx) {
 		each_blocks_1[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
 	}
 
-	var if_block0 = (ctx.filetag == 'felix') && create_if_block_3(ctx);
+	var if_block0 = (ctx.filetag == 'felix') && create_if_block_4(ctx);
 
-	var if_block1 = (ctx.filetag == 'mass' || ctx.filetag == 'scan') && create_if_block_2(ctx);
+	var if_block1 = (ctx.filetag == 'mass' || ctx.filetag == 'scan') && create_if_block_3(ctx);
+
+	var if_block2 = (ctx.filetag=="felix") && create_if_block_2(ctx);
 
 	let each_value = ctx.plotID;
 
@@ -2400,22 +2469,24 @@ function create_fragment$4(ctx) {
 			t5 = space();
 			if (if_block1) if_block1.c();
 			t6 = space();
-			hr = element("hr");
+			if (if_block2) if_block2.c();
 			t7 = space();
+			hr = element("hr");
+			t8 = space();
 			h1 = element("h1");
 			h1.textContent = "Data Visualisation";
-			t9 = space();
+			t10 = space();
 			div10 = element("div");
 			img = element("img");
-			t10 = space();
+			t11 = space();
 			div9 = element("div");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
-			attr(div0, "class", "column is-3");
+			attr(div0, "class", "column is-3 svelte-qn8xrv");
 			attr(div0, "id", div0_id_value = "" + ctx.filetag + "filebrowserColumn");
-			attr(input, "class", "input locationLabel svelte-d3u2tl");
+			attr(input, "class", "input locationLabel svelte-qn8xrv");
 			attr(input, "type", "text");
 			attr(input, "placeholder", "Location will be displayed");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "LocationLabel");
@@ -2424,23 +2495,23 @@ function create_fragment$4(ctx) {
 			attr(div2, "data-tippy", div2_data_tippy_value = "Browse " + ctx.filetag + " file");
 			attr(div3, "class", "control");
 			attr(div4, "class", "field has-addons");
-			attr(div5, "class", "row svelte-d3u2tl");
+			attr(div5, "class", "row svelte-qn8xrv");
 			attr(div6, "class", "level-left animated fadeIn");
 			attr(div7, "class", "level");
-			attr(div8, "class", "row svelte-d3u2tl");
+			attr(div8, "class", "row svelte-qn8xrv");
 			set_style(hr, "margin", "0.5em 0");
 			set_style(hr, "background-color", "#bdc3c7");
 			attr(h1, "class", "subtitle");
-			attr(img, "class", "data-loading svelte-d3u2tl");
+			attr(img, "class", "data-loading svelte-qn8xrv");
 			attr(img, "id", img_id_value = "" + ctx.filetag + "loading");
 			attr(img, "src", "./icons/loadingBar.svg");
 			attr(img, "alt", "loading data");
-			attr(div9, "class", "container is-fluid");
+			attr(div9, "class", "container is-fluid svelte-qn8xrv");
 			attr(div9, "id", div9_id_value = "" + ctx.filetag + "plotContainer");
-			attr(div10, "class", "row box plotContainer svelte-d3u2tl");
+			attr(div10, "class", "row box plotContainer svelte-qn8xrv");
 			attr(div11, "class", "column");
 			attr(div12, "class", "columns");
-			attr(section, "class", "section svelte-d3u2tl");
+			attr(section, "class", "section svelte-qn8xrv");
 			attr(section, "id", ctx.id);
 			attr(section, "style", style);
 
@@ -2482,13 +2553,15 @@ function create_fragment$4(ctx) {
 			append(div6, t5);
 			if (if_block1) if_block1.m(div6, null);
 			append(div11, t6);
-			append(div11, hr);
+			if (if_block2) if_block2.m(div11, null);
 			append(div11, t7);
+			append(div11, hr);
+			append(div11, t8);
 			append(div11, h1);
-			append(div11, t9);
+			append(div11, t10);
 			append(div11, div10);
 			append(div10, img);
-			append(div10, t10);
+			append(div10, t11);
 			append(div10, div9);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -2546,7 +2619,7 @@ function create_fragment$4(ctx) {
 				if (if_block0) {
 					if_block0.p(changed, ctx);
 				} else {
-					if_block0 = create_if_block_3(ctx);
+					if_block0 = create_if_block_4(ctx);
 					if_block0.c();
 					if_block0.m(div6, t5);
 				}
@@ -2559,13 +2632,26 @@ function create_fragment$4(ctx) {
 				if (if_block1) {
 					if_block1.p(changed, ctx);
 				} else {
-					if_block1 = create_if_block_2(ctx);
+					if_block1 = create_if_block_3(ctx);
 					if_block1.c();
 					if_block1.m(div6, null);
 				}
 			} else if (if_block1) {
 				if_block1.d(1);
 				if_block1 = null;
+			}
+
+			if (ctx.filetag=="felix") {
+				if (if_block2) {
+					if_block2.p(changed, ctx);
+				} else {
+					if_block2 = create_if_block_2(ctx);
+					if_block2.c();
+					if_block2.m(div11, t7);
+				}
+			} else if (if_block2) {
+				if_block2.d(1);
+				if_block2 = null;
 			}
 
 			if ((!current || changed.filetag) && img_id_value !== (img_id_value = "" + ctx.filetag + "loading")) {
@@ -2626,6 +2712,7 @@ function create_fragment$4(ctx) {
 
 			if (if_block0) if_block0.d();
 			if (if_block1) if_block1.d();
+			if (if_block2) if_block2.d();
 
 			destroy_each(each_blocks, detaching);
 
@@ -2738,8 +2825,8 @@ function instance$4($$self, $$props, $$invalidate) {
     return folderFile;
   };
 
-  function browseFile(optionalFile = false) {
-    if (optionalFile == true) {
+  function browseFile({theory=false}) {
+    if (theory == true) {
       return new Promise((resolve, reject) => {
 
         console.log("Optional file");
@@ -2775,15 +2862,17 @@ function instance$4($$self, $$props, $$invalidate) {
 
   const functionRun = event => {
     let btname = event.target.id;
-    if (btname == "felixPlotBtn")
+    if (btname == "felixPlotBtn") {
+
+      Plotly.purge("exp-theory-plot");
       runPlot({
-        fullfiles: fullfiles,
-        filetype: filetag,
-        btname: btname,
-        pyfile: "normline.py",
-        normethod: normlog,
-        args: delta
+        fullfiles: fullfiles, filetype: filetag, btname: btname,
+        pyfile: "normline.py", normethod: normlog, args: delta
       });
+
+
+    }
+      
     if (btname == "createBaselineBtn")
       runPlot({
         fullfiles: fullfiles,
@@ -2821,19 +2910,32 @@ function instance$4($$self, $$props, $$invalidate) {
       });
     }
     if (btname == "theoryBtn") {
-      browseFile(true)
-        .then(theoryfile => {
-          runPlot({
-            fullfiles: theoryfile,
-            filetype: "theory",
-            btname: btname,
-            pyfile: "theory.py",
-            args: [normlog, fullfiles[0]]
-          });
-        })
-        .catch(err => console.log(err));
+
+      jq("#theoryRow").toggle();
+      // browseFile(true)
+      //   .then(theoryfile => {
+      //     runPlot({
+      //       fullfiles: theoryfile,
+      //       filetype: "theory",
+      //       btname: btname,
+      //       pyfile: "theory.py",
+      //       args: [normlog, fullfiles[0]]
+      //     });
+      //   })
+      //   .catch(err => console.log(err));
     }
   };
+
+  let theoryfiles=[];
+  function opentheory() {
+    browseFile({theory:true})
+        .then(file =>  $$invalidate('theoryfiles', theoryfiles = file))
+        .catch(err => console.log(err));
+  }
+  function runtheory(event) {
+    runPlot({fullfiles: theoryfiles, filetype: "theory", 
+      btname: event.target.id, pyfile: "theory.py", args: [normlog, fullfiles[0]] });
+  }
 
 	function input_input_handler() {
 		currentLocation = this.value;
@@ -2866,14 +2968,16 @@ function instance$4($$self, $$props, $$invalidate) {
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
 	};
 
-	let fileChecked, fullfiles;
+	let fileChecked, fullfiles, theoryfilenames;
 
-	$$self.$$.update = ($$dirty = { normMethod: 1, filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1 }) => {
+	$$self.$$.update = ($$dirty = { normMethod: 1, filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1, theoryfilenames: 1 }) => {
 		if ($$dirty.normMethod) { normMethod == "Relative" ? (normlog = false) : (normlog = true); }
 		if ($$dirty.filetag) { filetag == "mass" ? ($$invalidate('log', log = true)) : ($$invalidate('log', log = false)); }
 		if ($$dirty.allFiles) { $$invalidate('fileChecked', fileChecked = allFiles.filter(file => file.checked).map(file => file.id)); }
 		if ($$dirty.fileChecked) { console.log("fileChecked", fileChecked); }
 		if ($$dirty.fileChecked || $$dirty.path || $$dirty.currentLocation) { fullfiles = fileChecked.map(file => path.join(currentLocation, file)); }
+		if ($$dirty.theoryfiles || $$dirty.path) { $$invalidate('theoryfilenames', theoryfilenames = theoryfiles.map(file=>path.basename(file))); }
+		if ($$dirty.theoryfilenames) { console.log("Theory files: ", theoryfilenames); }
 	};
 
 	return {
@@ -2895,7 +2999,10 @@ function instance$4($$self, $$props, $$invalidate) {
 		updateFolder,
 		browseFile,
 		functionRun,
+		opentheory,
+		runtheory,
 		fileChecked,
+		theoryfilenames,
 		input_input_handler,
 		select_change_handler,
 		input_input_handler_1,
