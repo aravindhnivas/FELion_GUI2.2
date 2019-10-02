@@ -1590,11 +1590,15 @@ class program {
 
                     } else if (this.filetype == "theory") {
 
+                        console.log(this.files.length);
+                        let theoryData = [];
+                        for (let x in dataFromPython["line_simulation"]) { theoryData.push(dataFromPython["line_simulation"][x]); }
+
                         plot(
                             "Experimental vs Theory",
                             "Calibrated Wavelength (cm-1)",
                             "Normalised Intesity",
-                            [dataFromPython["averaged"], dataFromPython["line_simulation"]],
+                            [dataFromPython["averaged"], ...theoryData],
                             "exp-theory-plot"
                         );
                     } else if (this.filetype == "thz") {
@@ -2972,7 +2976,7 @@ function instance$4($$self, $$props, $$invalidate) {
 
   function runtheory() {
     runPlot({fullfiles: theoryfiles, filetype: "theory", 
-      btname: "appendTheory", pyfile: "theory.py", args: [normlog, sigma, scale, fullfiles[0]] });
+      btname: "appendTheory", pyfile: "theory.py", args: [normlog, sigma, scale, currentLocation] });
   }
   const runtheory_keyup = (event) => {if(event.key=="Enter") runtheory();};
   let sigma=20; //Sigma value for felixplot thoery gaussian profile
