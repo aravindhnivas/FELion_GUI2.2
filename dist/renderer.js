@@ -1857,9 +1857,6 @@ function get_each_context_3(ctx, list, i) {
 	const child_ctx = Object.create(ctx);
 	child_ctx.name = list[i].name;
 	child_ctx.id = list[i].id;
-	child_ctx.value = list[i].value;
-	child_ctx.each_value_3 = list;
-	child_ctx.each_index = i;
 	return child_ctx;
 }
 
@@ -1882,7 +1879,7 @@ function get_each_context_6(ctx, list, i) {
 	return child_ctx;
 }
 
-// (348:12) {#each funcBtns as { id, name }}
+// (344:12) {#each funcBtns as { id, name }}
 function create_each_block_6(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -1920,8 +1917,8 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (357:12) {#if filetag == 'felix'}
-function create_if_block_6(ctx) {
+// (353:12) {#if filetag == 'felix'}
+function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
 	function input_input_handler_1() {
@@ -2003,8 +2000,8 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (385:12) {#if filetag == 'mass' || filetag == 'scan'}
-function create_if_block_5(ctx) {
+// (381:12) {#if filetag == 'mass' || filetag == 'scan'}
+function create_if_block_9(ctx) {
 	var div3, div2, input, input_id_value, t0, div0, t2, div1, dispose;
 
 	return {
@@ -2063,8 +2060,8 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (408:6) {#if filetag=="felix"}
-function create_if_block_4(ctx) {
+// (404:6) {#if filetag=="felix"}
+function create_if_block_8(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, dispose;
 
 	function input0_input_handler() {
@@ -2175,7 +2172,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (426:6) {#if filetag=="scan"}
+// (422:6) {#if filetag=="scan"}
 function create_if_block_2(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2267,7 +2264,7 @@ function create_if_block_2(ctx) {
 				}
 			}
 
-			if (changed.depletionLabels) {
+			if (changed.depletionLabels || changed.powerinfo || changed.nshots || changed.massIndex || changed.timestartIndex) {
 				each_value_3 = ctx.depletionLabels;
 
 				let i;
@@ -2304,8 +2301,8 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (439:28) {#if folderFile.files != undefined}
-function create_if_block_3(ctx) {
+// (435:28) {#if folderFile.files != undefined}
+function create_if_block_7(ctx) {
 	var each_1_anchor;
 
 	let each_value_5 = ctx.folderFile.files;
@@ -2367,7 +2364,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (440:31) {#each folderFile.files as scanfile}
+// (436:31) {#each folderFile.files as scanfile}
 function create_each_block_5(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2404,11 +2401,11 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (431:16) {#each ["ResON", "ResOFF"] as name}
+// (427:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_4(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
-	var if_block = (ctx.folderFile.files != ctx.undefined) && create_if_block_3(ctx);
+	var if_block = (ctx.folderFile.files != ctx.undefined) && create_if_block_7(ctx);
 
 	return {
 		c() {
@@ -2452,7 +2449,7 @@ function create_each_block_4(ctx) {
 				if (if_block) {
 					if_block.p(changed, ctx);
 				} else {
-					if_block = create_if_block_3(ctx);
+					if_block = create_if_block_7(ctx);
 					if_block.c();
 					if_block.m(select, null);
 				}
@@ -2472,13 +2469,169 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (451:16) {#each depletionLabels as {name, id, value}}
-function create_each_block_3(ctx) {
-	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, input, input_id_value, t2, dispose;
+// (458:57) 
+function create_if_block_6(ctx) {
+	var input, input_updating = false, dispose;
 
-	function input_input_handler_2() {
-		ctx.input_input_handler_2.call(input, ctx);
+	function input_input_handler_5() {
+		input_updating = true;
+		ctx.input_input_handler_5.call(input);
 	}
+
+	return {
+		c() {
+			input = element("input");
+			attr(input, "class", "input svelte-9uv9aa");
+			attr(input, "type", "number");
+			attr(input, "id", ctx.id);
+			dispose = listen(input, "input", input_input_handler_5);
+		},
+
+		m(target, anchor) {
+			insert(target, input, anchor);
+
+			set_input_value(input, ctx.timestartIndex);
+		},
+
+		p(changed, ctx) {
+			if (!input_updating && changed.timestartIndex) set_input_value(input, ctx.timestartIndex);
+			input_updating = false;
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(input);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (456:52) 
+function create_if_block_5(ctx) {
+	var input, input_updating = false, dispose;
+
+	function input_input_handler_4() {
+		input_updating = true;
+		ctx.input_input_handler_4.call(input);
+	}
+
+	return {
+		c() {
+			input = element("input");
+			attr(input, "class", "input svelte-9uv9aa");
+			attr(input, "type", "number");
+			attr(input, "id", ctx.id);
+			dispose = listen(input, "input", input_input_handler_4);
+		},
+
+		m(target, anchor) {
+			insert(target, input, anchor);
+
+			set_input_value(input, ctx.massIndex);
+		},
+
+		p(changed, ctx) {
+			if (!input_updating && changed.massIndex) set_input_value(input, ctx.massIndex);
+			input_updating = false;
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(input);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (454:50) 
+function create_if_block_4(ctx) {
+	var input, input_updating = false, dispose;
+
+	function input_input_handler_3() {
+		input_updating = true;
+		ctx.input_input_handler_3.call(input);
+	}
+
+	return {
+		c() {
+			input = element("input");
+			attr(input, "class", "input svelte-9uv9aa");
+			attr(input, "type", "number");
+			attr(input, "id", ctx.id);
+			dispose = listen(input, "input", input_input_handler_3);
+		},
+
+		m(target, anchor) {
+			insert(target, input, anchor);
+
+			set_input_value(input, ctx.nshots);
+		},
+
+		p(changed, ctx) {
+			if (!input_updating && changed.nshots) set_input_value(input, ctx.nshots);
+			input_updating = false;
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(input);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (452:22) {#if name=="Power (ON, OFF)"}
+function create_if_block_3(ctx) {
+	var input, dispose;
+
+	return {
+		c() {
+			input = element("input");
+			attr(input, "class", "input svelte-9uv9aa");
+			attr(input, "type", "text");
+			attr(input, "id", ctx.id);
+			dispose = listen(input, "input", ctx.input_input_handler_2);
+		},
+
+		m(target, anchor) {
+			insert(target, input, anchor);
+
+			set_input_value(input, ctx.powerinfo);
+		},
+
+		p(changed, ctx) {
+			if (changed.powerinfo && (input.value !== ctx.powerinfo)) set_input_value(input, ctx.powerinfo);
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(input);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (447:16) {#each depletionLabels as {name, id}}
+function create_each_block_3(ctx) {
+	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
+
+	function select_block_type(changed, ctx) {
+		if (ctx.name=="Power (ON, OFF)") return create_if_block_3;
+		if (ctx.name=="FELIX Hz") return create_if_block_4;
+		if (ctx.name=="Mass Index") return create_if_block_5;
+		if (ctx.name=="TimeStart Index") return create_if_block_6;
+	}
+
+	var current_block_type = select_block_type(null, ctx);
+	var if_block = current_block_type && current_block_type(ctx);
 
 	return {
 		c() {
@@ -2489,16 +2642,13 @@ function create_each_block_3(ctx) {
 			t0 = text(t0_value);
 			t1 = space();
 			div0 = element("div");
-			input = element("input");
+			if (if_block) if_block.c();
 			t2 = space();
 			attr(h1, "class", "subtitle");
 			attr(label, "class", "label svelte-9uv9aa");
-			attr(input, "class", "input svelte-9uv9aa");
-			attr(input, "id", input_id_value = ctx.id);
 			attr(div0, "class", "control");
 			attr(div1, "class", "field");
 			attr(div2, "class", "level-item");
-			dispose = listen(input, "input", input_input_handler_2);
 		},
 
 		m(target, anchor) {
@@ -2509,24 +2659,12 @@ function create_each_block_3(ctx) {
 			append(h1, t0);
 			append(div1, t1);
 			append(div1, div0);
-			append(div0, input);
-
-			set_input_value(input, ctx.value);
-
+			if (if_block) if_block.m(div0, null);
 			append(div2, t2);
 		},
 
-		p(changed, new_ctx) {
-			ctx = new_ctx;
-			if ((changed.depletionLabels) && t0_value !== (t0_value = ctx.name + "")) {
-				set_data(t0, t0_value);
-			}
-
-			if (changed.depletionLabels && (input.value !== ctx.value)) set_input_value(input, ctx.value);
-
-			if ((changed.depletionLabels) && input_id_value !== (input_id_value = ctx.id)) {
-				attr(input, "id", input_id_value);
-			}
+		p(changed, ctx) {
+			if_block.p(changed, ctx);
 		},
 
 		d(detaching) {
@@ -2534,12 +2672,12 @@ function create_each_block_3(ctx) {
 				detach(div2);
 			}
 
-			dispose();
+			if (if_block) if_block.d();
 		}
 	};
 }
 
-// (494:12) {:else}
+// (499:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2569,7 +2707,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (488:39) 
+// (493:39) 
 function create_if_block_1$1(ctx) {
 	var div, t, div_id_value;
 
@@ -2643,7 +2781,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (482:12) {#if filetag == 'scan'}
+// (487:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -2717,7 +2855,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (490:16) {#each fileChecked as thzfile}
+// (495:16) {#each fileChecked as thzfile}
 function create_each_block_2(ctx) {
 	var div, div_id_value;
 
@@ -2747,7 +2885,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (484:16) {#each fileChecked as scanfile}
+// (489:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -2777,17 +2915,17 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (481:10) {#each plotID as id}
+// (486:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
-	function select_block_type(changed, ctx) {
+	function select_block_type_1(changed, ctx) {
 		if (ctx.filetag == 'scan') return create_if_block$2;
 		if (ctx.filetag == 'thz') return create_if_block_1$1;
 		return create_else_block$2;
 	}
 
-	var current_block_type = select_block_type(null, ctx);
+	var current_block_type = select_block_type_1(null, ctx);
 	var if_block = current_block_type(ctx);
 
 	return {
@@ -2802,7 +2940,7 @@ function create_each_block$2(ctx) {
 		},
 
 		p(changed, ctx) {
-			if (current_block_type === (current_block_type = select_block_type(changed, ctx)) && if_block) {
+			if (current_block_type === (current_block_type = select_block_type_1(changed, ctx)) && if_block) {
 				if_block.p(changed, ctx);
 			} else {
 				if_block.d(1);
@@ -2846,11 +2984,11 @@ function create_fragment$4(ctx) {
 		each_blocks_1[i] = create_each_block_6(get_each_context_6(ctx, each_value_6, i));
 	}
 
-	var if_block0 = (ctx.filetag == 'felix') && create_if_block_6(ctx);
+	var if_block0 = (ctx.filetag == 'felix') && create_if_block_10(ctx);
 
-	var if_block1 = (ctx.filetag == 'mass' || ctx.filetag == 'scan') && create_if_block_5(ctx);
+	var if_block1 = (ctx.filetag == 'mass' || ctx.filetag == 'scan') && create_if_block_9(ctx);
 
-	var if_block2 = (ctx.filetag=="felix") && create_if_block_4(ctx);
+	var if_block2 = (ctx.filetag=="felix") && create_if_block_8(ctx);
 
 	var if_block3 = (ctx.filetag=="scan") && create_if_block_2(ctx);
 
@@ -3046,7 +3184,7 @@ function create_fragment$4(ctx) {
 				if (if_block0) {
 					if_block0.p(changed, ctx);
 				} else {
-					if_block0 = create_if_block_6(ctx);
+					if_block0 = create_if_block_10(ctx);
 					if_block0.c();
 					if_block0.m(div6, t5);
 				}
@@ -3059,7 +3197,7 @@ function create_fragment$4(ctx) {
 				if (if_block1) {
 					if_block1.p(changed, ctx);
 				} else {
-					if_block1 = create_if_block_5(ctx);
+					if_block1 = create_if_block_9(ctx);
 					if_block1.c();
 					if_block1.m(div6, null);
 				}
@@ -3072,7 +3210,7 @@ function create_fragment$4(ctx) {
 				if (if_block2) {
 					if_block2.p(changed, ctx);
 				} else {
-					if_block2 = create_if_block_4(ctx);
+					if_block2 = create_if_block_8(ctx);
 					if_block2.c();
 					if_block2.m(div11, t7);
 				}
@@ -3163,14 +3301,6 @@ function create_fragment$4(ctx) {
 }
 
 const style = "display:none;";
-
-let powerinfo = "21, 21";
-
-let nshots = 10;
-
-let massIndex = 0;
-
-let timestartIndex = 1;
 
 function instance$4($$self, $$props, $$invalidate) {
 	
@@ -3377,26 +3507,29 @@ function instance$4($$self, $$props, $$invalidate) {
   let sigma=20; //Sigma value for felixplot thoery gaussian profile
   let scale=1;
 
+  // let resOnFile="onFile";
+  // let resOffFile="offFile";
+  let powerinfo = "21, 21";
+  let nshots = 10;
+  let massIndex = 0;
+  let timestartIndex = 1;
+
   let depletionLabels = [
     {
       name: "Power (ON, OFF)",
-      id: "powerinfo",
-      value:powerinfo
+      id: "powerinfo"
     },
     {
       name: "FELIX Hz",
-      id: "nshots",
-      value:nshots
+      id: "nshots"
     },
     {
       name: "Mass Index",
-      id: "massIndex",
-      value:massIndex
+      id: "massIndex"
     },
     {
       name: "TimeStart Index",
-      id: "timeIndex",
-      value:timestartIndex
+      id: "timeIndex"
     }
   ];
 
@@ -3436,9 +3569,24 @@ function instance$4($$self, $$props, $$invalidate) {
 		$$invalidate('scale', scale);
 	}
 
-	function input_input_handler_2({ value, each_value_3, each_index }) {
-		each_value_3[each_index].value = this.value;
-		$$invalidate('depletionLabels', depletionLabels);
+	function input_input_handler_2() {
+		powerinfo = this.value;
+		$$invalidate('powerinfo', powerinfo);
+	}
+
+	function input_input_handler_3() {
+		nshots = to_number(this.value);
+		$$invalidate('nshots', nshots);
+	}
+
+	function input_input_handler_4() {
+		massIndex = to_number(this.value);
+		$$invalidate('massIndex', massIndex);
+	}
+
+	function input_input_handler_5() {
+		timestartIndex = to_number(this.value);
+		$$invalidate('timestartIndex', timestartIndex);
 	}
 
 	$$self.$set = $$props => {
@@ -3488,6 +3636,10 @@ function instance$4($$self, $$props, $$invalidate) {
 		runtheory_keyup,
 		sigma,
 		scale,
+		powerinfo,
+		nshots,
+		massIndex,
+		timestartIndex,
 		depletionLabels,
 		depletionPlot,
 		fileChecked,
@@ -3499,7 +3651,10 @@ function instance$4($$self, $$props, $$invalidate) {
 		input_change_handler,
 		input0_input_handler,
 		input1_input_handler,
-		input_input_handler_2
+		input_input_handler_2,
+		input_input_handler_3,
+		input_input_handler_4,
+		input_input_handler_5
 	};
 }
 

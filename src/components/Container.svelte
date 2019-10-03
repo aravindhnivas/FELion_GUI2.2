@@ -232,23 +232,19 @@
   let depletionLabels = [
     {
       name: "Power (ON, OFF)",
-      id: "powerinfo",
-      value:powerinfo
+      id: "powerinfo"
     },
     {
       name: "FELIX Hz",
-      id: "nshots",
-      value:nshots
+      id: "nshots"
     },
     {
       name: "Mass Index",
-      id: "massIndex",
-      value:massIndex
+      id: "massIndex"
     },
     {
       name: "TimeStart Index",
-      id: "timeIndex",
-      value:timestartIndex
+      id: "timeIndex"
     }
   ]
 
@@ -448,12 +444,21 @@
                   </div>
                 {/each}
 
-                {#each depletionLabels as {name, id, value}}
+                {#each depletionLabels as {name, id}}
                   <div class="level-item">
                     <div class="field">
                       <label class="label"><h1 class="subtitle">{name}</h1></label>
                       <div class="control">
-                          <input class="input" bind:value={value} {id}>
+                      {#if name=="Power (ON, OFF)"}
+                        <input class="input" type="text" bind:value={powerinfo} {id}>
+                      {:else if  name=="FELIX Hz"}
+                        <input class="input" type="number" bind:value={nshots} {id}>
+                      {:else if  name=="Mass Index"}
+                        <input class="input" type="number" bind:value={massIndex} {id}>
+                      {:else if  name=="TimeStart Index"}
+                        <input class="input" type="number" bind:value={timestartIndex} {id}>
+                      {/if}
+                          
                       </div>
                     </div>
                   </div>

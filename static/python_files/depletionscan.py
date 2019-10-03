@@ -27,6 +27,11 @@ class depletionplot:
 
         self.fig, (self.ax0, self.ax1) = plt.subplots(nrows=1, ncols=2)
 
+        self.fig.suptitle("Depletion scan")
+
+        self.ax0.set(xlabel="n*t*E (mJ)", ylabel="Counts", title=f"resON[{power[0]}mJ]: {resOnFile.name}, resOFF[{power[1]}mJ]: {resOffFile.name}")
+        self.ax1.set(xlabel="n*t*E (mJ)", ylabel="Relative abundace of active isomer", title="$D(t)=A*(1-e^{-K_{ON}*(ntE)}$")
+
         self.get_timescan_data()
 
         Koff, N = self.resOff_fit()
@@ -38,13 +43,18 @@ class depletionplot:
         uNn0 = uf(Nn0, self.Nn0_err)
         uKon = uf(Kon, self.Kon_err)
 
+        lg1 = f"Kon: {uKon:.2uP}, Na: {uNa0:.2uP}, Nn: {uNn0:.2uP}"
+        lg2 = f"Koff: {uKoff:.2uP}, N: {uN:.2uP}"
+        self.ax0.legend([lg1, lg2])
+
         self.get_depletion_fit(Koff, N, uKoff, uN, Na0, Nn0, Kon, uNa0, uNn0, uKon)
         self.get_relative_abundance_fit()
 
 
         for ax in (self.ax0, self.ax1):
             ax.grid()
-            ax.legend()
+        
+        self.ax1.legend()
         
         plt.show()
 
@@ -65,7 +75,7 @@ class depletionplot:
             self.error[index] = np.array(error[self.massIndex][self.timeStart:])
 
             self.power[index] = np.array((self.power[index] * self.nshots * self.time[index]))
-            self.ax0.errorbar(self.power[index], self.counts[index], yerr=self.error[index], fmt=f"C{i}.", label=f"{index}")
+            self.ax0.errorbar(self.power[index], self.counts[index], yerr=self.error[index], fmt=f"C{i}.")
         
     def N_OFF(self, x, K_OFF, N): return (N)*np.exp(-K_OFF*x)
 
@@ -138,11 +148,7 @@ class depletionplot:
         self.fitted_counts = {"resOn":np.array(fitOn), "resOff": np.array(fitOff)}
         print(f"Counts: {self.counts}\nFitted: {self.fitted_counts}\n")
 
-        data2 = {"resOn":{}, "resOff":{}}
-        legends = [f"Na0: {uNa0:.3uP}, Nn0: {uNn0:.3uP}, K_on: {uKon:.3uP}", f"N: {uN:.3uP}, K_off: {uKoff:.3uP}"]
-
-
-        for index, fitY, i in zip(["resOn", "resOff"], [fitOn, fitOff], [0, 1]):
+        for fitY, i in zip([fitOn, fitOff], [0, 1]):
             self.ax0.plot(self.fitX, fitY, f"C{i}")
 
     def Depletion(self, x, A):
