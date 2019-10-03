@@ -11,7 +11,9 @@ import os
 import sys
 from pathlib import Path as pt
 
+# Matplotlib
 import matplotlib.pyplot as plt
+from matplotlib.widgets import Slider
 
 class depletionplot:
     
@@ -26,11 +28,12 @@ class depletionplot:
         self.timeStart = timeStart
 
         self.fig, (self.ax0, self.ax1) = plt.subplots(nrows=1, ncols=2)
-
+        self.canvas = self.fig.canvas
         self.fig.suptitle("Depletion scan")
 
         self.ax0.set(xlabel="n*t*E (mJ)", ylabel="Counts", title=f"resON[{power[0]}mJ]: {resOnFile.name}, resOFF[{power[1]}mJ]: {resOffFile.name}")
-        self.ax1.set(xlabel="n*t*E (mJ)", ylabel="Relative abundace of active isomer", title="$D(t)=A*(1-e^{-K_{ON}*(ntE)}$")
+
+        self.ax1.set(xlabel="n*t*E (mJ)", ylabel="Relative abundace of active isomer", title="$D(t)=A*(1-e^{-K_{ON}*(ntE)})$")
 
         self.get_timescan_data()
 
@@ -47,16 +50,41 @@ class depletionplot:
         lg2 = f"Koff: {uKoff:.2uP}, N: {uN:.2uP}"
         self.ax0.legend(labels=[lg1, lg2], title=f"Mass: {self.mass[0]}u, Res: {self.t_res}V, B0: {self.t_b0}ms")
 
+
         self.get_depletion_fit(Koff, N, uKoff, uN, Na0, Nn0, Kon, uNa0, uNn0, uKon)
         self.get_relative_abundance_fit()
 
-
-        for ax in (self.ax0, self.ax1):
-            ax.grid()
-        
         self.ax1.legend()
+        for ax in (self.ax0, self.ax1): ax.grid()
 
+        # controlling fitting parameters
+        axcolor = 'lightgoldenrodyellow'
+
+        l = 0.1
+        koff_g = self.fig.add_axes([l, 0.12, 0.2, 0.015], facecolor=axcolor) # [left, bottom, width, height]
+        n_g = self.fig.add_axes([l, 0.10, 0.2, 0.015], facecolor=axcolor)
+        kon_g = self.fig.add_axes([l, 0.08, 0.2, 0.015], facecolor=axcolor)
+        na_g = self.fig.add_axes([l, 0.06, 0.2, 0.015], facecolor=axcolor)
+        nn_g = self.fig.add_axes([l, 0.04, 0.2, 0.015], facecolor=axcolor)
+
+        self.koff_slider = Slider(koff_g, '$K_{OFF}$', 0, Koff*10, valinit=Koff)
+        self.n_slider = Slider(n_g, 'N', 0, N*10, valinit=N)
+        self.kon_slider = Slider(kon_g, '$K_{ON}$', 0, Kon*10, valinit=Kon)
+        self.na_slider = Slider(na_g, '$Na_0$', 0, 10*Na0, valinit=Na0)
+        self.nn_slider = Slider(nn_g, '$Nn_0$', 0, 10*Nn0, valinit=Nn0)
+
+
+        self.koff_slider.on_changed(self.update)
+        self.n_slider.on_changed(self.update)
+        self.kon_slider.on_changed(self.update)
+        self.na_slider.on_changed(self.update)
+        self.nn_slider.on_changed(self.update)
+
+        plt.subplots_adjust(top=0.92, bottom=0.2)
         plt.show()
+
+    def update(self):
+        pass
 
     def get_timescan_data(self):
 
@@ -68,7 +96,7 @@ class depletionplot:
         for index, scanfile, i in zip(["resOn", "resOff"], [self.resOnFile, self.resOffFile], [0, 1]):
 
             time, counts, error, self.mass, self.t_res, self.t_b0 = timescanplot(scanfile).get_data()
-            
+
             time = time/1000 # ms to s
 
             self.time[index] = np.array(time[self.timeStart:])
