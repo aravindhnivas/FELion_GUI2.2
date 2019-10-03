@@ -47,7 +47,6 @@ class depletionplot:
         for ax in (self.ax0, self.ax1): ax.grid()
 
         plt.subplots_adjust(top=0.92, bottom=0.2)
-
         plt.show()
 
     def runFit(self, Koff, Kon, N, Na0, Nn0, plot=True):
@@ -99,9 +98,10 @@ class depletionplot:
 
         self.ax0_plot["resOn"].set_ydata(self.fitOn)
         self.ax0_plot["resOff"].set_ydata(self.fitOff)
-
         self.fit_plot.set_ydata(self.depletion_fitted)
         self.relativeFit_plot.set_ydata(self.relative_abundance)
+
+        self.canvas.draw_idle()
 
     def get_timescan_data(self):
 
