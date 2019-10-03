@@ -45,7 +45,7 @@ class depletionplot:
 
         lg1 = f"Kon: {uKon:.2uP}, Na: {uNa0:.2uP}, Nn: {uNn0:.2uP}"
         lg2 = f"Koff: {uKoff:.2uP}, N: {uN:.2uP}"
-        self.ax0.legend([lg1, lg2])
+        self.ax0.legend(labels=[lg1, lg2], title=f"Mass: {self.mass[0]}u, Res: {self.t_res}V, B0: {self.t_b0}ms")
 
         self.get_depletion_fit(Koff, N, uKoff, uN, Na0, Nn0, Kon, uNa0, uNn0, uKon)
         self.get_relative_abundance_fit()
@@ -55,7 +55,7 @@ class depletionplot:
             ax.grid()
         
         self.ax1.legend()
-        
+
         plt.show()
 
     def get_timescan_data(self):
@@ -67,7 +67,8 @@ class depletionplot:
 
         for index, scanfile, i in zip(["resOn", "resOff"], [self.resOnFile, self.resOffFile], [0, 1]):
 
-            time, counts, error, mass, t_res, t_b0 = timescanplot(scanfile).get_data()
+            time, counts, error, self.mass, self.t_res, self.t_b0 = timescanplot(scanfile).get_data()
+            
             time = time/1000 # ms to s
 
             self.time[index] = np.array(time[self.timeStart:])
