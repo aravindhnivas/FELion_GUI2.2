@@ -2219,6 +2219,7 @@ function create_if_block_2(ctx) {
 			attr(div2, "class", "control");
 			attr(div3, "class", "row svelte-9uv9aa");
 			attr(div3, "id", "depletionRow");
+			set_style(div3, "display", "none");
 			dispose = listen(button, "click", ctx.depletionPlot);
 		},
 

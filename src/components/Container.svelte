@@ -420,7 +420,7 @@
       {/if}
 
       {#if filetag=="scan"}
-         <div class="row" id="depletionRow">
+         <div class="row" id="depletionRow" style="display:none">
             <div class="level">
               <div class="level-left">
 

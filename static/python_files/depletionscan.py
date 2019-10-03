@@ -13,7 +13,7 @@ from pathlib import Path as pt
 
 # Matplotlib
 import matplotlib.pyplot as plt
-from matplotlib.widgets import Slider
+from matplotlib.widgets import Slider, Button
 
 class depletionplot:
     
@@ -39,7 +39,18 @@ class depletionplot:
 
         Koff, N = self.resOff_fit()
         Na0, Nn0, Kon = self.resOn_fit(Koff, N)
+        self.make_slider(Koff, Kon, N, Na0, Nn0)
 
+        
+        self.runFit(Koff, Kon, N, Na0, Nn0)
+
+        for ax in (self.ax0, self.ax1): ax.grid()
+
+        plt.subplots_adjust(top=0.92, bottom=0.2)
+
+        plt.show()
+
+    def runFit(self, Koff, Kon, N, Na0, Nn0, plot=True):
         uKoff = uf(Koff, self.Koff_err)
         uN = uf(N, self.N_err)
         uNa0 = uf(Na0, self.Na0_err)
@@ -50,14 +61,11 @@ class depletionplot:
         lg2 = f"Koff: {uKoff:.2uP}, N: {uN:.2uP}"
         self.ax0.legend(labels=[lg1, lg2], title=f"Mass: {self.mass[0]}u, Res: {self.t_res}V, B0: {self.t_b0}ms")
 
+        self.get_depletion_fit(Koff, N, uKoff, uN, Na0, Nn0, Kon, uNa0, uNn0, uKon, plot)
+        self.get_relative_abundance_fit(plot)
+        self.ax1.legend(["Experiment", "Fitted", f"A: {self.uA:.3uP}"])
 
-        self.get_depletion_fit(Koff, N, uKoff, uN, Na0, Nn0, Kon, uNa0, uNn0, uKon)
-        self.get_relative_abundance_fit()
-
-        self.ax1.legend()
-        for ax in (self.ax0, self.ax1): ax.grid()
-
-        # controlling fitting parameters
+    def make_slider(self, Koff, Kon, N, Na0, Nn0):
         axcolor = 'lightgoldenrodyellow'
 
         l = 0.1
@@ -73,18 +81,27 @@ class depletionplot:
         self.na_slider = Slider(na_g, '$Na_0$', 0, 10*Na0, valinit=Na0)
         self.nn_slider = Slider(nn_g, '$Nn_0$', 0, 10*Nn0, valinit=Nn0)
 
-
         self.koff_slider.on_changed(self.update)
         self.n_slider.on_changed(self.update)
         self.kon_slider.on_changed(self.update)
         self.na_slider.on_changed(self.update)
         self.nn_slider.on_changed(self.update)
 
-        plt.subplots_adjust(top=0.92, bottom=0.2)
-        plt.show()
+    def update(self, event):
 
-    def update(self):
-        pass
+        Koff = self.koff_slider.val
+        Kon = self.kon_slider.val
+        N = self.n_slider.val
+        Na0 = self.na_slider.val
+        Nn0 = self.nn_slider.val
+        
+        self.runFit(Koff, Kon, N, Na0, Nn0, plot=False)
+
+        self.ax0_plot["resOn"].set_ydata(self.fitOn)
+        self.ax0_plot["resOff"].set_ydata(self.fitOff)
+
+        self.fit_plot.set_ydata(self.depletion_fitted)
+        self.relativeFit_plot.set_ydata(self.relative_abundance)
 
     def get_timescan_data(self):
 
@@ -93,6 +110,7 @@ class depletionplot:
         self.counts = {"resOn":[], "resOff": []}
         self.error = {"resOn":[], "resOff": []}
 
+        self.ax0_plot = {}
         for index, scanfile, i in zip(["resOn", "resOff"], [self.resOnFile, self.resOffFile], [0, 1]):
 
             time, counts, error, self.mass, self.t_res, self.t_b0 = timescanplot(scanfile).get_data()
@@ -155,7 +173,7 @@ class depletionplot:
     def uN_ON(self, x, uNa0, uNn0, uK_OFF, uK_ON): return uNa0 * \
         unp.exp(-uK_ON*x)*unp.exp(-uK_OFF*x) + uNn0*unp.exp(-uK_OFF*x)
         
-    def get_depletion_fit(self, Koff, N, uKoff, uN, Na0, Nn0, Kon, uNa0, uNn0, uKon):
+    def get_depletion_fit(self, Koff, N, uKoff, uN, Na0, Nn0, Kon, uNa0, uNn0, uKon, plot=True):
         
         self.Kon = Kon
         self.Koff = Koff
@@ -165,57 +183,62 @@ class depletionplot:
         self.fitX = np.linspace(0, maxPower, 20)
         ufitX = unp.uarray(self.fitX, np.zeros(len(self.fitX)))
 
-        fitOn = self.N_ON(self.fitX, Na0, Nn0, self.Kon)
-        fitOff = self.N_OFF(self.fitX, Koff, N)
+        self.fitOn = self.N_ON(self.fitX, Na0, Nn0, self.Kon)
+        self.fitOff = self.N_OFF(self.fitX, Koff, N)
 
-        fitOn_with_err = self.uN_ON(ufitX, uNa0, uNn0, uKoff, uKon)
-        fitOff_with_err = self.uN_OFF(ufitX, uKoff, uN)
+        self.fitOn_with_err = self.uN_ON(ufitX, uNa0, uNn0, uKoff, uKon)
+        self.fitOff_with_err = self.uN_OFF(ufitX, uKoff, uN)
         
-        self.fitted_counts_error = {"resOn": unp.std_devs(fitOn_with_err), "resOff": unp.std_devs(fitOff_with_err)}
+        self.fitted_counts_error = {"resOn": unp.std_devs(self.fitOn_with_err), "resOff": unp.std_devs(self.fitOff_with_err)}
         print(f"Exp counts error: {self.error}\nFitted counts error: {self.fitted_counts_error}\n")
 
-        self.fitted_counts = {"resOn":np.array(fitOn), "resOff": np.array(fitOff)}
+        self.fitted_counts = {"resOn":np.array(self.fitOn), "resOff": np.array(self.fitOff)}
         print(f"Counts: {self.counts}\nFitted: {self.fitted_counts}\n")
 
-        for fitY, i in zip([fitOn, fitOff], [0, 1]):
-            self.ax0.plot(self.fitX, fitY, f"C{i}")
+        if plot:
+            for index, fitY, i in zip(["resOn", "resOff"], [self.fitOn, self.fitOff], [0, 1]):
+                self.ax0_plot[index], = self.ax0.plot(self.fitX, fitY, f"C{i}")
 
     def Depletion(self, x, A):
             K_ON = self.Kon
             return A*(1-np.exp(-K_ON*x))
 
-    def get_relative_abundance_fit(self):
+    def get_relative_abundance_fit(self, plot=True):
 
-        depletion_fitted = 1 - (self.fitted_counts["resOn"]/self.fitted_counts["resOff"])
+        self.depletion_fitted = 1 - (self.fitted_counts["resOn"]/self.fitted_counts["resOff"])
         depletion_fitted_with_err = 1 - (unp.uarray(self.fitted_counts["resOn"], self.fitted_counts_error["resOn"])/unp.uarray(self.fitted_counts["resOff"], self.fitted_counts_error["resOff"]))
-        depletion_fitted_err = unp.std_devs(depletion_fitted_with_err)
+        self.depletion_fitted_err = unp.std_devs(depletion_fitted_with_err)
 
-        depletion_exp = 1 - (self.counts["resOn"]/self.counts["resOff"])
+        self.depletion_exp = 1 - (self.counts["resOn"]/self.counts["resOff"])
         depletion_exp_with_err = 1 - (unp.uarray(self.counts["resOn"], self.error["resOn"])/unp.uarray(self.counts["resOff"], self.error["resOff"]))
-        depletion_exp_err = unp.std_devs(depletion_exp_with_err)
+        self.depletion_exp_err = unp.std_devs(depletion_exp_with_err)
         
-
-        self.ax1.errorbar(self.fitX, depletion_fitted, yerr=depletion_fitted_err, label=f"Fitted")
-        self.ax1.errorbar(self.power["resOn"], depletion_exp, yerr=depletion_exp_err, fmt="k.", label="Experiment")
-
-
         A_init = 0.5
         pop_depletion, popc_depletion = curve_fit(
-            self.Depletion, self.fitX, depletion_fitted,
-            sigma=depletion_fitted_err,
+            self.Depletion, self.fitX, self.depletion_fitted,
+            sigma=self.depletion_fitted_err,
             absolute_sigma=True,
             p0=[A_init],
             bounds=[(0), (1)]
         )
+
         perr_depletion = np.sqrt(np.diag(popc_depletion))
 
         A = pop_depletion
         A_err = perr_depletion
-        uA = uf(A, A_err)
 
-        relative_abundance = self.Depletion(self.fitX, A)
-        self.ax1.plot(self.fitX, relative_abundance, label=f"A: {uA:.3uP}")
-        print(f"A: {uA:.3uP}")
+        self.uA = uf(A, A_err)
+        print(f"A: {self.uA:.3uP}")
+
+        self.relative_abundance = self.Depletion(self.fitX, A)
+
+        
+
+        if plot:
+            self.ax1.errorbar(self.power["resOn"], self.depletion_exp, yerr=self.depletion_exp_err, fmt="k.")
+            self.fit_plot, = self.ax1.plot(self.fitX, self.depletion_fitted)
+            self.relativeFit_plot, = self.ax1.plot(self.fitX, self.relative_abundance)
+        
         
 if __name__ == "__main__":
 
