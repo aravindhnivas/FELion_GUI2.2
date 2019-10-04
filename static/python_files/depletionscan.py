@@ -47,9 +47,12 @@ class depletionplot:
         for ax in (self.ax0, self.ax1): ax.grid()
 
         plt.subplots_adjust(top=0.92, bottom=0.2)
+
         plt.show()
+        plt.close()
 
     def runFit(self, Koff, Kon, N, Na0, Nn0, plot=True):
+        
         uKoff = uf(Koff, self.Koff_err)
         uN = uf(N, self.N_err)
         uNa0 = uf(Na0, self.Na0_err)
@@ -62,7 +65,8 @@ class depletionplot:
 
         self.get_depletion_fit(Koff, N, uKoff, uN, Na0, Nn0, Kon, uNa0, uNn0, uKon, plot)
         self.get_relative_abundance_fit(plot)
-        self.ax1.legend(["Experiment", "Fitted", f"A: {self.uA:.3uP}"])
+
+        self.ax1.legend(["Fitted", f"A: {self.uA:.3uP}", "Experiment"])
 
     def make_slider(self, Koff, Kon, N, Na0, Nn0):
         axcolor = 'lightgoldenrodyellow'
@@ -85,6 +89,19 @@ class depletionplot:
         self.kon_slider.on_changed(self.update)
         self.na_slider.on_changed(self.update)
         self.nn_slider.on_changed(self.update)
+
+        resetax = plt.axes([0.4, 0.01, 0.1, 0.04])
+        button = Button(resetax, 'Reset', color=axcolor, hovercolor='0.975')
+        button.on_clicked(self.reset)
+
+
+    def reset(self, event):
+        self.koff_slider.reset()
+        self.n_slider.reset()
+        self.kon_slider.reset()
+        self.na_slider.reset()
+        self.nn_slider.reset()
+    
 
     def update(self, event):
 
