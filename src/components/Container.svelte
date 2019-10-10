@@ -23,6 +23,7 @@
   const join = file => {
     return [path.join(currentLocation, file)];
   };
+
   let delta = 1;
   const changeDelta = event => {
     if (event.key == "Enter") {
@@ -37,6 +38,7 @@
     }
   };
 
+  
   let normMethod = "Log";
   let normlog = true;
   $: normMethod == "Relative" ? (normlog = false) : (normlog = true);
@@ -190,16 +192,16 @@
         });
       });
     }
+
     if (btname == "thzBtn") {
-      fileChecked.forEach(file => {
-        runPlot({
-          fullfiles: join(file),
+       runPlot({
+          fullfiles: fullfiles,
           filetype: filetag,
           btname: btname,
           pyfile: "thz_scan.py",
-          plotArea: file + "_plot"
+          args: delta_thz
         });
-      });
+      
     }
     if (btname == "theoryBtn") jq("#theoryRow").toggle()
     if (btname == "depletionscanBtn") jq("#depletionRow").toggle()
@@ -252,6 +254,21 @@
 
     runPlot({fullfiles: [currentLocation], filetype: "general", 
       btname: "depletionSubmit", pyfile: "depletionscan.py", args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] });
+  }
+
+  let delta_thz = 10
+  const changeTHz = (event) => {
+
+    if (event.key == "Enter") {
+      runPlot({
+          fullfiles: fullfiles,
+          filetype: filetag,
+          btname: "thzBtn",
+          pyfile: "thz_scan.py",
+          args: delta_thz
+        });
+    }
+
   }
 </script>
 
@@ -378,6 +395,27 @@
               </div>
             {/if}
 
+            {#if filetag == 'thz'}
+              <div class="level-item">
+
+                <div class="field has-addons">
+                  <div class="control"><div class="button is-static">Delta (in KHz)</div></div>
+
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="number" step="0.5"
+                      id="delta_value_thz"
+                      placeholder="Delta value"
+                      data-tippy="Delta value for spectrum (in KHz)"
+                      bind:value={delta_thz}
+                      on:keyup={changeTHz} />
+                  </div>
+                  
+                </div>
+              </div>
+            {/if}
+
             {#if filetag == 'mass' || filetag == 'scan'}
               <div class="level-item">
                 <div class="pretty p-default p-curve p-toggle">
@@ -490,12 +528,7 @@
                   <div id="{scanfile}_tplot" style="padding-bottom:1em" />
                 {/each}
               </div>
-            {:else if filetag == 'thz'}
-              <div {id} style="padding-bottom:1em">
-                {#each fileChecked as thzfile}
-                  <div id="{thzfile}_plot" style="padding-bottom:1em" />
-                {/each}
-              </div>
+            
             {:else}
               <div {id} style="padding-bottom:1em" />
             {/if}

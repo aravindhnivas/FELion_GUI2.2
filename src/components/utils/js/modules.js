@@ -107,8 +107,7 @@ class program {
 
                 // console.log("Before JSON parse :" + dataFromPython)
 
-                if (this.filetype == "general") { console.log(dataFromPython) }
-                else {
+                if (this.filetype == "general") { console.log(dataFromPython) } else {
                     dataFromPython = JSON.parse(dataFromPython);
                     console.log("After JSON parse :", dataFromPython);
                 }
@@ -186,31 +185,23 @@ class program {
                         plot(
                             "Experimental vs Theory",
                             "Calibrated Wavelength (cm-1)",
-                            log == "Log" ? "Normalised Intesity" : "Relative depletion (%)",
-                            [dataFromPython["averaged"], ...theoryData],
+                            log == "Log" ? "Normalised Intesity" : "Relative depletion (%)", [dataFromPython["averaged"], ...theoryData],
                             "exp-theory-plot"
                         );
                     } else if (this.filetype == "thz") {
 
+                        
+                        let delta_thz = this.args
+
+                        plot(`THz Scan`, "Frequency (GHz)", "Depletion (%)", dataFromPython, "thzplot_Container");
+
                         let lines = [];
+
                         for (let x in dataFromPython["shapes"]) { lines.push(dataFromPython["shapes"][x]) }
-
-                        let filename = this.obj.plotArea.split("_p")[0]
-                        let dataLayout = {
-                            title: `THz Scan: ${filename}`,
-                            xaxis: {
-                                title: "Frequency (GHz)"
-                            },
-                            yaxis: {
-                                title: "Depletion (%)"
-                            },
-                            autosize: true,
-                            width: plot_width,
-                            height: plot_height,
+                        let layout_update = {
                             shapes: lines
-                        };
-
-                        Plotly.react(this.obj.plotArea, [dataFromPython["data"], dataFromPython["fit"], dataFromPython["text"]], dataLayout, { editable: true });
+                        }
+                        Plotly.relayout("thzplot_Container", layout_update)
                     }
 
                     console.log("Graph Plotted");
