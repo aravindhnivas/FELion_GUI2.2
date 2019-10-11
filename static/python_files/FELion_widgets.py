@@ -90,7 +90,7 @@ class FELion_Tk(Tk):
 
         return self.widget_frame.btn_txt
 
-    def Entries(self, method, txt, x, y, bind_key=False, **kw):
+    def Entries(self, method, txt, x, y, bind_return=False, bind_key=False, bind_btn=False, **kw):
 
         kw = var_check(kw)
 
@@ -103,7 +103,9 @@ class FELion_Tk(Tk):
 
             self.widget_frame.entry = Entry(
                 self.widget_frame, bg=kw['bg'], bd=kw['bd'], textvariable=self.widget_frame.txt, font=kw['font'])
-            if bind_key: self.widget_frame.entry.bind("<Return>", kw["bind_func"])
+            if bind_return: self.widget_frame.entry.bind("<Return>", kw["bind_func"])
+
+            if bind_key: self.widget_frame.entry.bind("<Key>", kw["bind_func"])
 
             self.widget_frame.entry.place(
                 relx=x, rely=y, anchor=kw['anchor'], relwidth=kw['relwidth'], relheight=kw['relheight'])
@@ -120,6 +122,9 @@ class FELion_Tk(Tk):
                 self.widget_frame.txt.set(False)
 
             self.widget_frame.Check = Checkbutton(self.widget_frame, text=txt, variable=self.widget_frame.txt)
+
+            if bind_btn: self.widget_frame.Check.bind("<ButtonRelease-1>", kw["bind_func"])
+
             self.widget_frame.Check.place(relx=x, rely=y, relwidth=kw['relwidth'], relheight=kw['relheight'])
 
             return self.widget_frame.txt
@@ -128,7 +133,7 @@ class FELion_Tk(Tk):
 
         self.make_figure_widgets()
         dpi = self.dpi_value.get()
-
+        
         if 'figsize' in kw:
             self.fig = Figure(figsize=kw['figsize'], dpi=dpi)
         else:
@@ -156,25 +161,95 @@ class FELion_Tk(Tk):
         # Row 1
         y1 = y_diff
         self.label_dpi = self.Labels("DPI", x0, y1)
-        self.dpi_value = self.Entries("Entry", 100, x0+x_diff, y1, bind_key=True, bind_func=self.save_fig, bd=5)
+        self.dpi_value = self.Entries("Entry", 160, x0+x_diff, y1, bind_return=True, bind_func=self.set_figureLabel, bd=5)
 
         # Row 2
         y2 = y1 + y_diff
-        self.name = self.Entries("Entry", "Plotname", x0, y2, bind_key=True, bind_func=self.save_fig, bd=5, relwidth=0.7)
+        self.name = self.Entries("Entry", "Plotname", x0, y2, bind_return=True, bind_func=self.save_fig, bd=5, relwidth=0.7)
 
         # Row 3
         y3 = y2 + y_diff
-        self.save_btn = self.Buttons("Save", x0, y3, self.save_fig)
+        self.plotTitle = self.Entries("Entry", "Title", x0, y3, bind_key=True, bind_func=self.set_figureLabel, bd=5, relwidth=0.7)
+
+        # Row 4
+        y4 = y3 + y_diff
+        self.plotXlabel = self.Entries("Entry", "X-axis", x0, y4, bind_key=True, bind_func=self.set_figureLabel, bd=5, relwidth=0.7)
+
+        # Row 5
+        y5 = y4 + y_diff
+        self.plotYlabel = self.Entries("Entry", "Y-axis", x0, y5, bind_key=True, bind_func=self.set_figureLabel, bd=5, relwidth=0.7)
+
+        # Row 6
+        y6 = y5 + y_diff
+        self.plotGrid = self.Entries("Check", "grid", x0, y6, default=True, bind_btn=True, bind_func=self.set_figureLabel)
+        self.plotLegend = self.Entries("Check", "Legend", x0+x_diff, y6, default=True, bind_btn=True, bind_func=self.set_figureLabel)
+
+        # # Row 7
+        y7 = y6 + y_diff
+        self.save_btn = self.Buttons("Save", x0, y7, self.save_fig)
+    
+    def set_figureLabel(self, event=None):
+
+        if event is not None:
+
+
+            widget_name = str(event.widget).split("!")[-1]
+
+            if widget_name == "entry": # DPI
+
+                self.fig.set_dpi(self.dpi_value.get())
+
+                width = self.canvas_frame.winfo_width()/self.dpi_value.get()
+                height = self.canvas_frame.winfo_height()/self.dpi_value.get()
+                self.fig.set_size_inches(width, height)
+
+            if widget_name == "entry3": # Title
+                self.entry_value = self.plotTitle.get() + event.char
+                self.ax.set(title=self.entry_value.strip())
+            
+            if widget_name == "entry4": # Xlabel
+                self.entry_value = self.plotXlabel.get() + event.char
+                self.ax.set(xlabel=self.entry_value.strip())
+
+            if widget_name == "entry5": # Ylabel
+                self.entry_value = self.plotYlabel.get() + event.char
+                self.ax.set(ylabel=self.entry_value.strip())
+
+            if widget_name == "checkbutton": # Grid
+                self.ax.grid(not self.plotGrid.get())
+            
+            if widget_name == "checkbutton2": # Legend
+                self.plot_legend.set_visible(not self.plotLegend.get())
+            
+        else:
+            self.ax.set(title=self.plotTitle.get(), ylabel=self.plotYlabel.get(), xlabel=self.plotXlabel.get())
+            self.ax.grid(self.plotGrid.get())
+
+        self.canvas.draw()
+
+    def make_figure_layout(self, title="Title", xaxis="X-axis", yaxis="Y-axis", xdata=None, ydata=None, label="", fmt=".-"):
         
-       
+        self.ax = self.fig.add_subplot(111)
+        if xdata is not None: self.ax.plot(xdata, ydata, fmt, label=label)
+
+        self.plotTitle.set(title)
+        self.plotYlabel.set(yaxis)
+        self.plotXlabel.set(xaxis)
+        self.set_figureLabel()
+        self.plot_legend = self.ax.legend()
+
+        return self.ax
+
     def save_fig(self, event=None):
         if not isdir('./OUT'): os.mkdir('OUT')
+
         if isfile(f'./OUT/{self.name.get()}.png'):
             if askokcancel('Overwrite?', f'File: {self.name.get()}.png already present. \nDo you want to Overwrite the file?'):
                 self.fig.savefig(f'./OUT/{self.name.get()}.png')
                 showinfo('SAVED', f'File: {self.name.get()}.png saved in OUT/ directory.')
+
         else:
-            self.fig.savefig(f'./OUT/{self.name.get()}.png', dpi=self.dpi_value.get())
+            self.fig.savefig(f'./OUT/{self.name.get()}.png')
             showinfo('SAVED', f'File: {self.name.get()}.png saved in OUT/ directory')
 
         print(f'Filename saved: {self.name.get()}.png\nLocation: {self.location}\n')
@@ -182,33 +257,19 @@ class FELion_Tk(Tk):
 def print_test(arg="none"):
     print("testing:, ", arg)
 
+
 class Frame1:
+
     def __init__(self):
 
         self.widget = FELion_Tk("Filename")
-        
-        # self.make_widgets()
-
         self.make_figure()
-
         self.widget.mainloop()
     
-    def test(self): print_test(self.entry1.get())
-
-    def make_widgets(self):
-        self.button1 = self.widget.Buttons("Button1", 0.1, 0.05, self.test)
-        self.button2 = self.widget.Buttons("Button2", 0.5, 0.1, self.test)
-
-        self.label1 = self.widget.Labels("Label1", 0.1, 0.2)
-        self.label2 = self.widget.Labels("Label2", 0.5, 0.2)
-
-        self.entry1 = self.widget.Entries("Entry", "Filename", 0.1, 0.3, bd=5)
-        self.entry2 = self.widget.Entries("Check", "ON/OFF", 0.5, 0.3)
-
     def make_figure(self):
-        fig, canvas = self.widget.Figure(dpi=100)
-        ax = fig.add_subplot(1, 1, 1)
-        ax.plot([1, 2, 3])
+        fig, canvas = self.widget.Figure()
+        ax = self.widget.make_figure_layout(xdata=[1, 2, 3], ydata=[1, 2, 3], label="Testing", title="CD")
+        
         canvas.draw()
 
 if __name__ == "__main__":
