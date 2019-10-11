@@ -90,7 +90,7 @@ class FELion_Tk(Tk):
 
         return self.widget_frame.btn_txt
 
-    def Entries(self, method, txt, x, y, **kw):
+    def Entries(self, method, txt, x, y, bind_key=False, **kw):
 
         kw = var_check(kw)
 
@@ -100,8 +100,11 @@ class FELion_Tk(Tk):
             else: self.widget_frame.txt = DoubleVar()
 
             self.widget_frame.txt.set(txt)
+
             self.widget_frame.entry = Entry(
                 self.widget_frame, bg=kw['bg'], bd=kw['bd'], textvariable=self.widget_frame.txt, font=kw['font'])
+            if bind_key: self.widget_frame.entry.bind("<Return>", kw["bind_func"])
+
             self.widget_frame.entry.place(
                 relx=x, rely=y, anchor=kw['anchor'], relwidth=kw['relwidth'], relheight=kw['relheight'])
 
@@ -153,25 +156,25 @@ class FELion_Tk(Tk):
         # Row 1
         y1 = y_diff
         self.label_dpi = self.Labels("DPI", x0, y1)
-        self.dpi_value = self.Entries("Entry", 100, x0+x_diff, y1, bd=5)
+        self.dpi_value = self.Entries("Entry", 100, x0+x_diff, y1, bind_key=True, bind_func=self.save_fig, bd=5)
 
         # Row 2
         y2 = y1 + y_diff
-        self.name = self.Entries("Entry", "Plotname", x0, y2, bd=5, relwidth=0.7)
+        self.name = self.Entries("Entry", "Plotname", x0, y2, bind_key=True, bind_func=self.save_fig, bd=5, relwidth=0.7)
 
         # Row 3
         y3 = y2 + y_diff
         self.save_btn = self.Buttons("Save", x0, y3, self.save_fig)
         
        
-    def save_fig(self):
+    def save_fig(self, event=None):
         if not isdir('./OUT'): os.mkdir('OUT')
         if isfile(f'./OUT/{self.name.get()}.png'):
             if askokcancel('Overwrite?', f'File: {self.name.get()}.png already present. \nDo you want to Overwrite the file?'):
                 self.fig.savefig(f'./OUT/{self.name.get()}.png')
                 showinfo('SAVED', f'File: {self.name.get()}.png saved in OUT/ directory.')
         else:
-            self.fig.savefig(f'./OUT/{self.name.get()}.png')
+            self.fig.savefig(f'./OUT/{self.name.get()}.png', dpi=self.dpi_value.get())
             showinfo('SAVED', f'File: {self.name.get()}.png saved in OUT/ directory')
 
         print(f'Filename saved: {self.name.get()}.png\nLocation: {self.location}\n')
