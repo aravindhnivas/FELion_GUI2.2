@@ -14,6 +14,7 @@ matplotlib.use('TkAgg')
 from matplotlib.figure import Figure
 from matplotlib.backend_bases import key_press_handler
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+
 ############################################################################################################
 
 constants = {
@@ -36,11 +37,10 @@ def var_check(kw):
             kw[i] = constants[i]
     return kw
 
-__version__ = "1.0.1"
-
 class FELion_Tk(Tk):
 
     def __init__(self, title="FELion GUI2", location=".", figure_widget=True, background="light grey", *args, **kwargs):
+
 
         Tk.__init__(self, *args, **kwargs)
 
@@ -103,8 +103,8 @@ class FELion_Tk(Tk):
 
             self.widget_frame.entry = Entry(
                 self.widget_frame, bg=kw['bg'], bd=kw['bd'], textvariable=self.widget_frame.txt, font=kw['font'])
-            if bind_return: self.widget_frame.entry.bind("<Return>", kw["bind_func"])
 
+            if bind_return: self.widget_frame.entry.bind("<Return>", kw["bind_func"])
             if bind_key: self.widget_frame.entry.bind("<Key>", kw["bind_func"])
 
             self.widget_frame.entry.place(
@@ -122,9 +122,7 @@ class FELion_Tk(Tk):
                 self.widget_frame.txt.set(False)
 
             self.widget_frame.Check = Checkbutton(self.widget_frame, text=txt, variable=self.widget_frame.txt)
-
             if bind_btn: self.widget_frame.Check.bind("<ButtonRelease-1>", kw["bind_func"])
-
             self.widget_frame.Check.place(relx=x, rely=y, relwidth=kw['relwidth'], relheight=kw['relheight'])
 
             return self.widget_frame.txt
@@ -181,17 +179,36 @@ class FELion_Tk(Tk):
 
         # Row 6
         y6 = y5 + y_diff
-        self.plotGrid = self.Entries("Check", "grid", x0, y6, default=True, bind_btn=True, bind_func=self.set_figureLabel)
-        self.plotLegend = self.Entries("Check", "Legend", x0+x_diff, y6, default=True, bind_btn=True, bind_func=self.set_figureLabel)
+        x_diff2 = 0.2
+        self.subplot_top_label = self.Labels("TOP" , x0, y6, relwidth=0.2)
+        self.subplot_bottom_label = self.Labels("Bottom" , x0+1*x_diff2, y6, relwidth=0.2)
+        self.subplot_left_label = self.Labels("Left" , x0+2*x_diff2, y6, relwidth=0.2)
+        self.subplot_right_label = self.Labels("Right" , x0+3*x_diff2, y6, relwidth=0.2)
 
-        # # Row 7
+        # Row 7
         y7 = y6 + y_diff
-        self.save_btn = self.Buttons("Save", x0, y7, self.save_fig)
+        self.subplot_top = self.Entries("Entry", 0.95 , x0, y7, bind_return=True, bind_func=self.set_subplot_position, bd=5, relwidth=0.2)
+        self.subplot_bottom = self.Entries("Entry", 0.2 , x0+x_diff2, y7, bind_return=True, bind_func=self.set_subplot_position, bd=5, relwidth=0.2)
+        self.subplot_left = self.Entries("Entry", 0.1 , x0+2*x_diff2, y7, bind_return=True, bind_func=self.set_subplot_position, bd=5, relwidth=0.2)
+        self.subplot_right = self.Entries("Entry", 0.9 , x0+3*x_diff2, y7, bind_return=True, bind_func=self.set_subplot_position, bd=5, relwidth=0.2)
+        
+        # Row 8
+        y8 = y7 + y_diff
+        self.plotGrid = self.Entries("Check", "grid", x0, y8, default=True, bind_btn=True, bind_func=self.set_figureLabel)
+        self.plotLegend = self.Entries("Check", "Legend", x0+x_diff, y8, default=True, bind_btn=True, bind_func=self.set_figureLabel)
+
+        # # Row 9
+        y9 = y8 + y_diff
+        self.save_btn = self.Buttons("Save", x0, y9, self.save_fig)
     
+    def set_subplot_position(self, event=None):
+        self.fig.subplots_adjust(top=self.subplot_top.get(), bottom=self.subplot_bottom.get(), left=self.subplot_left.get(), right=self.subplot_right.get())
+        self.canvas.draw()
+        
     def set_figureLabel(self, event=None):
 
-        if event is not None:
 
+        if event is not None:
 
             widget_name = str(event.widget).split("!")[-1]
 
@@ -254,23 +271,19 @@ class FELion_Tk(Tk):
 
         print(f'Filename saved: {self.name.get()}.png\nLocation: {self.location}\n')
 
-def print_test(arg="none"):
-    print("testing:, ", arg)
 
+# class Frame1:
 
-class Frame1:
+#     def __init__(self):
 
-    def __init__(self):
-
-        self.widget = FELion_Tk("Filename")
-        self.make_figure()
-        self.widget.mainloop()
+#         self.widget = FELion_Tk("Filename")
+#         self.make_figure()
+#         self.widget.mainloop()
     
-    def make_figure(self):
-        fig, canvas = self.widget.Figure()
-        ax = self.widget.make_figure_layout(xdata=[1, 2, 3], ydata=[1, 2, 3], label="Testing", title="CD")
-        
-        canvas.draw()
+#     def make_figure(self):
+#         fig, canvas = self.widget.Figure()
+#         ax = self.widget.make_figure_layout(xdata=[1, 2, 3], ydata=[1, 2, 3], label="Testing", title="CD")
+#         canvas.draw()
 
-if __name__ == "__main__":
-    start = Frame1()
+# if __name__ == "__main__":
+#     start = Frame1()
