@@ -225,8 +225,8 @@ class FELion_Tk(Tk):
         self.save_btn = self.Buttons("Save", x0+x_diff, y, self.save_fig)
 
     def changeLocation(self): 
-
         newLocation = filedialog.askdirectory(initialdir = "./")
+        
         if newLocation is not "": self.location=newLocation
         else: print(f"No location changed\nCurrent Location: {self.location}")
 
