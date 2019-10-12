@@ -214,7 +214,11 @@ class FELion_Tk(Tk):
         self.plotGrid = self.Entries("Check", "grid", x0, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
         self.plotLegend = self.Entries("Check", "Legend", x0+x_diff, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
 
-        # # Row 9
+        # Row 9
+        y += y_diff
+        self.plotYscale = self.Entries("Check", "Yscale (log)", x0, y, default=False, bind_btn=True, bind_func=self.set_figureLabel)
+
+        #  Row 9
         y += y_diff
         self.save_btn = self.Buttons("Save", x0, y, self.save_fig)
 
@@ -273,6 +277,12 @@ class FELion_Tk(Tk):
 
             if widget_name == "checkbutton2":  # Legend
                 self.plot_legend.set_visible(not self.plotLegend.get())
+            
+            if widget_name == "checkbutton3":  # Yscale
+                if self.plotYscale.get(): scale = "linear"
+                else: scale = "log"
+
+                self.ax.set(yscale=scale)
 
         self.canvas.draw()
 
