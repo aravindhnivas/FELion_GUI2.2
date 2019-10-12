@@ -1,19 +1,20 @@
 
 # Built-In modules
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
-from matplotlib.backend_bases import key_press_handler
-from matplotlib.figure import Figure
 import os
 from os.path import isdir, isfile
+# from pathlib import Path as pt
 
 # Tkinter
-from tkinter import Frame, IntVar, StringVar, BooleanVar, DoubleVar, Tk
+from tkinter import Frame, IntVar, StringVar, BooleanVar, DoubleVar, Tk, filedialog
 from tkinter.ttk import Button, Checkbutton, Label, Entry, Scale
 from tkinter.messagebox import showerror, showinfo, showwarning, askokcancel
 
 # Matplotlib
 import matplotlib
 matplotlib.use('TkAgg')
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+from matplotlib.backend_bases import key_press_handler
+from matplotlib.figure import Figure
 
 ############################################################################################################
 
@@ -220,7 +221,14 @@ class FELion_Tk(Tk):
 
         #  Row 9
         y += y_diff
-        self.save_btn = self.Buttons("Save", x0, y, self.save_fig)
+        self.browseDir = self.Buttons("Browse", x0, y, self.changeLocation)
+        self.save_btn = self.Buttons("Save", x0+x_diff, y, self.save_fig)
+
+    def changeLocation(self): 
+
+        newLocation = filedialog.askdirectory(initialdir = "./")
+        if newLocation is not "": self.location=newLocation
+        else: print(f"No location changed\nCurrent Location: {self.location}")
 
     def set_subplot_position(self, event=None):
         self.fig.subplots_adjust(
@@ -327,27 +335,26 @@ class FELion_Tk(Tk):
         return self.ax
 
     def save_fig(self, event=None):
-        if not isdir('./OUT'):
-            os.mkdir('OUT')
 
-        if isfile(f'./OUT/{self.name.get()}.png'):
+        print(self.location)
+
+        if isfile(f'{self.location}/{self.name.get()}.png'):
             if askokcancel('Overwrite?', f'File: {self.name.get()}.png already present. \nDo you want to Overwrite the file?'):
-                self.fig.savefig(f'./OUT/{self.name.get()}.png')
-                showinfo(
-                    'SAVED', f'File: {self.name.get()}.png saved in OUT/ directory.')
+                self.fig.savefig(f'{self.location}/{self.name.get()}.png')
+                showinfo('SAVED', f'File: {self.name.get()}.png saved in directory: {self.location}')
 
         else:
-            self.fig.savefig(f'./OUT/{self.name.get()}.png')
-            showinfo(
-                'SAVED', f'File: {self.name.get()}.png saved in OUT/ directory')
+            self.fig.savefig(f'{self.location}/{self.name.get()}.png')
+            showinfo('SAVED', f'File: {self.name.get()}.png saved in directory: {self.location}')
 
-        print(
-            f'Filename saved: {self.name.get()}.png\nLocation: {self.location}\n')
+        print(f'Filename saved: {self.name.get()}.png\nLocation: {self.location}\n')
+
 
 if __name__ == "__main__":
-
     widget = FELion_Tk("Filename")
 
     fig, canvas = widget.Figure()
     ax = widget.make_figure_layout(xdata=[1, 2, 3], ydata=[1, 2, 3], title="CD")
     widget.mainloop()
+
+    
