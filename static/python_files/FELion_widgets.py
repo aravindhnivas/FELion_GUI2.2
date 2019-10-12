@@ -2,7 +2,6 @@
 # Built-In modules
 import os
 from os.path import isdir, isfile
-# from pathlib import Path as pt
 
 # Tkinter
 from tkinter import Frame, IntVar, StringVar, BooleanVar, DoubleVar, Tk, filedialog
@@ -36,6 +35,7 @@ def var_check(kw):
 class FELion_Tk(Tk):
 
     def __init__(self, title="FELion GUI2", location=".", background="light grey", *args, **kwargs):
+
         Tk.__init__(self, *args, **kwargs)
 
         self.location = location
@@ -349,12 +349,9 @@ class FELion_Tk(Tk):
 
         print(f'Filename saved: {self.name.get()}.png\nLocation: {self.location}\n')
 
-
 if __name__ == "__main__":
     widget = FELion_Tk("Filename")
 
     fig, canvas = widget.Figure()
     ax = widget.make_figure_layout(xdata=[1, 2, 3], ydata=[1, 2, 3], title="CD")
     widget.mainloop()
-
-    
