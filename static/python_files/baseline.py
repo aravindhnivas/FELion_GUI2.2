@@ -66,8 +66,10 @@ class Create_Baseline():
             self.ReadBase() # Read baseline file if exist else guess it
         else: 
             self.GuessBaseLine()
+
+        self.line = Line2D(self.xs, self.ys)
         
-        self.InteractivePlots() # Plot
+        if plotIt: self.InteractivePlots() # Plot
 
     def checkInf(self):
 
@@ -141,8 +143,9 @@ class Create_Baseline():
         self.baseline_data = widget.make_figure_layout(ax=self.ax, xdata=self.data[0], ydata=self.data[1], label=self.felixfile, savename=self.felixfile,
             title=f"Create Baseline", xaxis="Wavenumber (cm-1)", yaxis="Counts", ls='', marker='o', ms=5, markeredgecolor='r', c='r')
 
+
         def on_closing():
-            
+        
             if self.felix_corrected:
                 yes = askyesno("Save .cfelix file?", "You haven't saved the corrected felix file\nPress 'Yes' to save the .cfelix file and quit OR 'No' to quit.")
 
@@ -164,8 +167,8 @@ class Create_Baseline():
             else: widget.destroy()
 
         widget.protocol("WM_DELETE_WINDOW", on_closing)
-
         widget.mainloop()
+        
 
     def redraw_f_line(self):
                 

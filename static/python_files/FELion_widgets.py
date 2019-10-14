@@ -179,7 +179,7 @@ class FELion_Tk(Tk):
         # Row 1
         y += y_diff
         self.label_dpi = self.Labels("DPI", x0, y)
-        self.dpi_value = self.Entries("Entry", 160, x0+x_diff, y, bind_return=True, bind_func=self.set_figureLabel)
+        self.dpi_value = self.Entries("Entry", 120, x0+x_diff, y, bind_return=True, bind_func=self.set_figureLabel)
 
         # Row 2
         y += y_diff
@@ -303,7 +303,7 @@ class FELion_Tk(Tk):
     def make_figure_layout(self, 
         ax=None, savename=None,
         title="Title", xaxis="X-axis", yaxis="Y-axis", fig_caption="Figure 1", 
-        xdata=None, ydata=None, label="", fmt=".-", **kw):
+        xdata=None, ydata=None, label="", fmt=".-", yscale="linear", **kw):
 
         if savename is not None: self.name.set(savename)
 
@@ -319,6 +319,10 @@ class FELion_Tk(Tk):
         self.plotYlabel.set(yaxis)
         self.plotXlabel.set(xaxis)
         self.plotFigText.set(fig_caption)
+
+        # Yscale
+        self.ax.set(yscale=yscale)
+        if yscale == "log": self.plotYscale.set(True)
 
         # Setting title
         self.ax.set_title(title, fontsize=self.titleSz.get())
@@ -340,11 +344,17 @@ class FELion_Tk(Tk):
         self.figtext = self.fig.text(0.5, 0.07, self.plotFigText.get(), ha="center", wrap=True, fontsize=self.figtextFont.get())
 
         # Setting legend (later for toggling its visibility)
-        self.plot_legend = self.ax.legend()
+        if ax is not None: self.plot_legend = self.ax.legend()
 
-        if ax is not None: return plot 
+        # Returning plot
 
-        else: self.ax 
+        if ax is not None: 
+            print("Data available, returning", plot)
+            return plot
+
+        else: 
+            print("Data not available, returning", self.ax)
+            return self.ax 
 
     def save_fig(self, event=None):
 
