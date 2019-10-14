@@ -118,7 +118,7 @@ class Create_Baseline():
 
     def InteractivePlots(self):
 
-        widget = FELion_Tk(title=self.felixfile, location=f"{self.location}/OUT")
+        widget = FELion_Tk(title=self.felixfile, location=self.location/"OUT")
         self.fig, self.canvas = widget.Figure(dpi=120)
         self.ax = self.fig.add_subplot(111)
        
