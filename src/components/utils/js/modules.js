@@ -98,141 +98,164 @@ class program {
 
         return new Promise((resolve, reject) => {
 
-            const py = spawn(pythonPath, [path.join(functions_path, this.pyfile), this.files.concat(this.args)]);
-            
-            py.stdout.on("data", data => {
+            if (this.filetype == "general") {
+                let shell_value = document.getElementById(this.obj.filetag+"_shell").checked
 
-                let dataFromPython;
-                dataFromPython = data.toString("utf8");
+                const py = spawn(
+                    pythonPath, 
+                    ["-i", path.join(functions_path, this.pyfile), this.files.concat(this.args)], 
+                    {
+                        detached: true,
+                        stdio: 'ignore',
+                        shell:shell_value
+                    }
+                );
 
-                // console.log("Before JSON parse :" + dataFromPython)
+                py.unref()
 
-                if (this.filetype == "general") { console.log(dataFromPython) } else {
+                resolve("Done");
+
+            }
+            else {
+
+                const py = spawn(
+                    pythonPath, 
+                    [path.join(functions_path, this.pyfile), this.files.concat(this.args)]
+                );
+
+                
+                py.stdout.on("data", data => {
+
+                    let dataFromPython;
+                    dataFromPython = data.toString("utf8");
+
+                    // console.log("Before JSON parse :" + dataFromPython)
+
                     dataFromPython = JSON.parse(dataFromPython);
                     console.log("After JSON parse :", dataFromPython);
-                }
 
-                try {
-                    if (this.filetype == "mass") {
-                        plot("Mass spectrum", "Mass [u]", "Counts", dataFromPython, "mplot", "mass");
-                    } else if (this.filetype == "scan") {
-                        let filename = this.obj.plotArea.split("_t")[0]
-                        plot(`Timescan Plot: ${filename}`, "Time (in ms)", "Counts", dataFromPython, this.obj.plotArea);
-                    } else if (this.filetype == "felix") {
+                    try {
+                        if (this.filetype == "mass") {
+                            plot("Mass spectrum", "Mass [u]", "Counts", dataFromPython, "mplot", "mass");
+                        } else if (this.filetype == "scan") {
+                            let filename = this.obj.plotArea.split("_t")[0]
+                            plot(`Timescan Plot: ${filename}`, "Time (in ms)", "Counts", dataFromPython, this.obj.plotArea);
+                        } else if (this.filetype == "felix") {
 
-                        let normlog = this.obj.normethod;
-                        let delta = this.args;
+                            let normlog = this.obj.normethod;
+                            let delta = this.args;
 
-                        let felixdataToPlot;
-                        let avgdataToPlot;
+                            let felixdataToPlot;
+                            let avgdataToPlot;
 
-                        if (normlog) {
+                            if (normlog) {
 
-                            felixdataToPlot = dataFromPython["felix"];
-                            avgdataToPlot = dataFromPython["average"]
-                        } else {
+                                felixdataToPlot = dataFromPython["felix"];
+                                avgdataToPlot = dataFromPython["average"]
+                            } else {
 
-                            felixdataToPlot = dataFromPython["felix_rel"]
-                            avgdataToPlot = dataFromPython["average_rel"]
+                                felixdataToPlot = dataFromPython["felix_rel"]
+                                avgdataToPlot = dataFromPython["average_rel"]
+                            }
+
+                            plot(
+                                "Baseline Corrected",
+                                "Wavelength (cm-1)",
+                                "Intesity",
+                                dataFromPython["base"],
+                                "bplot"
+                            );
+                            let signal_formula;
+
+                            normlog ? signal_formula = "Signal = -ln(C/B)/Power(in J)" : signal_formula = "Signal = (1-C/B)*100";
+
+                            plot(
+                                `Normalized Spectrum (delta=${delta})<br>${signal_formula}; {C=Measured Count, B=Baseline Count}`,
+                                "Calibrated Wavelength (cm-1)",
+                                normlog ? "Normalised Intesity" : "Relative depletion (%)",
+                                felixdataToPlot,
+                                "nplot"
+                            );
+                            plot(
+                                `Average of Normalised Spectrum (delta=${delta})`,
+                                "Calibrated Wavelength (cm-1)",
+                                normlog ? "Normalised Intesity" : "Relative depletion (%)",
+                                avgdataToPlot,
+                                "avgplot"
+                            );
+
+                            //Spectrum and Power Analyer
+                            subplot(
+                                "Spectrum and Power Analyser",
+                                "Wavelength set (cm-1)",
+                                "SA (cm-1)",
+                                dataFromPython["SA"],
+                                "saPlot",
+                                "Wavelength (cm-1)",
+                                "Power (mJ)",
+                                dataFromPython["pow"]
+                            );
+
+                        } else if (this.filetype == "theory") {
+
+                            let log = this.args[0];
+                            console.log(":: run -> log", log);
+
+                            let theoryData = [];
+                            for (let x in dataFromPython["line_simulation"]) { theoryData.push(dataFromPython["line_simulation"][x]) }
+
+                            plot(
+                                "Experimental vs Theory",
+                                "Calibrated Wavelength (cm-1)",
+                                log == "Log" ? "Normalised Intesity" : "Relative depletion (%)", [dataFromPython["averaged"], ...theoryData],
+                                "exp-theory-plot"
+                            );
+                        } else if (this.filetype == "thz") {
+
+                            
+                            let delta_thz = this.args
+
+                            plot(`THz Scan`, "Frequency (GHz)", "Depletion (%)", dataFromPython, "thzplot_Container");
+
+                            let lines = [];
+
+                            for (let x in dataFromPython["shapes"]) { lines.push(dataFromPython["shapes"][x]) }
+                            let layout_update = {
+                                shapes: lines
+                            }
+                            Plotly.relayout("thzplot_Container", layout_update)
                         }
 
-                        plot(
-                            "Baseline Corrected",
-                            "Wavelength (cm-1)",
-                            "Intesity",
-                            dataFromPython["base"],
-                            "bplot"
-                        );
-                        let signal_formula;
+                        console.log("Graph Plotted");
 
-                        normlog ? signal_formula = "Signal = -ln(C/B)/Power(in J)" : signal_formula = "Signal = (1-C/B)*100";
-
-                        plot(
-                            `Normalized Spectrum (delta=${delta})<br>${signal_formula}; {C=Measured Count, B=Baseline Count}`,
-                            "Calibrated Wavelength (cm-1)",
-                            normlog ? "Normalised Intesity" : "Relative depletion (%)",
-                            felixdataToPlot,
-                            "nplot"
-                        );
-                        plot(
-                            `Average of Normalised Spectrum (delta=${delta})`,
-                            "Calibrated Wavelength (cm-1)",
-                            normlog ? "Normalised Intesity" : "Relative depletion (%)",
-                            avgdataToPlot,
-                            "avgplot"
-                        );
-
-                        //Spectrum and Power Analyer
-                        subplot(
-                            "Spectrum and Power Analyser",
-                            "Wavelength set (cm-1)",
-                            "SA (cm-1)",
-                            dataFromPython["SA"],
-                            "saPlot",
-                            "Wavelength (cm-1)",
-                            "Power (mJ)",
-                            dataFromPython["pow"]
-                        );
-
-                    } else if (this.filetype == "theory") {
-
-                        let log = this.args[0];
-                        console.log(":: run -> log", log);
-
-                        let theoryData = [];
-                        for (let x in dataFromPython["line_simulation"]) { theoryData.push(dataFromPython["line_simulation"][x]) }
-
-                        plot(
-                            "Experimental vs Theory",
-                            "Calibrated Wavelength (cm-1)",
-                            log == "Log" ? "Normalised Intesity" : "Relative depletion (%)", [dataFromPython["averaged"], ...theoryData],
-                            "exp-theory-plot"
-                        );
-                    } else if (this.filetype == "thz") {
-
-                        
-                        let delta_thz = this.args
-
-                        plot(`THz Scan`, "Frequency (GHz)", "Depletion (%)", dataFromPython, "thzplot_Container");
-
-                        let lines = [];
-
-                        for (let x in dataFromPython["shapes"]) { lines.push(dataFromPython["shapes"][x]) }
-                        let layout_update = {
-                            shapes: lines
-                        }
-                        Plotly.relayout("thzplot_Container", layout_update)
+                    } catch (err) {
+                        console.error("Error Occured in javascript code: " + err);
                     }
 
-                    console.log("Graph Plotted");
+                });
 
-                } catch (err) {
-                    console.error("Error Occured in javascript code: " + err);
-                }
+                let error_occured_py = false;
+                let error_result;
 
-            });
+                py.stderr.on("data", data => {
 
-            let error_occured_py = false;
-            let error_result;
+                    error_result = data
+                    error_occured_py = true;
+                    // console.error(`Error from python: ${data}`);
+                });
 
-            py.stderr.on("data", data => {
+                py.on("close", () => {
+                    console.log("Returned to javascript");
 
-                error_result = data
-                error_occured_py = true;
-                // console.error(`Error from python: ${data}`);
-            });
+                    if (!error_occured_py) {
+                        resolve(`Plotted for ${this.filetype} file`)
 
-            py.on("close", () => {
-                console.log("Returned to javascript");
+                    } else {
+                        reject(`Error Occured from python \n${error_result}\n`)
+                    }
 
-                if (!error_occured_py) {
-                    resolve(`Plotted for ${this.filetype} file`)
-
-                } else {
-                    reject(`Error Occured from python \n${error_result}\n`)
-                }
-
-            });
+                });
+            }
         })
     }
 }

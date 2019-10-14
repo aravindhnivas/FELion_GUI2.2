@@ -2,7 +2,6 @@
   // Importing Svelte modules
   import Filebrowser from "./utils/Filebrowser.svelte";
   import { runPlot } from "./utils/js/felion_main.js";
-  import {spawn} from 'child_process';
 
   import * as dirTree from "directory-tree";
 
@@ -11,9 +10,13 @@
   export let filetype;
   export let funcBtns;
   export let plotID;
+
+  export let checkBtns;
   export let jq;
   export let electron;
+
   export let path;
+  
   const dialog = electron.remote.dialog;
 
   jq(document).ready(() => {
@@ -137,7 +140,9 @@
           resolve(filePaths);
         });
       });
-    } else {
+    } 
+    
+    else {
       const options = {
         title: `Open ${filetag} files`,
         filters: [
@@ -153,36 +158,77 @@
         folderFile = updateFolder(currentLocation);
       });
     }
+
+  }
+
+
+  let delta_thz = 10
+
+  const fileInfo = {
+
+    // Create baseline matplotlib
+
+    felix:{
+      pyfile:"baseline.py",
+      args:[]
+    },
+
+    // Masspec matplotlib
+
+    mass:{
+      pyfile:"mass.py",
+      args:"plot"
+    },
+
+    // Timescan matplotlib
+
+    scan:{
+      pyfile:"timescan.py",
+      args:"plot"
+    },
+
+    // THz scan matplotlib
+
+    thz:{
+
+      pyfile:"thz_scan.py",
+      args:[delta_thz, "plot"]
+      
+    }
   }
 
   const functionRun = event => {
-
     let btname = event.target.id;
 
-    const pythonPath = path.join(__dirname, "../python3.7/python")
-    const functions_path = path.join(__dirname, "/python_files/")
+    if (btname === "createBaselineBtn"){btname="felix_Matplotlib"}
 
     switch (btname) {
 
       ////////////// FELIX PLOT //////////////////////
 
       case "felixPlotBtn":
+
         Plotly.purge("exp-theory-plot");
         runPlot({
           fullfiles: fullfiles, filetype: filetag, btname: btname,
           pyfile: "normline.py", normethod: normlog, args: delta
         });
-        break;
       
-      ////////////// Baseline PLOT //////////////////////
+      break;
+      
+      ////////////// Matplotlib PLOT //////////////////////
 
-      case "createBaselineBtn":
-          runPlot({
+      case `${filetag}_Matplotlib`:
+          let obj = {
             fullfiles: fullfiles,
+            filetag:filetag,            
             filetype: "general",
-            btname: btname,
-            pyfile: "baseline.py"
-          });
+            btname: event.target.id,
+            pyfile: fileInfo[filetag]["pyfile"],
+            args: fileInfo[filetag]["args"]
+          }
+          runPlot(obj);
+
       break;
 
       ////////////// Masspec PLOT //////////////////////
@@ -219,31 +265,20 @@
             filetype: filetag,
             btname: btname,
             pyfile: "thz_scan.py",
-            args: delta_thz
+            args: [delta_thz, "run"]
           });
       break;
 
-      ////////////// Open graph in matplotlib (tkinter canvas) //////////////////////
-      case `mass_Matplotlib`:
-        runPlot({
-            fullfiles: fullfiles,
-            filetype: "general",
-            btname: btname,
-            pyfile: "mass.py",
-            args: "plot"
-          });
-
-        break;
 
       ////////////// Toggle buttons //////////////////////
 
       case "theoryBtn": 
         jq("#theoryRow").toggle()
-        break;
+      break;
 
       case "depletionscanBtn":
         jq("#depletionRow").toggle()
-        break;
+      break;
 
       ////////////////////////////////////////////////////
     
@@ -261,7 +296,6 @@
       .then(file =>  theoryfiles = file).catch(err => console.log(err));
   }
 
-
   function runtheory() {
     runPlot({fullfiles: theoryfiles, filetype: "theory", 
       btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation] });
@@ -270,8 +304,6 @@
   let sigma=20; //Sigma value for felixplot thoery gaussian profile
   let scale=1;
 
-  // let resOnFile="onFile";
-  // let resOffFile="offFile";
   let powerinfo = "21, 21";
   let nshots = 10;
   let massIndex = 0;
@@ -302,7 +334,7 @@
       btname: "depletionSubmit", pyfile: "depletionscan.py", args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] });
   }
 
-  let delta_thz = 10
+  
   const changeTHz = (event) => {
 
     if (event.key == "Enter") {
@@ -316,6 +348,7 @@
     }
 
   }
+
 </script>
 
 <style>
@@ -462,23 +495,24 @@
               </div>
             {/if}
 
-            {#if filetag == 'mass' || filetag == 'scan'}
-              <div class="level-item">
-                <div class="pretty p-default p-curve p-toggle">
-                  <input
-                    type="checkbox"
-                    id="{filetag}linearlog"
-                    bind:checked={log}
-                    on:click={linearlogCheck} />
-                  <div class="state p-success p-on">
-                    <label>Log</label>
-                  </div>
-                  <div class="state p-danger p-off">
-                    <label>Linear</label>
-                  </div>
+            {#each checkBtns as {id, name, bind, help}}
+               <div class="level-item">
+
+                <div class="pretty p-default p-curve p-toggle" data-tippy={help}>
+
+                  {#if name[0]==="Log"}
+                    <input type="checkbox" {id} checked={bind} on:click={linearlogCheck} />
+                  {:else}
+                    <input type="checkbox" {id} checked={bind} on:click="{(e)=>{console.log(`Status (${e.target.id}):\n ${e.target.checked}`)}}"/>
+                  {/if}
+
+                  <div class="state p-success p-on"> <label>{name[0]}</label> </div>
+                  <div class="state p-danger p-off"> <label>{name[1]}</label> </div>
+
                 </div>
+                
               </div>
-            {/if}
+            {/each}
 
           </div>
         </div>

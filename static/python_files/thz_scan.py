@@ -1,10 +1,15 @@
 # Importing modules
+
+# Data analysis
 import numpy as np
-import matplotlib.pyplot as plt
 from lmfit.models import GaussianModel
 
+# Built-In modules
 from pathlib import Path as pt
 import sys, json
+
+# FELion tkinter figure module
+from FELion_widgets import FELion_Tk
 
 def thz_plot(filename):
     # Opening file and reading its content
@@ -121,11 +126,22 @@ def binning(xs, ys, delta=1e-6):
 
     return binsx, data_binned
 
-def main(filenames, delta):
+def main(filenames, delta, tkplot):
 
-    data = {}
+
     if len(filenames)>1: runavg = True
     else: runavg = False
+
+    if tkplot:
+        widget = FELion_Tk(title="Mass spectrum", location=filenames[0].parent)
+        fig, canvas = widget.Figure()
+
+        if len(filenames) == 1: savename=filenames[0].stem
+        else: savename = "averaged_thzScan"
+
+        ax = widget.make_figure_layout(title="THz scan", xaxis="Time (ms)", yaxis="counts", savename=savename)
+
+    else: data = {}
 
     xs, ys = [], []
 
@@ -134,9 +150,12 @@ def main(filenames, delta):
         filename = pt(filename)
         freq, depletion_counts, iteraton = thz_plot(filename)
 
-        data[filename.name] = {"x": list(freq), "y": list(depletion_counts),  
-                                "name": f"{filename.name} [{iteraton}]", "mode":'markers',
-                                }
+        if tkplot:
+            ax.plot(freq, depletion_counts, ".", label=f"{filename.name} [{iteraton}]")
+        else:
+            data[filename.name] = {"x": list(freq), "y": list(depletion_counts),  
+                                    "name": f"{filename.name} [{iteraton}]", "mode":'markers',
+                                    }
 
         xs = np.append(xs, freq)
         ys = np.append(ys, depletion_counts)
@@ -166,49 +185,64 @@ def main(filenames, delta):
     half_max = amplitude/2
 
     # Averaged
+
     if runavg:
-        data["Averaged_exp"] = {
-            "x": list(binx), "y": list(biny),  "name": f"Averaged (delta={delta*1e6} KHz)", "mode": "markers", "marker":{"color":"black"}
-        }
-        
-    data["Averaged_fit"] = {
+
+        label = f"Averaged (delta={delta*1e6} KHz)"
+        if tkplot: ax.plot(binx, biny, ".", label=label)
+
+        else:
+            data["Averaged_exp"] = {
+                "x": list(binx), "y": list(biny),  "name":label, "mode": "markers", "marker":{"color":"black"}
+            }
+    if tkplot:
+        ax.plot(binx, fit_data, "k-", label=f"Fitted: {line_freq_fit:.7f} GHz ({fwhm*1e6:.1f} KHz)")
+        ax.vlines(x=line_freq_fit, ymin=0, ymax=amplitude, zorder=10)
+        ax.hlines(y=half_max, xmin=line_freq_fit-fwhm/2, xmax=line_freq_fit+fwhm/2, zorder=10)
+
+        widget.plot_legend = ax.legend()
+        widget.mainloop()
+    else:
+
+        data["Averaged_fit"] = {
             "x": list(binx), "y": list(fit_data),  "name": f"Fitted: {line_freq_fit:.7f} GHz ({fwhm*1e6:.1f} KHz)", "mode": "lines", "line":{"color":"black"}
         }
-    
 
-        
-    
-
-    data["text"] = {
-        "x":[line_freq_fit-9e-5, line_freq_fit],
-        "y":[half_max*.7, -2],
-        "text":[f"{fwhm*1e6:.1f} KHz", f"{line_freq_fit:.7f} GHz"],
-        "mode":"text", 
-        "showlegend":False
-    }
-
-    data["shapes"] = {
-            "center": {
-                "type":"line", "x0":line_freq_fit, "x1":line_freq_fit,
-                "y0": 0, "y1":amplitude,
-            },
-            "fwhm": {
-                "type":"line", "x0":line_freq_fit-fwhm/2, "x1":line_freq_fit+fwhm/2,
-                "y0": half_max, "y1":half_max
-            }
+        data["text"] = {
+            "x":[line_freq_fit-9e-5, line_freq_fit],
+            "y":[half_max*.7, -2],
+            "text":[f"{fwhm*1e6:.1f} KHz", f"{line_freq_fit:.7f} GHz"],
+            "mode":"text", 
+            "showlegend":False
         }
 
-    dataToSend = json.dumps(data)
-    print(dataToSend)
+        data["shapes"] = {
+                "center": {
+                    "type":"line", "x0":line_freq_fit, "x1":line_freq_fit,
+                    "y0": 0, "y1":amplitude,
+                },
+                "fwhm": {
+                    "type":"line", "x0":line_freq_fit-fwhm/2, "x1":line_freq_fit+fwhm/2,
+                    "y0": half_max, "y1":half_max
+                }
+            }
+
+        dataToSend = json.dumps(data)
+        print(dataToSend)
 
 if __name__ == "__main__":
 
     args = sys.argv[1:][0].split(",")
+    filenames = [pt(i) for i in args[0:-2]]
 
-    filenames = args[0:-1]
-    delta = float(args[-1]) # in KHz
-    # print(filenames)
+    delta = float(args[-2]) # in KHz
 
     delta = delta*1e-6 # in GHz (to compare with our data)
 
-    main(filenames, delta)
+    tkplot = args[-1]
+    if tkplot == "plot": tkplot = True
+    else: tkplot = False
+    main(filenames, delta, tkplot)
+
+
+

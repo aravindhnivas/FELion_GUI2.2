@@ -6,7 +6,7 @@ const dangerAnimation = "is-danger shake faster";
 const loadAnimation = "is-loading is-link";
 
 
-function runPlot({ fullfiles, filetype, btname, pyfile, args = [], plotArea = "", normethod = true }) {
+function runPlot({ fullfiles, filetype, btname, pyfile, filetag=null, args = [], plotArea = "", normethod = true }) {
 
     let obj = {
         files: fullfiles,
@@ -14,8 +14,9 @@ function runPlot({ fullfiles, filetype, btname, pyfile, args = [], plotArea = ""
         filetype: filetype,
         mainbtn: `#${btname}`,
         pyfile: pyfile,
-        args: args,
 
+        filetag:filetag,
+        args: args,
         plotArea: plotArea,
         normethod: normethod
 

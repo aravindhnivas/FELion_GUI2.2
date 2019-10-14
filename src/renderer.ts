@@ -1,7 +1,11 @@
 import App from "./components/App.svelte";
 
+let shell_help = "Open terminal while plotting in Matplotlib. Turn this ON to check for any error occured from python console."
 
 const mainPages = [
+
+	// FELIX plot and baseline correction
+
 	{
 		id: "Normline",
 		filetag: "felix",
@@ -24,8 +28,20 @@ const mainPages = [
 				name: "Open in matplotlib"
 			}
 		],
-		plotID: ["exp-theory-plot", "bplot", "saPlot", "nplot", "avgplot"]
+		plotID: ["exp-theory-plot", "bplot", "saPlot", "nplot", "avgplot"],
+		checkBtns: [
+			{
+				id: "felix_shell",
+				name: ["shell ON", "shell OFF"],
+				bind: false,
+				help:shell_help
+			
+			}
+		]
 	},
+
+	// Masspec plot
+
 	{
 		id: "Masspec",
 		filetag: "mass",
@@ -33,15 +49,32 @@ const mainPages = [
 		funcBtns: [
 			{
 				id: "massPlotBtn",
-				name: "Masspec Plot"
+				name: "Masspec Plot",
 			},
 			{
 				id: "mass_Matplotlib",
 				name: "Open in matplotlib"
 			}
 		],
-		plotID: ["mplot"]
+		plotID: ["mplot"],
+		checkBtns: [
+			{
+				id: "mass_shell",
+				name: ["shell ON", "shell OFF"],
+				bind: false,
+				help:shell_help
+			},
+			{
+				id: "masslinearlog",
+				name: ["Log", "Linear"],
+				bind:true,
+				help:"Plot the Yscale in Log/Linear"
+			}
+		]
 	},
+	
+	// Timescan plot
+
 	{
 		id: "Timescan",
 		filetag: "scan",
@@ -60,8 +93,25 @@ const mainPages = [
 				name: "Open in matplotlib"
 			}
 		],
-		plotID: ["tplot_container"]
+		plotID: ["tplot_container"],
+		checkBtns: [
+			{
+				id: "scan_shell",
+				name: ["shell ON", "shell OFF"],
+				bind:false,
+				help:shell_help
+			},
+			{
+				id: "scanlinearlog",
+				name: ["Log", "Linear"],
+				bind:false,
+				help:"Plot the Yscale in Log/Linear"
+			}
+		]
 	},
+
+	// THz plot
+
 	{
 		id: "THz",
 		filetag: "thz",
@@ -76,7 +126,15 @@ const mainPages = [
 				name: "Open in matplotlib"
 			}
 		],
-		plotID: ["thzplot_Container"]
+		plotID: ["thzplot_Container"],
+		checkBtns: [
+			{
+				id: "thz_shell",
+				name: ["shell ON", "shell OFF"],
+				bind:false,
+				help:shell_help
+			}
+		]
 	}
 ];
 

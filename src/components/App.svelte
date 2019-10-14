@@ -26,8 +26,8 @@
 
 <Welcome {jq}/>
 
-{#each mainPages as { id, filetag, filetype, funcBtns, plotID }}
-  <Container {id} {filetag} {filetype} {funcBtns} {plotID} {jq} {electron} {path}/>
+{#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
+  <Container {id} {filetag} {filetype} {funcBtns} {plotID} {checkBtns} {jq} {electron} {path}/>
 {/each}
 <Powerfile {electron} {path} {jq}/>
 <Footer/>
