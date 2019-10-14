@@ -3,6 +3,9 @@
 import os
 from os.path import isdir, isfile
 
+# # Custom module
+# from line_profiler import profile
+
 # Tkinter
 from tkinter import Frame, IntVar, StringVar, BooleanVar, DoubleVar, Tk, filedialog
 from tkinter.ttk import Button, Checkbutton, Label, Entry, Scale
@@ -11,10 +14,10 @@ from tkinter.messagebox import showerror, showinfo, showwarning, askokcancel
 # Matplotlib
 import matplotlib
 matplotlib.use('TkAgg')
+
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
-
 ############################################################################################################
 
 constants = {
@@ -24,13 +27,11 @@ constants = {
     "slider_orient": "horizontal"
 }
 
-
 def var_check(kw):
     for i in constants:
         if not i in kw:
             kw[i] = constants[i]
     return kw
-
 
 class FELion_Tk(Tk):
 
@@ -46,7 +47,9 @@ class FELion_Tk(Tk):
 
         self.canvas_frame = Frame(self, bg='white')
         self.canvas_frame.place(relx=0, rely=0, relwidth=0.8, relheight=1)
+
         self.widget_frame = Frame(self, bg=background)
+        self.widget_frame.bind("<Button-1>", lambda event:print(self.focus()))
         self.widget_frame.place(relx=0.8, rely=0, relwidth=0.2, relheight=1)
 
     def Labels(self, txt, x, y, **kw):
@@ -55,7 +58,6 @@ class FELion_Tk(Tk):
         self.widget_frame.txt = Label(self.widget_frame, text=txt)
         self.widget_frame.txt.place(
             relx=x, rely=y, anchor=kw['anchor'], relwidth=kw['relwidth'], relheight=kw['relheight'])
-
         return self.widget_frame.txt
 
     def Sliders(self, txt, value, x, y, bind_func, **kw):
@@ -144,9 +146,12 @@ class FELion_Tk(Tk):
 
             return self.widget_frame.txt
 
-    def Figure(self, connect=True, **kw):
+    def Figure(self, connect=True, dpi=None, **kw):
 
         self.make_figure_widgets()
+
+        if dpi is not None: self.dpi_value.set(dpi)
+
         self.fig = Figure(dpi=self.dpi_value.get())
 
         self.fig.subplots_adjust(top=0.95, bottom=0.2, left=0.1, right=0.9)
@@ -167,11 +172,9 @@ class FELion_Tk(Tk):
 
     def make_figure_widgets(self):
 
-        x0 = 0.1
-        x_diff = 0.4
-        
-        y_diff = 0.05
-        y = 0
+        # Position
+        x0, x_diff = 0.1, 0.4
+        y, y_diff = 0, 0.05
 
         # Row 1
         y += y_diff
@@ -236,6 +239,7 @@ class FELion_Tk(Tk):
             bottom=self.subplot_bottom.get(), 
             left=self.subplot_left.get(), 
             right=self.subplot_right.get())
+
         self.canvas.draw()
 
     def set_figureLabel(self, event=None):
@@ -243,6 +247,8 @@ class FELion_Tk(Tk):
         if event is not None:
 
             widget_name = str(event.widget).split("!")[-1]
+
+            print(widget_name)
 
             if widget_name == "entry":  # DPI
 
@@ -289,20 +295,24 @@ class FELion_Tk(Tk):
             if widget_name == "checkbutton3":  # Yscale
                 if self.plotYscale.get(): scale = "linear"
                 else: scale = "log"
-
                 self.ax.set(yscale=scale)
 
+        # self.focus_set()
         self.canvas.draw()
 
     def make_figure_layout(self, 
+        ax=None, savename=None,
         title="Title", xaxis="X-axis", yaxis="Y-axis", fig_caption="Figure 1", 
-        xdata=None, ydata=None, label="", fmt=".-"):
+        xdata=None, ydata=None, label="", fmt=".-", **kw):
+
+        if savename is not None: self.name.set(savename)
 
         # Making subplot
-        self.ax = self.fig.add_subplot(111)
+        self.ax = ax
+        if ax is None: self.ax = self.fig.add_subplot(111)
 
         # Plotting data if any:
-        if xdata is not None:self.ax.plot(xdata, ydata, fmt, label=label)
+        if xdata is not None: plot, = self.ax.plot(xdata, ydata, fmt, label=label, **kw)
 
         # Setting default title, xlabel and ylabel entries
         self.plotTitle.set(title)
@@ -315,8 +325,8 @@ class FELion_Tk(Tk):
 
         # Setting X and Y label
         self.ax.set(
-            ylabel=xaxis, 
-            xlabel=yaxis
+            ylabel=yaxis, 
+            xlabel=xaxis
         )
 
         # Xlabel and Ylabel fontsize
@@ -332,7 +342,9 @@ class FELion_Tk(Tk):
         # Setting legend (later for toggling its visibility)
         self.plot_legend = self.ax.legend()
 
-        return self.ax
+        if ax is not None: return plot 
+
+        else: self.ax 
 
     def save_fig(self, event=None):
 
@@ -349,9 +361,13 @@ class FELion_Tk(Tk):
 
         print(f'Filename saved: {self.name.get()}.png\nLocation: {self.location}\n')
 
-if __name__ == "__main__":
-    widget = FELion_Tk("Filename")
+# @profile
+def main():
 
+    widget = FELion_Tk("Filename")
     fig, canvas = widget.Figure()
     ax = widget.make_figure_layout(xdata=[1, 2, 3], ydata=[1, 2, 3], title="CD")
     widget.mainloop()
+
+if __name__ == "__main__":
+    main()

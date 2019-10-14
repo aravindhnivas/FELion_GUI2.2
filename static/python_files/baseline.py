@@ -1,7 +1,8 @@
 # Importing Modules
 
 # FELion Module
-from FELion_definitions import move, ShowInfo
+from FELion_widgets import FELion_Tk
+from tkinter.messagebox import askyesno, showinfo
 
 # DATA analysis modules
 from scipy.interpolate import interp1d
@@ -20,6 +21,9 @@ from pathlib import Path as pt
 import traceback
 
 ###################################################################################################
+
+def move(pathdir, x): return (shutil.move(join(pathdir, x), join(pathdir, "DATA", x)), print(f"{x} moved to DATA folder"))
+
 class Create_Baseline():
 
     epsilon = 5
@@ -30,7 +34,7 @@ class Create_Baseline():
             'felixfile': felixfile, 'fname': felixfile.split(".")[0],
             'baseline': None, 'data': None, 'undo_counter': 0, 'redo_counter': 0, 
             'removed_datas': np.array([[], [], []]), 'redo_datas': np.array([[], [], []]), 'removed_index': [], 'redo_index': [],
-            'felix_corrected': False, 'plotIt':plotIt
+            'felix_corrected': False, "baseline_corrected": False, 'plotIt':plotIt
         }
         for keys, values in attributes.items():
             setattr(self, keys, values)
@@ -42,9 +46,9 @@ class Create_Baseline():
         back_dir = dirname(location)
         folders = ["DATA", "EXPORT", "OUT"]
         if set(folders).issubset(os.listdir(back_dir)): 
-            self.location = back_dir
+            self.location = pt(back_dir)
         else: 
-            self.location = location
+            self.location = pt(location)
    
         os.chdir(self.location)
         for dirs in folders: 
@@ -114,9 +118,10 @@ class Create_Baseline():
 
     def InteractivePlots(self):
 
-        self.fig, self.ax = plt.subplots()
-        self.canvas = self.fig.canvas
-        
+        widget = FELion_Tk(title=self.felixfile, location=f"{self.location}/OUT")
+        self.fig, self.canvas = widget.Figure(dpi=120)
+        self.ax = self.fig.add_subplot(111)
+       
         self.line = Line2D(self.xs, self.ys, marker='s', ls='', ms=6, c='b', markeredgecolor='b', animated=True)
         self.ax.add_line(self.line)        
         
@@ -133,21 +138,37 @@ class Create_Baseline():
         self.canvas.mpl_connect('button_release_event', self.button_release_callback)
         self.canvas.mpl_connect('motion_notify_event', self.motion_notify_callback)
 
-        if self.plotIt: self.plot()
-        else: return
+        self.baseline_data = widget.make_figure_layout(ax=self.ax, xdata=self.data[0], ydata=self.data[1], label=self.felixfile, savename=self.felixfile,
+            title=f"Create Baseline", xaxis="Wavenumber (cm-1)", yaxis="Counts", ls='', marker='o', ms=5, markeredgecolor='r', c='r')
 
-    def plot(self):
+        def on_closing():
+            
+            if self.felix_corrected:
+                yes = askyesno("Save .cfelix file?", "You haven't saved the corrected felix file\nPress 'Yes' to save the .cfelix file and quit OR 'No' to quit.")
 
-        self.baseline_data, = self.ax.plot(self.data[0], self.data[1], ls='', marker='o', ms=5, markeredgecolor='r', c='r')
-        self.ax.set_title(f'BASELINE: {self.felixfile}\nPress: "b" to save .base file; "c" to save .cfelix file')
-        self.ax.set_xlim((self.data[0][0]-70, self.data[0][-1]+70))
-        self.ax.set_xlabel("wavenumber (cm-1)")
-        self.ax.set_ylabel("Counts")
-        self.ax.grid(True)
-        self.canvas.draw()
-        plt.show()
+                if yes: 
+                    self.save_cfelix()
+                    widget.destroy()
+
+                else: widget.destroy()
+
+            elif self.baseline_corrected:
+                yes = askyesno("Save .base file?", "You have adjusted the baseline\nPress 'Yes' to save the modifed .base file and quit\n OR Press 'No' to quit.")
+
+                if yes: 
+                    self.SaveBase()
+                    widget.destroy()
+
+                else: widget.destroy()
+
+            else: widget.destroy()
+
+        widget.protocol("WM_DELETE_WINDOW", on_closing)
+
+        widget.mainloop()
 
     def redraw_f_line(self):
+                
         Bx, By = np.array(self.line.get_data())
         self.inter_xs = np.arange(Bx.min(), Bx.max())
 
@@ -224,7 +245,7 @@ class Create_Baseline():
             'To UNDO the deleted point'
             print(f'data dim: {self.data.ndim}\t shape: {self.data.shape}\nundo dim: {self.removed_datas.ndim}\tshape: {self.removed_datas.shape}')
             
-            if self.undo_counter == 0: return ShowInfo('NOTE', 'You have reached the end of UNDO')
+            if self.undo_counter == 0: return showinfo('NOTE', 'You have reached the end of UNDO')
             else:
                 print('\n########## UNDO ##########\n')
                 print('Before UNDO')
@@ -253,7 +274,7 @@ class Create_Baseline():
         elif event.key == 'r':
             'To REDO'
 
-            if self.redo_counter == 0: return ShowInfo('NOTE', 'You have reached the end of REDO')
+            if self.redo_counter == 0: return showinfo('NOTE', 'You have reached the end of REDO')
             else:
                 print('\n########## REDO ##########\n')
                 print('Before REDO')
@@ -281,13 +302,13 @@ class Create_Baseline():
         elif event.key == 'c':
             'To save cfelix file'
 
-            if not self.felix_corrected: return ShowInfo('Info', 'There are no correction made to .felix file')
+            if not self.felix_corrected: return showinfo('Info', 'There are no correction made to .felix file')
             else: self.save_cfelix()
 
         elif event.key == 'b':
             'To save baseline file'
             self.SaveBase()
-
+        
         self.redraw_f_line()
         self.canvas.draw()
     
@@ -311,6 +332,7 @@ class Create_Baseline():
         xy[0][self._ind], xy[1][self._ind] = x, y
         self.line.set_data((xy[0], xy[1]))
 
+        self.baseline_corrected = True
         self.redraw_f_line()
 
         self.canvas.restore_region(self.background)
@@ -365,7 +387,7 @@ class Create_Baseline():
             print(f'Corrected felix file: {self.cfelix}')
             self.felix_corrected = False
 
-            return ShowInfo('Info', f'{self.cfelix} file is saved in /DATA directory')
+            return showinfo('Info', f'{self.cfelix} file is saved in /DATA directory')
      
     def SaveBase(self):
 
@@ -381,11 +403,11 @@ class Create_Baseline():
         
         if isfile(f'./DATA/{self.basefile}'):
             print(f'{self.basefile} is SAVED')
-            self.ax.set_title(f'Baseline for: {self.felixfile}')
-            self.fig.savefig(f'./OUT/{self.fname}.png', dpi=200)
-            self.ax.set_title(f'BASELINE: {self.felixfile}\nPress: "b" to save .base file; "c" to save .cfelix file')
+            # self.ax.set_title(f'Baseline for: {self.felixfile}')
+            self.fig.savefig(f'./OUT/{self.fname}.png')
+            # self.ax.set_title(f'BASELINE: {self.felixfile}\nPress: "b" to save .base file; "c" to save .cfelix file')
             
-            return ShowInfo('Info', f'{self.basefile} file is saved in /DATA directory')
+            return showinfo('Info', f'{self.basefile} file is saved in /DATA directory')
 
     def get_data(self): return np.asarray([self.data[0], self.data[1]]), np.asarray([self.line.get_data()])
 
