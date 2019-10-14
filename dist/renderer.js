@@ -5,8 +5,7 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 var path = require('path');
 var path__default = _interopDefault(path);
 var electron = require('electron');
-var child_process = require('child_process');
-var child_process__default = _interopDefault(child_process);
+var child_process = _interopDefault(require('child_process'));
 var fs = require('fs');
 var fs__default = _interopDefault(fs);
 
@@ -1411,7 +1410,7 @@ class Filebrowser extends SvelteComponent {
 	}
 }
 
-const { spawn, exec } = child_process__default;
+const { spawn, exec } = child_process;
 
 const pythonPath = path__default.join(__dirname, "../python3.7/python");
 const functions_path = path__default.join(__dirname, "/python_files/");
@@ -1511,141 +1510,164 @@ class program {
 
         return new Promise((resolve, reject) => {
 
-            const py = spawn(pythonPath, [path__default.join(functions_path, this.pyfile), this.files.concat(this.args)]);
-            
-            py.stdout.on("data", data => {
+            if (this.filetype == "general") {
+                let shell_value = document.getElementById(this.obj.filetag+"_shell").checked;
 
-                let dataFromPython;
-                dataFromPython = data.toString("utf8");
+                const py = spawn(
+                    pythonPath, 
+                    ["-i", path__default.join(functions_path, this.pyfile), this.files.concat(this.args)], 
+                    {
+                        detached: true,
+                        stdio: 'ignore',
+                        shell:shell_value
+                    }
+                );
 
-                // console.log("Before JSON parse :" + dataFromPython)
+                py.unref();
 
-                if (this.filetype == "general") { console.log(dataFromPython); } else {
+                resolve("Done");
+
+            }
+            else {
+
+                const py = spawn(
+                    pythonPath, 
+                    [path__default.join(functions_path, this.pyfile), this.files.concat(this.args)]
+                );
+
+                
+                py.stdout.on("data", data => {
+
+                    let dataFromPython;
+                    dataFromPython = data.toString("utf8");
+
+                    // console.log("Before JSON parse :" + dataFromPython)
+
                     dataFromPython = JSON.parse(dataFromPython);
                     console.log("After JSON parse :", dataFromPython);
-                }
 
-                try {
-                    if (this.filetype == "mass") {
-                        plot("Mass spectrum", "Mass [u]", "Counts", dataFromPython, "mplot", "mass");
-                    } else if (this.filetype == "scan") {
-                        let filename = this.obj.plotArea.split("_t")[0];
-                        plot(`Timescan Plot: ${filename}`, "Time (in ms)", "Counts", dataFromPython, this.obj.plotArea);
-                    } else if (this.filetype == "felix") {
+                    try {
+                        if (this.filetype == "mass") {
+                            plot("Mass spectrum", "Mass [u]", "Counts", dataFromPython, "mplot", "mass");
+                        } else if (this.filetype == "scan") {
+                            let filename = this.obj.plotArea.split("_t")[0];
+                            plot(`Timescan Plot: ${filename}`, "Time (in ms)", "Counts", dataFromPython, this.obj.plotArea);
+                        } else if (this.filetype == "felix") {
 
-                        let normlog = this.obj.normethod;
-                        let delta = this.args;
+                            let normlog = this.obj.normethod;
+                            let delta = this.args;
 
-                        let felixdataToPlot;
-                        let avgdataToPlot;
+                            let felixdataToPlot;
+                            let avgdataToPlot;
 
-                        if (normlog) {
+                            if (normlog) {
 
-                            felixdataToPlot = dataFromPython["felix"];
-                            avgdataToPlot = dataFromPython["average"];
-                        } else {
+                                felixdataToPlot = dataFromPython["felix"];
+                                avgdataToPlot = dataFromPython["average"];
+                            } else {
 
-                            felixdataToPlot = dataFromPython["felix_rel"];
-                            avgdataToPlot = dataFromPython["average_rel"];
+                                felixdataToPlot = dataFromPython["felix_rel"];
+                                avgdataToPlot = dataFromPython["average_rel"];
+                            }
+
+                            plot(
+                                "Baseline Corrected",
+                                "Wavelength (cm-1)",
+                                "Intesity",
+                                dataFromPython["base"],
+                                "bplot"
+                            );
+                            let signal_formula;
+
+                            normlog ? signal_formula = "Signal = -ln(C/B)/Power(in J)" : signal_formula = "Signal = (1-C/B)*100";
+
+                            plot(
+                                `Normalized Spectrum (delta=${delta})<br>${signal_formula}; {C=Measured Count, B=Baseline Count}`,
+                                "Calibrated Wavelength (cm-1)",
+                                normlog ? "Normalised Intesity" : "Relative depletion (%)",
+                                felixdataToPlot,
+                                "nplot"
+                            );
+                            plot(
+                                `Average of Normalised Spectrum (delta=${delta})`,
+                                "Calibrated Wavelength (cm-1)",
+                                normlog ? "Normalised Intesity" : "Relative depletion (%)",
+                                avgdataToPlot,
+                                "avgplot"
+                            );
+
+                            //Spectrum and Power Analyer
+                            subplot(
+                                "Spectrum and Power Analyser",
+                                "Wavelength set (cm-1)",
+                                "SA (cm-1)",
+                                dataFromPython["SA"],
+                                "saPlot",
+                                "Wavelength (cm-1)",
+                                "Power (mJ)",
+                                dataFromPython["pow"]
+                            );
+
+                        } else if (this.filetype == "theory") {
+
+                            let log = this.args[0];
+                            console.log(":: run -> log", log);
+
+                            let theoryData = [];
+                            for (let x in dataFromPython["line_simulation"]) { theoryData.push(dataFromPython["line_simulation"][x]); }
+
+                            plot(
+                                "Experimental vs Theory",
+                                "Calibrated Wavelength (cm-1)",
+                                log == "Log" ? "Normalised Intesity" : "Relative depletion (%)", [dataFromPython["averaged"], ...theoryData],
+                                "exp-theory-plot"
+                            );
+                        } else if (this.filetype == "thz") {
+
+                            
+                            let delta_thz = this.args;
+
+                            plot(`THz Scan`, "Frequency (GHz)", "Depletion (%)", dataFromPython, "thzplot_Container");
+
+                            let lines = [];
+
+                            for (let x in dataFromPython["shapes"]) { lines.push(dataFromPython["shapes"][x]); }
+                            let layout_update = {
+                                shapes: lines
+                            };
+                            Plotly.relayout("thzplot_Container", layout_update);
                         }
 
-                        plot(
-                            "Baseline Corrected",
-                            "Wavelength (cm-1)",
-                            "Intesity",
-                            dataFromPython["base"],
-                            "bplot"
-                        );
-                        let signal_formula;
+                        console.log("Graph Plotted");
 
-                        normlog ? signal_formula = "Signal = -ln(C/B)/Power(in J)" : signal_formula = "Signal = (1-C/B)*100";
-
-                        plot(
-                            `Normalized Spectrum (delta=${delta})<br>${signal_formula}; {C=Measured Count, B=Baseline Count}`,
-                            "Calibrated Wavelength (cm-1)",
-                            normlog ? "Normalised Intesity" : "Relative depletion (%)",
-                            felixdataToPlot,
-                            "nplot"
-                        );
-                        plot(
-                            `Average of Normalised Spectrum (delta=${delta})`,
-                            "Calibrated Wavelength (cm-1)",
-                            normlog ? "Normalised Intesity" : "Relative depletion (%)",
-                            avgdataToPlot,
-                            "avgplot"
-                        );
-
-                        //Spectrum and Power Analyer
-                        subplot(
-                            "Spectrum and Power Analyser",
-                            "Wavelength set (cm-1)",
-                            "SA (cm-1)",
-                            dataFromPython["SA"],
-                            "saPlot",
-                            "Wavelength (cm-1)",
-                            "Power (mJ)",
-                            dataFromPython["pow"]
-                        );
-
-                    } else if (this.filetype == "theory") {
-
-                        let log = this.args[0];
-                        console.log(":: run -> log", log);
-
-                        let theoryData = [];
-                        for (let x in dataFromPython["line_simulation"]) { theoryData.push(dataFromPython["line_simulation"][x]); }
-
-                        plot(
-                            "Experimental vs Theory",
-                            "Calibrated Wavelength (cm-1)",
-                            log == "Log" ? "Normalised Intesity" : "Relative depletion (%)", [dataFromPython["averaged"], ...theoryData],
-                            "exp-theory-plot"
-                        );
-                    } else if (this.filetype == "thz") {
-
-                        
-                        let delta_thz = this.args;
-
-                        plot(`THz Scan`, "Frequency (GHz)", "Depletion (%)", dataFromPython, "thzplot_Container");
-
-                        let lines = [];
-
-                        for (let x in dataFromPython["shapes"]) { lines.push(dataFromPython["shapes"][x]); }
-                        let layout_update = {
-                            shapes: lines
-                        };
-                        Plotly.relayout("thzplot_Container", layout_update);
+                    } catch (err) {
+                        console.error("Error Occured in javascript code: " + err);
                     }
 
-                    console.log("Graph Plotted");
+                });
 
-                } catch (err) {
-                    console.error("Error Occured in javascript code: " + err);
-                }
+                let error_occured_py = false;
+                let error_result;
 
-            });
+                py.stderr.on("data", data => {
 
-            let error_occured_py = false;
-            let error_result;
+                    error_result = data;
+                    error_occured_py = true;
+                    // console.error(`Error from python: ${data}`);
+                });
 
-            py.stderr.on("data", data => {
+                py.on("close", () => {
+                    console.log("Returned to javascript");
 
-                error_result = data;
-                error_occured_py = true;
-                // console.error(`Error from python: ${data}`);
-            });
+                    if (!error_occured_py) {
+                        resolve(`Plotted for ${this.filetype} file`);
 
-            py.on("close", () => {
-                console.log("Returned to javascript");
+                    } else {
+                        reject(`Error Occured from python \n${error_result}\n`);
+                    }
 
-                if (!error_occured_py) {
-                    resolve(`Plotted for ${this.filetype} file`);
-
-                } else {
-                    reject(`Error Occured from python \n${error_result}\n`);
-                }
-
-            });
+                });
+            }
         })
     }
 }
@@ -1658,7 +1680,7 @@ const dangerAnimation = "is-danger shake faster";
 const loadAnimation = "is-loading is-link";
 
 
-function runPlot({ fullfiles, filetype, btname, pyfile, args = [], plotArea = "", normethod = true }) {
+function runPlot({ fullfiles, filetype, btname, pyfile, filetag=null, args = [], plotArea = "", normethod = true }) {
 
     let obj = {
         files: fullfiles,
@@ -1666,8 +1688,9 @@ function runPlot({ fullfiles, filetype, btname, pyfile, args = [], plotArea = ""
         filetype: filetype,
         mainbtn: `#${btname}`,
         pyfile: pyfile,
-        args: args,
 
+        filetag:filetag,
+        args: args,
         plotArea: plotArea,
         normethod: normethod
 
@@ -1862,11 +1885,20 @@ function get_each_context_5(ctx, list, i) {
 	const child_ctx = Object.create(ctx);
 	child_ctx.id = list[i].id;
 	child_ctx.name = list[i].name;
+	child_ctx.bind = list[i].bind;
+	child_ctx.help = list[i].help;
 	return child_ctx;
 }
 
-// (407:12) {#each funcBtns as { id, name }}
-function create_each_block_5(ctx) {
+function get_each_context_6(ctx, list, i) {
+	const child_ctx = Object.create(ctx);
+	child_ctx.id = list[i].id;
+	child_ctx.name = list[i].name;
+	return child_ctx;
+}
+
+// (440:12) {#each funcBtns as { id, name }}
+function create_each_block_6(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
 	return {
@@ -1903,7 +1935,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (416:12) {#if filetag == 'felix'}
+// (449:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
@@ -1986,7 +2018,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (444:12) {#if filetag == 'thz'}
+// (477:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t_1, div2, input, input_updating = false, dispose;
 
@@ -2047,53 +2079,154 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (465:12) {#if filetag == 'mass' || filetag == 'scan'}
+// (505:18) {:else}
+function create_else_block_1$1(ctx) {
+	var input, input_id_value, input_checked_value, dispose;
+
+	return {
+		c() {
+			input = element("input");
+			attr(input, "type", "checkbox");
+			attr(input, "id", input_id_value = ctx.id);
+			input.checked = input_checked_value = ctx.bind;
+			attr(input, "class", "svelte-9uv9aa");
+			dispose = listen(input, "click", ctx.click_handler);
+		},
+
+		m(target, anchor) {
+			insert(target, input, anchor);
+		},
+
+		p(changed, ctx) {
+			if ((changed.checkBtns) && input_id_value !== (input_id_value = ctx.id)) {
+				attr(input, "id", input_id_value);
+			}
+
+			if ((changed.checkBtns) && input_checked_value !== (input_checked_value = ctx.bind)) {
+				input.checked = input_checked_value;
+			}
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(input);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (503:18) {#if name[0]==="Log"}
 function create_if_block_8(ctx) {
-	var div3, div2, input, input_id_value, t0, div0, t2, div1, dispose;
+	var input, input_id_value, input_checked_value, dispose;
+
+	return {
+		c() {
+			input = element("input");
+			attr(input, "type", "checkbox");
+			attr(input, "id", input_id_value = ctx.id);
+			input.checked = input_checked_value = ctx.bind;
+			attr(input, "class", "svelte-9uv9aa");
+			dispose = listen(input, "click", ctx.linearlogCheck);
+		},
+
+		m(target, anchor) {
+			insert(target, input, anchor);
+		},
+
+		p(changed, ctx) {
+			if ((changed.checkBtns) && input_id_value !== (input_id_value = ctx.id)) {
+				attr(input, "id", input_id_value);
+			}
+
+			if ((changed.checkBtns) && input_checked_value !== (input_checked_value = ctx.bind)) {
+				input.checked = input_checked_value;
+			}
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(input);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (498:12) {#each checkBtns as {id, name, bind, help}}
+function create_each_block_5(ctx) {
+	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, t4;
+
+	function select_block_type(changed, ctx) {
+		if (ctx.name[0]==="Log") return create_if_block_8;
+		return create_else_block_1$1;
+	}
+
+	var current_block_type = select_block_type(null, ctx);
+	var if_block = current_block_type(ctx);
 
 	return {
 		c() {
 			div3 = element("div");
 			div2 = element("div");
-			input = element("input");
+			if_block.c();
 			t0 = space();
 			div0 = element("div");
-			div0.innerHTML = `<label class="svelte-9uv9aa">Log</label>`;
+			label0 = element("label");
+			t1 = text(t1_value);
 			t2 = space();
 			div1 = element("div");
-			div1.innerHTML = `<label class="svelte-9uv9aa">Linear</label>`;
-			attr(input, "type", "checkbox");
-			attr(input, "id", input_id_value = "" + ctx.filetag + "linearlog");
-			attr(input, "class", "svelte-9uv9aa");
+			label1 = element("label");
+			t3 = text(t3_value);
+			t4 = space();
+			attr(label0, "class", "svelte-9uv9aa");
 			attr(div0, "class", "state p-success p-on");
+			attr(label1, "class", "svelte-9uv9aa");
 			attr(div1, "class", "state p-danger p-off");
 			attr(div2, "class", "pretty p-default p-curve p-toggle");
+			attr(div2, "data-tippy", div2_data_tippy_value = ctx.help);
 			attr(div3, "class", "level-item");
-
-			dispose = [
-				listen(input, "change", ctx.input_change_handler),
-				listen(input, "click", ctx.linearlogCheck)
-			];
 		},
 
 		m(target, anchor) {
 			insert(target, div3, anchor);
 			append(div3, div2);
-			append(div2, input);
-
-			input.checked = ctx.log;
-
+			if_block.m(div2, null);
 			append(div2, t0);
 			append(div2, div0);
+			append(div0, label0);
+			append(label0, t1);
 			append(div2, t2);
 			append(div2, div1);
+			append(div1, label1);
+			append(label1, t3);
+			append(div3, t4);
 		},
 
 		p(changed, ctx) {
-			if (changed.log) input.checked = ctx.log;
+			if (current_block_type === (current_block_type = select_block_type(changed, ctx)) && if_block) {
+				if_block.p(changed, ctx);
+			} else {
+				if_block.d(1);
+				if_block = current_block_type(ctx);
+				if (if_block) {
+					if_block.c();
+					if_block.m(div2, t0);
+				}
+			}
 
-			if ((changed.filetag) && input_id_value !== (input_id_value = "" + ctx.filetag + "linearlog")) {
-				attr(input, "id", input_id_value);
+			if ((changed.checkBtns) && t1_value !== (t1_value = ctx.name[0] + "")) {
+				set_data(t1, t1_value);
+			}
+
+			if ((changed.checkBtns) && t3_value !== (t3_value = ctx.name[1] + "")) {
+				set_data(t3, t3_value);
+			}
+
+			if ((changed.checkBtns) && div2_data_tippy_value !== (div2_data_tippy_value = ctx.help)) {
+				attr(div2, "data-tippy", div2_data_tippy_value);
 			}
 		},
 
@@ -2102,12 +2235,12 @@ function create_if_block_8(ctx) {
 				detach(div3);
 			}
 
-			run_all(dispose);
+			if_block.d();
 		}
 	};
 }
 
-// (488:6) {#if filetag=="felix"}
+// (522:6) {#if filetag=="felix"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, dispose;
 
@@ -2219,7 +2352,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (506:6) {#if filetag=="scan"}
+// (540:6) {#if filetag=="scan"}
 function create_if_block_1$1(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2349,7 +2482,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (519:28) {#if folderFile.files != undefined}
+// (553:28) {#if folderFile.files != undefined}
 function create_if_block_6(ctx) {
 	var each_1_anchor;
 
@@ -2412,7 +2545,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (520:31) {#each folderFile.files as scanfile}
+// (554:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2449,7 +2582,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (511:16) {#each ["ResON", "ResOFF"] as name}
+// (545:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -2517,7 +2650,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (542:57) 
+// (576:57) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2556,7 +2689,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (540:52) 
+// (574:52) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2595,7 +2728,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (538:50) 
+// (572:50) 
 function create_if_block_3(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2634,7 +2767,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (536:22) {#if name=="Power (ON, OFF)"}
+// (570:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_2(ctx) {
 	var input, dispose;
 
@@ -2667,18 +2800,18 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (531:16) {#each depletionLabels as {name, id}}
+// (565:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
-	function select_block_type(changed, ctx) {
+	function select_block_type_1(changed, ctx) {
 		if (ctx.name=="Power (ON, OFF)") return create_if_block_2;
 		if (ctx.name=="FELIX Hz") return create_if_block_3;
 		if (ctx.name=="Mass Index") return create_if_block_4;
 		if (ctx.name=="TimeStart Index") return create_if_block_5;
 	}
 
-	var current_block_type = select_block_type(null, ctx);
+	var current_block_type = select_block_type_1(null, ctx);
 	var if_block = current_block_type && current_block_type(ctx);
 
 	return {
@@ -2725,7 +2858,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (578:12) {:else}
+// (612:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2755,7 +2888,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (571:12) {#if filetag == 'scan'}
+// (605:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -2829,7 +2962,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (573:16) {#each fileChecked as scanfile}
+// (607:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -2859,16 +2992,16 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (570:10) {#each plotID as id}
+// (604:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
-	function select_block_type_1(changed, ctx) {
+	function select_block_type_2(changed, ctx) {
 		if (ctx.filetag == 'scan') return create_if_block$2;
 		return create_else_block$2;
 	}
 
-	var current_block_type = select_block_type_1(null, ctx);
+	var current_block_type = select_block_type_2(null, ctx);
 	var if_block = current_block_type(ctx);
 
 	return {
@@ -2883,7 +3016,7 @@ function create_each_block$2(ctx) {
 		},
 
 		p(changed, ctx) {
-			if (current_block_type === (current_block_type = select_block_type_1(changed, ctx)) && if_block) {
+			if (current_block_type === (current_block_type = select_block_type_2(changed, ctx)) && if_block) {
 				if_block.p(changed, ctx);
 			} else {
 				if_block.d(1);
@@ -2919,7 +3052,19 @@ function create_fragment$4(ctx) {
 	}
 	});
 
-	let each_value_5 = ctx.funcBtns;
+	let each_value_6 = ctx.funcBtns;
+
+	let each_blocks_2 = [];
+
+	for (let i = 0; i < each_value_6.length; i += 1) {
+		each_blocks_2[i] = create_each_block_6(get_each_context_6(ctx, each_value_6, i));
+	}
+
+	var if_block0 = (ctx.filetag == 'felix') && create_if_block_10(ctx);
+
+	var if_block1 = (ctx.filetag == 'thz') && create_if_block_9(ctx);
+
+	let each_value_5 = ctx.checkBtns;
 
 	let each_blocks_1 = [];
 
@@ -2927,15 +3072,9 @@ function create_fragment$4(ctx) {
 		each_blocks_1[i] = create_each_block_5(get_each_context_5(ctx, each_value_5, i));
 	}
 
-	var if_block0 = (ctx.filetag == 'felix') && create_if_block_10(ctx);
+	var if_block2 = (ctx.filetag=="felix") && create_if_block_7(ctx);
 
-	var if_block1 = (ctx.filetag == 'thz') && create_if_block_9(ctx);
-
-	var if_block2 = (ctx.filetag == 'mass' || ctx.filetag == 'scan') && create_if_block_8(ctx);
-
-	var if_block3 = (ctx.filetag=="felix") && create_if_block_7(ctx);
-
-	var if_block4 = (ctx.filetag=="scan") && create_if_block_1$1(ctx);
+	var if_block3 = (ctx.filetag=="scan") && create_if_block_1$1(ctx);
 
 	let each_value = ctx.plotID;
 
@@ -2966,8 +3105,8 @@ function create_fragment$4(ctx) {
 			div7 = element("div");
 			div6 = element("div");
 
-			for (let i = 0; i < each_blocks_1.length; i += 1) {
-				each_blocks_1[i].c();
+			for (let i = 0; i < each_blocks_2.length; i += 1) {
+				each_blocks_2[i].c();
 			}
 
 			t4 = space();
@@ -2975,11 +3114,15 @@ function create_fragment$4(ctx) {
 			t5 = space();
 			if (if_block1) if_block1.c();
 			t6 = space();
-			if (if_block2) if_block2.c();
+
+			for (let i = 0; i < each_blocks_1.length; i += 1) {
+				each_blocks_1[i].c();
+			}
+
 			t7 = space();
-			if (if_block3) if_block3.c();
+			if (if_block2) if_block2.c();
 			t8 = space();
-			if (if_block4) if_block4.c();
+			if (if_block3) if_block3.c();
 			t9 = space();
 			hr = element("hr");
 			t10 = space();
@@ -3054,8 +3197,8 @@ function create_fragment$4(ctx) {
 			append(div8, div7);
 			append(div7, div6);
 
-			for (let i = 0; i < each_blocks_1.length; i += 1) {
-				each_blocks_1[i].m(div6, null);
+			for (let i = 0; i < each_blocks_2.length; i += 1) {
+				each_blocks_2[i].m(div6, null);
 			}
 
 			append(div6, t4);
@@ -3063,11 +3206,15 @@ function create_fragment$4(ctx) {
 			append(div6, t5);
 			if (if_block1) if_block1.m(div6, null);
 			append(div6, t6);
-			if (if_block2) if_block2.m(div6, null);
+
+			for (let i = 0; i < each_blocks_1.length; i += 1) {
+				each_blocks_1[i].m(div6, null);
+			}
+
 			append(div11, t7);
-			if (if_block3) if_block3.m(div11, null);
+			if (if_block2) if_block2.m(div11, null);
 			append(div11, t8);
-			if (if_block4) if_block4.m(div11, null);
+			if (if_block3) if_block3.m(div11, null);
 			append(div11, t9);
 			append(div11, hr);
 			append(div11, t10);
@@ -3108,25 +3255,25 @@ function create_fragment$4(ctx) {
 			}
 
 			if (changed.funcBtns) {
-				each_value_5 = ctx.funcBtns;
+				each_value_6 = ctx.funcBtns;
 
 				let i;
-				for (i = 0; i < each_value_5.length; i += 1) {
-					const child_ctx = get_each_context_5(ctx, each_value_5, i);
+				for (i = 0; i < each_value_6.length; i += 1) {
+					const child_ctx = get_each_context_6(ctx, each_value_6, i);
 
-					if (each_blocks_1[i]) {
-						each_blocks_1[i].p(changed, child_ctx);
+					if (each_blocks_2[i]) {
+						each_blocks_2[i].p(changed, child_ctx);
 					} else {
-						each_blocks_1[i] = create_each_block_5(child_ctx);
-						each_blocks_1[i].c();
-						each_blocks_1[i].m(div6, t4);
+						each_blocks_2[i] = create_each_block_6(child_ctx);
+						each_blocks_2[i].c();
+						each_blocks_2[i].m(div6, t4);
 					}
 				}
 
-				for (; i < each_blocks_1.length; i += 1) {
-					each_blocks_1[i].d(1);
+				for (; i < each_blocks_2.length; i += 1) {
+					each_blocks_2[i].d(1);
 				}
-				each_blocks_1.length = each_value_5.length;
+				each_blocks_2.length = each_value_6.length;
 			}
 
 			if (ctx.filetag == 'felix') {
@@ -3155,43 +3302,52 @@ function create_fragment$4(ctx) {
 				if_block1 = null;
 			}
 
-			if (ctx.filetag == 'mass' || ctx.filetag == 'scan') {
+			if (changed.checkBtns) {
+				each_value_5 = ctx.checkBtns;
+
+				let i;
+				for (i = 0; i < each_value_5.length; i += 1) {
+					const child_ctx = get_each_context_5(ctx, each_value_5, i);
+
+					if (each_blocks_1[i]) {
+						each_blocks_1[i].p(changed, child_ctx);
+					} else {
+						each_blocks_1[i] = create_each_block_5(child_ctx);
+						each_blocks_1[i].c();
+						each_blocks_1[i].m(div6, null);
+					}
+				}
+
+				for (; i < each_blocks_1.length; i += 1) {
+					each_blocks_1[i].d(1);
+				}
+				each_blocks_1.length = each_value_5.length;
+			}
+
+			if (ctx.filetag=="felix") {
 				if (if_block2) {
 					if_block2.p(changed, ctx);
 				} else {
-					if_block2 = create_if_block_8(ctx);
+					if_block2 = create_if_block_7(ctx);
 					if_block2.c();
-					if_block2.m(div6, null);
+					if_block2.m(div11, t8);
 				}
 			} else if (if_block2) {
 				if_block2.d(1);
 				if_block2 = null;
 			}
 
-			if (ctx.filetag=="felix") {
+			if (ctx.filetag=="scan") {
 				if (if_block3) {
 					if_block3.p(changed, ctx);
 				} else {
-					if_block3 = create_if_block_7(ctx);
+					if_block3 = create_if_block_1$1(ctx);
 					if_block3.c();
-					if_block3.m(div11, t8);
+					if_block3.m(div11, t9);
 				}
 			} else if (if_block3) {
 				if_block3.d(1);
 				if_block3 = null;
-			}
-
-			if (ctx.filetag=="scan") {
-				if (if_block4) {
-					if_block4.p(changed, ctx);
-				} else {
-					if_block4 = create_if_block_1$1(ctx);
-					if_block4.c();
-					if_block4.m(div11, t9);
-				}
-			} else if (if_block4) {
-				if_block4.d(1);
-				if_block4 = null;
 			}
 
 			if ((!current || changed.filetag) && img_id_value !== (img_id_value = "" + ctx.filetag + "loading")) {
@@ -3248,13 +3404,15 @@ function create_fragment$4(ctx) {
 
 			destroy_component(filebrowser);
 
-			destroy_each(each_blocks_1, detaching);
+			destroy_each(each_blocks_2, detaching);
 
 			if (if_block0) if_block0.d();
 			if (if_block1) if_block1.d();
+
+			destroy_each(each_blocks_1, detaching);
+
 			if (if_block2) if_block2.d();
 			if (if_block3) if_block3.d();
-			if (if_block4) if_block4.d();
 
 			destroy_each(each_blocks, detaching);
 
@@ -3268,7 +3426,8 @@ const style = "display:none;";
 function instance$4($$self, $$props, $$invalidate) {
 	
 
-  let { id, filetag, filetype, funcBtns, plotID, jq, electron, path } = $$props;
+  let { id, filetag, filetype, funcBtns, plotID, checkBtns, jq, electron, path } = $$props;
+  
   const dialog = electron.remote.dialog;
 
   jq(document).ready(() => {
@@ -3297,7 +3456,6 @@ function instance$4($$self, $$props, $$invalidate) {
   
   let normMethod = "Log";
   let normlog = true;
-  let log;
 
   const linearlogCheck = event => {
     let target = event.target;
@@ -3385,7 +3543,9 @@ function instance$4($$self, $$props, $$invalidate) {
           resolve(filePaths);
         });
       });
-    } else {
+    } 
+    
+    else {
       const options = {
         title: `Open ${filetag} files`,
         filters: [
@@ -3401,36 +3561,77 @@ function instance$4($$self, $$props, $$invalidate) {
         $$invalidate('folderFile', folderFile = updateFolder(currentLocation));
       });
     }
+
   }
 
-  const functionRun = event => {
 
+  let delta_thz = 10;
+
+  const fileInfo = {
+
+    // Create baseline matplotlib
+
+    felix:{
+      pyfile:"baseline.py",
+      args:[]
+    },
+
+    // Masspec matplotlib
+
+    mass:{
+      pyfile:"mass.py",
+      args:"plot"
+    },
+
+    // Timescan matplotlib
+
+    scan:{
+      pyfile:"timescan.py",
+      args:"plot"
+    },
+
+    // THz scan matplotlib
+
+    thz:{
+
+      pyfile:"thz_scan.py",
+      args:[delta_thz, "plot"]
+      
+    }
+  };
+
+  const functionRun = event => {
     let btname = event.target.id;
 
-    const pythonPath = path.join(__dirname, "../python3.7/python");
-    const functions_path = path.join(__dirname, "/python_files/");
+    if (btname === "createBaselineBtn"){btname="felix_Matplotlib";}
 
     switch (btname) {
 
       ////////////// FELIX PLOT //////////////////////
 
       case "felixPlotBtn":
+
         Plotly.purge("exp-theory-plot");
         runPlot({
           fullfiles: fullfiles, filetype: filetag, btname: btname,
           pyfile: "normline.py", normethod: normlog, args: delta
         });
-        break;
       
-      ////////////// Baseline PLOT //////////////////////
+      break;
+      
+      ////////////// Matplotlib PLOT //////////////////////
 
-      case "createBaselineBtn":
-          runPlot({
+      case `${filetag}_Matplotlib`:
+          let obj = {
             fullfiles: fullfiles,
+            filetag:filetag,            
             filetype: "general",
-            btname: btname,
-            pyfile: "baseline.py"
-          });
+            btname: event.target.id,
+            pyfile: fileInfo[filetag]["pyfile"],
+            args: fileInfo[filetag]["args"]
+          };
+          runPlot(obj);
+
       break;
 
       ////////////// Masspec PLOT //////////////////////
@@ -3467,31 +3668,20 @@ function instance$4($$self, $$props, $$invalidate) {
             filetype: filetag,
             btname: btname,
             pyfile: "thz_scan.py",
-            args: delta_thz
+            args: [delta_thz, "run"]
           });
       break;
 
-      ////////////// Open graph in matplotlib (tkinter canvas) //////////////////////
-      case `mass_Matplotlib`:
-        runPlot({
-            fullfiles: fullfiles,
-            filetype: "general",
-            btname: btname,
-            pyfile: "mass.py",
-            args: "plot"
-          });
-
-        break;
 
       ////////////// Toggle buttons //////////////////////
 
       case "theoryBtn": 
         jq("#theoryRow").toggle();
-        break;
+      break;
 
       case "depletionscanBtn":
         jq("#depletionRow").toggle();
-        break;
+      break;
 
       ////////////////////////////////////////////////////
     
@@ -3508,7 +3698,6 @@ function instance$4($$self, $$props, $$invalidate) {
       .then(file =>  $$invalidate('theoryfiles', theoryfiles = file)).catch(err => console.log(err));
   }
 
-
   function runtheory() {
     runPlot({fullfiles: theoryfiles, filetype: "theory", 
       btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation] });
@@ -3517,8 +3706,6 @@ function instance$4($$self, $$props, $$invalidate) {
   let sigma=20; //Sigma value for felixplot thoery gaussian profile
   let scale=1;
 
-  // let resOnFile="onFile";
-  // let resOffFile="offFile";
   let powerinfo = "21, 21";
   let nshots = 10;
   let massIndex = 0;
@@ -3549,7 +3736,7 @@ function instance$4($$self, $$props, $$invalidate) {
       btname: "depletionSubmit", pyfile: "depletionscan.py", args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] });
   };
 
-  let delta_thz = 10;
+  
   const changeTHz = (event) => {
 
     if (event.key == "Enter") {
@@ -3584,10 +3771,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		$$invalidate('delta_thz', delta_thz);
 	}
 
-	function input_change_handler() {
-		log = this.checked;
-		$$invalidate('log', log), $$invalidate('filetag', filetag);
-	}
+	const click_handler = (e) => {console.log(`Status (${e.target.id}):\n ${e.target.checked}`);};
 
 	function input0_input_handler() {
 		sigma = to_number(this.value);
@@ -3625,6 +3809,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		if ('filetype' in $$props) $$invalidate('filetype', filetype = $$props.filetype);
 		if ('funcBtns' in $$props) $$invalidate('funcBtns', funcBtns = $$props.funcBtns);
 		if ('plotID' in $$props) $$invalidate('plotID', plotID = $$props.plotID);
+		if ('checkBtns' in $$props) $$invalidate('checkBtns', checkBtns = $$props.checkBtns);
 		if ('jq' in $$props) $$invalidate('jq', jq = $$props.jq);
 		if ('electron' in $$props) $$invalidate('electron', electron = $$props.electron);
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
@@ -3634,7 +3819,7 @@ function instance$4($$self, $$props, $$invalidate) {
 
 	$$self.$$.update = ($$dirty = { normMethod: 1, filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1 }) => {
 		if ($$dirty.normMethod) { normMethod == "Relative" ? (normlog = false) : (normlog = true); }
-		if ($$dirty.filetag) { filetag == "mass" ? ($$invalidate('log', log = true)) : ($$invalidate('log', log = false)); }
+		if ($$dirty.filetag) ;
 		if ($$dirty.allFiles) { $$invalidate('fileChecked', fileChecked = allFiles.filter(file => file.checked).map(file => file.id)); }
 		if ($$dirty.fileChecked) { console.log("fileChecked", fileChecked); }
 		if ($$dirty.fileChecked || $$dirty.path || $$dirty.currentLocation) { fullfiles = fileChecked.map(file => path.join(currentLocation, file)); }
@@ -3647,19 +3832,20 @@ function instance$4($$self, $$props, $$invalidate) {
 		filetype,
 		funcBtns,
 		plotID,
+		checkBtns,
 		jq,
 		electron,
 		path,
 		delta,
 		changeDelta,
 		normMethod,
-		log,
 		linearlogCheck,
 		folderFile,
 		currentLocation,
 		getCheckedFiles,
 		updateFolder,
 		browseFile,
+		delta_thz,
 		functionRun,
 		opentheory,
 		runtheory,
@@ -3672,16 +3858,16 @@ function instance$4($$self, $$props, $$invalidate) {
 		timestartIndex,
 		depletionLabels,
 		depletionPlot,
-		delta_thz,
 		changeTHz,
 		fileChecked,
+		console,
 		undefined,
 		theoryfilenames,
 		input_input_handler,
 		select_change_handler,
 		input_input_handler_1,
 		input_input_handler_2,
-		input_change_handler,
+		click_handler,
 		input0_input_handler,
 		input1_input_handler,
 		input_input_handler_3,
@@ -3694,7 +3880,7 @@ function instance$4($$self, $$props, $$invalidate) {
 class Container extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$4, create_fragment$4, safe_not_equal, ["id", "filetag", "filetype", "funcBtns", "plotID", "jq", "electron", "path"]);
+		init(this, options, instance$4, create_fragment$4, safe_not_equal, ["id", "filetag", "filetype", "funcBtns", "plotID", "checkBtns", "jq", "electron", "path"]);
 	}
 }
 
@@ -19091,10 +19277,11 @@ function get_each_context$3(ctx, list, i) {
 	child_ctx.filetype = list[i].filetype;
 	child_ctx.funcBtns = list[i].funcBtns;
 	child_ctx.plotID = list[i].plotID;
+	child_ctx.checkBtns = list[i].checkBtns;
 	return child_ctx;
 }
 
-// (29:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID }}
+// (29:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
 function create_each_block$3(ctx) {
 	var current;
 
@@ -19105,6 +19292,7 @@ function create_each_block$3(ctx) {
 		filetype: ctx.filetype,
 		funcBtns: ctx.funcBtns,
 		plotID: ctx.plotID,
+		checkBtns: ctx.checkBtns,
 		jq: ctx.jq,
 		electron: electron,
 		path: path
@@ -19128,6 +19316,7 @@ function create_each_block$3(ctx) {
 			if (changed.mainPages) container_changes.filetype = ctx.filetype;
 			if (changed.mainPages) container_changes.funcBtns = ctx.funcBtns;
 			if (changed.mainPages) container_changes.plotID = ctx.plotID;
+			if (changed.mainPages) container_changes.checkBtns = ctx.checkBtns;
 			container.$set(container_changes);
 		},
 
@@ -19339,7 +19528,9 @@ class App extends SvelteComponent {
 	}
 }
 
+let shell_help = "Open terminal while plotting in Matplotlib. Turn this ON to check for any error occured from python console.";
 const mainPages = [
+    // FELIX plot and baseline correction
     {
         id: "Normline",
         filetag: "felix",
@@ -19362,8 +19553,17 @@ const mainPages = [
                 name: "Open in matplotlib"
             }
         ],
-        plotID: ["exp-theory-plot", "bplot", "saPlot", "nplot", "avgplot"]
+        plotID: ["exp-theory-plot", "bplot", "saPlot", "nplot", "avgplot"],
+        checkBtns: [
+            {
+                id: "felix_shell",
+                name: ["shell ON", "shell OFF"],
+                bind: false,
+                help: shell_help
+            }
+        ]
     },
+    // Masspec plot
     {
         id: "Masspec",
         filetag: "mass",
@@ -19371,15 +19571,30 @@ const mainPages = [
         funcBtns: [
             {
                 id: "massPlotBtn",
-                name: "Masspec Plot"
+                name: "Masspec Plot",
             },
             {
                 id: "mass_Matplotlib",
                 name: "Open in matplotlib"
             }
         ],
-        plotID: ["mplot"]
+        plotID: ["mplot"],
+        checkBtns: [
+            {
+                id: "mass_shell",
+                name: ["shell ON", "shell OFF"],
+                bind: false,
+                help: shell_help
+            },
+            {
+                id: "masslinearlog",
+                name: ["Log", "Linear"],
+                bind: true,
+                help: "Plot the Yscale in Log/Linear"
+            }
+        ]
     },
+    // Timescan plot
     {
         id: "Timescan",
         filetag: "scan",
@@ -19398,8 +19613,23 @@ const mainPages = [
                 name: "Open in matplotlib"
             }
         ],
-        plotID: ["tplot_container"]
+        plotID: ["tplot_container"],
+        checkBtns: [
+            {
+                id: "scan_shell",
+                name: ["shell ON", "shell OFF"],
+                bind: false,
+                help: shell_help
+            },
+            {
+                id: "scanlinearlog",
+                name: ["Log", "Linear"],
+                bind: false,
+                help: "Plot the Yscale in Log/Linear"
+            }
+        ]
     },
+    // THz plot
     {
         id: "THz",
         filetag: "thz",
@@ -19414,7 +19644,15 @@ const mainPages = [
                 name: "Open in matplotlib"
             }
         ],
-        plotID: ["thzplot_Container"]
+        plotID: ["thzplot_Container"],
+        checkBtns: [
+            {
+                id: "thz_shell",
+                name: ["shell ON", "shell OFF"],
+                bind: false,
+                help: shell_help
+            }
+        ]
     }
 ];
 const app = new App({
