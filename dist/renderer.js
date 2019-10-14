@@ -5,7 +5,8 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 var path = require('path');
 var path__default = _interopDefault(path);
 var electron = require('electron');
-var child_process = _interopDefault(require('child_process'));
+var child_process = require('child_process');
+var child_process__default = _interopDefault(child_process);
 var fs = require('fs');
 var fs__default = _interopDefault(fs);
 
@@ -1410,7 +1411,7 @@ class Filebrowser extends SvelteComponent {
 	}
 }
 
-const { spawn, exec } = child_process;
+const { spawn, exec } = child_process__default;
 
 const pythonPath = path__default.join(__dirname, "../python3.7/python");
 const functions_path = path__default.join(__dirname, "/python_files/");
@@ -1511,7 +1512,7 @@ class program {
         return new Promise((resolve, reject) => {
 
             const py = spawn(pythonPath, [path__default.join(functions_path, this.pyfile), this.files.concat(this.args)]);
-
+            
             py.stdout.on("data", data => {
 
                 let dataFromPython;
@@ -1864,7 +1865,7 @@ function get_each_context_5(ctx, list, i) {
 	return child_ctx;
 }
 
-// (361:12) {#each funcBtns as { id, name }}
+// (407:12) {#each funcBtns as { id, name }}
 function create_each_block_5(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -1902,7 +1903,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (370:12) {#if filetag == 'felix'}
+// (416:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
@@ -1985,7 +1986,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (398:12) {#if filetag == 'thz'}
+// (444:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t_1, div2, input, input_updating = false, dispose;
 
@@ -2046,7 +2047,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (419:12) {#if filetag == 'mass' || filetag == 'scan'}
+// (465:12) {#if filetag == 'mass' || filetag == 'scan'}
 function create_if_block_8(ctx) {
 	var div3, div2, input, input_id_value, t0, div0, t2, div1, dispose;
 
@@ -2106,7 +2107,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (442:6) {#if filetag=="felix"}
+// (488:6) {#if filetag=="felix"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, dispose;
 
@@ -2218,7 +2219,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (460:6) {#if filetag=="scan"}
+// (506:6) {#if filetag=="scan"}
 function create_if_block_1$1(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2348,7 +2349,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (473:28) {#if folderFile.files != undefined}
+// (519:28) {#if folderFile.files != undefined}
 function create_if_block_6(ctx) {
 	var each_1_anchor;
 
@@ -2411,7 +2412,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (474:31) {#each folderFile.files as scanfile}
+// (520:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2448,7 +2449,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (465:16) {#each ["ResON", "ResOFF"] as name}
+// (511:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -2516,7 +2517,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (496:57) 
+// (542:57) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2555,7 +2556,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (494:52) 
+// (540:52) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2594,7 +2595,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (492:50) 
+// (538:50) 
 function create_if_block_3(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2633,7 +2634,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (490:22) {#if name=="Power (ON, OFF)"}
+// (536:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_2(ctx) {
 	var input, dispose;
 
@@ -2666,7 +2667,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (485:16) {#each depletionLabels as {name, id}}
+// (531:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -2724,7 +2725,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (532:12) {:else}
+// (578:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2754,7 +2755,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (525:12) {#if filetag == 'scan'}
+// (571:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -2828,7 +2829,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (527:16) {#each fileChecked as scanfile}
+// (573:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -2858,7 +2859,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (524:10) {#each plotID as id}
+// (570:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3403,56 +3404,101 @@ function instance$4($$self, $$props, $$invalidate) {
   }
 
   const functionRun = event => {
+
     let btname = event.target.id;
-    if (btname == "felixPlotBtn") {
 
-      Plotly.purge("exp-theory-plot");
-      runPlot({
-        fullfiles: fullfiles, filetype: filetag, btname: btname,
-        pyfile: "normline.py", normethod: normlog, args: delta
-      });
+    const pythonPath = path.join(__dirname, "../python3.7/python");
+    const functions_path = path.join(__dirname, "/python_files/");
 
+    switch (btname) {
 
-    }
-      
-    if (btname == "createBaselineBtn")
-      runPlot({
-        fullfiles: fullfiles,
-        filetype: "general",
-        btname: btname,
-        pyfile: "baseline.py"
-      });
-    if (btname == "massPlotBtn")
-      runPlot({
-        fullfiles: fullfiles,
-        filetype: filetag,
-        btname: btname,
-        pyfile: "mass.py"
-      });
-    if (btname == "timescanBtn") {
-      fileChecked.forEach(file => {
+      ////////////// FELIX PLOT //////////////////////
+
+      case "felixPlotBtn":
+        Plotly.purge("exp-theory-plot");
         runPlot({
-          fullfiles: join(file),
-          filetype: filetag,
-          btname: btname,
-          pyfile: "timescan.py",
-          plotArea: file + "_tplot"
+          fullfiles: fullfiles, filetype: filetag, btname: btname,
+          pyfile: "normline.py", normethod: normlog, args: delta
         });
-      });
-    }
-
-    if (btname == "thzBtn") {
-       runPlot({
-          fullfiles: fullfiles,
-          filetype: filetag,
-          btname: btname,
-          pyfile: "thz_scan.py",
-          args: delta_thz
-        });
+        break;
       
+      ////////////// Baseline PLOT //////////////////////
+
+      case "createBaselineBtn":
+          runPlot({
+            fullfiles: fullfiles,
+            filetype: "general",
+            btname: btname,
+            pyfile: "baseline.py"
+          });
+      break;
+
+      ////////////// Masspec PLOT //////////////////////
+
+      case "massPlotBtn":
+          runPlot({
+            fullfiles: fullfiles,
+            filetype: filetag,
+            btname: btname,
+            pyfile: "mass.py",
+            args: "run"
+          });
+      break;
+
+      ////////////// Timescan PLOT //////////////////////
+
+      case "timescanBtn":
+          fileChecked.forEach(file => {
+              runPlot({
+                fullfiles: join(file),
+                filetype: filetag,
+                btname: btname,
+                pyfile: "timescan.py",
+                plotArea: file + "_tplot"
+              });
+            });
+      break;
+
+      ////////////// THz PLOT //////////////////////
+
+      case "thzBtn":
+           runPlot({
+            fullfiles: fullfiles,
+            filetype: filetag,
+            btname: btname,
+            pyfile: "thz_scan.py",
+            args: delta_thz
+          });
+      break;
+
+      ////////////// Open graph in matplotlib (tkinter canvas) //////////////////////
+      case `mass_Matplotlib`:
+        runPlot({
+            fullfiles: fullfiles,
+            filetype: "general",
+            btname: btname,
+            pyfile: "mass.py",
+            args: "plot"
+          });
+
+        break;
+
+      ////////////// Toggle buttons //////////////////////
+
+      case "theoryBtn": 
+        jq("#theoryRow").toggle();
+        break;
+
+      case "depletionscanBtn":
+        jq("#depletionRow").toggle();
+        break;
+
+      ////////////////////////////////////////////////////
+    
+      default:
+        break;
+      //////////////////////////////////////////////////// 
     }
-    if (btname == "theoryBtn") jq("#theoryRow").toggle();
-    if (btname == "depletionscanBtn") jq("#depletionRow").toggle();
   };
 
   let theoryfiles=[];
@@ -19310,6 +19356,10 @@ const mainPages = [
             {
                 id: "theoryBtn",
                 name: "Add Theory"
+            },
+            {
+                id: "felix_Matplotlib",
+                name: "Open in matplotlib"
             }
         ],
         plotID: ["exp-theory-plot", "bplot", "saPlot", "nplot", "avgplot"]
@@ -19322,6 +19372,10 @@ const mainPages = [
             {
                 id: "massPlotBtn",
                 name: "Masspec Plot"
+            },
+            {
+                id: "mass_Matplotlib",
+                name: "Open in matplotlib"
             }
         ],
         plotID: ["mplot"]
@@ -19338,6 +19392,10 @@ const mainPages = [
             {
                 id: "depletionscanBtn",
                 name: "Depletion Plot"
+            },
+            {
+                id: "scan_Matplotlib",
+                name: "Open in matplotlib"
             }
         ],
         plotID: ["tplot_container"]
@@ -19350,6 +19408,10 @@ const mainPages = [
             {
                 id: "thzBtn",
                 name: "THz Plot"
+            },
+            {
+                id: "thz_Matplotlib",
+                name: "Open in matplotlib"
             }
         ],
         plotID: ["thzplot_Container"]

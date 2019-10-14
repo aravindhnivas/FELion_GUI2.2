@@ -18,6 +18,10 @@ const mainPages = [
 			{
 				id: "theoryBtn",
 				name: "Add Theory"
+			},
+			{
+				id: "felix_Matplotlib",
+				name: "Open in matplotlib"
 			}
 		],
 		plotID: ["exp-theory-plot", "bplot", "saPlot", "nplot", "avgplot"]
@@ -30,6 +34,10 @@ const mainPages = [
 			{
 				id: "massPlotBtn",
 				name: "Masspec Plot"
+			},
+			{
+				id: "mass_Matplotlib",
+				name: "Open in matplotlib"
 			}
 		],
 		plotID: ["mplot"]
@@ -46,6 +54,10 @@ const mainPages = [
 			{
 				id: "depletionscanBtn",
 				name: "Depletion Plot"
+			},
+			{
+				id: "scan_Matplotlib",
+				name: "Open in matplotlib"
 			}
 		],
 		plotID: ["tplot_container"]
@@ -58,6 +70,10 @@ const mainPages = [
 			{
 				id: "thzBtn",
 				name: "THz Plot"
+			},
+			{
+				id: "thz_Matplotlib",
+				name: "Open in matplotlib"
 			}
 		],
 		plotID: ["thzplot_Container"]

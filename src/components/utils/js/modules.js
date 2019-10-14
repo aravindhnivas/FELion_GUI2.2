@@ -99,7 +99,7 @@ class program {
         return new Promise((resolve, reject) => {
 
             const py = spawn(pythonPath, [path.join(functions_path, this.pyfile), this.files.concat(this.args)]);
-
+            
             py.stdout.on("data", data => {
 
                 let dataFromPython;

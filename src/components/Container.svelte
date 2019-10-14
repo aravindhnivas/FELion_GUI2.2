@@ -2,6 +2,7 @@
   // Importing Svelte modules
   import Filebrowser from "./utils/Filebrowser.svelte";
   import { runPlot } from "./utils/js/felion_main.js";
+  import {spawn} from 'child_process';
 
   import * as dirTree from "directory-tree";
 
@@ -155,56 +156,101 @@
   }
 
   const functionRun = event => {
+
     let btname = event.target.id;
-    if (btname == "felixPlotBtn") {
 
-      Plotly.purge("exp-theory-plot");
-      runPlot({
-        fullfiles: fullfiles, filetype: filetag, btname: btname,
-        pyfile: "normline.py", normethod: normlog, args: delta
-      });
+    const pythonPath = path.join(__dirname, "../python3.7/python")
+    const functions_path = path.join(__dirname, "/python_files/")
 
+    switch (btname) {
 
-    }
-      
-    if (btname == "createBaselineBtn")
-      runPlot({
-        fullfiles: fullfiles,
-        filetype: "general",
-        btname: btname,
-        pyfile: "baseline.py"
-      });
-    if (btname == "massPlotBtn")
-      runPlot({
-        fullfiles: fullfiles,
-        filetype: filetag,
-        btname: btname,
-        pyfile: "mass.py"
-      });
-    if (btname == "timescanBtn") {
-      fileChecked.forEach(file => {
+      ////////////// FELIX PLOT //////////////////////
+
+      case "felixPlotBtn":
+        Plotly.purge("exp-theory-plot");
         runPlot({
-          fullfiles: join(file),
-          filetype: filetag,
-          btname: btname,
-          pyfile: "timescan.py",
-          plotArea: file + "_tplot"
+          fullfiles: fullfiles, filetype: filetag, btname: btname,
+          pyfile: "normline.py", normethod: normlog, args: delta
         });
-      });
-    }
-
-    if (btname == "thzBtn") {
-       runPlot({
-          fullfiles: fullfiles,
-          filetype: filetag,
-          btname: btname,
-          pyfile: "thz_scan.py",
-          args: delta_thz
-        });
+        break;
       
+      ////////////// Baseline PLOT //////////////////////
+
+      case "createBaselineBtn":
+          runPlot({
+            fullfiles: fullfiles,
+            filetype: "general",
+            btname: btname,
+            pyfile: "baseline.py"
+          });
+      break;
+
+      ////////////// Masspec PLOT //////////////////////
+
+      case "massPlotBtn":
+          runPlot({
+            fullfiles: fullfiles,
+            filetype: filetag,
+            btname: btname,
+            pyfile: "mass.py",
+            args: "run"
+          });
+      break;
+
+      ////////////// Timescan PLOT //////////////////////
+
+      case "timescanBtn":
+          fileChecked.forEach(file => {
+              runPlot({
+                fullfiles: join(file),
+                filetype: filetag,
+                btname: btname,
+                pyfile: "timescan.py",
+                plotArea: file + "_tplot"
+              });
+            });
+      break;
+
+      ////////////// THz PLOT //////////////////////
+
+      case "thzBtn":
+           runPlot({
+            fullfiles: fullfiles,
+            filetype: filetag,
+            btname: btname,
+            pyfile: "thz_scan.py",
+            args: delta_thz
+          });
+      break;
+
+      ////////////// Open graph in matplotlib (tkinter canvas) //////////////////////
+      case `mass_Matplotlib`:
+        runPlot({
+            fullfiles: fullfiles,
+            filetype: "general",
+            btname: btname,
+            pyfile: "mass.py",
+            args: "plot"
+          });
+
+        break;
+
+      ////////////// Toggle buttons //////////////////////
+
+      case "theoryBtn": 
+        jq("#theoryRow").toggle()
+        break;
+
+      case "depletionscanBtn":
+        jq("#depletionRow").toggle()
+        break;
+
+      ////////////////////////////////////////////////////
+    
+      default:
+        break;
+      //////////////////////////////////////////////////// 
     }
-    if (btname == "theoryBtn") jq("#theoryRow").toggle()
-    if (btname == "depletionscanBtn") jq("#depletionRow").toggle()
   };
 
   let theoryfiles=[];
