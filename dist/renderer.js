@@ -1897,7 +1897,7 @@ function get_each_context_6(ctx, list, i) {
 	return child_ctx;
 }
 
-// (440:12) {#each funcBtns as { id, name }}
+// (457:12) {#each funcBtns as { id, name }}
 function create_each_block_6(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -1935,7 +1935,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (449:12) {#if filetag == 'felix'}
+// (466:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
@@ -2018,7 +2018,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (477:12) {#if filetag == 'thz'}
+// (494:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t_1, div2, input, input_updating = false, dispose;
 
@@ -2079,7 +2079,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (505:18) {:else}
+// (522:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2117,7 +2117,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (503:18) {#if name[0]==="Log"}
+// (520:18) {#if name[0]==="Log"}
 function create_if_block_8(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2155,7 +2155,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (498:12) {#each checkBtns as {id, name, bind, help}}
+// (515:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_5(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, t4;
 
@@ -2240,7 +2240,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (522:6) {#if filetag=="felix"}
+// (539:6) {#if filetag=="felix"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, dispose;
 
@@ -2352,7 +2352,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (540:6) {#if filetag=="scan"}
+// (557:6) {#if filetag=="scan"}
 function create_if_block_1$1(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2482,7 +2482,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (553:28) {#if folderFile.files != undefined}
+// (570:28) {#if folderFile.files != undefined}
 function create_if_block_6(ctx) {
 	var each_1_anchor;
 
@@ -2545,7 +2545,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (554:31) {#each folderFile.files as scanfile}
+// (571:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2582,7 +2582,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (545:16) {#each ["ResON", "ResOFF"] as name}
+// (562:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -2650,7 +2650,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (576:57) 
+// (593:57) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2689,7 +2689,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (574:52) 
+// (591:52) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2728,7 +2728,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (572:50) 
+// (589:50) 
 function create_if_block_3(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2767,7 +2767,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (570:22) {#if name=="Power (ON, OFF)"}
+// (587:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_2(ctx) {
 	var input, dispose;
 
@@ -2800,7 +2800,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (565:16) {#each depletionLabels as {name, id}}
+// (582:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -2858,7 +2858,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (612:12) {:else}
+// (629:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2888,7 +2888,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (605:12) {#if filetag == 'scan'}
+// (622:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -2962,7 +2962,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (607:16) {#each fileChecked as scanfile}
+// (624:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -2992,7 +2992,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (604:10) {#each plotID as id}
+// (621:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3426,9 +3426,21 @@ const style = "display:none;";
 function instance$4($$self, $$props, $$invalidate) {
 	
 
-  let { id, filetag, filetype, funcBtns, plotID, checkBtns, jq, electron, path } = $$props;
-  
-  const dialog = electron.remote.dialog;
+  let { id, filetag, filetype, funcBtns, plotID, checkBtns, jq, electron, path, menu, MenuItem } = $$props;
+
+  menu.append(new MenuItem({ label: `Open ${filetag} plot in Matplotlib`, click() {
+
+      let obj = {
+        fullfiles: fullfiles,
+        filetag:filetag,            
+        filetype: "general",
+        btname: `${filetag}_Matplotlib`,
+        pyfile: fileInfo[filetag]["pyfile"],
+        args: fileInfo[filetag]["args"]
+      };
+      runPlot(obj);
+    } 
+  }));
 
   jq(document).ready(() => {
     jq("#theoryBtn")
@@ -3453,7 +3465,6 @@ function instance$4($$self, $$props, $$invalidate) {
     }
   };
 
-  
   let normMethod = "Log";
   let normlog = true;
 
@@ -3526,7 +3537,6 @@ function instance$4($$self, $$props, $$invalidate) {
   };
 
   function browseFile({theory=false}) {
-
     if (theory == true) {
       return new Promise((resolve, reject) => {
 
@@ -3537,7 +3547,7 @@ function instance$4($$self, $$props, $$invalidate) {
           properties: ["openFile", "multiSelections"],
           message: `Open theory files` //For macOS
         };
-        dialog.showOpenDialog(null, options, filePaths => {
+        electron.remote.dialog.showOpenDialog(null, options, filePaths => {
           if (filePaths == undefined) reject("No files selected");
 
           resolve(filePaths);
@@ -3555,7 +3565,7 @@ function instance$4($$self, $$props, $$invalidate) {
         properties: ["openFile", "multiSelections"],
         message: `Open ${filetag} files` //For macOS
       };
-      dialog.showOpenDialog(null, options, filePaths => {
+      electron.remote.dialog.showOpenDialog(null, options, filePaths => {
         if (filePaths == undefined) return console.log("No files selected");
         $$invalidate('currentLocation', currentLocation = path.dirname(filePaths[0]));
         $$invalidate('folderFile', folderFile = updateFolder(currentLocation));
@@ -3564,9 +3574,7 @@ function instance$4($$self, $$props, $$invalidate) {
 
   }
 
-
   let delta_thz = 10;
-
   const fileInfo = {
 
     // Create baseline matplotlib
@@ -3622,7 +3630,11 @@ function instance$4($$self, $$props, $$invalidate) {
       ////////////// Matplotlib PLOT //////////////////////
 
       case `${filetag}_Matplotlib`:
-          let obj = {
+
+        let scriptname = fileInfo[filetag]["pyfile"];
+        let options = {args:[...fullfiles, fileInfo[filetag]["args"]]};
+
+        let obj = {
             fullfiles: fullfiles,
             filetag:filetag,            
             filetype: "general",
@@ -3630,7 +3642,8 @@ function instance$4($$self, $$props, $$invalidate) {
             pyfile: fileInfo[filetag]["pyfile"],
             args: fileInfo[filetag]["args"]
           };
-          runPlot(obj);
+
+        runPlot(obj);
 
       break;
 
@@ -3735,7 +3748,6 @@ function instance$4($$self, $$props, $$invalidate) {
     runPlot({fullfiles: [currentLocation], filetype: "general", 
       btname: "depletionSubmit", pyfile: "depletionscan.py", args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] });
   };
-
   
   const changeTHz = (event) => {
 
@@ -3813,6 +3825,8 @@ function instance$4($$self, $$props, $$invalidate) {
 		if ('jq' in $$props) $$invalidate('jq', jq = $$props.jq);
 		if ('electron' in $$props) $$invalidate('electron', electron = $$props.electron);
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
+		if ('menu' in $$props) $$invalidate('menu', menu = $$props.menu);
+		if ('MenuItem' in $$props) $$invalidate('MenuItem', MenuItem = $$props.MenuItem);
 	};
 
 	let fileChecked, fullfiles, theoryfilenames;
@@ -3836,6 +3850,8 @@ function instance$4($$self, $$props, $$invalidate) {
 		jq,
 		electron,
 		path,
+		menu,
+		MenuItem,
 		delta,
 		changeDelta,
 		normMethod,
@@ -3880,7 +3896,7 @@ function instance$4($$self, $$props, $$invalidate) {
 class Container extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$4, create_fragment$4, safe_not_equal, ["id", "filetag", "filetype", "funcBtns", "plotID", "checkBtns", "jq", "electron", "path"]);
+		init(this, options, instance$4, create_fragment$4, safe_not_equal, ["id", "filetag", "filetype", "funcBtns", "plotID", "checkBtns", "jq", "electron", "path", "menu", "MenuItem"]);
 	}
 }
 
@@ -19281,7 +19297,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (29:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
+// (58:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
 function create_each_block$3(ctx) {
 	var current;
 
@@ -19295,6 +19311,8 @@ function create_each_block$3(ctx) {
 		checkBtns: ctx.checkBtns,
 		jq: ctx.jq,
 		electron: electron,
+		menu: ctx.menu,
+		MenuItem: ctx.MenuItem,
 		path: path
 	}
 	});
@@ -19408,7 +19426,7 @@ function create_fragment$7(ctx) {
 		},
 
 		p(changed, ctx) {
-			if (changed.mainPages || changed.jq || changed.electron || changed.path) {
+			if (changed.mainPages || changed.jq || changed.electron || changed.menu || changed.MenuItem || changed.path) {
 				each_value = ctx.mainPages;
 
 				let i;
@@ -19511,14 +19529,39 @@ function instance$6($$self, $$props, $$invalidate) {
 
   // Getting variables
   let { mainPages } = $$props;
-
   const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile"];
+
+  const remote = electron.remote;
+  const Menu = remote.Menu;
+  const MenuItem = remote.MenuItem;
+
+  let rightClickPosition = null;
+
+  const menu = new Menu();
+
+  menu.append(new MenuItem({ label: 'cut', role:"cut" }));
+  menu.append(new MenuItem({ label: 'copy', role:"copy" }));
+  menu.append(new MenuItem({ label: 'paste', role:"paste" }));
+
+  menu.append(new MenuItem({ type: 'separator' }));
+
+  menu.append(new MenuItem({ label: 'Reload', role:"reload" }));
+  menu.append(new MenuItem({ label: 'DevTools', role: 'toggledevtools' }));
+  menu.append(new MenuItem({ label: "Inspect Element", click() { remote.getCurrentWindow().inspectElement(rightClickPosition.x, rightClickPosition.y); } }));
+  menu.append(new MenuItem({ type: 'separator' }));
+
+  
+  window.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      rightClickPosition = {x: e.x, y: e.y};
+      menu.popup(remote.getCurrentWindow());
+    }, false);
 
 	$$self.$set = $$props => {
 		if ('mainPages' in $$props) $$invalidate('mainPages', mainPages = $$props.mainPages);
 	};
 
-	return { jq, mainPages, navItems };
+	return { jq, mainPages, navItems, MenuItem, menu };
 }
 
 class App extends SvelteComponent {

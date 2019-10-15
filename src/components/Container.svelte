@@ -1,4 +1,5 @@
 <script>
+
   // Importing Svelte modules
   import Filebrowser from "./utils/Filebrowser.svelte";
   import { runPlot } from "./utils/js/felion_main.js";
@@ -13,11 +14,27 @@
 
   export let checkBtns;
   export let jq;
+
   export let electron;
 
   export let path;
-  
-  const dialog = electron.remote.dialog;
+
+  export let menu;
+  export let MenuItem;
+
+  menu.append(new MenuItem({ label: `Open ${filetag} plot in Matplotlib`, click() {
+
+      let obj = {
+        fullfiles: fullfiles,
+        filetag:filetag,            
+        filetype: "general",
+        btname: `${filetag}_Matplotlib`,
+        pyfile: fileInfo[filetag]["pyfile"],
+        args: fileInfo[filetag]["args"]
+      }
+      runPlot(obj);
+    } 
+  }))
 
   jq(document).ready(() => {
     jq("#theoryBtn")
@@ -42,7 +59,6 @@
     }
   };
 
-  
   let normMethod = "Log";
   let normlog = true;
   $: normMethod == "Relative" ? (normlog = false) : (normlog = true);
@@ -122,7 +138,6 @@
   };
 
   function browseFile({theory=false}) {
-
     if (theory == true) {
       return new Promise((resolve, reject) => {
         let files;
@@ -134,7 +149,7 @@
           properties: ["openFile", "multiSelections"],
           message: `Open theory files` //For macOS
         };
-        dialog.showOpenDialog(null, options, filePaths => {
+        electron.remote.dialog.showOpenDialog(null, options, filePaths => {
           if (filePaths == undefined) reject("No files selected");
 
           resolve(filePaths);
@@ -152,7 +167,7 @@
         properties: ["openFile", "multiSelections"],
         message: `Open ${filetag} files` //For macOS
       };
-      dialog.showOpenDialog(null, options, filePaths => {
+      electron.remote.dialog.showOpenDialog(null, options, filePaths => {
         if (filePaths == undefined) return console.log("No files selected");
         currentLocation = path.dirname(filePaths[0]);
         folderFile = updateFolder(currentLocation);
@@ -161,9 +176,7 @@
 
   }
 
-
   let delta_thz = 10
-
   const fileInfo = {
 
     // Create baseline matplotlib
@@ -219,7 +232,11 @@
       ////////////// Matplotlib PLOT //////////////////////
 
       case `${filetag}_Matplotlib`:
-          let obj = {
+
+        let scriptname = fileInfo[filetag]["pyfile"]
+        let options = {args:[...fullfiles, fileInfo[filetag]["args"]]}
+
+        let obj = {
             fullfiles: fullfiles,
             filetag:filetag,            
             filetype: "general",
@@ -227,7 +244,8 @@
             pyfile: fileInfo[filetag]["pyfile"],
             args: fileInfo[filetag]["args"]
           }
-          runPlot(obj);
+
+        runPlot(obj);
 
       break;
 
@@ -333,7 +351,6 @@
     runPlot({fullfiles: [currentLocation], filetype: "general", 
       btname: "depletionSubmit", pyfile: "depletionscan.py", args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] });
   }
-
   
   const changeTHz = (event) => {
 
