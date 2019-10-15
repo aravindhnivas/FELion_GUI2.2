@@ -73,6 +73,7 @@ function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
 }
 
 class program {
+    
     constructor(obj) {
         this.obj = obj
 

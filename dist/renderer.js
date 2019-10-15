@@ -1485,6 +1485,7 @@ function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
 }
 
 class program {
+    
     constructor(obj) {
         this.obj = obj;
 
@@ -1897,7 +1898,7 @@ function get_each_context_6(ctx, list, i) {
 	return child_ctx;
 }
 
-// (457:12) {#each funcBtns as { id, name }}
+// (460:12) {#each funcBtns as { id, name }}
 function create_each_block_6(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -1935,7 +1936,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (466:12) {#if filetag == 'felix'}
+// (469:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
@@ -2018,7 +2019,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (494:12) {#if filetag == 'thz'}
+// (497:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t_1, div2, input, input_updating = false, dispose;
 
@@ -2079,7 +2080,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (522:18) {:else}
+// (525:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2117,7 +2118,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (520:18) {#if name[0]==="Log"}
+// (523:18) {#if name[0]==="Log"}
 function create_if_block_8(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2155,7 +2156,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (515:12) {#each checkBtns as {id, name, bind, help}}
+// (518:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_5(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, t4;
 
@@ -2240,7 +2241,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (539:6) {#if filetag=="felix"}
+// (542:6) {#if filetag=="felix"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, dispose;
 
@@ -2352,7 +2353,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (557:6) {#if filetag=="scan"}
+// (560:6) {#if filetag=="scan"}
 function create_if_block_1$1(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2482,7 +2483,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (570:28) {#if folderFile.files != undefined}
+// (573:28) {#if folderFile.files != undefined}
 function create_if_block_6(ctx) {
 	var each_1_anchor;
 
@@ -2545,7 +2546,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (571:31) {#each folderFile.files as scanfile}
+// (574:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2582,7 +2583,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (562:16) {#each ["ResON", "ResOFF"] as name}
+// (565:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -2650,7 +2651,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (593:57) 
+// (596:57) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2689,7 +2690,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (591:52) 
+// (594:52) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2728,7 +2729,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (589:50) 
+// (592:50) 
 function create_if_block_3(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2767,7 +2768,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (587:22) {#if name=="Power (ON, OFF)"}
+// (590:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_2(ctx) {
 	var input, dispose;
 
@@ -2800,7 +2801,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (582:16) {#each depletionLabels as {name, id}}
+// (585:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -2858,7 +2859,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (629:12) {:else}
+// (632:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2888,7 +2889,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (622:12) {#if filetag == 'scan'}
+// (625:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -2962,7 +2963,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (624:16) {#each fileChecked as scanfile}
+// (627:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -2992,7 +2993,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (621:10) {#each plotID as id}
+// (624:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3490,6 +3491,7 @@ function instance$4($$self, $$props, $$invalidate) {
 
   let tree = directoryTree_1;
   let currentLocation;
+  if (localStorage.getItem(`${filetag}_location`) != null) {$$invalidate('currentLocation', currentLocation = localStorage.getItem(`${filetag}_location`));}
 
   let allFiles = [];
 
@@ -3569,6 +3571,8 @@ function instance$4($$self, $$props, $$invalidate) {
         if (filePaths == undefined) return console.log("No files selected");
         $$invalidate('currentLocation', currentLocation = path.dirname(filePaths[0]));
         $$invalidate('folderFile', folderFile = updateFolder(currentLocation));
+        localStorage.setItem(`${filetag}_location`, currentLocation);
+
       });
     }
 
@@ -19297,7 +19301,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (58:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
+// (65:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
 function create_each_block$3(ctx) {
 	var current;
 
@@ -19524,13 +19528,21 @@ function create_fragment$7(ctx) {
 
 function instance$6($$self, $$props, $$invalidate) {
 	
-
   const jq = jquery;
 
   // Getting variables
   let { mainPages } = $$props;
   const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile"];
 
+  // const level =  require('level');
+  // try {
+  //   const db = level('database')
+  //   console.log("Database created")
+
+  // } catch (err) {throw err}
+
+  // localStorage.setItem("username", "John");
+ 
   const remote = electron.remote;
   const Menu = remote.Menu;
   const MenuItem = remote.MenuItem;

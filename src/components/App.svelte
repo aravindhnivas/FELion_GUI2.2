@@ -13,13 +13,21 @@
   import * as jQuery from 'jquery';
   import * as electron from 'electron';
   import * as path from 'path';
-
   const jq = jQuery.default;
 
   // Getting variables
   export let mainPages;
   const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile"];
 
+  // const level =  require('level');
+  // try {
+  //   const db = level('database')
+  //   console.log("Database created")
+
+  // } catch (err) {throw err}
+
+  // localStorage.setItem("username", "John");
+ 
   const remote = electron.remote
   const Menu = remote.Menu
   const MenuItem = remote.MenuItem
@@ -45,7 +53,6 @@
       rightClickPosition = {x: e.x, y: e.y}
       menu.popup(remote.getCurrentWindow())
     }, false)
-
 
 </script>
 

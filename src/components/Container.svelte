@@ -88,6 +88,7 @@
   let tree = dirTree.default;
   const style = "display:none;";
   let currentLocation;
+  if (localStorage.getItem(`${filetag}_location`) != null) {currentLocation = localStorage.getItem(`${filetag}_location`)}
 
   let allFiles = [];
   $: fileChecked = allFiles.filter(file => file.checked).map(file => file.id);
@@ -171,6 +172,8 @@
         if (filePaths == undefined) return console.log("No files selected");
         currentLocation = path.dirname(filePaths[0]);
         folderFile = updateFolder(currentLocation);
+        localStorage.setItem(`${filetag}_location`, currentLocation)
+
       });
     }
 
