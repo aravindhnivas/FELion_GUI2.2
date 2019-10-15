@@ -189,7 +189,7 @@ def main(filenames, delta, tkplot):
     if runavg:
 
         label = f"Averaged (delta={delta*1e6:.2f} KHz)"
-        if tkplot: ax.plot(binx, biny, ".", label=label)
+        if tkplot: ax.plot(binx, biny, "k.", label=label)
 
         else:
             data["Averaged_exp"] = {
