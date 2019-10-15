@@ -615,11 +615,11 @@
       <h1 class="subtitle">Data Visualisation</h1>
 
       <div class="row box plotContainer">
-        <img
+        <!-- <img
           class="data-loading"
           id="{filetag}loading"
           src="./icons/loadingBar.svg"
-          alt="loading data" />
+          alt="loading data" /> -->
         <div class="container is-fluid" id="{filetag}plotContainer">
           {#each plotID as id}
             {#if filetag == 'scan'}

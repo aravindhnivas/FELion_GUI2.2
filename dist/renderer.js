@@ -1701,7 +1701,7 @@ function runPlot({ fullfiles, filetype, btname, pyfile, filetag=null, args = [],
     console.log(":: runPlot -> $target", $target);
 
     $target.addClass("is-loading");
-    $(`#${filetype}loading`).css("display", "block");
+    // $(`#${filetype}loading`).css("display", "block");
     if (filetype == "felix") { $("#theoryBtn").css("display", "none"); $("#theoryRow").css("display", "none"); }
 
     let start = new program_1(obj);
@@ -1715,18 +1715,18 @@ function runPlot({ fullfiles, filetype, btname, pyfile, filetag=null, args = [],
 
                     console.log(plotResult); //Graph plotted
 
-                    $(`#${filetype}loading`).css("display", "none");
+                    // $(`#${filetype}loading`).css("display", "none")
                     $target.removeClass(loadAnimation).addClass(successAnimation);
                     if (filetype == "felix") { $("#theoryBtn").css("display", "block"); }
                 })
                 .catch(pythonError => {
-                    $(`#${filetype}loading`).css("display", "none");
+                    // $(`#${filetype}loading`).css("display", "none")
                     console.log(pythonError); // Error from python while graph plotting
                     $target.removeClass(loadAnimation).addClass(dangerAnimation);
                 });
         })
         .catch(filecheckError => {
-            $(`#${filetype}loading`).css("display", "none");
+            // $(`#${filetype}loading`).css("display", "none")
             console.log("FileCheck error: ", filecheckError);  //Filecheck error
             $target.removeClass(loadAnimation).addClass(dangerAnimation);
         });
@@ -3040,7 +3040,7 @@ function create_each_block$2(ctx) {
 }
 
 function create_fragment$4(ctx) {
-	var section, div12, div0, div0_id_value, t0, div11, div5, div4, div1, input, input_id_value, t1, div3, div2, t2, div2_data_tippy_value, t3, div8, div7, div6, t4, t5, t6, t7, t8, t9, hr, t10, h1, t12, div10, img, img_id_value, t13, div9, div9_id_value, current, dispose;
+	var section, div12, div0, div0_id_value, t0, div11, div5, div4, div1, input, input_id_value, t1, div3, div2, t2, div2_data_tippy_value, t3, div8, div7, div6, t4, t5, t6, t7, t8, t9, hr, t10, h1, t12, div10, div9, div9_id_value, current, dispose;
 
 	var filebrowser = new Filebrowser({
 		props: {
@@ -3131,8 +3131,6 @@ function create_fragment$4(ctx) {
 			h1.textContent = "Data Visualisation";
 			t12 = space();
 			div10 = element("div");
-			img = element("img");
-			t13 = space();
 			div9 = element("div");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -3156,10 +3154,6 @@ function create_fragment$4(ctx) {
 			set_style(hr, "margin", "0.5em 0");
 			set_style(hr, "background-color", "#bdc3c7");
 			attr(h1, "class", "subtitle");
-			attr(img, "class", "data-loading svelte-9uv9aa");
-			attr(img, "id", img_id_value = "" + ctx.filetag + "loading");
-			attr(img, "src", "./icons/loadingBar.svg");
-			attr(img, "alt", "loading data");
 			attr(div9, "class", "container is-fluid svelte-9uv9aa");
 			attr(div9, "id", div9_id_value = "" + ctx.filetag + "plotContainer");
 			attr(div10, "class", "row box plotContainer svelte-9uv9aa");
@@ -3222,8 +3216,6 @@ function create_fragment$4(ctx) {
 			append(div11, h1);
 			append(div11, t12);
 			append(div11, div10);
-			append(div10, img);
-			append(div10, t13);
 			append(div10, div9);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -3349,10 +3341,6 @@ function create_fragment$4(ctx) {
 			} else if (if_block3) {
 				if_block3.d(1);
 				if_block3 = null;
-			}
-
-			if ((!current || changed.filetag) && img_id_value !== (img_id_value = "" + ctx.filetag + "loading")) {
-				attr(img, "id", img_id_value);
 			}
 
 			if (changed.filetag || changed.plotID || changed.fileChecked) {
