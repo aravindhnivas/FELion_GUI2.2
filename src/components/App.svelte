@@ -18,15 +18,6 @@
   // Getting variables
   export let mainPages;
   const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile"];
-
-  // const level =  require('level');
-  // try {
-  //   const db = level('database')
-  //   console.log("Database created")
-
-  // } catch (err) {throw err}
-
-  // localStorage.setItem("username", "John");
  
   const remote = electron.remote
   const Menu = remote.Menu

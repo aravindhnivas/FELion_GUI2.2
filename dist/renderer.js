@@ -19301,7 +19301,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (65:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
+// (56:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
 function create_each_block$3(ctx) {
 	var current;
 
@@ -19533,15 +19533,6 @@ function instance$6($$self, $$props, $$invalidate) {
   // Getting variables
   let { mainPages } = $$props;
   const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile"];
-
-  // const level =  require('level');
-  // try {
-  //   const db = level('database')
-  //   console.log("Database created")
-
-  // } catch (err) {throw err}
-
-  // localStorage.setItem("username", "John");
  
   const remote = electron.remote;
   const Menu = remote.Menu;
