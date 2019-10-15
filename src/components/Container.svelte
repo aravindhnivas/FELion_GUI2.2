@@ -217,6 +217,7 @@
     let btname = event.target.id;
 
     if (btname === "createBaselineBtn"){btname="felix_Matplotlib"}
+    // if (btname === "theory_Matplotlib"){btname="felix_Matplotlib"}
 
     switch (btname) {
 
@@ -317,11 +318,13 @@
       .then(file =>  theoryfiles = file).catch(err => console.log(err));
   }
 
-  function runtheory() {
-    runPlot({fullfiles: theoryfiles, filetype: "theory", 
-      btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation] });
+  function runtheory({tkplot="run", filetype="theory"}) {
+    
+
+    runPlot({fullfiles: theoryfiles, filetype: filetype, filetag:filetag,
+      btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot] });
   }
-  const runtheory_keyup = (event) => {if(event.key=="Enter") runtheory()}
+  const runtheory_keyup = (event) => {if(event.key=="Enter") runtheory({tkplot:"run"})}
   let sigma=20; //Sigma value for felixplot thoery gaussian profile
   let scale=1;
 
@@ -551,6 +554,7 @@
                     <input class="input" type="number" on:keyup={runtheory_keyup} bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
                     <input class="input" type="number" on:keyup={runtheory_keyup} step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
                     <button class="funcBtn button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
+                    <button class="funcBtn button is-link animated" on:click="{()=>runtheory({tkplot:"plot", filetype:"general"})}" id="theory_Matplotlib">Open in Matplotlib</button>
                 </div>
               </div>
             </div>

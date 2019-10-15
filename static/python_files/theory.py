@@ -2,9 +2,14 @@
 # Importing Modules
 import json
 from pathlib import Path as pt
-import numpy as np
 import sys
 from pathlib import Path as pt
+
+# FELion tkinter figure module
+from FELion_widgets import FELion_Tk
+
+# Data analysis
+import numpy as np
 
 colors = [
     (31, 119, 180),
@@ -32,24 +37,33 @@ colors = [
 def gaussian(x, A, sig, center):
     return A*np.exp(-0.5*((x-center)/sig)**2)
 
-
-def exp_theory(theoryfiles, location, norm_method, sigma, scale):
+def exp_theory(theoryfiles, location, norm_method, sigma, scale, tkplot):
 
     location = pt(location)
+
+    if tkplot:
+        
+        widget = FELion_Tk(title="Mass spectrum", location=theoryfiles[0].parent)
+        fig, canvas = widget.Figure()
+        if len(theoryfiles) == 1: savename=theoryfiles[0].stem
+        else: savename = "combined_masspec"
+        ax = widget.make_figure_layout(title="Experimental vs Theory", xaxis="Wavenumber $(cm^{-1})$", yaxis="counts", yscale="linear", savename=savename)
 
     if location.name is "DATA": datfile_location = location.parent/"EXPORT"
     else: datfile_location = location/"EXPORT"
 
     xs, ys = np.genfromtxt(f"{datfile_location}/averaged_{norm_method}.dat").T
 
-    data = {"line_simulation":{}, "averaged": {
-                "x": list(xs), "y": list(ys),  "name": "Exp",
-                "mode": "lines", "marker": {"color": "black"},
-        }}
+    if tkplot:
+        ax.plot(xs, ys, "k-", label="Experiment")
+    else:
+        data = {"line_simulation":{}, "averaged": {
+                    "x": list(xs), "y": list(ys),  "name": "Exp",
+                    "mode": "lines", "marker": {"color": "black"},
+            }}
 
     for theoryfile in theoryfiles:
 
-        theoryfile = pt(theoryfile)
 
         x, y = np.genfromtxt(theoryfile).T[:2]
         x = x*scale
@@ -69,25 +83,37 @@ def exp_theory(theoryfiles, location, norm_method, sigma, scale):
             theory_x = np.append(theory_x, x)
             theory_y = np.append(theory_y, y)
 
-        data["line_simulation"][f"{theoryfile.name}"] = {
-                "x":list(theory_x), "y":list(theory_y),  "name":f"{theoryfile.stem}", "fill":"tozerox"
-            }
+        if tkplot:
+            ax.fill(theory_x, theory_y, label=theoryfile.stem)
+        else:
+            data["line_simulation"][f"{theoryfile.name}"] = {
+                    "x":list(theory_x), "y":list(theory_y),  "name":f"{theoryfile.stem}", "fill":"tozerox"
+                }
 
+    if not tkplot:
 
-    data_tosend = json.dumps(data)
-    print(data_tosend)
+        dataJson = json.dumps(data)
+        print(dataJson)
+
+    else:
+        widget.plot_legend = ax.legend()
+        widget.mainloop()
+
+    # data_tosend = json.dumps(data)
+    # print(data_tosend)
 
 if __name__ == "__main__":
     args = sys.argv[1:][0].split(",")
 
-    theory_file = args[0:-4]
-    norm_method = args[-4]
+    theory_file = [pt(i) for i in args[0:-5]]
+    tkplot = args[-1]
 
-    # if args[-4]: norm_method = "log"  
-    # else: norm_method = "rel"
-    # print(":: norm_method", norm_method)
+    if tkplot == "plot": tkplot=True
+    else: tkplot = False
 
-    sigma = float(args[-3])
-    scale = float(args[-2])
-    location = args[-1]
-    exp_theory(theory_file, location, norm_method, sigma, scale)
+    location = args[-2]
+    scale = float(args[-3])
+    sigma = float(args[-4])
+    norm_method = args[-5]
+    
+    exp_theory(theory_file, location, norm_method, sigma, scale, tkplot)
