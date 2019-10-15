@@ -1898,7 +1898,7 @@ function get_each_context_6(ctx, list, i) {
 	return child_ctx;
 }
 
-// (463:12) {#each funcBtns as { id, name }}
+// (465:12) {#each funcBtns as { id, name }}
 function create_each_block_6(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -1936,7 +1936,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (472:12) {#if filetag == 'felix'}
+// (474:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
@@ -2019,7 +2019,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (500:12) {#if filetag == 'thz'}
+// (502:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t_1, div2, input, input_updating = false, dispose;
 
@@ -2080,7 +2080,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (528:18) {:else}
+// (530:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2118,7 +2118,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (526:18) {#if name[0]==="Log"}
+// (528:18) {#if name[0]==="Log"}
 function create_if_block_8(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2156,7 +2156,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (521:12) {#each checkBtns as {id, name, bind, help}}
+// (523:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_5(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, t4;
 
@@ -2241,7 +2241,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (545:6) {#if filetag=="felix"}
+// (547:6) {#if filetag=="felix"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2361,7 +2361,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (564:6) {#if filetag=="scan"}
+// (566:6) {#if filetag=="scan"}
 function create_if_block_1$1(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2491,7 +2491,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (577:28) {#if folderFile.files != undefined}
+// (579:28) {#if folderFile.files != undefined}
 function create_if_block_6(ctx) {
 	var each_1_anchor;
 
@@ -2554,7 +2554,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (578:31) {#each folderFile.files as scanfile}
+// (580:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2591,7 +2591,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (569:16) {#each ["ResON", "ResOFF"] as name}
+// (571:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -2659,7 +2659,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (600:57) 
+// (602:57) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2698,7 +2698,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (598:52) 
+// (600:52) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2737,7 +2737,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (596:50) 
+// (598:50) 
 function create_if_block_3(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2776,7 +2776,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (594:22) {#if name=="Power (ON, OFF)"}
+// (596:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_2(ctx) {
 	var input, dispose;
 
@@ -2809,7 +2809,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (589:16) {#each depletionLabels as {name, id}}
+// (591:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -2867,7 +2867,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (636:12) {:else}
+// (638:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2897,7 +2897,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (629:12) {#if filetag == 'scan'}
+// (631:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -2971,7 +2971,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (631:16) {#each fileChecked as scanfile}
+// (633:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3001,7 +3001,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (628:10) {#each plotID as id}
+// (630:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3603,7 +3603,7 @@ function instance$4($$self, $$props, $$invalidate) {
     thz:{
 
       pyfile:"thz_scan.py",
-      args:[delta_thz, "plot"]
+      // args:[delta_thz, "plot"] // Doesn't take the binded delta_thz value
       
     }
   };
@@ -3634,6 +3634,8 @@ function instance$4($$self, $$props, $$invalidate) {
 
         let scriptname = fileInfo[filetag]["pyfile"];
         let options = {args:[...fullfiles, fileInfo[filetag]["args"]]};
+
+        if (filetag === "thz") {fileInfo[filetag]["args"]=[delta_thz, "plot"];}
 
         let obj = {
             fullfiles: fullfiles,
@@ -3760,7 +3762,7 @@ function instance$4($$self, $$props, $$invalidate) {
           filetype: filetag,
           btname: "thzBtn",
           pyfile: "thz_scan.py",
-          args: delta_thz
+          args: [delta_thz, "run"]
         });
     }
 

@@ -208,7 +208,7 @@
     thz:{
 
       pyfile:"thz_scan.py",
-      args:[delta_thz, "plot"]
+      // args:[delta_thz, "plot"] // Doesn't take the binded delta_thz value
       
     }
   }
@@ -239,6 +239,8 @@
 
         let scriptname = fileInfo[filetag]["pyfile"]
         let options = {args:[...fullfiles, fileInfo[filetag]["args"]]}
+
+        if (filetag === "thz") {fileInfo[filetag]["args"]=[delta_thz, "plot"]}
 
         let obj = {
             fullfiles: fullfiles,
@@ -366,7 +368,7 @@
           filetype: filetag,
           btname: "thzBtn",
           pyfile: "thz_scan.py",
-          args: delta_thz
+          args: [delta_thz, "run"]
         });
     }
 

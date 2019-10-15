@@ -188,7 +188,7 @@ def main(filenames, delta, tkplot):
 
     if runavg:
 
-        label = f"Averaged (delta={delta*1e6} KHz)"
+        label = f"Averaged (delta={delta*1e6:.2f} KHz)"
         if tkplot: ax.plot(binx, biny, ".", label=label)
 
         else:
@@ -234,7 +234,6 @@ if __name__ == "__main__":
 
     args = sys.argv[1:][0].split(",")
     filenames = [pt(i) for i in args[0:-2]]
-
     delta = float(args[-2]) # in KHz
 
     delta = delta*1e-6 # in GHz (to compare with our data)
@@ -242,7 +241,8 @@ if __name__ == "__main__":
     tkplot = args[-1]
     if tkplot == "plot": tkplot = True
     else: tkplot = False
+
+    if tkplot:
+        print(f"delta: {delta} {args[-2]}")
+
     main(filenames, delta, tkplot)
-
-
-
