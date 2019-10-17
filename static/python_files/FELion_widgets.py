@@ -277,8 +277,10 @@ class FELion_Tk(Tk):
                     self.codeResult.insert(END, f"DONE: {i}\n")
                     exec(i)
                     output = result.getvalue().split("\n")[:-1]
-                    if not len(output)<1: self.codeResult.insert(END, f"Result: {output}\n")
-                    else: self.codeResult.insert(END, f"You can enter any valid python expression\nlike self.grid(False),\neven somethind like\nprint('Hello World'),etc")
+                    if not len(output)<1: self.codeResult.insert(END, f"Result: {output[-1]}\n")
+                    else: 
+                        self.codeResult.delete('1.0', END)
+                        self.codeResult.insert(END, f"TIPS:\nYou can enter any valid python expression\nlike self.grid(False),\neven somethind like\nprint('Hello World'),etc")
                 
                 self.canvas.draw()
 
