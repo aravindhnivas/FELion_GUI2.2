@@ -258,7 +258,6 @@ class FELion_Tk(Tk):
 
         #  Row 10
         y += 2*y_diff
-
         txt = "Write valid any python expression"
         self.code = self.TextBox(txt, 0.8, y, w=0.7, h=0.1, bind_func=self.python_exp) 
 
