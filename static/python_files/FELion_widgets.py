@@ -270,17 +270,23 @@ class FELion_Tk(Tk):
 
         with stdoutIO() as result:
             try:
+
                 self.codeResult.delete('1.0', END)
 
                 expr = self.code.get('1.0', END).split("\n")
                 for i in expr[:-1]:
+                    
                     self.codeResult.insert(END, f"DONE: {i}\n")
+
+                    # Running the expression from input textbox
                     exec(i)
                     output = result.getvalue().split("\n")[:-1]
+
                     if not len(output)<1: self.codeResult.insert(END, f"Result: {output[-1]}\n")
                     else: 
-                        self.codeResult.delete('1.0', END)
-                        self.codeResult.insert(END, f"TIPS:\nYou can enter any valid python expression\nlike self.grid(False),\neven somethind like\nprint('Hello World'),etc")
+                        pass
+                        # self.codeResult.delete('1.0', END)
+                        # self.codeResult.insert(END, f"TIPS:\nYou can enter any valid python expression\nlike self.grid(False),\neven somethind like\nprint('Hello World'),etc")
                 
                 self.canvas.draw()
 
