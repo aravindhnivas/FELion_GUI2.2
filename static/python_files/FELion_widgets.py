@@ -1,14 +1,12 @@
 
 # Built-In modules
-import os
+import os, sys
 from os.path import isdir, isfile
 
-# # Custom module
-# from line_profiler import profile
-
 # Tkinter
-from tkinter import Frame, IntVar, StringVar, BooleanVar, DoubleVar, Tk, filedialog
-from tkinter.ttk import Button, Checkbutton, Label, Entry, Scale
+# import tkinter as tk
+from tkinter import Frame, IntVar, StringVar, BooleanVar, DoubleVar, Tk, filedialog, END, Text
+from tkinter.ttk import Button, Checkbutton, Label, Entry, Scale, Scrollbar
 from tkinter.messagebox import showerror, showinfo, showwarning, askokcancel
 
 # Matplotlib
@@ -18,6 +16,19 @@ matplotlib.use('TkAgg')
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
+from matplotlib.ticker import AutoMinorLocator
+from io import StringIO
+import contextlib
+
+@contextlib.contextmanager
+def stdoutIO(stdout=None):
+    old = sys.stdout
+    if stdout is None:
+        stdout = StringIO()
+    sys.stdout = stdout
+    yield stdout
+    sys.stdout = old
+
 ############################################################################################################
 
 constants = {
@@ -146,6 +157,24 @@ class FELion_Tk(Tk):
 
             return self.widget_frame.txt
 
+    def TextBox(self, txt, x, y, w, h, **kw):
+
+        # Scrollbar
+        self.widget_frame.scrollbar = Scrollbar(self.widget_frame)
+
+        # Textbox
+        self.widget_frame.txt = Text(self.widget_frame)
+        self.widget_frame.scrollbar.config(command=self.widget_frame.txt.yview)
+
+        if "bind_func" in kw: self.widget_frame.txt.bind("<Alt-Up>", kw["bind_func"])
+        self.widget_frame.txt.config(yscrollcommand=self.widget_frame.scrollbar.set)
+        self.widget_frame.txt.insert(END, txt)
+
+        self.widget_frame.scrollbar.place(relx=x, rely=y, anchor="w", relheight=h)
+        self.widget_frame.txt.place(relx=x, rely=y, anchor="e", relwidth=w, relheight=h)
+
+        return self.widget_frame.txt
+
     def Figure(self, connect=True, dpi=None, **kw):
 
         self.make_figure_widgets()
@@ -226,6 +255,38 @@ class FELion_Tk(Tk):
         y += y_diff
         self.browseDir = self.Buttons("Browse", x0, y, self.changeLocation)
         self.save_btn = self.Buttons("Save", x0+x_diff, y, self.save_fig)
+
+        #  Row 10
+        y += 2*y_diff
+
+        txt = "Write valid any python expression"
+        self.code = self.TextBox(txt, 0.8, y, w=0.7, h=0.1, bind_func=self.python_exp) 
+
+        #  Row 11
+        y += y_diff
+        self.runCode = self.Buttons("RunCode", x0, y, self.python_exp)
+        self.codeResult = self.TextBox("Result", 0.8, y+y_diff+0.04, w=0.7, h=0.09) 
+
+    def python_exp(self, event=None):
+
+        with stdoutIO() as result:
+            try:
+                self.codeResult.delete('1.0', END)
+
+                expr = self.code.get('1.0', END).split("\n")
+                for i in expr[:-1]:
+                    self.codeResult.insert(END, f"DONE: {i}\n")
+                    exec(i)
+                    output = result.getvalue().split("\n")[:-1]
+                    if not len(output)<1: self.codeResult.insert(END, f"Result: {output}\n")
+                    else: self.codeResult.insert(END, f"You can enter any valid python expression\nlike self.grid(False),\neven somethind like\nprint('Hello World'),etc")
+                
+                self.canvas.draw()
+
+            except Exception as error:
+                self.codeResult.delete('1.0', END)
+                self.codeResult.insert(END, f"Error Occured:\n{error}")
+                print(f"Error occured while evaluating above code:\n{error}")
 
     def changeLocation(self): 
         newLocation = filedialog.askdirectory(initialdir = "./")
@@ -337,6 +398,12 @@ class FELion_Tk(Tk):
         self.ax.xaxis.label.set_size(self.xlabelSz.get())
         self.ax.yaxis.label.set_size(self.ylabelSz.get())
 
+        # Making axis available for modification
+        self.xaxis = self.ax.xaxis
+        self.yaxis = self.ax.yaxis
+        self.grid = self.ax.grid
+        self.legend = self.ax.legend
+
         # Grid
         self.ax.grid(self.plotGrid.get())
 
@@ -345,6 +412,10 @@ class FELion_Tk(Tk):
 
         # Setting legend (later for toggling its visibility)
         if ax is not None: self.plot_legend = self.ax.legend()
+
+        # Autominor locator
+        self.set_minor = lambda x: self.ax.xaxis.set_minor_locator(AutoMinorLocator(x))
+        self.set_minor(10)
 
         # Returning plot
 
