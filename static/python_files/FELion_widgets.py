@@ -29,6 +29,8 @@ def stdoutIO(stdout=None):
     yield stdout
     sys.stdout = old
 
+def clog(*args): print(args)
+def getchild(artist): return artist.get_children()
 ############################################################################################################
 
 constants = {
@@ -187,6 +189,7 @@ class FELion_Tk(Tk):
 
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.canvas_frame)
         self.canvas.get_tk_widget().place(relx=0, rely=0, relwidth=1, relheight=1)
+        # self.canvas.mpl_connect('pick_event', lambda event: print(event))
 
         self.toolbar = NavigationToolbar2Tk(self.canvas, self)
         self.toolbar.update()
@@ -198,7 +201,7 @@ class FELion_Tk(Tk):
             self.canvas.mpl_connect("key_press_event", on_key_press)
 
         return self.fig, self.canvas
-
+    
     def make_figure_widgets(self):
 
         # Position
@@ -283,10 +286,6 @@ class FELion_Tk(Tk):
                     output = result.getvalue().split("\n")[:-1]
 
                     if not len(output)<1: self.codeResult.insert(END, f"Result: {output[-1]}\n")
-                    else: 
-                        pass
-                        # self.codeResult.delete('1.0', END)
-                        # self.codeResult.insert(END, f"TIPS:\nYou can enter any valid python expression\nlike self.grid(False),\neven somethind like\nprint('Hello World'),etc")
                 
                 self.canvas.draw()
 
@@ -368,8 +367,7 @@ class FELion_Tk(Tk):
         # self.focus_set()
         self.canvas.draw()
 
-    def make_figure_layout(self, 
-        ax=None, savename=None,
+    def make_figure_layout(self, ax=None, savename=None,
         title="Title", xaxis="X-axis", yaxis="Y-axis", fig_caption="Figure 1", 
         xdata=None, ydata=None, label="", fmt=".-", yscale="linear", **kw):
 
@@ -424,30 +422,64 @@ class FELion_Tk(Tk):
         self.set_minor = lambda x: self.ax.xaxis.set_minor_locator(AutoMinorLocator(x))
         self.set_minor(10)
 
+        # self.toggle()
         # Returning plot
 
         if ax is not None: 
             print("Data available, returning", plot)
             return plot
-
         else: 
             print("Data not available, returning", self.ax)
             return self.ax 
+        
+
+    # def toggle(self, lines=[]):
+
+    #     # we will set up a dict mapping legend line to orig line, and enable
+    #     # picking on the legend line
+    #     # lines = [line1, line2]
+
+    #     # lined = dict()
+    #     # for legline, origline in zip(self.plot_legend.get_lines(), lines):
+    #     #     legline.set_picker(5)  # 5 pts tolerance
+    #     #     lined[legline] = origline
+
+    #     def onpick(event):
+    #         # on the pick event, find the orig line corresponding to the
+    #         # legend proxy line, and toggle the visibility
+            
+    #         legline = event.artist
+    #         print(legline)
+    #         # origline = lined[legline]
+    #         # vis = not origline.get_visible()
+    #         # origline.set_visible(vis)
+    #         # # Change the alpha on the line in the legend so we can see what lines
+    #         # # have been toggled
+    #         # if vis:
+    #         #     legline.set_alpha(1.0)
+    #         # else:
+    #         #     legline.set_alpha(0.2)
+    #         self.canvas.draw()
+
+    #     self.canvas.mpl_connect('pick_event', onpick)
 
     def save_fig(self, event=None):
 
-        print(self.location)
+        try:
+            print(self.location)
 
-        if isfile(f'{self.location}/{self.name.get()}.png'):
-            if askokcancel('Overwrite?', f'File: {self.name.get()}.png already present. \nDo you want to Overwrite the file?'):
+            if isfile(f'{self.location}/{self.name.get()}.png'):
+                if askokcancel('Overwrite?', f'File: {self.name.get()}.png already present. \nDo you want to Overwrite the file?'):
+                    self.fig.savefig(f'{self.location}/{self.name.get()}.png')
+                    showinfo('SAVED', f'File: {self.name.get()}.png saved in directory: {self.location}')
+
+            else:
                 self.fig.savefig(f'{self.location}/{self.name.get()}.png')
                 showinfo('SAVED', f'File: {self.name.get()}.png saved in directory: {self.location}')
 
-        else:
-            self.fig.savefig(f'{self.location}/{self.name.get()}.png')
-            showinfo('SAVED', f'File: {self.name.get()}.png saved in directory: {self.location}')
-
-        print(f'Filename saved: {self.name.get()}.png\nLocation: {self.location}\n')
+            print(f'Filename saved: {self.name.get()}.png\nLocation: {self.location}\n')
+        except Exception as error:
+            showerror("Error", error)
 
 # @profile
 def main():
