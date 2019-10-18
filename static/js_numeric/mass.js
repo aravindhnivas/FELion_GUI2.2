@@ -1,6 +1,6 @@
 const {PythonShell} = require('python-shell')
 const path = require('path')
-const filename = "Y:\22pole_iontrap-exchange\Students\Aravindh\Measurements\CD+\masspec\30_08_19-9.mass".split('\\')
+const filename = "Y:/22pole_iontrap-exchange/Students/Aravindh/Measurements/CD+/masspec/30_08_19-9.mass"
 const pythonPath = path.join(__dirname, "python3.7/python.exe")
 
 pycode = `
