@@ -1,5 +1,10 @@
 <script>
   export let navItems;
+  export let jq;
+  console.log("Loading")
+  jq(document).ready(()=>{
+    jq("#Navbar").css("display", "block");
+  })
 
   const displayToggle = (element, value, classname) => {
     let parent = document.getElementById(element+"-nav").classList = classname
@@ -22,7 +27,7 @@
 
 <!-- Navigation Bar -->
 
-<section class="section" id="Navbar">
+<section class="section animated fadeInDown" id="Navbar" style="display:none">
   <div class="container is-fluid">
     <div class="tabs is-centered is-boxed is-medium">
       <ul>

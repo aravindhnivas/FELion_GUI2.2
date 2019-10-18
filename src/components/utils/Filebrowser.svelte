@@ -4,10 +4,10 @@
   export let filetag;
   export let updateFolder;
   export let getCheckedFiles;
-
   export let path;
 
-  $: folderFile = updateFolder(currentLocation);
+  let folderFile;
+  $: if(!currentLocation) {console.log(`Currentlocation: [${filetag}]: is undefined`)} else {folderFile = updateFolder(currentLocation);}
 
   const refreshFolder = event => {
     jq(`#${filetag}refreshIcon`).addClass("fa-spin");
@@ -153,7 +153,7 @@
             <h1 class="subtitle">No {filetag} files here</h1>
           {/if}
 
-          {#each folderFile.files as filename}
+          {#each folderFile.files.sort() as filename}
             <li class={filename} style="display:block;">
               <div class="pretty p-icon p-round p-smooth">
                 <input

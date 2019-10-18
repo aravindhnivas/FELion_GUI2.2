@@ -448,7 +448,7 @@ function get_each_context(ctx, list, i) {
 	return child_ctx;
 }
 
-// (32:10) {:else}
+// (37:10) {:else}
 function create_else_block(ctx) {
 	var li, a, t_value = ctx.item + "", t, li_id_value, dispose;
 
@@ -487,7 +487,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (30:10) {#if item=="Welcome"}
+// (35:10) {#if item=="Welcome"}
 function create_if_block(ctx) {
 	var li, a, t_value = ctx.item + "", t, li_id_value, dispose;
 
@@ -527,7 +527,7 @@ function create_if_block(ctx) {
 	};
 }
 
-// (29:8) {#each navItems as item}
+// (34:8) {#each navItems as item}
 function create_each_block(ctx) {
 	var if_block_anchor;
 
@@ -596,8 +596,9 @@ function create_fragment$1(ctx) {
 			}
 			attr(div0, "class", "tabs is-centered is-boxed is-medium");
 			attr(div1, "class", "container is-fluid");
-			attr(section, "class", "section");
+			attr(section, "class", "section animated fadeInDown");
 			attr(section, "id", "Navbar");
+			set_style(section, "display", "none");
 		},
 
 		m(target, anchor) {
@@ -649,7 +650,11 @@ function create_fragment$1(ctx) {
 }
 
 function instance$1($$self, $$props, $$invalidate) {
-	let { navItems } = $$props;
+	let { navItems, jq } = $$props;
+  console.log("Loading");
+  jq(document).ready(()=>{
+    jq("#Navbar").css("display", "block");
+  });
 
   const displayToggle = (element, value, classname) => {
     let parent = document.getElementById(element+"-nav").classList = classname;
@@ -671,15 +676,16 @@ function instance$1($$self, $$props, $$invalidate) {
 
 	$$self.$set = $$props => {
 		if ('navItems' in $$props) $$invalidate('navItems', navItems = $$props.navItems);
+		if ('jq' in $$props) $$invalidate('jq', jq = $$props.jq);
 	};
 
-	return { navItems, controlNav };
+	return { navItems, jq, controlNav };
 }
 
 class Navbar extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$1, create_fragment$1, safe_not_equal, ["navItems"]);
+		init(this, options, instance$1, create_fragment$1, safe_not_equal, ["navItems", "jq"]);
 	}
 }
 
@@ -714,6 +720,7 @@ function create_fragment$2(ctx) {
 
 function instance$2($$self, $$props, $$invalidate) {
 	let { jq } = $$props;
+  console.log("Loading");
   jq(document).ready(()=>{
     jq("#Welcome").css("display", "block");
   });
@@ -783,7 +790,7 @@ function create_if_block$1(ctx) {
 	var current_block_type = select_block_type_1(null, ctx);
 	var if_block = current_block_type(ctx);
 
-	let each_value_1 = ctx.folderFile.files;
+	let each_value_1 = ctx.folderFile.files.sort();
 
 	let each_blocks_1 = [];
 
@@ -884,7 +891,7 @@ function create_if_block$1(ctx) {
 			}
 
 			if (changed.folderFile || changed.filetag) {
-				each_value_1 = ctx.folderFile.files;
+				each_value_1 = ctx.folderFile.files.sort();
 
 				let i_1;
 				for (i_1 = 0; i_1 < each_value_1.length; i_1 += 1) {
@@ -1039,7 +1046,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (156:10) {#each folderFile.files as filename}
+// (156:10) {#each folderFile.files.sort() as filename}
 function create_each_block_1(ctx) {
 	var li, div1, input, input_id_value, input_class_value, t0, div0, i, t1, label, t2_value = ctx.filename + "", t2, label_for_value, t3, li_class_value, dispose;
 
@@ -1322,6 +1329,8 @@ function create_fragment$3(ctx) {
 function instance$3($$self, $$props, $$invalidate) {
 	let { jq, currentLocation, filetag, updateFolder, getCheckedFiles, path } = $$props;
 
+  let folderFile;
+
   const refreshFolder = event => {
     jq(`#${filetag}refreshIcon`).addClass("fa-spin");
     $$invalidate('folderFile', folderFile = updateFolder(currentLocation));
@@ -1376,10 +1385,8 @@ function instance$3($$self, $$props, $$invalidate) {
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
 	};
 
-	let folderFile;
-
-	$$self.$$.update = ($$dirty = { updateFolder: 1, currentLocation: 1 }) => {
-		if ($$dirty.updateFolder || $$dirty.currentLocation) { $$invalidate('folderFile', folderFile = updateFolder(currentLocation)); }
+	$$self.$$.update = ($$dirty = { currentLocation: 1, filetag: 1, updateFolder: 1 }) => {
+		if ($$dirty.currentLocation || $$dirty.filetag || $$dirty.updateFolder) { if(!currentLocation) {console.log(`Currentlocation: [${filetag}]: is undefined`);} else {$$invalidate('folderFile', folderFile = updateFolder(currentLocation));} }
 	};
 
 	return {
@@ -1389,12 +1396,12 @@ function instance$3($$self, $$props, $$invalidate) {
 		updateFolder,
 		getCheckedFiles,
 		path,
+		folderFile,
 		refreshFolder,
 		changeDir,
 		selectAllToggle,
 		searchKey,
 		search,
-		folderFile,
 		undefined,
 		click_handler,
 		input_input_handler,
@@ -1898,7 +1905,7 @@ function get_each_context_6(ctx, list, i) {
 	return child_ctx;
 }
 
-// (465:12) {#each funcBtns as { id, name }}
+// (484:12) {#each funcBtns as { id, name }}
 function create_each_block_6(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -1936,13 +1943,13 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (474:12) {#if filetag == 'felix'}
+// (493:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
-	function input_input_handler_1() {
+	function input_input_handler() {
 		input_updating = true;
-		ctx.input_input_handler_1.call(input);
+		ctx.input_input_handler.call(input);
 	}
 
 	return {
@@ -1980,7 +1987,7 @@ function create_if_block_10(ctx) {
 
 			dispose = [
 				listen(select, "change", ctx.select_change_handler),
-				listen(input, "input", input_input_handler_1),
+				listen(input, "input", input_input_handler),
 				listen(input, "keyup", ctx.changeDelta)
 			];
 		},
@@ -2019,13 +2026,13 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (502:12) {#if filetag == 'thz'}
+// (521:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t_1, div2, input, input_updating = false, dispose;
 
-	function input_input_handler_2() {
+	function input_input_handler_1() {
 		input_updating = true;
-		ctx.input_input_handler_2.call(input);
+		ctx.input_input_handler_1.call(input);
 	}
 
 	return {
@@ -2049,7 +2056,7 @@ function create_if_block_9(ctx) {
 			attr(div4, "class", "level-item");
 
 			dispose = [
-				listen(input, "input", input_input_handler_2),
+				listen(input, "input", input_input_handler_1),
 				listen(input, "keyup", ctx.changeTHz)
 			];
 		},
@@ -2080,7 +2087,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (530:18) {:else}
+// (549:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2118,7 +2125,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (528:18) {#if name[0]==="Log"}
+// (547:18) {#if name[0]==="Log"}
 function create_if_block_8(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2156,7 +2163,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (523:12) {#each checkBtns as {id, name, bind, help}}
+// (542:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_5(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, t4;
 
@@ -2241,7 +2248,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (547:6) {#if filetag=="felix"}
+// (566:6) {#if filetag=="felix"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2361,7 +2368,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (566:6) {#if filetag=="scan"}
+// (585:6) {#if filetag=="scan"}
 function create_if_block_1$1(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2491,7 +2498,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (579:28) {#if folderFile.files != undefined}
+// (598:28) {#if folderFile.files != undefined}
 function create_if_block_6(ctx) {
 	var each_1_anchor;
 
@@ -2554,7 +2561,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (580:31) {#each folderFile.files as scanfile}
+// (599:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2591,7 +2598,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (571:16) {#each ["ResON", "ResOFF"] as name}
+// (590:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -2659,13 +2666,13 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (602:57) 
+// (621:57) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
-	function input_input_handler_6() {
+	function input_input_handler_5() {
 		input_updating = true;
-		ctx.input_input_handler_6.call(input);
+		ctx.input_input_handler_5.call(input);
 	}
 
 	return {
@@ -2674,7 +2681,7 @@ function create_if_block_5(ctx) {
 			attr(input, "class", "input svelte-9uv9aa");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
-			dispose = listen(input, "input", input_input_handler_6);
+			dispose = listen(input, "input", input_input_handler_5);
 		},
 
 		m(target, anchor) {
@@ -2698,13 +2705,13 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (600:52) 
+// (619:52) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
-	function input_input_handler_5() {
+	function input_input_handler_4() {
 		input_updating = true;
-		ctx.input_input_handler_5.call(input);
+		ctx.input_input_handler_4.call(input);
 	}
 
 	return {
@@ -2713,7 +2720,7 @@ function create_if_block_4(ctx) {
 			attr(input, "class", "input svelte-9uv9aa");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
-			dispose = listen(input, "input", input_input_handler_5);
+			dispose = listen(input, "input", input_input_handler_4);
 		},
 
 		m(target, anchor) {
@@ -2737,13 +2744,13 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (598:50) 
+// (617:50) 
 function create_if_block_3(ctx) {
 	var input, input_updating = false, dispose;
 
-	function input_input_handler_4() {
+	function input_input_handler_3() {
 		input_updating = true;
-		ctx.input_input_handler_4.call(input);
+		ctx.input_input_handler_3.call(input);
 	}
 
 	return {
@@ -2752,7 +2759,7 @@ function create_if_block_3(ctx) {
 			attr(input, "class", "input svelte-9uv9aa");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
-			dispose = listen(input, "input", input_input_handler_4);
+			dispose = listen(input, "input", input_input_handler_3);
 		},
 
 		m(target, anchor) {
@@ -2776,7 +2783,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (596:22) {#if name=="Power (ON, OFF)"}
+// (615:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_2(ctx) {
 	var input, dispose;
 
@@ -2786,7 +2793,7 @@ function create_if_block_2(ctx) {
 			attr(input, "class", "input svelte-9uv9aa");
 			attr(input, "type", "text");
 			attr(input, "id", ctx.id);
-			dispose = listen(input, "input", ctx.input_input_handler_3);
+			dispose = listen(input, "input", ctx.input_input_handler_2);
 		},
 
 		m(target, anchor) {
@@ -2809,7 +2816,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (591:16) {#each depletionLabels as {name, id}}
+// (610:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -2867,7 +2874,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (638:12) {:else}
+// (657:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2897,7 +2904,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (631:12) {#if filetag == 'scan'}
+// (650:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -2971,7 +2978,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (633:16) {#each fileChecked as scanfile}
+// (652:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3001,7 +3008,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (630:10) {#each plotID as id}
+// (649:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3150,6 +3157,7 @@ function create_fragment$4(ctx) {
 			attr(input, "type", "text");
 			attr(input, "placeholder", "Location will be displayed");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "LocationLabel");
+			input.value = ctx.currentLocation;
 			attr(div1, "class", "control is-expanded");
 			attr(div2, "class", "button is-dark");
 			attr(div2, "data-tippy", div2_data_tippy_value = "Browse " + ctx.filetag + " file");
@@ -3172,7 +3180,7 @@ function create_fragment$4(ctx) {
 			attr(section, "style", style);
 
 			dispose = [
-				listen(input, "input", ctx.input_input_handler),
+				listen(input, "keyup", ctx.keyup_handler),
 				listen(div2, "click", ctx.browseFile)
 			];
 		},
@@ -3188,9 +3196,6 @@ function create_fragment$4(ctx) {
 			append(div5, div4);
 			append(div4, div1);
 			append(div1, input);
-
-			set_input_value(input, ctx.currentLocation);
-
 			append(div4, t1);
 			append(div4, div3);
 			append(div3, div2);
@@ -3245,10 +3250,12 @@ function create_fragment$4(ctx) {
 				attr(div0, "id", div0_id_value);
 			}
 
-			if (changed.currentLocation && (input.value !== ctx.currentLocation)) set_input_value(input, ctx.currentLocation);
-
 			if ((!current || changed.filetag) && input_id_value !== (input_id_value = "" + ctx.filetag + "LocationLabel")) {
 				attr(input, "id", input_id_value);
+			}
+
+			if (!current || changed.currentLocation) {
+				input.value = ctx.currentLocation;
 			}
 
 			if ((!current || changed.filetag) && div2_data_tippy_value !== (div2_data_tippy_value = "Browse " + ctx.filetag + " file")) {
@@ -3487,7 +3494,8 @@ function instance$4($$self, $$props, $$invalidate) {
 
   let tree = directoryTree_1;
   let currentLocation;
-  if (localStorage.getItem(`${filetag}_location`) != null) {$$invalidate('currentLocation', currentLocation = localStorage.getItem(`${filetag}_location`));}
+
+  if (localStorage.getItem(`${filetag}_location`) != undefined) {$$invalidate('currentLocation', currentLocation = localStorage.getItem(`${filetag}_location`));}
 
   let allFiles = [];
 
@@ -3497,41 +3505,48 @@ function instance$4($$self, $$props, $$invalidate) {
 
   const updateFolder = location => {
     console.log("Folder updating");
-    $$invalidate('currentLocation', currentLocation = location);
 
-    if (currentLocation == undefined) {
+    if (location === undefined || location === 'undefined') {
       jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
-      console.log("Location undefined");
+      console.log("Location is undefined");
       return undefined;
-    }
+    } 
+
+    $$invalidate('currentLocation', currentLocation = location);
+    localStorage.setItem(`${filetag}_location`, currentLocation);
+
+    console.log(`[${filetag}]: location is stored locally\n${currentLocation}`);
 
     jq(`#${filetag}refreshIcon`).addClass("fa-spin");
+    try {
 
-    let folder = [];
-    let file = [];
+      let folder = [];
+      let file = [];
 
-    const folderTree = tree(
-      currentLocation,
-      { extensions: new RegExp(filetag) },
-      (item, PATH, stats) => {
-        console.log(item);
+      const folderTree = tree(
+        currentLocation,
+        { extensions: new RegExp(filetag) },
+        (item, PATH, stats) => {
+          console.log(item);
+        }
+      );
+
+      let folderChild = folderTree.children;
+      for (let i in folderChild) {
+        folderChild[i].type == "file"
+          ? (file = [folderChild[i].name, ...file])
+          : (folder = [folderChild[i].name, ...folder]);
       }
-    );
-
-    let folderChild = folderTree.children;
-    for (let i in folderChild) {
-      folderChild[i].type == "file"
-        ? (file = [folderChild[i].name, ...file])
-        : (folder = [folderChild[i].name, ...folder]);
-    }
-    $$invalidate('folderFile', folderFile.parentFolder = folderTree.name, folderFile);
-    $$invalidate('folderFile', folderFile.folders = folder, folderFile);
-    $$invalidate('folderFile', folderFile.files = file, folderFile);
-
-    console.log("Folder updated");
+      $$invalidate('folderFile', folderFile.parentFolder = folderTree.name, folderFile);
+      $$invalidate('folderFile', folderFile.folders = folder, folderFile);
+      $$invalidate('folderFile', folderFile.files = file, folderFile);
+      console.log("Folder updated");
+    } catch (err) {console.log(`Error Occured: ${err}`);}
 
     jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
     return folderFile;
+
+    
   };
 
   function browseFile({theory=false}) {
@@ -3568,13 +3583,13 @@ function instance$4($$self, $$props, $$invalidate) {
         $$invalidate('currentLocation', currentLocation = path.dirname(filePaths[0]));
         $$invalidate('folderFile', folderFile = updateFolder(currentLocation));
         localStorage.setItem(`${filetag}_location`, currentLocation);
-
+        console.log(`[${filetag}]: location is stored locally\n${currentLocation}`);
       });
     }
 
   }
 
-  let delta_thz = 10;
+  let delta_thz = 0.1;
   const fileInfo = {
 
     // Create baseline matplotlib
@@ -3768,22 +3783,25 @@ function instance$4($$self, $$props, $$invalidate) {
 
   };
 
-	function input_input_handler() {
-		currentLocation = this.value;
-		$$invalidate('currentLocation', currentLocation);
-	}
+	const keyup_handler = (e) => {
+	                  if (e.key == "Enter") {
+	                    let location = e.target.value;
+	                    console.log(`Setting location: ${location}`);
+	                    $$invalidate('currentLocation', currentLocation = location);
+	                  }
+	                };
 
 	function select_change_handler() {
 		normMethod = select_value(this);
 		$$invalidate('normMethod', normMethod);
 	}
 
-	function input_input_handler_1() {
+	function input_input_handler() {
 		delta = to_number(this.value);
 		$$invalidate('delta', delta);
 	}
 
-	function input_input_handler_2() {
+	function input_input_handler_1() {
 		delta_thz = to_number(this.value);
 		$$invalidate('delta_thz', delta_thz);
 	}
@@ -3802,22 +3820,22 @@ function instance$4($$self, $$props, $$invalidate) {
 
 	const click_handler_1 = () => runtheory({tkplot:"plot", filetype:"general"});
 
-	function input_input_handler_3() {
+	function input_input_handler_2() {
 		powerinfo = this.value;
 		$$invalidate('powerinfo', powerinfo);
 	}
 
-	function input_input_handler_4() {
+	function input_input_handler_3() {
 		nshots = to_number(this.value);
 		$$invalidate('nshots', nshots);
 	}
 
-	function input_input_handler_5() {
+	function input_input_handler_4() {
 		massIndex = to_number(this.value);
 		$$invalidate('massIndex', massIndex);
 	}
 
-	function input_input_handler_6() {
+	function input_input_handler_5() {
 		timestartIndex = to_number(this.value);
 		$$invalidate('timestartIndex', timestartIndex);
 	}
@@ -3841,8 +3859,9 @@ function instance$4($$self, $$props, $$invalidate) {
 	$$self.$$.update = ($$dirty = { normMethod: 1, filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1 }) => {
 		if ($$dirty.normMethod) { normMethod == "Relative" ? (normlog = false) : (normlog = true); }
 		if ($$dirty.filetag) ;
-		if ($$dirty.allFiles) { $$invalidate('fileChecked', fileChecked = allFiles.filter(file => file.checked).map(file => file.id)); }
-		if ($$dirty.fileChecked) { console.log("fileChecked", fileChecked); }
+		if ($$dirty.filetag) { console.log(`Locally stored location: [${filetag}]: ${localStorage.getItem(`${filetag}_location`)}`); }
+		if ($$dirty.allFiles) { $$invalidate('fileChecked', fileChecked = allFiles.filter(file => file.checked).map(file => file.id).sort()); }
+		if ($$dirty.fileChecked) { console.log("fileChecked", fileChecked, "\n"); }
 		if ($$dirty.fileChecked || $$dirty.path || $$dirty.currentLocation) { fullfiles = fileChecked.map(file => path.join(currentLocation, file)); }
 		if ($$dirty.theoryfiles || $$dirty.path) { $$invalidate('theoryfilenames', theoryfilenames = theoryfiles.map(file=>path.basename(file))); }
 	};
@@ -3886,18 +3905,18 @@ function instance$4($$self, $$props, $$invalidate) {
 		console,
 		undefined,
 		theoryfilenames,
-		input_input_handler,
+		keyup_handler,
 		select_change_handler,
+		input_input_handler,
 		input_input_handler_1,
-		input_input_handler_2,
 		click_handler,
 		input0_input_handler,
 		input1_input_handler,
 		click_handler_1,
+		input_input_handler_2,
 		input_input_handler_3,
 		input_input_handler_4,
-		input_input_handler_5,
-		input_input_handler_6
+		input_input_handler_5
 	};
 }
 
@@ -19367,9 +19386,14 @@ function create_each_block$3(ctx) {
 function create_fragment$7(ctx) {
 	var t0, t1, t2, t3, t4, current;
 
-	var header = new Header({});
+	var header = new Header({ props: { jq: ctx.jq } });
 
-	var navbar = new Navbar({ props: { navItems: ctx.navItems } });
+	var navbar = new Navbar({
+		props: {
+		navItems: ctx.navItems,
+		jq: ctx.jq
+	}
+	});
 
 	var welcome = new Welcome({ props: { jq: ctx.jq } });
 
@@ -19393,7 +19417,7 @@ function create_fragment$7(ctx) {
 	}
 	});
 
-	var footer = new Footer({});
+	var footer = new Footer({ props: { jq: ctx.jq } });
 
 	return {
 		c() {

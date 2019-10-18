@@ -47,9 +47,9 @@
 
 </script>
 
-<Header />
+<Header {jq} />
 
-<Navbar {navItems}/>
+<Navbar {navItems} {jq}/>
 
 <Welcome {jq}/>
 
@@ -57,4 +57,4 @@
   <Container {id} {filetag} {filetype} {funcBtns} {plotID} {checkBtns} {jq} {electron} {menu} {MenuItem} {path}/>
 {/each}
 <Powerfile {electron} {path} {jq}/>
-<Footer/>
+<Footer {jq}/>

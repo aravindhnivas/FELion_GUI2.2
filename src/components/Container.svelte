@@ -88,11 +88,14 @@
   let tree = dirTree.default;
   const style = "display:none;";
   let currentLocation;
-  if (localStorage.getItem(`${filetag}_location`) != null) {currentLocation = localStorage.getItem(`${filetag}_location`)}
+
+  $: console.log(`Locally stored location: [${filetag}]: ${localStorage.getItem(`${filetag}_location`)}`)
+
+  if (localStorage.getItem(`${filetag}_location`) != undefined) {currentLocation = localStorage.getItem(`${filetag}_location`)}
 
   let allFiles = [];
-  $: fileChecked = allFiles.filter(file => file.checked).map(file => file.id);
-  $: console.log("fileChecked", fileChecked);
+  $: fileChecked = allFiles.filter(file => file.checked).map(file => file.id).sort();
+  $: console.log("fileChecked", fileChecked, "\n");
   $: fullfiles = fileChecked.map(file => path.join(currentLocation, file));
 
   const getCheckedFiles = () => {
@@ -101,41 +104,48 @@
 
   const updateFolder = location => {
     console.log("Folder updating");
-    currentLocation = location;
 
-    if (currentLocation == undefined) {
+    if (location === undefined || location === 'undefined') {
       jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
-      console.log("Location undefined");
+      console.log("Location is undefined");
       return undefined;
-    }
+    } 
+
+    currentLocation = location;
+    localStorage.setItem(`${filetag}_location`, currentLocation)
+
+    console.log(`[${filetag}]: location is stored locally\n${currentLocation}`)
 
     jq(`#${filetag}refreshIcon`).addClass("fa-spin");
+    try {
 
-    let folder = [];
-    let file = [];
+      let folder = [];
+      let file = [];
 
-    const folderTree = tree(
-      currentLocation,
-      { extensions: new RegExp(filetag) },
-      (item, PATH, stats) => {
-        console.log(item);
+      const folderTree = tree(
+        currentLocation,
+        { extensions: new RegExp(filetag) },
+        (item, PATH, stats) => {
+          console.log(item);
+        }
+      );
+
+      let folderChild = folderTree.children;
+      for (let i in folderChild) {
+        folderChild[i].type == "file"
+          ? (file = [folderChild[i].name, ...file])
+          : (folder = [folderChild[i].name, ...folder]);
       }
-    );
-
-    let folderChild = folderTree.children;
-    for (let i in folderChild) {
-      folderChild[i].type == "file"
-        ? (file = [folderChild[i].name, ...file])
-        : (folder = [folderChild[i].name, ...folder]);
-    }
-    folderFile.parentFolder = folderTree.name;
-    folderFile.folders = folder;
-    folderFile.files = file;
-
-    console.log("Folder updated");
+      folderFile.parentFolder = folderTree.name;
+      folderFile.folders = folder;
+      folderFile.files = file;
+      console.log("Folder updated");
+    } catch (err) {console.log(`Error Occured: ${err}`)}
 
     jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
     return folderFile;
+
+    
   };
 
   function browseFile({theory=false}) {
@@ -173,13 +183,13 @@
         currentLocation = path.dirname(filePaths[0]);
         folderFile = updateFolder(currentLocation);
         localStorage.setItem(`${filetag}_location`, currentLocation)
-
+        console.log(`[${filetag}]: location is stored locally\n${currentLocation}`)
       });
     }
 
   }
 
-  let delta_thz = 10
+  let delta_thz = 0.1
   const fileInfo = {
 
     // Create baseline matplotlib
@@ -445,7 +455,16 @@
               type="text"
               placeholder="Location will be displayed"
               id="{filetag}LocationLabel"
-              bind:value={currentLocation} />
+              value={currentLocation} 
+              on:keyup="{
+                (e)=>{
+                  if (e.key == "Enter") {
+                    let location = e.target.value
+                    console.log(`Setting location: ${location}`)
+                    currentLocation = location
+                  }
+                }
+              }" />
           </div>
           <div class="control">
             <div

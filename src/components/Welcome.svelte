@@ -1,5 +1,6 @@
 <script>
   export let jq;
+  console.log("Loading")
   jq(document).ready(()=>{
     jq("#Welcome").css("display", "block");
   })
@@ -19,6 +20,7 @@
 
 <section class="section animated fadeInDown" id="Welcome">
   <div class="container">
+    
     <h1 class="title">FELion Spectrum Analyser</h1>
     <h2 class="subtitle">To analyse FELIX data for FELion Instrument.</h2>
   </div>
