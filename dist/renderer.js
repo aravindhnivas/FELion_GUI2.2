@@ -4004,6 +4004,7 @@ function create_fragment$5(ctx) {
 				listen(div1, "click", ctx.browseFolder),
 				listen(input1, "input", ctx.input1_input_handler),
 				listen(textarea, "input", ctx.textarea_input_handler),
+				listen(textarea, "keyup", ctx.keyup_handler),
 				listen(button, "click", ctx.powSave)
 			];
 		},
@@ -4124,6 +4125,8 @@ function instance$5($$self, $$props, $$invalidate) {
 		$$invalidate('fileContent', fileContent);
 	}
 
+	const keyup_handler = (e) => {if(e.code=="Space"){$$invalidate('fileContent', fileContent = fileContent.substr(0, fileContent.length-1)+"\t");}};
+
 	$$self.$set = $$props => {
 		if ('electron' in $$props) $$invalidate('electron', electron = $$props.electron);
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
@@ -4147,7 +4150,8 @@ function instance$5($$self, $$props, $$invalidate) {
 		powSave,
 		input0_input_handler,
 		input1_input_handler,
-		textarea_input_handler
+		textarea_input_handler,
+		keyup_handler
 	};
 }
 
