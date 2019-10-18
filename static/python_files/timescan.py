@@ -13,7 +13,6 @@ from uncertainties import unumpy as unp
 
 
 ####################################### Modules Imported #######################################
-
 class timescanplot:
 
     def __init__(self, scanfile, tkplot):
@@ -27,6 +26,7 @@ class timescanplot:
             fig, canvas = widget.Figure()
             savename=scanfile.stem
             ax = widget.make_figure_layout(title="Timescan", xaxis="Time (ms)", yaxis="counts", yscale="log", savename=savename)
+            widget.lines = {}
 
         skip = get_skip_line(scanfile.name, location)
         iterations = get_iterations(scanfile.name, location)
@@ -42,6 +42,7 @@ class timescanplot:
         j, mass_count = 0, 0
         mean, error, mass, m = [], [], [], {}
         t_res, t_b0 = var_find(scanfile, location, time=True)
+
 
         for iteration in iterations:
             k = iteration*cycle
@@ -61,9 +62,8 @@ class timescanplot:
             label = f"{mass_value}u[{iteration}]; B0:{t_b0}ms; Res: {t_res}"
 
             if tkplot: 
-
                 print(f"{mass_value}: error value:\n{error_sort}")
-                ax.errorbar(time, mass_sort, yerr=error_sort, label=label, fmt=".-")
+                widget.lines[f"{mass_value}"] = ax.errorbar(time, mass_sort, yerr=error_sort, label=label, fmt=".-")
 
             else:
                 m[f"{mass_value}u"] = {"x":list(time), "y":list(mass_sort), 
@@ -78,8 +78,7 @@ class timescanplot:
         error = error.reshape(run, cycle)
 
         if tkplot: 
-            
-            ax.errorbar(time, mean.sum(axis=0), yerr=error.sum(axis=0), label="SUM", fmt="k.-")
+            widget.lines["SUM"] = ax.errorbar(time, mean.sum(axis=0), yerr=error.sum(axis=0), label="SUM", fmt="k.-")
             widget.plot_legend = ax.legend()
             widget.mainloop()
 
