@@ -188,7 +188,7 @@ def main(filenames, delta, tkplot):
 
     if runavg:
 
-        label = f"Averaged (delta={delta*1e6:.2f} KHz)"
+        label = f"Binned (Bin size={delta*1e6:.2f} KHz)"
         if tkplot: ax.plot(binx, biny, "k.", label=label)
 
         else:
