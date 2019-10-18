@@ -7,7 +7,7 @@
     "author": "A.N.Marimuthu",
     "repository": {
         "type": "git",
-        "url": "https://github.com/aravindhnivas/FELion_GUI2.1.git"
+        "url": "https://github.com/aravindhnivas/FELion_GUI2.2.git"
     },
     "main": "dist/main.js",
     "scripts": {
@@ -35,7 +35,6 @@
         "typescript": "^3.4.5"
     },
     "dependencies": {
-        "aos": "^2.3.4",
         "chokidar": "^3.0.0",
         "cross-env": "^5.2.0",
         "directory-tree": "^2.2.4",
