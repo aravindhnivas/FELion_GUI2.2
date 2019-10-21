@@ -19328,7 +19328,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (56:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
+// (57:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
 function create_each_block$3(ctx) {
 	var current;
 

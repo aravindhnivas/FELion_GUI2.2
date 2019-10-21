@@ -6,6 +6,7 @@
   import Welcome from "./Welcome.svelte";
   import Container from "./Container.svelte";
   import Powerfile from "./Powerfile.svelte";
+  // import Misc from "./utils/Misc.svelte"
   import Footer from "./Footer.svelte";
 
   // Importing other modules
@@ -57,4 +58,6 @@
   <Container {id} {filetag} {filetype} {funcBtns} {plotID} {checkBtns} {jq} {electron} {menu} {MenuItem} {path}/>
 {/each}
 <Powerfile {electron} {path} {jq}/>
+<!-- <Misc /> -->
+
 <Footer {jq}/>
