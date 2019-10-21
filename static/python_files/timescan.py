@@ -25,7 +25,7 @@ class timescanplot:
             widget = FELion_Tk(title=scanfile, location=scanfile.parent)
             fig, canvas = widget.Figure()
             savename=scanfile.stem
-            ax = widget.make_figure_layout(title=f"Timescan: {scanfile}", xaxis="Time (ms)", yaxis="counts", yscale="log", savename=savename)
+            ax = widget.make_figure_layout(title=f"Timescan: {scanfile.name}", xaxis="Time (ms)", yaxis="Counts", yscale="linear", savename=savename)
             widget.lines = {}
 
         skip = get_skip_line(scanfile.name, location)

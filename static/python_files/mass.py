@@ -39,7 +39,7 @@ def massplot(massfiles, tkplot):
 
         if len(massfiles) == 1: savename=massfiles[0].stem
         else: savename = "combined_masspec"
-        ax = widget.make_figure_layout(title="Mass Spectrum", xaxis="Mass [u]", yaxis="counts", yscale="log", savename=savename)
+        ax = widget.make_figure_layout(title="Mass Spectrum", xaxis="Mass [u]", yaxis="Counts", yscale="log", savename=savename)
 
     else: data = {}
     for massfile in massfiles:

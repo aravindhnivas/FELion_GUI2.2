@@ -129,8 +129,10 @@ def binning(xs, ys, delta=1e-6):
 def main(filenames, delta, tkplot):
 
 
-    if len(filenames)>1: runavg = True
-    else: runavg = False
+    # if len(filenames)>1: runavg = True
+    # else: runavg = False
+
+    runavg = True
 
     if tkplot:
         widget = FELion_Tk(title="THz Scan", location=filenames[0].parent)
@@ -139,7 +141,7 @@ def main(filenames, delta, tkplot):
         if len(filenames) == 1: savename=filenames[0].stem
         else: savename = "averaged_thzScan"
 
-        ax = widget.make_figure_layout(title="THz scan", xaxis="Time (ms)", yaxis="counts", savename=savename)
+        ax = widget.make_figure_layout(title="THz scan", xaxis="Frequency (GHz)", yaxis="Depletion (%)", savename=savename)
 
     else: data = {}
 
@@ -178,7 +180,6 @@ def main(filenames, delta, tkplot):
     fit_data = fit.best_fit
     line_freq_fit = fit.best_values['center']
     sigma = fit.best_values['sigma']
-
     amplitude = Amplitude(fit.best_values['amplitude'], sigma)
 
     fwhm = FWHM(sigma)
@@ -188,7 +189,7 @@ def main(filenames, delta, tkplot):
 
     if runavg:
 
-        label = f"Binned (Bin size={delta*1e6:.2f} KHz)"
+        label = f"Binned (delta={delta*1e9:.2f} Hz)"
         if tkplot: ax.plot(binx, biny, "k.", label=label)
 
         else:
@@ -199,8 +200,8 @@ def main(filenames, delta, tkplot):
         ax.plot(binx, fit_data, "k-", label=f"Fitted: {line_freq_fit:.7f} GHz ({fwhm*1e6:.1f} KHz)")
         ax.vlines(x=line_freq_fit, ymin=0, ymax=amplitude, zorder=10)
         ax.hlines(y=half_max, xmin=line_freq_fit-fwhm/2, xmax=line_freq_fit+fwhm/2, zorder=10)
-
-        widget.plot_legend = ax.legend()
+        # ax.text(0, -1, f"{line_freq_fit} GHz")
+        widget.plot_legend = ax.legend(title=f"Signal strength: {amplitude:.2f}%")
         widget.mainloop()
     else:
 
@@ -234,9 +235,9 @@ if __name__ == "__main__":
 
     args = sys.argv[1:][0].split(",")
     filenames = [pt(i) for i in args[0:-2]]
-    delta = float(args[-2]) # in KHz
+    delta = float(args[-2]) # in Hz
 
-    delta = delta*1e-6 # in GHz (to compare with our data)
+    delta = delta*1e-9 # in GHz (to compare with our data)
 
     tkplot = args[-1]
     if tkplot == "plot": tkplot = True
