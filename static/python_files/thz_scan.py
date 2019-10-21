@@ -133,7 +133,7 @@ def main(filenames, delta, tkplot):
     else: runavg = False
 
     if tkplot:
-        widget = FELion_Tk(title="Mass spectrum", location=filenames[0].parent)
+        widget = FELion_Tk(title="THz Scan", location=filenames[0].parent)
         fig, canvas = widget.Figure()
 
         if len(filenames) == 1: savename=filenames[0].stem
