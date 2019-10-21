@@ -2040,7 +2040,7 @@ function create_if_block_9(ctx) {
 			div4 = element("div");
 			div3 = element("div");
 			div1 = element("div");
-			div1.innerHTML = `<div class="button is-static">Delta (in KHz)</div>`;
+			div1.innerHTML = `<div class="button is-static">Delta (in Hz)</div>`;
 			t_1 = space();
 			div2 = element("div");
 			input = element("input");
@@ -2874,7 +2874,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (657:12) {:else}
+// (653:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2904,7 +2904,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (650:12) {#if filetag == 'scan'}
+// (646:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -2978,7 +2978,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (652:16) {#each fileChecked as scanfile}
+// (648:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3008,7 +3008,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (649:10) {#each plotID as id}
+// (645:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3589,7 +3589,7 @@ function instance$4($$self, $$props, $$invalidate) {
 
   }
 
-  let delta_thz = 0.1;
+  let delta_thz = 1;
   const fileInfo = {
 
     // Create baseline matplotlib
@@ -6799,6 +6799,7 @@ var Popper = function () {
 Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
 Popper.placements = placements;
 Popper.Defaults = Defaults;
+//# sourceMappingURL=popper.js.map
 
 /**!
 * tippy.js v4.3.5
@@ -8738,6 +8739,7 @@ function injectCSS(css) {
 }
 
 injectCSS(css);
+//# sourceMappingURL=index.all.js.map
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -19735,6 +19737,7 @@ const app = new App({
     target: document.body,
     props: { mainPages }
 });
+//# sourceMappingURL=renderer.js.map
 
 module.exports = app;
 //# sourceMappingURL=renderer.js.map
