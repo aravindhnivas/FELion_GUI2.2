@@ -189,7 +189,7 @@
 
   }
 
-  let delta_thz = 0.1
+  let delta_thz = 1
   const fileInfo = {
 
     // Create baseline matplotlib
@@ -522,7 +522,7 @@
               <div class="level-item">
 
                 <div class="field has-addons">
-                  <div class="control"><div class="button is-static">Delta (in KHz)</div></div>
+                  <div class="control"><div class="button is-static">Delta (in Hz)</div></div>
 
                   <div class="control">
                     <input
@@ -640,11 +640,7 @@
       <h1 class="subtitle">Data Visualisation</h1>
 
       <div class="row box plotContainer">
-        <!-- <img
-          class="data-loading"
-          id="{filetag}loading"
-          src="./icons/loadingBar.svg"
-          alt="loading data" /> -->
+        
         <div class="container is-fluid" id="{filetag}plotContainer">
           {#each plotID as id}
             {#if filetag == 'scan'}
