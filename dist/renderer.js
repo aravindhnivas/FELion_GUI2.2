@@ -1644,7 +1644,7 @@ class program {
                                 shapes: lines
                             };
                             Plotly.relayout("thzplot_Container", layout_update);
-                        }
+                        } else if (this.filetype == "depletion") { console.log('Graph plotted');}
 
                         console.log("Graph Plotted");
 
@@ -1905,7 +1905,7 @@ function get_each_context_6(ctx, list, i) {
 	return child_ctx;
 }
 
-// (535:12) {#each funcBtns as { id, name }}
+// (545:12) {#each funcBtns as { id, name }}
 function create_each_block_6(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -1943,7 +1943,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (544:12) {#if filetag == 'felix'}
+// (554:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
@@ -2026,7 +2026,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (572:12) {#if filetag == 'thz'}
+// (582:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t_1, div2, input, input_updating = false, dispose;
 
@@ -2087,7 +2087,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (600:18) {:else}
+// (610:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2125,7 +2125,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (598:18) {#if name[0]==="Log"}
+// (608:18) {#if name[0]==="Log"}
 function create_if_block_8(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2163,7 +2163,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (593:12) {#each checkBtns as {id, name, bind, help}}
+// (603:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_5(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, t4;
 
@@ -2248,7 +2248,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (617:6) {#if filetag=="felix"}
+// (627:6) {#if filetag=="felix"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2368,7 +2368,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (636:6) {#if filetag=="scan"}
+// (646:6) {#if filetag=="scan"}
 function create_if_block_1$1(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2498,7 +2498,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (649:28) {#if folderFile.files != undefined}
+// (659:28) {#if folderFile.files != undefined}
 function create_if_block_6(ctx) {
 	var each_1_anchor;
 
@@ -2561,7 +2561,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (650:31) {#each folderFile.files as scanfile}
+// (660:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2598,7 +2598,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (641:16) {#each ["ResON", "ResOFF"] as name}
+// (651:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -2666,7 +2666,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (672:57) 
+// (682:57) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2705,7 +2705,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (670:52) 
+// (680:52) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2744,7 +2744,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (668:50) 
+// (678:50) 
 function create_if_block_3(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2783,7 +2783,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (666:22) {#if name=="Power (ON, OFF)"}
+// (676:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_2(ctx) {
 	var input, dispose;
 
@@ -2816,7 +2816,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (661:16) {#each depletionLabels as {name, id}}
+// (671:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -2874,7 +2874,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (704:12) {:else}
+// (714:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2904,7 +2904,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (697:12) {#if filetag == 'scan'}
+// (707:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -2978,7 +2978,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (699:16) {#each fileChecked as scanfile}
+// (709:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3008,7 +3008,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (696:10) {#each plotID as id}
+// (706:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3852,8 +3852,18 @@ function instance$4($$self, $$props, $$invalidate) {
 
   const depletionPlot = () => {
 
-    runPlot({fullfiles: [currentLocation], filetype: "general", 
-      btname: "depletionSubmit", pyfile: "depletionscan.py", args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] });
+    runPlot({fullfiles: [currentLocation], filetype: "depletion",
+      btname: "depletionSubmit", pyfile: "depletionscan.py", 
+      args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] })
+      .then((output)=>{
+        console.log(output);
+      })
+      
+      .catch((err)=>{
+        console.log('Error Occured', err); 
+        $$invalidate('error_msg', error_msg["scan"]=err, error_msg); 
+        $$invalidate('modal', modal["scan"]="is-active", modal);
+      });
   };
   
   const changeTHz = (event) => {

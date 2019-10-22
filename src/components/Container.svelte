@@ -402,8 +402,18 @@
 
   const depletionPlot = () => {
 
-    runPlot({fullfiles: [currentLocation], filetype: "general", 
-      btname: "depletionSubmit", pyfile: "depletionscan.py", args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] });
+    runPlot({fullfiles: [currentLocation], filetype: "depletion",
+      btname: "depletionSubmit", pyfile: "depletionscan.py", 
+      args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] })
+      .then((output)=>{
+        console.log(output)
+      })
+      
+      .catch((err)=>{
+        console.log('Error Occured', err); 
+        error_msg["scan"]=err; 
+        modal["scan"]="is-active"
+      })
   }
   
   const changeTHz = (event) => {
