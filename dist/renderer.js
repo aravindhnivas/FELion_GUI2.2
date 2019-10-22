@@ -1708,35 +1708,35 @@ function runPlot({ fullfiles, filetype, btname, pyfile, filetag=null, args = [],
     console.log(":: runPlot -> $target", $target);
 
     $target.addClass("is-loading");
-    // $(`#${filetype}loading`).css("display", "block");
     if (filetype == "felix") { $("#theoryBtn").css("display", "none"); $("#theoryRow").css("display", "none"); }
 
-    let start = new program_1(obj);
-    start.filecheck()
-        .then(filecheckResult => {
+    return new Promise((resolve, reject)=>{
+        let start = new program_1(obj);
+        start.filecheck()
+            .then(filecheckResult => {
 
-            console.log(filecheckResult); //Filecheck completed
+                console.log(filecheckResult); //Filecheck completed
 
-            start.run()
-                .then((plotResult) => {
+                start.run()
+                    .then((plotResult) => {
 
-                    console.log(plotResult); //Graph plotted
-
-                    // $(`#${filetype}loading`).css("display", "none")
-                    $target.removeClass(loadAnimation).addClass(successAnimation);
-                    if (filetype == "felix") { $("#theoryBtn").css("display", "block"); }
-                })
-                .catch(pythonError => {
-                    // $(`#${filetype}loading`).css("display", "none")
-                    console.log(pythonError); // Error from python while graph plotting
-                    $target.removeClass(loadAnimation).addClass(dangerAnimation);
-                });
-        })
-        .catch(filecheckError => {
-            // $(`#${filetype}loading`).css("display", "none")
-            console.log("FileCheck error: ", filecheckError);  //Filecheck error
-            $target.removeClass(loadAnimation).addClass(dangerAnimation);
-        });
+                        console.log(plotResult); //Graph plotted
+                        $target.removeClass(loadAnimation).addClass(successAnimation);
+                        if (filetype == "felix") { $("#theoryBtn").css("display", "block"); }
+                        resolve(plotResult);
+                    })
+                    .catch(pythonError => {
+                        console.log(pythonError); // Error from python while graph plotting
+                        $target.removeClass(loadAnimation).addClass(dangerAnimation);
+                        reject(new Error(pythonError));
+                    });
+            })
+            .catch(filecheckError => {
+                console.log("FileCheck error: ", filecheckError);  //Filecheck error
+                $target.removeClass(loadAnimation).addClass(dangerAnimation);
+                reject(new Error(filecheckError));
+            });
+    })
 }
 
 $(document).on('animationend', '.funcBtn', (event) => {
@@ -1905,7 +1905,7 @@ function get_each_context_6(ctx, list, i) {
 	return child_ctx;
 }
 
-// (484:12) {#each funcBtns as { id, name }}
+// (535:12) {#each funcBtns as { id, name }}
 function create_each_block_6(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -1943,7 +1943,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (493:12) {#if filetag == 'felix'}
+// (544:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
@@ -2026,7 +2026,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (521:12) {#if filetag == 'thz'}
+// (572:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t_1, div2, input, input_updating = false, dispose;
 
@@ -2087,7 +2087,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (549:18) {:else}
+// (600:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2098,7 +2098,7 @@ function create_else_block_1$1(ctx) {
 			attr(input, "id", input_id_value = ctx.id);
 			input.checked = input_checked_value = ctx.bind;
 			attr(input, "class", "svelte-9uv9aa");
-			dispose = listen(input, "click", ctx.click_handler);
+			dispose = listen(input, "click", ctx.click_handler_2);
 		},
 
 		m(target, anchor) {
@@ -2125,7 +2125,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (547:18) {#if name[0]==="Log"}
+// (598:18) {#if name[0]==="Log"}
 function create_if_block_8(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2163,7 +2163,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (542:12) {#each checkBtns as {id, name, bind, help}}
+// (593:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_5(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, t4;
 
@@ -2248,7 +2248,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (566:6) {#if filetag=="felix"}
+// (617:6) {#if filetag=="felix"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2317,7 +2317,7 @@ function create_if_block_7(ctx) {
 				listen(input1, "input", input1_input_handler),
 				listen(input1, "keyup", ctx.runtheory_keyup),
 				listen(button1, "click", ctx.runtheory),
-				listen(button2, "click", ctx.click_handler_1)
+				listen(button2, "click", ctx.click_handler_3)
 			];
 		},
 
@@ -2368,7 +2368,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (585:6) {#if filetag=="scan"}
+// (636:6) {#if filetag=="scan"}
 function create_if_block_1$1(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2498,7 +2498,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (598:28) {#if folderFile.files != undefined}
+// (649:28) {#if folderFile.files != undefined}
 function create_if_block_6(ctx) {
 	var each_1_anchor;
 
@@ -2561,7 +2561,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (599:31) {#each folderFile.files as scanfile}
+// (650:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2598,7 +2598,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (590:16) {#each ["ResON", "ResOFF"] as name}
+// (641:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -2666,7 +2666,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (621:57) 
+// (672:57) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2705,7 +2705,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (619:52) 
+// (670:52) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2744,7 +2744,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (617:50) 
+// (668:50) 
 function create_if_block_3(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2783,7 +2783,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (615:22) {#if name=="Power (ON, OFF)"}
+// (666:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_2(ctx) {
 	var input, dispose;
 
@@ -2816,7 +2816,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (610:16) {#each depletionLabels as {name, id}}
+// (661:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -2874,7 +2874,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (653:12) {:else}
+// (704:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2904,7 +2904,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (646:12) {#if filetag == 'scan'}
+// (697:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -2978,7 +2978,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (648:16) {#each fileChecked as scanfile}
+// (699:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3008,7 +3008,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (645:10) {#each plotID as id}
+// (696:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3055,7 +3055,7 @@ function create_each_block$2(ctx) {
 }
 
 function create_fragment$4(ctx) {
-	var section, div12, div0, div0_id_value, t0, div11, div5, div4, div1, input, input_id_value, t1, div3, div2, t2, div2_data_tippy_value, t3, div8, div7, div6, t4, t5, t6, t7, t8, t9, hr, t10, h1, t12, div10, div9, div9_id_value, current, dispose;
+	var section1, div15, div0, div0_id_value, t0, div14, div3, div1, t1, div2, header, p, t3, button0, t4, section0, t5_value = ctx.error_msg[ctx.filetag] + "", t5, t6, footer, button1, div3_class_value, t8, div8, div7, div4, input, input_id_value, t9, div6, div5, t10, div5_data_tippy_value, t11, div11, div10, div9, t12, t13, t14, t15, t16, t17, hr, t18, h1, t20, div13, div12, div12_id_value, current, dispose;
 
 	var filebrowser = new Filebrowser({
 		props: {
@@ -3102,137 +3102,182 @@ function create_fragment$4(ctx) {
 
 	return {
 		c() {
-			section = element("section");
-			div12 = element("div");
+			section1 = element("section");
+			div15 = element("div");
 			div0 = element("div");
 			filebrowser.$$.fragment.c();
 			t0 = space();
-			div11 = element("div");
-			div5 = element("div");
-			div4 = element("div");
-			div1 = element("div");
-			input = element("input");
-			t1 = space();
+			div14 = element("div");
 			div3 = element("div");
+			div1 = element("div");
+			t1 = space();
 			div2 = element("div");
-			t2 = text("Browse");
+			header = element("header");
+			p = element("p");
+			p.textContent = "Error Occured while processing the data";
 			t3 = space();
+			button0 = element("button");
+			t4 = space();
+			section0 = element("section");
+			t5 = text(t5_value);
+			t6 = space();
+			footer = element("footer");
+			button1 = element("button");
+			button1.textContent = "Close";
+			t8 = space();
 			div8 = element("div");
 			div7 = element("div");
+			div4 = element("div");
+			input = element("input");
+			t9 = space();
 			div6 = element("div");
+			div5 = element("div");
+			t10 = text("Browse");
+			t11 = space();
+			div11 = element("div");
+			div10 = element("div");
+			div9 = element("div");
 
 			for (let i = 0; i < each_blocks_2.length; i += 1) {
 				each_blocks_2[i].c();
 			}
 
-			t4 = space();
+			t12 = space();
 			if (if_block0) if_block0.c();
-			t5 = space();
+			t13 = space();
 			if (if_block1) if_block1.c();
-			t6 = space();
+			t14 = space();
 
 			for (let i = 0; i < each_blocks_1.length; i += 1) {
 				each_blocks_1[i].c();
 			}
 
-			t7 = space();
+			t15 = space();
 			if (if_block2) if_block2.c();
-			t8 = space();
+			t16 = space();
 			if (if_block3) if_block3.c();
-			t9 = space();
+			t17 = space();
 			hr = element("hr");
-			t10 = space();
+			t18 = space();
 			h1 = element("h1");
 			h1.textContent = "Data Visualisation";
-			t12 = space();
-			div10 = element("div");
-			div9 = element("div");
+			t20 = space();
+			div13 = element("div");
+			div12 = element("div");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 			attr(div0, "class", "column is-3 svelte-9uv9aa");
 			attr(div0, "id", div0_id_value = "" + ctx.filetag + "filebrowserColumn");
+			attr(div1, "class", "modal-background");
+			attr(p, "class", "modal-card-title");
+			attr(button0, "class", "delete");
+			attr(button0, "aria-label", "close");
+			attr(header, "class", "modal-card-head");
+			attr(section0, "class", "modal-card-body");
+			set_style(section0, "color", "black");
+			attr(button1, "class", "button");
+			attr(footer, "class", "modal-card-foot");
+			attr(div2, "class", "modal-card");
+			attr(div3, "class", div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-9uv9aa");
 			attr(input, "class", "input locationLabel svelte-9uv9aa");
 			attr(input, "type", "text");
 			attr(input, "placeholder", "Location will be displayed");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "LocationLabel");
 			input.value = ctx.currentLocation;
-			attr(div1, "class", "control is-expanded");
-			attr(div2, "class", "button is-dark");
-			attr(div2, "data-tippy", div2_data_tippy_value = "Browse " + ctx.filetag + " file");
-			attr(div3, "class", "control");
-			attr(div4, "class", "field has-addons");
-			attr(div5, "class", "row svelte-9uv9aa");
-			attr(div6, "class", "level-left animated fadeIn");
-			attr(div7, "class", "level");
+			attr(div4, "class", "control is-expanded");
+			attr(div5, "class", "button is-dark");
+			attr(div5, "data-tippy", div5_data_tippy_value = "Browse " + ctx.filetag + " file");
+			attr(div6, "class", "control");
+			attr(div7, "class", "field has-addons");
 			attr(div8, "class", "row svelte-9uv9aa");
+			attr(div9, "class", "level-left animated fadeIn");
+			attr(div10, "class", "level");
+			attr(div11, "class", "row svelte-9uv9aa");
 			set_style(hr, "margin", "0.5em 0");
 			set_style(hr, "background-color", "#bdc3c7");
 			attr(h1, "class", "subtitle");
-			attr(div9, "class", "container is-fluid svelte-9uv9aa");
-			attr(div9, "id", div9_id_value = "" + ctx.filetag + "plotContainer");
-			attr(div10, "class", "row box plotContainer svelte-9uv9aa");
-			attr(div11, "class", "column");
-			attr(div12, "class", "columns");
-			attr(section, "class", "section svelte-9uv9aa");
-			attr(section, "id", ctx.id);
-			attr(section, "style", style);
+			attr(div12, "class", "container is-fluid svelte-9uv9aa");
+			attr(div12, "id", div12_id_value = "" + ctx.filetag + "plotContainer");
+			attr(div13, "class", "row box plotContainer svelte-9uv9aa");
+			attr(div14, "class", "column");
+			attr(div15, "class", "columns");
+			attr(section1, "class", "section svelte-9uv9aa");
+			attr(section1, "id", ctx.id);
+			attr(section1, "style", style);
 
 			dispose = [
+				listen(button0, "click", ctx.click_handler),
+				listen(button1, "click", ctx.click_handler_1),
 				listen(input, "keyup", ctx.keyup_handler),
-				listen(div2, "click", ctx.browseFile)
+				listen(div5, "click", ctx.browseFile)
 			];
 		},
 
 		m(target, anchor) {
-			insert(target, section, anchor);
-			append(section, div12);
-			append(div12, div0);
+			insert(target, section1, anchor);
+			append(section1, div15);
+			append(div15, div0);
 			mount_component(filebrowser, div0, null);
-			append(div12, t0);
-			append(div12, div11);
-			append(div11, div5);
-			append(div5, div4);
-			append(div4, div1);
-			append(div1, input);
-			append(div4, t1);
-			append(div4, div3);
+			append(div15, t0);
+			append(div15, div14);
+			append(div14, div3);
+			append(div3, div1);
+			append(div3, t1);
 			append(div3, div2);
-			append(div2, t2);
-			append(div11, t3);
-			append(div11, div8);
+			append(div2, header);
+			append(header, p);
+			append(header, t3);
+			append(header, button0);
+			append(div2, t4);
+			append(div2, section0);
+			append(section0, t5);
+			append(div2, t6);
+			append(div2, footer);
+			append(footer, button1);
+			append(div14, t8);
+			append(div14, div8);
 			append(div8, div7);
+			append(div7, div4);
+			append(div4, input);
+			append(div7, t9);
 			append(div7, div6);
-
-			for (let i = 0; i < each_blocks_2.length; i += 1) {
-				each_blocks_2[i].m(div6, null);
-			}
-
-			append(div6, t4);
-			if (if_block0) if_block0.m(div6, null);
-			append(div6, t5);
-			if (if_block1) if_block1.m(div6, null);
-			append(div6, t6);
-
-			for (let i = 0; i < each_blocks_1.length; i += 1) {
-				each_blocks_1[i].m(div6, null);
-			}
-
-			append(div11, t7);
-			if (if_block2) if_block2.m(div11, null);
-			append(div11, t8);
-			if (if_block3) if_block3.m(div11, null);
-			append(div11, t9);
-			append(div11, hr);
-			append(div11, t10);
-			append(div11, h1);
-			append(div11, t12);
+			append(div6, div5);
+			append(div5, t10);
+			append(div14, t11);
+			append(div14, div11);
 			append(div11, div10);
 			append(div10, div9);
 
+			for (let i = 0; i < each_blocks_2.length; i += 1) {
+				each_blocks_2[i].m(div9, null);
+			}
+
+			append(div9, t12);
+			if (if_block0) if_block0.m(div9, null);
+			append(div9, t13);
+			if (if_block1) if_block1.m(div9, null);
+			append(div9, t14);
+
+			for (let i = 0; i < each_blocks_1.length; i += 1) {
+				each_blocks_1[i].m(div9, null);
+			}
+
+			append(div14, t15);
+			if (if_block2) if_block2.m(div14, null);
+			append(div14, t16);
+			if (if_block3) if_block3.m(div14, null);
+			append(div14, t17);
+			append(div14, hr);
+			append(div14, t18);
+			append(div14, h1);
+			append(div14, t20);
+			append(div14, div13);
+			append(div13, div12);
+
 			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(div9, null);
+				each_blocks[i].m(div12, null);
 			}
 
 			current = true;
@@ -3250,6 +3295,14 @@ function create_fragment$4(ctx) {
 				attr(div0, "id", div0_id_value);
 			}
 
+			if ((!current || changed.error_msg || changed.filetag) && t5_value !== (t5_value = ctx.error_msg[ctx.filetag] + "")) {
+				set_data(t5, t5_value);
+			}
+
+			if ((!current || changed.modal || changed.filetag) && div3_class_value !== (div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-9uv9aa")) {
+				attr(div3, "class", div3_class_value);
+			}
+
 			if ((!current || changed.filetag) && input_id_value !== (input_id_value = "" + ctx.filetag + "LocationLabel")) {
 				attr(input, "id", input_id_value);
 			}
@@ -3258,8 +3311,8 @@ function create_fragment$4(ctx) {
 				input.value = ctx.currentLocation;
 			}
 
-			if ((!current || changed.filetag) && div2_data_tippy_value !== (div2_data_tippy_value = "Browse " + ctx.filetag + " file")) {
-				attr(div2, "data-tippy", div2_data_tippy_value);
+			if ((!current || changed.filetag) && div5_data_tippy_value !== (div5_data_tippy_value = "Browse " + ctx.filetag + " file")) {
+				attr(div5, "data-tippy", div5_data_tippy_value);
 			}
 
 			if (changed.funcBtns) {
@@ -3274,7 +3327,7 @@ function create_fragment$4(ctx) {
 					} else {
 						each_blocks_2[i] = create_each_block_6(child_ctx);
 						each_blocks_2[i].c();
-						each_blocks_2[i].m(div6, t4);
+						each_blocks_2[i].m(div9, t12);
 					}
 				}
 
@@ -3290,7 +3343,7 @@ function create_fragment$4(ctx) {
 				} else {
 					if_block0 = create_if_block_10(ctx);
 					if_block0.c();
-					if_block0.m(div6, t5);
+					if_block0.m(div9, t13);
 				}
 			} else if (if_block0) {
 				if_block0.d(1);
@@ -3303,7 +3356,7 @@ function create_fragment$4(ctx) {
 				} else {
 					if_block1 = create_if_block_9(ctx);
 					if_block1.c();
-					if_block1.m(div6, t6);
+					if_block1.m(div9, t14);
 				}
 			} else if (if_block1) {
 				if_block1.d(1);
@@ -3322,7 +3375,7 @@ function create_fragment$4(ctx) {
 					} else {
 						each_blocks_1[i] = create_each_block_5(child_ctx);
 						each_blocks_1[i].c();
-						each_blocks_1[i].m(div6, null);
+						each_blocks_1[i].m(div9, null);
 					}
 				}
 
@@ -3338,7 +3391,7 @@ function create_fragment$4(ctx) {
 				} else {
 					if_block2 = create_if_block_7(ctx);
 					if_block2.c();
-					if_block2.m(div11, t8);
+					if_block2.m(div14, t16);
 				}
 			} else if (if_block2) {
 				if_block2.d(1);
@@ -3351,7 +3404,7 @@ function create_fragment$4(ctx) {
 				} else {
 					if_block3 = create_if_block_1$1(ctx);
 					if_block3.c();
-					if_block3.m(div11, t9);
+					if_block3.m(div14, t17);
 				}
 			} else if (if_block3) {
 				if_block3.d(1);
@@ -3370,7 +3423,7 @@ function create_fragment$4(ctx) {
 					} else {
 						each_blocks[i] = create_each_block$2(child_ctx);
 						each_blocks[i].c();
-						each_blocks[i].m(div9, null);
+						each_blocks[i].m(div12, null);
 					}
 				}
 
@@ -3380,12 +3433,12 @@ function create_fragment$4(ctx) {
 				each_blocks.length = each_value.length;
 			}
 
-			if ((!current || changed.filetag) && div9_id_value !== (div9_id_value = "" + ctx.filetag + "plotContainer")) {
-				attr(div9, "id", div9_id_value);
+			if ((!current || changed.filetag) && div12_id_value !== (div12_id_value = "" + ctx.filetag + "plotContainer")) {
+				attr(div12, "id", div12_id_value);
 			}
 
 			if (!current || changed.id) {
-				attr(section, "id", ctx.id);
+				attr(section1, "id", ctx.id);
 			}
 		},
 
@@ -3403,7 +3456,7 @@ function create_fragment$4(ctx) {
 
 		d(detaching) {
 			if (detaching) {
-				detach(section);
+				detach(section1);
 			}
 
 			destroy_component(filebrowser);
@@ -3622,7 +3675,6 @@ function instance$4($$self, $$props, $$invalidate) {
       
     }
   };
-
   const functionRun = event => {
     let btname = event.target.id;
 
@@ -3639,6 +3691,15 @@ function instance$4($$self, $$props, $$invalidate) {
         runPlot({
           fullfiles: fullfiles, filetype: filetag, btname: btname,
           pyfile: "normline.py", normethod: normlog, args: delta
+        })
+        .then((output)=>{
+          console.log(output);
+        })
+
+        .catch((err)=>{
+          console.log('Error Occured', err); 
+          $$invalidate('error_msg', error_msg[filetag]=err, error_msg); 
+          $$invalidate('modal', modal[filetag]="is-active", modal);
         });
       
       break;
@@ -3674,6 +3735,14 @@ function instance$4($$self, $$props, $$invalidate) {
             btname: btname,
             pyfile: "mass.py",
             args: "run"
+          })
+          .then((output)=>{
+            console.log(output);
+          })
+          .catch((err)=>{
+            console.log('Error Occured', err); 
+            $$invalidate('error_msg', error_msg[filetag]=err, error_msg); 
+            $$invalidate('modal', modal[filetag]="is-active", modal);
           });
       break;
 
@@ -3687,6 +3756,15 @@ function instance$4($$self, $$props, $$invalidate) {
                 btname: btname,
                 pyfile: "timescan.py",
                 plotArea: file + "_tplot"
+              })
+              .then((output)=>{
+                console.log(output);
+              })
+              
+              .catch((err)=>{
+                console.log('Error Occured', err); 
+                $$invalidate('error_msg', error_msg[filetag]=err, error_msg); 
+                $$invalidate('modal', modal[filetag]="is-active", modal);
               });
             });
       break;
@@ -3700,6 +3778,15 @@ function instance$4($$self, $$props, $$invalidate) {
             btname: btname,
             pyfile: "thz_scan.py",
             args: [delta_thz, "run"]
+          })
+          .then((output)=>{
+            console.log(output);
+          })
+          
+          .catch((err)=>{
+            console.log('Error Occured', err); 
+            $$invalidate('error_msg', error_msg[filetag]=err, error_msg); 
+            $$invalidate('modal', modal[filetag]="is-active", modal);
           });
       break;
 
@@ -3783,6 +3870,10 @@ function instance$4($$self, $$props, $$invalidate) {
 
   };
 
+	const click_handler = () => $$invalidate('modal', modal[filetag]='', modal);
+
+	const click_handler_1 = () => $$invalidate('modal', modal[filetag]='', modal);
+
 	const keyup_handler = (e) => {
 	                  if (e.key == "Enter") {
 	                    let location = e.target.value;
@@ -3806,7 +3897,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		$$invalidate('delta_thz', delta_thz);
 	}
 
-	const click_handler = (e) => {console.log(`Status (${e.target.id}):\n ${e.target.checked}`);};
+	const click_handler_2 = (e) => {console.log(`Status (${e.target.id}):\n ${e.target.checked}`);};
 
 	function input0_input_handler() {
 		sigma = to_number(this.value);
@@ -3818,7 +3909,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		$$invalidate('scale', scale);
 	}
 
-	const click_handler_1 = () => runtheory({tkplot:"plot", filetype:"general"});
+	const click_handler_3 = () => runtheory({tkplot:"plot", filetype:"general"});
 
 	function input_input_handler_2() {
 		powerinfo = this.value;
@@ -3854,7 +3945,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		if ('MenuItem' in $$props) $$invalidate('MenuItem', MenuItem = $$props.MenuItem);
 	};
 
-	let fileChecked, fullfiles, theoryfilenames;
+	let fileChecked, fullfiles, modal, error_msg, theoryfilenames;
 
 	$$self.$$.update = ($$dirty = { normMethod: 1, filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1 }) => {
 		if ($$dirty.normMethod) { normMethod == "Relative" ? (normlog = false) : (normlog = true); }
@@ -3865,6 +3956,9 @@ function instance$4($$self, $$props, $$invalidate) {
 		if ($$dirty.fileChecked || $$dirty.path || $$dirty.currentLocation) { fullfiles = fileChecked.map(file => path.join(currentLocation, file)); }
 		if ($$dirty.theoryfiles || $$dirty.path) { $$invalidate('theoryfilenames', theoryfilenames = theoryfiles.map(file=>path.basename(file))); }
 	};
+
+	$$invalidate('modal', modal = {mass:"", felix:"", scan:"", thz:""});
+	$$invalidate('error_msg', error_msg = {mass:"", felix:"", scan:"", thz:""});
 
 	return {
 		id,
@@ -3904,15 +3998,19 @@ function instance$4($$self, $$props, $$invalidate) {
 		fileChecked,
 		console,
 		undefined,
+		modal,
+		error_msg,
 		theoryfilenames,
+		click_handler,
+		click_handler_1,
 		keyup_handler,
 		select_change_handler,
 		input_input_handler,
 		input_input_handler_1,
-		click_handler,
+		click_handler_2,
 		input0_input_handler,
 		input1_input_handler,
-		click_handler_1,
+		click_handler_3,
 		input_input_handler_2,
 		input_input_handler_3,
 		input_input_handler_4,
