@@ -26,35 +26,35 @@ function runPlot({ fullfiles, filetype, btname, pyfile, filetag=null, args = [],
     console.log(":: runPlot -> $target", $target);
 
     $target.addClass("is-loading");
-    // $(`#${filetype}loading`).css("display", "block");
     if (filetype == "felix") { $("#theoryBtn").css("display", "none"); $("#theoryRow").css("display", "none") }
 
-    let start = new program(obj)
-    start.filecheck()
-        .then(filecheckResult => {
+    return new Promise((resolve, reject)=>{
+        let start = new program(obj)
+        start.filecheck()
+            .then(filecheckResult => {
 
-            console.log(filecheckResult); //Filecheck completed
+                console.log(filecheckResult); //Filecheck completed
 
-            start.run()
-                .then((plotResult) => {
+                start.run()
+                    .then((plotResult) => {
 
-                    console.log(plotResult); //Graph plotted
-
-                    // $(`#${filetype}loading`).css("display", "none")
-                    $target.removeClass(loadAnimation).addClass(successAnimation);
-                    if (filetype == "felix") { $("#theoryBtn").css("display", "block") }
-                })
-                .catch(pythonError => {
-                    // $(`#${filetype}loading`).css("display", "none")
-                    console.log(pythonError) // Error from python while graph plotting
-                    $target.removeClass(loadAnimation).addClass(dangerAnimation);
-                })
-        })
-        .catch(filecheckError => {
-            // $(`#${filetype}loading`).css("display", "none")
-            console.log("FileCheck error: ", filecheckError);  //Filecheck error
-            $target.removeClass(loadAnimation).addClass(dangerAnimation)
-        })
+                        console.log(plotResult); //Graph plotted
+                        $target.removeClass(loadAnimation).addClass(successAnimation);
+                        if (filetype == "felix") { $("#theoryBtn").css("display", "block") }
+                        resolve(plotResult)
+                    })
+                    .catch(pythonError => {
+                        console.log(pythonError) // Error from python while graph plotting
+                        $target.removeClass(loadAnimation).addClass(dangerAnimation);
+                        reject(new Error(pythonError))
+                    })
+            })
+            .catch(filecheckError => {
+                console.log("FileCheck error: ", filecheckError);  //Filecheck error
+                $target.removeClass(loadAnimation).addClass(dangerAnimation)
+                reject(new Error(filecheckError))
+            })
+    })
 }
 
 $(document).on('animationend', '.funcBtn', (event) => {

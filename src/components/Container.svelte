@@ -222,7 +222,8 @@
       
     }
   }
-
+  $: modal = {mass:"", felix:"", scan:"", thz:""}
+  $: error_msg = {mass:"", felix:"", scan:"", thz:""}
   const functionRun = event => {
     let btname = event.target.id;
 
@@ -239,7 +240,16 @@
         runPlot({
           fullfiles: fullfiles, filetype: filetag, btname: btname,
           pyfile: "normline.py", normethod: normlog, args: delta
-        });
+        })
+        .then((output)=>{
+          console.log(output)
+        })
+
+        .catch((err)=>{
+          console.log('Error Occured', err); 
+          error_msg[filetag]=err; 
+          modal[filetag]="is-active"
+        })
       
       break;
       
@@ -274,7 +284,15 @@
             btname: btname,
             pyfile: "mass.py",
             args: "run"
-          });
+          })
+          .then((output)=>{
+            console.log(output)
+          })
+          .catch((err)=>{
+            console.log('Error Occured', err); 
+            error_msg[filetag]=err; 
+            modal[filetag]="is-active"
+          })
       break;
 
       ////////////// Timescan PLOT //////////////////////
@@ -287,7 +305,16 @@
                 btname: btname,
                 pyfile: "timescan.py",
                 plotArea: file + "_tplot"
-              });
+              })
+              .then((output)=>{
+                console.log(output)
+              })
+              
+              .catch((err)=>{
+                console.log('Error Occured', err); 
+                error_msg[filetag]=err; 
+                modal[filetag]="is-active"
+              })
             });
       break;
 
@@ -300,7 +327,16 @@
             btname: btname,
             pyfile: "thz_scan.py",
             args: [delta_thz, "run"]
-          });
+          })
+          .then((output)=>{
+            console.log(output)
+          })
+          
+          .catch((err)=>{
+            console.log('Error Occured', err); 
+            error_msg[filetag]=err; 
+            modal[filetag]="is-active"
+          })
       break;
 
 
@@ -446,6 +482,21 @@
     </div>
 
     <div class="column">
+
+      <div class="modal {modal[filetag]} is-clipped">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Error Occured while processing the data</p>
+            <button class="delete" aria-label="close" on:click="{()=>modal[filetag]=''}"></button>
+          </header>
+          <section class="modal-card-body" style="color:black"> {error_msg[filetag]} </section>
+
+          <footer class="modal-card-foot">
+            <button class="button" on:click="{()=>modal[filetag]=''}">Close</button>
+          </footer>
+        </div>
+      </div>
 
       <div class="row">
         <div class="field has-addons">
