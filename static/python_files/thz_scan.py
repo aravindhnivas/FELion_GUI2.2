@@ -126,7 +126,7 @@ def binning(xs, ys, delta=1e-6):
 
     return binsx, data_binned
 
-def main(filenames, delta, tkplot):
+def main(filenames, delta, tkplot, mhz=False):
 
     os.chdir(filenames[0].parent)
 
@@ -147,6 +147,8 @@ def main(filenames, delta, tkplot):
 
         filename = pt(filename)
         freq, depletion_counts, iteraton = thz_plot(filename)
+
+        if mhz: depletion_counts*1e3
 
         if tkplot:
             ax.plot(freq, depletion_counts, ".", label=f"{filename.name} [{iteraton}]")
