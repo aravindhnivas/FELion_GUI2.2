@@ -2,11 +2,11 @@
 
 # Data analysis
 import numpy as np
-from lmfit.models import GaussianModel
+from lmfit.models import VoigtModel
 
 # Built-In modules
 from pathlib import Path as pt
-import sys, json
+import sys, json, os
 
 # FELion tkinter figure module
 from FELion_widgets import FELion_Tk
@@ -128,11 +128,7 @@ def binning(xs, ys, delta=1e-6):
 
 def main(filenames, delta, tkplot):
 
-
-    # if len(filenames)>1: runavg = True
-    # else: runavg = False
-
-    runavg = True
+    os.chdir(filenames[0].parent)
 
     if tkplot:
         widget = FELion_Tk(title="THz Scan", location=filenames[0].parent)
@@ -158,51 +154,56 @@ def main(filenames, delta, tkplot):
             data[filename.name] = {"x": list(freq), "y": list(depletion_counts),  
                                     "name": f"{filename.name} [{iteraton}]", "mode":'markers',
                                     }
-
         xs = np.append(xs, freq)
         ys = np.append(ys, depletion_counts)
 
-    if runavg: binx, biny = binning(xs, ys, delta)
-    else: binx, biny = freq, depletion_counts
+    binx, biny = binning(xs, ys, delta)
 
-    model = GaussianModel()
+    model = VoigtModel()
     guess = model.guess(biny, x=binx)
     guess_values = guess.valuesdict()
+
     fit = model.fit(biny, x=binx, amplitude = guess_values['amplitude'], 
                     center = guess_values['center'], 
                     sigma = guess_values['sigma'], 
-                    fwhm = guess_values['fwhm'], 
-                    height = guess_values['height'])
-
-    FWHM = lambda sigma: 2*np.sqrt(2*np.log(2))*sigma
-    Amplitude = lambda a, sigma: a/(sigma*np.sqrt(2*np.pi))
-
+                    gamma = guess_values['gamma'])
+    
+    # fit_data
     fit_data = fit.best_fit
     line_freq_fit = fit.best_values['center']
-    sigma = fit.best_values['sigma']
-    amplitude = Amplitude(fit.best_values['amplitude'], sigma)
 
-    fwhm = FWHM(sigma)
+    # FWHM
+    fwhm_gauss = lambda sigma: 2*sigma*np.sqrt(2*np.log(2))
+    fwhm_loren = lambda gamma: 2*gamma
+    FWHM = lambda sigma, gamma: 0.5346*fwhm_loren(gamma) + np.sqrt(0.2166*fwhm_loren(gamma)**2 + fwhm_gauss(sigma)**2) #voigt approximation with 0.02% accuracy
+    
+    sigma = fit.best_values['sigma']
+    gamma = fit.best_values['gamma']
+    fwhm = FWHM(sigma, gamma)
+    amplitude = fit.best_fit.max()
     half_max = amplitude/2
 
     # Averaged
 
-    if runavg:
+    with open(f"./averaged_thz.dat", "w") as f:
+        f.write("#Frequency(in MHz)\t#Intensity\n")
+        for freq, inten in zip(binx, fit_data):
+            f.write(f"{freq*1e3}\t{inten}\n")
 
-        label = f"Binned (delta={delta*1e9:.2f} Hz)"
-        if tkplot: ax.plot(binx, biny, "k.", label=label)
+    label = f"Binned (delta={delta*1e9:.2f} Hz)"
+    if tkplot: ax.plot(binx, biny, "k.", label=label)
+    else:
+        data["Averaged_exp"] = {
+            "x": list(binx), "y": list(biny),  "name":label, "mode": "markers", "marker":{"color":"black"}
+        }
 
-        else:
-            data["Averaged_exp"] = {
-                "x": list(binx), "y": list(biny),  "name":label, "mode": "markers", "marker":{"color":"black"}
-            }
     if tkplot:
         ax.plot(binx, fit_data, "k-", label=f"Fitted: {line_freq_fit:.7f} GHz ({fwhm*1e6:.1f} KHz)")
         ax.vlines(x=line_freq_fit, ymin=0, ymax=amplitude, zorder=10)
         ax.hlines(y=half_max, xmin=line_freq_fit-fwhm/2, xmax=line_freq_fit+fwhm/2, zorder=10)
-        # ax.text(0, -1, f"{line_freq_fit} GHz")
-        widget.plot_legend = ax.legend(title=f"Signal strength: {amplitude:.2f}%")
+        widget.plot_legend = ax.legend(title=f"Intensity: {amplitude:.2f}%\nGau: {sigma:.3e}\nLorr: {gamma:.3e}")
         widget.mainloop()
+
     else:
 
         data["Averaged_fit"] = {
