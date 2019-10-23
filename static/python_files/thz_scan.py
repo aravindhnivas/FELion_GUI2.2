@@ -64,20 +64,6 @@ def thz_plot(filename):
 
     return freq, depletion_counts, f"{steps} KHz : {iteraton} cycles"
 
-def save_fig(filename, freq, depletion_counts, fit_data, line_freq_fit, amplitude, half_max, fwhm):
-
-    fig, ax = plt.subplots(figsize=(12, 6), dpi=150)
-    ax.plot(freq, depletion_counts, ".", label="Data (~30${\mu}$W)")
-    ax.plot(freq, fit_data, label="Fitted")
-    ax.vlines(line_freq_fit, 0, amplitude, label=f'{line_freq_fit:.7f} GHz')
-    ax.hlines(half_max, line_freq_fit-fwhm/2, line_freq_fit+fwhm/2, color="C2", label=f"FWHM: {fwhm*1e6:.1f}KHz")
-    ax.grid()
-    ax.set(title="CD$^{+}$: j=1-0 line", xlabel="Frequency (GHz)", ylabel="Depletion (%)")
-    ax.ticklabel_format(useOffset=False)
-    ax.legend()
-    fig.savefig(filename.parent/f'{filename.stem}_thz.png')
-    #plt.show()
-    plt.close()
 
 def binning(xs, ys, delta=1e-6):
 
@@ -126,7 +112,7 @@ def binning(xs, ys, delta=1e-6):
 
     return binsx, data_binned
 
-def main(filenames, delta, tkplot, mhz=False):
+def main(filenames, delta, tkplot):
 
     os.chdir(filenames[0].parent)
 
@@ -147,8 +133,6 @@ def main(filenames, delta, tkplot, mhz=False):
 
         filename = pt(filename)
         freq, depletion_counts, iteraton = thz_plot(filename)
-
-        if mhz: depletion_counts*1e3
 
         if tkplot:
             ax.plot(freq, depletion_counts, ".", label=f"{filename.name} [{iteraton}]")
