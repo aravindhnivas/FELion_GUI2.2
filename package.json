@@ -16,13 +16,15 @@
         "build": "rollup -c",
         "postinstall": "electron-builder install-app-deps",
         "css-build": "node-sass --omit-source-map-url static/sass/mystyles.scss static/css/mystyles.css",
-        "css-watch": "npm run css-build -- --watch"
+        "css-watch": "npm run css-build -- --watch",
+        "setup": "electron-installer-windows --src FELion_GUI2.2-win32-x64 --dest installer/"    
     },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.10.2",
         "bulma": "^0.7.5",
         "electron": "^5.0.1",
         "electron-builder": "^20.40.2",
+        "electron-installer-windows": "^2.0.0",
         "node-sass": "^4.12.0",
         "rollup": "^1.21.0",
         "rollup-plugin-commonjs": "^9.3.4",
@@ -35,7 +37,6 @@
         "typescript": "^3.4.5"
     },
     "dependencies": {
-        "@stdlib/stdlib": "0.0.87",
         "chokidar": "^3.0.0",
         "cross-env": "^5.2.0",
         "directory-tree": "^2.2.4",
