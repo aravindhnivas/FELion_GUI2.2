@@ -1646,6 +1646,9 @@ class program {
                             Plotly.relayout("thzplot_Container", layout_update);
                         } else if (this.filetype == "depletion") { console.log('Graph plotted');}
 
+
+                        else if (this.filetype == "norm_tkplot") { console.log('Graph plotted');}
+
                         console.log("Graph Plotted");
 
                     } catch (err) {
@@ -1905,7 +1908,7 @@ function get_each_context_6(ctx, list, i) {
 	return child_ctx;
 }
 
-// (545:12) {#each funcBtns as { id, name }}
+// (567:12) {#each funcBtns as { id, name }}
 function create_each_block_6(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -1943,7 +1946,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (554:12) {#if filetag == 'felix'}
+// (576:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
@@ -2026,7 +2029,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (582:12) {#if filetag == 'thz'}
+// (604:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t_1, div2, input, input_updating = false, dispose;
 
@@ -2087,7 +2090,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (610:18) {:else}
+// (632:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2125,7 +2128,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (608:18) {#if name[0]==="Log"}
+// (630:18) {#if name[0]==="Log"}
 function create_if_block_8(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2163,7 +2166,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (603:12) {#each checkBtns as {id, name, bind, help}}
+// (625:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_5(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, t4;
 
@@ -2248,7 +2251,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (627:6) {#if filetag=="felix"}
+// (649:6) {#if filetag=="felix"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2317,7 +2320,7 @@ function create_if_block_7(ctx) {
 				listen(input1, "input", input1_input_handler),
 				listen(input1, "keyup", ctx.runtheory_keyup),
 				listen(button1, "click", ctx.runtheory),
-				listen(button2, "click", ctx.click_handler_3)
+				listen(button2, "click", ctx.console.log("Theory plot not yet ready"))
 			];
 		},
 
@@ -2368,7 +2371,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (646:6) {#if filetag=="scan"}
+// (668:6) {#if filetag=="scan"}
 function create_if_block_1$1(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2498,7 +2501,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (659:28) {#if folderFile.files != undefined}
+// (681:28) {#if folderFile.files != undefined}
 function create_if_block_6(ctx) {
 	var each_1_anchor;
 
@@ -2561,7 +2564,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (660:31) {#each folderFile.files as scanfile}
+// (682:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2598,7 +2601,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (651:16) {#each ["ResON", "ResOFF"] as name}
+// (673:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -2666,7 +2669,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (682:57) 
+// (704:57) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2705,7 +2708,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (680:52) 
+// (702:52) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2744,7 +2747,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (678:50) 
+// (700:50) 
 function create_if_block_3(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2783,7 +2786,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (676:22) {#if name=="Power (ON, OFF)"}
+// (698:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_2(ctx) {
 	var input, dispose;
 
@@ -2816,7 +2819,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (671:16) {#each depletionLabels as {name, id}}
+// (693:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -2874,7 +2877,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (714:12) {:else}
+// (736:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2904,7 +2907,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (707:12) {#if filetag == 'scan'}
+// (729:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -2978,7 +2981,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (709:16) {#each fileChecked as scanfile}
+// (731:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3008,7 +3011,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (706:10) {#each plotID as id}
+// (728:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3637,6 +3640,7 @@ function instance$4($$self, $$props, $$invalidate) {
   }
 
   let delta_thz = 1;
+
   const fileInfo = {
 
     // Create baseline matplotlib
@@ -3669,11 +3673,16 @@ function instance$4($$self, $$props, $$invalidate) {
       
     }
   };
+
+
   const functionRun = event => {
+
     let btname = event.target.id;
 
+    console.log(`Button clicked (id): ${btname}`);
+
     if (btname === "createBaselineBtn"){btname="felix_Matplotlib";}
-    // if (btname === "theory_Matplotlib"){btname="felix_Matplotlib"}
+    
 
     switch (btname) {
 
@@ -3697,10 +3706,27 @@ function instance$4($$self, $$props, $$invalidate) {
         });
       
       break;
+
+      // Norm_tkplot (Averaged plot experimental in Matplotlib)
+
+      case "norm_tkplot":
+        console.log("Running Norm_tkplot");
+        let avgdata = document.getElementById("avgplot").data;
+        runPlot({
+                fullfiles: fullfiles,
+                filetype: "general",
+                filetag: "felix",
+                btname: "felix_Matplotlib",
+                pyfile: "norm_tkplot.py",
+                args: normMethod
+              });
+      break;
       
       ////////////// Matplotlib PLOT //////////////////////
 
       case `${filetag}_Matplotlib`:
+
+        console.log("Opening Matplotlib in tkinter");
 
         let scriptname = fileInfo[filetag]["pyfile"];
         let options = {args:[...fullfiles, fileInfo[filetag]["args"]]};
@@ -3816,6 +3842,7 @@ function instance$4($$self, $$props, $$invalidate) {
     runPlot({fullfiles: theoryfiles, filetype: filetype, filetag:filetag,
       btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot] });
   }
+
   const runtheory_keyup = (event) => {if(event.key=="Enter") runtheory({tkplot:"run"});};
   let sigma=20; //Sigma value for felixplot thoery gaussian profile
   let scale=1;
@@ -3871,7 +3898,6 @@ function instance$4($$self, $$props, $$invalidate) {
           args: [delta_thz, "run"]
         });
     }
-
   };
 
 	const click_handler = () => $$invalidate('modal', modal[filetag]='', modal);
@@ -3912,8 +3938,6 @@ function instance$4($$self, $$props, $$invalidate) {
 		scale = to_number(this.value);
 		$$invalidate('scale', scale);
 	}
-
-	const click_handler_3 = () => runtheory({tkplot:"plot", filetype:"general"});
 
 	function input_input_handler_2() {
 		powerinfo = this.value;
@@ -4014,7 +4038,6 @@ function instance$4($$self, $$props, $$invalidate) {
 		click_handler_2,
 		input0_input_handler,
 		input1_input_handler,
-		click_handler_3,
 		input_input_handler_2,
 		input_input_handler_3,
 		input_input_handler_4,
@@ -19729,7 +19752,7 @@ const mainPages = [
                 name: "Add Theory"
             },
             {
-                id: "felix_Matplotlib",
+                id: "norm_tkplot",
                 name: "Open in matplotlib"
             }
         ],

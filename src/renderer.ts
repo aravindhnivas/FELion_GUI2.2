@@ -24,7 +24,7 @@ const mainPages = [
 				name: "Add Theory"
 			},
 			{
-				id: "felix_Matplotlib",
+				id: "norm_tkplot",
 				name: "Open in matplotlib"
 			}
 		],

@@ -190,6 +190,7 @@
   }
 
   let delta_thz = 1
+
   const fileInfo = {
 
     // Create baseline matplotlib
@@ -224,11 +225,16 @@
   }
   $: modal = {mass:"", felix:"", scan:"", thz:""}
   $: error_msg = {mass:"", felix:"", scan:"", thz:""}
+
+
   const functionRun = event => {
+
     let btname = event.target.id;
 
+    console.log(`Button clicked (id): ${btname}`)
+
     if (btname === "createBaselineBtn"){btname="felix_Matplotlib"}
-    // if (btname === "theory_Matplotlib"){btname="felix_Matplotlib"}
+    
 
     switch (btname) {
 
@@ -252,10 +258,27 @@
         })
       
       break;
+
+      // Norm_tkplot (Averaged plot experimental in Matplotlib)
+
+      case "norm_tkplot":
+        console.log("Running Norm_tkplot")
+        let avgdata = document.getElementById("avgplot").data
+        runPlot({
+                fullfiles: fullfiles,
+                filetype: "general",
+                filetag: "felix",
+                btname: "felix_Matplotlib",
+                pyfile: "norm_tkplot.py",
+                args: normMethod
+              })
+      break;
       
       ////////////// Matplotlib PLOT //////////////////////
 
       case `${filetag}_Matplotlib`:
+
+        console.log("Opening Matplotlib in tkinter")
 
         let scriptname = fileInfo[filetag]["pyfile"]
         let options = {args:[...fullfiles, fileInfo[filetag]["args"]]}
@@ -372,6 +395,7 @@
     runPlot({fullfiles: theoryfiles, filetype: filetype, filetag:filetag,
       btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot] });
   }
+
   const runtheory_keyup = (event) => {if(event.key=="Enter") runtheory({tkplot:"run"})}
   let sigma=20; //Sigma value for felixplot thoery gaussian profile
   let scale=1;
@@ -427,9 +451,7 @@
           args: [delta_thz, "run"]
         });
     }
-
   }
-
 </script>
 
 <style>
@@ -636,7 +658,7 @@
                     <input class="input" type="number" on:keyup={runtheory_keyup} bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
                     <input class="input" type="number" on:keyup={runtheory_keyup} step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
                     <button class="funcBtn button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
-                    <button class="funcBtn button is-link animated" on:click="{()=>runtheory({tkplot:"plot", filetype:"general"})}" id="theory_Matplotlib">Open in Matplotlib</button>
+                    <button class="funcBtn button is-link animated" on:click="{console.log("Theory plot not yet ready")}" id="theory_Matplotlib">Open in Matplotlib</button>
                 </div>
               </div>
             </div>

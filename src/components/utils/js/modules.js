@@ -227,6 +227,9 @@ class program {
                             Plotly.relayout("thzplot_Container", layout_update)
                         } else if (this.filetype == "depletion") { console.log('Graph plotted')}
 
+
+                        else if (this.filetype == "norm_tkplot") { console.log('Graph plotted')}
+
                         console.log("Graph Plotted");
 
                     } catch (err) {
