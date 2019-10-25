@@ -111,7 +111,7 @@ class normplot:
             wavelength_rel, relative_depletion = self.felix_binning(
                 wavelength_rel, relative_depletion)
 
-            self.powerPlot(powerfile, wavelength)
+            # self.powerPlot(powerfile, wavelength)
             ##################################
 
             # Spectrum Analyser
@@ -226,9 +226,11 @@ class normplot:
                 "showlegend": False,
             }
 
+
+            dataToSend["nshots"] = float(self.nshots)
             dataToSend["pow"][powerfile] = {
-                "x": list(self.power_wn),
-                "y": list(self.power_mj),
+                "x": list(wavelength),
+                "y": list(self.total_power),
                 "name": powerfile,
                 "mode": "markers",
                 "xaxis": "x2",
@@ -279,7 +281,8 @@ class normplot:
 
         wavelength = self.saCal.sa_cm(data[0])
 
-        total_power = powCal.power(data[0])*powCal.shots(data[0])
+        self.nshots = powCal.shots(1.0)
+        self.total_power = powCal.power(data[0])*powCal.shots(data[0])
         counts = data[1]
         baseCounts = baseCal.val(data[0])
         ratio = counts/baseCounts
@@ -287,12 +290,12 @@ class normplot:
         # Normalise the intensity
         # multiply by 1000 because of mJ but ONLY FOR PD!!!
         if PD:
-            intensity = (-np.log(ratio)/total_power)*1000
+            intensity = (-np.log(ratio)/self.total_power)*1000
         else:
-            intensity = (baseCounts-counts)/total_power
+            intensity = (baseCounts-counts)/self.total_power
         
         relative_depletion =(1-ratio)*100
-        # relative_depletion = (baseCounts-counts)/total_power
+        # relative_depletion = (baseCounts-counts)/total_power # For power normalising
 
         return wavelength, intensity, data[1], relative_depletion
 
@@ -356,19 +359,19 @@ class normplot:
         return binsx, data_binned
 
     def powerPlot(self, powerfile, wavelength):
-        with open(f"./DATA/{powerfile}") as f:
-            for line in f:
-                if line[0] == "#":
-                    if line.find("SHOTS") == 1:
-                        self.n_shots = float(line.split("=")[-1])
+        # with open(f"./DATA/{powerfile}") as f:
+        #     for line in f:
+        #         if line[0] == "#":
+        #             if line.find("SHOTS") == 1:
+        #                 self.n_shots = float(line.split("=")[-1])
 
-        self.xw, self.yw = np.genfromtxt(f"./DATA/{powerfile}").T
-        self.f = interp1d(self.xw, self.yw, kind="linear",
-                          fill_value="extrapolate")
-        #self.power_wn = np.arange(
-        #    wavelength[0], wavelength[-1]+10, (wavelength[-1]-wavelength[0])/10)
+        # self.xw, self.yw = np.genfromtxt(f"./DATA/{powerfile}").T
+        # self.f = interp1d(self.xw, self.yw, kind="linear",
+        #                   fill_value="extrapolate")
         self.power_wn = wavelength
-        self.power_mj = self.f(wavelength)
+        self.power_mj = self.total_power
+
+        # self.power_mj = self.f(wavelength)
 
 if __name__ == "__main__":
 

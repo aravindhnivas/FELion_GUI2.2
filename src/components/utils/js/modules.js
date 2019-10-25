@@ -14,7 +14,7 @@ function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
         title: mainTitle,
 
         xaxis: {
-            domain: [0, 0.45],
+            domain: [0, 0.4],
             title: xtitle
         },
         yaxis: {
@@ -22,7 +22,7 @@ function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
         },
 
         xaxis2: {
-            domain: [0.5, 1],
+            domain: [0.55, 1],
             title: x2
         },
         yaxis2: {
@@ -193,7 +193,7 @@ class program {
                                 dataFromPython["SA"],
                                 "saPlot",
                                 "Wavelength (cm-1)",
-                                "Power (mJ)",
+                                `Total Power (mJ) [FELIX: ${dataFromPython["nshots"]} Hz]`,
                                 dataFromPython["pow"]
                             );
 
