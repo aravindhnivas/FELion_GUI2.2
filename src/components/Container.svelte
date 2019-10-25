@@ -457,7 +457,7 @@
   }
   .plotContainer {
     overflow-y: auto;
-    max-height: 38rem;
+    max-height: 60vh;
     width: 70%;
     position: absolute;
   }
@@ -469,11 +469,11 @@
     display: none;
   }
 
-  @media (max-width: 1200px) {
+  /* @media (max-width: 1200px) {
     .plotContainer {
       max-height: 27rem;
     }
-  }
+  } */
 
   #theoryContainer {
     margin-left: 20%;
@@ -698,7 +698,7 @@
       {/if}
 
       <hr style="margin: 0.5em 0; background-color:#bdc3c7" />
-      <h1 class="subtitle">Data Visualisation</h1>
+      <!-- <h1 class="subtitle">Data Visualisation</h1> -->
 
       <div class="row box plotContainer">
         

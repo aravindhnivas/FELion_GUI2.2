@@ -1433,7 +1433,7 @@ function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
         title: mainTitle,
 
         xaxis: {
-            domain: [0, 0.45],
+            domain: [0, 0.4],
             title: xtitle
         },
         yaxis: {
@@ -1441,7 +1441,7 @@ function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
         },
 
         xaxis2: {
-            domain: [0.5, 1],
+            domain: [0.55, 1],
             title: x2
         },
         yaxis2: {
@@ -1612,7 +1612,7 @@ class program {
                                 dataFromPython["SA"],
                                 "saPlot",
                                 "Wavelength (cm-1)",
-                                "Power (mJ)",
+                                `Total Power (mJ) [FELIX: ${dataFromPython["nshots"]} Hz]`,
                                 dataFromPython["pow"]
                             );
 
@@ -1913,7 +1913,7 @@ function create_each_block_6(ctx) {
 		c() {
 			div = element("div");
 			t = text(t_value);
-			attr(div, "class", "level-item button funcBtn is-link animated svelte-9uv9aa");
+			attr(div, "class", "level-item button funcBtn is-link animated svelte-17svvh");
 			attr(div, "id", div_id_value = ctx.id);
 			dispose = listen(div, "click", ctx.functionRun);
 		},
@@ -2097,7 +2097,7 @@ function create_else_block_1$1(ctx) {
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = ctx.id);
 			input.checked = input_checked_value = ctx.bind;
-			attr(input, "class", "svelte-9uv9aa");
+			attr(input, "class", "svelte-17svvh");
 			dispose = listen(input, "click", ctx.click_handler_2);
 		},
 
@@ -2135,7 +2135,7 @@ function create_if_block_8(ctx) {
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = ctx.id);
 			input.checked = input_checked_value = ctx.bind;
-			attr(input, "class", "svelte-9uv9aa");
+			attr(input, "class", "svelte-17svvh");
 			dispose = listen(input, "click", ctx.linearlogCheck);
 		},
 
@@ -2189,9 +2189,9 @@ function create_each_block_5(ctx) {
 			label1 = element("label");
 			t3 = text(t3_value);
 			t4 = space();
-			attr(label0, "class", "svelte-9uv9aa");
+			attr(label0, "class", "svelte-17svvh");
 			attr(div0, "class", "state p-success p-on");
-			attr(label1, "class", "svelte-9uv9aa");
+			attr(label1, "class", "svelte-17svvh");
 			attr(div1, "class", "state p-danger p-off");
 			attr(div2, "class", "pretty p-default p-curve p-toggle");
 			attr(div2, "data-tippy", div2_data_tippy_value = ctx.help);
@@ -2286,7 +2286,7 @@ function create_if_block_7(ctx) {
 			button2.textContent = "Open in Matplotlib";
 			attr(h1, "class", "subtitle");
 			attr(h1, "id", "theoryfilename");
-			attr(label, "class", "label svelte-9uv9aa");
+			attr(label, "class", "label svelte-17svvh");
 			attr(label, "id", "theorylabel");
 			attr(button0, "class", "button is-warning");
 			attr(input0, "class", "input");
@@ -2298,15 +2298,15 @@ function create_if_block_7(ctx) {
 			attr(input1, "step", "0.001");
 			set_style(input1, "width", "150px");
 			attr(input1, "data-tippy", "Scaling factor (to shift in position)");
-			attr(button1, "class", "funcBtn button is-link animated svelte-9uv9aa");
+			attr(button1, "class", "funcBtn button is-link animated svelte-17svvh");
 			attr(button1, "id", "appendTheory");
-			attr(button2, "class", "funcBtn button is-link animated svelte-9uv9aa");
+			attr(button2, "class", "funcBtn button is-link animated svelte-17svvh");
 			attr(button2, "id", "theory_Matplotlib");
 			attr(div0, "class", "control");
 			attr(div1, "class", "field");
-			attr(div2, "class", "container svelte-9uv9aa");
+			attr(div2, "class", "container svelte-17svvh");
 			attr(div2, "id", "theoryContainer");
-			attr(div3, "class", "row svelte-9uv9aa");
+			attr(div3, "class", "row svelte-17svvh");
 			attr(div3, "id", "theoryRow");
 			set_style(div3, "display", "none");
 
@@ -2410,10 +2410,10 @@ function create_if_block_1$1(ctx) {
 			button.textContent = "Submit";
 			attr(div0, "class", "level-left");
 			attr(div1, "class", "level");
-			attr(button, "class", "funcBtn button is-link animated svelte-9uv9aa");
+			attr(button, "class", "funcBtn button is-link animated svelte-17svvh");
 			attr(button, "id", "depletionSubmit");
 			attr(div2, "class", "control");
-			attr(div3, "class", "row svelte-9uv9aa");
+			attr(div3, "class", "row svelte-17svvh");
 			attr(div3, "id", "depletionRow");
 			set_style(div3, "display", "none");
 			dispose = listen(button, "click", ctx.depletionPlot);
@@ -2618,9 +2618,9 @@ function create_each_block_3(ctx) {
 			select = element("select");
 			if (if_block) if_block.c();
 			attr(h1, "class", "subtitle");
-			attr(label, "class", "label svelte-9uv9aa");
+			attr(label, "class", "label svelte-17svvh");
 			attr(select, "id", ctx.name);
-			attr(select, "class", "svelte-9uv9aa");
+			attr(select, "class", "svelte-17svvh");
 			attr(div0, "class", "select");
 			attr(div1, "class", "control");
 			attr(div2, "class", "field");
@@ -2678,7 +2678,7 @@ function create_if_block_5(ctx) {
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-9uv9aa");
+			attr(input, "class", "input svelte-17svvh");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
 			dispose = listen(input, "input", input_input_handler_5);
@@ -2717,7 +2717,7 @@ function create_if_block_4(ctx) {
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-9uv9aa");
+			attr(input, "class", "input svelte-17svvh");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
 			dispose = listen(input, "input", input_input_handler_4);
@@ -2756,7 +2756,7 @@ function create_if_block_3(ctx) {
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-9uv9aa");
+			attr(input, "class", "input svelte-17svvh");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
 			dispose = listen(input, "input", input_input_handler_3);
@@ -2790,7 +2790,7 @@ function create_if_block_2(ctx) {
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-9uv9aa");
+			attr(input, "class", "input svelte-17svvh");
 			attr(input, "type", "text");
 			attr(input, "id", ctx.id);
 			dispose = listen(input, "input", ctx.input_input_handler_2);
@@ -2842,7 +2842,7 @@ function create_each_block_2(ctx) {
 			if (if_block) if_block.c();
 			t2 = space();
 			attr(h1, "class", "subtitle");
-			attr(label, "class", "label svelte-9uv9aa");
+			attr(label, "class", "label svelte-17svvh");
 			attr(div0, "class", "control");
 			attr(div1, "class", "field");
 			attr(div2, "class", "level-item");
@@ -2883,7 +2883,7 @@ function create_else_block$2(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-9uv9aa");
+			attr(div, "class", "svelte-17svvh");
 		},
 
 		m(target, anchor) {
@@ -2927,7 +2927,7 @@ function create_if_block$2(ctx) {
 			t = space();
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-9uv9aa");
+			attr(div, "class", "svelte-17svvh");
 		},
 
 		m(target, anchor) {
@@ -2987,7 +2987,7 @@ function create_each_block_1$1(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = "" + ctx.scanfile + "_tplot");
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-9uv9aa");
+			attr(div, "class", "svelte-17svvh");
 		},
 
 		m(target, anchor) {
@@ -3055,7 +3055,7 @@ function create_each_block$2(ctx) {
 }
 
 function create_fragment$4(ctx) {
-	var section1, div15, div0, div0_id_value, t0, div14, div3, div1, t1, div2, header, p, t3, button0, t4, section0, t5_value = ctx.error_msg[ctx.filetag] + "", t5, t6, footer, button1, div3_class_value, t8, div8, div7, div4, input, input_id_value, t9, div6, div5, t10, div5_data_tippy_value, t11, div11, div10, div9, t12, t13, t14, t15, t16, t17, hr, t18, h1, t20, div13, div12, div12_id_value, current, dispose;
+	var section1, div15, div0, div0_id_value, t0, div14, div3, div1, t1, div2, header, p, t3, button0, t4, section0, t5_value = ctx.error_msg[ctx.filetag] + "", t5, t6, footer, button1, div3_class_value, t8, div8, div7, div4, input, input_id_value, t9, div6, div5, t10, div5_data_tippy_value, t11, div11, div10, div9, t12, t13, t14, t15, t16, t17, hr, t18, div13, div12, div12_id_value, current, dispose;
 
 	var filebrowser = new Filebrowser({
 		props: {
@@ -3159,16 +3159,13 @@ function create_fragment$4(ctx) {
 			t17 = space();
 			hr = element("hr");
 			t18 = space();
-			h1 = element("h1");
-			h1.textContent = "Data Visualisation";
-			t20 = space();
 			div13 = element("div");
 			div12 = element("div");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
-			attr(div0, "class", "column is-3 svelte-9uv9aa");
+			attr(div0, "class", "column is-3 svelte-17svvh");
 			attr(div0, "id", div0_id_value = "" + ctx.filetag + "filebrowserColumn");
 			attr(div1, "class", "modal-background");
 			attr(p, "class", "modal-card-title");
@@ -3180,8 +3177,8 @@ function create_fragment$4(ctx) {
 			attr(button1, "class", "button");
 			attr(footer, "class", "modal-card-foot");
 			attr(div2, "class", "modal-card");
-			attr(div3, "class", div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-9uv9aa");
-			attr(input, "class", "input locationLabel svelte-9uv9aa");
+			attr(div3, "class", div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-17svvh");
+			attr(input, "class", "input locationLabel svelte-17svvh");
 			attr(input, "type", "text");
 			attr(input, "placeholder", "Location will be displayed");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "LocationLabel");
@@ -3191,19 +3188,18 @@ function create_fragment$4(ctx) {
 			attr(div5, "data-tippy", div5_data_tippy_value = "Browse " + ctx.filetag + " file");
 			attr(div6, "class", "control");
 			attr(div7, "class", "field has-addons");
-			attr(div8, "class", "row svelte-9uv9aa");
+			attr(div8, "class", "row svelte-17svvh");
 			attr(div9, "class", "level-left animated fadeIn");
 			attr(div10, "class", "level");
-			attr(div11, "class", "row svelte-9uv9aa");
+			attr(div11, "class", "row svelte-17svvh");
 			set_style(hr, "margin", "0.5em 0");
 			set_style(hr, "background-color", "#bdc3c7");
-			attr(h1, "class", "subtitle");
-			attr(div12, "class", "container is-fluid svelte-9uv9aa");
+			attr(div12, "class", "container is-fluid svelte-17svvh");
 			attr(div12, "id", div12_id_value = "" + ctx.filetag + "plotContainer");
-			attr(div13, "class", "row box plotContainer svelte-9uv9aa");
+			attr(div13, "class", "row box plotContainer svelte-17svvh");
 			attr(div14, "class", "column");
 			attr(div15, "class", "columns");
-			attr(section1, "class", "section svelte-9uv9aa");
+			attr(section1, "class", "section svelte-17svvh");
 			attr(section1, "id", ctx.id);
 			attr(section1, "style", style);
 
@@ -3271,8 +3267,6 @@ function create_fragment$4(ctx) {
 			append(div14, t17);
 			append(div14, hr);
 			append(div14, t18);
-			append(div14, h1);
-			append(div14, t20);
 			append(div14, div13);
 			append(div13, div12);
 
@@ -3299,7 +3293,7 @@ function create_fragment$4(ctx) {
 				set_data(t5, t5_value);
 			}
 
-			if ((!current || changed.modal || changed.filetag) && div3_class_value !== (div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-9uv9aa")) {
+			if ((!current || changed.modal || changed.filetag) && div3_class_value !== (div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-17svvh")) {
 				attr(div3, "class", div3_class_value);
 			}
 
