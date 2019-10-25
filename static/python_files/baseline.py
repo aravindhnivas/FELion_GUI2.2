@@ -2,7 +2,7 @@
 
 # FELion Module
 from FELion_widgets import FELion_Tk
-from tkinter.messagebox import askyesno, showinfo
+from tkinter.messagebox import askyesno, showinfo, showwarning, showerror
 
 # DATA analysis modules
 from scipy.interpolate import interp1d
@@ -49,8 +49,9 @@ class Create_Baseline():
             self.location = pt(back_dir)
         else: 
             self.location = pt(location)
-   
         os.chdir(self.location)
+
+        print(f"Current location: {self.location}")
         for dirs in folders: 
             if not isdir(dirs): os.mkdir(dirs)
             if isfile(self.felixfile): move(self.location, self.felixfile)
@@ -63,8 +64,12 @@ class Create_Baseline():
         self.PPS = 5
         self.NUM_POINTS = 10
         if isfile(f'./DATA/{self.basefile}'): 
+
+            print(f"Basefile EXISTS: Opening existing basefile for baseline points")
             self.ReadBase() # Read baseline file if exist else guess it
         else: 
+
+            print(f"Basefile doesn't EXISTS: Guessing baseline points")
             self.GuessBaseLine()
 
         self.line = Line2D(self.xs, self.ys)
@@ -73,10 +78,11 @@ class Create_Baseline():
 
     def checkInf(self):
 
-        Inf = False
-        with open(f'./DATA/{self.felixfile}', 'r') as f:
-            info = f.readlines()
+        print(f"Checking for error in {self.felixfile}")
 
+        Inf = False
+        with open(f'./DATA/{self.felixfile}', 'r') as f: info = f.readlines()
+        
         info = np.array(info)
 
         for i, j in enumerate(info):
@@ -84,25 +90,35 @@ class Create_Baseline():
                 info[i] = f'# {info[i]}'
                 Inf = True
         
+        if not Inf: print(f"No error found in {self.felixfile}")
+
         if Inf:
+            print(f"Error found and correcting the error in {self.felixfile}")
             with open(f'./DATA/{self.felixfile}', 'w') as f:
                 for i in range(len(info)): f.write(info[i])
+            print(f"Error corrected in {self.felixfile}")
+        print(f"Completed error checking process for {self.felixfile}")
   
     def felix_read_file(self):
+
+        print(f"Reading {self.felixfile}")
   
         file = np.genfromtxt(f'./DATA/{self.felixfile}')
         if self.felixfile.endswith('.felix'): data = file[:,0], file[:,2], file[:, 3]
         elif self.felixfile.endswith('.cfelix'): data = file[:,0], file[:,1], file[:, 2]
         with open(f'./DATA/{self.felixfile}') as f: self.info = f.readlines()[-50:]
         self.data = np.take(data, data[0].argsort(), 1)
-     
+
+        print(f"{self.felixfile} read and data is taken for further processing")
+
     def ReadBase(self):
 
         file = np.genfromtxt(f'./DATA/{self.basefile}')
         self.xs, self.ys = file[:,0], file[:,1]
         with open(f'./DATA/{self.basefile}', 'r') as f:
             self.interpol = f.readlines()[1].strip().split('=')[-1]
-    
+        print(f"{self.basefile} has been read for baseline points")
+
     def GuessBaseLine(self):
         PPS, NUM_POINTS = self.PPS, self.NUM_POINTS
         max_n = len(self.data[0]) - PPS
@@ -117,6 +133,8 @@ class Create_Baseline():
         By.append(self.data[1][-1])
 
         self.xs, self.ys = Bx, By
+
+        print(f"Baseline points are guessed.")
 
     def InteractivePlots(self):
 
@@ -143,32 +161,20 @@ class Create_Baseline():
         self.baseline_data = widget.make_figure_layout(ax=self.ax, xdata=self.data[0], ydata=self.data[1], label=self.felixfile, savename=self.felixfile,
             title=f"Create Baseline", xaxis="Wavenumber (cm-1)", yaxis="Counts", ls='', marker='o', ms=5, markeredgecolor='r', c='r')
 
-
         def on_closing():
-        
-            if self.felix_corrected:
-                yes = askyesno("Save .cfelix file?", "You haven't saved the corrected felix file\nPress 'Yes' to save the .cfelix file and quit OR 'No' to quit.")
-
-                if yes: 
-                    self.save_cfelix()
-                    widget.destroy()
-
-                else: widget.destroy()
-
-            elif self.baseline_corrected:
-                yes = askyesno("Save .base file?", "You have adjusted the baseline\nPress 'Yes' to save the modifed .base file and quit\n OR Press 'No' to quit.")
-
-                if yes: 
-                    self.SaveBase()
-                    widget.destroy()
-
-                else: widget.destroy()
-
-            else: widget.destroy()
+            def ask(check, change, txt=""):
+                if check:
+                    yes = askyesno(f"Save corrected as {self.fname}{txt} file?", f"You haven't saved the corrected file\nPress 'Yes' to save the {txt} file and quit OR 'No' to just quit.")
+                    if yes: return change()
+                    else: return print(f"[{txt}] Changes haven't saved")
+                else: return print(f"[{txt}] No changes have made")
+            
+            ask(self.felix_corrected, self.save_cfelix, ".cfelix")
+            ask(self.baseline_corrected, self.SaveBase, ".base")
+            widget.destroy()
 
         widget.protocol("WM_DELETE_WINDOW", on_closing)
         widget.mainloop()
-        
 
     def redraw_f_line(self):
                 
@@ -305,7 +311,7 @@ class Create_Baseline():
         elif event.key == 'c':
             'To save cfelix file'
 
-            if not self.felix_corrected: return showinfo('Info', 'There are no correction made to .felix file')
+            if not self.felix_corrected: return showwarning('No change', 'You have not made any corrected to .felix file.')
             else: self.save_cfelix()
 
         elif event.key == 'b':
@@ -378,39 +384,46 @@ class Create_Baseline():
 
     def save_cfelix(self):
 
-        with open(f'./DATA/{self.cfelix}', 'w') as f:
-            f.write(f'#Noise/Signal corrected for {self.felixfile} data file!\n')
-            f.write(f'#Wavelength(cm-1)\t#Counts\tSA\n')
+        print(f"Saving corrected felix file as {self.cfelix}")
+        try:
+            cfelixfile = self.location / f"DATA/{self.cfelix}"
+            with open(cfelixfile, 'w') as f:
+                f.write(f'#Noise/Signal corrected for {self.felixfile} data file!\n')
+                f.write(f'#Wavelength(cm-1)\t#Counts\tSA\n')
 
-            for i in range(len(self.data[0])): f.write(f'{self.data[0][i]}\t{self.data[1][i]}\t{self.data[2][i]}\n')
-            f.write('\n')
-            for i in range(len(self.info)): f.write(self.info[i])
+                for i in range(len(self.data[0])): f.write(f'{self.data[0][i]}\t{self.data[1][i]}\t{self.data[2][i]}\n')
+                f.write('\n')
+                for i in range(len(self.info)): f.write(self.info[i])
 
-        if isfile(f'./DATA/{self.cfelix}'): 
-            print(f'Corrected felix file: {self.cfelix}')
-            self.felix_corrected = False
+            if isfile(cfelixfile): 
+                print(f'Corrected felix file: {self.cfelix}')
+                self.felix_corrected = False
+                return showinfo('Info', f'{self.cfelix} file is saved in /DATA directory')
 
-            return showinfo('Info', f'{self.cfelix} file is saved in /DATA directory')
-     
+        except Exception as error: return showerror("Error", f"Following error has occured while saving {self.cfelix} file\n{error}")
+
     def SaveBase(self):
 
         self.baseline = self.line.get_data()
         b = np.asarray(self.baseline)
+        basefile = self.location / f"DATA/{self.basefile}"
+
+        print(f"Saving basefile in {basefile}")
+
+        try:
+            with open(basefile, 'w') as f:
+                f.write(f'#Baseline generated for {self.felixfile} data file!\n')
+                f.write("#BTYPE=cubic\n")
+                for i in range(len(b[0])):
+                    f.write("{:8.3f}\t{:8.2f}\n".format(b[0][i], b[1][i]))
+                print(f"Basefile written for {self.felixfile} as {self.basefile}")
+
+            if isfile(basefile):
+                print(f'{self.basefile} is SAVED')
+                self.fig.savefig(f'{self.location}/OUT/{self.fname}.png')
+                return showinfo('Info', f'{self.basefile} file is saved in /DATA directory')
         
-        # Saving basefile
-        with open(f'./DATA/{self.basefile}', 'w') as f:
-            f.write(f'#Baseline generated for {self.fname}.felix data file!\n')
-            f.write("#BTYPE=cubic\n")
-            for i in range(len(b[0])):
-                f.write("{:8.3f}\t{:8.2f}\n".format(b[0][i], b[1][i]))
-        
-        if isfile(f'./DATA/{self.basefile}'):
-            print(f'{self.basefile} is SAVED')
-            # self.ax.set_title(f'Baseline for: {self.felixfile}')
-            self.fig.savefig(f'./OUT/{self.fname}.png')
-            # self.ax.set_title(f'BASELINE: {self.felixfile}\nPress: "b" to save .base file; "c" to save .cfelix file')
-            
-            return showinfo('Info', f'{self.basefile} file is saved in /DATA directory')
+        except Exception as error: return showerror("Error", f"Following error has occured while saving {self.basefile} file\n{error}")
 
     def get_data(self): return np.asarray([self.data[0], self.data[1]]), np.asarray([self.line.get_data()])
 

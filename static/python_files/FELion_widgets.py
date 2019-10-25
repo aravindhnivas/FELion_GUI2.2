@@ -49,7 +49,6 @@ def var_check(kw):
 class FELion_Tk(Tk):
 
     def __init__(self, title="FELion GUI2", location=".", background="light grey", *args, **kwargs):
-
         Tk.__init__(self, *args, **kwargs)
 
         self.location = location
@@ -62,7 +61,7 @@ class FELion_Tk(Tk):
         self.canvas_frame.place(relx=0, rely=0, relwidth=0.8, relheight=1)
 
         self.widget_frame = Frame(self, bg=background)
-        self.widget_frame.bind("<Button-1>", lambda event:print(self.focus()))
+        self.widget_frame.bind("<Button-1>", lambda event: self.focus())
         self.widget_frame.place(relx=0.8, rely=0, relwidth=0.2, relheight=1)
 
     def Labels(self, txt, x, y, **kw):
@@ -186,9 +185,10 @@ class FELion_Tk(Tk):
         self.fig = Figure(dpi=self.dpi_value.get())
 
         self.fig.subplots_adjust(top=0.95, bottom=0.2, left=0.1, right=0.9)
-
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.canvas_frame)
-        self.canvas.get_tk_widget().place(relx=0, rely=0, relwidth=1, relheight=1)
+
+        self.fig_tkcanvas = self.canvas.get_tk_widget()
+        self.fig_tkcanvas.place(relx=0, rely=0, relwidth=1, relheight=1)
         # self.canvas.mpl_connect('pick_event', lambda event: print(event))
 
         self.toolbar = NavigationToolbar2Tk(self.canvas, self)
@@ -422,51 +422,17 @@ class FELion_Tk(Tk):
         self.set_minor = lambda x: self.ax.xaxis.set_minor_locator(AutoMinorLocator(x))
         self.set_minor(10)
 
-        # self.toggle()
-        # Returning plot
-
         if ax is not None: 
-            print("Data available, returning", plot)
+            print("Returning created plot for ax")
             return plot
         else: 
-            print("Data not available, returning", self.ax)
+            print("Returning created ax")
             return self.ax 
         
-
-    # def toggle(self, lines=[]):
-
-    #     # we will set up a dict mapping legend line to orig line, and enable
-    #     # picking on the legend line
-    #     # lines = [line1, line2]
-
-    #     # lined = dict()
-    #     # for legline, origline in zip(self.plot_legend.get_lines(), lines):
-    #     #     legline.set_picker(5)  # 5 pts tolerance
-    #     #     lined[legline] = origline
-
-    #     def onpick(event):
-    #         # on the pick event, find the orig line corresponding to the
-    #         # legend proxy line, and toggle the visibility
-            
-    #         legline = event.artist
-    #         print(legline)
-    #         # origline = lined[legline]
-    #         # vis = not origline.get_visible()
-    #         # origline.set_visible(vis)
-    #         # # Change the alpha on the line in the legend so we can see what lines
-    #         # # have been toggled
-    #         # if vis:
-    #         #     legline.set_alpha(1.0)
-    #         # else:
-    #         #     legline.set_alpha(0.2)
-    #         self.canvas.draw()
-
-    #     self.canvas.mpl_connect('pick_event', onpick)
-
     def save_fig(self, event=None):
 
         try:
-            print(self.location)
+            print(f"Figure saving in {self.location}")
 
             if isfile(f'{self.location}/{self.name.get()}.png'):
                 if askokcancel('Overwrite?', f'File: {self.name.get()}.png already present. \nDo you want to Overwrite the file?'):
@@ -478,10 +444,9 @@ class FELion_Tk(Tk):
                 showinfo('SAVED', f'File: {self.name.get()}.png saved in directory: {self.location}')
 
             print(f'Filename saved: {self.name.get()}.png\nLocation: {self.location}\n')
-        except Exception as error:
-            showerror("Error", error)
+        
+        except Exception as error: showerror("Error", error)
 
-# @profile
 def main():
 
     widget = FELion_Tk("Filename")
