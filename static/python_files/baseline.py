@@ -28,13 +28,13 @@ class Create_Baseline():
 
     epsilon = 5
 
-    def __init__(self, felixfile, location, plotIt=True):
+    def __init__(self, felixfile, location, plotIt=True, checkdir=True, verbose=True):
 
         attributes = {
             'felixfile': felixfile, 'fname': felixfile.split(".")[0],
             'baseline': None, 'data': None, 'undo_counter': 0, 'redo_counter': 0, 
             'removed_datas': np.array([[], [], []]), 'redo_datas': np.array([[], [], []]), 'removed_index': [], 'redo_index': [],
-            'felix_corrected': False, "baseline_corrected": False, 'plotIt':plotIt
+            'felix_corrected': False, "baseline_corrected": False, 'plotIt':plotIt, "verbose": verbose
         }
         for keys, values in attributes.items():
             setattr(self, keys, values)
@@ -42,16 +42,21 @@ class Create_Baseline():
         self.basefile = f'{self.fname}.base'
         self.powerfile = f'{self.fname}.pow'
         self.cfelix = f'{self.fname}.cfelix'
-        
-        back_dir = dirname(location)
         folders = ["DATA", "EXPORT", "OUT"]
-        if set(folders).issubset(os.listdir(back_dir)): 
-            self.location = pt(back_dir)
-        else: 
-            self.location = pt(location)
-        os.chdir(self.location)
 
-        print(f"Current location: {self.location}")
+        if checkdir:
+            back_dir = dirname(location)
+            if set(folders).issubset(os.listdir(back_dir)): 
+                self.location = pt(back_dir)
+            else: 
+                self.location = pt(location)
+            os.chdir(self.location)
+        
+        else: 
+            self.location = location
+            os.chdir(location)
+
+        if verbose: print(f"Current location: {self.location}")
         for dirs in folders: 
             if not isdir(dirs): os.mkdir(dirs)
             if isfile(self.felixfile): move(self.location, self.felixfile)
@@ -65,23 +70,22 @@ class Create_Baseline():
         self.NUM_POINTS = 10
         if isfile(f'./DATA/{self.basefile}'): 
 
-            print(f"Basefile EXISTS: Opening existing basefile for baseline points")
+            if verbose: print(f"Basefile EXISTS: Opening existing basefile for baseline points")
             self.ReadBase() # Read baseline file if exist else guess it
         else: 
 
-            print(f"Basefile doesn't EXISTS: Guessing baseline points")
+            if verbose: print(f"Basefile doesn't EXISTS: Guessing baseline points")
             self.GuessBaseLine()
 
         self.line = Line2D(self.xs, self.ys)
-        
         if plotIt: self.InteractivePlots() # Plot
 
     def checkInf(self):
 
-        print(f"Checking for error in {self.felixfile}")
+        if self.verbose: print(f"Checking for error in {self.felixfile}")
 
         Inf = False
-        with open(f'./DATA/{self.felixfile}', 'r') as f: info = f.readlines()
+        with open(f'{self.location}/DATA/{self.felixfile}', 'r') as f: info = f.readlines()
         
         info = np.array(info)
 
@@ -90,18 +94,20 @@ class Create_Baseline():
                 info[i] = f'# {info[i]}'
                 Inf = True
         
-        if not Inf: print(f"No error found in {self.felixfile}")
+        if not Inf: 
+            if self.verbose: print(f"No error found in {self.felixfile}")
 
         if Inf:
-            print(f"Error found and correcting the error in {self.felixfile}")
+            if self.verbose: print(f"Error found and correcting the error in {self.felixfile}")
             with open(f'./DATA/{self.felixfile}', 'w') as f:
                 for i in range(len(info)): f.write(info[i])
-            print(f"Error corrected in {self.felixfile}")
-        print(f"Completed error checking process for {self.felixfile}")
+            if self.verbose: print(f"Error corrected in {self.felixfile}")
+
+        if self.verbose: print(f"Completed error checking process for {self.felixfile}")
   
     def felix_read_file(self):
 
-        print(f"Reading {self.felixfile}")
+        if self.verbose: print(f"Reading {self.felixfile}")
   
         file = np.genfromtxt(f'./DATA/{self.felixfile}')
         if self.felixfile.endswith('.felix'): data = file[:,0], file[:,2], file[:, 3]
@@ -109,7 +115,7 @@ class Create_Baseline():
         with open(f'./DATA/{self.felixfile}') as f: self.info = f.readlines()[-50:]
         self.data = np.take(data, data[0].argsort(), 1)
 
-        print(f"{self.felixfile} read and data is taken for further processing")
+        if self.verbose: print(f"{self.felixfile} read and data is taken for further processing")
 
     def ReadBase(self):
 
@@ -117,7 +123,7 @@ class Create_Baseline():
         self.xs, self.ys = file[:,0], file[:,1]
         with open(f'./DATA/{self.basefile}', 'r') as f:
             self.interpol = f.readlines()[1].strip().split('=')[-1]
-        print(f"{self.basefile} has been read for baseline points")
+        if self.verbose: print(f"{self.basefile} has been read for baseline points")
 
     def GuessBaseLine(self):
         PPS, NUM_POINTS = self.PPS, self.NUM_POINTS
@@ -134,7 +140,7 @@ class Create_Baseline():
 
         self.xs, self.ys = Bx, By
 
-        print(f"Baseline points are guessed.")
+        if self.verbose: print(f"Baseline points are guessed.")
 
     def InteractivePlots(self):
 

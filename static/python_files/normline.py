@@ -5,7 +5,7 @@ import sys
 import json
 import os
 import shutil
-from os.path import isdir, isfile
+from os.path import isdir, isfile, dirname
 from pathlib import Path as pt
 from itertools import cycle
 
@@ -50,18 +50,17 @@ class normplot:
 
         self.delta = delta
         received_files = [pt(files) for files in received_files]
-        self.location = received_files[0].parent
 
-        # Cheking if the folder contents are already created
+        location = received_files[0].parent
+
+        back_dir = dirname(location)
         folders = ["DATA", "EXPORT", "OUT"]
-        back_dir = self.location.parent
+        if set(folders).issubset(os.listdir(back_dir)): 
+            self.location = pt(back_dir)
+        else: 
+            self.location = pt(location)
 
-        if set(folders).issubset(os.listdir(back_dir)):
-            os.chdir(back_dir)
-            self.location = back_dir
-
-        else:
-            os.chdir(self.location)
+        os.chdir(self.location)
 
         dataToSend = {"felix": {}, "base": {}, "average": {}, "SA": {}, "pow": {}, "felix_rel": {}, "average_rel": {}}
 
@@ -197,7 +196,7 @@ class normplot:
 
             basefile_data = np.array(
                 Create_Baseline(felixfile, self.location,
-                                plotIt=False).get_data()
+                                plotIt=False, checkdir=False, verbose=False).get_data()
             )
 
             # Ascending order sort by wn
