@@ -1691,6 +1691,13 @@ const dangerAnimation = "is-danger shake faster";
 const loadAnimation = "is-loading is-link";
 
 
+function felixbtntoggle(toggle="none"){
+
+    $("#theoryBtn").css("display", toggle);
+    $("#norm_tkplot").css("display", toggle);
+
+}
+
 function runPlot({ fullfiles, filetype, btname, pyfile, filetag=null, args = [], plotArea = "", normethod = true }) {
 
     let obj = {
@@ -1711,7 +1718,8 @@ function runPlot({ fullfiles, filetype, btname, pyfile, filetag=null, args = [],
     console.log(":: runPlot -> $target", $target);
 
     $target.addClass("is-loading");
-    if (filetype == "felix") { $("#theoryBtn").css("display", "none"); $("#theoryRow").css("display", "none"); }
+
+    if (filetype == "felix") {felixbtntoggle("none");}
 
     return new Promise((resolve, reject)=>{
         let start = new program_1(obj);
@@ -1725,7 +1733,7 @@ function runPlot({ fullfiles, filetype, btname, pyfile, filetag=null, args = [],
 
                         console.log(plotResult); //Graph plotted
                         $target.removeClass(loadAnimation).addClass(successAnimation);
-                        if (filetype == "felix") { $("#theoryBtn").css("display", "block"); }
+                        if (filetype == "felix") { felixbtntoggle("block"); }
                         resolve(plotResult);
                     })
                     .catch(pythonError => {
@@ -3497,8 +3505,8 @@ function instance$4($$self, $$props, $$invalidate) {
   }));
 
   jq(document).ready(() => {
-    jq("#theoryBtn")
-      .addClass("fadeInUp").css("display", "none");
+    jq("#theoryBtn").addClass("fadeInUp").css("display", "none");
+    jq("#norm_tkplot").addClass("fadeInUp").css("display", "none");
   });
 
   const join = file => {

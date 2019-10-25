@@ -37,8 +37,8 @@
   }))
 
   jq(document).ready(() => {
-    jq("#theoryBtn")
-      .addClass("fadeInUp").css("display", "none");
+    jq("#theoryBtn").addClass("fadeInUp").css("display", "none");
+    jq("#norm_tkplot").addClass("fadeInUp").css("display", "none");
   });
 
   const join = file => {
