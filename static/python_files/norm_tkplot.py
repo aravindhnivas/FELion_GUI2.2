@@ -23,7 +23,8 @@ def main(felixfiles, location, norm_method, index):
 
     avgfile = dat_location/f"averaged_{norm_method}.dat"
     wn, inten  = np.genfromtxt(avgfile).T
-    ax.plot(wn, inten, "k.-", label="Averaged")
+    
+    ax.plot(wn, inten, "k.-", label="Averaged", zorder=100)
 
     print(f"felix dat files: {datfiles}\nAveraged file: {avgfile}")
     for i, datfile in enumerate(datfiles):
