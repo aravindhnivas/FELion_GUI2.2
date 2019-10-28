@@ -1694,7 +1694,9 @@ const loadAnimation = "is-loading is-link";
 function felixbtntoggle(toggle="none"){
 
     $("#theoryBtn").css("display", toggle);
-    $("#norm_tkplot").css("display", toggle);
+    $("#norm_tkplot").css("display", toggle).addClass("fadeInUp");
+
+    $("#felix_shell_Container").css("display", toggle);
 
 }
 
@@ -1917,7 +1919,7 @@ function get_each_context_6(ctx, list, i) {
 	return child_ctx;
 }
 
-// (568:12) {#each funcBtns as { id, name }}
+// (574:12) {#each funcBtns as { id, name }}
 function create_each_block_6(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -1925,7 +1927,7 @@ function create_each_block_6(ctx) {
 		c() {
 			div = element("div");
 			t = text(t_value);
-			attr(div, "class", "level-item button funcBtn is-link animated svelte-17svvh");
+			attr(div, "class", "level-item button funcBtn is-link animated svelte-zjwwmk");
 			attr(div, "id", div_id_value = ctx.id);
 			dispose = listen(div, "click", ctx.functionRun);
 		},
@@ -1955,8 +1957,172 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (577:12) {#if filetag == 'felix'}
+// (590:18) {:else}
+function create_else_block_1$1(ctx) {
+	var input, input_id_value, input_checked_value, dispose;
+
+	return {
+		c() {
+			input = element("input");
+			attr(input, "type", "checkbox");
+			attr(input, "id", input_id_value = ctx.id);
+			input.checked = input_checked_value = ctx.bind;
+			attr(input, "class", "svelte-zjwwmk");
+			dispose = listen(input, "click", ctx.click_handler_2);
+		},
+
+		m(target, anchor) {
+			insert(target, input, anchor);
+		},
+
+		p(changed, ctx) {
+			if ((changed.checkBtns) && input_id_value !== (input_id_value = ctx.id)) {
+				attr(input, "id", input_id_value);
+			}
+
+			if ((changed.checkBtns) && input_checked_value !== (input_checked_value = ctx.bind)) {
+				input.checked = input_checked_value;
+			}
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(input);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (588:18) {#if name[0]==="Log"}
 function create_if_block_10(ctx) {
+	var input, input_id_value, input_checked_value, dispose;
+
+	return {
+		c() {
+			input = element("input");
+			attr(input, "type", "checkbox");
+			attr(input, "id", input_id_value = ctx.id);
+			input.checked = input_checked_value = ctx.bind;
+			attr(input, "class", "svelte-zjwwmk");
+			dispose = listen(input, "click", ctx.linearlogCheck);
+		},
+
+		m(target, anchor) {
+			insert(target, input, anchor);
+		},
+
+		p(changed, ctx) {
+			if ((changed.checkBtns) && input_id_value !== (input_id_value = ctx.id)) {
+				attr(input, "id", input_id_value);
+			}
+
+			if ((changed.checkBtns) && input_checked_value !== (input_checked_value = ctx.bind)) {
+				input.checked = input_checked_value;
+			}
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(input);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (583:12) {#each checkBtns as {id, name, bind, help}}
+function create_each_block_5(ctx) {
+	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
+
+	function select_block_type(changed, ctx) {
+		if (ctx.name[0]==="Log") return create_if_block_10;
+		return create_else_block_1$1;
+	}
+
+	var current_block_type = select_block_type(null, ctx);
+	var if_block = current_block_type(ctx);
+
+	return {
+		c() {
+			div3 = element("div");
+			div2 = element("div");
+			if_block.c();
+			t0 = space();
+			div0 = element("div");
+			label0 = element("label");
+			t1 = text(t1_value);
+			t2 = space();
+			div1 = element("div");
+			label1 = element("label");
+			t3 = text(t3_value);
+			attr(label0, "class", "svelte-zjwwmk");
+			attr(div0, "class", "state p-success p-on");
+			attr(label1, "class", "svelte-zjwwmk");
+			attr(div1, "class", "state p-danger p-off");
+			attr(div2, "class", "pretty p-default p-curve p-toggle");
+			attr(div2, "data-tippy", div2_data_tippy_value = ctx.help);
+			attr(div3, "class", "level-item animated svelte-zjwwmk");
+			attr(div3, "id", div3_id_value = "" + ctx.id + "_Container");
+		},
+
+		m(target, anchor) {
+			insert(target, div3, anchor);
+			append(div3, div2);
+			if_block.m(div2, null);
+			append(div2, t0);
+			append(div2, div0);
+			append(div0, label0);
+			append(label0, t1);
+			append(div2, t2);
+			append(div2, div1);
+			append(div1, label1);
+			append(label1, t3);
+		},
+
+		p(changed, ctx) {
+			if (current_block_type === (current_block_type = select_block_type(changed, ctx)) && if_block) {
+				if_block.p(changed, ctx);
+			} else {
+				if_block.d(1);
+				if_block = current_block_type(ctx);
+				if (if_block) {
+					if_block.c();
+					if_block.m(div2, t0);
+				}
+			}
+
+			if ((changed.checkBtns) && t1_value !== (t1_value = ctx.name[0] + "")) {
+				set_data(t1, t1_value);
+			}
+
+			if ((changed.checkBtns) && t3_value !== (t3_value = ctx.name[1] + "")) {
+				set_data(t3, t3_value);
+			}
+
+			if ((changed.checkBtns) && div2_data_tippy_value !== (div2_data_tippy_value = ctx.help)) {
+				attr(div2, "data-tippy", div2_data_tippy_value);
+			}
+
+			if ((changed.checkBtns) && div3_id_value !== (div3_id_value = "" + ctx.id + "_Container")) {
+				attr(div3, "id", div3_id_value);
+			}
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(div3);
+			}
+
+			if_block.d();
+		}
+	};
+}
+
+// (602:12) {#if filetag == 'felix'}
+function create_if_block_9(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
 	function input_input_handler() {
@@ -1987,7 +2153,7 @@ function create_if_block_10(ctx) {
 			attr(select, "data-tippy", "Normalisation method");
 			attr(span, "class", "select");
 			attr(div0, "class", "control");
-			attr(input, "class", "input");
+			attr(input, "class", "input svelte-zjwwmk");
 			attr(input, "type", "number");
 			attr(input, "step", "0.5");
 			attr(input, "id", "delta_value");
@@ -2038,231 +2204,9 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (605:12) {#if filetag == 'thz'}
-function create_if_block_9(ctx) {
-	var div4, div3, div1, t_1, div2, input, input_updating = false, dispose;
-
-	function input_input_handler_1() {
-		input_updating = true;
-		ctx.input_input_handler_1.call(input);
-	}
-
-	return {
-		c() {
-			div4 = element("div");
-			div3 = element("div");
-			div1 = element("div");
-			div1.innerHTML = `<div class="button is-static">Delta (in Hz)</div>`;
-			t_1 = space();
-			div2 = element("div");
-			input = element("input");
-			attr(div1, "class", "control");
-			attr(input, "class", "input");
-			attr(input, "type", "number");
-			attr(input, "step", "0.5");
-			attr(input, "id", "delta_value_thz");
-			attr(input, "placeholder", "Delta value");
-			attr(input, "data-tippy", "Delta value for spectrum (in KHz)");
-			attr(div2, "class", "control");
-			attr(div3, "class", "field has-addons");
-			attr(div4, "class", "level-item");
-
-			dispose = [
-				listen(input, "input", input_input_handler_1),
-				listen(input, "keyup", ctx.changeTHz)
-			];
-		},
-
-		m(target, anchor) {
-			insert(target, div4, anchor);
-			append(div4, div3);
-			append(div3, div1);
-			append(div3, t_1);
-			append(div3, div2);
-			append(div2, input);
-
-			set_input_value(input, ctx.delta_thz);
-		},
-
-		p(changed, ctx) {
-			if (!input_updating && changed.delta_thz) set_input_value(input, ctx.delta_thz);
-			input_updating = false;
-		},
-
-		d(detaching) {
-			if (detaching) {
-				detach(div4);
-			}
-
-			run_all(dispose);
-		}
-	};
-}
-
-// (633:18) {:else}
-function create_else_block_1$1(ctx) {
-	var input, input_id_value, input_checked_value, dispose;
-
-	return {
-		c() {
-			input = element("input");
-			attr(input, "type", "checkbox");
-			attr(input, "id", input_id_value = ctx.id);
-			input.checked = input_checked_value = ctx.bind;
-			attr(input, "class", "svelte-17svvh");
-			dispose = listen(input, "click", ctx.click_handler_2);
-		},
-
-		m(target, anchor) {
-			insert(target, input, anchor);
-		},
-
-		p(changed, ctx) {
-			if ((changed.checkBtns) && input_id_value !== (input_id_value = ctx.id)) {
-				attr(input, "id", input_id_value);
-			}
-
-			if ((changed.checkBtns) && input_checked_value !== (input_checked_value = ctx.bind)) {
-				input.checked = input_checked_value;
-			}
-		},
-
-		d(detaching) {
-			if (detaching) {
-				detach(input);
-			}
-
-			dispose();
-		}
-	};
-}
-
-// (631:18) {#if name[0]==="Log"}
+// (629:12) {#if filetag == 'thz'}
 function create_if_block_8(ctx) {
-	var input, input_id_value, input_checked_value, dispose;
-
-	return {
-		c() {
-			input = element("input");
-			attr(input, "type", "checkbox");
-			attr(input, "id", input_id_value = ctx.id);
-			input.checked = input_checked_value = ctx.bind;
-			attr(input, "class", "svelte-17svvh");
-			dispose = listen(input, "click", ctx.linearlogCheck);
-		},
-
-		m(target, anchor) {
-			insert(target, input, anchor);
-		},
-
-		p(changed, ctx) {
-			if ((changed.checkBtns) && input_id_value !== (input_id_value = ctx.id)) {
-				attr(input, "id", input_id_value);
-			}
-
-			if ((changed.checkBtns) && input_checked_value !== (input_checked_value = ctx.bind)) {
-				input.checked = input_checked_value;
-			}
-		},
-
-		d(detaching) {
-			if (detaching) {
-				detach(input);
-			}
-
-			dispose();
-		}
-	};
-}
-
-// (626:12) {#each checkBtns as {id, name, bind, help}}
-function create_each_block_5(ctx) {
-	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, t4;
-
-	function select_block_type(changed, ctx) {
-		if (ctx.name[0]==="Log") return create_if_block_8;
-		return create_else_block_1$1;
-	}
-
-	var current_block_type = select_block_type(null, ctx);
-	var if_block = current_block_type(ctx);
-
-	return {
-		c() {
-			div3 = element("div");
-			div2 = element("div");
-			if_block.c();
-			t0 = space();
-			div0 = element("div");
-			label0 = element("label");
-			t1 = text(t1_value);
-			t2 = space();
-			div1 = element("div");
-			label1 = element("label");
-			t3 = text(t3_value);
-			t4 = space();
-			attr(label0, "class", "svelte-17svvh");
-			attr(div0, "class", "state p-success p-on");
-			attr(label1, "class", "svelte-17svvh");
-			attr(div1, "class", "state p-danger p-off");
-			attr(div2, "class", "pretty p-default p-curve p-toggle");
-			attr(div2, "data-tippy", div2_data_tippy_value = ctx.help);
-			attr(div3, "class", "level-item");
-		},
-
-		m(target, anchor) {
-			insert(target, div3, anchor);
-			append(div3, div2);
-			if_block.m(div2, null);
-			append(div2, t0);
-			append(div2, div0);
-			append(div0, label0);
-			append(label0, t1);
-			append(div2, t2);
-			append(div2, div1);
-			append(div1, label1);
-			append(label1, t3);
-			append(div3, t4);
-		},
-
-		p(changed, ctx) {
-			if (current_block_type === (current_block_type = select_block_type(changed, ctx)) && if_block) {
-				if_block.p(changed, ctx);
-			} else {
-				if_block.d(1);
-				if_block = current_block_type(ctx);
-				if (if_block) {
-					if_block.c();
-					if_block.m(div2, t0);
-				}
-			}
-
-			if ((changed.checkBtns) && t1_value !== (t1_value = ctx.name[0] + "")) {
-				set_data(t1, t1_value);
-			}
-
-			if ((changed.checkBtns) && t3_value !== (t3_value = ctx.name[1] + "")) {
-				set_data(t3, t3_value);
-			}
-
-			if ((changed.checkBtns) && div2_data_tippy_value !== (div2_data_tippy_value = ctx.help)) {
-				attr(div2, "data-tippy", div2_data_tippy_value);
-			}
-		},
-
-		d(detaching) {
-			if (detaching) {
-				detach(div3);
-			}
-
-			if_block.d();
-		}
-	};
-}
-
-// (650:6) {#if filetag=="felix"}
-function create_if_block_7(ctx) {
-	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
+	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
 	function input0_input_handler() {
 		input0_updating = true;
@@ -2272,6 +2216,106 @@ function create_if_block_7(ctx) {
 	function input1_input_handler() {
 		input1_updating = true;
 		ctx.input1_input_handler.call(input1);
+	}
+
+	return {
+		c() {
+			div4 = element("div");
+			div3 = element("div");
+			div1 = element("div");
+			div1.innerHTML = `<div class="button is-static">δ (in Hz)</div>`;
+			t1 = space();
+			div2 = element("div");
+			input0 = element("input");
+			t2 = space();
+			div9 = element("div");
+			div8 = element("div");
+			div6 = element("div");
+			div6.innerHTML = `<div class="button is-static">γ</div>`;
+			t4 = space();
+			div7 = element("div");
+			input1 = element("input");
+			attr(div1, "class", "control");
+			attr(input0, "class", "input svelte-zjwwmk");
+			attr(input0, "type", "number");
+			attr(input0, "step", "0.5");
+			attr(input0, "id", "delta_value_thz");
+			attr(input0, "placeholder", "Delta value");
+			attr(input0, "data-tippy", "Delta value for spectrum (in KHz)");
+			attr(div2, "class", "control");
+			attr(div3, "class", "field has-addons");
+			attr(div4, "class", "level-item");
+			attr(div6, "class", "control");
+			attr(input1, "class", "input svelte-zjwwmk");
+			attr(input1, "type", "number");
+			attr(input1, "step", "0.01");
+			attr(input1, "id", "gamma_thz");
+			attr(input1, "placeholder", "Gamma value for lorentz part");
+			attr(input1, "data-tippy", "Lorentz gamma for fitting (Voigt Profile)");
+			attr(div7, "class", "control");
+			attr(div8, "class", "field has-addons");
+			attr(div9, "class", "level-item");
+
+			dispose = [
+				listen(input0, "input", input0_input_handler),
+				listen(input0, "keyup", ctx.changeTHz),
+				listen(input1, "input", input1_input_handler),
+				listen(input1, "keyup", ctx.changeTHz)
+			];
+		},
+
+		m(target, anchor) {
+			insert(target, div4, anchor);
+			append(div4, div3);
+			append(div3, div1);
+			append(div3, t1);
+			append(div3, div2);
+			append(div2, input0);
+
+			set_input_value(input0, ctx.delta_thz);
+
+			insert(target, t2, anchor);
+			insert(target, div9, anchor);
+			append(div9, div8);
+			append(div8, div6);
+			append(div8, t4);
+			append(div8, div7);
+			append(div7, input1);
+
+			set_input_value(input1, ctx.gamma_thz);
+		},
+
+		p(changed, ctx) {
+			if (!input0_updating && changed.delta_thz) set_input_value(input0, ctx.delta_thz);
+			input0_updating = false;
+			if (!input1_updating && changed.gamma_thz) set_input_value(input1, ctx.gamma_thz);
+			input1_updating = false;
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(div4);
+				detach(t2);
+				detach(div9);
+			}
+
+			run_all(dispose);
+		}
+	};
+}
+
+// (682:6) {#if filetag=="felix"}
+function create_if_block_7(ctx) {
+	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
+
+	function input0_input_handler_1() {
+		input0_updating = true;
+		ctx.input0_input_handler_1.call(input0);
+	}
+
+	function input1_input_handler_1() {
+		input1_updating = true;
+		ctx.input1_input_handler_1.call(input1);
 	}
 
 	return {
@@ -2298,35 +2342,35 @@ function create_if_block_7(ctx) {
 			button2.textContent = "Open in Matplotlib";
 			attr(h1, "class", "subtitle");
 			attr(h1, "id", "theoryfilename");
-			attr(label, "class", "label svelte-17svvh");
+			attr(label, "class", "label svelte-zjwwmk");
 			attr(label, "id", "theorylabel");
 			attr(button0, "class", "button is-warning");
-			attr(input0, "class", "input");
+			attr(input0, "class", "input svelte-zjwwmk");
 			attr(input0, "type", "number");
 			set_style(input0, "width", "150px");
 			attr(input0, "data-tippy", "Sigma (deviation) from central frequency");
-			attr(input1, "class", "input");
+			attr(input1, "class", "input svelte-zjwwmk");
 			attr(input1, "type", "number");
 			attr(input1, "step", "0.001");
 			set_style(input1, "width", "150px");
 			attr(input1, "data-tippy", "Scaling factor (to shift in position)");
-			attr(button1, "class", "funcBtn button is-link animated svelte-17svvh");
+			attr(button1, "class", "funcBtn button is-link animated svelte-zjwwmk");
 			attr(button1, "id", "appendTheory");
-			attr(button2, "class", "funcBtn button is-link animated svelte-17svvh");
+			attr(button2, "class", "funcBtn button is-link animated svelte-zjwwmk");
 			attr(button2, "id", "theory_Matplotlib");
 			attr(div0, "class", "control");
 			attr(div1, "class", "field");
-			attr(div2, "class", "container svelte-17svvh");
+			attr(div2, "class", "container svelte-zjwwmk");
 			attr(div2, "id", "theoryContainer");
-			attr(div3, "class", "row svelte-17svvh");
+			attr(div3, "class", "row svelte-zjwwmk");
 			attr(div3, "id", "theoryRow");
 			set_style(div3, "display", "none");
 
 			dispose = [
 				listen(button0, "click", ctx.opentheory),
-				listen(input0, "input", input0_input_handler),
+				listen(input0, "input", input0_input_handler_1),
 				listen(input0, "keyup", ctx.runtheory_keyup),
-				listen(input1, "input", input1_input_handler),
+				listen(input1, "input", input1_input_handler_1),
 				listen(input1, "keyup", ctx.runtheory_keyup),
 				listen(button1, "click", ctx.runtheory),
 				listen(button2, "click", ctx.click_handler_3)
@@ -2380,7 +2424,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (669:6) {#if filetag=="scan"}
+// (701:6) {#if filetag=="scan"}
 function create_if_block_1$1(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2422,10 +2466,10 @@ function create_if_block_1$1(ctx) {
 			button.textContent = "Submit";
 			attr(div0, "class", "level-left");
 			attr(div1, "class", "level");
-			attr(button, "class", "funcBtn button is-link animated svelte-17svvh");
+			attr(button, "class", "funcBtn button is-link animated svelte-zjwwmk");
 			attr(button, "id", "depletionSubmit");
 			attr(div2, "class", "control");
-			attr(div3, "class", "row svelte-17svvh");
+			attr(div3, "class", "row svelte-zjwwmk");
 			attr(div3, "id", "depletionRow");
 			set_style(div3, "display", "none");
 			dispose = listen(button, "click", ctx.depletionPlot);
@@ -2510,7 +2554,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (682:28) {#if folderFile.files != undefined}
+// (714:28) {#if folderFile.files != undefined}
 function create_if_block_6(ctx) {
 	var each_1_anchor;
 
@@ -2573,7 +2617,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (683:31) {#each folderFile.files as scanfile}
+// (715:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2610,7 +2654,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (674:16) {#each ["ResON", "ResOFF"] as name}
+// (706:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -2630,9 +2674,9 @@ function create_each_block_3(ctx) {
 			select = element("select");
 			if (if_block) if_block.c();
 			attr(h1, "class", "subtitle");
-			attr(label, "class", "label svelte-17svvh");
+			attr(label, "class", "label svelte-zjwwmk");
 			attr(select, "id", ctx.name);
-			attr(select, "class", "svelte-17svvh");
+			attr(select, "class", "svelte-zjwwmk");
 			attr(div0, "class", "select");
 			attr(div1, "class", "control");
 			attr(div2, "class", "field");
@@ -2678,22 +2722,22 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (705:57) 
+// (737:57) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
-	function input_input_handler_5() {
+	function input_input_handler_4() {
 		input_updating = true;
-		ctx.input_input_handler_5.call(input);
+		ctx.input_input_handler_4.call(input);
 	}
 
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-17svvh");
+			attr(input, "class", "input svelte-zjwwmk");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
-			dispose = listen(input, "input", input_input_handler_5);
+			dispose = listen(input, "input", input_input_handler_4);
 		},
 
 		m(target, anchor) {
@@ -2717,22 +2761,22 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (703:52) 
+// (735:52) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
-	function input_input_handler_4() {
+	function input_input_handler_3() {
 		input_updating = true;
-		ctx.input_input_handler_4.call(input);
+		ctx.input_input_handler_3.call(input);
 	}
 
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-17svvh");
+			attr(input, "class", "input svelte-zjwwmk");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
-			dispose = listen(input, "input", input_input_handler_4);
+			dispose = listen(input, "input", input_input_handler_3);
 		},
 
 		m(target, anchor) {
@@ -2756,22 +2800,22 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (701:50) 
+// (733:50) 
 function create_if_block_3(ctx) {
 	var input, input_updating = false, dispose;
 
-	function input_input_handler_3() {
+	function input_input_handler_2() {
 		input_updating = true;
-		ctx.input_input_handler_3.call(input);
+		ctx.input_input_handler_2.call(input);
 	}
 
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-17svvh");
+			attr(input, "class", "input svelte-zjwwmk");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
-			dispose = listen(input, "input", input_input_handler_3);
+			dispose = listen(input, "input", input_input_handler_2);
 		},
 
 		m(target, anchor) {
@@ -2795,17 +2839,17 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (699:22) {#if name=="Power (ON, OFF)"}
+// (731:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_2(ctx) {
 	var input, dispose;
 
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-17svvh");
+			attr(input, "class", "input svelte-zjwwmk");
 			attr(input, "type", "text");
 			attr(input, "id", ctx.id);
-			dispose = listen(input, "input", ctx.input_input_handler_2);
+			dispose = listen(input, "input", ctx.input_input_handler_1);
 		},
 
 		m(target, anchor) {
@@ -2828,7 +2872,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (694:16) {#each depletionLabels as {name, id}}
+// (726:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -2854,7 +2898,7 @@ function create_each_block_2(ctx) {
 			if (if_block) if_block.c();
 			t2 = space();
 			attr(h1, "class", "subtitle");
-			attr(label, "class", "label svelte-17svvh");
+			attr(label, "class", "label svelte-zjwwmk");
 			attr(div0, "class", "control");
 			attr(div1, "class", "field");
 			attr(div2, "class", "level-item");
@@ -2886,7 +2930,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (737:12) {:else}
+// (769:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2895,7 +2939,7 @@ function create_else_block$2(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-17svvh");
+			attr(div, "class", "svelte-zjwwmk");
 		},
 
 		m(target, anchor) {
@@ -2916,7 +2960,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (730:12) {#if filetag == 'scan'}
+// (762:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -2939,7 +2983,7 @@ function create_if_block$2(ctx) {
 			t = space();
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-17svvh");
+			attr(div, "class", "svelte-zjwwmk");
 		},
 
 		m(target, anchor) {
@@ -2990,7 +3034,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (732:16) {#each fileChecked as scanfile}
+// (764:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -2999,7 +3043,7 @@ function create_each_block_1$1(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = "" + ctx.scanfile + "_tplot");
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-17svvh");
+			attr(div, "class", "svelte-zjwwmk");
 		},
 
 		m(target, anchor) {
@@ -3020,7 +3064,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (729:10) {#each plotID as id}
+// (761:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3088,10 +3132,6 @@ function create_fragment$4(ctx) {
 		each_blocks_2[i] = create_each_block_6(get_each_context_6(ctx, each_value_6, i));
 	}
 
-	var if_block0 = (ctx.filetag == 'felix') && create_if_block_10(ctx);
-
-	var if_block1 = (ctx.filetag == 'thz') && create_if_block_9(ctx);
-
 	let each_value_5 = ctx.checkBtns;
 
 	let each_blocks_1 = [];
@@ -3099,6 +3139,10 @@ function create_fragment$4(ctx) {
 	for (let i = 0; i < each_value_5.length; i += 1) {
 		each_blocks_1[i] = create_each_block_5(get_each_context_5(ctx, each_value_5, i));
 	}
+
+	var if_block0 = (ctx.filetag == 'felix') && create_if_block_9(ctx);
+
+	var if_block1 = (ctx.filetag == 'thz') && create_if_block_8(ctx);
 
 	var if_block2 = (ctx.filetag=="felix") && create_if_block_7(ctx);
 
@@ -3155,15 +3199,15 @@ function create_fragment$4(ctx) {
 			}
 
 			t12 = space();
-			if (if_block0) if_block0.c();
-			t13 = space();
-			if (if_block1) if_block1.c();
-			t14 = space();
 
 			for (let i = 0; i < each_blocks_1.length; i += 1) {
 				each_blocks_1[i].c();
 			}
 
+			t13 = space();
+			if (if_block0) if_block0.c();
+			t14 = space();
+			if (if_block1) if_block1.c();
 			t15 = space();
 			if (if_block2) if_block2.c();
 			t16 = space();
@@ -3177,7 +3221,7 @@ function create_fragment$4(ctx) {
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
-			attr(div0, "class", "column is-3 svelte-17svvh");
+			attr(div0, "class", "column is-3 svelte-zjwwmk");
 			attr(div0, "id", div0_id_value = "" + ctx.filetag + "filebrowserColumn");
 			attr(div1, "class", "modal-background");
 			attr(p, "class", "modal-card-title");
@@ -3189,8 +3233,8 @@ function create_fragment$4(ctx) {
 			attr(button1, "class", "button");
 			attr(footer, "class", "modal-card-foot");
 			attr(div2, "class", "modal-card");
-			attr(div3, "class", div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-17svvh");
-			attr(input, "class", "input locationLabel svelte-17svvh");
+			attr(div3, "class", div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-zjwwmk");
+			attr(input, "class", "input locationLabel svelte-zjwwmk");
 			attr(input, "type", "text");
 			attr(input, "placeholder", "Location will be displayed");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "LocationLabel");
@@ -3200,18 +3244,18 @@ function create_fragment$4(ctx) {
 			attr(div5, "data-tippy", div5_data_tippy_value = "Browse " + ctx.filetag + " file");
 			attr(div6, "class", "control");
 			attr(div7, "class", "field has-addons");
-			attr(div8, "class", "row svelte-17svvh");
+			attr(div8, "class", "row svelte-zjwwmk");
 			attr(div9, "class", "level-left animated fadeIn");
 			attr(div10, "class", "level");
-			attr(div11, "class", "row svelte-17svvh");
+			attr(div11, "class", "row svelte-zjwwmk");
 			set_style(hr, "margin", "0.5em 0");
 			set_style(hr, "background-color", "#bdc3c7");
-			attr(div12, "class", "container is-fluid svelte-17svvh");
+			attr(div12, "class", "container is-fluid svelte-zjwwmk");
 			attr(div12, "id", div12_id_value = "" + ctx.filetag + "plotContainer");
-			attr(div13, "class", "row box plotContainer svelte-17svvh");
+			attr(div13, "class", "row box plotContainer svelte-zjwwmk");
 			attr(div14, "class", "column");
 			attr(div15, "class", "columns");
-			attr(section1, "class", "section svelte-17svvh");
+			attr(section1, "class", "section svelte-zjwwmk");
 			attr(section1, "id", ctx.id);
 			attr(section1, "style", style);
 
@@ -3263,15 +3307,15 @@ function create_fragment$4(ctx) {
 			}
 
 			append(div9, t12);
-			if (if_block0) if_block0.m(div9, null);
-			append(div9, t13);
-			if (if_block1) if_block1.m(div9, null);
-			append(div9, t14);
 
 			for (let i = 0; i < each_blocks_1.length; i += 1) {
 				each_blocks_1[i].m(div9, null);
 			}
 
+			append(div9, t13);
+			if (if_block0) if_block0.m(div9, null);
+			append(div9, t14);
+			if (if_block1) if_block1.m(div9, null);
 			append(div14, t15);
 			if (if_block2) if_block2.m(div14, null);
 			append(div14, t16);
@@ -3305,7 +3349,7 @@ function create_fragment$4(ctx) {
 				set_data(t5, t5_value);
 			}
 
-			if ((!current || changed.modal || changed.filetag) && div3_class_value !== (div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-17svvh")) {
+			if ((!current || changed.modal || changed.filetag) && div3_class_value !== (div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-zjwwmk")) {
 				attr(div3, "class", div3_class_value);
 			}
 
@@ -3343,32 +3387,6 @@ function create_fragment$4(ctx) {
 				each_blocks_2.length = each_value_6.length;
 			}
 
-			if (ctx.filetag == 'felix') {
-				if (if_block0) {
-					if_block0.p(changed, ctx);
-				} else {
-					if_block0 = create_if_block_10(ctx);
-					if_block0.c();
-					if_block0.m(div9, t13);
-				}
-			} else if (if_block0) {
-				if_block0.d(1);
-				if_block0 = null;
-			}
-
-			if (ctx.filetag == 'thz') {
-				if (if_block1) {
-					if_block1.p(changed, ctx);
-				} else {
-					if_block1 = create_if_block_9(ctx);
-					if_block1.c();
-					if_block1.m(div9, t14);
-				}
-			} else if (if_block1) {
-				if_block1.d(1);
-				if_block1 = null;
-			}
-
 			if (changed.checkBtns) {
 				each_value_5 = ctx.checkBtns;
 
@@ -3381,7 +3399,7 @@ function create_fragment$4(ctx) {
 					} else {
 						each_blocks_1[i] = create_each_block_5(child_ctx);
 						each_blocks_1[i].c();
-						each_blocks_1[i].m(div9, null);
+						each_blocks_1[i].m(div9, t13);
 					}
 				}
 
@@ -3389,6 +3407,32 @@ function create_fragment$4(ctx) {
 					each_blocks_1[i].d(1);
 				}
 				each_blocks_1.length = each_value_5.length;
+			}
+
+			if (ctx.filetag == 'felix') {
+				if (if_block0) {
+					if_block0.p(changed, ctx);
+				} else {
+					if_block0 = create_if_block_9(ctx);
+					if_block0.c();
+					if_block0.m(div9, t14);
+				}
+			} else if (if_block0) {
+				if_block0.d(1);
+				if_block0 = null;
+			}
+
+			if (ctx.filetag == 'thz') {
+				if (if_block1) {
+					if_block1.p(changed, ctx);
+				} else {
+					if_block1 = create_if_block_8(ctx);
+					if_block1.c();
+					if_block1.m(div9, null);
+				}
+			} else if (if_block1) {
+				if_block1.d(1);
+				if_block1 = null;
 			}
 
 			if (ctx.filetag=="felix") {
@@ -3469,11 +3513,10 @@ function create_fragment$4(ctx) {
 
 			destroy_each(each_blocks_2, detaching);
 
-			if (if_block0) if_block0.d();
-			if (if_block1) if_block1.d();
-
 			destroy_each(each_blocks_1, detaching);
 
+			if (if_block0) if_block0.d();
+			if (if_block1) if_block1.d();
 			if (if_block2) if_block2.d();
 			if (if_block3) if_block3.d();
 
@@ -3508,6 +3551,7 @@ function instance$4($$self, $$props, $$invalidate) {
   jq(document).ready(() => {
     jq("#theoryBtn").addClass("fadeInUp").css("display", "none");
     jq("#norm_tkplot").addClass("fadeInUp").css("display", "none");
+    jq("#felix_shell_Container").addClass("fadeInUp").css("display", "none");
   });
 
   
@@ -3741,7 +3785,7 @@ function instance$4($$self, $$props, $$invalidate) {
         let scriptname = fileInfo[filetag]["pyfile"];
         let options = {args:[...fullfiles, fileInfo[filetag]["args"]]};
 
-        if (filetag === "thz") {fileInfo[filetag]["args"]=[delta_thz, "plot"];}
+        if (filetag === "thz") {fileInfo[filetag]["args"]=[delta_thz, "plot", gamma_thz];}
 
         let obj = {
             fullfiles: fullfiles,
@@ -3807,7 +3851,7 @@ function instance$4($$self, $$props, $$invalidate) {
             filetype: filetag,
             btname: btname,
             pyfile: "thz_scan.py",
-            args: [delta_thz, "run"]
+            args: [delta_thz, "run", gamma_thz]
           })
           .then((output)=>{
             console.log(output);
@@ -3905,7 +3949,7 @@ function instance$4($$self, $$props, $$invalidate) {
           filetype: filetag,
           btname: "thzBtn",
           pyfile: "thz_scan.py",
-          args: [delta_thz, "run"]
+          args: [delta_thz, "run", gamma_thz]
         });
     }
   };
@@ -3922,6 +3966,8 @@ function instance$4($$self, $$props, $$invalidate) {
 	                  }
 	                };
 
+	const click_handler_2 = (e) => {console.log(`Status (${e.target.id}):\n ${e.target.checked}`);};
+
 	function select_change_handler() {
 		normMethod = select_value(this);
 		$$invalidate('normMethod', normMethod);
@@ -3932,41 +3978,44 @@ function instance$4($$self, $$props, $$invalidate) {
 		$$invalidate('delta', delta);
 	}
 
-	function input_input_handler_1() {
+	function input0_input_handler() {
 		delta_thz = to_number(this.value);
 		$$invalidate('delta_thz', delta_thz);
 	}
 
-	const click_handler_2 = (e) => {console.log(`Status (${e.target.id}):\n ${e.target.checked}`);};
+	function input1_input_handler() {
+		gamma_thz = to_number(this.value);
+		$$invalidate('gamma_thz', gamma_thz);
+	}
 
-	function input0_input_handler() {
+	function input0_input_handler_1() {
 		sigma = to_number(this.value);
 		$$invalidate('sigma', sigma);
 	}
 
-	function input1_input_handler() {
+	function input1_input_handler_1() {
 		scale = to_number(this.value);
 		$$invalidate('scale', scale);
 	}
 
 	const click_handler_3 = () => runtheory({tkplot:"plot", filetype:"general"});
 
-	function input_input_handler_2() {
+	function input_input_handler_1() {
 		powerinfo = this.value;
 		$$invalidate('powerinfo', powerinfo);
 	}
 
-	function input_input_handler_3() {
+	function input_input_handler_2() {
 		nshots = to_number(this.value);
 		$$invalidate('nshots', nshots);
 	}
 
-	function input_input_handler_4() {
+	function input_input_handler_3() {
 		massIndex = to_number(this.value);
 		$$invalidate('massIndex', massIndex);
 	}
 
-	function input_input_handler_5() {
+	function input_input_handler_4() {
 		timestartIndex = to_number(this.value);
 		$$invalidate('timestartIndex', timestartIndex);
 	}
@@ -3985,7 +4034,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		if ('MenuItem' in $$props) $$invalidate('MenuItem', MenuItem = $$props.MenuItem);
 	};
 
-	let fileChecked, fullfiles, modal, error_msg, theoryfilenames;
+	let fileChecked, fullfiles, modal, error_msg, theoryfilenames, gamma_thz;
 
 	$$self.$$.update = ($$dirty = { normMethod: 1, filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1 }) => {
 		if ($$dirty.normMethod) { normMethod == "Relative" ? (normlog = false) : (normlog = true); }
@@ -3999,6 +4048,7 @@ function instance$4($$self, $$props, $$invalidate) {
 
 	$$invalidate('modal', modal = {mass:"", felix:"", scan:"", thz:""});
 	$$invalidate('error_msg', error_msg = {mass:"", felix:"", scan:"", thz:""});
+	$$invalidate('gamma_thz', gamma_thz = 0);
 
 	return {
 		id,
@@ -4040,21 +4090,23 @@ function instance$4($$self, $$props, $$invalidate) {
 		undefined,
 		modal,
 		error_msg,
+		gamma_thz,
 		theoryfilenames,
 		click_handler,
 		click_handler_1,
 		keyup_handler,
+		click_handler_2,
 		select_change_handler,
 		input_input_handler,
-		input_input_handler_1,
-		click_handler_2,
 		input0_input_handler,
 		input1_input_handler,
+		input0_input_handler_1,
+		input1_input_handler_1,
 		click_handler_3,
+		input_input_handler_1,
 		input_input_handler_2,
 		input_input_handler_3,
-		input_input_handler_4,
-		input_input_handler_5
+		input_input_handler_4
 	};
 }
 

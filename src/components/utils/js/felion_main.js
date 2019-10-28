@@ -9,7 +9,9 @@ const loadAnimation = "is-loading is-link";
 function felixbtntoggle(toggle="none"){
 
     $("#theoryBtn").css("display", toggle);
-    $("#norm_tkplot").css("display", toggle);
+    $("#norm_tkplot").css("display", toggle).addClass("fadeInUp")
+
+    $("#felix_shell_Container").css("display", toggle);
 
 }
 

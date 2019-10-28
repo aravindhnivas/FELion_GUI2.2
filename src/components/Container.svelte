@@ -39,6 +39,7 @@
   jq(document).ready(() => {
     jq("#theoryBtn").addClass("fadeInUp").css("display", "none");
     jq("#norm_tkplot").addClass("fadeInUp").css("display", "none");
+    jq("#felix_shell_Container").addClass("fadeInUp").css("display", "none");
   });
 
   
@@ -284,7 +285,7 @@
         let scriptname = fileInfo[filetag]["pyfile"]
         let options = {args:[...fullfiles, fileInfo[filetag]["args"]]}
 
-        if (filetag === "thz") {fileInfo[filetag]["args"]=[delta_thz, "plot"]}
+        if (filetag === "thz") {fileInfo[filetag]["args"]=[delta_thz, "plot", gamma_thz]}
 
         let obj = {
             fullfiles: fullfiles,
@@ -350,7 +351,7 @@
             filetype: filetag,
             btname: btname,
             pyfile: "thz_scan.py",
-            args: [delta_thz, "run"]
+            args: [delta_thz, "run", gamma_thz]
           })
           .then((output)=>{
             console.log(output)
@@ -441,6 +442,9 @@
       })
   }
   
+
+  $: gamma_thz = 0
+  
   const changeTHz = (event) => {
 
     if (event.key == "Enter") {
@@ -449,13 +453,15 @@
           filetype: filetag,
           btname: "thzBtn",
           pyfile: "thz_scan.py",
-          args: [delta_thz, "run"]
+          args: [delta_thz, "run", gamma_thz]
         });
     }
   }
 </script>
 
 <style>
+
+  input[type="number"] {width: 5vw;}
   label {color:white;}
   #theorylabel{
     color:white;
@@ -574,6 +580,25 @@
               </div>
             {/each}
 
+            {#each checkBtns as {id, name, bind, help}}
+               <div class="level-item animated" id="{id}_Container">
+
+                <div class="pretty p-default p-curve p-toggle" data-tippy={help}>
+
+                  {#if name[0]==="Log"}
+                    <input type="checkbox" {id} checked={bind} on:click={linearlogCheck} />
+                  {:else}
+                    <input type="checkbox" {id} checked={bind} on:click="{(e)=>{console.log(`Status (${e.target.id}):\n ${e.target.checked}`)}}"/>
+                  {/if}
+
+                  <div class="state p-success p-on"> <label>{name[0]}</label> </div>
+                  <div class="state p-danger p-off"> <label>{name[1]}</label> </div>
+
+                </div>
+                
+              </div>
+            {/each}
+
             {#if filetag == 'felix'}
               <div class="level-item">
                 <div class="field has-addons">
@@ -601,12 +626,14 @@
                 </div>
               </div>
             {/if}
-
             {#if filetag == 'thz'}
+
+              <!-- Delta value -->
+
               <div class="level-item">
 
                 <div class="field has-addons">
-                  <div class="control"><div class="button is-static">Delta (in Hz)</div></div>
+                  <div class="control"><div class="button is-static">&delta; (in Hz)</div></div>
 
                   <div class="control">
                     <input
@@ -620,27 +647,32 @@
                   </div>
                   
                 </div>
+
               </div>
-            {/if}
 
-            {#each checkBtns as {id, name, bind, help}}
-               <div class="level-item">
+              <!-- Gamma -->
 
-                <div class="pretty p-default p-curve p-toggle" data-tippy={help}>
+              <div class="level-item">
 
-                  {#if name[0]==="Log"}
-                    <input type="checkbox" {id} checked={bind} on:click={linearlogCheck} />
-                  {:else}
-                    <input type="checkbox" {id} checked={bind} on:click="{(e)=>{console.log(`Status (${e.target.id}):\n ${e.target.checked}`)}}"/>
-                  {/if}
+                <div class="field has-addons">
+                  <div class="control"><div class="button is-static">&gamma;</div></div>
 
-                  <div class="state p-success p-on"> <label>{name[0]}</label> </div>
-                  <div class="state p-danger p-off"> <label>{name[1]}</label> </div>
-
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="number" step="0.01"
+                      id="gamma_thz"
+                      placeholder="Gamma value for lorentz part"
+                      data-tippy="Lorentz gamma for fitting (Voigt Profile)"
+                      bind:value={gamma_thz}
+                      on:keyup={changeTHz}/>
+                  </div>
+                  
                 </div>
-                
+
               </div>
-            {/each}
+
+            {/if}
 
           </div>
         </div>

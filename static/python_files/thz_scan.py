@@ -112,7 +112,7 @@ def binning(xs, ys, delta=1e-6):
 
     return binsx, data_binned
 
-def main(filenames, delta, tkplot):
+def main(filenames, delta, tkplot, gamma=None):
 
     os.chdir(filenames[0].parent)
 
@@ -149,10 +149,14 @@ def main(filenames, delta, tkplot):
     guess = model.guess(biny, x=binx)
     guess_values = guess.valuesdict()
 
+
+    # if sigma is None: sigma = guess_values['sigma']
+    if gamma is None: gamma = guess_values['gamma']
+
     fit = model.fit(biny, x=binx, amplitude = guess_values['amplitude'], 
                     center = guess_values['center'], 
                     sigma = guess_values['sigma'], 
-                    gamma = guess_values['gamma'])
+                    gamma = gamma)
     
     # fit_data
     fit_data = fit.best_fit
@@ -219,18 +223,24 @@ def main(filenames, delta, tkplot):
         print(dataToSend)
 
 if __name__ == "__main__":
-
     args = sys.argv[1:][0].split(",")
-    filenames = [pt(i) for i in args[0:-2]]
-    delta = float(args[-2]) # in Hz
 
-    delta = delta*1e-9 # in GHz (to compare with our data)
+    filenames = [pt(i) for i in args[0:-3]]
+    gamma = float(args[-1])*1e-3
 
-    tkplot = args[-1]
+    tkplot = args[-2]
     if tkplot == "plot": tkplot = True
     else: tkplot = False
 
-    if tkplot:
-        print(f"delta: {delta} {args[-2]}")
+    delta = float(args[-3]) # in Hz
+    delta = delta*1e-9 # in GHz (to compare with our data)
 
-    main(filenames, delta, tkplot)
+    if tkplot:
+
+        print(f"Received arguments: {args}")
+        print(f"Received files: {filenames}")
+        print(f"Gamma: {gamma} {args[-1]}")
+        print(f"tkplot: {tkplot} {args[-2]}")
+        print(f"Delta: {delta} {args[-3]}")
+
+    main(filenames, delta, tkplot, gamma)
