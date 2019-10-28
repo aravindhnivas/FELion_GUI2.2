@@ -1919,7 +1919,7 @@ function get_each_context_6(ctx, list, i) {
 	return child_ctx;
 }
 
-// (578:12) {#each funcBtns as { id, name }}
+// (580:12) {#each funcBtns as { id, name }}
 function create_each_block_6(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -1957,7 +1957,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (594:18) {:else}
+// (596:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -1995,7 +1995,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (592:18) {#if name[0]==="Log"}
+// (594:18) {#if name[0]==="Log"}
 function create_if_block_10(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2033,7 +2033,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (587:12) {#each checkBtns as {id, name, bind, help}}
+// (589:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_5(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -2121,7 +2121,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (606:12) {#if filetag == 'felix'}
+// (608:12) {#if filetag == 'felix'}
 function create_if_block_9(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
@@ -2204,7 +2204,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (634:12) {#if filetag == 'thz'}
+// (636:12) {#if filetag == 'thz'}
 function create_if_block_8(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -2304,7 +2304,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (687:6) {#if filetag=="felix"}
+// (689:6) {#if filetag=="felix"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2424,7 +2424,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (706:6) {#if filetag=="scan"}
+// (708:6) {#if filetag=="scan"}
 function create_if_block_1$1(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2554,7 +2554,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (719:28) {#if folderFile.files != undefined}
+// (721:28) {#if folderFile.files != undefined}
 function create_if_block_6(ctx) {
 	var each_1_anchor;
 
@@ -2617,7 +2617,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (720:31) {#each folderFile.files as scanfile}
+// (722:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2654,7 +2654,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (711:16) {#each ["ResON", "ResOFF"] as name}
+// (713:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -2722,7 +2722,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (742:57) 
+// (744:57) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2761,7 +2761,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (740:52) 
+// (742:52) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2800,7 +2800,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (738:50) 
+// (740:50) 
 function create_if_block_3(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2839,7 +2839,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (736:22) {#if name=="Power (ON, OFF)"}
+// (738:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_2(ctx) {
 	var input, dispose;
 
@@ -2872,7 +2872,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (731:16) {#each depletionLabels as {name, id}}
+// (733:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -2930,7 +2930,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (774:12) {:else}
+// (776:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2960,7 +2960,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (767:12) {#if filetag == 'scan'}
+// (769:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3034,7 +3034,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (769:16) {#each fileChecked as scanfile}
+// (771:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3064,7 +3064,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (766:10) {#each plotID as id}
+// (768:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3753,6 +3753,8 @@ function instance$4($$self, $$props, $$invalidate) {
 
       case "felixPlotBtn":
 
+        jq("#theoryRow").css("display", "none");
+        $$invalidate('plotContainerHeight', plotContainerHeight = "60vh");
         Plotly.purge("exp-theory-plot");
         runPlot({
           fullfiles: fullfiles, filetype: filetag, btname: btname,
