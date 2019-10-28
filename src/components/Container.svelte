@@ -253,6 +253,7 @@
         jq("#theoryRow").css("display", "none")
         plotContainerHeight = "60vh"
         Plotly.purge("exp-theory-plot");
+        
         runPlot({
           fullfiles: fullfiles, filetype: filetag, btname: btname,
           pyfile: "normline.py", normethod: normlog, args: delta

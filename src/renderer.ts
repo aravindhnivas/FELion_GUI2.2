@@ -32,7 +32,7 @@ const mainPages = [
 		checkBtns: [
 			{
 				id: "felix_shell",
-				name: ["shell ON", "shell OFF"],
+				name: ["", ""],
 				bind: false,
 				help:shell_help
 			
@@ -60,7 +60,7 @@ const mainPages = [
 		checkBtns: [
 			{
 				id: "mass_shell",
-				name: ["shell ON", "shell OFF"],
+				name: ["", ""],
 				bind: false,
 				help:shell_help
 			},
@@ -97,7 +97,7 @@ const mainPages = [
 		checkBtns: [
 			{
 				id: "scan_shell",
-				name: ["shell ON", "shell OFF"],
+				name: ["", ""],
 				bind:false,
 				help:shell_help
 			},
@@ -130,7 +130,7 @@ const mainPages = [
 		checkBtns: [
 			{
 				id: "thz_shell",
-				name: ["shell ON", "shell OFF"],
+				name: ["", ""],
 				bind:false,
 				help:shell_help
 			}
