@@ -17,7 +17,7 @@
         "postinstall": "electron-builder install-app-deps",
         "css-build": "node-sass --omit-source-map-url static/sass/mystyles.scss static/css/mystyles.css",
         "css-watch": "npm run css-build -- --watch",
-        "setup": "electron-installer-windows --src FELion_GUI2.2-win32-x64 --dest installer/"    
+        "setup": "electron-installer-windows --src FELion_GUI2.2-win32-x64 --dest installer/"
     },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.10.2",
@@ -41,6 +41,7 @@
         "cross-env": "^5.2.0",
         "directory-tree": "^2.2.4",
         "electron-packager": "^14.0.6",
+        "hover.css": "^2.3.2",
         "jquery": "^3.4.1",
         "jquery-ui": "^1.12.1",
         "pretty-checkbox": "^3.0.3",

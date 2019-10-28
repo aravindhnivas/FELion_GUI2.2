@@ -253,7 +253,7 @@
         jq("#theoryRow").css("display", "none")
         plotContainerHeight = "60vh"
         Plotly.purge("exp-theory-plot");
-        
+
         runPlot({
           fullfiles: fullfiles, filetype: filetag, btname: btname,
           pyfile: "normline.py", normethod: normlog, args: delta
@@ -580,7 +580,7 @@
 
             {#each funcBtns as { id, name }}
               <div
-                class="level-item button funcBtn is-link animated"
+                class="level-item button hvr-glow funcBtn is-link animated"
                 {id}
                 on:click={functionRun}>
                 {name}

@@ -45,6 +45,7 @@
 </script>
 
 <style>
+
   .filexplorer {
     overflow-y: auto;
     position: absolute;
@@ -78,11 +79,11 @@
       <div class="level-right">
         <div class="level-item">
           <span
-            class="icon refresh"
+            class="icon refresh hvr-icon-spin"
             id="{filetag}refresh"
             on:click={refreshFolder}>
             <i
-              class="fas fa-sync refreshIcon"
+              class="fas fa-sync refreshIcon hvr-icon"
               id="{filetag}refreshIcon"
               data-tippy="Refresh folder"
               aria-hidden="true" />
@@ -90,11 +91,11 @@
         </div>
         <div class="level-item">
           <span
-            class="icon backbtn"
+            class="icon backbtn hvr-icon-back"
             id="{filetag}BackButton"
             on:click={() => changeDir('..')}>
             <i
-              class="fas fa-angle-left"
+              class="fas fa-angle-left hvr-icon"
               data-tippy="Go back (location)"
               aria-hidden="true" />
           </span>
@@ -108,7 +109,7 @@
   <div class="panel-block">
     <p class="control has-icons-left">
       <input
-        class="input is-small"
+        class="input is-small "
         type="text"
         placeholder="Search {filetag} files"
         id="{filetag}-searchFiles"
