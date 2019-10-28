@@ -70,6 +70,6 @@ $(document).on('animationend', '.funcBtn', (event) => {
     $target.addClass("is-link");
     if ($target.hasClass("shake")) $target.removeClass(dangerAnimation);
     if ($target.hasClass("bounce")) $target.removeClass(successAnimation);
+    if ($target[0].id === "norm_tkplot") if ($target.hasClass("fadeInUp")) $target.removeClass("fadeInUp");
 });
-
 export { runPlot };

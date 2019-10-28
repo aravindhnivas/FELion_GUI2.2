@@ -1755,6 +1755,7 @@ $(document).on('animationend', '.funcBtn', (event) => {
     $target.addClass("is-link");
     if ($target.hasClass("shake")) $target.removeClass(dangerAnimation);
     if ($target.hasClass("bounce")) $target.removeClass(successAnimation);
+    if ($target[0].id === "norm_tkplot") if ($target.hasClass("fadeInUp")) $target.removeClass("fadeInUp");
 });
 
 const constants = {
@@ -3725,7 +3726,7 @@ function instance$4($$self, $$props, $$invalidate) {
                 fullfiles: fullfiles,
                 filetype: "general",
                 filetag: "felix",
-                btname: "felix_Matplotlib",
+                btname: "norm_tkplot",
                 pyfile: "norm_tkplot.py",
                 args: normMethod
               });

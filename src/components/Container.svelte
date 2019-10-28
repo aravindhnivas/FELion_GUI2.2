@@ -269,7 +269,7 @@
                 fullfiles: fullfiles,
                 filetype: "general",
                 filetag: "felix",
-                btname: "felix_Matplotlib",
+                btname: "norm_tkplot",
                 pyfile: "norm_tkplot.py",
                 args: normMethod
               })
