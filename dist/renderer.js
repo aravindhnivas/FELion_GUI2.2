@@ -1916,7 +1916,7 @@ function get_each_context_6(ctx, list, i) {
 	return child_ctx;
 }
 
-// (567:12) {#each funcBtns as { id, name }}
+// (568:12) {#each funcBtns as { id, name }}
 function create_each_block_6(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -1954,7 +1954,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (576:12) {#if filetag == 'felix'}
+// (577:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
@@ -2037,7 +2037,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (604:12) {#if filetag == 'thz'}
+// (605:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t_1, div2, input, input_updating = false, dispose;
 
@@ -2098,7 +2098,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (632:18) {:else}
+// (633:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2136,7 +2136,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (630:18) {#if name[0]==="Log"}
+// (631:18) {#if name[0]==="Log"}
 function create_if_block_8(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2174,7 +2174,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (625:12) {#each checkBtns as {id, name, bind, help}}
+// (626:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_5(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, t4;
 
@@ -2259,7 +2259,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (649:6) {#if filetag=="felix"}
+// (650:6) {#if filetag=="felix"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2328,7 +2328,7 @@ function create_if_block_7(ctx) {
 				listen(input1, "input", input1_input_handler),
 				listen(input1, "keyup", ctx.runtheory_keyup),
 				listen(button1, "click", ctx.runtheory),
-				listen(button2, "click", ctx.console.log("Theory plot not yet ready"))
+				listen(button2, "click", ctx.click_handler_3)
 			];
 		},
 
@@ -2379,7 +2379,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (668:6) {#if filetag=="scan"}
+// (669:6) {#if filetag=="scan"}
 function create_if_block_1$1(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2509,7 +2509,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (681:28) {#if folderFile.files != undefined}
+// (682:28) {#if folderFile.files != undefined}
 function create_if_block_6(ctx) {
 	var each_1_anchor;
 
@@ -2572,7 +2572,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (682:31) {#each folderFile.files as scanfile}
+// (683:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2609,7 +2609,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (673:16) {#each ["ResON", "ResOFF"] as name}
+// (674:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -2677,7 +2677,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (704:57) 
+// (705:57) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2716,7 +2716,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (702:52) 
+// (703:52) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2755,7 +2755,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (700:50) 
+// (701:50) 
 function create_if_block_3(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2794,7 +2794,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (698:22) {#if name=="Power (ON, OFF)"}
+// (699:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_2(ctx) {
 	var input, dispose;
 
@@ -2827,7 +2827,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (693:16) {#each depletionLabels as {name, id}}
+// (694:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -2885,7 +2885,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (736:12) {:else}
+// (737:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2915,7 +2915,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (729:12) {#if filetag == 'scan'}
+// (730:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -2989,7 +2989,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (731:16) {#each fileChecked as scanfile}
+// (732:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3019,7 +3019,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (728:10) {#each plotID as id}
+// (729:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3509,6 +3509,7 @@ function instance$4($$self, $$props, $$invalidate) {
     jq("#norm_tkplot").addClass("fadeInUp").css("display", "none");
   });
 
+  
   const join = file => {
     return [path.join(currentLocation, file)];
   };
@@ -3947,6 +3948,8 @@ function instance$4($$self, $$props, $$invalidate) {
 		$$invalidate('scale', scale);
 	}
 
+	const click_handler_3 = () => runtheory({tkplot:"plot", filetype:"general"});
+
 	function input_input_handler_2() {
 		powerinfo = this.value;
 		$$invalidate('powerinfo', powerinfo);
@@ -4046,6 +4049,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		click_handler_2,
 		input0_input_handler,
 		input1_input_handler,
+		click_handler_3,
 		input_input_handler_2,
 		input_input_handler_3,
 		input_input_handler_4,
