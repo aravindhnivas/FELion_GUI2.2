@@ -41,6 +41,7 @@
     jq("#norm_tkplot").addClass("fadeInUp").css("display", "none");
   });
 
+  
   const join = file => {
     return [path.join(currentLocation, file)];
   };
@@ -452,17 +453,6 @@
         });
     }
   }
-
-  // jq(document).ready(()=>{
-  //   let felixContainer = document.getElementById("felixplotContainer")
-  //   let felixcontainer_X = felixContainer.y
-
-  //   if (filetag === "felix") {
-  //     console.log(felixcontainer_X)
-  //     console.log(document.getElementById("felixplotContainer"))
-  //   }
-  // })
-
 </script>
 
 <style>
