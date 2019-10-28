@@ -36,6 +36,8 @@
     } 
   }))
 
+  
+  $: plotContainerHeight = "60vh"
   jq(document).ready(() => {
     jq("#theoryBtn").addClass("fadeInUp").css("display", "none");
     jq("#norm_tkplot").addClass("fadeInUp").css("display", "none");
@@ -373,6 +375,8 @@
 
       case "theoryBtn": 
         jq("#theoryRow").toggle()
+        if (document.getElementById("theoryRow").style.display === "none") {plotContainerHeight = "60vh"} 
+        else {plotContainerHeight = "50vh"}
       break;
 
       case "depletionscanBtn":
@@ -485,7 +489,7 @@
   }
   .plotContainer {
     overflow-y: auto;
-    max-height: 60vh;
+    /* max-height: 60vh; */
     width: 70%;
     position: absolute;
   }
@@ -756,7 +760,7 @@
       <hr style="margin: 0.5em 0; background-color:#bdc3c7" />
       <!-- <h1 class="subtitle">Data Visualisation</h1> -->
 
-      <div class="row box plotContainer">
+      <div class="row box plotContainer" style="max-height: {plotContainerHeight};">
         
         <div class="container is-fluid" id="{filetag}plotContainer">
           {#each plotID as id}
