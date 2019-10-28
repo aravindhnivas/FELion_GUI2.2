@@ -43,10 +43,10 @@ def exp_theory(theoryfiles, location, norm_method, sigma, scale, tkplot):
 
     if tkplot:
         
-        widget = FELion_Tk(title="Mass spectrum", location=theoryfiles[0].parent)
+        widget = FELion_Tk(title="Exp. Vs Theory", location=theoryfiles[0].parent)
         fig, canvas = widget.Figure()
         if len(theoryfiles) == 1: savename=theoryfiles[0].stem
-        else: savename = "combined_masspec"
+        else: savename = "Exp vs Theory"
         ax = widget.make_figure_layout(title="Experimental vs Theory", xaxis="Wavenumber $(cm^{-1})$", yaxis="counts", yscale="linear", savename=savename)
 
     if location.name is "DATA": datfile_location = location.parent/"EXPORT"
