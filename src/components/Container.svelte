@@ -452,6 +452,17 @@
         });
     }
   }
+
+  // jq(document).ready(()=>{
+  //   let felixContainer = document.getElementById("felixplotContainer")
+  //   let felixcontainer_X = felixContainer.y
+
+  //   if (filetag === "felix") {
+  //     console.log(felixcontainer_X)
+  //     console.log(document.getElementById("felixplotContainer"))
+  //   }
+  // })
+
 </script>
 
 <style>
@@ -658,7 +669,7 @@
                     <input class="input" type="number" on:keyup={runtheory_keyup} bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
                     <input class="input" type="number" on:keyup={runtheory_keyup} step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
                     <button class="funcBtn button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
-                    <button class="funcBtn button is-link animated" on:click="{console.log("Theory plot not yet ready")}" id="theory_Matplotlib">Open in Matplotlib</button>
+                    <button class="funcBtn button is-link animated" on:click="{()=>runtheory({tkplot:"plot", filetype:"general"})}" id="theory_Matplotlib">Open in Matplotlib</button>
                 </div>
               </div>
             </div>
