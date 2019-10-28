@@ -90,7 +90,6 @@
   let tree = dirTree.default;
   const style = "display:none;";
   let currentLocation;
-
   $: console.log(`Locally stored location: [${filetag}]: ${localStorage.getItem(`${filetag}_location`)}`)
 
   if (localStorage.getItem(`${filetag}_location`) != undefined) {currentLocation = localStorage.getItem(`${filetag}_location`)}

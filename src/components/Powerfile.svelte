@@ -8,6 +8,8 @@
 
     const dialog = electron.remote.dialog;
     let currentLocation;
+    if (localStorage.getItem("felix_location") != undefined) {currentLocation = localStorage.getItem("felix_location")}
+
 
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
