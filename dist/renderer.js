@@ -1919,7 +1919,7 @@ function get_each_context_6(ctx, list, i) {
 	return child_ctx;
 }
 
-// (573:12) {#each funcBtns as { id, name }}
+// (574:12) {#each funcBtns as { id, name }}
 function create_each_block_6(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -1957,7 +1957,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (589:18) {:else}
+// (590:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -1995,7 +1995,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (587:18) {#if name[0]==="Log"}
+// (588:18) {#if name[0]==="Log"}
 function create_if_block_10(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2033,7 +2033,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (582:12) {#each checkBtns as {id, name, bind, help}}
+// (583:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_5(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -2121,7 +2121,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (601:12) {#if filetag == 'felix'}
+// (602:12) {#if filetag == 'felix'}
 function create_if_block_9(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
@@ -2204,7 +2204,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (628:12) {#if filetag == 'thz'}
+// (629:12) {#if filetag == 'thz'}
 function create_if_block_8(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -2304,7 +2304,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (681:6) {#if filetag=="felix"}
+// (682:6) {#if filetag=="felix"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2424,7 +2424,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (700:6) {#if filetag=="scan"}
+// (701:6) {#if filetag=="scan"}
 function create_if_block_1$1(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2554,7 +2554,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (713:28) {#if folderFile.files != undefined}
+// (714:28) {#if folderFile.files != undefined}
 function create_if_block_6(ctx) {
 	var each_1_anchor;
 
@@ -2617,7 +2617,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (714:31) {#each folderFile.files as scanfile}
+// (715:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2654,7 +2654,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (705:16) {#each ["ResON", "ResOFF"] as name}
+// (706:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -2722,7 +2722,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (736:57) 
+// (737:57) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2761,7 +2761,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (734:52) 
+// (735:52) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2800,7 +2800,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (732:50) 
+// (733:50) 
 function create_if_block_3(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2839,7 +2839,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (730:22) {#if name=="Power (ON, OFF)"}
+// (731:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_2(ctx) {
 	var input, dispose;
 
@@ -2872,7 +2872,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (725:16) {#each depletionLabels as {name, id}}
+// (726:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -2930,7 +2930,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (768:12) {:else}
+// (769:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2960,7 +2960,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (761:12) {#if filetag == 'scan'}
+// (762:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3034,7 +3034,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (763:16) {#each fileChecked as scanfile}
+// (764:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3064,7 +3064,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (760:10) {#each plotID as id}
+// (761:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3239,6 +3239,7 @@ function create_fragment$4(ctx) {
 			attr(input, "placeholder", "Location will be displayed");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "LocationLabel");
 			input.value = ctx.currentLocation;
+			attr(input, "data-tippy", "Current Location");
 			attr(div4, "class", "control is-expanded");
 			attr(div5, "class", "button is-dark");
 			attr(div5, "data-tippy", div5_data_tippy_value = "Browse " + ctx.filetag + " file");
@@ -4158,6 +4159,7 @@ function create_fragment$5(ctx) {
 			attr(input0, "type", "text");
 			attr(input0, "placeholder", "Location will be displayed");
 			attr(input0, "id", "powerfileLocationLabel");
+			attr(input0, "data-tippy", "Current Location");
 			attr(div0, "class", "control is-expanded svelte-2n12qe");
 			attr(div1, "class", "button is-dark svelte-2n12qe");
 			attr(div1, "data-tippy", "Open a folder");
@@ -4168,12 +4170,14 @@ function create_fragment$5(ctx) {
 			attr(input1, "type", "text");
 			attr(input1, "placeholder", "Filename");
 			attr(input1, "id", "powfilename");
+			attr(input1, "data-tippy", "NOTE: Filename should match the felix file");
 			attr(div4, "class", "control svelte-2n12qe");
 			attr(div5, "class", "field svelte-2n12qe");
 			attr(label1, "class", "label svelte-2n12qe");
 			attr(textarea, "class", "textarea svelte-2n12qe");
 			attr(textarea, "placeholder", "Textarea");
 			attr(textarea, "id", "powfileContents");
+			attr(textarea, "data-tippy", "For cm-1 to micron conversion: In 5th line change 'IN_no_UM' to 'IN_UM'");
 			attr(div6, "class", "control svelte-2n12qe");
 			attr(div6, "id", "powfileContent_Container");
 			attr(div7, "class", "field svelte-2n12qe");

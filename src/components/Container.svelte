@@ -553,7 +553,8 @@
                     currentLocation = location
                   }
                 }
-              }" />
+              }" 
+              data-tippy="Current Location"/>
           </div>
           <div class="control">
             <div

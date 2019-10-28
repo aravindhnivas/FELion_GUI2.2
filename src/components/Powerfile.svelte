@@ -92,7 +92,8 @@ label {color: white}
                     <div class="control is-expanded">
                         <input class="input locationLabel" type="text" 
                         placeholder="Location will be displayed" id="powerfileLocationLabel" 
-                        bind:value={currentLocation}>
+                        bind:value={currentLocation}
+                        data-tippy="Current Location">
                     </div>
                     <div class="control">
                         <div class="button is-dark" on:click={browseFolder} data-tippy="Open a folder">Browse</div>
@@ -102,14 +103,14 @@ label {color: white}
                 <div class="field">
                     <label class="label">Filename</label>
                     <div class="control">
-                        <input class="input" type="text" placeholder="Filename" id="powfilename" bind:value={today}>
+                        <input class="input" type="text" placeholder="Filename" id="powfilename" bind:value={today} data-tippy="NOTE: Filename should match the felix file">
                     </div>
                 </div>
 
                 <div class="field" id="powfileContent_mainContainer">
                     <label class="label">File Contents</label>
                     <div class="control" id="powfileContent_Container">
-                        <textarea class="textarea" placeholder="Textarea" id="powfileContents" bind:value={fileContent} 
+                        <textarea class="textarea" placeholder="Textarea" id="powfileContents" bind:value={fileContent} data-tippy="For cm-1 to micron conversion: In 5th line change 'IN_no_UM' to 'IN_UM'"
                             on:keyup="{(e)=>{if(e.code=="Space"){fileContent = fileContent.substr(0, fileContent.length-1)+"\t"}}}"></textarea>
                     </div>
                 </div>
