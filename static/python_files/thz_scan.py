@@ -145,19 +145,20 @@ def main(filenames, delta, tkplot, gamma=None):
 
     binx, biny = binning(xs, ys, delta)
 
-    model = VoigtModel()
-    guess = model.guess(biny, x=binx)
-    guess_values = guess.valuesdict()
-
-
-    # if sigma is None: sigma = guess_values['sigma']
-    if gamma is None: gamma = guess_values['gamma']
-
-    fit = model.fit(biny, x=binx, amplitude = guess_values['amplitude'], 
-                    center = guess_values['center'], 
-                    sigma = guess_values['sigma'], 
-                    gamma = gamma)
     
+    try:
+
+        model = VoigtModel()
+        guess = model.guess(biny, x=binx)
+        guess_values = guess.valuesdict()
+
+        if gamma is None: gamma = guess_values['gamma']
+        fit = model.fit(biny, x=binx, amplitude = guess_values['amplitude'], center = guess_values['center'],  sigma = guess_values['sigma'], gamma = gamma)
+
+    except Exception as error:
+        if tkplot: print(f"Error occured while fitting with given gamma: {error}. Hence using default fitting")
+        fit = model.fit(biny, x=binx, amplitude = guess_values['amplitude'], center = guess_values['center'], sigma = guess_values['sigma'],  gamma =  guess_values['gamma'])
+
     # fit_data
     fit_data = fit.best_fit
     line_freq_fit = fit.best_values['center']
