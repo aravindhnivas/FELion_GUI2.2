@@ -146,8 +146,12 @@
     jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
     return folderFile;
 
-    
   };
+  
+  let theoryfiles = [];
+
+  if (localStorage.getItem("theoryfiles") != undefined) {theoryfiles = localStorage.getItem("theoryfiles").split(",")}
+  $: theoryfilenames = theoryfiles.map(file=>path.basename(file))
 
   function browseFile({theory=false}) {
     if (theory == true) {
@@ -161,9 +165,11 @@
           properties: ["openFile", "multiSelections"],
           message: `Open theory files` //For macOS
         };
-        electron.remote.dialog.showOpenDialog(null, options, filePaths => {
-          if (filePaths == undefined) reject("No files selected");
 
+        electron.remote.dialog.showOpenDialog(null, options, filePaths => {
+
+          if (filePaths == undefined) {reject("No files selected")}
+          else {localStorage.setItem("theoryfiles", filePaths)}
           resolve(filePaths);
         });
       });
@@ -189,7 +195,6 @@
     }
 
   }
-
   let delta_thz = 1
 
   const fileInfo = {
@@ -382,16 +387,12 @@
     }
   };
 
-  let theoryfiles=[];
-  $: theoryfilenames = theoryfiles.map(file=>path.basename(file))
   
   function opentheory() {
-    browseFile({theory:true})
-      .then(file =>  theoryfiles = file).catch(err => console.log(err));
+    browseFile({theory:true}).then(file =>  theoryfiles = file).catch(err => console.log(err));
   }
 
   function runtheory({tkplot="run", filetype="theory"}) {
-    
 
     runPlot({fullfiles: theoryfiles, filetype: filetype, filetag:filetag,
       btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot] });
@@ -440,7 +441,6 @@
         modal["scan"]="is-active"
       })
   }
-  
 
   $: gamma_thz = 0
   
@@ -626,6 +626,7 @@
                 </div>
               </div>
             {/if}
+
             {#if filetag == 'thz'}
 
               <!-- Delta value -->

@@ -2204,7 +2204,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (629:12) {#if filetag == 'thz'}
+// (630:12) {#if filetag == 'thz'}
 function create_if_block_8(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -2304,7 +2304,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (682:6) {#if filetag=="felix"}
+// (683:6) {#if filetag=="felix"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2424,7 +2424,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (701:6) {#if filetag=="scan"}
+// (702:6) {#if filetag=="scan"}
 function create_if_block_1$1(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2554,7 +2554,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (714:28) {#if folderFile.files != undefined}
+// (715:28) {#if folderFile.files != undefined}
 function create_if_block_6(ctx) {
 	var each_1_anchor;
 
@@ -2617,7 +2617,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (715:31) {#each folderFile.files as scanfile}
+// (716:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2654,7 +2654,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (706:16) {#each ["ResON", "ResOFF"] as name}
+// (707:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -2722,7 +2722,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (737:57) 
+// (738:57) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2761,7 +2761,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (735:52) 
+// (736:52) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2800,7 +2800,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (733:50) 
+// (734:50) 
 function create_if_block_3(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2839,7 +2839,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (731:22) {#if name=="Power (ON, OFF)"}
+// (732:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_2(ctx) {
 	var input, dispose;
 
@@ -2872,7 +2872,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (726:16) {#each depletionLabels as {name, id}}
+// (727:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -2930,7 +2930,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (769:12) {:else}
+// (770:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -2960,7 +2960,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (762:12) {#if filetag == 'scan'}
+// (763:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3034,7 +3034,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (764:16) {#each fileChecked as scanfile}
+// (765:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3064,7 +3064,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (761:10) {#each plotID as id}
+// (762:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3651,8 +3651,11 @@ function instance$4($$self, $$props, $$invalidate) {
     jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
     return folderFile;
 
-    
   };
+  
+  let theoryfiles = [];
+
+  if (localStorage.getItem("theoryfiles") != undefined) {$$invalidate('theoryfiles', theoryfiles = localStorage.getItem("theoryfiles").split(","));}
 
   function browseFile({theory=false}) {
     if (theory == true) {
@@ -3665,9 +3668,11 @@ function instance$4($$self, $$props, $$invalidate) {
           properties: ["openFile", "multiSelections"],
           message: `Open theory files` //For macOS
         };
-        electron.remote.dialog.showOpenDialog(null, options, filePaths => {
-          if (filePaths == undefined) reject("No files selected");
 
+        electron.remote.dialog.showOpenDialog(null, options, filePaths => {
+
+          if (filePaths == undefined) {reject("No files selected");}
+          else {localStorage.setItem("theoryfiles", filePaths);}
           resolve(filePaths);
         });
       });
@@ -3693,7 +3698,6 @@ function instance$4($$self, $$props, $$invalidate) {
     }
 
   }
-
   let delta_thz = 1;
 
   const fileInfo = {
@@ -3884,15 +3888,12 @@ function instance$4($$self, $$props, $$invalidate) {
     }
   };
 
-  let theoryfiles=[];
   
   function opentheory() {
-    browseFile({theory:true})
-      .then(file =>  $$invalidate('theoryfiles', theoryfiles = file)).catch(err => console.log(err));
+    browseFile({theory:true}).then(file =>  $$invalidate('theoryfiles', theoryfiles = file)).catch(err => console.log(err));
   }
 
   function runtheory({tkplot="run", filetype="theory"}) {
-    
 
     runPlot({fullfiles: theoryfiles, filetype: filetype, filetag:filetag,
       btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot] });
@@ -4035,7 +4036,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		if ('MenuItem' in $$props) $$invalidate('MenuItem', MenuItem = $$props.MenuItem);
 	};
 
-	let fileChecked, fullfiles, modal, error_msg, theoryfilenames, gamma_thz;
+	let fileChecked, fullfiles, theoryfilenames, modal, error_msg, gamma_thz;
 
 	$$self.$$.update = ($$dirty = { normMethod: 1, filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1 }) => {
 		if ($$dirty.normMethod) { normMethod == "Relative" ? (normlog = false) : (normlog = true); }
@@ -4089,10 +4090,10 @@ function instance$4($$self, $$props, $$invalidate) {
 		fileChecked,
 		console,
 		undefined,
+		theoryfilenames,
 		modal,
 		error_msg,
 		gamma_thz,
-		theoryfilenames,
 		click_handler,
 		click_handler_1,
 		keyup_handler,
@@ -6995,7 +6996,6 @@ var Popper = function () {
 Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
 Popper.placements = placements;
 Popper.Defaults = Defaults;
-//# sourceMappingURL=popper.js.map
 
 /**!
 * tippy.js v4.3.5
@@ -8935,7 +8935,6 @@ function injectCSS(css) {
 }
 
 injectCSS(css);
-//# sourceMappingURL=index.all.js.map
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -19933,7 +19932,6 @@ const app = new App({
     target: document.body,
     props: { mainPages }
 });
-//# sourceMappingURL=renderer.js.map
 
 module.exports = app;
 //# sourceMappingURL=renderer.js.map
