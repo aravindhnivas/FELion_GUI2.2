@@ -198,7 +198,7 @@ def main(filenames, delta, tkplot, gamma=None):
     else:
 
         data["Averaged_fit"] = {
-            "x": list(binx), "y": list(fit_data),  "name": f"Fitted: {line_freq_fit:.7f} GHz ({fwhm*1e6:.1f} KHz)", "mode": "lines", "line":{"color":"black"}
+            "x": list(binx), "y": list(fit_data),  "name": f"Gau (sig.): [{sigma:.2e}]; Lor (gam.): [{gamma:.2e}]", "mode": "lines", "line":{"color":"black"}
         }
 
         data["text"] = {
