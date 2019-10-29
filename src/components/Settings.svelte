@@ -65,11 +65,17 @@
     $: new_version = ""
     $: updatetoggle = "none"
 
+    $: checkupdateLoading = ""
+
     const update = () => {
+
         updatetoggle = "none"
         console.log("Checking for update")
+        checkupdateLoading = "is-loading"
+
 
         https.get('https://raw.githubusercontent.com/aravindhnivas/FELion_GUI2.2/master/package.json', (res) => {
+
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);
 
@@ -82,9 +88,11 @@
 
                 new_version = data.version
                 updatetoggle = "block"
+                checkupdateLoading = ""
             });
 
         }).on('error', (e) => console.error(e));
+
         console.log("Done")
     }
 
@@ -190,7 +198,7 @@
                             <div class="level">
                                 <div class="level-left">
                                     <div class="level-item">
-                                        <button class="button is-link" on:click={update}>Check Update</button>
+                                        <button class="button is-link {checkupdateLoading}" on:click={update} >Check Update</button>
                                     </div>
 
                                     <div class="level-item" id="updatelabel" style="display:{updatetoggle}">

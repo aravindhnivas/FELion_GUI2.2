@@ -4472,7 +4472,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (144:20) {#each items as item}
+// (152:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4505,7 +4505,7 @@ function create_each_block$3(ctx) {
 }
 
 function create_fragment$6(ctx) {
-	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, div12, div11, div8, button1, t21, div9, h12, t22, t23, t24, div10, button2, t26, div16, div15, h13, t28, h14, t29, t30_value = ctx.process.versions.electron + "", t30, t31, h15, t32, t33_value = ctx.process.versions.node + "", t33, t34, h16, t35, t36_value = ctx.process.versions.chrome + "", t36, dispose;
+	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, div12, div11, div8, button1, t20, button1_class_value, t21, div9, h12, t22, t23, t24, div10, button2, t26, div16, div15, h13, t28, h14, t29, t30_value = ctx.process.versions.electron + "", t30, t31, h15, t32, t33_value = ctx.process.versions.node + "", t33, t34, h16, t35, t36_value = ctx.process.versions.chrome + "", t36, dispose;
 
 	let each_value = ctx.items;
 
@@ -4572,7 +4572,7 @@ function create_fragment$6(ctx) {
 			div11 = element("div");
 			div8 = element("div");
 			button1 = element("button");
-			button1.textContent = "Check Update";
+			t20 = text("Check Update");
 			t21 = space();
 			div9 = element("div");
 			h12 = element("h1");
@@ -4625,7 +4625,7 @@ function create_fragment$6(ctx) {
 			attr(div7, "class", "container");
 			attr(div7, "id", "Configuration");
 			attr(h11, "class", "subtitle");
-			attr(button1, "class", "button is-link");
+			attr(button1, "class", button1_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-1ekajoa");
 			attr(div8, "class", "level-item");
 			attr(h12, "class", "subtitle");
 			attr(div9, "class", "level-item");
@@ -4725,6 +4725,7 @@ function create_fragment$6(ctx) {
 			append(div12, div11);
 			append(div11, div8);
 			append(div8, button1);
+			append(button1, t20);
 			append(div11, t21);
 			append(div11, div9);
 			append(div9, h12);
@@ -4783,6 +4784,10 @@ function create_fragment$6(ctx) {
 
 			if (changed.saveChanges) {
 				set_style(h10, "display", ctx.saveChanges);
+			}
+
+			if ((changed.checkupdateLoading) && button1_class_value !== (button1_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-1ekajoa")) {
+				attr(button1, "class", button1_class_value);
 			}
 
 			if (changed.new_version) {
@@ -4871,10 +4876,14 @@ function instance$6($$self, $$props, $$invalidate) {
     };
 
     const update = () => {
+
         $$invalidate('updatetoggle', updatetoggle = "none");
         console.log("Checking for update");
+        $$invalidate('checkupdateLoading', checkupdateLoading = "is-loading");
+
 
         https.get('https://raw.githubusercontent.com/aravindhnivas/FELion_GUI2.2/master/package.json', (res) => {
+
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);
 
@@ -4887,9 +4896,11 @@ function instance$6($$self, $$props, $$invalidate) {
 
                 $$invalidate('new_version', new_version = data.version);
                 $$invalidate('updatetoggle', updatetoggle = "block");
+                $$invalidate('checkupdateLoading', checkupdateLoading = "");
             });
 
         }).on('error', (e) => console.error(e));
+
         console.log("Done");
     };
 
@@ -4908,12 +4919,13 @@ function instance$6($$self, $$props, $$invalidate) {
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
 	};
 
-	let saveChanges, saveChangeanimate, new_version, updatetoggle;
+	let saveChanges, saveChangeanimate, new_version, updatetoggle, checkupdateLoading;
 
 	$$invalidate('saveChanges', saveChanges = "none");
 	$$invalidate('saveChangeanimate', saveChangeanimate = "fadeIn");
 	$$invalidate('new_version', new_version = "");
 	$$invalidate('updatetoggle', updatetoggle = "none");
+	$$invalidate('checkupdateLoading', checkupdateLoading = "");
 
 	return {
 		jq,
@@ -4929,6 +4941,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		saveChangeanimate,
 		new_version,
 		updatetoggle,
+		checkupdateLoading,
 		process,
 		input0_input_handler,
 		input1_input_handler
