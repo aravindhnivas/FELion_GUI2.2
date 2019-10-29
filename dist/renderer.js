@@ -4481,7 +4481,7 @@ function create_each_block$3(ctx) {
 			li = element("li");
 			a = element("a");
 			t = text(t_value);
-			attr(a, "class", "menulist svelte-1uonwdi");
+			attr(a, "class", "menulist svelte-1ekajoa");
 			attr(a, "id", "" + ctx.item + "Container");
 			dispose = listen(a, "click", ctx.toggle);
 		},
@@ -4587,19 +4587,19 @@ function create_fragment$6(ctx) {
 			h16 = element("h1");
 			t34 = text("Chrome: ");
 			t35 = text(t35_value);
-			attr(div0, "class", "menu-label svelte-1uonwdi");
-			attr(ul, "class", "menu-list svelte-1uonwdi");
-			attr(aside, "class", "menu box svelte-1uonwdi");
+			attr(div0, "class", "menu-label svelte-1ekajoa");
+			attr(ul, "class", "menu-list svelte-1ekajoa");
+			attr(aside, "class", "menu box svelte-1ekajoa");
 			set_style(aside, "height", "100%");
 			attr(div1, "class", "column is-3");
-			attr(label0, "class", "label svelte-1uonwdi");
+			attr(label0, "class", "label svelte-1ekajoa");
 			attr(input0, "class", "input");
 			attr(input0, "type", "text");
 			attr(input0, "placeholder", "Enter the default python.exe file path");
 			attr(div2, "class", "control");
 			attr(p0, "class", "help");
 			attr(div3, "class", "field");
-			attr(label1, "class", "label svelte-1uonwdi");
+			attr(label1, "class", "label svelte-1ekajoa");
 			attr(input1, "class", "input");
 			attr(input1, "type", "text");
 			attr(input1, "placeholder", "Enter the default python.exe file path");
@@ -4607,7 +4607,7 @@ function create_fragment$6(ctx) {
 			attr(p1, "class", "help");
 			attr(div5, "class", "field");
 			attr(button, "class", "button is-link is-pulled-right");
-			attr(h10, "class", h10_class_value = "subtitle animated " + ctx.saveChangeanimate + " svelte-1uonwdi");
+			attr(h10, "class", h10_class_value = "subtitle animated " + ctx.saveChangeanimate + " svelte-1ekajoa");
 			set_style(h10, "display", ctx.saveChanges);
 			attr(div6, "class", "control");
 			attr(div7, "class", "container");
@@ -4630,7 +4630,7 @@ function create_fragment$6(ctx) {
 			set_style(div16, "display", "none");
 			attr(div16, "id", "About");
 			attr(div17, "class", "container is-fluid");
-			attr(div18, "class", "row box box2 svelte-1uonwdi");
+			attr(div18, "class", "row box box2 svelte-1ekajoa");
 			set_style(div18, "height", "100%");
 			attr(div19, "class", "column");
 			attr(div20, "class", "columns");
@@ -4742,7 +4742,7 @@ function create_fragment$6(ctx) {
 			if (changed.pythonpath && (input0.value !== ctx.pythonpath)) set_input_value(input0, ctx.pythonpath);
 			if (changed.pythonscript && (input1.value !== ctx.pythonscript)) set_input_value(input1, ctx.pythonscript);
 
-			if ((changed.saveChangeanimate) && h10_class_value !== (h10_class_value = "subtitle animated " + ctx.saveChangeanimate + " svelte-1uonwdi")) {
+			if ((changed.saveChangeanimate) && h10_class_value !== (h10_class_value = "subtitle animated " + ctx.saveChangeanimate + " svelte-1ekajoa")) {
 				attr(h10, "class", h10_class_value);
 			}
 

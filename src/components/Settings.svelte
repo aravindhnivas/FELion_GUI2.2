@@ -69,8 +69,8 @@
     }
     .menu-list a:hover {
         
-        border-radius:2em;
-        background-color: #46307d!important;
+        border-left: 2px solid;
+        background-color: rgba(0,0,0,0)!important;
     }
 
     .label {
