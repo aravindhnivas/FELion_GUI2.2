@@ -15,7 +15,7 @@ from uncertainties import unumpy as unp
 ####################################### Modules Imported #######################################
 class timescanplot:
 
-    def __init__(self, scanfile, tkplot):
+    def __init__(self, scanfile, tkplot=False):
 
         scanfile = pt(scanfile)
         location = scanfile.parent
@@ -164,7 +164,6 @@ if __name__ == "__main__":
     filename = args[0]
 
     tkplot = args[-1]
-    if tkplot == "plot": tkplot = True
-    else: tkplot = False
-
-    timescanplot(filename, tkplot)
+    if tkplot == "plot": timescanplot(filename, tkplot=True)
+    else: timescanplot(filename)
+    # timescanplot(filename, tkplot)
