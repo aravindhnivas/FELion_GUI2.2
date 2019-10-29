@@ -41,7 +41,7 @@
   jq(document).ready(() => {
     jq("#theoryBtn").addClass("fadeInUp").css("display", "none");
     jq("#norm_tkplot").addClass("fadeInUp").css("display", "none");
-    jq("#felix_shell_Container").addClass("fadeInUp").css("display", "none");
+    jq("#felix_shell_Container").addClass("fadeInUp").css("display", "block");
   });
 
   
