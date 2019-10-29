@@ -41,7 +41,6 @@
         "cross-env": "^5.2.0",
         "directory-tree": "^2.2.4",
         "electron-packager": "^14.0.6",
-        "github-content": "^1.0.1",
         "hover.css": "^2.3.2",
         "jquery": "^3.4.1",
         "jquery-ui": "^1.12.1",
