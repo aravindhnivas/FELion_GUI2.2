@@ -62,7 +62,7 @@
 
   $: visible ? display = "block" : display = "none"
 
-  let animation = "animated fadeInLeft faster"
+  let animation = "animated fadeIn"
   const fileExplorerToggle = (event) => {
     let $target = jq(event.target)
 
