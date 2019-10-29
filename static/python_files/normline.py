@@ -227,11 +227,11 @@ class normplot:
             }
 
 
-            dataToSend["nshots"] = float(self.nshots)
+            # dataToSend["nshots"] = float(self.nshots)
             dataToSend["pow"][powerfile] = {
                 "x": list(wavelength),
                 "y": list(self.total_power),
-                "name": powerfile,
+                "name": f"{powerfile}",
                 "mode": "markers",
                 "xaxis": "x2",
                 "yaxis": "y2",
