@@ -40,16 +40,14 @@
 
   <div class="navbar-menu">
     <div class="navbar-end">
-      <div class="navbar-item" id="min">
-        <i
-          class="fas fa-window-minimize"
-          on:click={() => mainWindow.minimize()} />
+      <div class="navbar-item" id="min" on:click={() => mainWindow.minimize()}>
+        <i class="fas fa-window-minimize" />
       </div>
-      <div class="navbar-item" id="max">
-        <i class="fas fa-compress-arrows-alt" on:click={maximize} />
+      <div class="navbar-item" id="max" on:click={maximize}>
+        <i class="fas fa-window-restore" />
       </div>
-      <div class="navbar-item" id="close">
-        <i class="fas fa-window-close" on:click={() => mainWindow.close()} />
+      <div class="navbar-item" id="close" on:click={() => mainWindow.close()}>
+        <i class="fas fa-times"  />
       </div>
     </div>
   </div>
