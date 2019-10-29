@@ -3,6 +3,9 @@
     export let jq;
     export let path;
     
+    const https = require('https');
+    const fs = require('fs');
+
     jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active")})
 
     if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.join(__dirname, "../python3.7/python")
@@ -57,6 +60,32 @@
                 targetElement.style.display = "block"
             }
         })
+    }
+
+    $: new_version = ""
+    $: updatetoggle = "none"
+
+    const update = () => {
+        updatetoggle = "none"
+        console.log("Checking for update")
+
+        https.get('https://raw.githubusercontent.com/aravindhnivas/FELion_GUI2.2/master/package.json', (res) => {
+            console.log('statusCode:', res.statusCode);
+            console.log('headers:', res.headers);
+
+            res.on('data', (data) => {
+                process.stdout.write(data);
+
+                data = JSON.parse(data.toString("utf8"))
+
+                console.log(data, typeof(data))
+
+                new_version = data.version
+                updatetoggle = "block"
+            });
+
+        }).on('error', (e) => console.error(e));
+        console.log("Done")
     }
 
 </script>
@@ -161,14 +190,14 @@
                             <div class="level">
                                 <div class="level-left">
                                     <div class="level-item">
-                                        <button class="button is-link" >Check Update</button>
+                                        <button class="button is-link" on:click={update}>Check Update</button>
                                     </div>
 
-                                    <div class="level-item" id="updatelabel" style="display:none">
-                                        <h1 class="subtitle">Version available: </h1>
+                                    <div class="level-item" id="updatelabel" style="display:{updatetoggle}">
+                                        <h1 class="subtitle">Version available: {new_version}</h1>
                                     </div>
 
-                                    <div class="level-item" id="run_update" style="display:none">
+                                    <div class="level-item" id="run_update" style="display:{updatetoggle}">
                                         <button class="button is-warning" >Update</button>
                                     </div>
                                 </div>

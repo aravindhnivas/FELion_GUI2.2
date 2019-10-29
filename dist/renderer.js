@@ -4472,7 +4472,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (115:20) {#each items as item}
+// (144:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4505,7 +4505,7 @@ function create_each_block$3(ctx) {
 }
 
 function create_fragment$6(ctx) {
-	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, div12, t25, div16, div15, h13, t27, h14, t28, t29_value = process.versions.electron + "", t29, t30, h15, t31, t32_value = process.versions.node + "", t32, t33, h16, t34, t35_value = process.versions.chrome + "", t35, dispose;
+	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, div12, div11, div8, button1, t21, div9, h12, t22, t23, t24, div10, button2, t26, div16, div15, h13, t28, h14, t29, t30_value = ctx.process.versions.electron + "", t30, t31, h15, t32, t33_value = ctx.process.versions.node + "", t33, t34, h16, t35, t36_value = ctx.process.versions.chrome + "", t36, dispose;
 
 	let each_value = ctx.items;
 
@@ -4556,8 +4556,8 @@ function create_fragment$6(ctx) {
 			p1.textContent = "location of python script files";
 			t12 = space();
 			div6 = element("div");
-			button = element("button");
-			button.textContent = "Save";
+			button0 = element("button");
+			button0.textContent = "Save";
 			t14 = space();
 			h10 = element("h1");
 			t15 = text("Changes saved!");
@@ -4569,24 +4569,36 @@ function create_fragment$6(ctx) {
 			t18 = text(t18_value);
 			t19 = space();
 			div12 = element("div");
-			div12.innerHTML = `<div class="level-left"><div class="level-item"><button class="button is-link">Check Update</button></div> <div class="level-item" id="updatelabel" style="display:none"><h1 class="subtitle">Version available: </h1></div> <div class="level-item" id="run_update" style="display:none"><button class="button is-warning">Update</button></div></div>`;
-			t25 = space();
+			div11 = element("div");
+			div8 = element("div");
+			button1 = element("button");
+			button1.textContent = "Check Update";
+			t21 = space();
+			div9 = element("div");
+			h12 = element("h1");
+			t22 = text("Version available: ");
+			t23 = text(ctx.new_version);
+			t24 = space();
+			div10 = element("div");
+			button2 = element("button");
+			button2.textContent = "Update";
+			t26 = space();
 			div16 = element("div");
 			div15 = element("div");
 			h13 = element("h1");
 			h13.textContent = "Software details (version)";
-			t27 = space();
+			t28 = space();
 			h14 = element("h1");
-			t28 = text("Electron: ");
-			t29 = text(t29_value);
-			t30 = space();
+			t29 = text("Electron: ");
+			t30 = text(t30_value);
+			t31 = space();
 			h15 = element("h1");
-			t31 = text("Node: ");
-			t32 = text(t32_value);
-			t33 = space();
+			t32 = text("Node: ");
+			t33 = text(t33_value);
+			t34 = space();
 			h16 = element("h1");
-			t34 = text("Chrome: ");
-			t35 = text(t35_value);
+			t35 = text("Chrome: ");
+			t36 = text(t36_value);
 			attr(div0, "class", "menu-label svelte-1ekajoa");
 			attr(ul, "class", "menu-list svelte-1ekajoa");
 			attr(aside, "class", "menu box svelte-1ekajoa");
@@ -4606,13 +4618,24 @@ function create_fragment$6(ctx) {
 			attr(div4, "class", "control");
 			attr(p1, "class", "help");
 			attr(div5, "class", "field");
-			attr(button, "class", "button is-link is-pulled-right");
+			attr(button0, "class", "button is-link is-pulled-right");
 			attr(h10, "class", h10_class_value = "subtitle animated " + ctx.saveChangeanimate + " svelte-1ekajoa");
 			set_style(h10, "display", ctx.saveChanges);
 			attr(div6, "class", "control");
 			attr(div7, "class", "container");
 			attr(div7, "id", "Configuration");
 			attr(h11, "class", "subtitle");
+			attr(button1, "class", "button is-link");
+			attr(div8, "class", "level-item");
+			attr(h12, "class", "subtitle");
+			attr(div9, "class", "level-item");
+			attr(div9, "id", "updatelabel");
+			set_style(div9, "display", ctx.updatetoggle);
+			attr(button2, "class", "button is-warning");
+			attr(div10, "class", "level-item");
+			attr(div10, "id", "run_update");
+			set_style(div10, "display", ctx.updatetoggle);
+			attr(div11, "class", "level-left");
 			attr(div12, "class", "level");
 			attr(div13, "class", "control");
 			attr(div14, "class", "container");
@@ -4641,7 +4664,8 @@ function create_fragment$6(ctx) {
 			dispose = [
 				listen(input0, "input", ctx.input0_input_handler),
 				listen(input1, "input", ctx.input1_input_handler),
-				listen(button, "click", ctx.configSave)
+				listen(button0, "click", ctx.configSave),
+				listen(button1, "click", ctx.update)
 			];
 		},
 
@@ -4686,7 +4710,7 @@ function create_fragment$6(ctx) {
 			append(div5, p1);
 			append(div7, t12);
 			append(div7, div6);
-			append(div6, button);
+			append(div6, button0);
 			append(div6, t14);
 			append(div6, h10);
 			append(h10, t15);
@@ -4698,22 +4722,33 @@ function create_fragment$6(ctx) {
 			append(h11, t18);
 			append(div13, t19);
 			append(div13, div12);
-			append(div17, t25);
+			append(div12, div11);
+			append(div11, div8);
+			append(div8, button1);
+			append(div11, t21);
+			append(div11, div9);
+			append(div9, h12);
+			append(h12, t22);
+			append(h12, t23);
+			append(div11, t24);
+			append(div11, div10);
+			append(div10, button2);
+			append(div17, t26);
 			append(div17, div16);
 			append(div16, div15);
 			append(div15, h13);
-			append(div15, t27);
+			append(div15, t28);
 			append(div15, h14);
-			append(h14, t28);
 			append(h14, t29);
-			append(div15, t30);
+			append(h14, t30);
+			append(div15, t31);
 			append(div15, h15);
-			append(h15, t31);
 			append(h15, t32);
-			append(div15, t33);
+			append(h15, t33);
+			append(div15, t34);
 			append(div15, h16);
-			append(h16, t34);
 			append(h16, t35);
+			append(h16, t36);
 		},
 
 		p(changed, ctx) {
@@ -4749,6 +4784,15 @@ function create_fragment$6(ctx) {
 			if (changed.saveChanges) {
 				set_style(h10, "display", ctx.saveChanges);
 			}
+
+			if (changed.new_version) {
+				set_data(t23, ctx.new_version);
+			}
+
+			if (changed.updatetoggle) {
+				set_style(div9, "display", ctx.updatetoggle);
+				set_style(div10, "display", ctx.updatetoggle);
+			}
 		},
 
 		i: noop,
@@ -4769,6 +4813,9 @@ function create_fragment$6(ctx) {
 function instance$6($$self, $$props, $$invalidate) {
 	let { jq, path } = $$props;
     
+    const https = require('https');
+    const fs = require('fs');
+
     jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active");});
 
     if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.join(__dirname, "../python3.7/python");
@@ -4823,6 +4870,29 @@ function instance$6($$self, $$props, $$invalidate) {
         });
     };
 
+    const update = () => {
+        $$invalidate('updatetoggle', updatetoggle = "none");
+        console.log("Checking for update");
+
+        https.get('https://raw.githubusercontent.com/aravindhnivas/FELion_GUI2.2/master/package.json', (res) => {
+            console.log('statusCode:', res.statusCode);
+            console.log('headers:', res.headers);
+
+            res.on('data', (data) => {
+                process.stdout.write(data);
+
+                data = JSON.parse(data.toString("utf8"));
+
+                console.log(data, typeof(data));
+
+                $$invalidate('new_version', new_version = data.version);
+                $$invalidate('updatetoggle', updatetoggle = "block");
+            });
+
+        }).on('error', (e) => console.error(e));
+        console.log("Done");
+    };
+
 	function input0_input_handler() {
 		pythonpath = this.value;
 		$$invalidate('pythonpath', pythonpath);
@@ -4838,10 +4908,12 @@ function instance$6($$self, $$props, $$invalidate) {
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
 	};
 
-	let saveChanges, saveChangeanimate;
+	let saveChanges, saveChangeanimate, new_version, updatetoggle;
 
 	$$invalidate('saveChanges', saveChanges = "none");
 	$$invalidate('saveChangeanimate', saveChangeanimate = "fadeIn");
+	$$invalidate('new_version', new_version = "");
+	$$invalidate('updatetoggle', updatetoggle = "none");
 
 	return {
 		jq,
@@ -4851,9 +4923,13 @@ function instance$6($$self, $$props, $$invalidate) {
 		items,
 		configSave,
 		toggle,
+		update,
 		localStorage,
 		saveChanges,
 		saveChangeanimate,
+		new_version,
+		updatetoggle,
+		process,
 		input0_input_handler,
 		input1_input_handler
 	};
