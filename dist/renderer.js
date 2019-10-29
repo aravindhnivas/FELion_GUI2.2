@@ -753,7 +753,7 @@ function get_each_context_1(ctx, list, i) {
 	return child_ctx;
 }
 
-// (191:2) {:else}
+// (203:2) {:else}
 function create_else_block_1(ctx) {
 	var div;
 
@@ -778,7 +778,7 @@ function create_else_block_1(ctx) {
 	};
 }
 
-// (125:2) {#if folderFile != undefined}
+// (139:2) {#if folderFile != undefined}
 function create_if_block$1(ctx) {
 	var div1, aside, div0, span0, t0, span1, t1_value = ctx.folderFile.parentFolder + "", t1, div0_id_value, t2, ul, t3, ul_id_value, aside_id_value, t4, each1_anchor, dispose;
 
@@ -812,7 +812,7 @@ function create_if_block$1(ctx) {
 			aside = element("aside");
 			div0 = element("div");
 			span0 = element("span");
-			span0.innerHTML = `<i class="fas fa-angle-right svelte-12tmvti" aria-hidden="true"></i>`;
+			span0.innerHTML = `<i class="fas fa-angle-right fa-rotate-90 svelte-12tmvti" aria-hidden="true"></i>`;
 			t0 = space();
 			span1 = element("span");
 			t1 = text(t1_value);
@@ -841,7 +841,7 @@ function create_if_block$1(ctx) {
 			attr(aside, "class", "menu svelte-12tmvti");
 			attr(aside, "id", aside_id_value = "" + ctx.filetag + "FileBrowser");
 			attr(div1, "class", "panel-block svelte-12tmvti");
-			dispose = listen(span0, "click", ctx.click_handler_1);
+			dispose = listen(span0, "click", ctx.folderToggle);
 		},
 
 		m(target, anchor) {
@@ -967,7 +967,7 @@ function create_if_block$1(ctx) {
 	};
 }
 
-// (153:10) {:else}
+// (165:10) {:else}
 function create_else_block$1(ctx) {
 	var h1, t0, t1, t2;
 
@@ -1001,7 +1001,7 @@ function create_else_block$1(ctx) {
 	};
 }
 
-// (140:10) {#if folderFile.files.length > 0}
+// (152:10) {#if folderFile.files.length > 0}
 function create_if_block_1(ctx) {
 	var li, div1, input, input_id_value, t, div0, dispose;
 
@@ -1046,7 +1046,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (157:10) {#each folderFile.files.sort() as filename}
+// (169:10) {#each folderFile.files.sort() as filename}
 function create_each_block_1(ctx) {
 	var li, div1, input, input_id_value, input_class_value, t0, div0, i, t1, label, t2_value = ctx.filename + "", t2, label_for_value, t3, li_class_value, dispose;
 
@@ -1120,12 +1120,12 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (177:4) {#each folderFile.folders as foldername}
+// (189:4) {#each folderFile.folders as foldername}
 function create_each_block$1(ctx) {
 	var div1, aside, div0, span0, t0, span1, t1_value = ctx.foldername + "", t1, span1_id_value, t2, dispose;
 
-	function click_handler_2() {
-		return ctx.click_handler_2(ctx);
+	function click_handler_1() {
+		return ctx.click_handler_1(ctx);
 	}
 
 	return {
@@ -1145,7 +1145,7 @@ function create_each_block$1(ctx) {
 			attr(div0, "class", "menu-label has-text-white svelte-12tmvti");
 			attr(aside, "class", "menu svelte-12tmvti");
 			attr(div1, "class", "panel-block svelte-12tmvti");
-			dispose = listen(span1, "click", click_handler_2);
+			dispose = listen(span1, "click", click_handler_1);
 		},
 
 		m(target, anchor) {
@@ -1365,6 +1365,18 @@ function instance$3($$self, $$props, $$invalidate) {
     });
   };
 
+
+  const folderToggle = () => {
+    let $folderContainer = jq(`#${filetag}FileContainer`);
+    let $folderIcon = jq(`#${filetag}FolderContainer i`);
+
+    // Toggling folder
+    $folderContainer.toggle();
+
+    if ($folderContainer[0].style.display === "none") $folderIcon.removeClass("fa-rotate-90");
+    else $folderIcon.addClass("fa-rotate-90");
+  };
+
 	const click_handler = () => changeDir('..');
 
 	function input_input_handler() {
@@ -1372,9 +1384,7 @@ function instance$3($$self, $$props, $$invalidate) {
 		$$invalidate('searchKey', searchKey);
 	}
 
-	const click_handler_1 = () => jq(`#${filetag}FileContainer`).toggle();
-
-	const click_handler_2 = ({ foldername }) => changeDir(foldername);
+	const click_handler_1 = ({ foldername }) => changeDir(foldername);
 
 	$$self.$set = $$props => {
 		if ('jq' in $$props) $$invalidate('jq', jq = $$props.jq);
@@ -1402,11 +1412,11 @@ function instance$3($$self, $$props, $$invalidate) {
 		selectAllToggle,
 		searchKey,
 		search,
+		folderToggle,
 		undefined,
 		click_handler,
 		input_input_handler,
-		click_handler_1,
-		click_handler_2
+		click_handler_1
 	};
 }
 
@@ -7009,6 +7019,7 @@ var Popper = function () {
 Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
 Popper.placements = placements;
 Popper.Defaults = Defaults;
+//# sourceMappingURL=popper.js.map
 
 /**!
 * tippy.js v4.3.5
@@ -8948,6 +8959,7 @@ function injectCSS(css) {
 }
 
 injectCSS(css);
+//# sourceMappingURL=index.all.js.map
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -19945,6 +19957,7 @@ const app = new App({
     target: document.body,
     props: { mainPages }
 });
+//# sourceMappingURL=renderer.js.map
 
 module.exports = app;
 //# sourceMappingURL=renderer.js.map
