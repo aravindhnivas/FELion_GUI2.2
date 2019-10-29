@@ -42,6 +42,20 @@
         : (fileParent.style.display = "none");
     });
   };
+
+
+  const folderToggle = () => {
+    let $folderContainer = jq(`#${filetag}FileContainer`);
+    let $folderIcon = jq(`#${filetag}FolderContainer i`)
+
+    // Toggling folder
+    $folderContainer.toggle();
+
+    if ($folderContainer[0].style.display === "none") $folderIcon.removeClass("fa-rotate-90")
+    else $folderIcon.addClass("fa-rotate-90")
+  }
+
+
 </script>
 
 <style>
@@ -127,10 +141,8 @@
       <aside class="menu" id="{filetag}FileBrowser">
 
         <div class="menu-label has-text-white" id="{filetag}FolderContainer">
-          <span
-            class="icon"
-            on:click={() => jq(`#${filetag}FileContainer`).toggle()}>
-            <i class="fas fa-angle-right" aria-hidden="true" />
+          <span class="icon" on:click={folderToggle}>
+            <i class="fas fa-angle-right fa-rotate-90" aria-hidden="true" />
           </span>
           <span>{folderFile.parentFolder}</span>
         </div>
