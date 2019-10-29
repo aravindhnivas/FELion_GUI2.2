@@ -73,7 +73,7 @@ function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
 }
 
 class program {
-    
+
     constructor(obj) {
         this.obj = obj
 
@@ -100,15 +100,15 @@ class program {
         return new Promise((resolve, reject) => {
 
             if (this.filetype == "general") {
-                let shell_value = document.getElementById(this.obj.filetag+"_shell").checked
+                let shell_value = document.getElementById(this.obj.filetag + "_shell").checked
 
                 const py = spawn(
-                    pythonPath, 
-                    ["-i", path.join(functions_path, this.pyfile), this.files.concat(this.args)], 
+                    pythonPath,
+                    ["-i", path.join(functions_path, this.pyfile), this.files.concat(this.args)],
                     {
                         detached: true,
                         stdio: 'ignore',
-                        shell:shell_value
+                        shell: shell_value
                     }
                 );
 
@@ -120,11 +120,11 @@ class program {
             else {
 
                 const py = spawn(
-                    pythonPath, 
+                    pythonPath,
                     [path.join(functions_path, this.pyfile), this.files.concat(this.args)]
                 );
 
-                
+
                 py.stdout.on("data", data => {
 
                     let dataFromPython;
@@ -193,7 +193,7 @@ class program {
                                 dataFromPython["SA"],
                                 "saPlot",
                                 "Wavelength (cm-1)",
-                                `Total Power (mJ) [FELIX: ${dataFromPython["nshots"]} Hz]`,
+                                `Total Power (mJ)`,
                                 dataFromPython["pow"]
                             );
 
@@ -213,7 +213,7 @@ class program {
                             );
                         } else if (this.filetype == "thz") {
 
-                            
+
                             let delta_thz = this.args
 
                             plot(`THz Scan`, "Frequency (GHz)", "Depletion (%)", dataFromPython, "thzplot_Container");
@@ -225,10 +225,10 @@ class program {
                                 shapes: lines
                             }
                             Plotly.relayout("thzplot_Container", layout_update)
-                        } else if (this.filetype == "depletion") { console.log('Graph plotted')}
+                        } else if (this.filetype == "depletion") { console.log('Graph plotted') }
 
 
-                        else if (this.filetype == "norm_tkplot") { console.log('Graph plotted')}
+                        else if (this.filetype == "norm_tkplot") { console.log('Graph plotted') }
 
                         console.log("Graph Plotted");
 
