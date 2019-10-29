@@ -3,13 +3,27 @@
     export let jq;
     export let path;
     
+    jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active")})
+
     if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.join(__dirname, "../python3.7/python")
     if (!localStorage["pythonscript"]) localStorage["pythonscript"] = path.join(__dirname, "/python_files/")
 
-    $: savebtn = {name:"Save", style:"is-link"}
     let pythonpath = localStorage["pythonpath"];
     let pythonscript = localStorage["pythonscript"];
 
+    let items = ["Configuration", "Update", "About"]
+    $: saveChanges = "none"
+    $: saveChangeanimate = "fadeIn"
+
+    const fadeInfadeOut = () => {
+
+        saveChanges = "block"
+        setTimeout(()=>saveChangeanimate="fadeOut", 1200)
+        setTimeout(()=>{
+            saveChangeanimate = "fadeIn"
+            saveChanges = "none"
+        }, 2000)
+    }
 
     const configSave = () => {
 
@@ -17,24 +31,46 @@
         localStorage["pythonscript"] = pythonscript
 
         console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`)
-        savebtn = {name:"saved", style:"is-success"}
+        fadeInfadeOut()
 
-        setTimeout(()=>savebtn = {name:"Save", style:"is-link"}, 1000)
+    }
+
+    const toggle = (event) => {
+
+        let target = event.target.id
+        items.forEach(item=>{
+            let elementID = `${item}Container`
+            let $element = jq(`#${elementID}`)
+
+            let targetElement = document.getElementById(item)
+
+            if (elementID != target) {
+
+                if($element.hasClass("is-active")) {
+                    $element.removeClass("is-active")
+                    targetElement.style.display = "none"
+                }
+            } 
+            else {
+
+                $element.addClass("is-active")
+                targetElement.style.display = "block"
+            }
+        })
     }
 
 </script>
 
 <style>
 
-    a.is-active {
+    .is-active {
         background-color: #46307d!important;
-
         border-radius: 2em;
     }
     .menu-list a:hover {
         
         border-radius:2em;
-        background-color: #876dc7!important;
+        background-color: #46307d!important;
     }
 
     .label {
@@ -67,7 +103,6 @@
 
 </style>
 
-
 <section class="section animated fadeIn" style="display:none" id="Settings">
 
     <div class="columns">
@@ -77,17 +112,19 @@
                 
                 <div class="menu-label">Settings</div>
                 <ul class="menu-list">
-                    <li><a class="is-active">Configuration</a></li>
-                    <li><a >About</a></li>
+                    {#each items as item}
+                        <li><a class="menulist" on:click={toggle} id="{item}Container">{item}</a></li>
+                    {/each}
                 </ul>
 
             </aside>
         </div>
 
         <div class="column">
-
             <div class="row box box2" style="height:100%" >
                 <div class="container is-fluid">
+
+                    <!-- Configuration Settings -->
 
                     <div class="container" id="Configuration">
 
@@ -109,15 +146,49 @@
                             <p class="help">location of python script files</p>
                         </div>
 
+                        <!-- Save changes button -->
                         <div class="control">
-                            <button class="button {savebtn["style"]} is-pulled-right" on:click={configSave}>{savebtn["name"]}</button>
+                            <button class="button is-link is-pulled-right" on:click={configSave}>Save</button>
+                            <h1 class="subtitle animated {saveChangeanimate}" style="display:{saveChanges}">Changes saved!</h1>
+                        </div>
+                    </div>
+
+                    <!-- Update -->
+
+                    <div class="container" style="display:none" id="Update">
+                        <div class="control">
+                            <h1 class="subtitle">FELion GUI (Current version): {localStorage.version}</h1>
+                            <div class="level">
+                                <div class="level-left">
+                                    <div class="level-item">
+                                        <button class="button is-link" >Check Update</button>
+                                    </div>
+
+                                    <div class="level-item" id="updatelabel" style="display:none">
+                                        <h1 class="subtitle">Version available: </h1>
+                                    </div>
+
+                                    <div class="level-item" id="run_update" style="display:none">
+                                        <button class="button is-warning" >Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- About -->
+
+                    <div class="container" style="display:none" id="About">
+                        <div class="control">
+                            <h1 class="title">Software details (version)</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">Electron: {process.versions.electron}</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">Node: {process.versions.node}</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">Chrome: {process.versions.chrome}</h1>
                         </div>
                     </div>
                     
                 </div>
             </div>
-
-            
         </div>
 
     </div>

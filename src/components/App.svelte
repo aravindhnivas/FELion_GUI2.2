@@ -17,6 +17,8 @@
 
   const jq = jQuery.default;
 
+  localStorage["version"] = "2.1.1"
+
   // Getting variables
   export let mainPages;
   const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile", "Settings"];
