@@ -384,6 +384,8 @@
 
       case "depletionscanBtn":
         jq("#depletionRow").toggle()
+        if (document.getElementById("depletionRow").style.display === "none") {plotContainerHeight = "60vh"} 
+        else {plotContainerHeight = "50vh"}
       break;
 
       ////////////////////////////////////////////////////
