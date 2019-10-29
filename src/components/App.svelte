@@ -6,7 +6,7 @@
   import Welcome from "./Welcome.svelte";
   import Container from "./Container.svelte";
   import Powerfile from "./Powerfile.svelte";
-  // import Misc from "./utils/Misc.svelte"
+  import Settings from "./Settings.svelte"
   import Footer from "./Footer.svelte";
 
   // Importing other modules
@@ -14,11 +14,12 @@
   import * as jQuery from 'jquery';
   import * as electron from 'electron';
   import * as path from 'path';
+
   const jq = jQuery.default;
 
   // Getting variables
   export let mainPages;
-  const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile"];
+  const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile", "Settings"];
  
   const remote = electron.remote
   const Menu = remote.Menu
@@ -58,6 +59,7 @@
   <Container {id} {filetag} {filetype} {funcBtns} {plotID} {checkBtns} {jq} {electron} {menu} {MenuItem} {path}/>
 {/each}
 <Powerfile {electron} {path} {jq}/>
-<!-- <Misc /> -->
+
+<Settings {jq} {path}/>
 
 <Footer {jq}/>

@@ -498,10 +498,10 @@
     width: 70%;
     position: absolute;
   }
-  img {
+  /* img {
     width: 20%;
     margin-left: 40%;
-  }
+  } */
   .data-loading {
     display: none;
   }

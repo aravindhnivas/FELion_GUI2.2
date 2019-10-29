@@ -1501,8 +1501,9 @@ class Filebrowser extends SvelteComponent {
 
 const { spawn, exec } = child_process;
 
-const pythonPath = path__default.join(__dirname, "../python3.7/python");
-const functions_path = path__default.join(__dirname, "/python_files/");
+
+// const pythonPath = path.join(__dirname, "../python3.7/python")
+// const functions_path = path.join(__dirname, "/python_files/")
 
 const plot_width = window.screen.width * .625;
 const plot_height = window.screen.height * .42;
@@ -1604,8 +1605,8 @@ class program {
                 let shell_value = document.getElementById(this.obj.filetag + "_shell").checked;
 
                 const py = spawn(
-                    pythonPath,
-                    ["-i", path__default.join(functions_path, this.pyfile), this.files.concat(this.args)],
+                    localStorage["pythonpath"],
+                    ["-i", path__default.join(localStorage["pythonscript"], this.pyfile), this.files.concat(this.args)],
                     {
                         detached: true,
                         stdio: 'ignore',
@@ -1620,10 +1621,14 @@ class program {
             }
             else {
 
-                const py = spawn(
-                    pythonPath,
-                    [path__default.join(functions_path, this.pyfile), this.files.concat(this.args)]
-                );
+                let py;
+                try {
+                    fs__default.readFileSync(`${localStorage["pythonpath"]}.exe`);
+                    py = spawn(
+                        localStorage["pythonpath"],
+                        [path__default.join(localStorage["pythonscript"], this.pyfile), this.files.concat(this.args)]
+                    );
+                } catch (err) { reject(`Check python location (Settings-->Configuration-->Pythonpath)\n${err}`); }
 
 
                 py.stdout.on("data", data => {
@@ -2009,7 +2014,7 @@ function create_each_block_6(ctx) {
 		c() {
 			div = element("div");
 			t = text(t_value);
-			attr(div, "class", "level-item button hvr-glow funcBtn is-link animated svelte-1wopz16");
+			attr(div, "class", "level-item button hvr-glow funcBtn is-link animated svelte-mxyb64");
 			attr(div, "id", div_id_value = ctx.id);
 			dispose = listen(div, "click", ctx.functionRun);
 		},
@@ -2049,7 +2054,7 @@ function create_else_block_1$1(ctx) {
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = ctx.id);
 			input.checked = input_checked_value = ctx.bind;
-			attr(input, "class", "svelte-1wopz16");
+			attr(input, "class", "svelte-mxyb64");
 			dispose = listen(input, "click", ctx.click_handler_2);
 		},
 
@@ -2087,7 +2092,7 @@ function create_if_block_10(ctx) {
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = ctx.id);
 			input.checked = input_checked_value = ctx.bind;
-			attr(input, "class", "svelte-1wopz16");
+			attr(input, "class", "svelte-mxyb64");
 			dispose = listen(input, "click", ctx.linearlogCheck);
 		},
 
@@ -2140,13 +2145,13 @@ function create_each_block_5(ctx) {
 			div1 = element("div");
 			label1 = element("label");
 			t3 = text(t3_value);
-			attr(label0, "class", "svelte-1wopz16");
+			attr(label0, "class", "svelte-mxyb64");
 			attr(div0, "class", "state p-success p-on");
-			attr(label1, "class", "svelte-1wopz16");
+			attr(label1, "class", "svelte-mxyb64");
 			attr(div1, "class", "state p-danger p-off");
 			attr(div2, "class", "pretty p-default p-curve p-toggle");
 			attr(div2, "data-tippy", div2_data_tippy_value = ctx.help);
-			attr(div3, "class", "level-item animated svelte-1wopz16");
+			attr(div3, "class", "level-item animated svelte-mxyb64");
 			attr(div3, "id", div3_id_value = "" + ctx.id + "_Container");
 		},
 
@@ -2235,7 +2240,7 @@ function create_if_block_9(ctx) {
 			attr(select, "data-tippy", "Normalisation method");
 			attr(span, "class", "select");
 			attr(div0, "class", "control");
-			attr(input, "class", "input svelte-1wopz16");
+			attr(input, "class", "input svelte-mxyb64");
 			attr(input, "type", "number");
 			attr(input, "step", "0.5");
 			attr(input, "id", "delta_value");
@@ -2318,7 +2323,7 @@ function create_if_block_8(ctx) {
 			div7 = element("div");
 			input1 = element("input");
 			attr(div1, "class", "control");
-			attr(input0, "class", "input svelte-1wopz16");
+			attr(input0, "class", "input svelte-mxyb64");
 			attr(input0, "type", "number");
 			attr(input0, "step", "0.5");
 			attr(input0, "id", "delta_value_thz");
@@ -2328,7 +2333,7 @@ function create_if_block_8(ctx) {
 			attr(div3, "class", "field has-addons");
 			attr(div4, "class", "level-item");
 			attr(div6, "class", "control");
-			attr(input1, "class", "input svelte-1wopz16");
+			attr(input1, "class", "input svelte-mxyb64");
 			attr(input1, "type", "number");
 			attr(input1, "step", "0.01");
 			attr(input1, "id", "gamma_thz");
@@ -2424,27 +2429,27 @@ function create_if_block_7(ctx) {
 			button2.textContent = "Open in Matplotlib";
 			attr(h1, "class", "subtitle");
 			attr(h1, "id", "theoryfilename");
-			attr(label, "class", "label svelte-1wopz16");
+			attr(label, "class", "label svelte-mxyb64");
 			attr(label, "id", "theorylabel");
 			attr(button0, "class", "button is-warning");
-			attr(input0, "class", "input svelte-1wopz16");
+			attr(input0, "class", "input svelte-mxyb64");
 			attr(input0, "type", "number");
 			set_style(input0, "width", "150px");
 			attr(input0, "data-tippy", "Sigma (deviation) from central frequency");
-			attr(input1, "class", "input svelte-1wopz16");
+			attr(input1, "class", "input svelte-mxyb64");
 			attr(input1, "type", "number");
 			attr(input1, "step", "0.001");
 			set_style(input1, "width", "150px");
 			attr(input1, "data-tippy", "Scaling factor (to shift in position)");
-			attr(button1, "class", "funcBtn button is-link animated svelte-1wopz16");
+			attr(button1, "class", "funcBtn button is-link animated svelte-mxyb64");
 			attr(button1, "id", "appendTheory");
-			attr(button2, "class", "funcBtn button is-link animated svelte-1wopz16");
+			attr(button2, "class", "funcBtn button is-link animated svelte-mxyb64");
 			attr(button2, "id", "theory_Matplotlib");
 			attr(div0, "class", "control");
 			attr(div1, "class", "field");
-			attr(div2, "class", "container svelte-1wopz16");
+			attr(div2, "class", "container svelte-mxyb64");
 			attr(div2, "id", "theoryContainer");
-			attr(div3, "class", "row svelte-1wopz16");
+			attr(div3, "class", "row svelte-mxyb64");
 			attr(div3, "id", "theoryRow");
 			set_style(div3, "display", "none");
 
@@ -2548,10 +2553,10 @@ function create_if_block_1$1(ctx) {
 			button.textContent = "Submit";
 			attr(div0, "class", "level-left");
 			attr(div1, "class", "level");
-			attr(button, "class", "funcBtn button is-link animated svelte-1wopz16");
+			attr(button, "class", "funcBtn button is-link animated svelte-mxyb64");
 			attr(button, "id", "depletionSubmit");
 			attr(div2, "class", "control");
-			attr(div3, "class", "row svelte-1wopz16");
+			attr(div3, "class", "row svelte-mxyb64");
 			attr(div3, "id", "depletionRow");
 			set_style(div3, "display", "none");
 			dispose = listen(button, "click", ctx.depletionPlot);
@@ -2756,9 +2761,9 @@ function create_each_block_3(ctx) {
 			select = element("select");
 			if (if_block) if_block.c();
 			attr(h1, "class", "subtitle");
-			attr(label, "class", "label svelte-1wopz16");
+			attr(label, "class", "label svelte-mxyb64");
 			attr(select, "id", ctx.name);
-			attr(select, "class", "svelte-1wopz16");
+			attr(select, "class", "svelte-mxyb64");
 			attr(div0, "class", "select");
 			attr(div1, "class", "control");
 			attr(div2, "class", "field");
@@ -2816,7 +2821,7 @@ function create_if_block_5(ctx) {
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-1wopz16");
+			attr(input, "class", "input svelte-mxyb64");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
 			dispose = listen(input, "input", input_input_handler_4);
@@ -2855,7 +2860,7 @@ function create_if_block_4(ctx) {
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-1wopz16");
+			attr(input, "class", "input svelte-mxyb64");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
 			dispose = listen(input, "input", input_input_handler_3);
@@ -2894,7 +2899,7 @@ function create_if_block_3(ctx) {
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-1wopz16");
+			attr(input, "class", "input svelte-mxyb64");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
 			dispose = listen(input, "input", input_input_handler_2);
@@ -2928,7 +2933,7 @@ function create_if_block_2(ctx) {
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-1wopz16");
+			attr(input, "class", "input svelte-mxyb64");
 			attr(input, "type", "text");
 			attr(input, "id", ctx.id);
 			dispose = listen(input, "input", ctx.input_input_handler_1);
@@ -2980,7 +2985,7 @@ function create_each_block_2(ctx) {
 			if (if_block) if_block.c();
 			t2 = space();
 			attr(h1, "class", "subtitle");
-			attr(label, "class", "label svelte-1wopz16");
+			attr(label, "class", "label svelte-mxyb64");
 			attr(div0, "class", "control");
 			attr(div1, "class", "field");
 			attr(div2, "class", "level-item");
@@ -3021,7 +3026,7 @@ function create_else_block$2(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-1wopz16");
+			attr(div, "class", "svelte-mxyb64");
 		},
 
 		m(target, anchor) {
@@ -3065,7 +3070,7 @@ function create_if_block$2(ctx) {
 			t = space();
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-1wopz16");
+			attr(div, "class", "svelte-mxyb64");
 		},
 
 		m(target, anchor) {
@@ -3125,7 +3130,7 @@ function create_each_block_1$1(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = "" + ctx.scanfile + "_tplot");
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-1wopz16");
+			attr(div, "class", "svelte-mxyb64");
 		},
 
 		m(target, anchor) {
@@ -3303,7 +3308,7 @@ function create_fragment$4(ctx) {
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
-			attr(div0, "class", "column is-3 svelte-1wopz16");
+			attr(div0, "class", "column is-3 svelte-mxyb64");
 			attr(div0, "id", div0_id_value = "" + ctx.filetag + "filebrowserColumn");
 			attr(div1, "class", "modal-background");
 			attr(p, "class", "modal-card-title");
@@ -3315,8 +3320,8 @@ function create_fragment$4(ctx) {
 			attr(button1, "class", "button");
 			attr(footer, "class", "modal-card-foot");
 			attr(div2, "class", "modal-card");
-			attr(div3, "class", div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-1wopz16");
-			attr(input, "class", "input locationLabel svelte-1wopz16");
+			attr(div3, "class", div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-mxyb64");
+			attr(input, "class", "input locationLabel svelte-mxyb64");
 			attr(input, "type", "text");
 			attr(input, "placeholder", "Location will be displayed");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "LocationLabel");
@@ -3327,20 +3332,20 @@ function create_fragment$4(ctx) {
 			attr(div5, "data-tippy", div5_data_tippy_value = "Browse " + ctx.filetag + " file");
 			attr(div6, "class", "control");
 			attr(div7, "class", "field has-addons");
-			attr(div8, "class", "row svelte-1wopz16");
+			attr(div8, "class", "row svelte-mxyb64");
 			attr(div9, "class", "level-left animated fadeIn");
 			attr(div10, "class", "level");
-			attr(div11, "class", "row svelte-1wopz16");
+			attr(div11, "class", "row svelte-mxyb64");
 			set_style(hr, "margin", "0.5em 0");
 			set_style(hr, "background-color", "#bdc3c7");
-			attr(div12, "class", "container is-fluid svelte-1wopz16");
+			attr(div12, "class", "container is-fluid svelte-mxyb64");
 			attr(div12, "id", div12_id_value = "" + ctx.filetag + "plotContainer");
-			attr(div13, "class", "row box plotContainer svelte-1wopz16");
+			attr(div13, "class", "row box plotContainer svelte-mxyb64");
 			set_style(div13, "max-height", ctx.plotContainerHeight);
 			attr(div13, "id", div13_id_value = "" + ctx.filetag + "plotMainContainer");
 			attr(div14, "class", "column");
 			attr(div15, "class", "columns");
-			attr(section1, "class", "section svelte-1wopz16");
+			attr(section1, "class", "section svelte-mxyb64");
 			attr(section1, "id", ctx.id);
 			attr(section1, "style", style);
 
@@ -3434,7 +3439,7 @@ function create_fragment$4(ctx) {
 				set_data(t5, t5_value);
 			}
 
-			if ((!current || changed.modal || changed.filetag) && div3_class_value !== (div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-1wopz16")) {
+			if ((!current || changed.modal || changed.filetag) && div3_class_value !== (div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-mxyb64")) {
 				attr(div3, "class", div3_class_value);
 			}
 
@@ -4459,9 +4464,203 @@ class Powerfile extends SvelteComponent {
 	}
 }
 
-/* src\components\Footer.svelte generated by Svelte v3.12.0 */
+/* src\components\Settings.svelte generated by Svelte v3.12.0 */
 
 function create_fragment$6(ctx) {
+	var section, div11, div1, t5, div10, div9, div8, div7, div3, label0, t7, div2, input0, t8, p0, t10, div5, label1, t12, div4, input1, t13, p1, t15, div6, button, t16_value = ctx.savebtn["name"] + "", t16, button_class_value, dispose;
+
+	return {
+		c() {
+			section = element("section");
+			div11 = element("div");
+			div1 = element("div");
+			div1.innerHTML = `<aside class="menu box svelte-j1ym65" style="height:100%"><div class="menu-label svelte-j1ym65">Settings</div> <ul class="menu-list svelte-j1ym65"><li><a class="is-active svelte-j1ym65">Configuration</a></li> <li><a class="svelte-j1ym65">About</a></li></ul></aside>`;
+			t5 = space();
+			div10 = element("div");
+			div9 = element("div");
+			div8 = element("div");
+			div7 = element("div");
+			div3 = element("div");
+			label0 = element("label");
+			label0.textContent = "PythonPath";
+			t7 = space();
+			div2 = element("div");
+			input0 = element("input");
+			t8 = space();
+			p0 = element("p");
+			p0.textContent = "location of python.exe file: to run python scripts";
+			t10 = space();
+			div5 = element("div");
+			label1 = element("label");
+			label1.textContent = "Python Scripts";
+			t12 = space();
+			div4 = element("div");
+			input1 = element("input");
+			t13 = space();
+			p1 = element("p");
+			p1.textContent = "location of python script files";
+			t15 = space();
+			div6 = element("div");
+			button = element("button");
+			t16 = text(t16_value);
+			attr(div1, "class", "column is-3");
+			attr(label0, "class", "label svelte-j1ym65");
+			attr(input0, "class", "input");
+			attr(input0, "type", "text");
+			attr(input0, "placeholder", "Enter the default python.exe file path");
+			attr(div2, "class", "control");
+			attr(p0, "class", "help");
+			attr(div3, "class", "field");
+			attr(label1, "class", "label svelte-j1ym65");
+			attr(input1, "class", "input");
+			attr(input1, "type", "text");
+			attr(input1, "placeholder", "Enter the default python.exe file path");
+			attr(div4, "class", "control");
+			attr(p1, "class", "help");
+			attr(div5, "class", "field");
+			attr(button, "class", button_class_value = "button " + ctx.savebtn["style"] + " is-pulled-right" + " svelte-j1ym65");
+			attr(div6, "class", "control");
+			attr(div7, "class", "container");
+			attr(div7, "id", "Configuration");
+			attr(div8, "class", "container is-fluid");
+			attr(div9, "class", "row box box2 svelte-j1ym65");
+			set_style(div9, "height", "100%");
+			attr(div10, "class", "column");
+			attr(div11, "class", "columns");
+			attr(section, "class", "section animated fadeIn");
+			set_style(section, "display", "none");
+			attr(section, "id", "Settings");
+
+			dispose = [
+				listen(input0, "input", ctx.input0_input_handler),
+				listen(input1, "input", ctx.input1_input_handler),
+				listen(button, "click", ctx.configSave)
+			];
+		},
+
+		m(target, anchor) {
+			insert(target, section, anchor);
+			append(section, div11);
+			append(div11, div1);
+			append(div11, t5);
+			append(div11, div10);
+			append(div10, div9);
+			append(div9, div8);
+			append(div8, div7);
+			append(div7, div3);
+			append(div3, label0);
+			append(div3, t7);
+			append(div3, div2);
+			append(div2, input0);
+
+			set_input_value(input0, ctx.pythonpath);
+
+			append(div3, t8);
+			append(div3, p0);
+			append(div7, t10);
+			append(div7, div5);
+			append(div5, label1);
+			append(div5, t12);
+			append(div5, div4);
+			append(div4, input1);
+
+			set_input_value(input1, ctx.pythonscript);
+
+			append(div5, t13);
+			append(div5, p1);
+			append(div7, t15);
+			append(div7, div6);
+			append(div6, button);
+			append(button, t16);
+		},
+
+		p(changed, ctx) {
+			if (changed.pythonpath && (input0.value !== ctx.pythonpath)) set_input_value(input0, ctx.pythonpath);
+			if (changed.pythonscript && (input1.value !== ctx.pythonscript)) set_input_value(input1, ctx.pythonscript);
+
+			if ((changed.savebtn) && t16_value !== (t16_value = ctx.savebtn["name"] + "")) {
+				set_data(t16, t16_value);
+			}
+
+			if ((changed.savebtn) && button_class_value !== (button_class_value = "button " + ctx.savebtn["style"] + " is-pulled-right" + " svelte-j1ym65")) {
+				attr(button, "class", button_class_value);
+			}
+		},
+
+		i: noop,
+		o: noop,
+
+		d(detaching) {
+			if (detaching) {
+				detach(section);
+			}
+
+			run_all(dispose);
+		}
+	};
+}
+
+function instance$6($$self, $$props, $$invalidate) {
+	let { jq, path } = $$props;
+    
+    if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.join(__dirname, "../python3.7/python");
+    if (!localStorage["pythonscript"]) localStorage["pythonscript"] = path.join(__dirname, "/python_files/");
+    let pythonpath = localStorage["pythonpath"];
+    let pythonscript = localStorage["pythonscript"];
+
+
+    const configSave = () => {
+
+        localStorage["pythonpath"] = pythonpath;
+        localStorage["pythonscript"] = pythonscript;
+
+        console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`);
+        $$invalidate('savebtn', savebtn = {name:"saved", style:"is-success"});
+
+        setTimeout(()=>$$invalidate('savebtn', savebtn = {name:"Save", style:"is-link"}), 1000);
+    };
+
+	function input0_input_handler() {
+		pythonpath = this.value;
+		$$invalidate('pythonpath', pythonpath);
+	}
+
+	function input1_input_handler() {
+		pythonscript = this.value;
+		$$invalidate('pythonscript', pythonscript);
+	}
+
+	$$self.$set = $$props => {
+		if ('jq' in $$props) $$invalidate('jq', jq = $$props.jq);
+		if ('path' in $$props) $$invalidate('path', path = $$props.path);
+	};
+
+	let savebtn;
+
+	$$invalidate('savebtn', savebtn = {name:"Save", style:"is-link"});
+
+	return {
+		jq,
+		path,
+		pythonpath,
+		pythonscript,
+		configSave,
+		savebtn,
+		input0_input_handler,
+		input1_input_handler
+	};
+}
+
+class Settings extends SvelteComponent {
+	constructor(options) {
+		super();
+		init(this, options, instance$6, create_fragment$6, safe_not_equal, ["jq", "path"]);
+	}
+}
+
+/* src\components\Footer.svelte generated by Svelte v3.12.0 */
+
+function create_fragment$7(ctx) {
 	var nav;
 
 	return {
@@ -4491,7 +4690,7 @@ function create_fragment$6(ctx) {
 class Footer extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, null, create_fragment$6, safe_not_equal, []);
+		init(this, options, null, create_fragment$7, safe_not_equal, []);
 	}
 }
 
@@ -7096,6 +7295,7 @@ var Popper = function () {
 Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
 Popper.placements = placements;
 Popper.Defaults = Defaults;
+//# sourceMappingURL=popper.js.map
 
 /**!
 * tippy.js v4.3.5
@@ -9035,6 +9235,7 @@ function injectCSS(css) {
 }
 
 injectCSS(css);
+//# sourceMappingURL=index.all.js.map
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -19623,7 +19824,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (57:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
+// (58:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
 function create_each_block$3(ctx) {
 	var current;
 
@@ -19682,8 +19883,8 @@ function create_each_block$3(ctx) {
 	};
 }
 
-function create_fragment$7(ctx) {
-	var t0, t1, t2, t3, t4, current;
+function create_fragment$8(ctx) {
+	var t0, t1, t2, t3, t4, t5, current;
 
 	var header = new Header({ props: { jq: ctx.jq } });
 
@@ -19716,6 +19917,10 @@ function create_fragment$7(ctx) {
 	}
 	});
 
+	var settings = new Settings({
+		props: { jq: ctx.jq, path: path }
+	});
+
 	var footer = new Footer({ props: { jq: ctx.jq } });
 
 	return {
@@ -19734,6 +19939,8 @@ function create_fragment$7(ctx) {
 			t3 = space();
 			powerfile.$$.fragment.c();
 			t4 = space();
+			settings.$$.fragment.c();
+			t5 = space();
 			footer.$$.fragment.c();
 		},
 
@@ -19752,6 +19959,8 @@ function create_fragment$7(ctx) {
 			insert(target, t3, anchor);
 			mount_component(powerfile, target, anchor);
 			insert(target, t4, anchor);
+			mount_component(settings, target, anchor);
+			insert(target, t5, anchor);
 			mount_component(footer, target, anchor);
 			current = true;
 		},
@@ -19797,6 +20006,8 @@ function create_fragment$7(ctx) {
 
 			transition_in(powerfile.$$.fragment, local);
 
+			transition_in(settings.$$.fragment, local);
+
 			transition_in(footer.$$.fragment, local);
 
 			current = true;
@@ -19813,6 +20024,7 @@ function create_fragment$7(ctx) {
 			}
 
 			transition_out(powerfile.$$.fragment, local);
+			transition_out(settings.$$.fragment, local);
 			transition_out(footer.$$.fragment, local);
 			current = false;
 		},
@@ -19848,18 +20060,25 @@ function create_fragment$7(ctx) {
 				detach(t4);
 			}
 
+			destroy_component(settings, detaching);
+
+			if (detaching) {
+				detach(t5);
+			}
+
 			destroy_component(footer, detaching);
 		}
 	};
 }
 
-function instance$6($$self, $$props, $$invalidate) {
+function instance$7($$self, $$props, $$invalidate) {
 	
+
   const jq = jquery;
 
   // Getting variables
   let { mainPages } = $$props;
-  const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile"];
+  const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile", "Settings"];
  
   const remote = electron.remote;
   const Menu = remote.Menu;
@@ -19897,7 +20116,7 @@ function instance$6($$self, $$props, $$invalidate) {
 class App extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$6, create_fragment$7, safe_not_equal, ["mainPages"]);
+		init(this, options, instance$7, create_fragment$8, safe_not_equal, ["mainPages"]);
 	}
 }
 
@@ -20032,6 +20251,7 @@ const app = new App({
     target: document.body,
     props: { mainPages }
 });
+//# sourceMappingURL=renderer.js.map
 
 module.exports = app;
 //# sourceMappingURL=renderer.js.map

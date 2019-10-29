@@ -1,7 +1,8 @@
 const { spawn, exec } = require("child_process");
 const path = require('path');
-const pythonPath = path.join(__dirname, "../python3.7/python")
-const functions_path = path.join(__dirname, "/python_files/")
+const fs = require("fs")
+// const pythonPath = path.join(__dirname, "../python3.7/python")
+// const functions_path = path.join(__dirname, "/python_files/")
 
 const plot_width = window.screen.width * .625;
 const plot_height = window.screen.height * .42;
@@ -103,8 +104,8 @@ class program {
                 let shell_value = document.getElementById(this.obj.filetag + "_shell").checked
 
                 const py = spawn(
-                    pythonPath,
-                    ["-i", path.join(functions_path, this.pyfile), this.files.concat(this.args)],
+                    localStorage["pythonpath"],
+                    ["-i", path.join(localStorage["pythonscript"], this.pyfile), this.files.concat(this.args)],
                     {
                         detached: true,
                         stdio: 'ignore',
@@ -119,10 +120,14 @@ class program {
             }
             else {
 
-                const py = spawn(
-                    pythonPath,
-                    [path.join(functions_path, this.pyfile), this.files.concat(this.args)]
-                );
+                let py;
+                try {
+                    fs.readFileSync(`${localStorage["pythonpath"]}.exe`)
+                    py = spawn(
+                        localStorage["pythonpath"],
+                        [path.join(localStorage["pythonscript"], this.pyfile), this.files.concat(this.args)]
+                    );
+                } catch (err) { reject(`Check python location (Settings-->Configuration-->Pythonpath)\n${err}`) }
 
 
                 py.stdout.on("data", data => {
