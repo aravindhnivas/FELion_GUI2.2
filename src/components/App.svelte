@@ -15,9 +15,14 @@
   import * as electron from 'electron';
   import * as path from 'path';
 
+  const fs = require("fs")
+
   const jq = jQuery.default;
 
-  localStorage["version"] = "2.1.1"
+  let version = fs.readFileSync(path.join(__dirname, "../package.json"))
+  version = JSON.parse(version.toString("utf-8")).version
+
+  localStorage["version"] = version
 
   // Getting variables
   export let mainPages;

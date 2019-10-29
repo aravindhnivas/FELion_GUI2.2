@@ -20108,7 +20108,7 @@ function get_each_context$4(ctx, list, i) {
 	return child_ctx;
 }
 
-// (60:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
+// (65:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
 function create_each_block$4(ctx) {
 	var current;
 
@@ -20358,9 +20358,14 @@ function create_fragment$8(ctx) {
 function instance$7($$self, $$props, $$invalidate) {
 	
 
+  const fs = require("fs");
+
   const jq = jquery;
 
-  localStorage["version"] = "2.1.1";
+  let version = fs.readFileSync(path.join(__dirname, "../package.json"));
+  version = JSON.parse(version.toString("utf-8")).version;
+
+  localStorage["version"] = version;
 
   // Getting variables
   let { mainPages } = $$props;
