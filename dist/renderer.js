@@ -753,7 +753,7 @@ function get_each_context_1(ctx, list, i) {
 	return child_ctx;
 }
 
-// (203:2) {:else}
+// (237:4) {:else}
 function create_else_block_1(ctx) {
 	var div;
 
@@ -778,7 +778,7 @@ function create_else_block_1(ctx) {
 	};
 }
 
-// (139:2) {#if folderFile != undefined}
+// (173:4) {#if folderFile != undefined}
 function create_if_block$1(ctx) {
 	var div1, aside, div0, span0, t0, span1, t1_value = ctx.folderFile.parentFolder + "", t1, div0_id_value, t2, ul, t3, ul_id_value, aside_id_value, t4, each1_anchor, dispose;
 
@@ -967,7 +967,7 @@ function create_if_block$1(ctx) {
 	};
 }
 
-// (165:10) {:else}
+// (199:12) {:else}
 function create_else_block$1(ctx) {
 	var h1, t0, t1, t2;
 
@@ -1001,7 +1001,7 @@ function create_else_block$1(ctx) {
 	};
 }
 
-// (152:10) {#if folderFile.files.length > 0}
+// (186:12) {#if folderFile.files.length > 0}
 function create_if_block_1(ctx) {
 	var li, div1, input, input_id_value, t, div0, dispose;
 
@@ -1046,7 +1046,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (169:10) {#each folderFile.files.sort() as filename}
+// (203:12) {#each folderFile.files.sort() as filename}
 function create_each_block_1(ctx) {
 	var li, div1, input, input_id_value, input_class_value, t0, div0, i, t1, label, t2_value = ctx.filename + "", t2, label_for_value, t3, li_class_value, dispose;
 
@@ -1120,7 +1120,7 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (189:4) {#each folderFile.folders as foldername}
+// (223:6) {#each folderFile.folders as foldername}
 function create_each_block$1(ctx) {
 	var div1, aside, div0, span0, t0, span1, t1_value = ctx.foldername + "", t1, span1_id_value, t2, dispose;
 
@@ -1181,7 +1181,7 @@ function create_each_block$1(ctx) {
 }
 
 function create_fragment$3(ctx) {
-	var nav, div6, div5, div1, t1, div4, div2, span1, i0, i0_id_value, span1_id_value, t2, div3, span2, i1, span2_id_value, t3, div7, p, input, input_placeholder_value, input_id_value, t4, span3, t5, dispose;
+	var nav, div6, div5, div1, div0, span0, i0, t0, span1, t1, t2, div4, div2, span2, i1, i1_id_value, span2_id_value, t3, div3, span3, i2, span3_id_value, t4, div8, div7, p, input, input_placeholder_value, input_id_value, t5, span4, t6, div8_id_value, dispose;
 
 	function select_block_type(changed, ctx) {
 		if (ctx.folderFile != ctx.undefined) return create_if_block$1;
@@ -1197,39 +1197,55 @@ function create_fragment$3(ctx) {
 			div6 = element("div");
 			div5 = element("div");
 			div1 = element("div");
-			div1.innerHTML = `<div class="level-item svelte-12tmvti"><span class="svelte-12tmvti">File Explorer</span></div>`;
-			t1 = space();
+			div0 = element("div");
+			span0 = element("span");
+			i0 = element("i");
+			t0 = space();
+			span1 = element("span");
+			t1 = text("File Explorer");
+			t2 = space();
 			div4 = element("div");
 			div2 = element("div");
-			span1 = element("span");
-			i0 = element("i");
-			t2 = space();
-			div3 = element("div");
 			span2 = element("span");
 			i1 = element("i");
 			t3 = space();
+			div3 = element("div");
+			span3 = element("span");
+			i2 = element("i");
+			t4 = space();
+			div8 = element("div");
 			div7 = element("div");
 			p = element("p");
 			input = element("input");
-			t4 = space();
-			span3 = element("span");
-			span3.innerHTML = `<i class="fas fa-search svelte-12tmvti" aria-hidden="true"></i>`;
 			t5 = space();
+			span4 = element("span");
+			span4.innerHTML = `<i class="fas fa-search svelte-12tmvti" aria-hidden="true"></i>`;
+			t6 = space();
 			if_block.c();
-			attr(div1, "class", "level-left svelte-12tmvti");
-			attr(i0, "class", "fas fa-sync refreshIcon hvr-icon svelte-12tmvti");
-			attr(i0, "id", i0_id_value = "" + ctx.filetag + "refreshIcon");
-			attr(i0, "data-tippy", "Refresh folder");
+			attr(i0, "class", "fas fa-bars svelte-12tmvti");
+			set_style(i0, "padding-right", "0.5em");
+			set_style(i0, "cursor", "pointer");
 			attr(i0, "aria-hidden", "true");
-			attr(span1, "class", "icon refresh hvr-icon-spin svelte-12tmvti");
-			attr(span1, "id", span1_id_value = "" + ctx.filetag + "refresh");
-			attr(div2, "class", "level-item svelte-12tmvti");
-			attr(i1, "class", "fas fa-angle-left hvr-icon svelte-12tmvti");
-			attr(i1, "data-tippy", "Go back (location)");
+			attr(span0, "class", "icon svelte-12tmvti");
+			attr(span1, "class", "" + animation + " svelte-12tmvti");
+			set_style(span1, "display", ctx.display);
+			attr(div0, "class", "level-item svelte-12tmvti");
+			attr(div1, "class", "level-left svelte-12tmvti");
+			attr(i1, "class", "fas fa-sync refreshIcon hvr-icon svelte-12tmvti");
+			attr(i1, "id", i1_id_value = "" + ctx.filetag + "refreshIcon");
+			attr(i1, "data-tippy", "Refresh folder");
 			attr(i1, "aria-hidden", "true");
-			attr(span2, "class", "icon backbtn hvr-icon-back svelte-12tmvti");
-			attr(span2, "id", span2_id_value = "" + ctx.filetag + "BackButton");
-			attr(div3, "class", "level-item svelte-12tmvti");
+			attr(span2, "class", "icon refresh hvr-icon-spin svelte-12tmvti");
+			attr(span2, "id", span2_id_value = "" + ctx.filetag + "refresh");
+			attr(div2, "class", "level-item " + animation + " svelte-12tmvti");
+			set_style(div2, "display", ctx.display);
+			attr(i2, "class", "fas fa-angle-left hvr-icon svelte-12tmvti");
+			attr(i2, "data-tippy", "Go back (location)");
+			attr(i2, "aria-hidden", "true");
+			attr(span3, "class", "icon backbtn hvr-icon-back svelte-12tmvti");
+			attr(span3, "id", span3_id_value = "" + ctx.filetag + "BackButton");
+			attr(div3, "class", "level-item " + animation + " svelte-12tmvti");
+			set_style(div3, "display", ctx.display);
 			attr(div4, "class", "level-right svelte-12tmvti");
 			attr(div5, "class", "level svelte-12tmvti");
 			attr(div6, "class", "panel-heading svelte-12tmvti");
@@ -1237,14 +1253,18 @@ function create_fragment$3(ctx) {
 			attr(input, "type", "text");
 			attr(input, "placeholder", input_placeholder_value = "Search " + ctx.filetag + " files");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "-searchFiles");
-			attr(span3, "class", "icon is-small is-left svelte-12tmvti");
+			attr(span4, "class", "icon is-small is-left svelte-12tmvti");
 			attr(p, "class", "control has-icons-left svelte-12tmvti");
 			attr(div7, "class", "panel-block svelte-12tmvti");
+			attr(div8, "id", div8_id_value = "" + ctx.filetag + "panel-block");
+			attr(div8, "class", "" + animation + " svelte-12tmvti");
+			set_style(div8, "display", ctx.display);
 			attr(nav, "class", "panel filexplorer svelte-12tmvti");
 
 			dispose = [
-				listen(span1, "click", ctx.refreshFolder),
-				listen(span2, "click", ctx.click_handler),
+				listen(i0, "click", ctx.fileExplorerToggle),
+				listen(span2, "click", ctx.refreshFolder),
+				listen(span3, "click", ctx.click_handler),
 				listen(input, "input", ctx.input_input_handler),
 				listen(input, "keyup", ctx.search)
 			];
@@ -1255,39 +1275,58 @@ function create_fragment$3(ctx) {
 			append(nav, div6);
 			append(div6, div5);
 			append(div5, div1);
-			append(div5, t1);
+			append(div1, div0);
+			append(div0, span0);
+			append(span0, i0);
+			append(div0, t0);
+			append(div0, span1);
+			append(span1, t1);
+			append(div5, t2);
 			append(div5, div4);
 			append(div4, div2);
-			append(div2, span1);
-			append(span1, i0);
-			append(div4, t2);
-			append(div4, div3);
-			append(div3, span2);
+			append(div2, span2);
 			append(span2, i1);
-			append(nav, t3);
-			append(nav, div7);
+			append(div4, t3);
+			append(div4, div3);
+			append(div3, span3);
+			append(span3, i2);
+			append(nav, t4);
+			append(nav, div8);
+			append(div8, div7);
 			append(div7, p);
 			append(p, input);
 
 			set_input_value(input, ctx.searchKey);
 
-			append(p, t4);
-			append(p, span3);
-			append(nav, t5);
-			if_block.m(nav, null);
+			append(p, t5);
+			append(p, span4);
+			append(div8, t6);
+			if_block.m(div8, null);
 		},
 
 		p(changed, ctx) {
-			if ((changed.filetag) && i0_id_value !== (i0_id_value = "" + ctx.filetag + "refreshIcon")) {
-				attr(i0, "id", i0_id_value);
+			if (changed.display) {
+				set_style(span1, "display", ctx.display);
 			}
 
-			if ((changed.filetag) && span1_id_value !== (span1_id_value = "" + ctx.filetag + "refresh")) {
-				attr(span1, "id", span1_id_value);
+			if ((changed.filetag) && i1_id_value !== (i1_id_value = "" + ctx.filetag + "refreshIcon")) {
+				attr(i1, "id", i1_id_value);
 			}
 
-			if ((changed.filetag) && span2_id_value !== (span2_id_value = "" + ctx.filetag + "BackButton")) {
+			if ((changed.filetag) && span2_id_value !== (span2_id_value = "" + ctx.filetag + "refresh")) {
 				attr(span2, "id", span2_id_value);
+			}
+
+			if (changed.display) {
+				set_style(div2, "display", ctx.display);
+			}
+
+			if ((changed.filetag) && span3_id_value !== (span3_id_value = "" + ctx.filetag + "BackButton")) {
+				attr(span3, "id", span3_id_value);
+			}
+
+			if (changed.display) {
+				set_style(div3, "display", ctx.display);
 			}
 
 			if (changed.searchKey && (input.value !== ctx.searchKey)) set_input_value(input, ctx.searchKey);
@@ -1307,8 +1346,16 @@ function create_fragment$3(ctx) {
 				if_block = current_block_type(ctx);
 				if (if_block) {
 					if_block.c();
-					if_block.m(nav, null);
+					if_block.m(div8, null);
 				}
+			}
+
+			if ((changed.filetag) && div8_id_value !== (div8_id_value = "" + ctx.filetag + "panel-block")) {
+				attr(div8, "id", div8_id_value);
+			}
+
+			if (changed.display) {
+				set_style(div8, "display", ctx.display);
 			}
 		},
 
@@ -1326,8 +1373,11 @@ function create_fragment$3(ctx) {
 	};
 }
 
+let animation = "animated fadeInLeft faster";
+
 function instance$3($$self, $$props, $$invalidate) {
 	let { jq, currentLocation, filetag, updateFolder, getCheckedFiles, path } = $$props;
+
 
   let folderFile;
 
@@ -1356,6 +1406,7 @@ function instance$3($$self, $$props, $$invalidate) {
   }
 
   let searchKey;
+
   const search = () => {
     folderFile.files.forEach(file => {
       let fileParent = document.getElementsByClassName(file)[0];
@@ -1364,7 +1415,6 @@ function instance$3($$self, $$props, $$invalidate) {
         : (fileParent.style.display = "none");
     });
   };
-
 
   const folderToggle = () => {
     let $folderContainer = jq(`#${filetag}FileContainer`);
@@ -1375,6 +1425,31 @@ function instance$3($$self, $$props, $$invalidate) {
 
     if ($folderContainer[0].style.display === "none") $folderIcon.removeClass("fa-rotate-90");
     else $folderIcon.addClass("fa-rotate-90");
+  };
+  
+  let display = "block";
+  let visible = true;
+  const fileExplorerToggle = (event) => {
+    let $target = jq(event.target);
+
+    $$invalidate('visible', visible = !visible);
+
+    let $filebrowser = jq(`#${filetag}filebrowserColumn`);
+    let $filebrowserNav = jq(`#${filetag}filebrowserColumn nav`);
+    let $plotContainer = jq(`#${filetag}plotMainContainer`);
+
+    if (visible) {
+      $filebrowser.css("max-width", "100%");
+      $filebrowserNav.css("max-width", "100%");
+      $plotContainer.css("width", "70%");
+      if($target.hasClass("fa-rotate-90")) {$target.removeClass("fa-rotate-90");}
+    } else {
+      
+      $filebrowser.css("max-width", "10%");
+      $filebrowserNav.css("max-width", "3%");
+      $plotContainer.css("width", "86%");
+      $target.addClass("fa-rotate-90");
+    }
   };
 
 	const click_handler = () => changeDir('..');
@@ -1395,8 +1470,9 @@ function instance$3($$self, $$props, $$invalidate) {
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
 	};
 
-	$$self.$$.update = ($$dirty = { currentLocation: 1, filetag: 1, updateFolder: 1 }) => {
+	$$self.$$.update = ($$dirty = { currentLocation: 1, filetag: 1, updateFolder: 1, visible: 1 }) => {
 		if ($$dirty.currentLocation || $$dirty.filetag || $$dirty.updateFolder) { if(!currentLocation) {console.log(`Currentlocation: [${filetag}]: is undefined`);} else {$$invalidate('folderFile', folderFile = updateFolder(currentLocation));} }
+		if ($$dirty.visible) { visible ? $$invalidate('display', display = "block") : $$invalidate('display', display = "none"); }
 	};
 
 	return {
@@ -1413,6 +1489,8 @@ function instance$3($$self, $$props, $$invalidate) {
 		searchKey,
 		search,
 		folderToggle,
+		display,
+		fileExplorerToggle,
 		undefined,
 		click_handler,
 		input_input_handler,
@@ -3121,7 +3199,7 @@ function create_each_block$2(ctx) {
 }
 
 function create_fragment$4(ctx) {
-	var section1, div15, div0, div0_id_value, t0, div14, div3, div1, t1, div2, header, p, t3, button0, t4, section0, t5_value = ctx.error_msg[ctx.filetag] + "", t5, t6, footer, button1, div3_class_value, t8, div8, div7, div4, input, input_id_value, t9, div6, div5, t10, div5_data_tippy_value, t11, div11, div10, div9, t12, t13, t14, t15, t16, t17, hr, t18, div13, div12, div12_id_value, current, dispose;
+	var section1, div15, div0, div0_id_value, t0, div14, div3, div1, t1, div2, header, p, t3, button0, t4, section0, t5_value = ctx.error_msg[ctx.filetag] + "", t5, t6, footer, button1, div3_class_value, t8, div8, div7, div4, input, input_id_value, t9, div6, div5, t10, div5_data_tippy_value, t11, div11, div10, div9, t12, t13, t14, t15, t16, t17, hr, t18, div13, div12, div12_id_value, div13_id_value, current, dispose;
 
 	var filebrowser = new Filebrowser({
 		props: {
@@ -3265,6 +3343,7 @@ function create_fragment$4(ctx) {
 			attr(div12, "id", div12_id_value = "" + ctx.filetag + "plotContainer");
 			attr(div13, "class", "row box plotContainer svelte-1wopz16");
 			set_style(div13, "max-height", ctx.plotContainerHeight);
+			attr(div13, "id", div13_id_value = "" + ctx.filetag + "plotMainContainer");
 			attr(div14, "class", "column");
 			attr(div15, "class", "columns");
 			attr(section1, "class", "section svelte-1wopz16");
@@ -3501,6 +3580,10 @@ function create_fragment$4(ctx) {
 
 			if (!current || changed.plotContainerHeight) {
 				set_style(div13, "max-height", ctx.plotContainerHeight);
+			}
+
+			if ((!current || changed.filetag) && div13_id_value !== (div13_id_value = "" + ctx.filetag + "plotMainContainer")) {
+				attr(div13, "id", div13_id_value);
 			}
 
 			if (!current || changed.id) {
