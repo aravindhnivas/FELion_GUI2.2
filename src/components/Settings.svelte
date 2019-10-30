@@ -94,6 +94,10 @@
     const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`
     const urlzip = `https://codeload.github.com/${github.username}/${github.repo}/zip/${github.branch}`
 
+    const updateFolder = path.resolve(__dirname, "..", "update")
+    const updatefilename = "update.zip"
+    const zipFile = path.resolve(updateFolder, updatefilename)
+
     const updateCheck = () => {
 
         updatetoggle = "none"
@@ -133,25 +137,8 @@
 
 
     $: updateStatus = "File Downloaded"
-    const update = () => {
-
-        const updateFolder = path.resolve(__dirname, "..", "update")
-
-        try {
-            fs.readdirSync(updateFolder)
-        } catch (err) {
-            exec(`mkdir update`, (err, stdout, stderr)=>{
-                if (err) throw err;
-                console.log(stdout)
-                console.log("Update folder created")
-            })
-        }
-
-        const updatefilename = "update.zip"
-        const zipFile = path.resolve(updateFolder, updatefilename)
-        const downloadedFile = fs.createWriteStream(zipFile);
-
-        updateLoading = "is-loading"
+    
+    const download = (downloadedFile) => {
 
         // Downloading files
         let response = https.get(urlzip, (res) => {
@@ -184,14 +171,33 @@
             // Extracting downloaded files
             console.log("Extracting files")
 
-            let zip = new admZip(`${__dirname}/../update/update.zip`);
-            zip.extractAllTo(/*target path*/`${__dirname}/../update`, /*overwrite*/true);
-            console.log("File Extracted")
-            updateStatus = "File Extracted"
-            fadeInfadeOut()
+            setTimeout(()=>{
+                let zip = new admZip(`${__dirname}/../update/update.zip`);
+                zip.extractAllTo(/*target path*/`${__dirname}/../update`, /*overwrite*/true);
+                console.log("File Extracted")
+                updateStatus = "File Extracted"
+                fadeInfadeOut()
+            }, 1600)
         })
+    }
 
-
+    const update = () => {
+        
+        updateLoading = "is-loading"
+        
+        try {
+            fs.readdirSync(updateFolder)
+        } catch (err) {
+            exec(`mkdir update`, (err, stdout, stderr)=>{
+                if (err) throw err;
+                console.log(stdout)
+                console.log("Update folder created")
+            })
+        }
+        setTimeout(()=>{
+            const downloadedFile = fs.createWriteStream(zipFile);
+            download(downloadedFile)
+        }, 1000)
     }
 </script>
 

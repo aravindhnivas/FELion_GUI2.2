@@ -4472,7 +4472,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (249:20) {#each items as item}
+// (255:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4988,6 +4988,8 @@ function create_fragment$6(ctx) {
 	};
 }
 
+const updatefilename = "update.zip";
+
 function instance$6($$self, $$props, $$invalidate) {
 	// Importing modules from App.svelte
     let { jq, path } = $$props;
@@ -5073,6 +5075,9 @@ function instance$6($$self, $$props, $$invalidate) {
     const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`;
     const urlzip = `https://codeload.github.com/${github.username}/${github.repo}/zip/${github.branch}`;
 
+    const updateFolder = path.resolve(__dirname, "..", "update");
+    const zipFile = path.resolve(updateFolder, updatefilename);
+
     const updateCheck = () => {
 
         $$invalidate('updatetoggle', updatetoggle = "none");
@@ -5109,25 +5114,8 @@ function instance$6($$self, $$props, $$invalidate) {
 
         
     };
-    const update = () => {
-
-        const updateFolder = path.resolve(__dirname, "..", "update");
-
-        try {
-            fs.readdirSync(updateFolder);
-        } catch (err) {
-            exec(`mkdir update`, (err, stdout, stderr)=>{
-                if (err) throw err;
-                console.log(stdout);
-                console.log("Update folder created");
-            });
-        }
-
-        const updatefilename = "update.zip";
-        const zipFile = path.resolve(updateFolder, updatefilename);
-        const downloadedFile = fs.createWriteStream(zipFile);
-
-        $$invalidate('updateLoading', updateLoading = "is-loading");
+    
+    const download = (downloadedFile) => {
 
         // Downloading files
         let response = https.get(urlzip, (res) => {
@@ -5160,14 +5148,33 @@ function instance$6($$self, $$props, $$invalidate) {
             // Extracting downloaded files
             console.log("Extracting files");
 
-            let zip = new admZip(`${__dirname}/../update/update.zip`);
-            zip.extractAllTo(/*target path*/`${__dirname}/../update`, /*overwrite*/true);
-            console.log("File Extracted");
-            $$invalidate('updateStatus', updateStatus = "File Extracted");
-            fadeInfadeOut();
+            setTimeout(()=>{
+                let zip = new admZip(`${__dirname}/../update/update.zip`);
+                zip.extractAllTo(/*target path*/`${__dirname}/../update`, /*overwrite*/true);
+                console.log("File Extracted");
+                $$invalidate('updateStatus', updateStatus = "File Extracted");
+                fadeInfadeOut();
+            }, 1600);
         });
+    };
 
-
+    const update = () => {
+        
+        $$invalidate('updateLoading', updateLoading = "is-loading");
+        
+        try {
+            fs.readdirSync(updateFolder);
+        } catch (err) {
+            exec(`mkdir update`, (err, stdout, stderr)=>{
+                if (err) throw err;
+                console.log(stdout);
+                console.log("Update folder created");
+            });
+        }
+        setTimeout(()=>{
+            const downloadedFile = fs.createWriteStream(zipFile);
+            download(downloadedFile);
+        }, 1000);
     };
 
 	function input0_input_handler() {
