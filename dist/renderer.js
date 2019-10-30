@@ -20455,7 +20455,7 @@ function get_each_context$4(ctx, list, i) {
 	return child_ctx;
 }
 
-// (110:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
+// (134:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
 function create_each_block$4(ctx) {
 	var current;
 
@@ -20712,6 +20712,17 @@ function create_fragment$8(ctx) {
 	};
 }
 
+function checkInternet(cb) {
+
+    require('dns').lookup('google.com',function(err) {
+        if (err && err.code == "ENOTFOUND") {
+            cb(false);
+        } else {
+            cb(true);
+        }
+    });
+}
+
 function instance$7($$self, $$props, $$invalidate) {
 	
 
@@ -20736,39 +20747,54 @@ function instance$7($$self, $$props, $$invalidate) {
     };
 
   const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`;
-  let request = https.get(urlPackageJson, (res) => {
+  function checkupdate() {
 
-                  console.log("Checking for update");
+    let request = https.get(urlPackageJson, (res) => {
+      console.log("Checking for update");
 
-                  res.on('data', (data) => {
-                    data = JSON.parse(data.toString("utf8"));
-                    let new_version = data.version;
-                    console.log("Available version: ", new_version);
-                    if (current_version < new_version) {
-                      let options = {
-                        title: "FELion_GUI2",
-                        message: "Update available "+new_version,
-                        buttons: ["Update and restart", "Cancel"],
-                        type:"info"
+      res.on('data', (data) => {
+        data = JSON.parse(data.toString("utf8"));
+        let new_version = data.version;
+        console.log("Available version: ", new_version);
+        if (current_version < new_version) {
+          let options = {
+            title: "FELion_GUI2",
+            message: "Update available "+new_version,
+            buttons: ["Update and restart", "Cancel"],
+            type:"info"
 
-                      };
-                      let response = showinfo(mainWindow, options);
-                      console.log(response);
-                      switch (response) {
-                        case 0:
-                          $$invalidate('updateNow', updateNow = true);
-                          break;
-                        case 1:
-                          $$invalidate('updateNow', updateNow = false);
-                          break;
-                      }
-                    }
-                  });
+          };
+          let response = showinfo(mainWindow, options);
+          console.log(response);
+          switch (response) {
+            case 0:
+              $$invalidate('updateNow', updateNow = true);
+              break;
+            case 1:
+              $$invalidate('updateNow', updateNow = false);
+              break;
+          }
+        }
+      });
+    });
+    request.on("error", (err)=>console.log("Error occured while checiking for update"));
+    request.on("close", ()=>console.log("Update check done"));
+  }
 
-                });
+  checkInternet(function(isConnected) {
+      isConnected ? checkupdate() : console.log("Internet is not connected");
+    });
 
-  request.on("error", (err)=>console.log("Error occured while checiking for update"));
-  request.on("close", ()=>console.log("Update check done"));
+  const hr_ms = (time) => time*60*60*10**3;
+  let timeInterval = hr_ms(1);
+  // let timeInterval = 1000
+
+  let check_update_continuously = setInterval(()=>{
+    checkInternet(function(isConnected) {
+      isConnected ? checkupdate() : console.log("Internet is not connected");
+    });
+
+  }, timeInterval);
 
   // Getting variables
   let { mainPages } = $$props;
