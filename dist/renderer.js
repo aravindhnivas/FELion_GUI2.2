@@ -4472,7 +4472,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (282:20) {#each items as item}
+// (284:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4505,7 +4505,7 @@ function create_each_block$3(ctx) {
 }
 
 function create_fragment$6(ctx) {
-	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, div12, div11, div8, button1, t20, button1_class_value, t21, div9, h12, t22, t23, t24, div10, button2, t25, button2_class_value, t26, h13, t27, h13_class_value, t28, div16, div15, h14, t30, h15, t31, t32_value = process.versions.electron + "", t32, t33, h16, t34, t35_value = process.versions.node + "", t35, t36, h17, t37, t38_value = process.versions.chrome + "", t38, t39, h18, t40, t41, hr0, t42, h19, t44, h110, t45, t46_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t46, t47, h111, t48, t49_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t49, t50, h112, t51, t52_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t52, t53, h113, t54, t55_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t55, t56, hr1, t57, h114, t59, h115, t60, t61_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t61, t62, h116, t63, t64_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t64, t65, h117, t66, t67_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t67, t68, h118, t69, t70_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t70, dispose;
+	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, div12, div11, div8, button1, t20, button1_class_value, t21, div9, h12, t22, t23, t24, div10, button2, t25, button2_class_value, t26, h13, t27, t28, div16, div15, h14, t30, h15, t31, t32_value = process.versions.electron + "", t32, t33, h16, t34, t35_value = process.versions.node + "", t35, t36, h17, t37, t38_value = process.versions.chrome + "", t38, t39, h18, t40, t41, hr0, t42, h19, t44, h110, t45, t46_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t46, t47, h111, t48, t49_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t49, t50, h112, t51, t52_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t52, t53, h113, t54, t55_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t55, t56, hr1, t57, h114, t59, h115, t60, t61_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t61, t62, h116, t63, t64_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t64, t65, h117, t66, t67_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t67, t68, h118, t69, t70_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t70, dispose;
 
 	let each_value = ctx.items;
 
@@ -4685,8 +4685,8 @@ function create_fragment$6(ctx) {
 			set_style(div10, "display", ctx.updatetoggle);
 			attr(div11, "class", "level-left");
 			attr(div12, "class", "level");
-			attr(h13, "class", h13_class_value = "subtitle animated " + ctx.saveChangeanimate + " svelte-1ekajoa");
-			set_style(h13, "display", ctx.saveChanges);
+			attr(h13, "class", "subtitle");
+			set_style(h13, "display", "block");
 			attr(div13, "class", "control");
 			attr(div14, "class", "container");
 			set_style(div14, "display", "none");
@@ -4928,14 +4928,6 @@ function create_fragment$6(ctx) {
 				set_data(t27, ctx.updateStatus);
 			}
 
-			if ((changed.saveChangeanimate) && h13_class_value !== (h13_class_value = "subtitle animated " + ctx.saveChangeanimate + " svelte-1ekajoa")) {
-				attr(h13, "class", h13_class_value);
-			}
-
-			if (changed.saveChanges) {
-				set_style(h13, "display", ctx.saveChanges);
-			}
-
 			if (changed.pythonv) {
 				set_data(t40, ctx.pythonv);
 			}
@@ -5132,7 +5124,7 @@ function instance$6($$self, $$props, $$invalidate) {
 
                 setTimeout(()=>$$invalidate('updateLoading', updateLoading = ""), 2000);
                 $$invalidate('updateStatus', updateStatus = "File downloaded");
-                fadeInfadeOut();
+                // fadeInfadeOut()
 
             });
             
@@ -5158,7 +5150,7 @@ function instance$6($$self, $$props, $$invalidate) {
                     console.log("File Extracted");
                     $$invalidate('updateStatus', updateStatus = "File Extracted");
 
-                    fadeInfadeOut();
+                    // fadeInfadeOut()
                     resolve("File extracted");
 
                 }, 1600);
@@ -5192,12 +5184,14 @@ function instance$6($$self, $$props, $$invalidate) {
                         copy(src, dest, {overwrite: true}, function(error, results) {
                             if (error) {
                                 console.error('Copy failed: ' + error);
+                                $$invalidate('updateStatus', updateStatus = "Update failed. Try again or Check your internet connection");
                             } else {
                                 console.info('Copied ' + results.length + ' files');
+                                $$invalidate('updateStatus', updateStatus = "Updated succesfull. Restart the program.");
                             }
                         });
                     })
-                    .catch(err=>console.log(err));
+                    .catch(err=>console.log(err), $$invalidate('updateStatus', updateStatus = "Update failed. Try again or Check your internet connection"));
                 
             }, 1000);
         }
@@ -5227,7 +5221,7 @@ function instance$6($$self, $$props, $$invalidate) {
 	$$invalidate('updatetoggle', updatetoggle = "none");
 	$$invalidate('checkupdateLoading', checkupdateLoading = "");
 	$$invalidate('updateLoading', updateLoading = "");
-	$$invalidate('updateStatus', updateStatus = "File Downloaded");
+	$$invalidate('updateStatus', updateStatus = "");
 
 	return {
 		jq,
