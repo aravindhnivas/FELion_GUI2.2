@@ -4472,7 +4472,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (296:20) {#each items as item}
+// (294:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4990,9 +4990,8 @@ function create_fragment$6(ctx) {
 const updatefilename = "update.zip";
 
 function instance$6($$self, $$props, $$invalidate) {
-	let { jq, path, mainWindow, updateNow = false, showinfo } = $$props;
-
-    updateNow ? update() : console.log("Update available but not updating now");
+	let { jq, path, mainWindow, showinfo } = $$props;
+    localStorage["updateNow"] == "true" ? update() : console.log("Update available but not updating now");
 
     // Importing modules
     const {exec} = require("child_process");
@@ -5229,7 +5228,6 @@ function instance$6($$self, $$props, $$invalidate) {
 		if ('jq' in $$props) $$invalidate('jq', jq = $$props.jq);
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
 		if ('mainWindow' in $$props) $$invalidate('mainWindow', mainWindow = $$props.mainWindow);
-		if ('updateNow' in $$props) $$invalidate('updateNow', updateNow = $$props.updateNow);
 		if ('showinfo' in $$props) $$invalidate('showinfo', showinfo = $$props.showinfo);
 	};
 
@@ -5247,7 +5245,6 @@ function instance$6($$self, $$props, $$invalidate) {
 		jq,
 		path,
 		mainWindow,
-		updateNow,
 		showinfo,
 		packageJSON,
 		currentVersion,
@@ -5275,7 +5272,7 @@ function instance$6($$self, $$props, $$invalidate) {
 class Settings extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$6, create_fragment$6, safe_not_equal, ["jq", "path", "mainWindow", "updateNow", "showinfo"]);
+		init(this, options, instance$6, create_fragment$6, safe_not_equal, ["jq", "path", "mainWindow", "showinfo"]);
 	}
 }
 
@@ -20543,7 +20540,6 @@ function create_fragment$8(ctx) {
 		jq: ctx.jq,
 		path: path,
 		mainWindow: ctx.mainWindow,
-		updateNow: ctx.updateNow,
 		showinfo: ctx.showinfo
 	}
 	});
@@ -20617,10 +20613,6 @@ function create_fragment$8(ctx) {
 				}
 				check_outros();
 			}
-
-			var settings_changes = {};
-			if (changed.updateNow) settings_changes.updateNow = ctx.updateNow;
-			settings.$set(settings_changes);
 		},
 
 		i(local) {
@@ -20725,6 +20717,8 @@ function instance$7($$self, $$props, $$invalidate) {
         branch: "master",
     };
 
+  localStorage["updateNow"] = false;
+
   const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`;
   let request = https.get(urlPackageJson, (res) => {
 
@@ -20746,14 +20740,14 @@ function instance$7($$self, $$props, $$invalidate) {
                       console.log(response);
                       switch (response) {
                         case 0:
-                          $$invalidate('updateNow', updateNow = true);
+                          localStorage["updateNow"] = true;
                           break;
                         case 1:
-                          $$invalidate('updateNow', updateNow = false);
+                          localStorage["updateNow"] = false;
                           break;
                       
                         default:
-                          $$invalidate('updateNow', updateNow = false);
+                          localStorage["updateNow"] = false;
                           break;
                       }
                     }
@@ -20793,10 +20787,6 @@ function instance$7($$self, $$props, $$invalidate) {
 		if ('mainPages' in $$props) $$invalidate('mainPages', mainPages = $$props.mainPages);
 	};
 
-	let updateNow;
-
-	$$invalidate('updateNow', updateNow = false);
-
 	return {
 		jq,
 		mainWindow,
@@ -20804,8 +20794,7 @@ function instance$7($$self, $$props, $$invalidate) {
 		showinfo,
 		mainPages,
 		navItems,
-		menu,
-		updateNow
+		menu
 	};
 }
 

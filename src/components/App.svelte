@@ -35,7 +35,7 @@
         branch: "master",
     }
 
-  $: updateNow = false
+  localStorage["updateNow"] = false
 
   const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`
   let request = https.get(urlPackageJson, (res) => {
@@ -58,14 +58,14 @@
                       console.log(response)
                       switch (response) {
                         case 0:
-                          updateNow = true
+                          localStorage["updateNow"] = true
                           break;
                         case 1:
-                          updateNow = false
+                          localStorage["updateNow"] = false
                           break;
                       
                         default:
-                          updateNow = false
+                          localStorage["updateNow"] = false
                           break;
                       }
                     }
@@ -114,6 +114,6 @@
 {/each}
 <Powerfile {electron} {path} {jq}/>
 
-<Settings {jq} {path} {mainWindow} {updateNow} {showinfo}/>
+<Settings {jq} {path} {mainWindow} {showinfo}/>
 
 <Footer {jq}/>

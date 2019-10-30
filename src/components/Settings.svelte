@@ -3,10 +3,8 @@
     export let jq;
     export let path;
     export let mainWindow;
-    export let updateNow = false;
     export let showinfo;
-
-    updateNow ? update() : console.log("Update available but not updating now")
+    localStorage["updateNow"] == "true" ? update() : console.log("Update available but not updating now")
 
     // Importing modules
     const {exec} = require("child_process")
