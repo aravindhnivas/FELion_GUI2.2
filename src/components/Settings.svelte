@@ -137,7 +137,7 @@
     }
 
 
-    $: updateStatus = "File Downloaded"
+    $: updateStatus = ""
     
     const download = (downloadedFile) => {
 
@@ -155,7 +155,7 @@
 
                 setTimeout(()=>updateLoading = "", 2000)
                 updateStatus = "File downloaded"
-                fadeInfadeOut()
+                // fadeInfadeOut()
 
             })
             
@@ -181,7 +181,7 @@
                     console.log("File Extracted")
                     updateStatus = "File Extracted"
 
-                    fadeInfadeOut()
+                    // fadeInfadeOut()
                     resolve("File extracted")
 
                 }, 1600)
@@ -215,12 +215,14 @@
                         copy(src, dest, {overwrite: true}, function(error, results) {
                             if (error) {
                                 console.error('Copy failed: ' + error);
+                                updateStatus = "Update failed. Try again or Check your internet connection"
                             } else {
                                 console.info('Copied ' + results.length + ' files');
+                                updateStatus = "Updated succesfull. Restart the program."
                             }
                         });
                     })
-                    .catch(err=>console.log(err))
+                    .catch(err=>console.log(err), updateStatus = "Update failed. Try again or Check your internet connection")
                 
             }, 1000)
         }
@@ -342,7 +344,7 @@
                                 </div>
                             </div>
                             
-                            <h1 class="subtitle animated {saveChangeanimate}" style="display:{saveChanges}">{updateStatus}</h1>
+                            <h1 class="subtitle" style="display:block">{updateStatus}</h1>
                             
                         </div>
                     </div>
