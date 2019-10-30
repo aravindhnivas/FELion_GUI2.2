@@ -4472,7 +4472,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (284:20) {#each items as item}
+// (288:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4505,7 +4505,7 @@ function create_each_block$3(ctx) {
 }
 
 function create_fragment$6(ctx) {
-	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, div12, div11, div8, button1, t20, button1_class_value, t21, div9, h12, t22, t23, t24, div10, button2, t25, button2_class_value, t26, h13, t27, t28, div16, div15, h14, t30, h15, t31, t32_value = process.versions.electron + "", t32, t33, h16, t34, t35_value = process.versions.node + "", t35, t36, h17, t37, t38_value = process.versions.chrome + "", t38, t39, h18, t40, t41, hr0, t42, h19, t44, h110, t45, t46_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t46, t47, h111, t48, t49_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t49, t50, h112, t51, t52_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t52, t53, h113, t54, t55_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t55, t56, hr1, t57, h114, t59, h115, t60, t61_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t61, t62, h116, t63, t64_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t64, t65, h117, t66, t67_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t67, t68, h118, t69, t70_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t70, dispose;
+	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, button1, t21, div12, div11, div8, button2, t22, button2_class_value, t23, div9, h12, t24, t25, t26, div10, button3, t27, button3_class_value, t28, h13, t29, t30, div16, div15, h14, t32, h15, t33, t34_value = process.versions.electron + "", t34, t35, h16, t36, t37_value = process.versions.node + "", t37, t38, h17, t39, t40_value = process.versions.chrome + "", t40, t41, h18, t42, t43, hr0, t44, h19, t46, h110, t47, t48_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t48, t49, h111, t50, t51_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t51, t52, h112, t53, t54_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t54, t55, h113, t56, t57_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t57, t58, hr1, t59, h114, t61, h115, t62, t63_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t63, t64, h116, t65, t66_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t66, t67, h117, t68, t69_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t69, t70, h118, t71, t72_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t72, dispose;
 
 	let each_value = ctx.items;
 
@@ -4568,85 +4568,88 @@ function create_fragment$6(ctx) {
 			t17 = text("FELion GUI (Current version): ");
 			t18 = text(t18_value);
 			t19 = space();
+			button1 = element("button");
+			button1.textContent = "Restart";
+			t21 = space();
 			div12 = element("div");
 			div11 = element("div");
 			div8 = element("div");
-			button1 = element("button");
-			t20 = text("Check Update");
-			t21 = space();
+			button2 = element("button");
+			t22 = text("Check Update");
+			t23 = space();
 			div9 = element("div");
 			h12 = element("h1");
-			t22 = text("Version available: ");
-			t23 = text(ctx.new_version);
-			t24 = space();
-			div10 = element("div");
-			button2 = element("button");
-			t25 = text("Update");
+			t24 = text("Version available: ");
+			t25 = text(ctx.new_version);
 			t26 = space();
-			h13 = element("h1");
-			t27 = text(ctx.updateStatus);
+			div10 = element("div");
+			button3 = element("button");
+			t27 = text("Update");
 			t28 = space();
+			h13 = element("h1");
+			t29 = text(ctx.updateStatus);
+			t30 = space();
 			div16 = element("div");
 			div15 = element("div");
 			h14 = element("h1");
 			h14.textContent = "Software details (version)";
-			t30 = space();
+			t32 = space();
 			h15 = element("h1");
-			t31 = text("Electron.js: ");
-			t32 = text(t32_value);
-			t33 = space();
+			t33 = text("Electron.js: ");
+			t34 = text(t34_value);
+			t35 = space();
 			h16 = element("h1");
-			t34 = text("Node.js: ");
-			t35 = text(t35_value);
-			t36 = space();
+			t36 = text("Node.js: ");
+			t37 = text(t37_value);
+			t38 = space();
 			h17 = element("h1");
-			t37 = text("Chrome: ");
-			t38 = text(t38_value);
-			t39 = space();
-			h18 = element("h1");
-			t40 = text(ctx.pythonv);
+			t39 = text("Chrome: ");
+			t40 = text(t40_value);
 			t41 = space();
+			h18 = element("h1");
+			t42 = text(ctx.pythonv);
+			t43 = space();
 			hr0 = element("hr");
-			t42 = space();
+			t44 = space();
 			h19 = element("h1");
 			h19.textContent = "Javascript Frameworks and libraries";
-			t44 = space();
+			t46 = space();
 			h110 = element("h1");
-			t45 = text("Svelte.js: ");
-			t46 = text(t46_value);
-			t47 = space();
+			t47 = text("Svelte.js: ");
+			t48 = text(t48_value);
+			t49 = space();
 			h111 = element("h1");
-			t48 = text("jQuery: ");
-			t49 = text(t49_value);
-			t50 = space();
+			t50 = text("jQuery: ");
+			t51 = text(t51_value);
+			t52 = space();
 			h112 = element("h1");
-			t51 = text("Typescript: ");
-			t52 = text(t52_value);
-			t53 = space();
+			t53 = text("Typescript: ");
+			t54 = text(t54_value);
+			t55 = space();
 			h113 = element("h1");
-			t54 = text("Tippy.js: ");
-			t55 = text(t55_value);
-			t56 = space();
+			t56 = text("Tippy.js: ");
+			t57 = text(t57_value);
+			t58 = space();
 			hr1 = element("hr");
-			t57 = space();
+			t59 = space();
 			h114 = element("h1");
 			h114.textContent = "CSS Frameworks and libraries";
-			t59 = space();
+			t61 = space();
 			h115 = element("h1");
-			t60 = text("Bulma: ");
-			t61 = text(t61_value);
-			t62 = space();
+			t62 = text("Bulma: ");
+			t63 = text(t63_value);
+			t64 = space();
 			h116 = element("h1");
-			t63 = text("Fontawesome: ");
-			t64 = text(t64_value);
-			t65 = space();
+			t65 = text("Fontawesome: ");
+			t66 = text(t66_value);
+			t67 = space();
 			h117 = element("h1");
-			t66 = text("pretty-checkbox: ");
-			t67 = text(t67_value);
-			t68 = space();
+			t68 = text("pretty-checkbox: ");
+			t69 = text(t69_value);
+			t70 = space();
 			h118 = element("h1");
-			t69 = text("hover.css: ");
-			t70 = text(t70_value);
+			t71 = text("hover.css: ");
+			t72 = text(t72_value);
 			attr(div0, "class", "menu-label svelte-1ekajoa");
 			attr(ul, "class", "menu-list svelte-1ekajoa");
 			attr(aside, "class", "menu box svelte-1ekajoa");
@@ -4673,13 +4676,14 @@ function create_fragment$6(ctx) {
 			attr(div7, "class", "container");
 			attr(div7, "id", "Configuration");
 			attr(h11, "class", "title");
-			attr(button1, "class", button1_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-1ekajoa");
+			attr(button1, "class", "button is-warning is-pulled-right");
+			attr(button2, "class", button2_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-1ekajoa");
 			attr(div8, "class", "level-item");
 			attr(h12, "class", "subtitle");
 			attr(div9, "class", "level-item");
 			attr(div9, "id", "updatelabel");
 			set_style(div9, "display", ctx.updatetoggle);
-			attr(button2, "class", button2_class_value = "button is-warning " + ctx.updateLoading + " svelte-1ekajoa");
+			attr(button3, "class", button3_class_value = "button is-warning " + ctx.updateLoading + " svelte-1ekajoa");
 			attr(div10, "class", "level-item");
 			attr(div10, "id", "run_update");
 			set_style(div10, "display", ctx.updatetoggle);
@@ -4735,8 +4739,9 @@ function create_fragment$6(ctx) {
 				listen(input0, "input", ctx.input0_input_handler),
 				listen(input1, "input", ctx.input1_input_handler),
 				listen(button0, "click", ctx.configSave),
-				listen(button1, "click", ctx.updateCheck),
-				listen(button2, "click", ctx.update)
+				listen(button1, "click", ctx.click_handler),
+				listen(button2, "click", ctx.updateCheck),
+				listen(button3, "click", ctx.update)
 			];
 		},
 
@@ -4792,82 +4797,84 @@ function create_fragment$6(ctx) {
 			append(h11, t17);
 			append(h11, t18);
 			append(div13, t19);
+			append(div13, button1);
+			append(div13, t21);
 			append(div13, div12);
 			append(div12, div11);
 			append(div11, div8);
-			append(div8, button1);
-			append(button1, t20);
-			append(div11, t21);
+			append(div8, button2);
+			append(button2, t22);
+			append(div11, t23);
 			append(div11, div9);
 			append(div9, h12);
-			append(h12, t22);
-			append(h12, t23);
-			append(div11, t24);
+			append(h12, t24);
+			append(h12, t25);
+			append(div11, t26);
 			append(div11, div10);
-			append(div10, button2);
-			append(button2, t25);
-			append(div13, t26);
+			append(div10, button3);
+			append(button3, t27);
+			append(div13, t28);
 			append(div13, h13);
-			append(h13, t27);
-			append(div17, t28);
+			append(h13, t29);
+			append(div17, t30);
 			append(div17, div16);
 			append(div16, div15);
 			append(div15, h14);
-			append(div15, t30);
+			append(div15, t32);
 			append(div15, h15);
-			append(h15, t31);
-			append(h15, t32);
-			append(div15, t33);
+			append(h15, t33);
+			append(h15, t34);
+			append(div15, t35);
 			append(div15, h16);
-			append(h16, t34);
-			append(h16, t35);
-			append(div15, t36);
+			append(h16, t36);
+			append(h16, t37);
+			append(div15, t38);
 			append(div15, h17);
-			append(h17, t37);
-			append(h17, t38);
-			append(div15, t39);
-			append(div15, h18);
-			append(h18, t40);
+			append(h17, t39);
+			append(h17, t40);
 			append(div15, t41);
+			append(div15, h18);
+			append(h18, t42);
+			append(div15, t43);
 			append(div15, hr0);
-			append(div15, t42);
-			append(div15, h19);
 			append(div15, t44);
+			append(div15, h19);
+			append(div15, t46);
 			append(div15, h110);
-			append(h110, t45);
-			append(h110, t46);
-			append(div15, t47);
+			append(h110, t47);
+			append(h110, t48);
+			append(div15, t49);
 			append(div15, h111);
-			append(h111, t48);
-			append(h111, t49);
-			append(div15, t50);
+			append(h111, t50);
+			append(h111, t51);
+			append(div15, t52);
 			append(div15, h112);
-			append(h112, t51);
-			append(h112, t52);
-			append(div15, t53);
+			append(h112, t53);
+			append(h112, t54);
+			append(div15, t55);
 			append(div15, h113);
-			append(h113, t54);
-			append(h113, t55);
-			append(div15, t56);
+			append(h113, t56);
+			append(h113, t57);
+			append(div15, t58);
 			append(div15, hr1);
-			append(div15, t57);
-			append(div15, h114);
 			append(div15, t59);
+			append(div15, h114);
+			append(div15, t61);
 			append(div15, h115);
-			append(h115, t60);
-			append(h115, t61);
-			append(div15, t62);
+			append(h115, t62);
+			append(h115, t63);
+			append(div15, t64);
 			append(div15, h116);
-			append(h116, t63);
-			append(h116, t64);
-			append(div15, t65);
+			append(h116, t65);
+			append(h116, t66);
+			append(div15, t67);
 			append(div15, h117);
-			append(h117, t66);
-			append(h117, t67);
-			append(div15, t68);
+			append(h117, t68);
+			append(h117, t69);
+			append(div15, t70);
 			append(div15, h118);
-			append(h118, t69);
-			append(h118, t70);
+			append(h118, t71);
+			append(h118, t72);
 		},
 
 		p(changed, ctx) {
@@ -4904,20 +4911,20 @@ function create_fragment$6(ctx) {
 				set_style(h10, "display", ctx.saveChanges);
 			}
 
-			if ((changed.checkupdateLoading) && button1_class_value !== (button1_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-1ekajoa")) {
-				attr(button1, "class", button1_class_value);
+			if ((changed.checkupdateLoading) && button2_class_value !== (button2_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-1ekajoa")) {
+				attr(button2, "class", button2_class_value);
 			}
 
 			if (changed.new_version) {
-				set_data(t23, ctx.new_version);
+				set_data(t25, ctx.new_version);
 			}
 
 			if (changed.updatetoggle) {
 				set_style(div9, "display", ctx.updatetoggle);
 			}
 
-			if ((changed.updateLoading) && button2_class_value !== (button2_class_value = "button is-warning " + ctx.updateLoading + " svelte-1ekajoa")) {
-				attr(button2, "class", button2_class_value);
+			if ((changed.updateLoading) && button3_class_value !== (button3_class_value = "button is-warning " + ctx.updateLoading + " svelte-1ekajoa")) {
+				attr(button3, "class", button3_class_value);
 			}
 
 			if (changed.updatetoggle) {
@@ -4925,43 +4932,43 @@ function create_fragment$6(ctx) {
 			}
 
 			if (changed.updateStatus) {
-				set_data(t27, ctx.updateStatus);
+				set_data(t29, ctx.updateStatus);
 			}
 
 			if (changed.pythonv) {
-				set_data(t40, ctx.pythonv);
+				set_data(t42, ctx.pythonv);
 			}
 
-			if ((changed.packageJSON) && t46_value !== (t46_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "")) {
-				set_data(t46, t46_value);
+			if ((changed.packageJSON) && t48_value !== (t48_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "")) {
+				set_data(t48, t48_value);
 			}
 
-			if ((changed.packageJSON) && t49_value !== (t49_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
-				set_data(t49, t49_value);
+			if ((changed.packageJSON) && t51_value !== (t51_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
+				set_data(t51, t51_value);
 			}
 
-			if ((changed.packageJSON) && t52_value !== (t52_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
-				set_data(t52, t52_value);
+			if ((changed.packageJSON) && t54_value !== (t54_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
+				set_data(t54, t54_value);
 			}
 
-			if ((changed.packageJSON) && t55_value !== (t55_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
-				set_data(t55, t55_value);
+			if ((changed.packageJSON) && t57_value !== (t57_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
+				set_data(t57, t57_value);
 			}
 
-			if ((changed.packageJSON) && t61_value !== (t61_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
-				set_data(t61, t61_value);
+			if ((changed.packageJSON) && t63_value !== (t63_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
+				set_data(t63, t63_value);
 			}
 
-			if ((changed.packageJSON) && t64_value !== (t64_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
-				set_data(t64, t64_value);
+			if ((changed.packageJSON) && t66_value !== (t66_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
+				set_data(t66, t66_value);
 			}
 
-			if ((changed.packageJSON) && t67_value !== (t67_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
-				set_data(t67, t67_value);
+			if ((changed.packageJSON) && t69_value !== (t69_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
+				set_data(t69, t69_value);
 			}
 
-			if ((changed.packageJSON) && t70_value !== (t70_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
-				set_data(t70, t70_value);
+			if ((changed.packageJSON) && t72_value !== (t72_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
+				set_data(t72, t72_value);
 			}
 		},
 
@@ -4984,7 +4991,7 @@ const updatefilename = "update.zip";
 
 function instance$6($$self, $$props, $$invalidate) {
 	// Importing modules from App.svelte
-    let { jq, path } = $$props;
+    let { jq, path, mainWindow } = $$props;
 
     // Importing modules
     const {exec} = require("child_process");
@@ -5111,27 +5118,27 @@ function instance$6($$self, $$props, $$invalidate) {
     const download = (downloadedFile) => {
 
         return new Promise((resolve, reject)=>{
-            // Downloading files
+
             let response = https.get(urlzip, (res) => {
 
                 console.log('statusCode:', res.statusCode);
                 console.log('headers:', res.headers);
+
                 res.pipe(downloadedFile);
                 console.log("File downloaded");
+                $$invalidate('updateStatus', updateStatus = "File downloaded");
 
                 // Animating the button to indicate success message
                 $$invalidate('updateLoading', updateLoading = "animated bounce is-success");
-
                 setTimeout(()=>$$invalidate('updateLoading', updateLoading = ""), 2000);
-                $$invalidate('updateStatus', updateStatus = "File downloaded");
-                // fadeInfadeOut()
+                
 
             });
             
             response.on('error', (err) => {
+
                 console.error("Error occured while downloading file: (Try again or maybe check your internet connection)\n", err);
                 $$invalidate('updateLoading', updateLoading = "animated shake faster is-danger");
-
                 setTimeout(()=>$$invalidate('updateLoading', updateLoading = ""), 2000);
                 reject(err);
             });
@@ -5165,7 +5172,10 @@ function instance$6($$self, $$props, $$invalidate) {
         try {fs.readdirSync(updateFolder);} 
         catch (err) {
             exec(`mkdir ${updateFolder}`, (err, stdout, stderr)=>{
-                if (err) throw err;
+                if (err) {
+                    console.log("Update failed.\nMaybe the user doesn't have necessary persmission to write files in the disk");
+                    throw err;
+                }
                 console.log(stdout);
                 console.log("Update folder created");
             });
@@ -5184,7 +5194,7 @@ function instance$6($$self, $$props, $$invalidate) {
                         copy(src, dest, {overwrite: true}, function(error, results) {
                             if (error) {
                                 console.error('Copy failed: ' + error);
-                                $$invalidate('updateStatus', updateStatus = "Update failed. Try again or Check your internet connection");
+                                $$invalidate('updateStatus', updateStatus = "Update failed.\nMaybe the user doesn't have necessary persmission to write files in the disk");
                             } else {
                                 console.info('Copied ' + results.length + ' files');
                                 $$invalidate('updateStatus', updateStatus = "Updated succesfull. Restart the program.");
@@ -5208,9 +5218,12 @@ function instance$6($$self, $$props, $$invalidate) {
 		$$invalidate('pythonscript', pythonscript);
 	}
 
+	const click_handler = () => mainWindow.reload();
+
 	$$self.$set = $$props => {
 		if ('jq' in $$props) $$invalidate('jq', jq = $$props.jq);
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
+		if ('mainWindow' in $$props) $$invalidate('mainWindow', mainWindow = $$props.mainWindow);
 	};
 
 	let saveChanges, saveChangeanimate, new_version, updatetoggle, checkupdateLoading, updateLoading, updateStatus;
@@ -5226,6 +5239,7 @@ function instance$6($$self, $$props, $$invalidate) {
 	return {
 		jq,
 		path,
+		mainWindow,
 		packageJSON,
 		pythonpath,
 		pythonscript,
@@ -5244,14 +5258,15 @@ function instance$6($$self, $$props, $$invalidate) {
 		updateLoading,
 		updateStatus,
 		input0_input_handler,
-		input1_input_handler
+		input1_input_handler,
+		click_handler
 	};
 }
 
 class Settings extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$6, create_fragment$6, safe_not_equal, ["jq", "path"]);
+		init(this, options, instance$6, create_fragment$6, safe_not_equal, ["jq", "path", "mainWindow"]);
 	}
 }
 
@@ -20421,7 +20436,7 @@ function get_each_context$4(ctx, list, i) {
 	return child_ctx;
 }
 
-// (65:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
+// (66:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
 function create_each_block$4(ctx) {
 	var current;
 
@@ -20515,7 +20530,11 @@ function create_fragment$8(ctx) {
 	});
 
 	var settings = new Settings({
-		props: { jq: ctx.jq, path: path }
+		props: {
+		jq: ctx.jq,
+		path: path,
+		mainWindow: ctx.mainWindow
+	}
 	});
 
 	var footer = new Footer({ props: { jq: ctx.jq } });
@@ -20685,6 +20704,7 @@ function instance$7($$self, $$props, $$invalidate) {
   const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile", "Settings"];
  
   const remote = electron.remote;
+  const mainWindow = remote.getCurrentWindow();
   const Menu = remote.Menu;
   const MenuItem = remote.MenuItem;
 
@@ -20714,7 +20734,14 @@ function instance$7($$self, $$props, $$invalidate) {
 		if ('mainPages' in $$props) $$invalidate('mainPages', mainPages = $$props.mainPages);
 	};
 
-	return { jq, mainPages, navItems, MenuItem, menu };
+	return {
+		jq,
+		mainPages,
+		navItems,
+		mainWindow,
+		MenuItem,
+		menu
+	};
 }
 
 class App extends SvelteComponent {

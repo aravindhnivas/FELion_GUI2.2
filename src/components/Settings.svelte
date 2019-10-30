@@ -3,6 +3,7 @@
     // Importing modules from App.svelte
     export let jq;
     export let path;
+    export let mainWindow;
 
     // Importing modules
     const {exec} = require("child_process")
@@ -142,27 +143,27 @@
     const download = (downloadedFile) => {
 
         return new Promise((resolve, reject)=>{
-            // Downloading files
+
             let response = https.get(urlzip, (res) => {
 
                 console.log('statusCode:', res.statusCode);
                 console.log('headers:', res.headers);
+
                 res.pipe(downloadedFile);
                 console.log("File downloaded")
+                updateStatus = "File downloaded"
 
                 // Animating the button to indicate success message
                 updateLoading = "animated bounce is-success"
-
                 setTimeout(()=>updateLoading = "", 2000)
-                updateStatus = "File downloaded"
-                // fadeInfadeOut()
+                
 
             })
             
             response.on('error', (err) => {
+
                 console.error("Error occured while downloading file: (Try again or maybe check your internet connection)\n", err)
                 updateLoading = "animated shake faster is-danger"
-
                 setTimeout(()=>updateLoading = "", 2000)
                 reject(err)
             });
@@ -196,7 +197,10 @@
         try {fs.readdirSync(updateFolder)} 
         catch (err) {
             exec(`mkdir ${updateFolder}`, (err, stdout, stderr)=>{
-                if (err) throw err;
+                if (err) {
+                    console.log("Update failed.\nMaybe the user doesn't have necessary persmission to write files in the disk")
+                    throw err;
+                }
                 console.log(stdout)
                 console.log("Update folder created")
             })
@@ -215,7 +219,7 @@
                         copy(src, dest, {overwrite: true}, function(error, results) {
                             if (error) {
                                 console.error('Copy failed: ' + error);
-                                updateStatus = "Update failed. Try again or Check your internet connection"
+                                updateStatus = "Update failed.\nMaybe the user doesn't have necessary persmission to write files in the disk"
                             } else {
                                 console.info('Copied ' + results.length + ' files');
                                 updateStatus = "Updated succesfull. Restart the program."
@@ -327,6 +331,7 @@
                     <div class="container" style="display:none" id="Update">
                         <div class="control">
                             <h1 class="title">FELion GUI (Current version): {localStorage.version}</h1>
+                            <button class="button is-warning is-pulled-right" on:click="{()=>mainWindow.reload()}">Restart</button>
 
                             <div class="level">
                                 <div class="level-left">
@@ -341,6 +346,7 @@
                                     <div class="level-item" id="run_update" style="display:{updatetoggle}">
                                         <button class="button is-warning {updateLoading}" on:click={update}>Update</button>
                                     </div>
+
                                 </div>
                             </div>
                             

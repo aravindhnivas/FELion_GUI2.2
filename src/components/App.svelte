@@ -29,6 +29,7 @@
   const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile", "Settings"];
  
   const remote = electron.remote
+  const mainWindow = remote.getCurrentWindow()
   const Menu = remote.Menu
   const MenuItem = remote.MenuItem
 
@@ -67,6 +68,6 @@
 {/each}
 <Powerfile {electron} {path} {jq}/>
 
-<Settings {jq} {path}/>
+<Settings {jq} {path} {mainWindow}/>
 
 <Footer {jq}/>
