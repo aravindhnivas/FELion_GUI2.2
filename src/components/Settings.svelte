@@ -2,9 +2,13 @@
 
     export let jq;
     export let path;
-    
+
+    const {exec} = require("child_process")
     const https = require('https');
     const fs = require('fs');
+
+    let packageJSON = fs.readFileSync(path.join(__dirname, "../package.json"))
+    packageJSON = JSON.parse(packageJSON.toString("utf-8"))
 
     jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active")})
 
@@ -13,6 +17,8 @@
 
     let pythonpath = localStorage["pythonpath"];
     let pythonscript = localStorage["pythonscript"];
+    let pythonv;
+    exec(`${pythonpath} -V`, (err, stdout, stderr)=>{pythonv = stdout})
 
     let items = ["Configuration", "Update", "About"]
     $: saveChanges = "none"
@@ -226,9 +232,21 @@
                     <div class="container" style="display:none" id="About">
                         <div class="control">
                             <h1 class="title">Software details (version)</h1>
-                            <h1 class="subtitle" style="margin-bottom:0">Electron: {process.versions.electron}</h1>
-                            <h1 class="subtitle" style="margin-bottom:0">Node: {process.versions.node}</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">Electron.js: {process.versions.electron}</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">Node.js: {process.versions.node}</h1>
                             <h1 class="subtitle" style="margin-bottom:0">Chrome: {process.versions.chrome}</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">{pythonv}</h1>
+                            <hr>
+                            <h1 class="title">Dependencies (Frameworks and libraries)</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">Svelte.js: {packageJSON.devDependencies.svelte.split("^")[1]}</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">Typescript: {packageJSON.devDependencies.typescript.split("^")[1]}</h1>
+                            <hr>
+                            <h1 class="title">Bootstrap libraries</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">Bulma: {packageJSON.devDependencies["bulma"].split("^")[1]}</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">Fontawesome: {packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1]}</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">Tippy.js: {packageJSON.dependencies["tippy.js"].split("^")[1]}</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">pretty-checkbox: {packageJSON.dependencies["pretty-checkbox"].split("^")[1]}</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">jquery: {packageJSON.dependencies["jquery"].split("^")[1]}</h1>
                         </div>
                     </div>
                     
