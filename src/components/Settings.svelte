@@ -241,11 +241,11 @@
                             <h1 class="subtitle" style="margin-bottom:0">Svelte.js: {packageJSON.devDependencies.svelte.split("^")[1]}</h1>
                             <h1 class="subtitle" style="margin-bottom:0">jQuery: {packageJSON.dependencies["jquery"].split("^")[1]}</h1>
                             <h1 class="subtitle" style="margin-bottom:0">Typescript: {packageJSON.devDependencies.typescript.split("^")[1]}</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">Tippy.js: {packageJSON.dependencies["tippy.js"].split("^")[1]}</h1>
                             <hr>
                             <h1 class="title">CSS Frameworks and libraries</h1>
                             <h1 class="subtitle" style="margin-bottom:0">Bulma: {packageJSON.devDependencies["bulma"].split("^")[1]}</h1>
                             <h1 class="subtitle" style="margin-bottom:0">Fontawesome: {packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1]}</h1>
-                            <h1 class="subtitle" style="margin-bottom:0">Tippy.js: {packageJSON.dependencies["tippy.js"].split("^")[1]}</h1>
                             <h1 class="subtitle" style="margin-bottom:0">pretty-checkbox: {packageJSON.dependencies["pretty-checkbox"].split("^")[1]}</h1>
                             <h1 class="subtitle" style="margin-bottom:0">hover.css: {packageJSON.dependencies["hover.css"].split("^")[1]}</h1>
                             
