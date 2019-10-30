@@ -4472,7 +4472,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (213:20) {#each items as item}
+// (249:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4584,7 +4584,7 @@ function create_fragment$6(ctx) {
 			t25 = text("Update");
 			t26 = space();
 			h13 = element("h1");
-			t27 = text("File Downloaded!");
+			t27 = text(ctx.updateStatus);
 			t28 = space();
 			div16 = element("div");
 			div15 = element("div");
@@ -4924,6 +4924,10 @@ function create_fragment$6(ctx) {
 				set_style(div10, "display", ctx.updatetoggle);
 			}
 
+			if (changed.updateStatus) {
+				set_data(t27, ctx.updateStatus);
+			}
+
 			if ((changed.saveChangeanimate) && h13_class_value !== (h13_class_value = "subtitle animated " + ctx.saveChangeanimate + " svelte-1ekajoa")) {
 				attr(h13, "class", h13_class_value);
 			}
@@ -4992,6 +4996,8 @@ function instance$6($$self, $$props, $$invalidate) {
     const {exec} = require("child_process");
     const https = require('https');
     const fs = require('fs');
+    const admZip = require('adm-zip');
+
 
     // When DOMContentent is loaded and ready
     jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active");});
@@ -5103,34 +5109,66 @@ function instance$6($$self, $$props, $$invalidate) {
 
         
     };
-
     const update = () => {
-        const fileLocation = path.resolve(__dirname, "..", "update.zip");
-        const downloadedFile = fs.createWriteStream(fileLocation);
+
+        const updateFolder = path.resolve(__dirname, "..", "update");
+
+        try {
+            fs.readdirSync(updateFolder);
+        } catch (err) {
+            exec(`mkdir update`, (err, stdout, stderr)=>{
+                if (err) throw err;
+                console.log(stdout);
+                console.log("Update folder created");
+            });
+        }
+
+        const updatefilename = "update.zip";
+        const zipFile = path.resolve(updateFolder, updatefilename);
+        const downloadedFile = fs.createWriteStream(zipFile);
 
         $$invalidate('updateLoading', updateLoading = "is-loading");
 
         // Downloading files
-        https.get(urlzip, (res) => {
+        let response = https.get(urlzip, (res) => {
 
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);
-
-            // Saving the downloaded file
             res.pipe(downloadedFile);
             console.log("File downloaded");
 
             // Animating the button to indicate success message
             $$invalidate('updateLoading', updateLoading = "animated bounce is-success");
-            setTimeout(()=>$$invalidate('updateLoading', updateLoading = ""), 2000);
 
+            setTimeout(()=>$$invalidate('updateLoading', updateLoading = ""), 2000);
+            $$invalidate('updateStatus', updateStatus = "File downloaded");
             fadeInfadeOut();
 
-        }).on('error', (err) => {
+        });
+        
+        response.on('error', (err) => {
             console.error("Error occured while downloading file: (Try again or maybe check your internet connection)\n", err);
             $$invalidate('updateLoading', updateLoading = "animated shake faster is-danger");
             setTimeout(()=>$$invalidate('updateLoading', updateLoading = ""), 2000);
-        });    };
+
+        });
+
+        response.on("close", ()=>{
+            
+            console.log("Downloading Completed");
+
+            // Extracting downloaded files
+            console.log("Extracting files");
+
+            let zip = new admZip(`${__dirname}/../update/update.zip`);
+            zip.extractAllTo(/*target path*/`${__dirname}/../update`, /*overwrite*/true);
+            console.log("File Extracted");
+            $$invalidate('updateStatus', updateStatus = "File Extracted");
+            fadeInfadeOut();
+        });
+
+
+    };
 
 	function input0_input_handler() {
 		pythonpath = this.value;
@@ -5147,7 +5185,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
 	};
 
-	let saveChanges, saveChangeanimate, new_version, updatetoggle, checkupdateLoading, updateLoading;
+	let saveChanges, saveChangeanimate, new_version, updatetoggle, checkupdateLoading, updateLoading, updateStatus;
 
 	$$invalidate('saveChanges', saveChanges = "none");
 	$$invalidate('saveChangeanimate', saveChangeanimate = "fadeIn");
@@ -5155,6 +5193,7 @@ function instance$6($$self, $$props, $$invalidate) {
 	$$invalidate('updatetoggle', updatetoggle = "none");
 	$$invalidate('checkupdateLoading', checkupdateLoading = "");
 	$$invalidate('updateLoading', updateLoading = "");
+	$$invalidate('updateStatus', updateStatus = "File Downloaded");
 
 	return {
 		jq,
@@ -5175,6 +5214,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		updatetoggle,
 		checkupdateLoading,
 		updateLoading,
+		updateStatus,
 		input0_input_handler,
 		input1_input_handler
 	};
