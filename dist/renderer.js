@@ -4472,7 +4472,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (152:20) {#each items as item}
+// (166:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4505,7 +4505,7 @@ function create_each_block$3(ctx) {
 }
 
 function create_fragment$6(ctx) {
-	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, div12, div11, div8, button1, t20, button1_class_value, t21, div9, h12, t22, t23, t24, div10, button2, t26, div16, div15, h13, t28, h14, t29, t30_value = ctx.process.versions.electron + "", t30, t31, h15, t32, t33_value = ctx.process.versions.node + "", t33, t34, h16, t35, t36_value = ctx.process.versions.chrome + "", t36, dispose;
+	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, div12, div11, div8, button1, t20, button1_class_value, t21, div9, h12, t22, t23, t24, div10, button2, t26, div16, div15, h13, t28, h14, t29, t30_value = process.versions.electron + "", t30, t31, h15, t32, t33_value = process.versions.node + "", t33, t34, h16, t35, t36_value = process.versions.chrome + "", t36, t37, h17, t38, t39, hr0, t40, h18, t42, h19, t43, t44_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t44, t45, h110, t46, t47_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t47, t48, hr1, t49, h111, t51, h112, t52, t53_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t53, t54, h113, t55, t56_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t56, t57, h114, t58, t59_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t59, t60, h115, t61, t62_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t62, t63, h116, t64, t65_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t65, dispose;
 
 	let each_value = ctx.items;
 
@@ -4589,16 +4589,57 @@ function create_fragment$6(ctx) {
 			h13.textContent = "Software details (version)";
 			t28 = space();
 			h14 = element("h1");
-			t29 = text("Electron: ");
+			t29 = text("Electron.js: ");
 			t30 = text(t30_value);
 			t31 = space();
 			h15 = element("h1");
-			t32 = text("Node: ");
+			t32 = text("Node.js: ");
 			t33 = text(t33_value);
 			t34 = space();
 			h16 = element("h1");
 			t35 = text("Chrome: ");
 			t36 = text(t36_value);
+			t37 = space();
+			h17 = element("h1");
+			t38 = text(ctx.pythonv);
+			t39 = space();
+			hr0 = element("hr");
+			t40 = space();
+			h18 = element("h1");
+			h18.textContent = "Dependencies (Frameworks and libraries)";
+			t42 = space();
+			h19 = element("h1");
+			t43 = text("Svelte.js: ");
+			t44 = text(t44_value);
+			t45 = space();
+			h110 = element("h1");
+			t46 = text("Typescript: ");
+			t47 = text(t47_value);
+			t48 = space();
+			hr1 = element("hr");
+			t49 = space();
+			h111 = element("h1");
+			h111.textContent = "Bootstrap libraries";
+			t51 = space();
+			h112 = element("h1");
+			t52 = text("Bulma: ");
+			t53 = text(t53_value);
+			t54 = space();
+			h113 = element("h1");
+			t55 = text("Fontawesome: ");
+			t56 = text(t56_value);
+			t57 = space();
+			h114 = element("h1");
+			t58 = text("Tippy.js: ");
+			t59 = text(t59_value);
+			t60 = space();
+			h115 = element("h1");
+			t61 = text("pretty-checkbox: ");
+			t62 = text(t62_value);
+			t63 = space();
+			h116 = element("h1");
+			t64 = text("jquery: ");
+			t65 = text(t65_value);
 			attr(div0, "class", "menu-label svelte-1ekajoa");
 			attr(ul, "class", "menu-list svelte-1ekajoa");
 			attr(aside, "class", "menu box svelte-1ekajoa");
@@ -4624,7 +4665,7 @@ function create_fragment$6(ctx) {
 			attr(div6, "class", "control");
 			attr(div7, "class", "container");
 			attr(div7, "id", "Configuration");
-			attr(h11, "class", "subtitle");
+			attr(h11, "class", "title");
 			attr(button1, "class", button1_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-1ekajoa");
 			attr(div8, "class", "level-item");
 			attr(h12, "class", "subtitle");
@@ -4648,6 +4689,24 @@ function create_fragment$6(ctx) {
 			set_style(h15, "margin-bottom", "0");
 			attr(h16, "class", "subtitle");
 			set_style(h16, "margin-bottom", "0");
+			attr(h17, "class", "subtitle");
+			set_style(h17, "margin-bottom", "0");
+			attr(h18, "class", "title");
+			attr(h19, "class", "subtitle");
+			set_style(h19, "margin-bottom", "0");
+			attr(h110, "class", "subtitle");
+			set_style(h110, "margin-bottom", "0");
+			attr(h111, "class", "title");
+			attr(h112, "class", "subtitle");
+			set_style(h112, "margin-bottom", "0");
+			attr(h113, "class", "subtitle");
+			set_style(h113, "margin-bottom", "0");
+			attr(h114, "class", "subtitle");
+			set_style(h114, "margin-bottom", "0");
+			attr(h115, "class", "subtitle");
+			set_style(h115, "margin-bottom", "0");
+			attr(h116, "class", "subtitle");
+			set_style(h116, "margin-bottom", "0");
 			attr(div15, "class", "control");
 			attr(div16, "class", "container");
 			set_style(div16, "display", "none");
@@ -4750,6 +4809,45 @@ function create_fragment$6(ctx) {
 			append(div15, h16);
 			append(h16, t35);
 			append(h16, t36);
+			append(div15, t37);
+			append(div15, h17);
+			append(h17, t38);
+			append(div15, t39);
+			append(div15, hr0);
+			append(div15, t40);
+			append(div15, h18);
+			append(div15, t42);
+			append(div15, h19);
+			append(h19, t43);
+			append(h19, t44);
+			append(div15, t45);
+			append(div15, h110);
+			append(h110, t46);
+			append(h110, t47);
+			append(div15, t48);
+			append(div15, hr1);
+			append(div15, t49);
+			append(div15, h111);
+			append(div15, t51);
+			append(div15, h112);
+			append(h112, t52);
+			append(h112, t53);
+			append(div15, t54);
+			append(div15, h113);
+			append(h113, t55);
+			append(h113, t56);
+			append(div15, t57);
+			append(div15, h114);
+			append(h114, t58);
+			append(h114, t59);
+			append(div15, t60);
+			append(div15, h115);
+			append(h115, t61);
+			append(h115, t62);
+			append(div15, t63);
+			append(div15, h116);
+			append(h116, t64);
+			append(h116, t65);
 		},
 
 		p(changed, ctx) {
@@ -4798,6 +4896,38 @@ function create_fragment$6(ctx) {
 				set_style(div9, "display", ctx.updatetoggle);
 				set_style(div10, "display", ctx.updatetoggle);
 			}
+
+			if (changed.pythonv) {
+				set_data(t38, ctx.pythonv);
+			}
+
+			if ((changed.packageJSON) && t44_value !== (t44_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "")) {
+				set_data(t44, t44_value);
+			}
+
+			if ((changed.packageJSON) && t47_value !== (t47_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
+				set_data(t47, t47_value);
+			}
+
+			if ((changed.packageJSON) && t53_value !== (t53_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
+				set_data(t53, t53_value);
+			}
+
+			if ((changed.packageJSON) && t56_value !== (t56_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
+				set_data(t56, t56_value);
+			}
+
+			if ((changed.packageJSON) && t59_value !== (t59_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
+				set_data(t59, t59_value);
+			}
+
+			if ((changed.packageJSON) && t62_value !== (t62_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
+				set_data(t62, t62_value);
+			}
+
+			if ((changed.packageJSON) && t65_value !== (t65_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
+				set_data(t65, t65_value);
+			}
 		},
 
 		i: noop,
@@ -4817,9 +4947,13 @@ function create_fragment$6(ctx) {
 
 function instance$6($$self, $$props, $$invalidate) {
 	let { jq, path } = $$props;
-    
+
+    const {exec} = require("child_process");
     const https = require('https');
     const fs = require('fs');
+
+    let packageJSON = fs.readFileSync(path.join(__dirname, "../package.json"));
+    $$invalidate('packageJSON', packageJSON = JSON.parse(packageJSON.toString("utf-8")));
 
     jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active");});
 
@@ -4828,6 +4962,8 @@ function instance$6($$self, $$props, $$invalidate) {
 
     let pythonpath = localStorage["pythonpath"];
     let pythonscript = localStorage["pythonscript"];
+    let pythonv;
+    exec(`${pythonpath} -V`, (err, stdout, stderr)=>{$$invalidate('pythonv', pythonv = stdout);});
 
     let items = ["Configuration", "Update", "About"];
 
@@ -4886,22 +5022,30 @@ function instance$6($$self, $$props, $$invalidate) {
 
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);
-
             res.on('data', (data) => {
-                process.stdout.write(data);
 
+                // process.stdout.write(data);
                 data = JSON.parse(data.toString("utf8"));
 
-                console.log(data, typeof(data));
-
                 $$invalidate('new_version', new_version = data.version);
+                console.log(`Received package:`, data);
+                console.log(`Version available ${new_version}`);
+                console.log(`Current version ${localStorage.version}`);
+                
                 $$invalidate('updatetoggle', updatetoggle = "block");
-                $$invalidate('checkupdateLoading', checkupdateLoading = "");
+                $$invalidate('checkupdateLoading', checkupdateLoading = "animated bounce is-success");
+                setTimeout(()=>$$invalidate('checkupdateLoading', checkupdateLoading = ""), 2000);
+
+                console.log("Completed");
             });
 
-        }).on('error', (e) => console.error(e));
+        }).on('error', (err) => {
+            console.error("Error occured: (Try again or maybe check your internet connection)\n", err);
+            $$invalidate('checkupdateLoading', checkupdateLoading = "animated shake faster is-danger");
+            setTimeout(()=>$$invalidate('checkupdateLoading', checkupdateLoading = ""), 2000);
+        });
 
-        console.log("Done");
+        
     };
 
 	function input0_input_handler() {
@@ -4930,8 +5074,10 @@ function instance$6($$self, $$props, $$invalidate) {
 	return {
 		jq,
 		path,
+		packageJSON,
 		pythonpath,
 		pythonscript,
+		pythonv,
 		items,
 		configSave,
 		toggle,
@@ -4942,7 +5088,6 @@ function instance$6($$self, $$props, $$invalidate) {
 		new_version,
 		updatetoggle,
 		checkupdateLoading,
-		process,
 		input0_input_handler,
 		input1_input_handler
 	};
