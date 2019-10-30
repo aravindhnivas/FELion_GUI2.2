@@ -5237,7 +5237,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		if ($$dirty.updateNow) { updateNow == "true" ? update() : console.log("Update available but not updating now"); }
 	};
 
-	$$invalidate('updateNow', updateNow = localStorage["updateNow"]);
+	$$invalidate('updateNow', updateNow = localStorage.getItem("updateNow"));
 	$$invalidate('saveChanges', saveChanges = "none");
 	$$invalidate('saveChangeanimate', saveChangeanimate = "fadeIn");
 	$$invalidate('new_version', new_version = "");
@@ -20745,16 +20745,16 @@ function instance$7($$self, $$props, $$invalidate) {
                       console.log(response);
                       switch (response) {
                         case 0:
-                          localStorage["updateNow"] = true;
+                          localStorage.setItem("updateNow", true);
                           console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="true");
                           break;
                         case 1:
-                          localStorage["updateNow"] = false;
+                          localStorage.setItem("updateNow", false);
                           console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="false");
                           break;
                       
                         default:
-                          localStorage["updateNow"] = false;
+                          localStorage.setItem("updateNow", false);
                           console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="false");
                           break;
                       }

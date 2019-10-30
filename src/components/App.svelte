@@ -58,16 +58,16 @@
                       console.log(response)
                       switch (response) {
                         case 0:
-                          localStorage["updateNow"] = true
+                          localStorage.setItem("updateNow", true)
                           console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="true")
                           break;
                         case 1:
-                          localStorage["updateNow"] = false
+                          localStorage.setItem("updateNow", false)
                           console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="false")
                           break;
                       
                         default:
-                          localStorage["updateNow"] = false
+                          localStorage.setItem("updateNow", false)
                           console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="false")
                           break;
                       }

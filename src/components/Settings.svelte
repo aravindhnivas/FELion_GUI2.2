@@ -6,7 +6,7 @@
     export let showinfo;
 
 
-    $: updateNow = localStorage["updateNow"]
+    $: updateNow = localStorage.getItem("updateNow")
     $: console.log(":: updateNow", updateNow);
     
     $: updateNow == "true" ? update() : console.log("Update available but not updating now")
