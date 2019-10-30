@@ -4957,8 +4957,8 @@ function instance$6($$self, $$props, $$invalidate) {
 
     jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active");});
 
-    if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.join(__dirname, "../python3.7/python");
-    if (!localStorage["pythonscript"]) localStorage["pythonscript"] = path.join(__dirname, "/python_files/");
+    if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python");
+    if (!localStorage["pythonscript"]) localStorage["pythonscript"] = path.resolve(__dirname, "python_files");
 
     let pythonpath = localStorage["pythonpath"];
     let pythonscript = localStorage["pythonscript"];
