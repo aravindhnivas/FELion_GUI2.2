@@ -78,20 +78,23 @@
 
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);
-
             res.on('data', (data) => {
-                process.stdout.write(data);
 
+                // process.stdout.write(data);
                 data = JSON.parse(data.toString("utf8"))
 
                 console.log(data, typeof(data))
-
                 new_version = data.version
                 updatetoggle = "block"
-                checkupdateLoading = ""
+                checkupdateLoading = "animated bounce is-success"
+                setTimeout(()=>checkupdateLoading = "", 2000)
             });
 
-        }).on('error', (e) => console.error(e));
+        }).on('error', (err) => {
+            console.error(err)
+            checkupdateLoading = "animated shake faster is-danger"
+            setTimeout(()=>checkupdateLoading = "", 2000)
+        });
 
         console.log("Done")
     }
