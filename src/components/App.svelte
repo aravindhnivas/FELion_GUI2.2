@@ -35,7 +35,9 @@
         branch: "master",
     }
 
-  localStorage["updateNow"] = false
+  $: updateNow = false
+
+  $: console.log("Update now: ", updateNow)
 
   const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`
   let request = https.get(urlPackageJson, (res) => {
@@ -46,7 +48,7 @@
                     data = JSON.parse(data.toString("utf8"))
                     let new_version = data.version
                     console.log("Available version: ", new_version)
-                    if (current_version < new_version) {
+                    if (current_version === new_version) {
                       let options = {
                         title: "FELion_GUI2",
                         message: "Update available "+new_version,
@@ -58,17 +60,12 @@
                       console.log(response)
                       switch (response) {
                         case 0:
-                          localStorage.setItem("updateNow", true)
-                          console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="true")
+                          localStorage.setItem("updateNow", "true")
+                          updateNow = true
                           break;
                         case 1:
-                          localStorage.setItem("updateNow", false)
-                          console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="false")
-                          break;
-                      
-                        default:
-                          localStorage.setItem("updateNow", false)
-                          console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="false")
+                          localStorage.setItem("updateNow", "false")
+                          updateNow = false
                           break;
                       }
                     }
@@ -117,6 +114,6 @@
 {/each}
 <Powerfile {electron} {path} {jq}/>
 
-<Settings {jq} {path} {mainWindow} {showinfo}/>
+<Settings {jq} {path} {mainWindow} {updateNow} {showinfo}/>
 
 <Footer {jq}/>

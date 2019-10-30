@@ -4472,7 +4472,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (299:20) {#each items as item}
+// (297:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4990,7 +4990,7 @@ function create_fragment$6(ctx) {
 const updatefilename = "update.zip";
 
 function instance$6($$self, $$props, $$invalidate) {
-	let { jq, path, mainWindow, showinfo } = $$props;
+	let { jq, path, mainWindow, showinfo, updateNow } = $$props;
 
     // Importing modules
     const {exec} = require("child_process");
@@ -5228,16 +5228,16 @@ function instance$6($$self, $$props, $$invalidate) {
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
 		if ('mainWindow' in $$props) $$invalidate('mainWindow', mainWindow = $$props.mainWindow);
 		if ('showinfo' in $$props) $$invalidate('showinfo', showinfo = $$props.showinfo);
+		if ('updateNow' in $$props) $$invalidate('updateNow', updateNow = $$props.updateNow);
 	};
 
-	let updateNow, saveChanges, saveChangeanimate, new_version, updatetoggle, checkupdateLoading, updateLoading, updateStatus;
+	let saveChanges, saveChangeanimate, new_version, updatetoggle, checkupdateLoading, updateLoading, updateStatus;
 
 	$$self.$$.update = ($$dirty = { updateNow: 1 }) => {
-		if ($$dirty.updateNow) { console.log(":: updateNow", updateNow); }
-		if ($$dirty.updateNow) { updateNow == "true" ? update() : console.log("Update available but not updating now"); }
+		if ($$dirty.updateNow) { console.log(":Settings: updateNow", updateNow); }
+		if ($$dirty.updateNow) { updateNow ? update() : console.log("Update available but not updating now"); }
 	};
 
-	$$invalidate('updateNow', updateNow = localStorage.getItem("updateNow"));
 	$$invalidate('saveChanges', saveChanges = "none");
 	$$invalidate('saveChangeanimate', saveChangeanimate = "fadeIn");
 	$$invalidate('new_version', new_version = "");
@@ -5251,6 +5251,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		path,
 		mainWindow,
 		showinfo,
+		updateNow,
 		packageJSON,
 		currentVersion,
 		pythonpath,
@@ -5277,7 +5278,7 @@ function instance$6($$self, $$props, $$invalidate) {
 class Settings extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$6, create_fragment$6, safe_not_equal, ["jq", "path", "mainWindow", "showinfo"]);
+		init(this, options, instance$6, create_fragment$6, safe_not_equal, ["jq", "path", "mainWindow", "showinfo", "updateNow"]);
 	}
 }
 
@@ -20447,7 +20448,7 @@ function get_each_context$4(ctx, list, i) {
 	return child_ctx;
 }
 
-// (115:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
+// (112:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
 function create_each_block$4(ctx) {
 	var current;
 
@@ -20545,6 +20546,7 @@ function create_fragment$8(ctx) {
 		jq: ctx.jq,
 		path: path,
 		mainWindow: ctx.mainWindow,
+		updateNow: ctx.updateNow,
 		showinfo: ctx.showinfo
 	}
 	});
@@ -20618,6 +20620,10 @@ function create_fragment$8(ctx) {
 				}
 				check_outros();
 			}
+
+			var settings_changes = {};
+			if (changed.updateNow) settings_changes.updateNow = ctx.updateNow;
+			settings.$set(settings_changes);
 		},
 
 		i(local) {
@@ -20722,8 +20728,6 @@ function instance$7($$self, $$props, $$invalidate) {
         branch: "master",
     };
 
-  localStorage["updateNow"] = false;
-
   const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`;
   let request = https.get(urlPackageJson, (res) => {
 
@@ -20733,7 +20737,7 @@ function instance$7($$self, $$props, $$invalidate) {
                     data = JSON.parse(data.toString("utf8"));
                     let new_version = data.version;
                     console.log("Available version: ", new_version);
-                    if (current_version < new_version) {
+                    if (current_version === new_version) {
                       let options = {
                         title: "FELion_GUI2",
                         message: "Update available "+new_version,
@@ -20745,17 +20749,12 @@ function instance$7($$self, $$props, $$invalidate) {
                       console.log(response);
                       switch (response) {
                         case 0:
-                          localStorage.setItem("updateNow", true);
-                          console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="true");
+                          localStorage.setItem("updateNow", "true");
+                          $$invalidate('updateNow', updateNow = true);
                           break;
                         case 1:
-                          localStorage.setItem("updateNow", false);
-                          console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="false");
-                          break;
-                      
-                        default:
-                          localStorage.setItem("updateNow", false);
-                          console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="false");
+                          localStorage.setItem("updateNow", "false");
+                          $$invalidate('updateNow', updateNow = false);
                           break;
                       }
                     }
@@ -20795,6 +20794,14 @@ function instance$7($$self, $$props, $$invalidate) {
 		if ('mainPages' in $$props) $$invalidate('mainPages', mainPages = $$props.mainPages);
 	};
 
+	let updateNow;
+
+	$$self.$$.update = ($$dirty = { updateNow: 1 }) => {
+		if ($$dirty.updateNow) { console.log("Update now: ", updateNow); }
+	};
+
+	$$invalidate('updateNow', updateNow = false);
+
 	return {
 		jq,
 		mainWindow,
@@ -20802,7 +20809,8 @@ function instance$7($$self, $$props, $$invalidate) {
 		showinfo,
 		mainPages,
 		navItems,
-		menu
+		menu,
+		updateNow
 	};
 }
 

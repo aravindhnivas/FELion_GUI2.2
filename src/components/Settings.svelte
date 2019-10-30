@@ -4,12 +4,10 @@
     export let path;
     export let mainWindow;
     export let showinfo;
+    export let updateNow;
 
-
-    $: updateNow = localStorage.getItem("updateNow")
-    $: console.log(":: updateNow", updateNow);
-    
-    $: updateNow == "true" ? update() : console.log("Update available but not updating now")
+    $: console.log(":Settings: updateNow", updateNow);
+    $: updateNow ? update() : console.log("Update available but not updating now")
 
     // Importing modules
     const {exec} = require("child_process")
