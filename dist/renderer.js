@@ -4472,7 +4472,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (255:20) {#each items as item}
+// (282:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4999,7 +4999,7 @@ function instance$6($$self, $$props, $$invalidate) {
     const https = require('https');
     const fs = require('fs');
     const admZip = require('adm-zip');
-
+    const copy = require('recursive-copy');
 
     // When DOMContentent is loaded and ready
     jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active");});
@@ -5021,9 +5021,10 @@ function instance$6($$self, $$props, $$invalidate) {
     // Pages in Settings
     let items = ["Configuration", "Update", "About"];
 
-    // FUNCTIONS ////////////////////////////////////////////////////
+    //////////////////////////////////////////////////// FUNCTIONS ////////////////////////////////////////////////////
 
     // Config save function
+
     const fadeInfadeOut = () => {
 
         $$invalidate('saveChanges', saveChanges = "block");
@@ -5117,64 +5118,90 @@ function instance$6($$self, $$props, $$invalidate) {
     
     const download = (downloadedFile) => {
 
-        // Downloading files
-        let response = https.get(urlzip, (res) => {
+        return new Promise((resolve, reject)=>{
+            // Downloading files
+            let response = https.get(urlzip, (res) => {
 
-            console.log('statusCode:', res.statusCode);
-            console.log('headers:', res.headers);
-            res.pipe(downloadedFile);
-            console.log("File downloaded");
+                console.log('statusCode:', res.statusCode);
+                console.log('headers:', res.headers);
+                res.pipe(downloadedFile);
+                console.log("File downloaded");
 
-            // Animating the button to indicate success message
-            $$invalidate('updateLoading', updateLoading = "animated bounce is-success");
+                // Animating the button to indicate success message
+                $$invalidate('updateLoading', updateLoading = "animated bounce is-success");
 
-            setTimeout(()=>$$invalidate('updateLoading', updateLoading = ""), 2000);
-            $$invalidate('updateStatus', updateStatus = "File downloaded");
-            fadeInfadeOut();
-
-        });
-        
-        response.on('error', (err) => {
-            console.error("Error occured while downloading file: (Try again or maybe check your internet connection)\n", err);
-            $$invalidate('updateLoading', updateLoading = "animated shake faster is-danger");
-            setTimeout(()=>$$invalidate('updateLoading', updateLoading = ""), 2000);
-
-        });
-
-        response.on("close", ()=>{
-            
-            console.log("Downloading Completed");
-
-            // Extracting downloaded files
-            console.log("Extracting files");
-
-            setTimeout(()=>{
-                let zip = new admZip(`${__dirname}/../update/update.zip`);
-                zip.extractAllTo(/*target path*/`${__dirname}/../update`, /*overwrite*/true);
-                console.log("File Extracted");
-                $$invalidate('updateStatus', updateStatus = "File Extracted");
+                setTimeout(()=>$$invalidate('updateLoading', updateLoading = ""), 2000);
+                $$invalidate('updateStatus', updateStatus = "File downloaded");
                 fadeInfadeOut();
-            }, 1600);
-        });
+
+            });
+            
+            response.on('error', (err) => {
+                console.error("Error occured while downloading file: (Try again or maybe check your internet connection)\n", err);
+                $$invalidate('updateLoading', updateLoading = "animated shake faster is-danger");
+
+                setTimeout(()=>$$invalidate('updateLoading', updateLoading = ""), 2000);
+                reject(err);
+            });
+
+            response.on("close", ()=>{
+                
+                console.log("Downloading Completed");
+
+                // Extracting downloaded files
+                console.log("Extracting files");
+
+                setTimeout(()=>{
+                    let zip = new admZip(`${__dirname}/../update/update.zip`);
+                    zip.extractAllTo(/*target path*/`${__dirname}/../update`, /*overwrite*/true);
+
+                    console.log("File Extracted");
+                    $$invalidate('updateStatus', updateStatus = "File Extracted");
+
+                    fadeInfadeOut();
+                    resolve("File extracted");
+
+                }, 1600);
+            });
+        })
     };
 
     const update = () => {
         
         $$invalidate('updateLoading', updateLoading = "is-loading");
         
-        try {
-            fs.readdirSync(updateFolder);
-        } catch (err) {
+        try {fs.readdirSync(updateFolder);} 
+        catch (err) {
             exec(`mkdir update`, (err, stdout, stderr)=>{
                 if (err) throw err;
                 console.log(stdout);
                 console.log("Update folder created");
             });
         }
-        setTimeout(()=>{
-            const downloadedFile = fs.createWriteStream(zipFile);
-            download(downloadedFile);
-        }, 1000);
+        finally {
+
+            setTimeout(()=>{
+                const downloadedFile = fs.createWriteStream(zipFile);
+                download(downloadedFile)
+                    .then(result=>{
+                        console.log(result);
+                        console.log("Copying downloaded files");
+                        let src = path.resolve(__dirname, "..", "update", `${github.repo}-${github.branch}`);
+                        let dest = path.resolve(__dirname, "..");
+
+                        copy(src, dest, {overwrite: true}, function(error, results) {
+                            if (error) {
+                                console.error('Copy failed: ' + error);
+                            } else {
+                                console.info('Copied ' + results.length + ' files');
+                            }
+                        });
+                    })
+                    .catch(err=>console.log(err));
+                
+            }, 1000);
+        }
+        
     };
 
 	function input0_input_handler() {
