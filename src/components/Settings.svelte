@@ -230,7 +230,8 @@
                             } else {
                                 console.info('Copied ' + results.length + ' files');
                                 updateStatus = "Updated succesfull. Restart the program (Press Ctrl + R)."
-                                showinfo(mainWindow, {title:"FELion_GUI2", type:"info", message:"Update succesfull"})
+                                let response = showinfo(mainWindow, {title:"FELion_GUI2", type:"info", message:"Update succesfull", buttons:["Restart", "Restart later"]})
+                                if (response===0) mainWindow.reload()
                             }
                         });
                     })

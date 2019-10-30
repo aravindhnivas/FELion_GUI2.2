@@ -48,7 +48,7 @@
                     data = JSON.parse(data.toString("utf8"))
                     let new_version = data.version
                     console.log("Available version: ", new_version)
-                    if (current_version === new_version) {
+                    if (current_version < new_version) {
                       let options = {
                         title: "FELion_GUI2",
                         message: "Update available "+new_version,
@@ -60,11 +60,9 @@
                       console.log(response)
                       switch (response) {
                         case 0:
-                          localStorage.setItem("updateNow", "true")
                           updateNow = true
                           break;
                         case 1:
-                          localStorage.setItem("updateNow", "false")
                           updateNow = false
                           break;
                       }

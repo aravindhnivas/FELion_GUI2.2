@@ -4472,7 +4472,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (297:20) {#each items as item}
+// (298:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -5200,7 +5200,8 @@ function instance$6($$self, $$props, $$invalidate) {
                             } else {
                                 console.info('Copied ' + results.length + ' files');
                                 $$invalidate('updateStatus', updateStatus = "Updated succesfull. Restart the program (Press Ctrl + R).");
-                                showinfo(mainWindow, {title:"FELion_GUI2", type:"info", message:"Update succesfull"});
+                                let response = showinfo(mainWindow, {title:"FELion_GUI2", type:"info", message:"Update succesfull", buttons:["Restart", "Restart later"]});
+                                if (response===0) mainWindow.reload();
                             }
                         });
                     })
@@ -20448,7 +20449,7 @@ function get_each_context$4(ctx, list, i) {
 	return child_ctx;
 }
 
-// (112:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
+// (110:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
 function create_each_block$4(ctx) {
 	var current;
 
@@ -20737,7 +20738,7 @@ function instance$7($$self, $$props, $$invalidate) {
                     data = JSON.parse(data.toString("utf8"));
                     let new_version = data.version;
                     console.log("Available version: ", new_version);
-                    if (current_version === new_version) {
+                    if (current_version < new_version) {
                       let options = {
                         title: "FELion_GUI2",
                         message: "Update available "+new_version,
@@ -20749,11 +20750,9 @@ function instance$7($$self, $$props, $$invalidate) {
                       console.log(response);
                       switch (response) {
                         case 0:
-                          localStorage.setItem("updateNow", "true");
                           $$invalidate('updateNow', updateNow = true);
                           break;
                         case 1:
-                          localStorage.setItem("updateNow", "false");
                           $$invalidate('updateNow', updateNow = false);
                           break;
                       }
