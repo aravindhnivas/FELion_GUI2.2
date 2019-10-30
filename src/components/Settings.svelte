@@ -246,6 +246,7 @@
                             <h1 class="subtitle" style="margin-bottom:0">Fontawesome: {packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1]}</h1>
                             <h1 class="subtitle" style="margin-bottom:0">Tippy.js: {packageJSON.dependencies["tippy.js"].split("^")[1]}</h1>
                             <h1 class="subtitle" style="margin-bottom:0">pretty-checkbox: {packageJSON.dependencies["pretty-checkbox"].split("^")[1]}</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">hover.css: {packageJSON.dependencies["hover.css"].split("^")[1]}</h1>
                             <h1 class="subtitle" style="margin-bottom:0">jquery: {packageJSON.dependencies["jquery"].split("^")[1]}</h1>
                         </div>
                     </div>

@@ -4505,7 +4505,7 @@ function create_each_block$3(ctx) {
 }
 
 function create_fragment$6(ctx) {
-	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, div12, div11, div8, button1, t20, button1_class_value, t21, div9, h12, t22, t23, t24, div10, button2, t26, div16, div15, h13, t28, h14, t29, t30_value = process.versions.electron + "", t30, t31, h15, t32, t33_value = process.versions.node + "", t33, t34, h16, t35, t36_value = process.versions.chrome + "", t36, t37, h17, t38, t39, hr0, t40, h18, t42, h19, t43, t44_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t44, t45, h110, t46, t47_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t47, t48, hr1, t49, h111, t51, h112, t52, t53_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t53, t54, h113, t55, t56_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t56, t57, h114, t58, t59_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t59, t60, h115, t61, t62_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t62, t63, h116, t64, t65_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t65, dispose;
+	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, div12, div11, div8, button1, t20, button1_class_value, t21, div9, h12, t22, t23, t24, div10, button2, t26, div16, div15, h13, t28, h14, t29, t30_value = process.versions.electron + "", t30, t31, h15, t32, t33_value = process.versions.node + "", t33, t34, h16, t35, t36_value = process.versions.chrome + "", t36, t37, h17, t38, t39, hr0, t40, h18, t42, h19, t43, t44_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t44, t45, h110, t46, t47_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t47, t48, hr1, t49, h111, t51, h112, t52, t53_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t53, t54, h113, t55, t56_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t56, t57, h114, t58, t59_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t59, t60, h115, t61, t62_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t62, t63, h116, t64, t65_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t65, t66, h117, t67, t68_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t68, dispose;
 
 	let each_value = ctx.items;
 
@@ -4638,8 +4638,12 @@ function create_fragment$6(ctx) {
 			t62 = text(t62_value);
 			t63 = space();
 			h116 = element("h1");
-			t64 = text("jquery: ");
+			t64 = text("hover.css: ");
 			t65 = text(t65_value);
+			t66 = space();
+			h117 = element("h1");
+			t67 = text("jquery: ");
+			t68 = text(t68_value);
 			attr(div0, "class", "menu-label svelte-1ekajoa");
 			attr(ul, "class", "menu-list svelte-1ekajoa");
 			attr(aside, "class", "menu box svelte-1ekajoa");
@@ -4707,6 +4711,8 @@ function create_fragment$6(ctx) {
 			set_style(h115, "margin-bottom", "0");
 			attr(h116, "class", "subtitle");
 			set_style(h116, "margin-bottom", "0");
+			attr(h117, "class", "subtitle");
+			set_style(h117, "margin-bottom", "0");
 			attr(div15, "class", "control");
 			attr(div16, "class", "container");
 			set_style(div16, "display", "none");
@@ -4848,6 +4854,10 @@ function create_fragment$6(ctx) {
 			append(div15, h116);
 			append(h116, t64);
 			append(h116, t65);
+			append(div15, t66);
+			append(div15, h117);
+			append(h117, t67);
+			append(h117, t68);
 		},
 
 		p(changed, ctx) {
@@ -4925,8 +4935,12 @@ function create_fragment$6(ctx) {
 				set_data(t62, t62_value);
 			}
 
-			if ((changed.packageJSON) && t65_value !== (t65_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
+			if ((changed.packageJSON) && t65_value !== (t65_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
 				set_data(t65, t65_value);
+			}
+
+			if ((changed.packageJSON) && t68_value !== (t68_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
+				set_data(t68, t68_value);
 			}
 		},
 
