@@ -5164,7 +5164,7 @@ function instance$6($$self, $$props, $$invalidate) {
         
         try {fs.readdirSync(updateFolder);} 
         catch (err) {
-            exec(`mkdir update`, (err, stdout, stderr)=>{
+            exec(`mkdir ${updateFolder}`, (err, stdout, stderr)=>{
                 if (err) throw err;
                 console.log(stdout);
                 console.log("Update folder created");
