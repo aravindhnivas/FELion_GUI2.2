@@ -8,6 +8,8 @@
     const {exec} = require("child_process")
     const https = require('https');
     const fs = require('fs');
+    const admZip = require('adm-zip');
+
 
     // When DOMContentent is loaded and ready
     jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active")})
@@ -129,33 +131,67 @@
         
     }
 
+
+    $: updateStatus = "File Downloaded"
     const update = () => {
-        const fileLocation = path.resolve(__dirname, "..", "update.zip")
-        const downloadedFile = fs.createWriteStream(fileLocation);
+
+        const updateFolder = path.resolve(__dirname, "..", "update")
+
+        try {
+            fs.readdirSync(updateFolder)
+        } catch (err) {
+            exec(`mkdir update`, (err, stdout, stderr)=>{
+                if (err) throw err;
+                console.log(stdout)
+                console.log("Update folder created")
+            })
+        }
+
+        const updatefilename = "update.zip"
+        const zipFile = path.resolve(updateFolder, updatefilename)
+        const downloadedFile = fs.createWriteStream(zipFile);
 
         updateLoading = "is-loading"
 
         // Downloading files
-        https.get(urlzip, (res) => {
+        let response = https.get(urlzip, (res) => {
 
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);
-
-            // Saving the downloaded file
             res.pipe(downloadedFile);
             console.log("File downloaded")
 
             // Animating the button to indicate success message
             updateLoading = "animated bounce is-success"
-            setTimeout(()=>updateLoading = "", 2000)
 
+            setTimeout(()=>updateLoading = "", 2000)
+            updateStatus = "File downloaded"
             fadeInfadeOut()
 
-        }).on('error', (err) => {
+        })
+        
+        response.on('error', (err) => {
             console.error("Error occured while downloading file: (Try again or maybe check your internet connection)\n", err)
             updateLoading = "animated shake faster is-danger"
             setTimeout(()=>updateLoading = "", 2000)
-        });;
+
+        });
+
+        response.on("close", ()=>{
+            
+            console.log("Downloading Completed")
+
+            // Extracting downloaded files
+            console.log("Extracting files")
+
+            let zip = new admZip(`${__dirname}/../update/update.zip`);
+            zip.extractAllTo(/*target path*/`${__dirname}/../update`, /*overwrite*/true);
+            console.log("File Extracted")
+            updateStatus = "File Extracted"
+            fadeInfadeOut()
+        })
+
+
     }
 </script>
 
@@ -273,7 +309,7 @@
                                 </div>
                             </div>
                             
-                            <h1 class="subtitle animated {saveChangeanimate}" style="display:{saveChanges}">File Downloaded!</h1>
+                            <h1 class="subtitle animated {saveChangeanimate}" style="display:{saveChanges}">{updateStatus}</h1>
                             
                         </div>
                     </div>
