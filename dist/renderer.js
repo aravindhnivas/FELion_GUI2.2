@@ -747,7 +747,7 @@ function get_each_context_1(ctx, list, i) {
 	return child_ctx;
 }
 
-// (237:4) {:else}
+// (242:4) {:else}
 function create_else_block_1(ctx) {
 	var div;
 
@@ -772,7 +772,7 @@ function create_else_block_1(ctx) {
 	};
 }
 
-// (173:4) {#if folderFile != undefined}
+// (178:4) {#if folderFile != undefined}
 function create_if_block$1(ctx) {
 	var div1, aside, div0, span0, t0, span1, t1_value = ctx.folderFile.parentFolder + "", t1, div0_id_value, t2, ul, t3, ul_id_value, aside_id_value, t4, each1_anchor, dispose;
 
@@ -961,7 +961,7 @@ function create_if_block$1(ctx) {
 	};
 }
 
-// (199:12) {:else}
+// (204:12) {:else}
 function create_else_block$1(ctx) {
 	var h1, t0, t1, t2;
 
@@ -995,7 +995,7 @@ function create_else_block$1(ctx) {
 	};
 }
 
-// (186:12) {#if folderFile.files.length > 0}
+// (191:12) {#if folderFile.files.length > 0}
 function create_if_block_1(ctx) {
 	var li, div1, input, input_id_value, t, div0, dispose;
 
@@ -1040,7 +1040,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (203:12) {#each folderFile.files.sort() as filename}
+// (208:12) {#each folderFile.files.sort() as filename}
 function create_each_block_1(ctx) {
 	var li, div1, input, input_id_value, input_class_value, t0, div0, i, t1, label, t2_value = ctx.filename + "", t2, label_for_value, t3, li_class_value, dispose;
 
@@ -1114,7 +1114,7 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (223:6) {#each folderFile.folders as foldername}
+// (228:6) {#each folderFile.folders as foldername}
 function create_each_block$1(ctx) {
 	var div1, aside, div0, span0, t0, span1, t1_value = ctx.foldername + "", t1, span1_id_value, t2, dispose;
 
@@ -1372,7 +1372,6 @@ let animation = "animated fadeIn";
 function instance$3($$self, $$props, $$invalidate) {
 	let { jq, currentLocation, filetag, updateFolder, getCheckedFiles, path } = $$props;
 
-
   let folderFile;
 
   const refreshFolder = event => {
@@ -1424,8 +1423,8 @@ function instance$3($$self, $$props, $$invalidate) {
   let display = "block";
   let visible = true;
   const fileExplorerToggle = (event) => {
-    let $target = jq(event.target);
 
+    let $target = jq(event.target);
     $$invalidate('visible', visible = !visible);
 
     let $filebrowser = jq(`#${filetag}filebrowserColumn`);
@@ -1444,6 +1443,13 @@ function instance$3($$self, $$props, $$invalidate) {
       $plotContainer.css("width", "86%");
       $target.addClass("fa-rotate-90");
     }
+
+    let obj = {width : $plotContainer.width()*0.97};
+    Plotly.relayout("saPlot", obj);
+    Plotly.relayout("bplot", obj);
+    Plotly.relayout("avgplot", obj);
+    Plotly.relayout("nplot", obj);
+    Plotly.relayout("exp-theory-plot", obj);
   };
 
 	const click_handler = () => changeDir('..');

@@ -7,7 +7,6 @@
   export let getCheckedFiles;
   export let path;
 
-
   let folderFile;
   $: if(!currentLocation) {console.log(`Currentlocation: [${filetag}]: is undefined`)} else {folderFile = updateFolder(currentLocation);}
 
@@ -59,13 +58,12 @@
   
   let display = "block"
   let visible = true
-
   $: visible ? display = "block" : display = "none"
 
   let animation = "animated fadeIn"
   const fileExplorerToggle = (event) => {
-    let $target = jq(event.target)
 
+    let $target = jq(event.target)
     visible = !visible
 
     let $filebrowser = jq(`#${filetag}filebrowserColumn`)
@@ -84,6 +82,13 @@
       $plotContainer.css("width", "86%")
       $target.addClass("fa-rotate-90")
     }
+
+    let obj = {width : $plotContainer.width()*0.97}
+    Plotly.relayout("saPlot", obj)
+    Plotly.relayout("bplot", obj)
+    Plotly.relayout("avgplot", obj)
+    Plotly.relayout("nplot", obj)
+    Plotly.relayout("exp-theory-plot", obj)
   }
 
 </script>
