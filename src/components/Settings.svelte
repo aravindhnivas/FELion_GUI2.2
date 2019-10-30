@@ -83,20 +83,25 @@
                 // process.stdout.write(data);
                 data = JSON.parse(data.toString("utf8"))
 
-                console.log(data, typeof(data))
                 new_version = data.version
+                console.log(`Received package:`, data)
+                console.log(`Version available ${new_version}`)
+                console.log(`Current version ${localStorage.version}`)
+                
                 updatetoggle = "block"
                 checkupdateLoading = "animated bounce is-success"
                 setTimeout(()=>checkupdateLoading = "", 2000)
+
+                console.log("Completed")
             });
 
         }).on('error', (err) => {
-            console.error(err)
+            console.error("Error occured: (Try again or maybe check your internet connection)\n", err)
             checkupdateLoading = "animated shake faster is-danger"
             setTimeout(()=>checkupdateLoading = "", 2000)
         });
 
-        console.log("Done")
+        
     }
 
 </script>
@@ -197,7 +202,7 @@
 
                     <div class="container" style="display:none" id="Update">
                         <div class="control">
-                            <h1 class="subtitle">FELion GUI (Current version): {localStorage.version}</h1>
+                            <h1 class="title">FELion GUI (Current version): {localStorage.version}</h1>
                             <div class="level">
                                 <div class="level-left">
                                     <div class="level-item">
