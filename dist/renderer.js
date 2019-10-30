@@ -4505,7 +4505,7 @@ function create_each_block$3(ctx) {
 }
 
 function create_fragment$6(ctx) {
-	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, div12, div11, div8, button1, t20, button1_class_value, t21, div9, h12, t22, t23, t24, div10, button2, t26, div16, div15, h13, t28, h14, t29, t30_value = process.versions.electron + "", t30, t31, h15, t32, t33_value = process.versions.node + "", t33, t34, h16, t35, t36_value = process.versions.chrome + "", t36, t37, h17, t38, t39, hr0, t40, h18, t42, h19, t43, t44_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t44, t45, h110, t46, t47_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t47, t48, hr1, t49, h111, t51, h112, t52, t53_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t53, t54, h113, t55, t56_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t56, t57, h114, t58, t59_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t59, t60, h115, t61, t62_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t62, t63, h116, t64, t65_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t65, t66, h117, t67, t68_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t68, dispose;
+	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, div12, div11, div8, button1, t20, button1_class_value, t21, div9, h12, t22, t23, t24, div10, button2, t26, div16, div15, h13, t28, h14, t29, t30_value = process.versions.electron + "", t30, t31, h15, t32, t33_value = process.versions.node + "", t33, t34, h16, t35, t36_value = process.versions.chrome + "", t36, t37, h17, t38, t39, hr0, t40, h18, t42, h19, t43, t44_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t44, t45, h110, t46, t47_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t47, t48, h111, t49, t50_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t50, t51, hr1, t52, h112, t54, h113, t55, t56_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t56, t57, h114, t58, t59_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t59, t60, h115, t61, t62_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t62, t63, h116, t64, t65_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t65, t66, h117, t67, t68_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t68, dispose;
 
 	let each_value = ctx.items;
 
@@ -4606,43 +4606,43 @@ function create_fragment$6(ctx) {
 			hr0 = element("hr");
 			t40 = space();
 			h18 = element("h1");
-			h18.textContent = "Dependencies (Frameworks and libraries)";
+			h18.textContent = "Javascript Frameworks and libraries";
 			t42 = space();
 			h19 = element("h1");
 			t43 = text("Svelte.js: ");
 			t44 = text(t44_value);
 			t45 = space();
 			h110 = element("h1");
-			t46 = text("Typescript: ");
+			t46 = text("jQuery: ");
 			t47 = text(t47_value);
 			t48 = space();
-			hr1 = element("hr");
-			t49 = space();
 			h111 = element("h1");
-			h111.textContent = "Bootstrap libraries";
+			t49 = text("Typescript: ");
+			t50 = text(t50_value);
 			t51 = space();
+			hr1 = element("hr");
+			t52 = space();
 			h112 = element("h1");
-			t52 = text("Bulma: ");
-			t53 = text(t53_value);
+			h112.textContent = "CSS Frameworks and libraries";
 			t54 = space();
 			h113 = element("h1");
-			t55 = text("Fontawesome: ");
+			t55 = text("Bulma: ");
 			t56 = text(t56_value);
 			t57 = space();
 			h114 = element("h1");
-			t58 = text("Tippy.js: ");
+			t58 = text("Fontawesome: ");
 			t59 = text(t59_value);
 			t60 = space();
 			h115 = element("h1");
-			t61 = text("pretty-checkbox: ");
+			t61 = text("Tippy.js: ");
 			t62 = text(t62_value);
 			t63 = space();
 			h116 = element("h1");
-			t64 = text("hover.css: ");
+			t64 = text("pretty-checkbox: ");
 			t65 = text(t65_value);
 			t66 = space();
 			h117 = element("h1");
-			t67 = text("jquery: ");
+			t67 = text("hover.css: ");
 			t68 = text(t68_value);
 			attr(div0, "class", "menu-label svelte-1ekajoa");
 			attr(ul, "class", "menu-list svelte-1ekajoa");
@@ -4700,9 +4700,9 @@ function create_fragment$6(ctx) {
 			set_style(h19, "margin-bottom", "0");
 			attr(h110, "class", "subtitle");
 			set_style(h110, "margin-bottom", "0");
-			attr(h111, "class", "title");
-			attr(h112, "class", "subtitle");
-			set_style(h112, "margin-bottom", "0");
+			attr(h111, "class", "subtitle");
+			set_style(h111, "margin-bottom", "0");
+			attr(h112, "class", "title");
 			attr(h113, "class", "subtitle");
 			set_style(h113, "margin-bottom", "0");
 			attr(h114, "class", "subtitle");
@@ -4831,13 +4831,13 @@ function create_fragment$6(ctx) {
 			append(h110, t46);
 			append(h110, t47);
 			append(div15, t48);
-			append(div15, hr1);
-			append(div15, t49);
 			append(div15, h111);
+			append(h111, t49);
+			append(h111, t50);
 			append(div15, t51);
+			append(div15, hr1);
+			append(div15, t52);
 			append(div15, h112);
-			append(h112, t52);
-			append(h112, t53);
 			append(div15, t54);
 			append(div15, h113);
 			append(h113, t55);
@@ -4915,31 +4915,31 @@ function create_fragment$6(ctx) {
 				set_data(t44, t44_value);
 			}
 
-			if ((changed.packageJSON) && t47_value !== (t47_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
+			if ((changed.packageJSON) && t47_value !== (t47_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
 				set_data(t47, t47_value);
 			}
 
-			if ((changed.packageJSON) && t53_value !== (t53_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
-				set_data(t53, t53_value);
+			if ((changed.packageJSON) && t50_value !== (t50_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
+				set_data(t50, t50_value);
 			}
 
-			if ((changed.packageJSON) && t56_value !== (t56_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
+			if ((changed.packageJSON) && t56_value !== (t56_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
 				set_data(t56, t56_value);
 			}
 
-			if ((changed.packageJSON) && t59_value !== (t59_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
+			if ((changed.packageJSON) && t59_value !== (t59_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
 				set_data(t59, t59_value);
 			}
 
-			if ((changed.packageJSON) && t62_value !== (t62_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
+			if ((changed.packageJSON) && t62_value !== (t62_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
 				set_data(t62, t62_value);
 			}
 
-			if ((changed.packageJSON) && t65_value !== (t65_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
+			if ((changed.packageJSON) && t65_value !== (t65_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
 				set_data(t65, t65_value);
 			}
 
-			if ((changed.packageJSON) && t68_value !== (t68_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
+			if ((changed.packageJSON) && t68_value !== (t68_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
 				set_data(t68, t68_value);
 			}
 		},
