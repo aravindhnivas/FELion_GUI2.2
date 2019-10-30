@@ -1,6 +1,7 @@
 python3.7/
 node_modules/
 FELion_GUI2.2-win32-x64/
+update/
 *.7z
 *.rar
 *.zip
