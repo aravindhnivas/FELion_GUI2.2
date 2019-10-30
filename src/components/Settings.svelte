@@ -50,6 +50,7 @@
         localStorage["pythonpath"] = pythonpath
         localStorage["pythonscript"] = pythonscript
         console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`)
+
         fadeInfadeOut()
 
     }
@@ -81,12 +82,15 @@
     $: updatetoggle = "none"
     $: checkupdateLoading = ""
     $: updateLoading = ""
-    // Github files and zip downloading format
-    // https://raw.githubusercontent.com/<userOrOrgName>/<repository>/<branch>/<filename>
-    // https://codeload.github.com/<userOrOrgName>/<repoName>/zip/<branch>
+    
+    const github = {
+        username: "aravindhnivas",
+        repo: "FELion_GUI2.2",
+        branch: "master",
+    }
 
-    const urlPackageJson = "https://raw.githubusercontent.com/aravindhnivas/FELion_GUI2.2/master/"
-    const urlzip = "https://codeload.github.com/aravindhnivas/FELion_GUI2.2/zip/master"
+    const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`
+    const urlzip = `https://codeload.github.com/${github.username}/${github.repo}/zip/${github.branch}`
 
     const updateCheck = () => {
 
@@ -95,7 +99,7 @@
 
         checkupdateLoading = "is-loading"
 
-        https.get(`${urlPackageJson}/package.json`, (res) => {
+        https.get(urlPackageJson, (res) => {
 
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);
@@ -144,6 +148,8 @@
             // Animating the button to indicate success message
             updateLoading = "animated bounce is-success"
             setTimeout(()=>updateLoading = "", 2000)
+
+            fadeInfadeOut()
 
         }).on('error', (err) => {
             console.error("Error occured while downloading file: (Try again or maybe check your internet connection)\n", err)
@@ -250,6 +256,7 @@
                     <div class="container" style="display:none" id="Update">
                         <div class="control">
                             <h1 class="title">FELion GUI (Current version): {localStorage.version}</h1>
+
                             <div class="level">
                                 <div class="level-left">
                                     <div class="level-item">
@@ -265,6 +272,9 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <h1 class="subtitle animated {saveChangeanimate}" style="display:{saveChanges}">File Downloaded!</h1>
+                            
                         </div>
                     </div>
 
