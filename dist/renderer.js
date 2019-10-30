@@ -4472,7 +4472,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (288:20) {#each items as item}
+// (292:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4505,7 +4505,7 @@ function create_each_block$3(ctx) {
 }
 
 function create_fragment$6(ctx) {
-	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, button1, t21, div12, div11, div8, button2, t22, button2_class_value, t23, div9, h12, t24, t25, t26, div10, button3, t27, button3_class_value, t28, h13, t29, t30, div16, div15, h14, t32, h15, t33, t34_value = process.versions.electron + "", t34, t35, h16, t36, t37_value = process.versions.node + "", t37, t38, h17, t39, t40_value = process.versions.chrome + "", t40, t41, h18, t42, t43, hr0, t44, h19, t46, h110, t47, t48_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t48, t49, h111, t50, t51_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t51, t52, h112, t53, t54_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t54, t55, h113, t56, t57_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t57, t58, hr1, t59, h114, t61, h115, t62, t63_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t63, t64, h116, t65, t66_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t66, t67, h117, t68, t69_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t69, t70, h118, t71, t72_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t72, dispose;
+	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18, t19, button1, t21, div12, div11, div8, button2, t22, button2_class_value, t23, div9, h12, t24, t25, t26, div10, button3, t27, button3_class_value, t28, h13, t29, t30, div16, div15, h14, t32, h15, t33, t34_value = process.versions.electron + "", t34, t35, h16, t36, t37_value = process.versions.node + "", t37, t38, h17, t39, t40_value = process.versions.chrome + "", t40, t41, h18, t42, t43, hr0, t44, h19, t46, h110, t47, t48_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t48, t49, h111, t50, t51_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t51, t52, h112, t53, t54_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t54, t55, h113, t56, t57_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t57, t58, hr1, t59, h114, t61, h115, t62, t63_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t63, t64, h116, t65, t66_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t66, t67, h117, t68, t69_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t69, t70, h118, t71, t72_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t72, dispose;
 
 	let each_value = ctx.items;
 
@@ -4566,7 +4566,7 @@ function create_fragment$6(ctx) {
 			div13 = element("div");
 			h11 = element("h1");
 			t17 = text("FELion GUI (Current version): ");
-			t18 = text(t18_value);
+			t18 = text(ctx.currentVersion);
 			t19 = space();
 			button1 = element("button");
 			button1.textContent = "Restart";
@@ -5006,6 +5006,7 @@ function instance$6($$self, $$props, $$invalidate) {
     // Reading local package.json file
     let packageJSON = fs.readFileSync(path.join(__dirname, "../package.json"));
     $$invalidate('packageJSON', packageJSON = JSON.parse(packageJSON.toString("utf-8")));
+    let currentVersion = packageJSON.version;
 
     // Pythonpath and pythonscript files location
     if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python");
@@ -5074,7 +5075,6 @@ function instance$6($$self, $$props, $$invalidate) {
 
     const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`;
     const urlzip = `https://codeload.github.com/${github.username}/${github.repo}/zip/${github.branch}`;
-
     const updateFolder = path.resolve(__dirname, "..", "update");
     const zipFile = path.resolve(updateFolder, updatefilename);
 
@@ -5103,6 +5103,9 @@ function instance$6($$self, $$props, $$invalidate) {
                 $$invalidate('checkupdateLoading', checkupdateLoading = "animated bounce is-success");
                 setTimeout(()=>$$invalidate('checkupdateLoading', checkupdateLoading = ""), 2000);
 
+                if (currentVersion === new_version) $$invalidate('updateStatus', updateStatus = "No major new update available (Still you update to see the latest minor updates if any available)");
+                if (currentVersion < new_version) $$invalidate('updateStatus', updateStatus = "New update available");
+
                 console.log("Completed");
             });
 
@@ -5110,8 +5113,8 @@ function instance$6($$self, $$props, $$invalidate) {
             console.error("Error occured: (Try again or maybe check your internet connection)\n", err);
             $$invalidate('checkupdateLoading', checkupdateLoading = "animated shake faster is-danger");
             setTimeout(()=>$$invalidate('checkupdateLoading', checkupdateLoading = ""), 2000);
+            $$invalidate('updateStatus', updateStatus = "Try again or Check your internet connection");
         });
-
         
     };
     
@@ -5197,7 +5200,7 @@ function instance$6($$self, $$props, $$invalidate) {
                                 $$invalidate('updateStatus', updateStatus = "Update failed.\nMaybe the user doesn't have necessary persmission to write files in the disk");
                             } else {
                                 console.info('Copied ' + results.length + ' files');
-                                $$invalidate('updateStatus', updateStatus = "Updated succesfull. Restart the program.");
+                                $$invalidate('updateStatus', updateStatus = "Updated succesfull. Restart the program (Press Ctrl + R).");
                             }
                         });
                     })
@@ -5241,6 +5244,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		path,
 		mainWindow,
 		packageJSON,
+		currentVersion,
 		pythonpath,
 		pythonscript,
 		pythonv,
@@ -5249,7 +5253,6 @@ function instance$6($$self, $$props, $$invalidate) {
 		toggle,
 		updateCheck,
 		update,
-		localStorage,
 		saveChanges,
 		saveChangeanimate,
 		new_version,

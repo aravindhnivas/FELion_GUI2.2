@@ -18,6 +18,7 @@
     // Reading local package.json file
     let packageJSON = fs.readFileSync(path.join(__dirname, "../package.json"))
     packageJSON = JSON.parse(packageJSON.toString("utf-8"))
+    let currentVersion = packageJSON.version
 
     // Pythonpath and pythonscript files location
     if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python")
@@ -95,7 +96,6 @@
 
     const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`
     const urlzip = `https://codeload.github.com/${github.username}/${github.repo}/zip/${github.branch}`
-
     const updateFolder = path.resolve(__dirname, "..", "update")
     const updatefilename = "update.zip"
     const zipFile = path.resolve(updateFolder, updatefilename)
@@ -125,6 +125,9 @@
                 checkupdateLoading = "animated bounce is-success"
                 setTimeout(()=>checkupdateLoading = "", 2000)
 
+                if (currentVersion === new_version) updateStatus = "No major new update available (Still you update to see the latest minor updates if any available)"
+                if (currentVersion < new_version) updateStatus = "New update available"
+
                 console.log("Completed")
             });
 
@@ -132,8 +135,8 @@
             console.error("Error occured: (Try again or maybe check your internet connection)\n", err)
             checkupdateLoading = "animated shake faster is-danger"
             setTimeout(()=>checkupdateLoading = "", 2000)
+            updateStatus = "Try again or Check your internet connection"
         });
-
         
     }
 
@@ -222,7 +225,7 @@
                                 updateStatus = "Update failed.\nMaybe the user doesn't have necessary persmission to write files in the disk"
                             } else {
                                 console.info('Copied ' + results.length + ' files');
-                                updateStatus = "Updated succesfull. Restart the program."
+                                updateStatus = "Updated succesfull. Restart the program (Press Ctrl + R)."
                             }
                         });
                     })
@@ -232,6 +235,7 @@
         }
         
     }
+
 </script>
 
 <style>
@@ -330,7 +334,7 @@
 
                     <div class="container" style="display:none" id="Update">
                         <div class="control">
-                            <h1 class="title">FELion GUI (Current version): {localStorage.version}</h1>
+                            <h1 class="title">FELion GUI (Current version): {currentVersion}</h1>
                             <button class="button is-warning is-pulled-right" on:click="{()=>mainWindow.reload()}">Restart</button>
 
                             <div class="level">
