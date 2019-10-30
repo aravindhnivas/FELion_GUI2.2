@@ -4472,7 +4472,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (292:20) {#each items as item}
+// (296:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4990,8 +4990,9 @@ function create_fragment$6(ctx) {
 const updatefilename = "update.zip";
 
 function instance$6($$self, $$props, $$invalidate) {
-	// Importing modules from App.svelte
-    let { jq, path, mainWindow } = $$props;
+	let { jq, path, mainWindow, updateNow = false, showinfo } = $$props;
+
+    updateNow ? update() : console.log("Update available but not updating now");
 
     // Importing modules
     const {exec} = require("child_process");
@@ -5103,7 +5104,7 @@ function instance$6($$self, $$props, $$invalidate) {
                 $$invalidate('checkupdateLoading', checkupdateLoading = "animated bounce is-success");
                 setTimeout(()=>$$invalidate('checkupdateLoading', checkupdateLoading = ""), 2000);
 
-                if (currentVersion === new_version) $$invalidate('updateStatus', updateStatus = "No major new update available (Still you update to see the latest minor updates if any available)");
+                if (currentVersion === new_version) $$invalidate('updateStatus', updateStatus = "No major new update available (Still you can update to see the latest minor updates if any available)");
                 if (currentVersion < new_version) $$invalidate('updateStatus', updateStatus = "New update available");
 
                 console.log("Completed");
@@ -5201,6 +5202,7 @@ function instance$6($$self, $$props, $$invalidate) {
                             } else {
                                 console.info('Copied ' + results.length + ' files');
                                 $$invalidate('updateStatus', updateStatus = "Updated succesfull. Restart the program (Press Ctrl + R).");
+                                showinfo(mainWindow, {title:"FELion_GUI2", type:"info", message:"Update succesfull"});
                             }
                         });
                     })
@@ -5227,6 +5229,8 @@ function instance$6($$self, $$props, $$invalidate) {
 		if ('jq' in $$props) $$invalidate('jq', jq = $$props.jq);
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
 		if ('mainWindow' in $$props) $$invalidate('mainWindow', mainWindow = $$props.mainWindow);
+		if ('updateNow' in $$props) $$invalidate('updateNow', updateNow = $$props.updateNow);
+		if ('showinfo' in $$props) $$invalidate('showinfo', showinfo = $$props.showinfo);
 	};
 
 	let saveChanges, saveChangeanimate, new_version, updatetoggle, checkupdateLoading, updateLoading, updateStatus;
@@ -5243,6 +5247,8 @@ function instance$6($$self, $$props, $$invalidate) {
 		jq,
 		path,
 		mainWindow,
+		updateNow,
+		showinfo,
 		packageJSON,
 		currentVersion,
 		pythonpath,
@@ -5269,7 +5275,7 @@ function instance$6($$self, $$props, $$invalidate) {
 class Settings extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$6, create_fragment$6, safe_not_equal, ["jq", "path", "mainWindow"]);
+		init(this, options, instance$6, create_fragment$6, safe_not_equal, ["jq", "path", "mainWindow", "updateNow", "showinfo"]);
 	}
 }
 
@@ -20439,7 +20445,7 @@ function get_each_context$4(ctx, list, i) {
 	return child_ctx;
 }
 
-// (66:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
+// (112:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
 function create_each_block$4(ctx) {
 	var current;
 
@@ -20536,7 +20542,9 @@ function create_fragment$8(ctx) {
 		props: {
 		jq: ctx.jq,
 		path: path,
-		mainWindow: ctx.mainWindow
+		mainWindow: ctx.mainWindow,
+		updateNow: ctx.updateNow,
+		showinfo: ctx.showinfo
 	}
 	});
 
@@ -20609,6 +20617,10 @@ function create_fragment$8(ctx) {
 				}
 				check_outros();
 			}
+
+			var settings_changes = {};
+			if (changed.updateNow) settings_changes.updateNow = ctx.updateNow;
+			settings.$set(settings_changes);
 		},
 
 		i(local) {
@@ -20694,25 +20706,69 @@ function instance$7($$self, $$props, $$invalidate) {
 	
 
   const fs = require("fs");
+  const https = require('https');
 
   const jq = jquery;
+  const remote = electron.remote;
+  const mainWindow = remote.getCurrentWindow();
+  const Menu = remote.Menu;
+  const MenuItem = remote.MenuItem;
+  const showinfo = remote.dialog.showMessageBox;
 
-  let version = fs.readFileSync(path.join(__dirname, "../package.json"));
-  version = JSON.parse(version.toString("utf-8")).version;
+  let current_version = fs.readFileSync(path.join(__dirname, "../package.json"));
+  current_version = JSON.parse(current_version.toString("utf-8")).version;
+  localStorage["version"] = current_version;
 
-  localStorage["version"] = version;
+  const github = {
+        username: "aravindhnivas",
+        repo: "FELion_GUI2.2",
+        branch: "master",
+    };
+
+  const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`;
+  let request = https.get(urlPackageJson, (res) => {
+
+                  console.log("Checking for update");
+
+                  res.on('data', (data) => {
+                    data = JSON.parse(data.toString("utf8"));
+                    let new_version = data.version;
+                    console.log("Available version: ", new_version);
+                    if (current_version === new_version) {
+                      let options = {
+                        title: "FELion_GUI2",
+                        message: "Update available "+new_version,
+                        buttons: ["Update and restart", "Cancel"],
+                        type:"info"
+
+                      };
+                      let response = showinfo(mainWindow, options);
+                      console.log(response);
+                      switch (response) {
+                        case 0:
+                          $$invalidate('updateNow', updateNow = true);
+                          break;
+                        case 1:
+                          $$invalidate('updateNow', updateNow = false);
+                          break;
+                      
+                        default:
+                          $$invalidate('updateNow', updateNow = false);
+                          break;
+                      }
+                    }
+                  });
+
+                });
+
+  request.on("error", (err)=>console.log("Error occured while checiking for update"));
+  request.on("close", ()=>console.log("Update check done"));
 
   // Getting variables
   let { mainPages } = $$props;
   const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile", "Settings"];
  
-  const remote = electron.remote;
-  const mainWindow = remote.getCurrentWindow();
-  const Menu = remote.Menu;
-  const MenuItem = remote.MenuItem;
-
   let rightClickPosition = null;
-
   const menu = new Menu();
 
   menu.append(new MenuItem({ label: 'cut', role:"cut" }));
@@ -20737,13 +20793,19 @@ function instance$7($$self, $$props, $$invalidate) {
 		if ('mainPages' in $$props) $$invalidate('mainPages', mainPages = $$props.mainPages);
 	};
 
+	let updateNow;
+
+	$$invalidate('updateNow', updateNow = false);
+
 	return {
 		jq,
-		mainPages,
-		navItems,
 		mainWindow,
 		MenuItem,
-		menu
+		showinfo,
+		mainPages,
+		navItems,
+		menu,
+		updateNow
 	};
 }
 

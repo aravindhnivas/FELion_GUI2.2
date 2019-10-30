@@ -16,25 +16,71 @@
   import * as path from 'path';
 
   const fs = require("fs")
+  const https = require('https');
 
   const jq = jQuery.default;
+  const remote = electron.remote
+  const mainWindow = remote.getCurrentWindow()
+  const Menu = remote.Menu
+  const MenuItem = remote.MenuItem
+  const showinfo = remote.dialog.showMessageBox
 
-  let version = fs.readFileSync(path.join(__dirname, "../package.json"))
-  version = JSON.parse(version.toString("utf-8")).version
+  let current_version = fs.readFileSync(path.join(__dirname, "../package.json"))
+  current_version = JSON.parse(current_version.toString("utf-8")).version
+  localStorage["version"] = current_version
 
-  localStorage["version"] = version
+  const github = {
+        username: "aravindhnivas",
+        repo: "FELion_GUI2.2",
+        branch: "master",
+    }
+
+  $: updateNow = false
+
+  const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`
+  let request = https.get(urlPackageJson, (res) => {
+
+                  console.log("Checking for update")
+
+                  res.on('data', (data) => {
+                    data = JSON.parse(data.toString("utf8"))
+                    let new_version = data.version
+                    console.log("Available version: ", new_version)
+                    if (current_version === new_version) {
+                      let options = {
+                        title: "FELion_GUI2",
+                        message: "Update available "+new_version,
+                        buttons: ["Update and restart", "Cancel"],
+                        type:"info"
+
+                      }
+                      let response = showinfo(mainWindow, options)
+                      console.log(response)
+                      switch (response) {
+                        case 0:
+                          updateNow = true
+                          break;
+                        case 1:
+                          updateNow = false
+                          break;
+                      
+                        default:
+                          updateNow = false
+                          break;
+                      }
+                    }
+                  })
+
+                })
+
+  request.on("error", (err)=>console.log("Error occured while checiking for update"))
+  request.on("close", ()=>console.log("Update check done"))
 
   // Getting variables
   export let mainPages;
   const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile", "Settings"];
  
-  const remote = electron.remote
-  const mainWindow = remote.getCurrentWindow()
-  const Menu = remote.Menu
-  const MenuItem = remote.MenuItem
-
   let rightClickPosition = null
-
   const menu = new Menu()
 
   menu.append(new MenuItem({ label: 'cut', role:"cut" }))
@@ -68,6 +114,6 @@
 {/each}
 <Powerfile {electron} {path} {jq}/>
 
-<Settings {jq} {path} {mainWindow}/>
+<Settings {jq} {path} {mainWindow} {updateNow} {showinfo}/>
 
 <Footer {jq}/>

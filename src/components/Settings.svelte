@@ -1,9 +1,12 @@
 <script>
 
-    // Importing modules from App.svelte
     export let jq;
     export let path;
     export let mainWindow;
+    export let updateNow = false;
+    export let showinfo;
+
+    updateNow ? update() : console.log("Update available but not updating now")
 
     // Importing modules
     const {exec} = require("child_process")
@@ -125,7 +128,7 @@
                 checkupdateLoading = "animated bounce is-success"
                 setTimeout(()=>checkupdateLoading = "", 2000)
 
-                if (currentVersion === new_version) updateStatus = "No major new update available (Still you update to see the latest minor updates if any available)"
+                if (currentVersion === new_version) updateStatus = "No major new update available (Still you can update to see the latest minor updates if any available)"
                 if (currentVersion < new_version) updateStatus = "New update available"
 
                 console.log("Completed")
@@ -226,6 +229,7 @@
                             } else {
                                 console.info('Copied ' + results.length + ' files');
                                 updateStatus = "Updated succesfull. Restart the program (Press Ctrl + R)."
+                                showinfo(mainWindow, {title:"FELion_GUI2", type:"info", message:"Update succesfull"})
                             }
                         });
                     })
