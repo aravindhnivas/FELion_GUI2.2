@@ -4991,7 +4991,6 @@ const updatefilename = "update.zip";
 
 function instance$6($$self, $$props, $$invalidate) {
 	let { jq, path, mainWindow, showinfo } = $$props;
-    localStorage["updateNow"] == "true" ? update() : console.log("Update available but not updating now");
 
     // Importing modules
     const {exec} = require("child_process");
@@ -5233,6 +5232,7 @@ function instance$6($$self, $$props, $$invalidate) {
 
 	let saveChanges, saveChangeanimate, new_version, updatetoggle, checkupdateLoading, updateLoading, updateStatus;
 
+	localStorage["updateNow"] == "true" ? update() : console.log("Update available but not updating now");
 	$$invalidate('saveChanges', saveChanges = "none");
 	$$invalidate('saveChangeanimate', saveChangeanimate = "fadeIn");
 	$$invalidate('new_version', new_version = "");
@@ -20442,7 +20442,7 @@ function get_each_context$4(ctx, list, i) {
 	return child_ctx;
 }
 
-// (112:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
+// (115:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
 function create_each_block$4(ctx) {
 	var current;
 
@@ -20741,13 +20741,16 @@ function instance$7($$self, $$props, $$invalidate) {
                       switch (response) {
                         case 0:
                           localStorage["updateNow"] = true;
+                          console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="true");
                           break;
                         case 1:
                           localStorage["updateNow"] = false;
+                          console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="false");
                           break;
                       
                         default:
                           localStorage["updateNow"] = false;
+                          console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="false");
                           break;
                       }
                     }

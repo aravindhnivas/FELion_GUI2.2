@@ -59,13 +59,16 @@
                       switch (response) {
                         case 0:
                           localStorage["updateNow"] = true
+                          console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="true")
                           break;
                         case 1:
                           localStorage["updateNow"] = false
+                          console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="false")
                           break;
                       
                         default:
                           localStorage["updateNow"] = false
+                          console.log("Update now: ", localStorage["updateNow"], localStorage["updateNow"]=="false")
                           break;
                       }
                     }
