@@ -4472,7 +4472,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (166:20) {#each items as item}
+// (207:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4505,7 +4505,7 @@ function create_each_block$3(ctx) {
 }
 
 function create_fragment$6(ctx) {
-	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, div12, div11, div8, button1, t20, button1_class_value, t21, div9, h12, t22, t23, t24, div10, button2, t26, div16, div15, h13, t28, h14, t29, t30_value = process.versions.electron + "", t30, t31, h15, t32, t33_value = process.versions.node + "", t33, t34, h16, t35, t36_value = process.versions.chrome + "", t36, t37, h17, t38, t39, hr0, t40, h18, t42, h19, t43, t44_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t44, t45, h110, t46, t47_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t47, t48, h111, t49, t50_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t50, t51, h112, t52, t53_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t53, t54, hr1, t55, h113, t57, h114, t58, t59_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t59, t60, h115, t61, t62_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t62, t63, h116, t64, t65_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t65, t66, h117, t67, t68_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t68, dispose;
+	var section, div20, div1, aside, div0, t1, ul, t2, div19, div18, div17, div7, div3, label0, t4, div2, input0, t5, p0, t7, div5, label1, t9, div4, input1, t10, p1, t12, div6, button0, t14, h10, t15, h10_class_value, t16, div14, div13, h11, t17, t18_value = ctx.localStorage.version + "", t18, t19, div12, div11, div8, button1, t20, button1_class_value, t21, div9, h12, t22, t23, t24, div10, button2, t25, button2_class_value, t26, div16, div15, h13, t28, h14, t29, t30_value = process.versions.electron + "", t30, t31, h15, t32, t33_value = process.versions.node + "", t33, t34, h16, t35, t36_value = process.versions.chrome + "", t36, t37, h17, t38, t39, hr0, t40, h18, t42, h19, t43, t44_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t44, t45, h110, t46, t47_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t47, t48, h111, t49, t50_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t50, t51, h112, t52, t53_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t53, t54, hr1, t55, h113, t57, h114, t58, t59_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t59, t60, h115, t61, t62_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t62, t63, h116, t64, t65_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t65, t66, h117, t67, t68_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t68, dispose;
 
 	let each_value = ctx.items;
 
@@ -4581,7 +4581,7 @@ function create_fragment$6(ctx) {
 			t24 = space();
 			div10 = element("div");
 			button2 = element("button");
-			button2.textContent = "Update";
+			t25 = text("Update");
 			t26 = space();
 			div16 = element("div");
 			div15 = element("div");
@@ -4676,7 +4676,7 @@ function create_fragment$6(ctx) {
 			attr(div9, "class", "level-item");
 			attr(div9, "id", "updatelabel");
 			set_style(div9, "display", ctx.updatetoggle);
-			attr(button2, "class", "button is-warning");
+			attr(button2, "class", button2_class_value = "button is-warning " + ctx.updateLoading + " svelte-1ekajoa");
 			attr(div10, "class", "level-item");
 			attr(div10, "id", "run_update");
 			set_style(div10, "display", ctx.updatetoggle);
@@ -4730,7 +4730,8 @@ function create_fragment$6(ctx) {
 				listen(input0, "input", ctx.input0_input_handler),
 				listen(input1, "input", ctx.input1_input_handler),
 				listen(button0, "click", ctx.configSave),
-				listen(button1, "click", ctx.update)
+				listen(button1, "click", ctx.updateCheck),
+				listen(button2, "click", ctx.update)
 			];
 		},
 
@@ -4799,6 +4800,7 @@ function create_fragment$6(ctx) {
 			append(div11, t24);
 			append(div11, div10);
 			append(div10, button2);
+			append(button2, t25);
 			append(div17, t26);
 			append(div17, div16);
 			append(div16, div15);
@@ -4904,6 +4906,13 @@ function create_fragment$6(ctx) {
 
 			if (changed.updatetoggle) {
 				set_style(div9, "display", ctx.updatetoggle);
+			}
+
+			if ((changed.updateLoading) && button2_class_value !== (button2_class_value = "button is-warning " + ctx.updateLoading + " svelte-1ekajoa")) {
+				attr(button2, "class", button2_class_value);
+			}
+
+			if (changed.updatetoggle) {
 				set_style(div10, "display", ctx.updatetoggle);
 			}
 
@@ -4959,28 +4968,42 @@ function create_fragment$6(ctx) {
 	};
 }
 
-function instance$6($$self, $$props, $$invalidate) {
-	let { jq, path } = $$props;
+const urlPackageJson = "https://raw.githubusercontent.com/aravindhnivas/FELion_GUI2.2/master/";
 
+const urlzip = "https://codeload.github.com/aravindhnivas/FELion_GUI2.2/zip/master";
+
+function instance$6($$self, $$props, $$invalidate) {
+	// Importing modules from App.svelte
+    let { jq, path } = $$props;
+
+    // Importing modules
     const {exec} = require("child_process");
     const https = require('https');
     const fs = require('fs');
 
+    // When DOMContentent is loaded and ready
+    jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active");});
+
+    // Reading local package.json file
     let packageJSON = fs.readFileSync(path.join(__dirname, "../package.json"));
     $$invalidate('packageJSON', packageJSON = JSON.parse(packageJSON.toString("utf-8")));
 
-    jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active");});
-
+    // Pythonpath and pythonscript files location
     if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python");
     if (!localStorage["pythonscript"]) localStorage["pythonscript"] = path.resolve(__dirname, "python_files");
-
     let pythonpath = localStorage["pythonpath"];
     let pythonscript = localStorage["pythonscript"];
+
+    // Getting python version
     let pythonv;
     exec(`${pythonpath} -V`, (err, stdout, stderr)=>{$$invalidate('pythonv', pythonv = stdout);});
 
+    // Pages in Settings
     let items = ["Configuration", "Update", "About"];
 
+    // FUNCTIONS ////////////////////////////////////////////////////
+
+    // Config save function
     const fadeInfadeOut = () => {
 
         $$invalidate('saveChanges', saveChanges = "block");
@@ -4995,14 +5018,13 @@ function instance$6($$self, $$props, $$invalidate) {
 
         localStorage["pythonpath"] = pythonpath;
         localStorage["pythonscript"] = pythonscript;
-
         console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`);
         fadeInfadeOut();
 
     };
 
+    // Page toggle function
     const toggle = (event) => {
-
         let target = event.target.id;
         items.forEach(item=>{
             let elementID = `${item}Container`;
@@ -5011,13 +5033,11 @@ function instance$6($$self, $$props, $$invalidate) {
             let targetElement = document.getElementById(item);
 
             if (elementID != target) {
-
                 if($element.hasClass("is-active")) {
                     $element.removeClass("is-active");
                     targetElement.style.display = "none";
                 }
-            } 
-            else {
+            } else {
 
                 $element.addClass("is-active");
                 targetElement.style.display = "block";
@@ -5025,14 +5045,14 @@ function instance$6($$self, $$props, $$invalidate) {
         });
     };
 
-    const update = () => {
+    const updateCheck = () => {
 
         $$invalidate('updatetoggle', updatetoggle = "none");
         console.log("Checking for update");
+
         $$invalidate('checkupdateLoading', checkupdateLoading = "is-loading");
 
-
-        https.get('https://raw.githubusercontent.com/aravindhnivas/FELion_GUI2.2/master/package.json', (res) => {
+        https.get(`${urlPackageJson}/package.json`, (res) => {
 
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);
@@ -5062,6 +5082,32 @@ function instance$6($$self, $$props, $$invalidate) {
         
     };
 
+    const update = () => {
+        const fileLocation = path.resolve(__dirname, "..", "update.zip");
+        const downloadedFile = fs.createWriteStream(fileLocation);
+
+        $$invalidate('updateLoading', updateLoading = "is-loading");
+
+        // Downloading files
+        https.get(urlzip, (res) => {
+
+            console.log('statusCode:', res.statusCode);
+            console.log('headers:', res.headers);
+
+            // Saving the downloaded file
+            res.pipe(downloadedFile);
+            console.log("File downloaded");
+
+            // Animating the button to indicate success message
+            $$invalidate('updateLoading', updateLoading = "animated bounce is-success");
+            setTimeout(()=>$$invalidate('updateLoading', updateLoading = ""), 2000);
+
+        }).on('error', (err) => {
+            console.error("Error occured while downloading file: (Try again or maybe check your internet connection)\n", err);
+            $$invalidate('updateLoading', updateLoading = "animated shake faster is-danger");
+            setTimeout(()=>$$invalidate('updateLoading', updateLoading = ""), 2000);
+        });    };
+
 	function input0_input_handler() {
 		pythonpath = this.value;
 		$$invalidate('pythonpath', pythonpath);
@@ -5077,13 +5123,14 @@ function instance$6($$self, $$props, $$invalidate) {
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
 	};
 
-	let saveChanges, saveChangeanimate, new_version, updatetoggle, checkupdateLoading;
+	let saveChanges, saveChangeanimate, new_version, updatetoggle, checkupdateLoading, updateLoading;
 
 	$$invalidate('saveChanges', saveChanges = "none");
 	$$invalidate('saveChangeanimate', saveChangeanimate = "fadeIn");
 	$$invalidate('new_version', new_version = "");
 	$$invalidate('updatetoggle', updatetoggle = "none");
 	$$invalidate('checkupdateLoading', checkupdateLoading = "");
+	$$invalidate('updateLoading', updateLoading = "");
 
 	return {
 		jq,
@@ -5095,6 +5142,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		items,
 		configSave,
 		toggle,
+		updateCheck,
 		update,
 		localStorage,
 		saveChanges,
@@ -5102,6 +5150,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		new_version,
 		updatetoggle,
 		checkupdateLoading,
+		updateLoading,
 		input0_input_handler,
 		input1_input_handler
 	};

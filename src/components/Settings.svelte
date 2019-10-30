@@ -1,29 +1,37 @@
 <script>
 
+    // Importing modules from App.svelte
     export let jq;
     export let path;
 
+    // Importing modules
     const {exec} = require("child_process")
     const https = require('https');
     const fs = require('fs');
 
+    // When DOMContentent is loaded and ready
+    jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active")})
+
+    // Reading local package.json file
     let packageJSON = fs.readFileSync(path.join(__dirname, "../package.json"))
     packageJSON = JSON.parse(packageJSON.toString("utf-8"))
 
-    jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active")})
-
+    // Pythonpath and pythonscript files location
     if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python")
     if (!localStorage["pythonscript"]) localStorage["pythonscript"] = path.resolve(__dirname, "python_files")
-
     let pythonpath = localStorage["pythonpath"];
     let pythonscript = localStorage["pythonscript"];
+
+    // Getting python version
     let pythonv;
     exec(`${pythonpath} -V`, (err, stdout, stderr)=>{pythonv = stdout})
 
+    // Pages in Settings
     let items = ["Configuration", "Update", "About"]
-    $: saveChanges = "none"
-    $: saveChangeanimate = "fadeIn"
 
+    // FUNCTIONS ////////////////////////////////////////////////////
+
+    // Config save function
     const fadeInfadeOut = () => {
 
         saveChanges = "block"
@@ -34,18 +42,20 @@
         }, 2000)
     }
 
+    $: saveChanges = "none"
+    $: saveChangeanimate = "fadeIn"
+
     const configSave = () => {
 
         localStorage["pythonpath"] = pythonpath
         localStorage["pythonscript"] = pythonscript
-
         console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`)
         fadeInfadeOut()
 
     }
 
+    // Page toggle function
     const toggle = (event) => {
-
         let target = event.target.id
         items.forEach(item=>{
             let elementID = `${item}Container`
@@ -54,13 +64,11 @@
             let targetElement = document.getElementById(item)
 
             if (elementID != target) {
-
                 if($element.hasClass("is-active")) {
                     $element.removeClass("is-active")
                     targetElement.style.display = "none"
                 }
-            } 
-            else {
+            } else {
 
                 $element.addClass("is-active")
                 targetElement.style.display = "block"
@@ -68,19 +76,26 @@
         })
     }
 
+    // Checking for new version (github) update
     $: new_version = ""
     $: updatetoggle = "none"
-
     $: checkupdateLoading = ""
+    $: updateLoading = ""
+    // Github files and zip downloading format
+    // https://raw.githubusercontent.com/<userOrOrgName>/<repository>/<branch>/<filename>
+    // https://codeload.github.com/<userOrOrgName>/<repoName>/zip/<branch>
 
-    const update = () => {
+    const urlPackageJson = "https://raw.githubusercontent.com/aravindhnivas/FELion_GUI2.2/master/"
+    const urlzip = "https://codeload.github.com/aravindhnivas/FELion_GUI2.2/zip/master"
+
+    const updateCheck = () => {
 
         updatetoggle = "none"
         console.log("Checking for update")
+
         checkupdateLoading = "is-loading"
 
-
-        https.get('https://raw.githubusercontent.com/aravindhnivas/FELion_GUI2.2/master/package.json', (res) => {
+        https.get(`${urlPackageJson}/package.json`, (res) => {
 
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);
@@ -110,6 +125,32 @@
         
     }
 
+    const update = () => {
+        const fileLocation = path.resolve(__dirname, "..", "update.zip")
+        const downloadedFile = fs.createWriteStream(fileLocation);
+
+        updateLoading = "is-loading"
+
+        // Downloading files
+        https.get(urlzip, (res) => {
+
+            console.log('statusCode:', res.statusCode);
+            console.log('headers:', res.headers);
+
+            // Saving the downloaded file
+            res.pipe(downloadedFile);
+            console.log("File downloaded")
+
+            // Animating the button to indicate success message
+            updateLoading = "animated bounce is-success"
+            setTimeout(()=>updateLoading = "", 2000)
+
+        }).on('error', (err) => {
+            console.error("Error occured while downloading file: (Try again or maybe check your internet connection)\n", err)
+            updateLoading = "animated shake faster is-danger"
+            setTimeout(()=>updateLoading = "", 2000)
+        });;
+    }
 </script>
 
 <style>
@@ -212,7 +253,7 @@
                             <div class="level">
                                 <div class="level-left">
                                     <div class="level-item">
-                                        <button class="button is-link {checkupdateLoading}" on:click={update} >Check Update</button>
+                                        <button class="button is-link {checkupdateLoading}" on:click={updateCheck} >Check Update</button>
                                     </div>
 
                                     <div class="level-item" id="updatelabel" style="display:{updatetoggle}">
@@ -220,7 +261,7 @@
                                     </div>
 
                                     <div class="level-item" id="run_update" style="display:{updatetoggle}">
-                                        <button class="button is-warning" >Update</button>
+                                        <button class="button is-warning {updateLoading}" on:click={update}>Update</button>
                                     </div>
                                 </div>
                             </div>
