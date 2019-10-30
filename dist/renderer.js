@@ -4472,7 +4472,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (294:20) {#each items as item}
+// (299:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -5230,9 +5230,14 @@ function instance$6($$self, $$props, $$invalidate) {
 		if ('showinfo' in $$props) $$invalidate('showinfo', showinfo = $$props.showinfo);
 	};
 
-	let saveChanges, saveChangeanimate, new_version, updatetoggle, checkupdateLoading, updateLoading, updateStatus;
+	let updateNow, saveChanges, saveChangeanimate, new_version, updatetoggle, checkupdateLoading, updateLoading, updateStatus;
 
-	localStorage["updateNow"] == "true" ? update() : console.log("Update available but not updating now");
+	$$self.$$.update = ($$dirty = { updateNow: 1 }) => {
+		if ($$dirty.updateNow) { console.log(":: updateNow", updateNow); }
+		if ($$dirty.updateNow) { updateNow == "true" ? update() : console.log("Update available but not updating now"); }
+	};
+
+	$$invalidate('updateNow', updateNow = localStorage["updateNow"]);
 	$$invalidate('saveChanges', saveChanges = "none");
 	$$invalidate('saveChangeanimate', saveChangeanimate = "fadeIn");
 	$$invalidate('new_version', new_version = "");
@@ -20728,7 +20733,7 @@ function instance$7($$self, $$props, $$invalidate) {
                     data = JSON.parse(data.toString("utf8"));
                     let new_version = data.version;
                     console.log("Available version: ", new_version);
-                    if (current_version === new_version) {
+                    if (current_version < new_version) {
                       let options = {
                         title: "FELion_GUI2",
                         message: "Update available "+new_version,

@@ -46,7 +46,7 @@
                     data = JSON.parse(data.toString("utf8"))
                     let new_version = data.version
                     console.log("Available version: ", new_version)
-                    if (current_version === new_version) {
+                    if (current_version < new_version) {
                       let options = {
                         title: "FELion_GUI2",
                         message: "Update available "+new_version,

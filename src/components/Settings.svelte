@@ -4,7 +4,12 @@
     export let path;
     export let mainWindow;
     export let showinfo;
-    $: localStorage["updateNow"] == "true" ? update() : console.log("Update available but not updating now")
+
+
+    $: updateNow = localStorage["updateNow"]
+    $: console.log(":: updateNow", updateNow);
+    
+    $: updateNow == "true" ? update() : console.log("Update available but not updating now")
 
     // Importing modules
     const {exec} = require("child_process")
