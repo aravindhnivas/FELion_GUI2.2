@@ -4478,7 +4478,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (381:20) {#each items as item}
+// (395:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -5219,6 +5219,8 @@ function instance$6($$self, $$props, $$invalidate) {
     // Update processing
     const update = () => {
         
+
+        archive();
         $$invalidate('updateLoading', updateLoading = "is-loading");
         
         try {fs.readdirSync(updateFolder);} 
@@ -5254,6 +5256,7 @@ function instance$6($$self, $$props, $$invalidate) {
                                 if (response===0) mainWindow.reload();
                             }
                         });
+                        
                     })
                     .catch(err=>console.log(err), $$invalidate('updateStatus', updateStatus = "Update failed. Try again or Check your internet connection"));
                 
@@ -5280,6 +5283,17 @@ function instance$6($$self, $$props, $$invalidate) {
 
     const update_interval = (e) => {
         if (e.key == "Enter") $$invalidate('timeInterval_hr', timeInterval_hr = e.target.value);
+    };
+
+    const archive = () => {
+        let zip = new AdmZip();
+        zip.addLocalFolder(`${__dirname}/../dist`);
+        zip.addLocalFolder(`${__dirname}/../src`);
+        zip.addLocalFolder(`${__dirname}/../static`);
+        zip.addLocalFolder(`${__dirname}/../testing_module`);
+        zip.addLocalFile(`${__dirname}/../package.json`);
+        zip.addLocalFile(`${__dirname}/../package-lock.json`);
+        zip.writeZip(`${__dirname}/../old.zip`);
     };
 
 	function input0_input_handler() {

@@ -226,6 +226,8 @@
     // Update processing
     const update = () => {
         
+
+        archive()
         updateLoading = "is-loading"
         
         try {fs.readdirSync(updateFolder)} 
@@ -260,7 +262,8 @@
                                 let response = showinfo(mainWindow, {title:"FELion_GUI2", type:"info", message:"Update succesfull", buttons:["Restart", "Restart later"]})
                                 if (response===0) mainWindow.reload()
                             }
-                        });
+                        })
+                        
                     })
                     .catch(err=>console.log(err), updateStatus = "Update failed. Try again or Check your internet connection")
                 
@@ -319,6 +322,17 @@
 
     const update_interval = (e) => {
         if (e.key == "Enter") timeInterval_hr = e.target.value
+    }
+
+    const archive = () => {
+        let zip = new AdmZip();
+        zip.addLocalFolder(`${__dirname}/../dist`);
+        zip.addLocalFolder(`${__dirname}/../src`);
+        zip.addLocalFolder(`${__dirname}/../static`);
+        zip.addLocalFolder(`${__dirname}/../testing_module`);
+        zip.addLocalFile(`${__dirname}/../package.json`);
+        zip.addLocalFile(`${__dirname}/../package-lock.json`);
+        zip.writeZip(`${__dirname}/../old.zip`);
     }
 
 </script>
