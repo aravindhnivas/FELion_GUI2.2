@@ -4478,7 +4478,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (377:20) {#each items as item}
+// (381:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4511,7 +4511,7 @@ function create_each_block$3(ctx) {
 }
 
 function create_fragment$6(ctx) {
-	var section, div22, div1, aside, div0, t1, ul, t2, div21, div20, div19, div2, t3, t4, div8, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div7, button0, t16, h10, t17, h10_class_value, t18, div16, h11, t19, t20, t21, div9, p2, button1, t22, button1_class_value, t23, p3, button2, t24, button2_class_value, t25, h12, t26, t27, hr0, t28, div11, t31, div15, div13, t33, div14, input3, input3_updating = false, t34, div18, div17, h13, t36, h14, t37, t38_value = process.versions.electron + "", t38, t39, h15, t40, t41_value = process.versions.node + "", t41, t42, h16, t43, t44_value = process.versions.chrome + "", t44, t45, h17, t46, t47, hr1, t48, h18, t50, h19, t51, t52_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t52, t53, h110, t54, t55_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t55, t56, h111, t57, t58_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t58, t59, h112, t60, t61_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t61, t62, hr2, t63, h113, t65, h114, t66, t67_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t67, t68, h115, t69, t70_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t70, t71, h116, t72, t73_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t73, t74, h117, t75, t76_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t76, dispose;
+	var section, div22, div1, aside, div0, t1, ul, t2, div21, div20, div19, div2, t3, t4, div8, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div7, button0, t16, h10, t17, h10_class_value, t18, div16, h11, t19, t20, t21, div9, p2, button1, t22, button1_class_value, t23, p3, button2, t24, button2_class_value, t25, h12, t26, t27, hr0, t28, div11, t31, div15, div13, t33, div14, input3, t34, div18, div17, h13, t36, h14, t37, t38_value = process.versions.electron + "", t38, t39, h15, t40, t41_value = process.versions.node + "", t41, t42, h16, t43, t44_value = process.versions.chrome + "", t44, t45, h17, t46, t47, hr1, t48, h18, t50, h19, t51, t52_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t52, t53, h110, t54, t55_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t55, t56, h111, t57, t58_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t58, t59, h112, t60, t61_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t61, t62, hr2, t63, h113, t65, h114, t66, t67_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t67, t68, h115, t69, t70_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t70, t71, h116, t72, t73_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t73, t74, h117, t75, t76_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t76, dispose;
 
 	let each_value = ctx.items;
 
@@ -4519,11 +4519,6 @@ function create_fragment$6(ctx) {
 
 	for (let i = 0; i < each_value.length; i += 1) {
 		each_blocks[i] = create_each_block$3(get_each_context$3(ctx, each_value, i));
-	}
-
-	function input3_input_handler() {
-		input3_updating = true;
-		ctx.input3_input_handler.call(input3);
 	}
 
 	return {
@@ -4706,6 +4701,7 @@ function create_fragment$6(ctx) {
 			attr(input3, "type", "number");
 			attr(input3, "class", "input");
 			attr(input3, "placeholder", "Enter update check for every (time in hrs) interval");
+			input3.value = "1";
 			attr(div14, "class", "control");
 			attr(div15, "class", "field has-addons");
 			attr(div16, "class", "container");
@@ -4758,7 +4754,7 @@ function create_fragment$6(ctx) {
 				listen(button1, "click", ctx.updateCheck),
 				listen(button2, "click", ctx.update),
 				listen(div11, "click", ctx.click_handler),
-				listen(input3, "input", input3_input_handler)
+				listen(input3, "keydown", ctx.update_interval)
 			];
 		},
 
@@ -4837,9 +4833,6 @@ function create_fragment$6(ctx) {
 			append(div15, t33);
 			append(div15, div14);
 			append(div14, input3);
-
-			set_input_value(input3, ctx.timeInterval_hr);
-
 			append(div19, t34);
 			append(div19, div18);
 			append(div18, div17);
@@ -4950,9 +4943,6 @@ function create_fragment$6(ctx) {
 			if (changed.updateStatus) {
 				set_data(t26, ctx.updateStatus);
 			}
-
-			if (!input3_updating && changed.timeInterval_hr) set_input_value(input3, ctx.timeInterval_hr);
-			input3_updating = false;
 
 			if (changed.pythonv) {
 				set_data(t46, ctx.pythonv);
@@ -5288,6 +5278,10 @@ function instance$6($$self, $$props, $$invalidate) {
     }
     let clock = setInterval(ClockTimer, 1000);
 
+    const update_interval = (e) => {
+        if (e.key == "Enter") $$invalidate('timeInterval_hr', timeInterval_hr = e.target.value);
+    };
+
 	function input0_input_handler() {
 		pythonpath = this.value;
 		$$invalidate('pythonpath', pythonpath);
@@ -5299,11 +5293,6 @@ function instance$6($$self, $$props, $$invalidate) {
 	}
 
 	const click_handler = () => $$invalidate('auto_update_check', auto_update_check = !auto_update_check);
-
-	function input3_input_handler() {
-		timeInterval_hr = to_number(this.value);
-		$$invalidate('timeInterval_hr', timeInterval_hr);
-	}
 
 	$$self.$set = $$props => {
 		if ('jq' in $$props) $$invalidate('jq', jq = $$props.jq);
@@ -5355,7 +5344,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		toggle,
 		updateCheck,
 		update,
-		timeInterval_hr,
+		update_interval,
 		saveChanges,
 		saveChangeanimate,
 		checkupdateLoading,
@@ -5365,8 +5354,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		auto_update_check,
 		input0_input_handler,
 		input1_input_handler,
-		click_handler,
-		input3_input_handler
+		click_handler
 	};
 }
 

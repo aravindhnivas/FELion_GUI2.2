@@ -317,6 +317,10 @@
         clearInterval(check_update_continuously)
     }
 
+    const update_interval = (e) => {
+        if (e.key == "Enter") timeInterval_hr = e.target.value
+    }
+
 </script>
 
 <style>
@@ -439,7 +443,7 @@
 
                         <div class="field has-addons">
                             <div class="control"><div class="button is-static">Time Interval</div></div>
-                            <div class="control"><input type="number" class="input" placeholder="Enter update check for every (time in hrs) interval" bind:value={timeInterval_hr}></div>
+                            <div class="control"><input type="number" class="input" placeholder="Enter update check for every (time in hrs) interval" value=1 on:keydown={update_interval}></div>
                         </div>
                     </div>
 
