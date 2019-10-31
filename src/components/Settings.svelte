@@ -322,14 +322,22 @@
     const update_interval = (e) => {
         if (e.key == "Enter") timeInterval_hr = e.target.value
     }
-
+    
     const archive = () => {
         console.log("Archiving existing software to old.zip")
 
-        // let zip = new admZip();
-        // zip.addLocalFolder(`${__dirname}/..`);
-        // zip.writeZip(`${__dirname}/../../old.zip`);
-        console.log("Archiving completed")
+        let zip = new admZip();
+        copy(`${__dirname}/../`, `${__dirname}/../old`, {overwrite: true}, function(error, results) {
+            if (error) {
+                console.log('Copy failed: ' + error);
+            } else {
+                console.info('Copied ' + results.length + ' files')
+                zip.addLocalFolder(`${__dirname}/../old`);
+                zip.writeZip(`${__dirname}/../old.zip`);
+                console.log("Archiving completed")
+            }
+        })
+        
     }
 
 </script>
@@ -457,6 +465,9 @@
                             <div class="control"><input type="number" class="input" placeholder="Enter update check for every (time in hrs) interval" value=1 on:keydown={update_interval}></div>
                         </div>
                     </div>
+
+                    <hr>
+                    <button class="button is-link" on:click={archive} >Backup</button>
 
                     <!-- About -->
 
