@@ -324,14 +324,12 @@
     }
 
     const archive = () => {
+        console.log("Archiving existing software to old.zip")
+
         let zip = new admZip();
-        zip.addLocalFolder(`${__dirname}/../dist`);
-        zip.addLocalFolder(`${__dirname}/../src`);
-        zip.addLocalFolder(`${__dirname}/../static`);
-        zip.addLocalFolder(`${__dirname}/../testing_module`);
-        zip.addLocalFile(`${__dirname}/../package.json`);
-        zip.addLocalFile(`${__dirname}/../package-lock.json`);
-        zip.writeZip(`${__dirname}/../old.zip`);
+        zip.addLocalFolder(`${__dirname}/..`);
+        zip.writeZip(`${__dirname}/../../old.zip`);
+        console.log("Archiving completed")
     }
 
 </script>

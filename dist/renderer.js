@@ -4478,7 +4478,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (394:20) {#each items as item}
+// (392:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -5285,14 +5285,12 @@ function instance$6($$self, $$props, $$invalidate) {
     };
 
     const archive = () => {
+        console.log("Archiving existing software to old.zip");
+
         let zip = new admZip();
-        zip.addLocalFolder(`${__dirname}/../dist`);
-        zip.addLocalFolder(`${__dirname}/../src`);
-        zip.addLocalFolder(`${__dirname}/../static`);
-        zip.addLocalFolder(`${__dirname}/../testing_module`);
-        zip.addLocalFile(`${__dirname}/../package.json`);
-        zip.addLocalFile(`${__dirname}/../package-lock.json`);
-        zip.writeZip(`${__dirname}/../old.zip`);
+        zip.addLocalFolder(`${__dirname}/..`);
+        zip.writeZip(`${__dirname}/../../old.zip`);
+        console.log("Archiving completed");
     };
 
 	function input0_input_handler() {
@@ -8015,7 +8013,6 @@ var Popper = function () {
 Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
 Popper.placements = placements;
 Popper.Defaults = Defaults;
-//# sourceMappingURL=popper.js.map
 
 /**!
 * tippy.js v4.3.5
@@ -9955,7 +9952,6 @@ function injectCSS(css) {
 }
 
 injectCSS(css);
-//# sourceMappingURL=index.all.js.map
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -20991,7 +20987,6 @@ const app = new App({
     target: document.body,
     props: { mainPages }
 });
-//# sourceMappingURL=renderer.js.map
 
 module.exports = app;
 //# sourceMappingURL=renderer.js.map
