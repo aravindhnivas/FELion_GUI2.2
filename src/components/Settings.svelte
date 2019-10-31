@@ -85,6 +85,7 @@
 
     // Checking for new version (github) update
     $: new_version = ""
+    // $: console.log("New version: ", new_version)
     $: updatetoggle = "none"
     $: checkupdateLoading = ""
     $: updateLoading = ""
@@ -126,6 +127,11 @@
                 updatetoggle = "block"
                 checkupdateLoading = "animated bounce is-success"
                 setTimeout(()=>checkupdateLoading = "", 2000)
+            })
+            
+            res.on("error", (err)=>{
+                console.log("Error while reading downloaded data: ", err)
+                new_version = ""
             });
         })
         

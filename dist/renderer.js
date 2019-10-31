@@ -4478,7 +4478,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (345:20) {#each items as item}
+// (351:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -5118,6 +5118,11 @@ function instance$6($$self, $$props, $$invalidate) {
                 $$invalidate('updatetoggle', updatetoggle = "block");
                 $$invalidate('checkupdateLoading', checkupdateLoading = "animated bounce is-success");
                 setTimeout(()=>$$invalidate('checkupdateLoading', checkupdateLoading = ""), 2000);
+            });
+            
+            res.on("error", (err)=>{
+                console.log("Error while reading downloaded data: ", err);
+                $$invalidate('new_version', new_version = "");
             });
         });
         
