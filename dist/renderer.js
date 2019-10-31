@@ -4478,7 +4478,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (400:20) {#each items as item}
+// (409:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -5299,13 +5299,22 @@ function instance$6($$self, $$props, $$invalidate) {
         console.log("Archiving existing software to old.zip");
 
         let zip = new admZip();
-        copy(`${__dirname}/../`, `${__dirname}/../old`, {overwrite: true}, function(error, results) {
+        let _src = {path:path.resolve(__dirname, "..", "src"), name:"src"};
+        let _static = {path:path.resolve(__dirname, "..", "static"), name:"static"};
+        let _dist = {path:path.resolve(__dirname, "..", "dist"), name:"dist"};
+
+        let folders = [_src, _dist, _static];
+        folders.forEach(folder);
+        
+        
+        copy(src, dest, {overwrite: true}, function(error, results) {
             if (error) {
                 console.log('Copy failed: ' + error);
             } else {
                 console.info('Copied ' + results.length + ' files');
-                zip.addLocalFolder(`${__dirname}/../old`);
-                zip.writeZip(`${__dirname}/../old.zip`);
+                console.info('Copied ' + results + ' files');
+                // zip.addLocalFolder(dest);
+                // zip.writeZip(path.resolve(dest, "old.zip"))
                 console.log("Archiving completed");
             }
         });
