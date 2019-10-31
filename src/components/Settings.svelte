@@ -326,9 +326,9 @@
     const archive = () => {
         console.log("Archiving existing software to old.zip")
 
-        let zip = new admZip();
-        zip.addLocalFolder(`${__dirname}/..`);
-        zip.writeZip(`${__dirname}/../../old.zip`);
+        // let zip = new admZip();
+        // zip.addLocalFolder(`${__dirname}/..`);
+        // zip.writeZip(`${__dirname}/../../old.zip`);
         console.log("Archiving completed")
     }
 
