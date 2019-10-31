@@ -4,10 +4,7 @@
     export let path;
     export let mainWindow;
     export let showinfo;
-    export let updateNow;
 
-    $: console.log(":Settings: updateNow", updateNow);
-    $: updateNow ? update() : console.log("Update available but not updating now")
 
     // Importing modules
     const {exec} = require("child_process")
@@ -104,49 +101,70 @@
     const updatefilename = "update.zip"
     const zipFile = path.resolve(updateFolder, updatefilename)
 
+    $: updateStatus = ""
+
     const updateCheck = () => {
 
         updatetoggle = "none"
         console.log("Checking for update")
 
         checkupdateLoading = "is-loading"
-
-        https.get(urlPackageJson, (res) => {
+        let request = https.get(urlPackageJson, (res) => {
 
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);
+
             res.on('data', (data) => {
 
-                // process.stdout.write(data);
                 data = JSON.parse(data.toString("utf8"))
-
                 new_version = data.version
+
                 console.log(`Received package:`, data)
                 console.log(`Version available ${new_version}`)
                 console.log(`Current version ${localStorage.version}`)
-                
+
                 updatetoggle = "block"
                 checkupdateLoading = "animated bounce is-success"
                 setTimeout(()=>checkupdateLoading = "", 2000)
-
-                if (currentVersion === new_version) updateStatus = "No major new update available (Still you can update to see the latest minor updates if any available)"
-                if (currentVersion < new_version) updateStatus = "New update available"
-
-                console.log("Completed")
             });
-
-        }).on('error', (err) => {
+        })
+        
+        request.on('error', (err) => {
             console.error("Error occured: (Try again or maybe check your internet connection)\n", err)
             checkupdateLoading = "animated shake faster is-danger"
             setTimeout(()=>checkupdateLoading = "", 2000)
             updateStatus = "Try again or Check your internet connection"
         });
-        
+
+        request.on("close", ()=>{
+            if (currentVersion === new_version) {updateStatus = "No major new update available (Still you can update to see the latest minor updates if any available)"}
+            else if (currentVersion < new_version) {
+
+                updateStatus = "New update available"
+
+                let options = {
+                    title: "FELion_GUI2",
+                    message: "Update available "+new_version,
+                    buttons: ["Update and restart", "Later"],
+                    type:"info"
+                }
+                
+                let response = showinfo(mainWindow, options)
+                console.log(response)
+                switch (response) {
+                    case 0:
+                        update()
+                    break;
+                    case 1:
+                        console.log("Not updating now")
+                    break;
+                }
+            }
+            console.log("Update check completed")
+        })
     }
 
-
-    $: updateStatus = ""
-    
+    // Download the update file
     const download = (downloadedFile) => {
 
         return new Promise((resolve, reject)=>{
@@ -197,6 +215,7 @@
         })
     }
 
+    // Update processing
     const update = () => {
         
         updateLoading = "is-loading"
@@ -241,6 +260,34 @@
         }
         
     }
+
+    // Checking for internet connection
+    function checkInternet(cb) {
+
+        require('dns').lookup('google.com',function(err) {
+            if (err && err.code == "ENOTFOUND") {
+                cb(false);
+            } else {
+                cb(true);
+            }
+        })
+    }
+
+    // Checking for update on startup
+    checkInternet(function(isConnected) {
+        isConnected ? updateCheck() : console.log("Internet is not connected")
+    })
+
+    // Checking for update on regular time interval
+    const hr_ms = (time) => time*60*60*10**3
+    let timeInterval = hr_ms(1)
+    let check_update_continuously = setInterval(()=>{
+        checkInternet(function(isConnected) {
+            isConnected ? updateCheck() : console.log("Internet is not connected")
+        })
+
+        }, timeInterval
+    )
 
 </script>
 

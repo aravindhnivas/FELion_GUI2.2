@@ -29,75 +29,6 @@
   current_version = JSON.parse(current_version.toString("utf-8")).version
   localStorage["version"] = current_version
 
-  const github = {
-        username: "aravindhnivas",
-        repo: "FELion_GUI2.2",
-        branch: "master",
-    }
-
-  $: updateNow = false
-  $: console.log("Update now: ", updateNow)
-
-  const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`
-  function checkupdate() {
-
-    let request = https.get(urlPackageJson, (res) => {
-      console.log("Checking for update")
-
-      res.on('data', (data) => {
-        data = JSON.parse(data.toString("utf8"))
-        let new_version = data.version
-        console.log("Available version: ", new_version)
-        if (current_version < new_version) {
-          let options = {
-            title: "FELion_GUI2",
-            message: "Update available "+new_version,
-            buttons: ["Update and restart", "Cancel"],
-            type:"info"
-
-          }
-          let response = showinfo(mainWindow, options)
-          console.log(response)
-          switch (response) {
-            case 0:
-              updateNow = true
-              break;
-            case 1:
-              updateNow = false
-              break;
-          }
-        }
-      })
-    })
-    request.on("error", (err)=>console.log("Error occured while checiking for update"))
-    request.on("close", ()=>console.log("Update check done"))
-  }
-  function checkInternet(cb) {
-
-      require('dns').lookup('google.com',function(err) {
-          if (err && err.code == "ENOTFOUND") {
-              cb(false);
-          } else {
-              cb(true);
-          }
-      })
-  }
-
-  checkInternet(function(isConnected) {
-      isConnected ? checkupdate() : console.log("Internet is not connected")
-    })
-
-  const hr_ms = (time) => time*60*60*10**3
-  let timeInterval = hr_ms(1)
-  // let timeInterval = 1000
-
-  let check_update_continuously = setInterval(()=>{
-    checkInternet(function(isConnected) {
-      isConnected ? checkupdate() : console.log("Internet is not connected")
-    })
-
-  }, timeInterval)
-
   // Getting variables
   export let mainPages;
   const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile", "Settings"];
@@ -136,6 +67,6 @@
 {/each}
 <Powerfile {electron} {path} {jq}/>
 
-<Settings {jq} {path} {mainWindow} {updateNow} {showinfo}/>
+<Settings {jq} {path} {mainWindow} {showinfo}/>
 
 <Footer {jq}/>

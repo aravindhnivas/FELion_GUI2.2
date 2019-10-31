@@ -4478,7 +4478,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (298:20) {#each items as item}
+// (345:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4995,8 +4995,20 @@ function create_fragment$6(ctx) {
 
 const updatefilename = "update.zip";
 
+function checkInternet(cb) {
+
+      require('dns').lookup('google.com',function(err) {
+          if (err && err.code == "ENOTFOUND") {
+              cb(false);
+          } else {
+              cb(true);
+          }
+      });
+  }
+
 function instance$6($$self, $$props, $$invalidate) {
-	let { jq, path, mainWindow, showinfo, updateNow } = $$props;
+	let { jq, path, mainWindow, showinfo } = $$props;
+
 
     // Importing modules
     const {exec} = require("child_process");
@@ -5089,40 +5101,62 @@ function instance$6($$self, $$props, $$invalidate) {
         console.log("Checking for update");
 
         $$invalidate('checkupdateLoading', checkupdateLoading = "is-loading");
-
-        https.get(urlPackageJson, (res) => {
+        let request = https.get(urlPackageJson, (res) => {
 
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);
+
             res.on('data', (data) => {
 
-                // process.stdout.write(data);
                 data = JSON.parse(data.toString("utf8"));
-
                 $$invalidate('new_version', new_version = data.version);
+
                 console.log(`Received package:`, data);
                 console.log(`Version available ${new_version}`);
                 console.log(`Current version ${localStorage.version}`);
-                
+
                 $$invalidate('updatetoggle', updatetoggle = "block");
                 $$invalidate('checkupdateLoading', checkupdateLoading = "animated bounce is-success");
                 setTimeout(()=>$$invalidate('checkupdateLoading', checkupdateLoading = ""), 2000);
-
-                if (currentVersion === new_version) $$invalidate('updateStatus', updateStatus = "No major new update available (Still you can update to see the latest minor updates if any available)");
-                if (currentVersion < new_version) $$invalidate('updateStatus', updateStatus = "New update available");
-
-                console.log("Completed");
             });
-
-        }).on('error', (err) => {
+        });
+        
+        request.on('error', (err) => {
             console.error("Error occured: (Try again or maybe check your internet connection)\n", err);
             $$invalidate('checkupdateLoading', checkupdateLoading = "animated shake faster is-danger");
             setTimeout(()=>$$invalidate('checkupdateLoading', checkupdateLoading = ""), 2000);
             $$invalidate('updateStatus', updateStatus = "Try again or Check your internet connection");
         });
-        
+
+        request.on("close", ()=>{
+            if (currentVersion === new_version) {$$invalidate('updateStatus', updateStatus = "No major new update available (Still you can update to see the latest minor updates if any available)");}
+            else if (currentVersion < new_version) {
+
+                $$invalidate('updateStatus', updateStatus = "New update available");
+
+                let options = {
+                    title: "FELion_GUI2",
+                    message: "Update available "+new_version,
+                    buttons: ["Update and restart", "Later"],
+                    type:"info"
+                };
+                
+                let response = showinfo(mainWindow, options);
+                console.log(response);
+                switch (response) {
+                    case 0:
+                        update();
+                    break;
+                    case 1:
+                        console.log("Not updating now");
+                    break;
+                }
+            }
+            console.log("Update check completed");
+        });
     };
-    
+
+    // Download the update file
     const download = (downloadedFile) => {
 
         return new Promise((resolve, reject)=>{
@@ -5173,6 +5207,7 @@ function instance$6($$self, $$props, $$invalidate) {
         })
     };
 
+    // Update processing
     const update = () => {
         
         $$invalidate('updateLoading', updateLoading = "is-loading");
@@ -5218,6 +5253,22 @@ function instance$6($$self, $$props, $$invalidate) {
         
     };
 
+    // Checking for update on startup
+    checkInternet(function(isConnected) {
+        isConnected ? updateCheck() : console.log("Internet is not connected");
+    });
+
+    // Checking for update on regular time interval
+    const hr_ms = (time) => time*60*60*10**3;
+    let timeInterval = hr_ms(1);
+    let check_update_continuously = setInterval(()=>{
+        checkInternet(function(isConnected) {
+            isConnected ? updateCheck() : console.log("Internet is not connected");
+        });
+
+        }, timeInterval
+    );
+
 	function input0_input_handler() {
 		pythonpath = this.value;
 		$$invalidate('pythonpath', pythonpath);
@@ -5235,15 +5286,9 @@ function instance$6($$self, $$props, $$invalidate) {
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
 		if ('mainWindow' in $$props) $$invalidate('mainWindow', mainWindow = $$props.mainWindow);
 		if ('showinfo' in $$props) $$invalidate('showinfo', showinfo = $$props.showinfo);
-		if ('updateNow' in $$props) $$invalidate('updateNow', updateNow = $$props.updateNow);
 	};
 
 	let saveChanges, saveChangeanimate, new_version, updatetoggle, checkupdateLoading, updateLoading, updateStatus;
-
-	$$self.$$.update = ($$dirty = { updateNow: 1 }) => {
-		if ($$dirty.updateNow) { console.log(":Settings: updateNow", updateNow); }
-		if ($$dirty.updateNow) { updateNow ? update() : console.log("Update available but not updating now"); }
-	};
 
 	$$invalidate('saveChanges', saveChanges = "none");
 	$$invalidate('saveChangeanimate', saveChangeanimate = "fadeIn");
@@ -5258,7 +5303,6 @@ function instance$6($$self, $$props, $$invalidate) {
 		path,
 		mainWindow,
 		showinfo,
-		updateNow,
 		packageJSON,
 		currentVersion,
 		pythonpath,
@@ -5285,7 +5329,7 @@ function instance$6($$self, $$props, $$invalidate) {
 class Settings extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$6, create_fragment$6, safe_not_equal, ["jq", "path", "mainWindow", "showinfo", "updateNow"]);
+		init(this, options, instance$6, create_fragment$6, safe_not_equal, ["jq", "path", "mainWindow", "showinfo"]);
 	}
 }
 
@@ -20455,7 +20499,7 @@ function get_each_context$4(ctx, list, i) {
 	return child_ctx;
 }
 
-// (134:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
+// (65:0) {#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
 function create_each_block$4(ctx) {
 	var current;
 
@@ -20553,7 +20597,6 @@ function create_fragment$8(ctx) {
 		jq: ctx.jq,
 		path: path,
 		mainWindow: ctx.mainWindow,
-		updateNow: ctx.updateNow,
 		showinfo: ctx.showinfo
 	}
 	});
@@ -20627,10 +20670,6 @@ function create_fragment$8(ctx) {
 				}
 				check_outros();
 			}
-
-			var settings_changes = {};
-			if (changed.updateNow) settings_changes.updateNow = ctx.updateNow;
-			settings.$set(settings_changes);
 		},
 
 		i(local) {
@@ -20712,17 +20751,6 @@ function create_fragment$8(ctx) {
 	};
 }
 
-function checkInternet(cb) {
-
-    require('dns').lookup('google.com',function(err) {
-        if (err && err.code == "ENOTFOUND") {
-            cb(false);
-        } else {
-            cb(true);
-        }
-    });
-}
-
 function instance$7($$self, $$props, $$invalidate) {
 	
 
@@ -20739,62 +20767,6 @@ function instance$7($$self, $$props, $$invalidate) {
   let current_version = fs.readFileSync(path.join(__dirname, "../package.json"));
   current_version = JSON.parse(current_version.toString("utf-8")).version;
   localStorage["version"] = current_version;
-
-  const github = {
-        username: "aravindhnivas",
-        repo: "FELion_GUI2.2",
-        branch: "master",
-    };
-
-  const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`;
-  function checkupdate() {
-
-    let request = https.get(urlPackageJson, (res) => {
-      console.log("Checking for update");
-
-      res.on('data', (data) => {
-        data = JSON.parse(data.toString("utf8"));
-        let new_version = data.version;
-        console.log("Available version: ", new_version);
-        if (current_version < new_version) {
-          let options = {
-            title: "FELion_GUI2",
-            message: "Update available "+new_version,
-            buttons: ["Update and restart", "Cancel"],
-            type:"info"
-
-          };
-          let response = showinfo(mainWindow, options);
-          console.log(response);
-          switch (response) {
-            case 0:
-              $$invalidate('updateNow', updateNow = true);
-              break;
-            case 1:
-              $$invalidate('updateNow', updateNow = false);
-              break;
-          }
-        }
-      });
-    });
-    request.on("error", (err)=>console.log("Error occured while checiking for update"));
-    request.on("close", ()=>console.log("Update check done"));
-  }
-
-  checkInternet(function(isConnected) {
-      isConnected ? checkupdate() : console.log("Internet is not connected");
-    });
-
-  const hr_ms = (time) => time*60*60*10**3;
-  let timeInterval = hr_ms(1);
-  // let timeInterval = 1000
-
-  let check_update_continuously = setInterval(()=>{
-    checkInternet(function(isConnected) {
-      isConnected ? checkupdate() : console.log("Internet is not connected");
-    });
-
-  }, timeInterval);
 
   // Getting variables
   let { mainPages } = $$props;
@@ -20825,14 +20797,6 @@ function instance$7($$self, $$props, $$invalidate) {
 		if ('mainPages' in $$props) $$invalidate('mainPages', mainPages = $$props.mainPages);
 	};
 
-	let updateNow;
-
-	$$self.$$.update = ($$dirty = { updateNow: 1 }) => {
-		if ($$dirty.updateNow) { console.log("Update now: ", updateNow); }
-	};
-
-	$$invalidate('updateNow', updateNow = false);
-
 	return {
 		jq,
 		mainWindow,
@@ -20840,8 +20804,7 @@ function instance$7($$self, $$props, $$invalidate) {
 		showinfo,
 		mainPages,
 		navItems,
-		menu,
-		updateNow
+		menu
 	};
 }
 
