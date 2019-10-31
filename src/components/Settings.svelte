@@ -288,7 +288,8 @@
 
     // Checking for update on regular time interval
     const hr_ms = (time) => time*60*60*10**3
-    let timeInterval = hr_ms(1)
+    let timeInterval_hr = 1
+
     let check_update_continuously;
     
     // Clock timer
@@ -299,13 +300,22 @@
     }
     let clock = setInterval(ClockTimer, 1000);
 
+    // Auto update
     $: auto_update_check = true
-    $: auto_update_check ? console.log("Auto update On") : console.log("Auto update Off")
+    $: if (auto_update_check){ 
+        console.log("Auto update On")
+        let timeInterval = hr_ms(timeInterval_hr)
 
-    $: auto_update_check ? check_update_continuously = setInterval(()=>{
-        checkInternet(function(isConnected) {isConnected ? updateCheck() : console.log("Internet is not connected")})
-
-        }, timeInterval) : clearInterval(check_update_continuously)
+        console.log(`Auto update check for every ${timeInterval_hr} hr. (${timeInterval} ms)`)
+        check_update_continuously = setInterval(()=>{
+            checkInternet(function(isConnected) {isConnected ? updateCheck() : console.log("Internet is not connected")})
+            }, timeInterval
+        )
+     } 
+    else {
+        console.log("Auto update Off")
+        clearInterval(check_update_continuously)
+    }
 
 </script>
 
@@ -409,31 +419,28 @@
                     <!-- Update -->
 
                     <div class="container" style="display:none" id="Update">
-                        <div class="control">
-                            <h1 class="title is-pulled-left">FELion GUI (Current version): {currentVersion}</h1>
-                            <button class="button is-warning is-pulled-right" on:click="{()=>mainWindow.reload()}">Restart</button>
+                        
+                        <h1 class="title">FELion GUI (Current version): {currentVersion}</h1>
+                        <div class="field is-grouped">
+                            <p class="control"><button class="button is-link {checkupdateLoading}" on:click={updateCheck} >Check Update</button></p>
+                            <p class="control"><button class="button is-warning {updateLoading}" on:click={update}>Update</button></p>
                         </div>
-
-                        <div class="control">
-                            <button class="button is-link {checkupdateLoading}" on:click={updateCheck} >Check Update</button>
-                            <button class="button is-warning {updateLoading}" on:click={update}>Update</button>
-                            <h1 class="subtitle" style="display:block">{updateStatus}</h1>
-                        </div>
-
+                        <h1 class="subtitle" style="display:block">{updateStatus}</h1>
+                        
                         <hr>
 
                         <!-- Auto update options -->
-
-                        <div class="control" on:click="{()=>auto_update_check = !auto_update_check}">
-                            <div class="pretty p-switch p-slim">
-                                <input type="checkbox" checked id="autoupdate"/>
-                                <div class="state p-info p-on">
-                                    <label>Auto update</label>
-                                </div>
+                        <div class="pretty p-switch p-slim" style="margin-bottom:1em;" on:click="{()=>auto_update_check = !auto_update_check}">
+                            <input type="checkbox" checked id="autoupdate"/>
+                            <div class="state p-info p-on">
+                                <label>Auto update</label>
                             </div>
-
                         </div>
 
+                        <div class="field has-addons">
+                            <div class="control"><div class="button is-static">Time Interval</div></div>
+                            <div class="control"><input type="number" class="input" placeholder="Enter update check for every (time in hrs) interval" bind:value={timeInterval_hr}></div>
+                        </div>
                     </div>
 
                     <!-- About -->
