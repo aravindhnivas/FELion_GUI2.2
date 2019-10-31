@@ -4478,7 +4478,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (395:20) {#each items as item}
+// (394:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -5012,7 +5012,6 @@ function checkInternet(cb) {
 function instance$6($$self, $$props, $$invalidate) {
 	let { jq, path, mainWindow, showinfo } = $$props;
 
-
     // Importing modules
     const {exec} = require("child_process");
     const https = require('https');
@@ -5286,7 +5285,7 @@ function instance$6($$self, $$props, $$invalidate) {
     };
 
     const archive = () => {
-        let zip = new AdmZip();
+        let zip = new admZip();
         zip.addLocalFolder(`${__dirname}/../dist`);
         zip.addLocalFolder(`${__dirname}/../src`);
         zip.addLocalFolder(`${__dirname}/../static`);

@@ -5,7 +5,6 @@
     export let mainWindow;
     export let showinfo;
 
-
     // Importing modules
     const {exec} = require("child_process")
     const https = require('https');
@@ -325,7 +324,7 @@
     }
 
     const archive = () => {
-        let zip = new AdmZip();
+        let zip = new admZip();
         zip.addLocalFolder(`${__dirname}/../dist`);
         zip.addLocalFolder(`${__dirname}/../src`);
         zip.addLocalFolder(`${__dirname}/../static`);
