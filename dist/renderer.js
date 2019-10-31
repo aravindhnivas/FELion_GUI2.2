@@ -4478,7 +4478,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (351:20) {#each items as item}
+// (353:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -5083,18 +5083,23 @@ function instance$6($$self, $$props, $$invalidate) {
             }
         });
     };
-    
+
+    // Github details
     const github = {
         username: "aravindhnivas",
         repo: "FELion_GUI2.2",
         branch: "master",
     };
 
+    // URL for github files and folders
     const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`;
     const urlzip = `https://codeload.github.com/${github.username}/${github.repo}/zip/${github.branch}`;
+
+    // Local update-downloaded files
     const updateFolder = path.resolve(__dirname, "..", "update");
     const zipFile = path.resolve(updateFolder, updatefilename);
 
+    // Update checking
     const updateCheck = () => {
 
         $$invalidate('updatetoggle', updatetoggle = "none");

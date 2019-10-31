@@ -83,27 +83,29 @@
         })
     }
 
-    // Checking for new version (github) update
     $: new_version = ""
-    // $: console.log("New version: ", new_version)
     $: updatetoggle = "none"
     $: checkupdateLoading = ""
     $: updateLoading = ""
-    
+    $: updateStatus = ""
+
+    // Github details
     const github = {
         username: "aravindhnivas",
         repo: "FELion_GUI2.2",
         branch: "master",
     }
 
+    // URL for github files and folders
     const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`
     const urlzip = `https://codeload.github.com/${github.username}/${github.repo}/zip/${github.branch}`
+
+    // Local update-downloaded files
     const updateFolder = path.resolve(__dirname, "..", "update")
     const updatefilename = "update.zip"
     const zipFile = path.resolve(updateFolder, updatefilename)
 
-    $: updateStatus = ""
-
+    // Update checking
     const updateCheck = () => {
 
         updatetoggle = "none"
