@@ -145,7 +145,7 @@
         });
 
         request.on("close", ()=>{
-            if (currentVersion === new_version) {updateStatus = "No major new update available (Still you can update to see the latest minor updates if any available)"}
+            if (currentVersion === new_version) {updateStatus = `Version available: ${new_version}. You can still update to receive minor update(s) if any.`}
             else if (currentVersion < new_version) {
 
                 updateStatus = "New update available"
@@ -289,13 +289,23 @@
     // Checking for update on regular time interval
     const hr_ms = (time) => time*60*60*10**3
     let timeInterval = hr_ms(1)
-    let check_update_continuously = setInterval(()=>{
-        checkInternet(function(isConnected) {
-            isConnected ? updateCheck() : console.log("Internet is not connected")
-        })
+    let check_update_continuously;
+    
+    // Clock timer
+    $: currentTime = ""
+    function ClockTimer() {
+        let date = new Date();
+        currentTime = date.toLocaleTimeString();
+    }
+    let clock = setInterval(ClockTimer, 1000);
 
-        }, timeInterval
-    )
+    $: auto_update_check = true
+    $: auto_update_check ? console.log("Auto update On") : console.log("Auto update Off")
+
+    $: auto_update_check ? check_update_continuously = setInterval(()=>{
+        checkInternet(function(isConnected) {isConnected ? updateCheck() : console.log("Internet is not connected")})
+
+        }, timeInterval) : clearInterval(check_update_continuously)
 
 </script>
 
@@ -339,6 +349,10 @@
         position: absolute;
     }
 
+    .title {
+        font-weight: 400;
+    }
+
 </style>
 
 <section class="section animated fadeIn" style="display:none" id="Settings">
@@ -361,7 +375,8 @@
         <div class="column">
             <div class="row box box2" style="height:100%" >
                 <div class="container is-fluid">
-
+                    
+                    <div class="is-pulled-right">{currentTime}</div>
                     <!-- Configuration Settings -->
 
                     <div class="container" id="Configuration">
@@ -395,29 +410,30 @@
 
                     <div class="container" style="display:none" id="Update">
                         <div class="control">
-                            <h1 class="title">FELion GUI (Current version): {currentVersion}</h1>
+                            <h1 class="title is-pulled-left">FELion GUI (Current version): {currentVersion}</h1>
                             <button class="button is-warning is-pulled-right" on:click="{()=>mainWindow.reload()}">Restart</button>
+                        </div>
 
-                            <div class="level">
-                                <div class="level-left">
-                                    <div class="level-item">
-                                        <button class="button is-link {checkupdateLoading}" on:click={updateCheck} >Check Update</button>
-                                    </div>
+                        <div class="control">
+                            <button class="button is-link {checkupdateLoading}" on:click={updateCheck} >Check Update</button>
+                            <button class="button is-warning {updateLoading}" on:click={update}>Update</button>
+                            <h1 class="subtitle" style="display:block">{updateStatus}</h1>
+                        </div>
 
-                                    <div class="level-item" id="updatelabel" style="display:{updatetoggle}">
-                                        <h1 class="subtitle">Version available: {new_version}</h1>
-                                    </div>
+                        <hr>
 
-                                    <div class="level-item" id="run_update" style="display:{updatetoggle}">
-                                        <button class="button is-warning {updateLoading}" on:click={update}>Update</button>
-                                    </div>
+                        <!-- Auto update options -->
 
+                        <div class="control" on:click="{()=>auto_update_check = !auto_update_check}">
+                            <div class="pretty p-switch p-slim">
+                                <input type="checkbox" checked id="autoupdate"/>
+                                <div class="state p-info p-on">
+                                    <label>Auto update</label>
                                 </div>
                             </div>
-                            
-                            <h1 class="subtitle" style="display:block">{updateStatus}</h1>
-                            
+
                         </div>
+
                     </div>
 
                     <!-- About -->
