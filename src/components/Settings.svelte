@@ -324,26 +324,25 @@
     const archive = () => {
         console.log("Archiving existing software to old.zip")
 
-        let zip = new admZip();
-        let _src = {path:path.resolve(__dirname, "..", "src"), name:"src"}
-        let _static = {path:path.resolve(__dirname, "..", "static"), name:"static"}
-        let _dist = {path:path.resolve(__dirname, "..", "dist"), name:"dist"}
+        // let zip = new admZip();
+        // let _src = {path:path.resolve(__dirname, "..", "src"), name:"src"}
+        // let _static = {path:path.resolve(__dirname, "..", "static"), name:"static"}
+        // let _dist = {path:path.resolve(__dirname, "..", "dist"), name:"dist"}
 
-        let folders = [_src, _dist, _static]
-        folders.forEach(folder)
+        // let folders = [_src, _dist, _static]
+        // folders.forEach(folder)
         
-        
-        copy(src, dest, {overwrite: true}, function(error, results) {
-            if (error) {
-                console.log('Copy failed: ' + error);
-            } else {
-                console.info('Copied ' + results.length + ' files')
-                console.info('Copied ' + results + ' files')
-                // zip.addLocalFolder(dest);
-                // zip.writeZip(path.resolve(dest, "old.zip"))
-                console.log("Archiving completed")
-            }
-        })
+        // copy(src, dest, {overwrite: true}, function(error, results) {
+        //     if (error) {
+        //         console.log('Copy failed: ' + error);
+        //     } else {
+        //         console.info('Copied ' + results.length + ' files')
+        //         console.info('Copied ' + results + ' files')
+        //         // zip.addLocalFolder(dest);
+        //         // zip.writeZip(path.resolve(dest, "old.zip"))
+        //         console.log("Archiving completed")
+        //     }
+        // })
         
     }
 

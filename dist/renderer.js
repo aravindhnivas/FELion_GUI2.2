@@ -4478,7 +4478,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (407:20) {#each items as item}
+// (406:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -5296,26 +5296,25 @@ function instance$6($$self, $$props, $$invalidate) {
     const archive = () => {
         console.log("Archiving existing software to old.zip");
 
-        let zip = new admZip();
-        let _src = {path:path.resolve(__dirname, "..", "src"), name:"src"};
-        let _static = {path:path.resolve(__dirname, "..", "static"), name:"static"};
-        let _dist = {path:path.resolve(__dirname, "..", "dist"), name:"dist"};
+        // let zip = new admZip();
+        // let _src = {path:path.resolve(__dirname, "..", "src"), name:"src"}
+        // let _static = {path:path.resolve(__dirname, "..", "static"), name:"static"}
+        // let _dist = {path:path.resolve(__dirname, "..", "dist"), name:"dist"}
 
-        let folders = [_src, _dist, _static];
-        folders.forEach(folder);
+        // let folders = [_src, _dist, _static]
+        // folders.forEach(folder)
         
-        
-        copy(src, dest, {overwrite: true}, function(error, results) {
-            if (error) {
-                console.log('Copy failed: ' + error);
-            } else {
-                console.info('Copied ' + results.length + ' files');
-                console.info('Copied ' + results + ' files');
-                // zip.addLocalFolder(dest);
-                // zip.writeZip(path.resolve(dest, "old.zip"))
-                console.log("Archiving completed");
-            }
-        });
+        // copy(src, dest, {overwrite: true}, function(error, results) {
+        //     if (error) {
+        //         console.log('Copy failed: ' + error);
+        //     } else {
+        //         console.info('Copied ' + results.length + ' files')
+        //         console.info('Copied ' + results + ' files')
+        //         // zip.addLocalFolder(dest);
+        //         // zip.writeZip(path.resolve(dest, "old.zip"))
+        //         console.log("Archiving completed")
+        //     }
+        // })
         
     };
 
@@ -8040,6 +8039,7 @@ var Popper = function () {
 Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
 Popper.placements = placements;
 Popper.Defaults = Defaults;
+//# sourceMappingURL=popper.js.map
 
 /**!
 * tippy.js v4.3.5
@@ -9979,6 +9979,7 @@ function injectCSS(css) {
 }
 
 injectCSS(css);
+//# sourceMappingURL=index.all.js.map
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -21014,6 +21015,7 @@ const app = new App({
     target: document.body,
     props: { mainPages }
 });
+//# sourceMappingURL=renderer.js.map
 
 module.exports = app;
 //# sourceMappingURL=renderer.js.map
