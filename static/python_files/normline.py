@@ -44,8 +44,25 @@ colors = [
     (158, 218, 229),
 ]
 
-class normplot:
+def var_find(openfile):
 
+    var = {'res': 'm03_ao13_reso', 'b0': 'm03_ao09_width',
+           'trap': 'm04_ao04_sa_delay'}
+    with open(openfile, 'r') as mfile:
+        mfile = np.array(mfile.readlines())
+
+    for line in mfile:
+        if not len(line.strip()) == 0 and line.split()[0] == '#':
+            for j in var:
+                if var[j] in line.split():
+                    var[j] = float(line.split()[-3])
+
+    res, b0, trap = round(var['res'], 2), int(
+        var['b0']/1000), int(var['trap']/1000)
+
+    return res, b0, trap
+
+class normplot:
     def __init__(self, received_files, delta):
 
         self.delta = delta
@@ -77,6 +94,9 @@ class normplot:
 
         for filename in received_files:
 
+            res, b0, trap = var_find(filename)
+            label = f"Res:{res}; B0: {b0}ms; trap: {trap}ms"
+            
             felixfile = filename.name
             fname = filename.stem
             basefile = f"{fname}.base"
@@ -210,7 +230,7 @@ class normplot:
             dataToSend["base"][f"{felixfile}_base"] = {
                 "x": list(base_felix[0]),
                 "y": list(base_felix[1]),
-                "name": felixfile,
+                "name": f"{felixfile}: {label}",
                 "mode": "lines",
                 "line": {"color": f"rgb{colors[c]}"},
                 "legendgroup": f'group{group}'
