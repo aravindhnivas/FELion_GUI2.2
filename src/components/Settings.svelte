@@ -224,9 +224,7 @@
 
     // Update processing
     const update = () => {
-        
-
-        archive()
+        // archive()
         updateLoading = "is-loading"
         
         try {fs.readdirSync(updateFolder)} 
