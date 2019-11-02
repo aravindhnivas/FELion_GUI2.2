@@ -689,7 +689,7 @@
       </div>
 
       {#if filetag=="felix"}
-         <div class="row" id="theoryRow" style="display:none">
+         <div class="row" id="theoryRow" style="display:none; padding-bottom:1em">
             <div class="container is-marginless" id="theoryContainer">
               <div class="field">
                 <label class="label" id="theorylabel">

@@ -253,13 +253,24 @@ class normplot:
             dataToSend["pow"][powerfile] = {
                 "x": list(wavelength),
                 "y": list(self.total_power),
-                "name": f"{powerfile}: [{self.nshots}]",
+                "name": f"{powerfile}: [{self.nshots:.1f}]",
                 "mode": "markers",
                 "xaxis": "x2",
                 "yaxis": "y2",
                 "marker": {"color": f"rgb{colors[c]}"},
                 "legendgroup": f'group{group}',
                 "showlegend": True,
+            }
+
+            dataToSend["pow"][f"{powerfile}_"] = {
+                "x": list(wavelength),
+                "y": list(self.power_measured),
+                "mode": "markers",
+                "xaxis": "x2",
+                "yaxis": "y3",
+                "marker": {"color": f"rgb{colors[c]}"},
+                "legendgroup": f'group{group}',
+                "showlegend": False,
             }
 
             group += 1

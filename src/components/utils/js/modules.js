@@ -9,24 +9,36 @@ const plot_height = window.screen.height * .42;
 function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
 
     let dataLayout = {
-
         title: mainTitle,
 
         xaxis: {
             domain: [0, 0.4],
             title: xtitle
         },
+
         yaxis: {
             title: ytitle
         },
 
         xaxis2: {
-            domain: [0.55, 1],
+            domain: [0.5, 1],
             title: x2
         },
+
         yaxis2: {
             anchor: "x2",
-            title: y2
+            title: y2,
+            overlaying: 'y',
+        },
+
+        yaxis3: {
+
+            anchor: 'free',
+            overlaying: 'y',
+            side: 'right',
+
+            title: "Measured (mJ)",
+            position: 0.97
         },
 
 
