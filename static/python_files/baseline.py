@@ -24,6 +24,24 @@ import traceback
 
 def move(pathdir, x): return (shutil.move(join(pathdir, x), join(pathdir, "DATA", x)), print(f"{x} moved to DATA folder"))
 
+def var_find(openfile):
+
+    var = {'res': 'm03_ao13_reso', 'b0': 'm03_ao09_width',
+           'trap': 'm04_ao04_sa_delay'}
+    with open(openfile, 'r') as mfile:
+        mfile = np.array(mfile.readlines())
+
+    for line in mfile:
+        if not len(line.strip()) == 0 and line.split()[0] == '#':
+            for j in var:
+                if var[j] in line.split():
+                    var[j] = float(line.split()[-3])
+
+    res, b0, trap = round(var['res'], 2), int(
+        var['b0']/1000), int(var['trap']/1000)
+
+    return res, b0, trap
+
 class Create_Baseline():
 
     epsilon = 5
@@ -147,7 +165,7 @@ class Create_Baseline():
         widget = FELion_Tk(title=self.felixfile, location=self.location/"OUT")
         self.fig, self.canvas = widget.Figure(dpi=120)
         self.ax = self.fig.add_subplot(111)
-       
+
         self.line = Line2D(self.xs, self.ys, marker='s', ls='', ms=6, c='b', markeredgecolor='b', animated=True)
         self.ax.add_line(self.line)        
         
@@ -164,7 +182,10 @@ class Create_Baseline():
         self.canvas.mpl_connect('button_release_event', self.button_release_callback)
         self.canvas.mpl_connect('motion_notify_event', self.motion_notify_callback)
 
-        self.baseline_data = widget.make_figure_layout(ax=self.ax, xdata=self.data[0], ydata=self.data[1], label=self.felixfile, savename=self.felixfile,
+        res, b0, trap = var_find(f"{self.location}/DATA/{self.felixfile}")
+        label = f"{self.felixfile}: Res:{res}; B0: {b0}ms; trap: {trap}ms"
+
+        self.baseline_data = widget.make_figure_layout(ax=self.ax, xdata=self.data[0], ydata=self.data[1], label=label, savename=self.felixfile,
             title=f"Create Baseline", xaxis="Wavenumber (cm-1)", yaxis="Counts", ls='', marker='o', ms=5, markeredgecolor='r', c='r')
 
         def on_closing():
