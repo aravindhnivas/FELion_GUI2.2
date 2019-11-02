@@ -747,15 +747,15 @@ function get_each_context_1(ctx, list, i) {
 	return child_ctx;
 }
 
-// (242:4) {:else}
+// (252:4) {:else}
 function create_else_block_1(ctx) {
 	var div;
 
 	return {
 		c() {
 			div = element("div");
-			div.innerHTML = `<h1 class="subtitle svelte-12tmvti">Browse to load files</h1>`;
-			attr(div, "class", "panel-block svelte-12tmvti");
+			div.innerHTML = `<h1 class="subtitle svelte-a3c26p">Browse to load files</h1>`;
+			attr(div, "class", "panel-block svelte-a3c26p");
 		},
 
 		m(target, anchor) {
@@ -772,7 +772,7 @@ function create_else_block_1(ctx) {
 	};
 }
 
-// (178:4) {#if folderFile != undefined}
+// (188:4) {#if folderFile != undefined}
 function create_if_block$1(ctx) {
 	var div1, aside, div0, span0, t0, span1, t1_value = ctx.folderFile.parentFolder + "", t1, div0_id_value, t2, ul, t3, ul_id_value, aside_id_value, t4, each1_anchor, dispose;
 
@@ -806,7 +806,7 @@ function create_if_block$1(ctx) {
 			aside = element("aside");
 			div0 = element("div");
 			span0 = element("span");
-			span0.innerHTML = `<i class="fas fa-angle-right fa-rotate-90 svelte-12tmvti" aria-hidden="true"></i>`;
+			span0.innerHTML = `<i class="fas fa-angle-right fa-rotate-90 svelte-a3c26p" aria-hidden="true"></i>`;
 			t0 = space();
 			span1 = element("span");
 			t1 = text(t1_value);
@@ -826,15 +826,15 @@ function create_if_block$1(ctx) {
 			}
 
 			each1_anchor = empty();
-			attr(span0, "class", "icon svelte-12tmvti");
-			attr(span1, "class", "svelte-12tmvti");
-			attr(div0, "class", "menu-label has-text-white svelte-12tmvti");
+			attr(span0, "class", "icon svelte-a3c26p");
+			attr(span1, "class", "svelte-a3c26p");
+			attr(div0, "class", "menu-label has-text-white svelte-a3c26p");
 			attr(div0, "id", div0_id_value = "" + ctx.filetag + "FolderContainer");
-			attr(ul, "class", "menu-list svelte-12tmvti");
+			attr(ul, "class", "menu-list svelte-a3c26p");
 			attr(ul, "id", ul_id_value = "" + ctx.filetag + "FileContainer");
-			attr(aside, "class", "menu svelte-12tmvti");
+			attr(aside, "class", "menu svelte-a3c26p");
 			attr(aside, "id", aside_id_value = "" + ctx.filetag + "FileBrowser");
-			attr(div1, "class", "panel-block svelte-12tmvti");
+			attr(div1, "class", "panel-block svelte-a3c26p");
 			dispose = listen(span0, "click", ctx.folderToggle);
 		},
 
@@ -961,7 +961,7 @@ function create_if_block$1(ctx) {
 	};
 }
 
-// (204:12) {:else}
+// (214:12) {:else}
 function create_else_block$1(ctx) {
 	var h1, t0, t1, t2;
 
@@ -971,7 +971,7 @@ function create_else_block$1(ctx) {
 			t0 = text("No ");
 			t1 = text(ctx.filetag);
 			t2 = text(" files here");
-			attr(h1, "class", "subtitle svelte-12tmvti");
+			attr(h1, "class", "subtitle svelte-a3c26p");
 		},
 
 		m(target, anchor) {
@@ -995,7 +995,7 @@ function create_else_block$1(ctx) {
 	};
 }
 
-// (191:12) {#if folderFile.files.length > 0}
+// (201:12) {#if folderFile.files.length > 0}
 function create_if_block_1(ctx) {
 	var li, div1, input, input_id_value, t, div0, dispose;
 
@@ -1006,13 +1006,13 @@ function create_if_block_1(ctx) {
 			input = element("input");
 			t = space();
 			div0 = element("div");
-			div0.innerHTML = `<i class="icon mdi mdi-check svelte-12tmvti"></i> <label class="svelte-12tmvti">Select All</label>`;
+			div0.innerHTML = `<i class="icon mdi mdi-check svelte-a3c26p"></i> <label class="svelte-a3c26p">Select All</label>`;
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "selectall");
-			attr(input, "class", "svelte-12tmvti");
-			attr(div0, "class", "state p-primary svelte-12tmvti");
-			attr(div1, "class", "pretty p-icon p-round p-pulse svelte-12tmvti");
-			attr(li, "class", "svelte-12tmvti");
+			attr(input, "class", "svelte-a3c26p");
+			attr(div0, "class", "state p-primary svelte-a3c26p");
+			attr(div1, "class", "pretty p-icon p-round p-pulse svelte-a3c26p");
+			attr(li, "class", "svelte-a3c26p");
 			dispose = listen(input, "click", ctx.selectAllToggle);
 		},
 
@@ -1040,7 +1040,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (208:12) {#each folderFile.files.sort() as filename}
+// (218:12) {#each folderFile.files.sort() as filename}
 function create_each_block_1(ctx) {
 	var li, div1, input, input_id_value, input_class_value, t0, div0, i, t1, label, t2_value = ctx.filename + "", t2, label_for_value, t3, li_class_value, dispose;
 
@@ -1058,13 +1058,13 @@ function create_each_block_1(ctx) {
 			t3 = space();
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = ctx.filename);
-			attr(input, "class", input_class_value = "" + ctx.filetag + "-files" + " svelte-12tmvti");
-			attr(i, "class", "icon mdi mdi-check svelte-12tmvti");
+			attr(input, "class", input_class_value = "" + ctx.filetag + "-files" + " svelte-a3c26p");
+			attr(i, "class", "icon mdi mdi-check svelte-a3c26p");
 			attr(label, "for", label_for_value = ctx.filename);
-			attr(label, "class", "svelte-12tmvti");
-			attr(div0, "class", "state p-success svelte-12tmvti");
-			attr(div1, "class", "pretty p-icon p-round p-smooth svelte-12tmvti");
-			attr(li, "class", li_class_value = "" + null_to_empty(ctx.filename) + " svelte-12tmvti");
+			attr(label, "class", "svelte-a3c26p");
+			attr(div0, "class", "state p-success svelte-a3c26p");
+			attr(div1, "class", "pretty p-icon p-round p-smooth svelte-a3c26p");
+			attr(li, "class", li_class_value = "" + null_to_empty(ctx.filename) + " svelte-a3c26p");
 			set_style(li, "display", "block");
 			dispose = listen(input, "click", ctx.getCheckedFiles);
 		},
@@ -1087,7 +1087,7 @@ function create_each_block_1(ctx) {
 				attr(input, "id", input_id_value);
 			}
 
-			if ((changed.filetag) && input_class_value !== (input_class_value = "" + ctx.filetag + "-files" + " svelte-12tmvti")) {
+			if ((changed.filetag) && input_class_value !== (input_class_value = "" + ctx.filetag + "-files" + " svelte-a3c26p")) {
 				attr(input, "class", input_class_value);
 			}
 
@@ -1099,7 +1099,7 @@ function create_each_block_1(ctx) {
 				attr(label, "for", label_for_value);
 			}
 
-			if ((changed.folderFile) && li_class_value !== (li_class_value = "" + null_to_empty(ctx.filename) + " svelte-12tmvti")) {
+			if ((changed.folderFile) && li_class_value !== (li_class_value = "" + null_to_empty(ctx.filename) + " svelte-a3c26p")) {
 				attr(li, "class", li_class_value);
 			}
 		},
@@ -1114,7 +1114,7 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (228:6) {#each folderFile.folders as foldername}
+// (238:6) {#each folderFile.folders as foldername}
 function create_each_block$1(ctx) {
 	var div1, aside, div0, span0, t0, span1, t1_value = ctx.foldername + "", t1, span1_id_value, t2, dispose;
 
@@ -1128,17 +1128,17 @@ function create_each_block$1(ctx) {
 			aside = element("aside");
 			div0 = element("div");
 			span0 = element("span");
-			span0.innerHTML = `<i class="fas fa-angle-right svelte-12tmvti" aria-hidden="true"></i>`;
+			span0.innerHTML = `<i class="fas fa-angle-right svelte-a3c26p" aria-hidden="true"></i>`;
 			t0 = space();
 			span1 = element("span");
 			t1 = text(t1_value);
 			t2 = space();
-			attr(span0, "class", "icon svelte-12tmvti");
+			attr(span0, "class", "icon svelte-a3c26p");
 			attr(span1, "id", span1_id_value = ctx.foldername);
-			attr(span1, "class", "svelte-12tmvti");
-			attr(div0, "class", "menu-label has-text-white svelte-12tmvti");
-			attr(aside, "class", "menu svelte-12tmvti");
-			attr(div1, "class", "panel-block svelte-12tmvti");
+			attr(span1, "class", "svelte-a3c26p");
+			attr(div0, "class", "menu-label has-text-white svelte-a3c26p");
+			attr(aside, "class", "menu svelte-a3c26p");
+			attr(div1, "class", "panel-block svelte-a3c26p");
 			dispose = listen(span1, "click", click_handler_1);
 		},
 
@@ -1213,47 +1213,47 @@ function create_fragment$3(ctx) {
 			input = element("input");
 			t5 = space();
 			span4 = element("span");
-			span4.innerHTML = `<i class="fas fa-search svelte-12tmvti" aria-hidden="true"></i>`;
+			span4.innerHTML = `<i class="fas fa-search svelte-a3c26p" aria-hidden="true"></i>`;
 			t6 = space();
 			if_block.c();
-			attr(i0, "class", "fas fa-bars svelte-12tmvti");
+			attr(i0, "class", "fas fa-bars svelte-a3c26p");
 			set_style(i0, "padding-right", "0.5em");
 			set_style(i0, "cursor", "pointer");
 			attr(i0, "aria-hidden", "true");
-			attr(span0, "class", "icon svelte-12tmvti");
-			attr(span1, "class", "" + animation + " svelte-12tmvti");
+			attr(span0, "class", "icon svelte-a3c26p");
+			attr(span1, "class", "" + animation + " svelte-a3c26p");
 			set_style(span1, "display", ctx.display);
-			attr(div0, "class", "level-item svelte-12tmvti");
-			attr(div1, "class", "level-left svelte-12tmvti");
-			attr(i1, "class", "fas fa-sync refreshIcon hvr-icon svelte-12tmvti");
+			attr(div0, "class", "level-item svelte-a3c26p");
+			attr(div1, "class", "level-left svelte-a3c26p");
+			attr(i1, "class", "fas fa-sync refreshIcon hvr-icon svelte-a3c26p");
 			attr(i1, "id", i1_id_value = "" + ctx.filetag + "refreshIcon");
 			attr(i1, "data-tippy", "Refresh folder");
 			attr(i1, "aria-hidden", "true");
-			attr(span2, "class", "icon refresh hvr-icon-spin svelte-12tmvti");
+			attr(span2, "class", "icon refresh hvr-icon-spin svelte-a3c26p");
 			attr(span2, "id", span2_id_value = "" + ctx.filetag + "refresh");
-			attr(div2, "class", "level-item " + animation + " svelte-12tmvti");
+			attr(div2, "class", "level-item " + animation + " svelte-a3c26p");
 			set_style(div2, "display", ctx.display);
-			attr(i2, "class", "fas fa-angle-left hvr-icon svelte-12tmvti");
+			attr(i2, "class", "fas fa-angle-left hvr-icon svelte-a3c26p");
 			attr(i2, "data-tippy", "Go back (location)");
 			attr(i2, "aria-hidden", "true");
-			attr(span3, "class", "icon backbtn hvr-icon-back svelte-12tmvti");
+			attr(span3, "class", "icon backbtn hvr-icon-back svelte-a3c26p");
 			attr(span3, "id", span3_id_value = "" + ctx.filetag + "BackButton");
-			attr(div3, "class", "level-item " + animation + " svelte-12tmvti");
+			attr(div3, "class", "level-item " + animation + " svelte-a3c26p");
 			set_style(div3, "display", ctx.display);
-			attr(div4, "class", "level-right svelte-12tmvti");
-			attr(div5, "class", "level svelte-12tmvti");
-			attr(div6, "class", "panel-heading svelte-12tmvti");
-			attr(input, "class", "input is-small  svelte-12tmvti");
+			attr(div4, "class", "level-right svelte-a3c26p");
+			attr(div5, "class", "level svelte-a3c26p");
+			attr(div6, "class", "panel-heading svelte-a3c26p");
+			attr(input, "class", "input is-small  svelte-a3c26p");
 			attr(input, "type", "text");
 			attr(input, "placeholder", input_placeholder_value = "Search " + ctx.filetag + " files");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "-searchFiles");
-			attr(span4, "class", "icon is-small is-left svelte-12tmvti");
-			attr(p, "class", "control has-icons-left svelte-12tmvti");
-			attr(div7, "class", "panel-block svelte-12tmvti");
+			attr(span4, "class", "icon is-small is-left svelte-a3c26p");
+			attr(p, "class", "control has-icons-left svelte-a3c26p");
+			attr(div7, "class", "panel-block svelte-a3c26p");
 			attr(div8, "id", div8_id_value = "" + ctx.filetag + "panel-block");
-			attr(div8, "class", "" + animation + " svelte-12tmvti");
+			attr(div8, "class", "" + animation + " svelte-a3c26p");
 			set_style(div8, "display", ctx.display);
-			attr(nav, "class", "panel filexplorer svelte-12tmvti");
+			attr(nav, "class", "panel filexplorer svelte-a3c26p");
 
 			dispose = [
 				listen(i0, "click", ctx.fileExplorerToggle),
@@ -1416,14 +1416,14 @@ function instance$3($$self, $$props, $$invalidate) {
     // Toggling folder
     $folderContainer.toggle();
 
-    if ($folderContainer[0].style.display === "none") $folderIcon.removeClass("fa-rotate-90");
+    if ($folderContainer[0].style.display === "none")
+      $folderIcon.removeClass("fa-rotate-90");
     else $folderIcon.addClass("fa-rotate-90");
   };
-  
+
   let display = "block";
   let visible = true;
-  const fileExplorerToggle = (event) => {
-
+  const fileExplorerToggle = event => {
     let $target = jq(event.target);
     $$invalidate('visible', visible = !visible);
 
@@ -1435,21 +1435,26 @@ function instance$3($$self, $$props, $$invalidate) {
       $filebrowser.css("max-width", "100%");
       $filebrowserNav.css("max-width", "100%");
       $plotContainer.css("width", "70%");
-      if($target.hasClass("fa-rotate-90")) {$target.removeClass("fa-rotate-90");}
+      if ($target.hasClass("fa-rotate-90")) {
+        $target.removeClass("fa-rotate-90");
+      }
     } else {
-      
       $filebrowser.css("max-width", "10%");
       $filebrowserNav.css("max-width", "3%");
       $plotContainer.css("width", "86%");
       $target.addClass("fa-rotate-90");
     }
 
-    let obj = {width : $plotContainer.width()*0.97};
-    Plotly.relayout("saPlot", obj);
-    Plotly.relayout("bplot", obj);
-    Plotly.relayout("avgplot", obj);
-    Plotly.relayout("nplot", obj);
-    Plotly.relayout("exp-theory-plot", obj);
+    let obj = { width: $plotContainer.width() * 0.97 };
+    if (filetag == "felix") {
+      Plotly.relayout("saPlot", obj);
+      Plotly.relayout("bplot", obj);
+      Plotly.relayout("avgplot", obj);
+      Plotly.relayout("nplot", obj);
+      Plotly.relayout("exp-theory-plot", obj);
+    } else if (filetag == "mass") {
+      Plotly.relayout("mplot", obj);
+    }
   };
 
 	const click_handler = () => changeDir('..');
@@ -1471,8 +1476,12 @@ function instance$3($$self, $$props, $$invalidate) {
 	};
 
 	$$self.$$.update = ($$dirty = { currentLocation: 1, filetag: 1, updateFolder: 1, visible: 1 }) => {
-		if ($$dirty.currentLocation || $$dirty.filetag || $$dirty.updateFolder) { if(!currentLocation) {console.log(`Currentlocation: [${filetag}]: is undefined`);} else {$$invalidate('folderFile', folderFile = updateFolder(currentLocation));} }
-		if ($$dirty.visible) { visible ? $$invalidate('display', display = "block") : $$invalidate('display', display = "none"); }
+		if ($$dirty.currentLocation || $$dirty.filetag || $$dirty.updateFolder) { if (!currentLocation) {
+        console.log(`Currentlocation: [${filetag}]: is undefined`);
+      } else {
+        $$invalidate('folderFile', folderFile = updateFolder(currentLocation));
+      } }
+		if ($$dirty.visible) { visible ? ($$invalidate('display', display = "block")) : ($$invalidate('display', display = "none")); }
 	};
 
 	return {
@@ -1508,15 +1517,13 @@ class Filebrowser extends SvelteComponent {
 const { spawn, exec } = child_process;
 
 
-// const pythonPath = path.join(__dirname, "../python3.7/python")
-// const functions_path = path.join(__dirname, "/python_files/")
 
-const plot_width = window.screen.width * .625;
+const plot_width = window.screen.width * .65;
 const plot_height = window.screen.height * .42;
 
-// paper_bgcolor: '#c7c7c7',
-// plot_bgcolor: '#c7c7c7'
+
 function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
+
     let dataLayout = {
 
         title: mainTitle,
@@ -1538,6 +1545,7 @@ function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
             title: y2
         },
 
+
         autosize: true,
         width: plot_width,
         height: plot_height,
@@ -1556,6 +1564,8 @@ function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
 }
 
 function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
+
+
 
     let dataLayout = {
         title: mainTitle,
