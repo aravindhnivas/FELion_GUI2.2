@@ -63,7 +63,7 @@ def var_find(openfile):
     return res, b0, trap
 
 class normplot:
-    def __init__(self, received_files, delta):
+    def __init__(self, received_files, delta, felix_hz=10):
 
         self.delta = delta
         received_files = [pt(files) for files in received_files]
@@ -89,6 +89,9 @@ class normplot:
         xs_r = np.array([], dtype=np.float)
         ys_r = np.array([], dtype=np.float)
 
+        # FELIX Hz
+        self.felix_hz = felix_hz
+
         c = 0
         group = 1
 
@@ -96,7 +99,8 @@ class normplot:
 
             res, b0, trap = var_find(filename)
             label = f"Res:{res}; B0: {b0}ms; trap: {trap}ms"
-            
+            self.nshots = (trap/1000) * self.felix_hz
+
             felixfile = filename.name
             fname = filename.stem
             basefile = f"{fname}.base"
@@ -246,19 +250,18 @@ class normplot:
                 "showlegend": False,
             }
 
-
-            # dataToSend["nshots"] = float(self.nshots)
             dataToSend["pow"][powerfile] = {
                 "x": list(wavelength),
                 "y": list(self.total_power),
-                "name": f"{powerfile}",
+                "name": f"{powerfile}: [{self.nshots}]",
                 "mode": "markers",
                 "xaxis": "x2",
                 "yaxis": "y2",
                 "marker": {"color": f"rgb{colors[c]}"},
                 "legendgroup": f'group{group}',
+                "showlegend": True,
             }
-            
+
             group += 1
             c += 2
 
@@ -301,8 +304,10 @@ class normplot:
 
         wavelength = self.saCal.sa_cm(data[0])
 
-        self.nshots = powCal.shots(1.0)
-        self.total_power = powCal.power(data[0])*powCal.shots(data[0])
+        # self.nshots = powCal.shots(1.0)
+        # self.total_power = powCal.power(data[0])*powCal.shots(data[0])
+        self.power_measured = powCal.power(data[0])
+        self.total_power = self.power_measured*self.nshots
         counts = data[1]
         baseCounts = baseCal.val(data[0])
         ratio = counts/baseCounts
