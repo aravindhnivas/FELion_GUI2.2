@@ -2407,7 +2407,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (692:6) {#if filetag=="felix"}
+// (691:6) {#if filetag=="felix"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2463,7 +2463,7 @@ function create_if_block_7(ctx) {
 			attr(button2, "id", "theory_Matplotlib");
 			attr(div0, "class", "control");
 			attr(div1, "class", "field");
-			attr(div2, "class", "container svelte-mxyb64");
+			attr(div2, "class", "container is-marginless svelte-mxyb64");
 			attr(div2, "id", "theoryContainer");
 			attr(div3, "class", "row svelte-mxyb64");
 			attr(div3, "id", "theoryRow");
@@ -2527,7 +2527,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (711:6) {#if filetag=="scan"}
+// (710:6) {#if filetag=="scan"}
 function create_if_block_1$1(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2657,7 +2657,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (724:28) {#if folderFile.files != undefined}
+// (723:28) {#if folderFile.files != undefined}
 function create_if_block_6(ctx) {
 	var each_1_anchor;
 
@@ -2720,7 +2720,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (725:31) {#each folderFile.files as scanfile}
+// (724:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2757,7 +2757,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (716:16) {#each ["ResON", "ResOFF"] as name}
+// (715:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -2825,7 +2825,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (747:57) 
+// (746:57) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2864,7 +2864,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (745:52) 
+// (744:52) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2903,7 +2903,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (743:50) 
+// (742:50) 
 function create_if_block_3(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -2942,7 +2942,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (741:22) {#if name=="Power (ON, OFF)"}
+// (740:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_2(ctx) {
 	var input, dispose;
 
@@ -2975,7 +2975,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (736:16) {#each depletionLabels as {name, id}}
+// (735:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -3033,7 +3033,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (779:12) {:else}
+// (778:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3063,7 +3063,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (772:12) {#if filetag == 'scan'}
+// (771:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3137,7 +3137,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (774:16) {#each fileChecked as scanfile}
+// (773:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3167,7 +3167,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (771:10) {#each plotID as id}
+// (770:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 

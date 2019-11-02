@@ -639,7 +639,6 @@
             {#if filetag == 'thz'}
 
               <!-- Delta value -->
-
               <div class="level-item">
 
                 <div class="field has-addons">
@@ -691,7 +690,7 @@
 
       {#if filetag=="felix"}
          <div class="row" id="theoryRow" style="display:none">
-            <div class="container" id="theoryContainer">
+            <div class="container is-marginless" id="theoryContainer">
               <div class="field">
                 <label class="label" id="theorylabel">
                   <h1 class="subtitle" id="theoryfilename">{theoryfilenames}</h1>
