@@ -442,15 +442,16 @@ function get_each_context(ctx, list, i) {
 	return child_ctx;
 }
 
-// (37:10) {:else}
+// (67:10) {:else}
 function create_else_block(ctx) {
-	var li, a, t_value = ctx.item + "", t, li_id_value, dispose;
+	var li, a, t0_value = ctx.item + "", t0, t1, li_id_value, dispose;
 
 	return {
 		c() {
 			li = element("li");
 			a = element("a");
-			t = text(t_value);
+			t0 = text(t0_value);
+			t1 = space();
 			attr(li, "id", li_id_value = "" + ctx.item + "-nav");
 			dispose = listen(a, "click", ctx.controlNav);
 		},
@@ -458,12 +459,13 @@ function create_else_block(ctx) {
 		m(target, anchor) {
 			insert(target, li, anchor);
 			append(li, a);
-			append(a, t);
+			append(a, t0);
+			append(li, t1);
 		},
 
 		p(changed, ctx) {
-			if ((changed.navItems) && t_value !== (t_value = ctx.item + "")) {
-				set_data(t, t_value);
+			if ((changed.navItems) && t0_value !== (t0_value = ctx.item + "")) {
+				set_data(t0, t0_value);
 			}
 
 			if ((changed.navItems) && li_id_value !== (li_id_value = "" + ctx.item + "-nav")) {
@@ -481,15 +483,16 @@ function create_else_block(ctx) {
 	};
 }
 
-// (35:10) {#if item=="Welcome"}
+// (63:10) {#if item == 'Welcome'}
 function create_if_block(ctx) {
-	var li, a, t_value = ctx.item + "", t, li_id_value, dispose;
+	var li, a, t0_value = ctx.item + "", t0, t1, li_id_value, dispose;
 
 	return {
 		c() {
 			li = element("li");
 			a = element("a");
-			t = text(t_value);
+			t0 = text(t0_value);
+			t1 = space();
 			attr(li, "class", "is-active");
 			attr(li, "id", li_id_value = "" + ctx.item + "-nav");
 			dispose = listen(a, "click", ctx.controlNav);
@@ -498,12 +501,13 @@ function create_if_block(ctx) {
 		m(target, anchor) {
 			insert(target, li, anchor);
 			append(li, a);
-			append(a, t);
+			append(a, t0);
+			append(li, t1);
 		},
 
 		p(changed, ctx) {
-			if ((changed.navItems) && t_value !== (t_value = ctx.item + "")) {
-				set_data(t, t_value);
+			if ((changed.navItems) && t0_value !== (t0_value = ctx.item + "")) {
+				set_data(t0, t0_value);
 			}
 
 			if ((changed.navItems) && li_id_value !== (li_id_value = "" + ctx.item + "-nav")) {
@@ -521,12 +525,12 @@ function create_if_block(ctx) {
 	};
 }
 
-// (34:8) {#each navItems as item}
+// (62:8) {#each navItems as item}
 function create_each_block(ctx) {
 	var if_block_anchor;
 
 	function select_block_type(changed, ctx) {
-		if (ctx.item=="Welcome") return create_if_block;
+		if (ctx.item == 'Welcome') return create_if_block;
 		return create_else_block;
 	}
 
@@ -568,14 +572,14 @@ function create_each_block(ctx) {
 }
 
 function create_fragment$1(ctx) {
-	var section, div1, div0, ul;
+	var section, div1, div0, span, t, ul, dispose;
 
 	let each_value = ctx.navItems;
 
 	let each_blocks = [];
 
-	for (let i = 0; i < each_value.length; i += 1) {
-		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+	for (let i_1 = 0; i_1 < each_value.length; i_1 += 1) {
+		each_blocks[i_1] = create_each_block(get_each_context(ctx, each_value, i_1));
 	}
 
 	return {
@@ -583,26 +587,36 @@ function create_fragment$1(ctx) {
 			section = element("section");
 			div1 = element("div");
 			div0 = element("div");
+			span = element("span");
+			span.innerHTML = `<i class="fas fa-bars fa-2x" style="padding:0.5em;" aria-hidden="true"></i>`;
+			t = space();
 			ul = element("ul");
 
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].c();
+			for (let i_1 = 0; i_1 < each_blocks.length; i_1 += 1) {
+				each_blocks[i_1].c();
 			}
+			attr(span, "class", "icon is-pulled-left");
+			set_style(span, "margin", "0.5em");
+			set_style(span, "cursor", "pointer");
+			attr(span, "data-tippy", "Show/Hide buttons");
 			attr(div0, "class", "tabs is-centered is-boxed is-medium");
 			attr(div1, "class", "container is-fluid");
 			attr(section, "class", "section animated fadeInDown");
 			attr(section, "id", "Navbar");
 			set_style(section, "display", "none");
+			dispose = listen(span, "click", ctx.toggleRow);
 		},
 
 		m(target, anchor) {
 			insert(target, section, anchor);
 			append(section, div1);
 			append(div1, div0);
+			append(div0, span);
+			append(div0, t);
 			append(div0, ul);
 
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(ul, null);
+			for (let i_1 = 0; i_1 < each_blocks.length; i_1 += 1) {
+				each_blocks[i_1].m(ul, null);
 			}
 		},
 
@@ -610,21 +624,21 @@ function create_fragment$1(ctx) {
 			if (changed.navItems) {
 				each_value = ctx.navItems;
 
-				let i;
-				for (i = 0; i < each_value.length; i += 1) {
-					const child_ctx = get_each_context(ctx, each_value, i);
+				let i_1;
+				for (i_1 = 0; i_1 < each_value.length; i_1 += 1) {
+					const child_ctx = get_each_context(ctx, each_value, i_1);
 
-					if (each_blocks[i]) {
-						each_blocks[i].p(changed, child_ctx);
+					if (each_blocks[i_1]) {
+						each_blocks[i_1].p(changed, child_ctx);
 					} else {
-						each_blocks[i] = create_each_block(child_ctx);
-						each_blocks[i].c();
-						each_blocks[i].m(ul, null);
+						each_blocks[i_1] = create_each_block(child_ctx);
+						each_blocks[i_1].c();
+						each_blocks[i_1].m(ul, null);
 					}
 				}
 
-				for (; i < each_blocks.length; i += 1) {
-					each_blocks[i].d(1);
+				for (; i_1 < each_blocks.length; i_1 += 1) {
+					each_blocks[i_1].d(1);
 				}
 				each_blocks.length = each_value.length;
 			}
@@ -639,6 +653,8 @@ function create_fragment$1(ctx) {
 			}
 
 			destroy_each(each_blocks, detaching);
+
+			dispose();
 		}
 	};
 }
@@ -646,26 +662,44 @@ function create_fragment$1(ctx) {
 function instance$1($$self, $$props, $$invalidate) {
 	let { navItems, jq } = $$props;
   console.log("Loading");
-  jq(document).ready(()=>{
+  jq(document).ready(() => {
     jq("#Navbar").css("display", "block");
   });
 
   const displayToggle = (element, value, classname) => {
-    let parent = document.getElementById(element+"-nav").classList = classname;
-    try {let targetElement = document.getElementById(element).style.display = value;}
-    catch (err) {console.log(element+" Not yet created or Error loading the page.");}
+    let parent = (document.getElementById(
+      element + "-nav"
+    ).classList = classname);
+    try {
+      let targetElement = (document.getElementById(
+        element
+      ).style.display = value);
+    } catch (err) {
+      console.log(element + " Not yet created or Error loading the page.");
+    }
   };
 
   const controlNav = event => {
-
     let target = event.target.innerHTML;
 
-    console.log(target+" is-active");
+    console.log(target + " is-active");
 
     navItems.forEach(item => {
-      if (item == target) {displayToggle(item, "block", "is-active");} 
-      else {displayToggle(item, "none", "");} 
+      if (item == target) {
+        displayToggle(item, "block", "is-active");
+      } else {
+        displayToggle(item, "none", "");
+      }
     });
+  };
+
+  const toggleRow = () => {
+    jq(".locationRow").toggle();
+    jq(".buttonsRow").toggle();
+    let display = jq(".buttonsRow").css("display");
+    display === "none"
+      ? jq(".plotContainer").css("max-height", "75vh")
+      : jq(".plotContainer").css("max-height", "60vh");
   };
 
 	$$self.$set = $$props => {
@@ -673,7 +707,7 @@ function instance$1($$self, $$props, $$invalidate) {
 		if ('jq' in $$props) $$invalidate('jq', jq = $$props.jq);
 	};
 
-	return { navItems, jq, controlNav };
+	return { navItems, jq, controlNav, toggleRow };
 }
 
 class Navbar extends SvelteComponent {
@@ -3361,10 +3395,10 @@ function create_fragment$4(ctx) {
 			attr(div5, "data-tippy", div5_data_tippy_value = "Browse " + ctx.filetag + " file");
 			attr(div6, "class", "control");
 			attr(div7, "class", "field has-addons");
-			attr(div8, "class", "row svelte-mxyb64");
+			attr(div8, "class", "row locationRow svelte-mxyb64");
 			attr(div9, "class", "level-left animated fadeIn");
 			attr(div10, "class", "level");
-			attr(div11, "class", "row svelte-mxyb64");
+			attr(div11, "class", "row buttonsRow svelte-mxyb64");
 			set_style(hr, "margin", "0.5em 0");
 			set_style(hr, "background-color", "#bdc3c7");
 			attr(div12, "class", "container is-fluid svelte-mxyb64");

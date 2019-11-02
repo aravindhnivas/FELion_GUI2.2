@@ -545,7 +545,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row locationRow">
         <div class="field has-addons">
           <div class="control is-expanded">
             <input
@@ -576,7 +576,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row buttonsRow">
         <div class="level">
           <div class="level-left animated fadeIn">
 
