@@ -1,5 +1,4 @@
 <script>
-
   export let jq;
   export let currentLocation;
   export let filetag;
@@ -8,7 +7,11 @@
   export let path;
 
   let folderFile;
-  $: if(!currentLocation) {console.log(`Currentlocation: [${filetag}]: is undefined`)} else {folderFile = updateFolder(currentLocation);}
+  $: if (!currentLocation) {
+    console.log(`Currentlocation: [${filetag}]: is undefined`);
+  } else {
+    folderFile = updateFolder(currentLocation);
+  }
 
   const refreshFolder = event => {
     jq(`#${filetag}refreshIcon`).addClass("fa-spin");
@@ -47,54 +50,57 @@
 
   const folderToggle = () => {
     let $folderContainer = jq(`#${filetag}FileContainer`);
-    let $folderIcon = jq(`#${filetag}FolderContainer i`)
+    let $folderIcon = jq(`#${filetag}FolderContainer i`);
 
     // Toggling folder
     $folderContainer.toggle();
 
-    if ($folderContainer[0].style.display === "none") $folderIcon.removeClass("fa-rotate-90")
-    else $folderIcon.addClass("fa-rotate-90")
-  }
-  
-  let display = "block"
-  let visible = true
-  $: visible ? display = "block" : display = "none"
+    if ($folderContainer[0].style.display === "none")
+      $folderIcon.removeClass("fa-rotate-90");
+    else $folderIcon.addClass("fa-rotate-90");
+  };
 
-  let animation = "animated fadeIn"
-  const fileExplorerToggle = (event) => {
+  let display = "block";
+  let visible = true;
+  $: visible ? (display = "block") : (display = "none");
 
-    let $target = jq(event.target)
-    visible = !visible
+  let animation = "animated fadeIn";
+  const fileExplorerToggle = event => {
+    let $target = jq(event.target);
+    visible = !visible;
 
-    let $filebrowser = jq(`#${filetag}filebrowserColumn`)
-    let $filebrowserNav = jq(`#${filetag}filebrowserColumn nav`)
-    let $plotContainer = jq(`#${filetag}plotMainContainer`)
+    let $filebrowser = jq(`#${filetag}filebrowserColumn`);
+    let $filebrowserNav = jq(`#${filetag}filebrowserColumn nav`);
+    let $plotContainer = jq(`#${filetag}plotMainContainer`);
 
     if (visible) {
-      $filebrowser.css("max-width", "100%")
-      $filebrowserNav.css("max-width", "100%")
-      $plotContainer.css("width", "70%")
-      if($target.hasClass("fa-rotate-90")) {$target.removeClass("fa-rotate-90")}
+      $filebrowser.css("max-width", "100%");
+      $filebrowserNav.css("max-width", "100%");
+      $plotContainer.css("width", "70%");
+      if ($target.hasClass("fa-rotate-90")) {
+        $target.removeClass("fa-rotate-90");
+      }
     } else {
-      
-      $filebrowser.css("max-width", "10%")
-      $filebrowserNav.css("max-width", "3%")
-      $plotContainer.css("width", "86%")
-      $target.addClass("fa-rotate-90")
+      $filebrowser.css("max-width", "10%");
+      $filebrowserNav.css("max-width", "3%");
+      $plotContainer.css("width", "86%");
+      $target.addClass("fa-rotate-90");
     }
 
-    let obj = {width : $plotContainer.width()*0.97}
-    Plotly.relayout("saPlot", obj)
-    Plotly.relayout("bplot", obj)
-    Plotly.relayout("avgplot", obj)
-    Plotly.relayout("nplot", obj)
-    Plotly.relayout("exp-theory-plot", obj)
-  }
-
+    let obj = { width: $plotContainer.width() * 0.97 };
+    if (filetag == "felix") {
+      Plotly.relayout("saPlot", obj);
+      Plotly.relayout("bplot", obj);
+      Plotly.relayout("avgplot", obj);
+      Plotly.relayout("nplot", obj);
+      Plotly.relayout("exp-theory-plot", obj);
+    } else if (filetag == "mass") {
+      Plotly.relayout("mplot", obj);
+    }
+  };
 </script>
 
 <style>
-
   .filexplorer {
     overflow-y: auto;
     position: absolute;
@@ -123,13 +129,17 @@
       <div class="level-left">
         <div class="level-item">
           <span class="icon">
-            <i class="fas fa-bars" style="padding-right:0.5em; cursor:pointer" on:click={fileExplorerToggle} aria-hidden="true" />
+            <i
+              class="fas fa-bars"
+              style="padding-right:0.5em; cursor:pointer"
+              on:click={fileExplorerToggle}
+              aria-hidden="true" />
           </span>
-          <span class="{animation}" style="display:{display}">File Explorer</span>
+          <span class={animation} style="display:{display}">File Explorer</span>
         </div>
       </div>
 
-      <div class="level-right" >
+      <div class="level-right">
         <div class="level-item {animation}" style="display:{display}">
           <span
             class="icon refresh hvr-icon-spin"
@@ -158,7 +168,7 @@
     </div>
   </div>
 
-  <div id="{filetag}panel-block" class="{animation}" style="display:{display}">
+  <div id="{filetag}panel-block" class={animation} style="display:{display}">
     <div class="panel-block">
       <p class="control has-icons-left">
         <input
