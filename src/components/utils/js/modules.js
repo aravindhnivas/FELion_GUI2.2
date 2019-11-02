@@ -1,15 +1,13 @@
 const { spawn, exec } = require("child_process");
 const path = require('path');
 const fs = require("fs")
-// const pythonPath = path.join(__dirname, "../python3.7/python")
-// const functions_path = path.join(__dirname, "/python_files/")
 
-const plot_width = window.screen.width * .625;
+const plot_width = window.screen.width * .65;
 const plot_height = window.screen.height * .42;
 
-// paper_bgcolor: '#c7c7c7',
-// plot_bgcolor: '#c7c7c7'
+
 function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
+
     let dataLayout = {
 
         title: mainTitle,
@@ -31,6 +29,7 @@ function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
             title: y2
         },
 
+
         autosize: true,
         width: plot_width,
         height: plot_height,
@@ -49,6 +48,8 @@ function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
 }
 
 function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
+
+
 
     let dataLayout = {
         title: mainTitle,
