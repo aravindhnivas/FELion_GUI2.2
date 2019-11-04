@@ -494,23 +494,13 @@
   }
   .plotContainer {
     overflow-y: auto;
-    /* max-height: 60vh; */
     width: 70%;
     position: absolute;
   }
-  /* img {
-    width: 20%;
-    margin-left: 40%;
-  } */
+
   .data-loading {
     display: none;
   }
-
-  /* @media (max-width: 1200px) {
-    .plotContainer {
-      max-height: 27rem;
-    }
-  } */
 
   #theoryContainer {
     margin-left: 20%;
@@ -522,7 +512,7 @@
 
   <div class="columns">
 
-    <div class="column is-3" id="{filetag}filebrowserColumn">
+    <div class="column is-3 filebrowserColumn" id="{filetag}filebrowserColumn">
       <Filebrowser
         {filetag} {currentLocation} {updateFolder}
         {getCheckedFiles} {jq} {path} />

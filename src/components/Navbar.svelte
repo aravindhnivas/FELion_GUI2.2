@@ -34,14 +34,40 @@
   };
 
   const toggleRow = () => {
+
     jq(".locationRow").toggle();
     jq(".buttonsRow").toggle();
+    jq(".filebrowserColumn").toggle();
+
     let display = jq(".buttonsRow").css("display");
-    display === "none"
-      ? jq(".plotContainer").css("max-height", "75vh")
-      : jq(".plotContainer").css("max-height", "60vh");
+
+
+    if (display === "none"){
+
+      jq(".plotContainer").css("max-height", "75vh")
+      jq(".plotContainer").css("width", "97%")
+
+    } 
+    else {
+      jq(".plotContainer").css("max-height", "60vh");
+      jq(".plotContainer").css("width", "70%")
+
+    }
+    
+    let obj = { width: jq(".plotContainer").width() * 0.97 };
+    Plotly.relayout("saPlot", obj);
+    Plotly.relayout("bplot", obj);
+    Plotly.relayout("avgplot", obj);
+    Plotly.relayout("nplot", obj);
+    Plotly.relayout("exp-theory-plot", obj);
+    Plotly.relayout("mplot", obj);
+
   };
 </script>
+
+<style>
+  i:focus {outline-color: transparent;}
+</style>
 
 <!-- Navigation Bar -->
 
@@ -52,11 +78,11 @@
         class="icon is-pulled-left"
         style="margin:0.5em; cursor:pointer"
         on:click={toggleRow}
-        data-tippy="Show/Hide buttons">
+        >
         <i
           class="fas fa-bars fa-2x"
           style="padding:0.5em;"
-          aria-hidden="true" />
+          aria-hidden="true" data-tippy="Show/Hide buttons"/>
       </span>
       <ul>
         {#each navItems as item}
