@@ -105,7 +105,7 @@ def exp_theory(theoryfiles, location, norm_method, sigma, scale, output_filename
 if __name__ == "__main__":
     args = sys.argv[1:][0].split(",")
 
-    theoryfiles = [pt(i) for i in args[0:-5]]
+    theoryfiles = [pt(i) for i in args[0:-6]]
     tkplot = args[-1]
 
     if tkplot == "plot": tkplot=True
