@@ -148,12 +148,13 @@ class program {
                     let dataFromPython;
                     dataFromPython = data.toString("utf8");
 
-                    console.log("Before JSON parse :" + dataFromPython)
+                    // console.log("Before JSON parse :" + dataFromPython)
 
                     dataFromPython = JSON.parse(dataFromPython);
                     console.log("After JSON parse :", dataFromPython);
 
                     try {
+
                         if (this.filetype == "mass") {
                             plot("Mass spectrum", "Mass [u]", "Counts", dataFromPython, "mplot", "mass");
                         } else if (this.filetype == "scan") {
