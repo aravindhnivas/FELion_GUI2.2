@@ -216,7 +216,7 @@ class normplot:
                 "line": {"color": f"rgb{colors[c]}"},
             }
 
-            self.export_file(fname, wavelength, intensity, raw_intensity, relative_depletion)
+            self.export_file(fname, wavelength, intensity, raw_intensity, relative_depletion, expfit=False)
 
             basefile_data = np.array(
                 Create_Baseline(felixfile, self.location,
@@ -335,7 +335,7 @@ class normplot:
 
         return wavelength, intensity, data[1], relative_depletion
 
-    def export_file(self, fname, wn, inten, raw_intensity=None, relative_depletion=None):
+    def export_file(self, fname, wn, inten, raw_intensity=None, relative_depletion=None, expfit=True):
 
         f = open('EXPORT/' + fname + '.dat', 'w')
         if raw_intensity is not None:
@@ -348,8 +348,10 @@ class normplot:
                 f.write(f"{wn[i]}\t{inten[i]}\n")
         f.close()
 
-        with open('EXPORT/' + fname + '.expfit', 'w+') as f:
-            f.write(f"#Frequency\t#Sigma\t#FWHM\t#Amplitude\n")
+        if expfit:
+            with open('EXPORT/' + fname + '.expfit', 'w+') as f:
+                f.write(f"#Frequency\t#Sigma\t#FWHM\t#Amplitude\n")
+                
             
     def felix_binning(self, xs, ys):
 

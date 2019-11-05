@@ -11,6 +11,30 @@ from FELion_widgets import FELion_Tk
 import numpy as np
 from lmfit.models import GaussianModel
 
+colors = [
+    (31, 119, 180),
+    (174, 199, 232),
+    (255, 127, 14),
+    (255, 187, 120),
+    (44, 160, 44),
+    (152, 223, 138),
+    (214, 39, 40),
+    (255, 152, 150),
+    (148, 103, 189),
+    (197, 176, 213),
+    (140, 86, 75),
+    (196, 156, 148),
+    (227, 119, 194),
+    (247, 182, 210),
+    (127, 127, 127),
+    (199, 199, 199),
+    (188, 189, 34),
+    (219, 219, 141),
+    (23, 190, 207),
+    (158, 218, 229),
+
+]
+
 def exp_fit(location, norm_method, start_wn, end_wn, output_filename="averaged", tkplot=False):
 
     if location.name is "DATA": datfile_location = location.parent/"EXPORT"
@@ -30,13 +54,9 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename="averaged",
     fit_data = fit.best_fit
     line_freq_fit = fit.best_values['center']
     FWHM = lambda sigma: 2*sigma*np.sqrt(2*np.log(2))
-
     sigma = fit.best_values['sigma']
-
     fwhm = FWHM(sigma)
-
     amplitude = fit_data.max()
-
     _sig = "\u03C3"
     _del = "\u0394"
     
