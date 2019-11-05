@@ -20,6 +20,10 @@ const mainPages = [
 				name: "Felix Plot"
 			},
 			{
+				id: "exp_fit",
+				name: "Exp. Fit"
+			},
+			{
 				id: "theoryBtn",
 				name: "Add Theory"
 			},

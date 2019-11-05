@@ -38,10 +38,15 @@
 
   
   $: plotContainerHeight = "60vh"
+
   jq(document).ready(() => {
+
     jq("#theoryBtn").addClass("fadeInUp").css("display", "none");
     jq("#norm_tkplot").addClass("fadeInUp").css("display", "none");
+
+    jq("#exp_fit").addClass("fadeInUp").css("display", "none");
     jq("#felix_shell_Container").addClass("fadeInUp").css("display", "block");
+
   });
 
   
@@ -64,9 +69,11 @@
   };
 
   let normMethod = "Log";
+
   let normlog = true;
   $: normMethod == "Relative" ? (normlog = false) : (normlog = true);
   let log;
+  
   $: filetag == "mass" ? (log = true) : (log = false);
 
   const linearlogCheck = event => {
@@ -256,7 +263,7 @@
 
         runPlot({
           fullfiles: fullfiles, filetype: filetag, btname: btname,
-          pyfile: "normline.py", normethod: normlog, args: delta
+          pyfile: "normline.py", normethod: normlog, args: [delta, output_filename]
         })
         .then((output)=>{
           console.log(output)
@@ -270,6 +277,23 @@
       
       break;
 
+      case "exp_fit":
+        console.log(`Avgplot Index: ${window.index}`)
+        runPlot({
+          fullfiles: fullfiles, filetype: "exp_fit", btname: btname,
+          pyfile: "exp_gauss_fit.py", args: [output_filename, normMethod, currentLocation, ...window.index]
+        })
+        .then((output)=>{
+          console.log(output)
+        })
+
+        .catch((err)=>{
+          console.log('Error Occured', err); 
+          error_msg[filetag]=err; 
+          modal[filetag]="is-active"
+        })
+      break;
+
       // Norm_tkplot (Averaged plot experimental in Matplotlib)
 
       case "norm_tkplot":
@@ -281,7 +305,7 @@
                 filetag: "felix",
                 btname: "norm_tkplot",
                 pyfile: "norm_tkplot.py",
-                args: normMethod
+                args: [output_filename, normMethod]
               })
       break;
       
@@ -404,7 +428,7 @@
   function runtheory({tkplot="run", filetype="theory"}) {
 
     runPlot({fullfiles: theoryfiles, filetype: filetype, filetag:filetag,
-      btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot] });
+      btname: "appendTheory", pyfile: "theory.py", args: [output_filename, normMethod, sigma, scale, currentLocation, tkplot] });
   }
 
   const runtheory_keyup = (event) => {if(event.key=="Enter") runtheory({tkplot:"run"})}
@@ -465,6 +489,8 @@
         });
     }
   }
+
+  let output_filename = "averaged"
 </script>
 
 <style>
@@ -571,16 +597,27 @@
           <div class="level-left animated fadeIn">
 
             {#each funcBtns as { id, name }}
-              <div
+              <div 
                 class="level-item button hvr-glow funcBtn is-link animated"
-                {id}
-                on:click={functionRun}>
+                {id} on:click={functionRun}>
                 {name}
               </div>
+
+              {#if name === "Exp. Fit"}
+                <div class="control" style="margin-right:1em;">
+                  <input
+                  class="input"
+                  type="text" 
+                  id="avg_output_name"
+                  placeholder="Averaged spectra output filename"
+                  data-tippy="Averaged spectra output filename"
+                  bind:value={output_filename}/>
+                </div>
+              {/if}
             {/each}
 
             {#each checkBtns as {id, name, bind, help}}
-               <div class="level-item animated" id="{id}_Container">
+               <div class="level-item animated" id="{id}_Container" style="margin-left:1em;">
 
                 <div class="pretty p-default p-curve p-toggle" data-tippy={help}>
 
@@ -629,7 +666,7 @@
             {#if filetag == 'thz'}
 
               <!-- Delta value -->
-              <div class="level-item">
+              <div class="level-item" style="margin-left:1em;">
 
                 <div class="field has-addons">
                   <div class="control"><div class="button is-static">&delta; (in Hz)</div></div>
@@ -754,7 +791,7 @@
       <hr style="margin: 0.5em 0; background-color:#bdc3c7" />
       <!-- <h1 class="subtitle">Data Visualisation</h1> -->
 
-      <div class="row box plotContainer" style="max-height: {plotContainerHeight};" id="{filetag}plotMainContainer">
+      <div class="row box plotContainer" style="max-height: {plotContainerHeight};" id="{filetag}plotMainContainer" >
         
         <div class="container is-fluid" id="{filetag}plotContainer">
           {#each plotID as id}
@@ -764,7 +801,6 @@
                   <div id="{scanfile}_tplot" style="padding-bottom:1em" />
                 {/each}
               </div>
-            
             {:else}
               <div {id} style="padding-bottom:1em" />
             {/if}

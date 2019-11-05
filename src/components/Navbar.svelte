@@ -59,6 +59,7 @@
     Plotly.relayout("bplot", obj);
     Plotly.relayout("avgplot", obj);
     Plotly.relayout("nplot", obj);
+
     Plotly.relayout("exp-theory-plot", obj);
     Plotly.relayout("mplot", obj);
 
@@ -67,6 +68,13 @@
 
 <style>
   i:focus {outline-color: transparent;}
+  #fullToggle {
+
+    margin-left: 0.7em;
+    margin-top: 0.7em;
+    cursor:pointer;
+  }
+
 </style>
 
 <!-- Navigation Bar -->
@@ -76,13 +84,12 @@
     <div class="tabs is-centered is-boxed is-medium">
       <span
         class="icon is-pulled-left"
-        style="margin:0.5em; cursor:pointer"
-        on:click={toggleRow}
+        on:click={toggleRow} id="fullToggle"
         >
         <i
           class="fas fa-bars fa-2x"
           style="padding:0.5em;"
-          aria-hidden="true" data-tippy="Show/Hide buttons"/>
+          aria-hidden="true" data-tippy="Show/Hide layout" data-tippy-placement="right-start" data-tippy-arrow="true"/>
       </span>
       <ul>
         {#each navItems as item}

@@ -63,7 +63,7 @@ def var_find(openfile):
     return res, b0, trap
 
 class normplot:
-    def __init__(self, received_files, delta, felix_hz=10):
+    def __init__(self, received_files, delta, output_filename="averaged", felix_hz=10):
 
         self.delta = delta
         received_files = [pt(files) for files in received_files]
@@ -277,7 +277,7 @@ class normplot:
             c += 2
 
         binns, intens = self.felix_binning(xs, ys)
-        self.export_file("averaged_Log", binns, intens)
+        self.export_file(f"{output_filename}_Log", binns, intens)
 
         dataToSend["average"]["average"] = {
             "x": list(binns),
@@ -289,7 +289,7 @@ class normplot:
 
         # For relative
         binns_r, intens_r = self.felix_binning(xs_r, ys_r)
-        self.export_file("averaged_Relative", binns_r, intens_r)
+        self.export_file(f"{output_filename}_Relative", binns_r, intens_r)
         
         dataToSend["average_rel"]["average"] = {
             "x": list(binns_r),
@@ -412,6 +412,8 @@ class normplot:
 if __name__ == "__main__":
 
     args = sys.argv[1:][0].split(",")
-    filepaths = args[:-1]
-    delta = float(args[-1])
-    normplot(filepaths, delta)
+    filepaths = args[:-2]
+    delta = float(args[-2])
+    output_filename = args[-1]
+
+    normplot(filepaths, delta, output_filename)

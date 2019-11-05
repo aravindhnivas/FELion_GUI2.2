@@ -62,8 +62,8 @@
 
 <Welcome {jq}/>
 
-{#each mainPages as { id, filetag, filetype, funcBtns, plotID, checkBtns}}
-  <Container {id} {filetag} {filetype} {funcBtns} {plotID} {checkBtns} {jq} {electron} {menu} {MenuItem} {path}/>
+{#each mainPages as page}
+  <Container {...page} {jq} {electron} {menu} {MenuItem} {path}/>
 {/each}
 <Powerfile {electron} {path} {jq}/>
 

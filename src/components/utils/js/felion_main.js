@@ -1,4 +1,5 @@
 'use strict'
+
 import { program } from './modules.js';
 
 const successAnimation = "is-success bounce faster";
@@ -6,16 +7,17 @@ const dangerAnimation = "is-danger shake faster";
 const loadAnimation = "is-loading is-link";
 
 
-function felixbtntoggle(toggle="none"){
+function felixbtntoggle(toggle = "none") {
 
     $("#theoryBtn").css("display", toggle);
-    $("#norm_tkplot").css("display", toggle).addClass("fadeInUp")
 
+    $("#exp_fit").css("display", toggle);
+    $("#norm_tkplot").css("display", toggle).addClass("fadeInUp")
     $("#felix_shell_Container").css("display", toggle);
 
 }
 
-function runPlot({ fullfiles, filetype, btname, pyfile, filetag=null, args = [], plotArea = "", normethod = true }) {
+function runPlot({ fullfiles, filetype, btname, pyfile, filetag = null, args = [], plotArea = "", normethod = true }) {
 
     let obj = {
         files: fullfiles,
@@ -24,7 +26,7 @@ function runPlot({ fullfiles, filetype, btname, pyfile, filetag=null, args = [],
         mainbtn: `#${btname}`,
         pyfile: pyfile,
 
-        filetag:filetag,
+        filetag: filetag,
         args: args,
         plotArea: plotArea,
         normethod: normethod
@@ -36,9 +38,9 @@ function runPlot({ fullfiles, filetype, btname, pyfile, filetag=null, args = [],
 
     $target.addClass("is-loading");
 
-    if (filetype == "felix") {felixbtntoggle("none")}
+    if (filetype == "felix") { felixbtntoggle("none") }
 
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
         let start = new program(obj)
         start.filecheck()
             .then(filecheckResult => {
@@ -68,10 +70,18 @@ function runPlot({ fullfiles, filetype, btname, pyfile, filetag=null, args = [],
 }
 
 $(document).on('animationend', '.funcBtn', (event) => {
+
     let $target = $(event.target);
+
     $target.addClass("is-link");
+
     if ($target.hasClass("shake")) $target.removeClass(dangerAnimation);
     if ($target.hasClass("bounce")) $target.removeClass(successAnimation);
     if ($target[0].id === "norm_tkplot") if ($target.hasClass("fadeInUp")) $target.removeClass("fadeInUp");
+
 });
+
+// $(".plotContainer .container").on("plotly_click", "#avgplot", (data) => {
+//     console.log(data)
+// })
 export { runPlot };

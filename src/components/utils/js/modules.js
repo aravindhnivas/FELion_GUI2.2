@@ -148,7 +148,7 @@ class program {
                     let dataFromPython;
                     dataFromPython = data.toString("utf8");
 
-                    // console.log("Before JSON parse :" + dataFromPython)
+                    console.log("Before JSON parse :" + dataFromPython)
 
                     dataFromPython = JSON.parse(dataFromPython);
                     console.log("After JSON parse :", dataFromPython);
@@ -162,7 +162,7 @@ class program {
                         } else if (this.filetype == "felix") {
 
                             let normlog = this.obj.normethod;
-                            let delta = this.args;
+                            let delta = this.args[0];
 
                             let felixdataToPlot;
                             let avgdataToPlot;
@@ -215,6 +215,17 @@ class program {
                                 dataFromPython["pow"]
                             );
 
+                            let avgplot = document.getElementById("avgplot")
+                            avgplot.on("plotly_selected", (data) => {
+                                if (!data) console.log("No data available to fit")
+                                else {
+                                    console.log(data)
+                                    let { range } = data
+                                    window.index = range.x
+                                    console.log(`Index selected: ${window.index}`)
+                                }
+                            })
+
                         } else if (this.filetype == "theory") {
 
                             let log = this.args[0];
@@ -244,9 +255,15 @@ class program {
                             }
                             Plotly.relayout("thzplot_Container", layout_update)
                         } else if (this.filetype == "depletion") { console.log('Graph plotted') }
-
-
                         else if (this.filetype == "norm_tkplot") { console.log('Graph plotted') }
+                        else if (this.filetype == "exp_fit") {
+                            Plotly.addTraces("avgplot", dataFromPython["fit"])
+                            if (window.line != undefined) {
+                                window.line = [...window.line, dataFromPython["line"]]
+                            } else { window.line = [dataFromPython["line"]] }
+
+                            Plotly.relayout("avgplot", { shapes: window.line })
+                        }
 
                         console.log("Graph Plotted");
 
