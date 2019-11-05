@@ -11,7 +11,7 @@ function felixbtntoggle(toggle = "none") {
 
     $("#theoryBtn").css("display", toggle);
 
-    $("#exp_fit").css("display", toggle);
+    $("#exp_fit").css("display", toggle).addClass("fadeInUp");
     $("#norm_tkplot").css("display", toggle).addClass("fadeInUp")
     $("#felix_shell_Container").css("display", toggle);
 
@@ -77,7 +77,8 @@ $(document).on('animationend', '.funcBtn', (event) => {
 
     if ($target.hasClass("shake")) $target.removeClass(dangerAnimation);
     if ($target.hasClass("bounce")) $target.removeClass(successAnimation);
-    if ($target[0].id === "norm_tkplot") if ($target.hasClass("fadeInUp")) $target.removeClass("fadeInUp");
+
+    if ($target[0].id === "norm_tkplot" || $target[0].id === "exp_fit") if ($target.hasClass("fadeInUp")) $target.removeClass("fadeInUp");
 
 });
 

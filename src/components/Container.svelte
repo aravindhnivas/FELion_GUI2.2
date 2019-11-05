@@ -604,7 +604,7 @@
               </div>
 
               {#if name === "Exp. Fit"}
-                <div class="control" style="margin-right:1em;">
+                <div class="level-item" >
                   <input
                   class="input"
                   type="text" 
@@ -617,7 +617,7 @@
             {/each}
 
             {#each checkBtns as {id, name, bind, help}}
-               <div class="level-item animated" id="{id}_Container" style="margin-left:1em;">
+               <div class="level-item animated" id="{id}_Container" >
 
                 <div class="pretty p-default p-curve p-toggle" data-tippy={help}>
 
@@ -666,7 +666,7 @@
             {#if filetag == 'thz'}
 
               <!-- Delta value -->
-              <div class="level-item" style="margin-left:1em;">
+              <div class="level-item" >
 
                 <div class="field has-addons">
                   <div class="control"><div class="button is-static">&delta; (in Hz)</div></div>

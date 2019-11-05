@@ -1927,7 +1927,7 @@ function felixbtntoggle(toggle = "none") {
 
     $("#theoryBtn").css("display", toggle);
 
-    $("#exp_fit").css("display", toggle);
+    $("#exp_fit").css("display", toggle).addClass("fadeInUp");
     $("#norm_tkplot").css("display", toggle).addClass("fadeInUp");
     $("#felix_shell_Container").css("display", toggle);
 
@@ -1993,7 +1993,8 @@ $(document).on('animationend', '.funcBtn', (event) => {
 
     if ($target.hasClass("shake")) $target.removeClass(dangerAnimation);
     if ($target.hasClass("bounce")) $target.removeClass(successAnimation);
-    if ($target[0].id === "norm_tkplot") if ($target.hasClass("fadeInUp")) $target.removeClass("fadeInUp");
+
+    if ($target[0].id === "norm_tkplot" || $target[0].id === "exp_fit") if ($target.hasClass("fadeInUp")) $target.removeClass("fadeInUp");
 
 });
 
@@ -2169,8 +2170,7 @@ function create_if_block_11(ctx) {
 			attr(input, "id", "avg_output_name");
 			attr(input, "placeholder", "Averaged spectra output filename");
 			attr(input, "data-tippy", "Averaged spectra output filename");
-			attr(div, "class", "control");
-			set_style(div, "margin-right", "1em");
+			attr(div, "class", "level-item");
 			dispose = listen(input, "input", ctx.input_input_handler);
 		},
 
@@ -2370,7 +2370,6 @@ function create_each_block_5(ctx) {
 			attr(div2, "data-tippy", div2_data_tippy_value = ctx.help);
 			attr(div3, "class", "level-item animated svelte-1z8f7");
 			attr(div3, "id", div3_id_value = "" + ctx.id + "_Container");
-			set_style(div3, "margin-left", "1em");
 		},
 
 		m(target, anchor) {
@@ -2550,7 +2549,6 @@ function create_if_block_8(ctx) {
 			attr(div2, "class", "control");
 			attr(div3, "class", "field has-addons");
 			attr(div4, "class", "level-item");
-			set_style(div4, "margin-left", "1em");
 			attr(div6, "class", "control");
 			attr(input1, "class", "input svelte-1z8f7");
 			attr(input1, "type", "number");
