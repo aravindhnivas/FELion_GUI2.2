@@ -51,16 +51,8 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename="averaged",
     expfile = datfile_location/filename
 
     
-    if not expfile.exists(): 
-        
-        f = open(expfile, "a+")
-        f.write(f"#Frequency\t#Sigma\t#FWHM\t#Amplitude(Normalised Method: {norm_method})\n")
+    with open(expfile, "a") as f:
         f.write(f"{line_freq_fit:.4f}\t{sigma:.4f}\t{fwhm:.4f}\t{amplitude:.4f}\n")
-    else: 
-        f = open(expfile, "a")
-        f.write(f"{line_freq_fit:.4f}\t{sigma:.4f}\t{fwhm:.4f}\t{amplitude:.4f}\n")
-
-    f.close()
 
     data_tosend = json.dumps(data)
     print(data_tosend)

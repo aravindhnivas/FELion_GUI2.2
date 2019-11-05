@@ -346,10 +346,11 @@ class normplot:
             f.write("#NormalisedWavelength(cm-1)\t#AveragedIntensity\n")
             for i in range(len(wn)):
                 f.write(f"{wn[i]}\t{inten[i]}\n")
-
         f.close()
 
-
+        with open('EXPORT/' + fname + '.expfit', 'w+') as f:
+            f.write(f"#Frequency\t#Sigma\t#FWHM\t#Amplitude\n")
+            
     def felix_binning(self, xs, ys):
 
         delta = self.delta
