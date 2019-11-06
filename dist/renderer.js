@@ -1875,7 +1875,7 @@ class program {
                         else if (this.filetype == "norm_tkplot") { console.log('Graph plotted'); }
                         else if (this.filetype == "exp_fit") {
                             Plotly.addTraces("avgplot", dataFromPython["fit"]);
-                            window.line = [...window.line, dataFromPython["line"]];
+                            window.line = [...window.line, ...dataFromPython["line"]];
                             Plotly.relayout("avgplot", { shapes: window.line });
                         }
 
