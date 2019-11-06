@@ -181,14 +181,15 @@ class program {
                             plot(
                                 "Baseline Corrected",
                                 "Wavelength (cm-1)",
-                                "Intesity",
+                                "Counts",
                                 dataFromPython["base"],
                                 "bplot"
                             );
+
                             let signal_formula;
 
                             normlog ? signal_formula = "Signal = -ln(C/B)/Power(in J)" : signal_formula = "Signal = (1-C/B)*100";
-
+                            // console.log(normlog)
                             plot(
                                 `Normalized Spectrum (delta=${delta})<br>${signal_formula}; {C=Measured Count, B=Baseline Count}`,
                                 "Calibrated Wavelength (cm-1)",
@@ -229,7 +230,7 @@ class program {
 
                         } else if (this.filetype == "theory") {
 
-                            let log = this.args[0];
+                            let log = this.args[1];
                             console.log(":: run -> log", log);
 
                             let theoryData = [];
