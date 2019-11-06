@@ -1,70 +1,42 @@
-
 # Importing Modules
 import json
 from pathlib import Path as pt
 import sys
 
-# FELion tkinter figure module
-from FELion_widgets import FELion_Tk
-
 # Data analysis
 import numpy as np
-from lmfit.models import GaussianModel
 
-colors = [
-    (31, 119, 180),
-    (174, 199, 232),
-    (255, 127, 14),
-    (255, 187, 120),
-    (44, 160, 44),
-    (152, 223, 138),
-    (214, 39, 40),
-    (255, 152, 150),
-    (148, 103, 189),
-    (197, 176, 213),
-    (140, 86, 75),
-    (196, 156, 148),
-    (227, 119, 194),
-    (247, 182, 210),
-    (127, 127, 127),
-    (199, 199, 199),
-    (188, 189, 34),
-    (219, 219, 141),
-    (23, 190, 207),
-    (158, 218, 229),
-
-]
+# FELion module
+from FELion_definitions import gauss_fit
 
 def exp_fit(location, norm_method, start_wn, end_wn, output_filename="averaged", tkplot=False):
 
     if location.name is "DATA": datfile_location = location.parent/"EXPORT"
     else: datfile_location = location/"EXPORT"
-
     wn, inten = np.genfromtxt(f"{datfile_location}/{output_filename}_{norm_method}.dat").T
+
+    # Getting data from the selected range
     index = np.logical_and(wn > start_wn, wn < end_wn)
     wn = wn[index]
     inten = inten[index]
-    model = GaussianModel()
 
-    guess = model.guess(inten, x=wn)
-
-    guess_values = guess.valuesdict()
-    fit = model.fit(inten, x=wn, amplitude = guess_values['amplitude'], center = guess_values['center'],  sigma = guess_values['sigma'])
-
-    fit_data = fit.best_fit
-    line_freq_fit = fit.best_values['center']
-    FWHM = lambda sigma: 2*sigma*np.sqrt(2*np.log(2))
-    sigma = fit.best_values['sigma']
-    fwhm = FWHM(sigma)
-    amplitude = fit_data.max()
     _sig = "\u03C3"
     _del = "\u0394"
-    
+
+    model = gauss_fit(wn, inten)
+    fit_data, uline_freq, usigma, uamplitude, ufwhm = model.get_data()
+
+    line_freq_fit = model.get_value(uline_freq)
+    fwhm = model.get_value(ufwhm)
+    amplitude = model.get_value(uamplitude)
+
     data = {
 
-        "fit": {"x":list(wn), "y":list(fit_data), "name":f"Fit: {line_freq_fit:.2f}, {_sig}: {sigma:.2f}, {_del}: {fwhm:.2f}", "mode": "lines", "line": {"color": "black"}},
-        "line": {"type":"line", "x0":line_freq_fit, "x1":line_freq_fit, "y0":0, "y1":amplitude, "line":{"color":"black"}}
-
+        "fit": {"x":list(wn), "y":list(fit_data), "name":f"{uline_freq:.2uP}; A: {uamplitude:.2uP}, {_del}: {ufwhm:.2uP}", "mode": "lines", "line": {"color": "black"}},
+        "line": [
+            {"type":"line", "x0":line_freq_fit, "x1":line_freq_fit, "y0":0, "y1":amplitude, "line":{"color":"black"}},
+            {"type":"line", "x0":line_freq_fit-fwhm/2, "x1":line_freq_fit+fwhm/2, "y0":amplitude/2, "y1":amplitude/2, "line":{"color":"black", "dash":"dot"}}
+        ]
     }
 
     filename = f"{output_filename}_{norm_method}.expfit"
@@ -72,21 +44,20 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename="averaged",
 
     
     with open(expfile, "a") as f:
-        f.write(f"{line_freq_fit:.4f}\t{sigma:.4f}\t{fwhm:.4f}\t{amplitude:.4f}\n")
+        f.write(f"{uline_freq:.4f}\t{usigma:.4f}\t{ufwhm:.4f}\t{uamplitude:.4f}\n")
 
     data_tosend = json.dumps(data)
     print(data_tosend)
 
-
 if __name__ == "__main__":
 
     args = sys.argv[1:][0].split(",")
+
     start_wn = float(args[-2])
     end_wn = float(args[-1])
+
     location = pt(args[-3])
     norm_method = args[-4]
-
     output_filename = args[-5]
-    # print(args)
-
+    
     exp_fit(location, norm_method, start_wn, end_wn, output_filename)
