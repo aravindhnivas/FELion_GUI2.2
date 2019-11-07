@@ -5684,18 +5684,14 @@ class Footer extends SvelteComponent {
 
 function get_each_context$4(ctx, list, i) {
 	const child_ctx = Object.create(ctx);
-	child_ctx.url = list[i].url;
 	child_ctx.name = list[i].name;
+	child_ctx.target = list[i].target;
 	return child_ctx;
 }
 
-// (44:10) {#each websites_row1 as {url, name}}
+// (34:10) {#each navigator as {name, target}}
 function create_each_block$4(ctx) {
 	var div, button, t0_value = ctx.name + "", t0, t1, dispose;
-
-	function click_handler() {
-		return ctx.click_handler(ctx);
-	}
 
 	return {
 		c() {
@@ -5703,10 +5699,10 @@ function create_each_block$4(ctx) {
 			button = element("button");
 			t0 = text(t0_value);
 			t1 = space();
-			attr(button, "class", "button is-link");
-			attr(button, "data-tippy", ctx.url);
+			attr(button, "class", "button is-link misc_btn");
+			attr(button, "target", ctx.target);
 			attr(div, "class", "level-item");
-			dispose = listen(button, "click", click_handler);
+			dispose = listen(button, "click", ctx.toggler);
 		},
 
 		m(target, anchor) {
@@ -5716,9 +5712,7 @@ function create_each_block$4(ctx) {
 			append(div, t1);
 		},
 
-		p(changed, new_ctx) {
-			ctx = new_ctx;
-		},
+		p: noop,
 
 		d(detaching) {
 			if (detaching) {
@@ -5731,9 +5725,9 @@ function create_each_block$4(ctx) {
 }
 
 function create_fragment$8(ctx) {
-	var section, div6, div2, div1, div0, t0, div5, div4, div3, input, t1, webview, dispose;
+	var section, div5, div2, div1, div0, t, div4;
 
-	let each_value = ctx.websites_row1;
+	let each_value = ctx.navigator;
 
 	let each_blocks = [];
 
@@ -5744,7 +5738,7 @@ function create_fragment$8(ctx) {
 	return {
 		c() {
 			section = element("section");
-			div6 = element("div");
+			div5 = element("div");
 			div2 = element("div");
 			div1 = element("div");
 			div0 = element("div");
@@ -5753,38 +5747,25 @@ function create_fragment$8(ctx) {
 				each_blocks[i].c();
 			}
 
-			t0 = space();
-			div5 = element("div");
+			t = space();
 			div4 = element("div");
-			div3 = element("div");
-			input = element("input");
-			t1 = space();
-			webview = element("webview");
+			div4.innerHTML = `<div class="content"><h1 class="title">Unit Converter</h1></div>`;
 			attr(div0, "class", "level-left");
 			attr(div1, "class", "level");
-			attr(div2, "class", "column box is-11");
-			attr(input, "class", "input is-primary");
-			attr(input, "type", "text");
-			attr(input, "placeholder", "type Webaddress");
-			input.value = ctx.loadURL;
-			attr(div3, "class", "control");
-			attr(div4, "class", "field");
-			attr(webview, "src", ctx.loadURL);
-			attr(webview, "nodeintegration", "");
-			attr(webview, "class", "svelte-f9ffjg");
-			attr(div5, "class", "column box is-11 svelte-f9ffjg");
-			attr(div5, "id", "webpage");
-			attr(div6, "class", "columns is-centered is-multiline");
+			attr(div2, "class", "column box is-11 svelte-1fk7xu0");
+			attr(div4, "class", "column box is-11 page svelte-1fk7xu0");
+			attr(div4, "id", "Converter");
+			set_style(div4, "display", "block");
+			attr(div5, "class", "columns is-centered is-multiline");
 			attr(section, "class", "section animated fadeIn");
 			set_style(section, "display", "none");
 			attr(section, "id", "Misc");
-			dispose = listen(input, "keyup", ctx.keyup_handler);
 		},
 
 		m(target, anchor) {
 			insert(target, section, anchor);
-			append(section, div6);
-			append(div6, div2);
+			append(section, div5);
+			append(div5, div2);
 			append(div2, div1);
 			append(div1, div0);
 
@@ -5792,18 +5773,13 @@ function create_fragment$8(ctx) {
 				each_blocks[i].m(div0, null);
 			}
 
-			append(div6, t0);
-			append(div6, div5);
+			append(div5, t);
 			append(div5, div4);
-			append(div4, div3);
-			append(div3, input);
-			append(div5, t1);
-			append(div5, webview);
 		},
 
 		p(changed, ctx) {
-			if (changed.websites_row1) {
-				each_value = ctx.websites_row1;
+			if (changed.navigator) {
+				each_value = ctx.navigator;
 
 				let i;
 				for (i = 0; i < each_value.length; i += 1) {
@@ -5823,11 +5799,6 @@ function create_fragment$8(ctx) {
 				}
 				each_blocks.length = each_value.length;
 			}
-
-			if (changed.loadURL) {
-				input.value = ctx.loadURL;
-				attr(webview, "src", ctx.loadURL);
-			}
 		},
 
 		i: noop,
@@ -5839,39 +5810,30 @@ function create_fragment$8(ctx) {
 			}
 
 			destroy_each(each_blocks, detaching);
-
-			dispose();
 		}
 	};
 }
 
-function instance$7($$self, $$props, $$invalidate) {
-
-    const websites_row1 = [
+function instance$7($$self) {
+	const pages = ["Converter"];
+    const navigator = [
       {
-        url: "http://www.colby.edu/chemistry/PChem/Hartree.html",
-        name: "Boltzman Population"
+        name: "Unit Converter",
+        target: "Converter",
+        id: "unit_converter_navbtn"
       },
-      {
-        url: "http://halas.rice.edu/conversions",
-        name: "Unit Conversion"
-      }
     ];
+    
+    const toggler = (event) => {
 
-	const click_handler = ({ url }) => $$invalidate('loadURL', loadURL = url);
+      let target_id = event.target.getAttribute("target");
 
-	const keyup_handler = (e) => {if (e.key=="Enter") $$invalidate('loadURL', loadURL= `https://www.${e.target.value}`);};
+      let target = document.getElementById(target_id);
+      target.style.display = "block";
+      pages.filter(page=> page != target_id).forEach(page=>document.getElementById(page).style.display="none");
+    };
 
-	let loadURL;
-
-	$$invalidate('loadURL', loadURL = "http://www.colby.edu/chemistry/PChem/Hartree.html");
-
-	return {
-		websites_row1,
-		loadURL,
-		click_handler,
-		keyup_handler
-	};
+	return { navigator, toggler };
 }
 
 class Misc extends SvelteComponent {
