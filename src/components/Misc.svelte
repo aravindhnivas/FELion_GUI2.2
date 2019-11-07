@@ -1,16 +1,11 @@
 <script>
-    const pages = ["Converter", "Internet"]
+    const pages = ["Converter"]
     const navigator = [
       {
         name: "Unit Converter",
         target: "Converter",
         id: "unit_converter_navbtn"
       },
-      {
-        name: "Internet",
-        target: "Internet",
-        id:"internet_navbtn"
-      }
     ]
     
     const toggler = (event) => {
@@ -27,6 +22,7 @@
 <style>
 
   .page {height: 70vh;}
+  .column {padding:1.6em;}
 </style>
 
 <section class="section animated fadeIn" style="display:none" id="Misc">
@@ -46,8 +42,10 @@
       </div>
     </div>
 
-    <div class="column box is-11 page" id="Converter" style="display:block;">Converter</div>
-    <div class="column box is-11 page" id="Internet" style="display:none;">Internet</div>
+    <div class="column box is-11 page" id="Converter" style="display:block;">
+      <div class="content"><h1 class="title">Unit Converter</h1></div>
+    </div>
+
 
   </div>
 </section>
