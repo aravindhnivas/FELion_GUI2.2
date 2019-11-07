@@ -1,70 +1,53 @@
 <script>
-    const urlOpen = (url) => {
-      let modal = window.open(url, 'modal')
-    }
-
-    const websites_row1 = [
+    const pages = ["Converter", "Internet"]
+    const navigator = [
       {
-        url: "http://www.colby.edu/chemistry/PChem/Hartree.html",
-        name: "Boltzman Population"
+        name: "Unit Converter",
+        target: "Converter",
+        id: "unit_converter_navbtn"
       },
       {
-        url: "http://halas.rice.edu/conversions",
-        name: "Unit Conversion"
+        name: "Internet",
+        target: "Internet",
+        id:"internet_navbtn"
       }
     ]
-    $: loadURL = "http://www.colby.edu/chemistry/PChem/Hartree.html"
+    
+    const toggler = (event) => {
+
+      let target_id = event.target.getAttribute("target")
+
+      let target = document.getElementById(target_id)
+      target.style.display = "block"
+      pages.filter(page=> page != target_id).forEach(page=>document.getElementById(page).style.display="none")
+    }
 
 </script>
 
 <style>
-  .row {
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 2em;
-  }
 
-  #webpage {height: 70vh;}
-
-  webview {
-    height: 90%;
-    background: #e8e8e8;
-  }
-
+  .page {height: 70vh;}
 </style>
 
 <section class="section animated fadeIn" style="display:none" id="Misc">
-
   <div class="columns is-centered is-multiline">
 
     <div class="column box is-11">
       <div class="level">
         <div class="level-left">
-
-          {#each websites_row1 as {url, name}}
+          {#each navigator as {name, target}}
             <div class="level-item">
-              <button class="button is-link" 
-                data-tippy={url} 
-                on:click="{()=>loadURL = url}">
+              <button class="button is-link misc_btn" {target} on:click={toggler} >
                 {name}
               </button>
             </div>
           {/each}
-
         </div>
       </div>
     </div>
 
-    <div class="column box is-11" id="webpage">
-      <div class="field">
-        <div class="control">
-          <input class="input is-primary" type="text" placeholder="type Webaddress" 
-            value={loadURL} 
-            on:keyup="{(e)=>{if (e.key=="Enter") loadURL= `https://www.${e.target.value}`}}">
-        </div>
-      </div>
-      <webview src={loadURL} nodeintegration></webview>
+    <div class="column box is-11 page" id="Converter" style="display:block;">Converter</div>
+    <div class="column box is-11 page" id="Internet" style="display:none;">Internet</div>
 
-    </div>
   </div>
 </section>
