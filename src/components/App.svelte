@@ -8,6 +8,8 @@
   import Powerfile from "./Powerfile.svelte";
   import Settings from "./Settings.svelte"
   import Footer from "./Footer.svelte";
+  import Misc from "./Misc.svelte"
+  // require('v8-compile-cache');
 
   // Importing other modules
   import tippy from 'tippy.js'; //For tooltip
@@ -31,7 +33,7 @@
 
   // Getting variables
   export let mainPages;
-  const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile", "Settings"];
+  const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile", "Misc", "Settings"];
  
   let rightClickPosition = null
   const menu = new Menu()
@@ -69,4 +71,5 @@
 
 <Settings {jq} {path} {mainWindow} {showinfo}/>
 
+<Misc />
 <Footer {jq}/>
