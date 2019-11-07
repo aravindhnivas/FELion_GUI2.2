@@ -5689,7 +5689,7 @@ function get_each_context$4(ctx, list, i) {
 	return child_ctx;
 }
 
-// (34:10) {#each navigator as {name, target}}
+// (74:10) {#each navigator as {name, target}}
 function create_each_block$4(ctx) {
 	var div, button, t0_value = ctx.name + "", t0, t1, dispose;
 
@@ -5725,7 +5725,7 @@ function create_each_block$4(ctx) {
 }
 
 function create_fragment$8(ctx) {
-	var section, div5, div2, div1, div0, t, div4;
+	var section, div6, div2, div1, div0, t0, div5, div4, div3, h1, t2, input, div3_class_value, dispose;
 
 	let each_value = ctx.navigator;
 
@@ -5738,7 +5738,7 @@ function create_fragment$8(ctx) {
 	return {
 		c() {
 			section = element("section");
-			div5 = element("div");
+			div6 = element("div");
 			div2 = element("div");
 			div1 = element("div");
 			div0 = element("div");
@@ -5747,25 +5747,41 @@ function create_fragment$8(ctx) {
 				each_blocks[i].c();
 			}
 
-			t = space();
+			t0 = space();
+			div5 = element("div");
 			div4 = element("div");
-			div4.innerHTML = `<div class="content"><h1 class="title">Unit Converter</h1></div>`;
+			div3 = element("div");
+			h1 = element("h1");
+			h1.textContent = "Energy Conversion";
+			t2 = space();
+			input = element("input");
 			attr(div0, "class", "level-left");
 			attr(div1, "class", "level");
-			attr(div2, "class", "column box is-11 svelte-1fk7xu0");
-			attr(div4, "class", "column box is-11 page svelte-1fk7xu0");
-			attr(div4, "id", "Converter");
-			set_style(div4, "display", "block");
-			attr(div5, "class", "columns is-centered is-multiline");
+			attr(div2, "class", "column box is-11");
+			attr(h1, "class", "title");
+			attr(input, "class", "input svelte-1j1cjul");
+			attr(input, "type", "text");
+			attr(div3, "class", div3_class_value = "column " + ctx.table_sz + " svelte-1j1cjul");
+			attr(div4, "class", "columns is-multiline");
+			attr(div4, "id", "unit_conversion_table");
+			attr(div5, "class", "column is-11 page animated fadeIn svelte-1j1cjul");
+			attr(div5, "id", "Converter");
+			set_style(div5, "display", "none");
+			attr(div6, "class", "columns is-centered is-multiline animated fadeIn");
 			attr(section, "class", "section animated fadeIn");
 			set_style(section, "display", "none");
 			attr(section, "id", "Misc");
+
+			dispose = [
+				listen(input, "input", ctx.input_input_handler),
+				listen(input, "keyup", ctx.keyup_handler)
+			];
 		},
 
 		m(target, anchor) {
 			insert(target, section, anchor);
-			append(section, div5);
-			append(div5, div2);
+			append(section, div6);
+			append(div6, div2);
 			append(div2, div1);
 			append(div1, div0);
 
@@ -5773,8 +5789,15 @@ function create_fragment$8(ctx) {
 				each_blocks[i].m(div0, null);
 			}
 
-			append(div5, t);
+			append(div6, t0);
+			append(div6, div5);
 			append(div5, div4);
+			append(div4, div3);
+			append(div3, h1);
+			append(div3, t2);
+			append(div3, input);
+
+			set_input_value(input, ctx.energy_input);
 		},
 
 		p(changed, ctx) {
@@ -5799,6 +5822,12 @@ function create_fragment$8(ctx) {
 				}
 				each_blocks.length = each_value.length;
 			}
+
+			if (changed.energy_input && (input.value !== ctx.energy_input)) set_input_value(input, ctx.energy_input);
+
+			if ((changed.table_sz) && div3_class_value !== (div3_class_value = "column " + ctx.table_sz + " svelte-1j1cjul")) {
+				attr(div3, "class", div3_class_value);
+			}
 		},
 
 		i: noop,
@@ -5810,30 +5839,78 @@ function create_fragment$8(ctx) {
 			}
 
 			destroy_each(each_blocks, detaching);
+
+			run_all(dispose);
 		}
 	};
 }
 
-function instance$7($$self) {
+function instance$7($$self, $$props, $$invalidate) {
 	const pages = ["Converter"];
+
     const navigator = [
       {
         name: "Unit Converter",
         target: "Converter",
         id: "unit_converter_navbtn"
-      },
+      }
     ];
     
     const toggler = (event) => {
-
       let target_id = event.target.getAttribute("target");
-
-      let target = document.getElementById(target_id);
-      target.style.display = "block";
+      let target = document.getElementById(target_id).style.display = "block";
       pages.filter(page=> page != target_id).forEach(page=>document.getElementById(page).style.display="none");
     };
 
-	return { navigator, toggler };
+    const energy_conversion = {
+      hz:{
+        cm_1: 0,
+        eV: (x) => 4.1356655385381e-15 * x,
+        kelvin: 0,
+        um: 0
+      }
+    };
+
+    function convert_energy() {
+      console.log(`Input received: ${energy_input}`);
+      let formula = energy_input.split(" ");
+      console.log(formula);
+
+      let from_data = parseFloat(formula[0]);
+      let from = formula[1];
+      let to = formula[3];
+      let conversion_fn = energy_conversion[from][to];
+
+      let to_data = conversion_fn(from_data);
+      console.log(`Converted: ${to_data}`);
+    }
+
+	function input_input_handler() {
+		energy_input = this.value;
+		$$invalidate('energy_input', energy_input);
+	}
+
+	const keyup_handler = (e) => {if (e.key === "Enter") convert_energy();};
+
+	let table_sz, hz, energy_input;
+
+	$$self.$$.update = ($$dirty = { hz: 1 }) => {
+		if ($$dirty.hz) ;
+	};
+
+	$$invalidate('table_sz', table_sz  = "is-3 box conversion_table");
+	$$invalidate('hz', hz = 1);
+	$$invalidate('energy_input', energy_input = "eg., 1 cm in um");
+
+	return {
+		navigator,
+		toggler,
+		convert_energy,
+		table_sz,
+		energy_input,
+		input_input_handler,
+		keyup_handler
+	};
 }
 
 class Misc extends SvelteComponent {
