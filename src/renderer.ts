@@ -1,7 +1,7 @@
 import App from "./components/App.svelte";
+// require('v8-compile-cache');
 
 let shell_help = "Open terminal while plotting in Matplotlib. Turn this ON to check for any error occured from python console."
-
 const mainPages = [
 
 	// FELIX plot and baseline correction

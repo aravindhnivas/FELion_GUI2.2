@@ -18,7 +18,9 @@ function createWindow() {
         backgroundColor: "#1f232b",
         show: false,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            nativeWindowOpen: true,
+            webviewTag: true
         }
     });
     mainWindow.loadURL(url.format({
@@ -35,6 +37,20 @@ function createWindow() {
     });
     mainWindow.on("closed", function () {
         mainWindow = null;
+    });
+    mainWindow.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures) => {
+        if (frameName === 'modal') {
+            event.preventDefault();
+            Object.assign(options, {
+                // modal: true,
+                parent: mainWindow,
+                width: 1000,
+                height: 600,
+                frame: true,
+                backgroundColor: "#fafafa",
+            });
+            event.newGuest = new electron.BrowserWindow(options);
+        }
     });
 }
 electron.app.on("ready", createWindow);

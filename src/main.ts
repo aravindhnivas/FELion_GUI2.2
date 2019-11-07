@@ -17,7 +17,9 @@ function createWindow() {
 		
 		show: false,
 		webPreferences: {
-			nodeIntegration: true
+			nodeIntegration: true,
+			nativeWindowOpen: true,
+			webviewTag: true
 		}
 	});
 
@@ -39,6 +41,22 @@ function createWindow() {
 	mainWindow.on("closed", function() {
 		mainWindow = null;
 	});
+
+
+	mainWindow.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures) => {
+		if (frameName === 'modal') {
+		  event.preventDefault()
+		  Object.assign(options, {
+			// modal: true,
+			parent: mainWindow,
+			width: 1000,
+			height: 600,
+			frame: true,
+			backgroundColor: "#fafafa",
+		})
+		  event.newGuest = new BrowserWindow(options)
+		}
+	  })
 }
 
 app.on("ready", createWindow);
