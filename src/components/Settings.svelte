@@ -470,10 +470,13 @@
                             <div class="control"><div class="button is-static">Time Interval</div></div>
                             <div class="control"><input type="number" class="input" placeholder="Enter update check for every (time in hrs) interval" value=1 on:keydown={update_interval}></div>
                         </div>
+
+                        <hr>
+                        <button class="button is-link" on:click={archive} >Backup</button>
+                        
                     </div>
 
-                    <hr>
-                    <button class="button is-link" on:click={archive} >Backup</button>
+                    
 
                     <!-- About -->
 
