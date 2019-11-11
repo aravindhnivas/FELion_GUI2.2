@@ -4951,10 +4951,10 @@ function create_fragment$6(ctx) {
 			input3.value = "1";
 			attr(div14, "class", "control");
 			attr(div15, "class", "field has-addons");
+			attr(button3, "class", "button is-link");
 			attr(div16, "class", "container");
 			set_style(div16, "display", "none");
 			attr(div16, "id", "Update");
-			attr(button3, "class", "button is-link");
 			attr(h13, "class", "title svelte-1c4zmtz");
 			attr(h14, "class", "subtitle");
 			set_style(h14, "margin-bottom", "0");
@@ -5082,10 +5082,10 @@ function create_fragment$6(ctx) {
 			append(div15, t33);
 			append(div15, div14);
 			append(div14, input3);
-			append(div19, t34);
-			append(div19, hr1);
-			append(div19, t35);
-			append(div19, button3);
+			append(div16, t34);
+			append(div16, hr1);
+			append(div16, t35);
+			append(div16, button3);
 			append(div19, t37);
 			append(div19, div18);
 			append(div18, div17);
