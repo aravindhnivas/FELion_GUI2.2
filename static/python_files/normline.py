@@ -350,7 +350,7 @@ class normplot:
 
         if expfit:
             with open('EXPORT/' + fname + '.expfit', 'w+') as f:
-                f.write(f"#Frequency\t#Sigma\t#FWHM\t#Amplitude\n")
+                f.write(f"#Frequency\t#Freq_err\t#Sigma\t#Sigma_err\t#FWHM\t#FWHM_err\t#Amplitude\t#Amplitude_err\n")
                 
             
     def felix_binning(self, xs, ys):
