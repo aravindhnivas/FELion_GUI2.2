@@ -5673,13 +5673,13 @@ function instance$6($$self, $$props, $$invalidate) {
             });
 
             $$invalidate('restoreClass', restoreClass = "is-success bounce");
-            setTimeout(()=>$$invalidate('restoreClass', restoreClass = "is-link"), 2000);
+            setTimeout(()=>$$invalidate('restoreClass', restoreClass = "is-warning"), 2000);
             
         })
         .catch(err=>{
             $$invalidate('restoreClass', restoreClass = "is-danger animated shake faster");
             console.log(err);
-            setTimeout(()=>$$invalidate('restoreClass', restoreClass = "is-link"), 2000);
+            setTimeout(()=>$$invalidate('restoreClass', restoreClass = "is-warning"), 2000);
         });
     };
 

@@ -423,13 +423,13 @@
             })
 
             restoreClass = "is-success bounce"
-            setTimeout(()=>restoreClass = "is-link", 2000)
+            setTimeout(()=>restoreClass = "is-warning", 2000)
             
         })
         .catch(err=>{
             restoreClass = "is-danger animated shake faster"
             console.log(err)
-            setTimeout(()=>restoreClass = "is-link", 2000)
+            setTimeout(()=>restoreClass = "is-warning", 2000)
         })
     }
 </script>
