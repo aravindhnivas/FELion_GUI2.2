@@ -37,7 +37,7 @@ def main(felixfiles, location, norm_method, index, output_filename="averaged"):
 if __name__ == "__main__":
 
     args = sys.argv[1:][0].split(",")
-    filenames = args[0:-1]
+    filenames = args[0:-2]
     norm_method = args[-1]
     output_filename = args[-2]
     
