@@ -262,16 +262,16 @@ class normplot:
                 "showlegend": True,
             }
 
-            dataToSend["pow"][f"{powerfile}_"] = {
-                "x": list(wavelength),
-                "y": list(self.power_measured),
-                "mode": "markers",
-                "xaxis": "x2",
-                "yaxis": "y3",
-                "marker": {"color": f"rgb{colors[c]}"},
-                "legendgroup": f'group{group}',
-                "showlegend": False,
-            }
+            # dataToSend["pow"][f"{powerfile}_"] = {
+            #     "x": list(wavelength),
+            #     "y": list(self.power_measured),
+            #     "mode": "markers",
+            #     "xaxis": "x2",
+            #     "yaxis": "y3",
+            #     "marker": {"color": f"rgb{colors[c]}"},
+            #     "legendgroup": f'group{group}',
+            #     "showlegend": False,
+            # }
 
             group += 1
             c += 2
