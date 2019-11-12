@@ -69,7 +69,7 @@
 {/each}
 <Powerfile {electron} {path} {jq}/>
 
-<Settings {jq} {path} {mainWindow} {showinfo}/>
+<Settings {jq} {path} {mainWindow} {showinfo} {electron}/>
 
 <Misc />
 <Footer {jq}/>

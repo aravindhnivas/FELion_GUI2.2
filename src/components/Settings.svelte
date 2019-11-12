@@ -4,6 +4,7 @@
     export let path;
     export let mainWindow;
     export let showinfo;
+    export let electron;
 
     // Importing modules
     const {exec} = require("child_process")
@@ -11,6 +12,7 @@
     const fs = require('fs')
     const admZip = require('adm-zip');
     const copy = require('recursive-copy');
+    // const openDir = electron.remote
 
     // When DOMContentent is loaded and ready
     jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active")})
@@ -317,32 +319,65 @@
         clearInterval(check_update_continuously)
     }
 
-    const update_interval = (e) => {
-        if (e.key == "Enter") timeInterval_hr = e.target.value
-    }
-    
-    const archive = () => {
+    const archive = (event) => {
+
+        let $target = jq(event.target)
+        $target.addClass("is-loading")
+
         console.log("Archiving existing software to old.zip")
+        const options = {
+          title: "Browse folder",
+          properties: ["openDirectory"],
+          message: "Browse folder" //For macOS
+        };
 
-        // let zip = new admZip();
-        // let _src = {path:path.resolve(__dirname, "..", "src"), name:"src"}
-        // let _static = {path:path.resolve(__dirname, "..", "static"), name:"static"}
-        // let _dist = {path:path.resolve(__dirname, "..", "dist"), name:"dist"}
+        electron.remote.dialog.showOpenDialog(null, options, location => {
 
-        // let folders = [_src, _dist, _static]
-        // folders.forEach(folder)
+          if (location === undefined) {
+
+              $target.removeClass("is-loading")
+              return console.log("No folder selected")
+          }
+          else {
+
+            let folderName = location[0]
+
+            console.log("Selected folder: ", folderName)
+
+            // let zip = new admZip();
+
+            let _src = {path:path.resolve(__dirname, "..", "src"), name:"src"}
+            let _static = {path:path.resolve(__dirname, "..", "static"), name:"static"}
+            let _dist = {path:path.resolve(__dirname, "..", "dist"), name:"dist"}
+            let packageFile = {path:path.resolve(__dirname, "..", "package.json"), name:""}
+            // let rollup = {path:path.resolve(__dirname, "..", "rollup.config.js"), name:""}
+            // let tsconfig = {path:path.resolve(__dirname, "..", "tsconfig.json"), name:""}
+
+            let folders = [_src, _dist, _static]
+
+            folders.forEach(folder=>{
+                const _dest = path.resolve(folderName, "backup" , folder.name)
+                copy(folder.path, _dest, {overwrite: true}, function(error, results) {
+                    if (error) {
+                        console.log('Copy failed: ' + error);
+                    } else {
+                        console.info('Copied ' + results.length + ' files')
+                        console.info('Copied ' + results + ' files')
+                        // zip.addLocalFolder(_dest);
+                        // zip.writeZip(path.resolve(path.resolve(folderName, "backup"), "backup.zip"))
+                        console.log("Archiving completed")
+                    }
+                })
+                
+            })
+
+            $target.removeClass("is-loading")
+            
+          }
+        });
+
         
-        // copy(src, dest, {overwrite: true}, function(error, results) {
-        //     if (error) {
-        //         console.log('Copy failed: ' + error);
-        //     } else {
-        //         console.info('Copied ' + results.length + ' files')
-        //         console.info('Copied ' + results + ' files')
-        //         // zip.addLocalFolder(dest);
-        //         // zip.writeZip(path.resolve(dest, "old.zip"))
-        //         console.log("Archiving completed")
-        //     }
-        // })
+        
         
     }
 
@@ -467,12 +502,17 @@
                         </div>
 
                         <div class="field has-addons">
-                            <div class="control"><div class="button is-static">Time Interval</div></div>
-                            <div class="control"><input type="number" class="input" placeholder="Enter update check for every (time in hrs) interval" value=1 on:keydown={update_interval}></div>
+                            <div class="control"><div class="button is-static">Time Interval (in hours)</div></div>
+                            <div class="control">
+                                <input type="number" class="input"
+                                    placeholder="Enter update check for every (time in hrs) interval"
+                                    value=1 on:change="{(e)=>timeInterval_hr = e.target.value}"
+                                    data-tippy="Check for update every hour">
+                            </div>
                         </div>
 
                         <hr>
-                        <button class="button is-link" on:click={archive} >Backup</button>
+                        <button class="button is-link animated" on:click={archive} >Backup</button>
                     </div>
 
                     

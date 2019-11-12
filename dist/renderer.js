@@ -4720,7 +4720,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (406:20) {#each items as item}
+// (441:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4837,7 +4837,7 @@ function create_fragment$6(ctx) {
 			t31 = space();
 			div15 = element("div");
 			div13 = element("div");
-			div13.innerHTML = `<div class="button is-static">Time Interval</div>`;
+			div13.innerHTML = `<div class="button is-static">Time Interval (in hours)</div>`;
 			t33 = space();
 			div14 = element("div");
 			input3 = element("input");
@@ -4949,9 +4949,10 @@ function create_fragment$6(ctx) {
 			attr(input3, "class", "input");
 			attr(input3, "placeholder", "Enter update check for every (time in hrs) interval");
 			input3.value = "1";
+			attr(input3, "data-tippy", "Check for update every hour");
 			attr(div14, "class", "control");
 			attr(div15, "class", "field has-addons");
-			attr(button3, "class", "button is-link");
+			attr(button3, "class", "button is-link animated");
 			attr(div16, "class", "container");
 			set_style(div16, "display", "none");
 			attr(div16, "id", "Update");
@@ -5002,7 +5003,7 @@ function create_fragment$6(ctx) {
 				listen(button1, "click", ctx.updateCheck),
 				listen(button2, "click", ctx.update),
 				listen(div11, "click", ctx.click_handler),
-				listen(input3, "keydown", ctx.update_interval),
+				listen(input3, "change", ctx.change_handler),
 				listen(button3, "click", ctx.archive)
 			];
 		},
@@ -5263,7 +5264,7 @@ function checkInternet(cb) {
   }
 
 function instance$6($$self, $$props, $$invalidate) {
-	let { jq, path, mainWindow, showinfo } = $$props;
+	let { jq, path, mainWindow, showinfo, electron } = $$props;
 
     // Importing modules
     const {exec} = require("child_process");
@@ -5271,6 +5272,7 @@ function instance$6($$self, $$props, $$invalidate) {
     const fs = require('fs');
     const admZip = require('adm-zip');
     const copy = require('recursive-copy');
+    // const openDir = electron.remote
 
     // When DOMContentent is loaded and ready
     jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active");});
@@ -5531,32 +5533,65 @@ function instance$6($$self, $$props, $$invalidate) {
     }
     let clock = setInterval(ClockTimer, 1000);
 
-    const update_interval = (e) => {
-        if (e.key == "Enter") $$invalidate('timeInterval_hr', timeInterval_hr = e.target.value);
-    };
-    
-    const archive = () => {
+    const archive = (event) => {
+
+        let $target = jq(event.target);
+        $target.addClass("is-loading");
+
         console.log("Archiving existing software to old.zip");
+        const options = {
+          title: "Browse folder",
+          properties: ["openDirectory"],
+          message: "Browse folder" //For macOS
+        };
 
-        // let zip = new admZip();
-        // let _src = {path:path.resolve(__dirname, "..", "src"), name:"src"}
-        // let _static = {path:path.resolve(__dirname, "..", "static"), name:"static"}
-        // let _dist = {path:path.resolve(__dirname, "..", "dist"), name:"dist"}
+        electron.remote.dialog.showOpenDialog(null, options, location => {
 
-        // let folders = [_src, _dist, _static]
-        // folders.forEach(folder)
+          if (location === undefined) {
+
+              $target.removeClass("is-loading");
+              return console.log("No folder selected")
+          }
+          else {
+
+            let folderName = location[0];
+
+            console.log("Selected folder: ", folderName);
+
+            // let zip = new admZip();
+
+            let _src = {path:path.resolve(__dirname, "..", "src"), name:"src"};
+            let _static = {path:path.resolve(__dirname, "..", "static"), name:"static"};
+            let _dist = {path:path.resolve(__dirname, "..", "dist"), name:"dist"};
+            let packageFile = {path:path.resolve(__dirname, "..", "package.json"), name:""};
+            // let rollup = {path:path.resolve(__dirname, "..", "rollup.config.js"), name:""}
+            // let tsconfig = {path:path.resolve(__dirname, "..", "tsconfig.json"), name:""}
+
+            let folders = [_src, _dist, _static];
+
+            folders.forEach(folder=>{
+                const _dest = path.resolve(folderName, "backup" , folder.name);
+                copy(folder.path, _dest, {overwrite: true}, function(error, results) {
+                    if (error) {
+                        console.log('Copy failed: ' + error);
+                    } else {
+                        console.info('Copied ' + results.length + ' files');
+                        console.info('Copied ' + results + ' files');
+                        // zip.addLocalFolder(_dest);
+                        // zip.writeZip(path.resolve(path.resolve(folderName, "backup"), "backup.zip"))
+                        console.log("Archiving completed");
+                    }
+                });
+                
+            });
+
+            $target.removeClass("is-loading");
+            
+          }
+        });
+
         
-        // copy(src, dest, {overwrite: true}, function(error, results) {
-        //     if (error) {
-        //         console.log('Copy failed: ' + error);
-        //     } else {
-        //         console.info('Copied ' + results.length + ' files')
-        //         console.info('Copied ' + results + ' files')
-        //         // zip.addLocalFolder(dest);
-        //         // zip.writeZip(path.resolve(dest, "old.zip"))
-        //         console.log("Archiving completed")
-        //     }
-        // })
+        
         
     };
 
@@ -5572,11 +5607,14 @@ function instance$6($$self, $$props, $$invalidate) {
 
 	const click_handler = () => $$invalidate('auto_update_check', auto_update_check = !auto_update_check);
 
+	const change_handler = (e) => $$invalidate('timeInterval_hr', timeInterval_hr = e.target.value);
+
 	$$self.$set = $$props => {
 		if ('jq' in $$props) $$invalidate('jq', jq = $$props.jq);
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
 		if ('mainWindow' in $$props) $$invalidate('mainWindow', mainWindow = $$props.mainWindow);
 		if ('showinfo' in $$props) $$invalidate('showinfo', showinfo = $$props.showinfo);
+		if ('electron' in $$props) $$invalidate('electron', electron = $$props.electron);
 	};
 
 	let saveChanges, saveChangeanimate, new_version, checkupdateLoading, updateLoading, updateStatus, currentTime, auto_update_check;
@@ -5612,6 +5650,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		path,
 		mainWindow,
 		showinfo,
+		electron,
 		packageJSON,
 		currentVersion,
 		pythonpath,
@@ -5622,7 +5661,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		toggle,
 		updateCheck,
 		update,
-		update_interval,
+		timeInterval_hr,
 		archive,
 		saveChanges,
 		saveChangeanimate,
@@ -5633,14 +5672,15 @@ function instance$6($$self, $$props, $$invalidate) {
 		auto_update_check,
 		input0_input_handler,
 		input1_input_handler,
-		click_handler
+		click_handler,
+		change_handler
 	};
 }
 
 class Settings extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$6, create_fragment$6, safe_not_equal, ["jq", "path", "mainWindow", "showinfo"]);
+		init(this, options, instance$6, create_fragment$6, safe_not_equal, ["jq", "path", "mainWindow", "showinfo", "electron"]);
 	}
 }
 
@@ -21683,7 +21723,8 @@ function create_fragment$9(ctx) {
 		jq: ctx.jq,
 		path: path,
 		mainWindow: ctx.mainWindow,
-		showinfo: ctx.showinfo
+		showinfo: ctx.showinfo,
+		electron: electron
 	}
 	});
 
