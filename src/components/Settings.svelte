@@ -321,6 +321,8 @@
 
     $: backupClass = "is-link"
 
+    $: backupName = "FELion_GUI_backup"
+
     const archive = (event) => {
 
         backupClass = "is-loading"
@@ -356,7 +358,7 @@
             let folders = [_src, _dist, _static, packageFile, rollup, tsconfig]
 
             folders.forEach(folder=>{
-                const _dest = path.resolve(folderName, "FELion_GUI2_backup" , folder.name)
+                const _dest = path.resolve(folderName, backupName , folder.name)
                 copy(folder.path, _dest, {overwrite: true}, function(error, results) {
                     if (error) {
                         console.log('Copy failed: ' + error);
@@ -511,7 +513,11 @@
                         </div>
 
                         <hr>
-                        <button class="button animated {backupClass}" on:click={archive} >Backup</button>
+                        <div class="field is-grouped">
+                            <p class="control"><input type="text" class="input" bind:value={backupName} data-tippy="Backup folder name"></p>
+                            <p class="control"><button class="button animated {backupClass}" on:click={archive} >Backup</button></p>
+                        </div>
+                        
                     </div>
 
                     

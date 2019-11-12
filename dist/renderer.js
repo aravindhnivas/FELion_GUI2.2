@@ -4720,7 +4720,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (440:20) {#each items as item}
+// (442:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4753,7 +4753,7 @@ function create_each_block$3(ctx) {
 }
 
 function create_fragment$6(ctx) {
-	var section, div22, div1, aside, div0, t1, ul, t2, div21, div20, div19, div2, t3, t4, div8, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div7, button0, t16, h10, t17, h10_class_value, t18, div16, h11, t19, t20, t21, div9, p2, button1, t22, button1_class_value, t23, p3, button2, t24, button2_class_value, t25, h12, t26, t27, hr0, t28, div11, t31, div15, div13, t33, div14, input3, t34, hr1, t35, button3, t36, button3_class_value, t37, div18, div17, h13, t39, h14, t40, t41_value = process.versions.electron + "", t41, t42, h15, t43, t44_value = process.versions.node + "", t44, t45, h16, t46, t47_value = process.versions.chrome + "", t47, t48, h17, t49, t50, hr2, t51, h18, t53, h19, t54, t55_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t55, t56, h110, t57, t58_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t58, t59, h111, t60, t61_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t61, t62, h112, t63, t64_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t64, t65, hr3, t66, h113, t68, h114, t69, t70_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t70, t71, h115, t72, t73_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t73, t74, h116, t75, t76_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t76, t77, h117, t78, t79_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t79, dispose;
+	var section, div23, div1, aside, div0, t1, ul, t2, div22, div21, div20, div2, t3, t4, div8, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div7, button0, t16, h10, t17, h10_class_value, t18, div17, h11, t19, t20, t21, div9, p2, button1, t22, button1_class_value, t23, p3, button2, t24, button2_class_value, t25, h12, t26, t27, hr0, t28, div11, t31, div15, div13, t33, div14, input3, t34, hr1, t35, div16, p4, input4, t36, p5, button3, t37, button3_class_value, t38, div19, div18, h13, t40, h14, t41, t42_value = process.versions.electron + "", t42, t43, h15, t44, t45_value = process.versions.node + "", t45, t46, h16, t47, t48_value = process.versions.chrome + "", t48, t49, h17, t50, t51, hr2, t52, h18, t54, h19, t55, t56_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t56, t57, h110, t58, t59_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t59, t60, h111, t61, t62_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t62, t63, h112, t64, t65_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t65, t66, hr3, t67, h113, t69, h114, t70, t71_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t71, t72, h115, t73, t74_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t74, t75, h116, t76, t77_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t77, t78, h117, t79, t80_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t80, dispose;
 
 	let each_value = ctx.items;
 
@@ -4766,7 +4766,7 @@ function create_fragment$6(ctx) {
 	return {
 		c() {
 			section = element("section");
-			div22 = element("div");
+			div23 = element("div");
 			div1 = element("div");
 			aside = element("aside");
 			div0 = element("div");
@@ -4779,9 +4779,9 @@ function create_fragment$6(ctx) {
 			}
 
 			t2 = space();
+			div22 = element("div");
 			div21 = element("div");
 			div20 = element("div");
-			div19 = element("div");
 			div2 = element("div");
 			t3 = text(ctx.currentTime);
 			t4 = space();
@@ -4813,7 +4813,7 @@ function create_fragment$6(ctx) {
 			h10 = element("h1");
 			t17 = text("Changes saved!");
 			t18 = space();
-			div16 = element("div");
+			div17 = element("div");
 			h11 = element("h1");
 			t19 = text("FELion GUI (Current version): ");
 			t20 = text(ctx.currentVersion);
@@ -4844,70 +4844,75 @@ function create_fragment$6(ctx) {
 			t34 = space();
 			hr1 = element("hr");
 			t35 = space();
+			div16 = element("div");
+			p4 = element("p");
+			input4 = element("input");
+			t36 = space();
+			p5 = element("p");
 			button3 = element("button");
-			t36 = text("Backup");
-			t37 = space();
+			t37 = text("Backup");
+			t38 = space();
+			div19 = element("div");
 			div18 = element("div");
-			div17 = element("div");
 			h13 = element("h1");
 			h13.textContent = "Software details (version)";
-			t39 = space();
+			t40 = space();
 			h14 = element("h1");
-			t40 = text("Electron.js: ");
-			t41 = text(t41_value);
-			t42 = space();
+			t41 = text("Electron.js: ");
+			t42 = text(t42_value);
+			t43 = space();
 			h15 = element("h1");
-			t43 = text("Node.js: ");
-			t44 = text(t44_value);
-			t45 = space();
+			t44 = text("Node.js: ");
+			t45 = text(t45_value);
+			t46 = space();
 			h16 = element("h1");
-			t46 = text("Chrome: ");
-			t47 = text(t47_value);
-			t48 = space();
+			t47 = text("Chrome: ");
+			t48 = text(t48_value);
+			t49 = space();
 			h17 = element("h1");
-			t49 = text(ctx.pythonv);
-			t50 = space();
-			hr2 = element("hr");
+			t50 = text(ctx.pythonv);
 			t51 = space();
+			hr2 = element("hr");
+			t52 = space();
 			h18 = element("h1");
 			h18.textContent = "Javascript Frameworks and libraries";
-			t53 = space();
+			t54 = space();
 			h19 = element("h1");
-			t54 = text("Svelte.js: ");
-			t55 = text(t55_value);
-			t56 = space();
+			t55 = text("Svelte.js: ");
+			t56 = text(t56_value);
+			t57 = space();
 			h110 = element("h1");
-			t57 = text("jQuery: ");
-			t58 = text(t58_value);
-			t59 = space();
+			t58 = text("jQuery: ");
+			t59 = text(t59_value);
+			t60 = space();
 			h111 = element("h1");
-			t60 = text("Typescript: ");
-			t61 = text(t61_value);
-			t62 = space();
+			t61 = text("Typescript: ");
+			t62 = text(t62_value);
+			t63 = space();
 			h112 = element("h1");
-			t63 = text("Tippy.js: ");
-			t64 = text(t64_value);
-			t65 = space();
-			hr3 = element("hr");
+			t64 = text("Tippy.js: ");
+			t65 = text(t65_value);
 			t66 = space();
+			hr3 = element("hr");
+			t67 = space();
 			h113 = element("h1");
 			h113.textContent = "CSS Frameworks and libraries";
-			t68 = space();
+			t69 = space();
 			h114 = element("h1");
-			t69 = text("Bulma: ");
-			t70 = text(t70_value);
-			t71 = space();
+			t70 = text("Bulma: ");
+			t71 = text(t71_value);
+			t72 = space();
 			h115 = element("h1");
-			t72 = text("Fontawesome: ");
-			t73 = text(t73_value);
-			t74 = space();
+			t73 = text("Fontawesome: ");
+			t74 = text(t74_value);
+			t75 = space();
 			h116 = element("h1");
-			t75 = text("pretty-checkbox: ");
-			t76 = text(t76_value);
-			t77 = space();
+			t76 = text("pretty-checkbox: ");
+			t77 = text(t77_value);
+			t78 = space();
 			h117 = element("h1");
-			t78 = text("hover.css: ");
-			t79 = text(t79_value);
+			t79 = text("hover.css: ");
+			t80 = text(t80_value);
 			attr(div0, "class", "menu-label svelte-1c4zmtz");
 			attr(ul, "class", "menu-list svelte-1c4zmtz");
 			attr(aside, "class", "menu box svelte-1c4zmtz");
@@ -4952,10 +4957,16 @@ function create_fragment$6(ctx) {
 			attr(input3, "data-tippy", "Check for update every hour");
 			attr(div14, "class", "control");
 			attr(div15, "class", "field has-addons");
+			attr(input4, "type", "text");
+			attr(input4, "class", "input");
+			attr(input4, "data-tippy", "Backup folder name");
+			attr(p4, "class", "control");
 			attr(button3, "class", button3_class_value = "button animated " + ctx.backupClass + " svelte-1c4zmtz");
-			attr(div16, "class", "container");
-			set_style(div16, "display", "none");
-			attr(div16, "id", "Update");
+			attr(p5, "class", "control");
+			attr(div16, "class", "field is-grouped");
+			attr(div17, "class", "container");
+			set_style(div17, "display", "none");
+			attr(div17, "id", "Update");
 			attr(h13, "class", "title svelte-1c4zmtz");
 			attr(h14, "class", "subtitle");
 			set_style(h14, "margin-bottom", "0");
@@ -4983,15 +4994,15 @@ function create_fragment$6(ctx) {
 			set_style(h116, "margin-bottom", "0");
 			attr(h117, "class", "subtitle");
 			set_style(h117, "margin-bottom", "0");
-			attr(div17, "class", "control");
-			attr(div18, "class", "container");
-			set_style(div18, "display", "none");
-			attr(div18, "id", "About");
-			attr(div19, "class", "container is-fluid");
-			attr(div20, "class", "row box box2 svelte-1c4zmtz");
-			set_style(div20, "height", "100%");
-			attr(div21, "class", "column");
-			attr(div22, "class", "columns");
+			attr(div18, "class", "control");
+			attr(div19, "class", "container");
+			set_style(div19, "display", "none");
+			attr(div19, "id", "About");
+			attr(div20, "class", "container is-fluid");
+			attr(div21, "class", "row box box2 svelte-1c4zmtz");
+			set_style(div21, "height", "100%");
+			attr(div22, "class", "column");
+			attr(div23, "class", "columns");
 			attr(section, "class", "section animated fadeIn");
 			set_style(section, "display", "none");
 			attr(section, "id", "Settings");
@@ -5004,14 +5015,15 @@ function create_fragment$6(ctx) {
 				listen(button2, "click", ctx.update),
 				listen(div11, "click", ctx.click_handler),
 				listen(input3, "change", ctx.change_handler),
+				listen(input4, "input", ctx.input4_input_handler),
 				listen(button3, "click", ctx.archive)
 			];
 		},
 
 		m(target, anchor) {
 			insert(target, section, anchor);
-			append(section, div22);
-			append(div22, div1);
+			append(section, div23);
+			append(div23, div1);
 			append(div1, aside);
 			append(aside, div0);
 			append(aside, t1);
@@ -5021,14 +5033,14 @@ function create_fragment$6(ctx) {
 				each_blocks[i].m(ul, null);
 			}
 
-			append(div22, t2);
+			append(div23, t2);
+			append(div23, div22);
 			append(div22, div21);
 			append(div21, div20);
-			append(div20, div19);
-			append(div19, div2);
+			append(div20, div2);
 			append(div2, t3);
-			append(div19, t4);
-			append(div19, div8);
+			append(div20, t4);
+			append(div20, div8);
 			append(div8, div4);
 			append(div4, label0);
 			append(div4, t6);
@@ -5056,13 +5068,13 @@ function create_fragment$6(ctx) {
 			append(div7, t16);
 			append(div7, h10);
 			append(h10, t17);
-			append(div19, t18);
-			append(div19, div16);
-			append(div16, h11);
+			append(div20, t18);
+			append(div20, div17);
+			append(div17, h11);
 			append(h11, t19);
 			append(h11, t20);
-			append(div16, t21);
-			append(div16, div9);
+			append(div17, t21);
+			append(div17, div9);
 			append(div9, p2);
 			append(p2, button1);
 			append(button1, t22);
@@ -5070,83 +5082,91 @@ function create_fragment$6(ctx) {
 			append(div9, p3);
 			append(p3, button2);
 			append(button2, t24);
-			append(div16, t25);
-			append(div16, h12);
+			append(div17, t25);
+			append(div17, h12);
 			append(h12, t26);
-			append(div16, t27);
-			append(div16, hr0);
-			append(div16, t28);
-			append(div16, div11);
-			append(div16, t31);
-			append(div16, div15);
+			append(div17, t27);
+			append(div17, hr0);
+			append(div17, t28);
+			append(div17, div11);
+			append(div17, t31);
+			append(div17, div15);
 			append(div15, div13);
 			append(div15, t33);
 			append(div15, div14);
 			append(div14, input3);
-			append(div16, t34);
-			append(div16, hr1);
-			append(div16, t35);
-			append(div16, button3);
-			append(button3, t36);
-			append(div19, t37);
+			append(div17, t34);
+			append(div17, hr1);
+			append(div17, t35);
+			append(div17, div16);
+			append(div16, p4);
+			append(p4, input4);
+
+			set_input_value(input4, ctx.backupName);
+
+			append(div16, t36);
+			append(div16, p5);
+			append(p5, button3);
+			append(button3, t37);
+			append(div20, t38);
+			append(div20, div19);
 			append(div19, div18);
-			append(div18, div17);
-			append(div17, h13);
-			append(div17, t39);
-			append(div17, h14);
-			append(h14, t40);
+			append(div18, h13);
+			append(div18, t40);
+			append(div18, h14);
 			append(h14, t41);
-			append(div17, t42);
-			append(div17, h15);
-			append(h15, t43);
+			append(h14, t42);
+			append(div18, t43);
+			append(div18, h15);
 			append(h15, t44);
-			append(div17, t45);
-			append(div17, h16);
-			append(h16, t46);
+			append(h15, t45);
+			append(div18, t46);
+			append(div18, h16);
 			append(h16, t47);
-			append(div17, t48);
-			append(div17, h17);
-			append(h17, t49);
-			append(div17, t50);
-			append(div17, hr2);
-			append(div17, t51);
-			append(div17, h18);
-			append(div17, t53);
-			append(div17, h19);
-			append(h19, t54);
+			append(h16, t48);
+			append(div18, t49);
+			append(div18, h17);
+			append(h17, t50);
+			append(div18, t51);
+			append(div18, hr2);
+			append(div18, t52);
+			append(div18, h18);
+			append(div18, t54);
+			append(div18, h19);
 			append(h19, t55);
-			append(div17, t56);
-			append(div17, h110);
-			append(h110, t57);
+			append(h19, t56);
+			append(div18, t57);
+			append(div18, h110);
 			append(h110, t58);
-			append(div17, t59);
-			append(div17, h111);
-			append(h111, t60);
+			append(h110, t59);
+			append(div18, t60);
+			append(div18, h111);
 			append(h111, t61);
-			append(div17, t62);
-			append(div17, h112);
-			append(h112, t63);
+			append(h111, t62);
+			append(div18, t63);
+			append(div18, h112);
 			append(h112, t64);
-			append(div17, t65);
-			append(div17, hr3);
-			append(div17, t66);
-			append(div17, h113);
-			append(div17, t68);
-			append(div17, h114);
-			append(h114, t69);
+			append(h112, t65);
+			append(div18, t66);
+			append(div18, hr3);
+			append(div18, t67);
+			append(div18, h113);
+			append(div18, t69);
+			append(div18, h114);
 			append(h114, t70);
-			append(div17, t71);
-			append(div17, h115);
-			append(h115, t72);
+			append(h114, t71);
+			append(div18, t72);
+			append(div18, h115);
 			append(h115, t73);
-			append(div17, t74);
-			append(div17, h116);
-			append(h116, t75);
+			append(h115, t74);
+			append(div18, t75);
+			append(div18, h116);
 			append(h116, t76);
-			append(div17, t77);
-			append(div17, h117);
-			append(h117, t78);
+			append(h116, t77);
+			append(div18, t78);
+			append(div18, h117);
 			append(h117, t79);
+			append(h117, t80);
 		},
 
 		p(changed, ctx) {
@@ -5199,44 +5219,46 @@ function create_fragment$6(ctx) {
 				set_data(t26, ctx.updateStatus);
 			}
 
+			if (changed.backupName && (input4.value !== ctx.backupName)) set_input_value(input4, ctx.backupName);
+
 			if ((changed.backupClass) && button3_class_value !== (button3_class_value = "button animated " + ctx.backupClass + " svelte-1c4zmtz")) {
 				attr(button3, "class", button3_class_value);
 			}
 
 			if (changed.pythonv) {
-				set_data(t49, ctx.pythonv);
+				set_data(t50, ctx.pythonv);
 			}
 
-			if ((changed.packageJSON) && t55_value !== (t55_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "")) {
-				set_data(t55, t55_value);
+			if ((changed.packageJSON) && t56_value !== (t56_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "")) {
+				set_data(t56, t56_value);
 			}
 
-			if ((changed.packageJSON) && t58_value !== (t58_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
-				set_data(t58, t58_value);
+			if ((changed.packageJSON) && t59_value !== (t59_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
+				set_data(t59, t59_value);
 			}
 
-			if ((changed.packageJSON) && t61_value !== (t61_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
-				set_data(t61, t61_value);
+			if ((changed.packageJSON) && t62_value !== (t62_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
+				set_data(t62, t62_value);
 			}
 
-			if ((changed.packageJSON) && t64_value !== (t64_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
-				set_data(t64, t64_value);
+			if ((changed.packageJSON) && t65_value !== (t65_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
+				set_data(t65, t65_value);
 			}
 
-			if ((changed.packageJSON) && t70_value !== (t70_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
-				set_data(t70, t70_value);
+			if ((changed.packageJSON) && t71_value !== (t71_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
+				set_data(t71, t71_value);
 			}
 
-			if ((changed.packageJSON) && t73_value !== (t73_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
-				set_data(t73, t73_value);
+			if ((changed.packageJSON) && t74_value !== (t74_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
+				set_data(t74, t74_value);
 			}
 
-			if ((changed.packageJSON) && t76_value !== (t76_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
-				set_data(t76, t76_value);
+			if ((changed.packageJSON) && t77_value !== (t77_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
+				set_data(t77, t77_value);
 			}
 
-			if ((changed.packageJSON) && t79_value !== (t79_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
-				set_data(t79, t79_value);
+			if ((changed.packageJSON) && t80_value !== (t80_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
+				set_data(t80, t80_value);
 			}
 		},
 
@@ -5573,7 +5595,7 @@ function instance$6($$self, $$props, $$invalidate) {
             let folders = [_src, _dist, _static, packageFile, rollup, tsconfig];
 
             folders.forEach(folder=>{
-                const _dest = path.resolve(folderName, "FELion_GUI2_backup" , folder.name);
+                const _dest = path.resolve(folderName, backupName , folder.name);
                 copy(folder.path, _dest, {overwrite: true}, function(error, results) {
                     if (error) {
                         console.log('Copy failed: ' + error);
@@ -5611,6 +5633,11 @@ function instance$6($$self, $$props, $$invalidate) {
 
 	const change_handler = (e) => $$invalidate('timeInterval_hr', timeInterval_hr = e.target.value);
 
+	function input4_input_handler() {
+		backupName = this.value;
+		$$invalidate('backupName', backupName);
+	}
+
 	$$self.$set = $$props => {
 		if ('jq' in $$props) $$invalidate('jq', jq = $$props.jq);
 		if ('path' in $$props) $$invalidate('path', path = $$props.path);
@@ -5619,7 +5646,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		if ('electron' in $$props) $$invalidate('electron', electron = $$props.electron);
 	};
 
-	let saveChanges, saveChangeanimate, new_version, checkupdateLoading, updateLoading, updateStatus, currentTime, auto_update_check, backupClass;
+	let saveChanges, saveChangeanimate, new_version, checkupdateLoading, updateLoading, updateStatus, currentTime, auto_update_check, backupClass, backupName;
 
 	$$self.$$.update = ($$dirty = { auto_update_check: 1, timeInterval_hr: 1, check_update_continuously: 1 }) => {
 		if ($$dirty.auto_update_check || $$dirty.timeInterval_hr || $$dirty.check_update_continuously) { if (auto_update_check){ 
@@ -5647,6 +5674,7 @@ function instance$6($$self, $$props, $$invalidate) {
 	$$invalidate('currentTime', currentTime = "");
 	$$invalidate('auto_update_check', auto_update_check = true);
 	$$invalidate('backupClass', backupClass = "is-link");
+	$$invalidate('backupName', backupName = "FELion_GUI_backup");
 
 	return {
 		jq,
@@ -5674,10 +5702,12 @@ function instance$6($$self, $$props, $$invalidate) {
 		currentTime,
 		auto_update_check,
 		backupClass,
+		backupName,
 		input0_input_handler,
 		input1_input_handler,
 		click_handler,
-		change_handler
+		change_handler,
+		input4_input_handler
 	};
 }
 
