@@ -5689,7 +5689,7 @@ function get_each_context$4(ctx, list, i) {
 	return child_ctx;
 }
 
-// (88:10) {#each navigator as {name, target}}
+// (90:10) {#each navigator as {name, target}}
 function create_each_block$4(ctx) {
 	var div, button, t0_value = ctx.name + "", t0, t1, dispose;
 
@@ -5725,7 +5725,7 @@ function create_each_block$4(ctx) {
 }
 
 function create_fragment$8(ctx) {
-	var section, div30, div2, div1, div0, t0, div29, div28, div5, h10, t2, hr0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, input2, input2_updating = false, t6, input3, input3_updating = false, t7, input4, input4_updating = false, t8, hr1, t9, h11, t11, div4, input5, t12, div3, t14, input6, input6_updating = false, t15, input7, input7_updating = false, t16, input8, input8_updating = false, t17, input9, input9_updating = false, t18, div5_class_value, t19, div27, h12, t21, hr2, t22, div18, div8, div7, label1, t24, div6, input10, input10_updating = false, t25, input11, input11_updating = false, t26, div11, div10, label2, t28, div9, input12, input12_updating = false, t29, input13, input13_updating = false, t30, div14, div13, label3, t32, div12, input14, input14_updating = false, t33, div17, div16, label4, t35, div15, input15, input15_updating = false, t36, hr3, t37, div21, h13, t39, div20, input16, t40, div19, t42, div26, div23, label6, t44, div22, input17, input17_updating = false, t45, div25, label7, t47, div24, input18, input18_updating = false, div27_class_value, dispose;
+	var section, div27, div2, div1, div0, t0, div26, div25, div5, h10, t2, hr0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, input2, input2_updating = false, t6, input3, input3_updating = false, t7, input4, input4_updating = false, t8, hr1, t9, h11, t11, div4, input5, t12, div3, t14, input6, input6_updating = false, t15, input7, input7_updating = false, t16, input8, input8_updating = false, t17, input9, input9_updating = false, t18, div5_class_value, t19, div24, h12, t21, hr2, t22, div15, div8, div7, label1, t24, div6, input10, input10_updating = false, t25, input11, input11_updating = false, t26, div11, div10, label2, t28, div9, input12, input12_updating = false, t29, div14, div13, label3, t31, div12, input13, input13_updating = false, t32, hr3, t33, div18, h13, t35, div17, input14, t36, div16, t38, div23, div20, label5, t40, div19, input15, input15_updating = false, t41, div22, label6, t43, div21, input16, input16_updating = false, div24_class_value, dispose;
 
 	let each_value = ctx.navigator;
 
@@ -5800,30 +5800,20 @@ function create_fragment$8(ctx) {
 		ctx.input13_input_handler.call(input13);
 	}
 
-	function input14_input_handler() {
-		input14_updating = true;
-		ctx.input14_input_handler.call(input14);
-	}
-
 	function input15_input_handler() {
 		input15_updating = true;
 		ctx.input15_input_handler.call(input15);
 	}
 
-	function input17_input_handler() {
-		input17_updating = true;
-		ctx.input17_input_handler.call(input17);
-	}
-
-	function input18_input_handler() {
-		input18_updating = true;
-		ctx.input18_input_handler.call(input18);
+	function input16_input_handler() {
+		input16_updating = true;
+		ctx.input16_input_handler.call(input16);
 	}
 
 	return {
 		c() {
 			section = element("section");
-			div30 = element("div");
+			div27 = element("div");
 			div2 = element("div");
 			div1 = element("div");
 			div0 = element("div");
@@ -5833,8 +5823,8 @@ function create_fragment$8(ctx) {
 			}
 
 			t0 = space();
-			div29 = element("div");
-			div28 = element("div");
+			div26 = element("div");
+			div25 = element("div");
 			div5 = element("div");
 			h10 = element("h1");
 			h10.textContent = "Energy Conversion";
@@ -5871,13 +5861,13 @@ function create_fragment$8(ctx) {
 			input9 = element("input");
 			t18 = text("Columb");
 			t19 = space();
-			div27 = element("div");
+			div24 = element("div");
 			h12 = element("h1");
 			h12.textContent = "Number Density Calculation";
 			t21 = space();
 			hr2 = element("hr");
 			t22 = space();
-			div18 = element("div");
+			div15 = element("div");
 			div8 = element("div");
 			div7 = element("div");
 			label1 = element("label");
@@ -5891,55 +5881,45 @@ function create_fragment$8(ctx) {
 			div11 = element("div");
 			div10 = element("div");
 			label2 = element("label");
-			label2.textContent = "Press. Trap";
+			label2.textContent = "Temperature";
 			t28 = space();
 			div9 = element("div");
 			input12 = element("input");
 			t29 = space();
-			input13 = element("input");
-			t30 = space();
 			div14 = element("div");
 			div13 = element("div");
 			label3 = element("label");
-			label3.textContent = "Temperature";
-			t32 = space();
+			label3.textContent = "Number density";
+			t31 = space();
 			div12 = element("div");
-			input14 = element("input");
-			t33 = space();
-			div17 = element("div");
-			div16 = element("div");
-			label4 = element("label");
-			label4.textContent = "Number density";
-			t35 = space();
-			div15 = element("div");
-			input15 = element("input");
-			t36 = space();
+			input13 = element("input");
+			t32 = space();
 			hr3 = element("hr");
-			t37 = space();
-			div21 = element("div");
+			t33 = space();
+			div18 = element("div");
 			h13 = element("h1");
 			h13.textContent = "Constants";
-			t39 = space();
+			t35 = space();
+			div17 = element("div");
+			input14 = element("input");
+			t36 = space();
+			div16 = element("div");
+			div16.innerHTML = `<label>Edit</label>`;
+			t38 = space();
+			div23 = element("div");
 			div20 = element("div");
-			input16 = element("input");
+			label5 = element("label");
+			label5.textContent = "Calibration Factor";
 			t40 = space();
 			div19 = element("div");
-			div19.innerHTML = `<label>Edit</label>`;
-			t42 = space();
-			div26 = element("div");
-			div23 = element("div");
-			label6 = element("label");
-			label6.textContent = "Calibration Factor";
-			t44 = space();
+			input15 = element("input");
+			t41 = space();
 			div22 = element("div");
-			input17 = element("input");
-			t45 = space();
-			div25 = element("div");
-			label7 = element("label");
-			label7.textContent = "Room Temperature";
-			t47 = space();
-			div24 = element("div");
-			input18 = element("input");
+			label6 = element("label");
+			label6.textContent = "Room Temperature";
+			t43 = space();
+			div21 = element("div");
+			input16 = element("input");
 			attr(div0, "class", "level-left");
 			attr(div1, "class", "level");
 			attr(div2, "class", "column box is-11");
@@ -5996,59 +5976,49 @@ function create_fragment$8(ctx) {
 			attr(label2, "class", "label svelte-75l8qt");
 			attr(input12, "class", "input ndensity svelte-75l8qt");
 			attr(input12, "type", "number");
-			attr(input12, "placeholder", "Before");
-			attr(input13, "class", "input ndensity svelte-75l8qt");
-			attr(input13, "type", "number");
-			attr(input13, "placeholder", "After");
+			attr(input12, "placeholder", "Temeprature");
 			attr(div9, "class", "control");
 			attr(div10, "class", "field");
 			attr(div11, "class", "column is-half");
 			attr(label3, "class", "label svelte-75l8qt");
-			attr(input14, "class", "input ndensity svelte-75l8qt");
-			attr(input14, "type", "number");
-			attr(input14, "placeholder", "Temeprature");
+			attr(input13, "class", "input ndensity svelte-75l8qt");
+			attr(input13, "type", "number");
+			attr(input13, "placeholder", "Number density");
+			input13.disabled = true;
 			attr(div12, "class", "control");
 			attr(div13, "class", "field");
 			attr(div14, "class", "column is-half");
-			attr(label4, "class", "label svelte-75l8qt");
-			attr(input15, "class", "input ndensity svelte-75l8qt");
+			attr(div15, "class", "columns is-multiline");
+			attr(h13, "class", "subtitle is-pulled-left");
+			attr(input14, "type", "checkbox");
+			attr(input14, "id", "edit_numberDensity_constants");
+			attr(input14, "class", "svelte-75l8qt");
+			attr(div16, "class", "state p-info p-on");
+			attr(div17, "class", "pretty p-switch p-slim is-pulled-right");
+			attr(div18, "class", "control");
+			attr(label5, "class", "label svelte-75l8qt");
+			attr(input15, "class", "input number_constants svelte-75l8qt");
 			attr(input15, "type", "number");
 			attr(input15, "placeholder", "Number density");
 			input15.disabled = true;
-			attr(div15, "class", "control");
-			attr(div16, "class", "field");
-			attr(div17, "class", "column is-half");
-			attr(div18, "class", "columns is-multiline");
-			attr(h13, "class", "subtitle is-pulled-left");
-			attr(input16, "type", "checkbox");
-			attr(input16, "id", "edit_numberDensity_constants");
-			attr(input16, "class", "svelte-75l8qt");
-			attr(div19, "class", "state p-info p-on");
-			attr(div20, "class", "pretty p-switch p-slim is-pulled-right");
-			attr(div21, "class", "control");
+			attr(div19, "class", "control");
+			attr(div20, "class", "field");
 			attr(label6, "class", "label svelte-75l8qt");
-			attr(input17, "class", "input number_constants svelte-75l8qt");
-			attr(input17, "type", "number");
-			attr(input17, "placeholder", "Number density");
-			input17.disabled = true;
-			attr(div22, "class", "control");
-			attr(div23, "class", "field");
-			attr(label7, "class", "label svelte-75l8qt");
-			attr(input18, "class", "input number_constants svelte-75l8qt");
-			attr(input18, "type", "number");
-			attr(input18, "step", "0.1");
-			attr(input18, "placeholder", "Number density");
-			input18.disabled = true;
-			attr(div24, "class", "control");
-			attr(div25, "class", "field");
-			attr(div26, "class", "control");
-			attr(div27, "class", div27_class_value = "column " + ctx.table_sz + " svelte-75l8qt");
-			attr(div28, "class", "columns is-multiline");
-			attr(div28, "id", "unit_conversion_table");
-			attr(div29, "class", "column is-11 page animated fadeIn svelte-75l8qt");
-			attr(div29, "id", "Converter");
-			set_style(div29, "display", "block");
-			attr(div30, "class", "columns is-centered is-multiline animated fadeIn");
+			attr(input16, "class", "input number_constants svelte-75l8qt");
+			attr(input16, "type", "number");
+			attr(input16, "step", "0.1");
+			attr(input16, "placeholder", "Number density");
+			input16.disabled = true;
+			attr(div21, "class", "control");
+			attr(div22, "class", "field");
+			attr(div23, "class", "control");
+			attr(div24, "class", div24_class_value = "column " + ctx.table_sz + " svelte-75l8qt");
+			attr(div25, "class", "columns is-multiline");
+			attr(div25, "id", "unit_conversion_table");
+			attr(div26, "class", "column is-11 page animated fadeIn svelte-75l8qt");
+			attr(div26, "id", "Converter");
+			set_style(div26, "display", "block");
+			attr(div27, "class", "columns is-centered is-multiline animated fadeIn");
 			attr(section, "class", "section animated fadeIn");
 			set_style(section, "display", "none");
 			attr(section, "id", "Misc");
@@ -6072,18 +6042,16 @@ function create_fragment$8(ctx) {
 				listen(input11, "input", input11_input_handler),
 				listen(input12, "input", input12_input_handler),
 				listen(input13, "input", input13_input_handler),
-				listen(input14, "input", input14_input_handler),
+				listen(input14, "change", ctx.change_handler_5),
 				listen(input15, "input", input15_input_handler),
-				listen(input16, "change", ctx.change_handler_5),
-				listen(input17, "input", input17_input_handler),
-				listen(input18, "input", input18_input_handler)
+				listen(input16, "input", input16_input_handler)
 			];
 		},
 
 		m(target, anchor) {
 			insert(target, section, anchor);
-			append(section, div30);
-			append(div30, div2);
+			append(section, div27);
+			append(div27, div2);
 			append(div2, div1);
 			append(div1, div0);
 
@@ -6091,10 +6059,10 @@ function create_fragment$8(ctx) {
 				each_blocks[i].m(div0, null);
 			}
 
-			append(div30, t0);
-			append(div30, div29);
-			append(div29, div28);
-			append(div28, div5);
+			append(div27, t0);
+			append(div27, div26);
+			append(div26, div25);
+			append(div25, div5);
 			append(div5, h10);
 			append(div5, t2);
 			append(div5, hr0);
@@ -6153,14 +6121,14 @@ function create_fragment$8(ctx) {
 			set_input_value(input9, ctx.electron_charge);
 
 			append(div5, t18);
-			append(div28, t19);
-			append(div28, div27);
-			append(div27, h12);
-			append(div27, t21);
-			append(div27, hr2);
-			append(div27, t22);
-			append(div27, div18);
-			append(div18, div8);
+			append(div25, t19);
+			append(div25, div24);
+			append(div24, h12);
+			append(div24, t21);
+			append(div24, hr2);
+			append(div24, t22);
+			append(div24, div15);
+			append(div15, div8);
 			append(div8, div7);
 			append(div7, label1);
 			append(div7, t24);
@@ -6174,69 +6142,54 @@ function create_fragment$8(ctx) {
 
 			set_input_value(input11, ctx.pq1_after);
 
-			append(div18, t26);
-			append(div18, div11);
+			append(div15, t26);
+			append(div15, div11);
 			append(div11, div10);
 			append(div10, label2);
 			append(div10, t28);
 			append(div10, div9);
 			append(div9, input12);
 
-			set_input_value(input12, ctx.ptrap_before);
+			set_input_value(input12, ctx.temperature);
 
-			append(div9, t29);
-			append(div9, input13);
-
-			set_input_value(input13, ctx.ptrap_after);
-
-			append(div18, t30);
-			append(div18, div14);
+			append(div15, t29);
+			append(div15, div14);
 			append(div14, div13);
 			append(div13, label3);
-			append(div13, t32);
+			append(div13, t31);
 			append(div13, div12);
-			append(div12, input14);
+			append(div12, input13);
 
-			set_input_value(input14, ctx.temperature);
+			set_input_value(input13, ctx.ndensity);
 
-			append(div18, t33);
+			append(div24, t32);
+			append(div24, hr3);
+			append(div24, t33);
+			append(div24, div18);
+			append(div18, h13);
+			append(div18, t35);
 			append(div18, div17);
+			append(div17, input14);
+			append(div17, t36);
 			append(div17, div16);
-			append(div16, label4);
-			append(div16, t35);
-			append(div16, div15);
-			append(div15, input15);
-
-			set_input_value(input15, ctx.ndensity);
-
-			append(div27, t36);
-			append(div27, hr3);
-			append(div27, t37);
-			append(div27, div21);
-			append(div21, h13);
-			append(div21, t39);
-			append(div21, div20);
-			append(div20, input16);
+			append(div24, t38);
+			append(div24, div23);
+			append(div23, div20);
+			append(div20, label5);
 			append(div20, t40);
 			append(div20, div19);
-			append(div27, t42);
-			append(div27, div26);
-			append(div26, div23);
-			append(div23, label6);
-			append(div23, t44);
+			append(div19, input15);
+
+			set_input_value(input15, ctx.calibration_factor);
+
+			append(div23, t41);
 			append(div23, div22);
-			append(div22, input17);
+			append(div22, label6);
+			append(div22, t43);
+			append(div22, div21);
+			append(div21, input16);
 
-			set_input_value(input17, ctx.calibration_factor);
-
-			append(div26, t45);
-			append(div26, div25);
-			append(div25, label7);
-			append(div25, t47);
-			append(div25, div24);
-			append(div24, input18);
-
-			set_input_value(input18, ctx.rt);
+			set_input_value(input16, ctx.rt);
 		},
 
 		p(changed, ctx) {
@@ -6289,21 +6242,17 @@ function create_fragment$8(ctx) {
 			input10_updating = false;
 			if (!input11_updating && changed.pq1_after) set_input_value(input11, ctx.pq1_after);
 			input11_updating = false;
-			if (!input12_updating && changed.ptrap_before) set_input_value(input12, ctx.ptrap_before);
+			if (!input12_updating && changed.temperature) set_input_value(input12, ctx.temperature);
 			input12_updating = false;
-			if (!input13_updating && changed.ptrap_after) set_input_value(input13, ctx.ptrap_after);
+			if (!input13_updating && changed.ndensity) set_input_value(input13, ctx.ndensity);
 			input13_updating = false;
-			if (!input14_updating && changed.temperature) set_input_value(input14, ctx.temperature);
-			input14_updating = false;
-			if (!input15_updating && changed.ndensity) set_input_value(input15, ctx.ndensity);
+			if (!input15_updating && changed.calibration_factor) set_input_value(input15, ctx.calibration_factor);
 			input15_updating = false;
-			if (!input17_updating && changed.calibration_factor) set_input_value(input17, ctx.calibration_factor);
-			input17_updating = false;
-			if (!input18_updating && changed.rt) set_input_value(input18, ctx.rt);
-			input18_updating = false;
+			if (!input16_updating && changed.rt) set_input_value(input16, ctx.rt);
+			input16_updating = false;
 
-			if ((changed.table_sz) && div27_class_value !== (div27_class_value = "column " + ctx.table_sz + " svelte-75l8qt")) {
-				attr(div27, "class", div27_class_value);
+			if ((changed.table_sz) && div24_class_value !== (div24_class_value = "column " + ctx.table_sz + " svelte-75l8qt")) {
+				attr(div24, "class", div24_class_value);
 			}
 		},
 
@@ -6412,45 +6361,36 @@ function instance$7($$self, $$props, $$invalidate) {
 	}
 
 	function input12_input_handler() {
-		ptrap_before = to_number(this.value);
-		$$invalidate('ptrap_before', ptrap_before);
-	}
-
-	function input13_input_handler() {
-		ptrap_after = to_number(this.value);
-		$$invalidate('ptrap_after', ptrap_after);
-	}
-
-	function input14_input_handler() {
 		temperature = to_number(this.value);
 		$$invalidate('temperature', temperature);
 	}
 
-	function input15_input_handler() {
+	function input13_input_handler() {
 		ndensity = to_number(this.value);
-		$$invalidate('ndensity', ndensity), $$invalidate('calibration_factor', calibration_factor), $$invalidate('boltzman_constant', boltzman_constant), $$invalidate('rt', rt), $$invalidate('pq1_after', pq1_after), $$invalidate('pq1_before', pq1_before), $$invalidate('temperature', temperature);
+		$$invalidate('ndensity', ndensity), $$invalidate('ndensity_temp', ndensity_temp), $$invalidate('calibration_factor', calibration_factor), $$invalidate('boltzman_constant', boltzman_constant), $$invalidate('rt', rt), $$invalidate('pq1_after', pq1_after), $$invalidate('pq1_before', pq1_before), $$invalidate('temperature', temperature);
 	}
 
 	const change_handler_5 = (e) => editmode_constants(e, 'number_constants');
 
-	function input17_input_handler() {
+	function input15_input_handler() {
 		calibration_factor = to_number(this.value);
 		$$invalidate('calibration_factor', calibration_factor);
 	}
 
-	function input18_input_handler() {
+	function input16_input_handler() {
 		rt = to_number(this.value);
 		$$invalidate('rt', rt);
 	}
 
-	let table_sz, c, plank_constant, boltzman_constant, electron_charge, hz, eV, kelvin, cm_1, um, pq1_before, pq1_after, ptrap_before, ptrap_after, temperature, calibration_factor, rt, ndensity;
+	let table_sz, c, plank_constant, boltzman_constant, electron_charge, hz, eV, kelvin, cm_1, um, pq1_before, pq1_after, temperature, calibration_factor, rt, ndensity_temp, ndensity;
 
-	$$self.$$.update = ($$dirty = { plank_constant: 1, electron_charge: 1, hz: 1, boltzman_constant: 1, c: 1, calibration_factor: 1, rt: 1, pq1_after: 1, pq1_before: 1, temperature: 1 }) => {
+	$$self.$$.update = ($$dirty = { plank_constant: 1, electron_charge: 1, hz: 1, boltzman_constant: 1, c: 1, calibration_factor: 1, rt: 1, pq1_after: 1, pq1_before: 1, temperature: 1, ndensity_temp: 1 }) => {
 		if ($$dirty.plank_constant || $$dirty.electron_charge || $$dirty.hz) { $$invalidate('eV', eV = (plank_constant/electron_charge) * hz); }
 		if ($$dirty.plank_constant || $$dirty.boltzman_constant || $$dirty.hz) { $$invalidate('kelvin', kelvin = (plank_constant/boltzman_constant) * hz); }
 		if ($$dirty.hz || $$dirty.c) { $$invalidate('cm_1', cm_1 = hz/(c*1e2)); }
 		if ($$dirty.c || $$dirty.hz) { $$invalidate('um', um = (c/hz)*1e+6); }
-		if ($$dirty.calibration_factor || $$dirty.boltzman_constant || $$dirty.rt || $$dirty.pq1_after || $$dirty.pq1_before || $$dirty.temperature) { $$invalidate('ndensity', ndensity = calibration_factor/(boltzman_constant*1e4*rt**0.5) * ((pq1_after - pq1_before) / temperature**0.5)); }
+		if ($$dirty.calibration_factor || $$dirty.boltzman_constant || $$dirty.rt || $$dirty.pq1_after || $$dirty.pq1_before || $$dirty.temperature) { $$invalidate('ndensity_temp', ndensity_temp = calibration_factor/(boltzman_constant*1e4*rt**0.5) * ((pq1_after - pq1_before) / temperature**0.5)); }
+		if ($$dirty.ndensity_temp) { $$invalidate('ndensity', ndensity = ndensity_temp.toExponential(4)); }
 	};
 
 	$$invalidate('table_sz', table_sz  = "is-3 box conversion_table");
@@ -6461,8 +6401,6 @@ function instance$7($$self, $$props, $$invalidate) {
 	$$invalidate('hz', hz = 1e12);
 	$$invalidate('pq1_before', pq1_before = 1e-8);
 	$$invalidate('pq1_after', pq1_after = 1e-5);
-	$$invalidate('ptrap_before', ptrap_before = 1e-10);
-	$$invalidate('ptrap_after', ptrap_after = 1e-5);
 	$$invalidate('temperature', temperature = 5);
 	$$invalidate('calibration_factor', calibration_factor = 205.54);
 	$$invalidate('rt', rt = 300);
@@ -6483,8 +6421,6 @@ function instance$7($$self, $$props, $$invalidate) {
 		um,
 		pq1_before,
 		pq1_after,
-		ptrap_before,
-		ptrap_after,
 		temperature,
 		calibration_factor,
 		rt,
@@ -6507,11 +6443,9 @@ function instance$7($$self, $$props, $$invalidate) {
 		input11_input_handler,
 		input12_input_handler,
 		input13_input_handler,
-		input14_input_handler,
-		input15_input_handler,
 		change_handler_5,
-		input17_input_handler,
-		input18_input_handler
+		input15_input_handler,
+		input16_input_handler
 	};
 }
 

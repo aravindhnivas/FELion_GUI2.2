@@ -52,7 +52,9 @@
   $: calibration_factor = 205.54
 
   $: rt = 300
-  $: ndensity = calibration_factor/(boltzman_constant*1e4*rt**0.5) * ((pq1_after - pq1_before) / temperature**0.5)
+
+  $: ndensity_temp = calibration_factor/(boltzman_constant*1e4*rt**0.5) * ((pq1_after - pq1_before) / temperature**0.5)
+  $: ndensity = ndensity_temp.toExponential(4)
 
 </script>
 
@@ -144,7 +146,7 @@
               </div>
             </div>
 
-            <div class="column is-half">
+            <!-- <div class="column is-half">
               <div class="field">
                 <label class="label">Press. Trap</label>
                 <div class="control">
@@ -152,7 +154,7 @@
                   <input class="input ndensity" bind:value={ptrap_after} type="number" placeholder="After">
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <div class="column is-half">
               <div class="field">
