@@ -5566,14 +5566,14 @@ function instance$6($$self, $$props, $$invalidate) {
             let _src = {path:path.resolve(__dirname, "..", "src"), name:"src"};
             let _static = {path:path.resolve(__dirname, "..", "static"), name:"static"};
             let _dist = {path:path.resolve(__dirname, "..", "dist"), name:"dist"};
-            let packageFile = {path:path.resolve(__dirname, "..", "package.json"), name:""};
-            // let rollup = {path:path.resolve(__dirname, "..", "rollup.config.js"), name:""}
-            // let tsconfig = {path:path.resolve(__dirname, "..", "tsconfig.json"), name:""}
+            let packageFile = {path:path.resolve(__dirname, "..", "package.json"), name:"package.json"};
+            let rollup = {path:path.resolve(__dirname, "..", "rollup.config.js"), name:"rollup.config.js"};
+            let tsconfig = {path:path.resolve(__dirname, "..", "tsconfig.json"), name:"tsconfig.json"};
 
-            let folders = [_src, _dist, _static];
+            let folders = [_src, _dist, _static, packageFile, rollup, tsconfig];
 
             folders.forEach(folder=>{
-                const _dest = path.resolve(folderName, "backup" , folder.name);
+                const _dest = path.resolve(folderName, "FELion_GUI2_backup" , folder.name);
                 copy(folder.path, _dest, {overwrite: true}, function(error, results) {
                     if (error) {
                         console.log('Copy failed: ' + error);
