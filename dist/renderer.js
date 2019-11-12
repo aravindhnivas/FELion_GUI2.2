@@ -5689,7 +5689,7 @@ function get_each_context$4(ctx, list, i) {
 	return child_ctx;
 }
 
-// (119:10) {#each navigator as {name, target}}
+// (65:10) {#each navigator as {name, target}}
 function create_each_block$4(ctx) {
 	var div, button, t0_value = ctx.name + "", t0, t1, dispose;
 
@@ -5815,7 +5815,7 @@ function create_fragment$8(ctx) {
 			h11.textContent = "Fundamental constants";
 			t10 = space();
 			div4 = element("div");
-			div4.innerHTML = `<input type="checkbox" checked id="edit_constants"> <div class="state p-info p-on"><label>Edit</label></div>`;
+			div4.innerHTML = `<input type="checkbox" id="edit_constants"> <div class="state p-info p-on"><label>Edit</label></div>`;
 			t13 = space();
 			input6 = element("input");
 			t14 = text("m/s\r\n          ");
@@ -5846,17 +5846,21 @@ function create_fragment$8(ctx) {
 			attr(input4, "target", "eV");
 			attr(h11, "class", "subtitle is-pulled-left");
 			attr(div4, "class", "pretty p-switch p-slim is-pulled-right");
-			attr(input6, "class", "input svelte-1mluyua");
+			attr(input6, "class", "input fun.constants svelte-1mluyua");
 			attr(input6, "type", "number");
+			input6.disabled = true;
 			attr(input6, "data-tippy", "Speed of light in vaccum");
-			attr(input7, "class", "input svelte-1mluyua");
+			attr(input7, "class", "input fun.constants svelte-1mluyua");
 			attr(input7, "type", "number");
+			input7.disabled = true;
 			attr(input7, "data-tippy", "Boltzman constant");
-			attr(input8, "class", "input svelte-1mluyua");
+			attr(input8, "class", "input fun.constants svelte-1mluyua");
 			attr(input8, "type", "number");
+			input8.disabled = true;
 			attr(input8, "data-tippy", "Plank's constant");
-			attr(input9, "class", "input svelte-1mluyua");
+			attr(input9, "class", "input fun.constants svelte-1mluyua");
 			attr(input9, "type", "number");
+			input9.disabled = true;
 			attr(input9, "data-tippy", "Electric charge");
 			attr(div5, "class", div5_class_value = "column " + ctx.table_sz + " svelte-1mluyua");
 			attr(div6, "class", "columns is-multiline");
@@ -5871,15 +5875,15 @@ function create_fragment$8(ctx) {
 
 			dispose = [
 				listen(input0, "input", input0_input_handler),
-				listen(input0, "keyup", ctx.convert),
 				listen(input1, "input", input1_input_handler),
-				listen(input1, "keyup", ctx.convert),
+				listen(input1, "change", ctx.change_handler),
 				listen(input2, "input", input2_input_handler),
-				listen(input2, "keyup", ctx.convert),
+				listen(input2, "change", ctx.change_handler_1),
 				listen(input3, "input", input3_input_handler),
-				listen(input3, "keyup", ctx.convert),
+				listen(input3, "change", ctx.change_handler_2),
 				listen(input4, "input", input4_input_handler),
-				listen(input4, "keyup", ctx.convert),
+				listen(input4, "change", ctx.change_handler_3),
+				listen(div4, "click", ctx.editmode_constants),
 				listen(input6, "input", input6_input_handler),
 				listen(input7, "input", input7_input_handler),
 				listen(input8, "input", input8_input_handler),
@@ -6036,52 +6040,11 @@ function instance$7($$self, $$props, $$invalidate) {
       pages.filter(page=> page != target_id).forEach(page=>document.getElementById(page).style.display="none");
     };
 
-    const energy_conversion = {
+    const editmode_constants = () => {
 
-      hz:{
-        cm_1: (freq) => freq/(c*1e2),
-        eV: (freq) => (plank_constant/electron_charge) * freq,
-        kelvin: (freq) => (plank_constant/boltzman_constant) * freq,
-        um: (freq) => (c/freq)*1e+6
-      },
-      cm_1:{
-        hz: (cm_1) => cm_1 * 1e-2 * c,
-        eV: (cm_1) => (plank_constant*c*electron_charge) * cm_1 * 1e-2,
-        kelvin: (cm_1) => (plank_constant/boltzman_constant) * c * cm_1 * 1e-2,
-        um: (cm_1) => 1e4/cm_1
-      }
-    };
-
-    const convert = (e) => {
-
-      let target = e.target.getAttribute("target");
-      console.log(target);
-      let value = e.target.value;
-      let fn = energy_conversion[target];
-
-      switch (target) {
-
-        case "hz":
-
-          $$invalidate('cm_1', cm_1 = fn.cm_1(value));
-          $$invalidate('eV', eV = fn.eV(value));
-          $$invalidate('um', um = fn.um(value));
-          $$invalidate('kelvin', kelvin = fn.kelvin(value));
-
-          break;
-
-        case "cm_1":
-
-          $$invalidate('hz', hz = fn.hz(value));
-          $$invalidate('eV', eV = fn.eV(value));
-          $$invalidate('um', um = fn.um(value));
-          $$invalidate('kelvin', kelvin = fn.kelvin(value));
-
-          break;
-      
-        default:
-          break;
-      }
+      let fundamental_constants = Array.from(document.getElementsByClassName("fun.constants"));
+      let status = document.getElementById("edit_constants").checked;
+      fundamental_constants.forEach(input => input.disabled = !status);
     };
 
 	function input0_input_handler() {
@@ -6094,20 +6057,28 @@ function instance$7($$self, $$props, $$invalidate) {
 		$$invalidate('um', um), $$invalidate('c', c), $$invalidate('hz', hz);
 	}
 
+	const change_handler = () => $$invalidate('hz', hz=(c/um)*1e6);
+
 	function input2_input_handler() {
 		cm_1 = to_number(this.value);
 		$$invalidate('cm_1', cm_1), $$invalidate('hz', hz), $$invalidate('c', c);
 	}
+
+	const change_handler_1 = () => $$invalidate('hz', hz=cm_1*c*1e2);
 
 	function input3_input_handler() {
 		kelvin = to_number(this.value);
 		$$invalidate('kelvin', kelvin), $$invalidate('plank_constant', plank_constant), $$invalidate('boltzman_constant', boltzman_constant), $$invalidate('hz', hz);
 	}
 
+	const change_handler_2 = () => $$invalidate('hz', hz=(boltzman_constant/plank_constant)*kelvin);
+
 	function input4_input_handler() {
 		eV = to_number(this.value);
 		$$invalidate('eV', eV), $$invalidate('plank_constant', plank_constant), $$invalidate('electron_charge', electron_charge), $$invalidate('hz', hz);
 	}
+
+	const change_handler_3 = () => $$invalidate('hz', hz=(electron_charge/plank_constant)*eV);
 
 	function input6_input_handler() {
 		c = to_number(this.value);
@@ -6148,7 +6119,7 @@ function instance$7($$self, $$props, $$invalidate) {
 	return {
 		navigator,
 		toggler,
-		convert,
+		editmode_constants,
 		table_sz,
 		c,
 		plank_constant,
@@ -6161,9 +6132,13 @@ function instance$7($$self, $$props, $$invalidate) {
 		um,
 		input0_input_handler,
 		input1_input_handler,
+		change_handler,
 		input2_input_handler,
+		change_handler_1,
 		input3_input_handler,
+		change_handler_2,
 		input4_input_handler,
+		change_handler_3,
 		input6_input_handler,
 		input7_input_handler,
 		input8_input_handler,

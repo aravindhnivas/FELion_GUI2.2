@@ -33,65 +33,11 @@
     $: um = (c/hz)*1e+6;
     const energy_list = ["hz", "um", "kelvin", "cm_1", "eV"]
 
-    const energy_conversion = {
+    const editmode_constants = () => {
 
-      hz:{
-        cm_1: (freq) => freq/(c*1e2),
-        eV: (freq) => (plank_constant/electron_charge) * freq,
-        kelvin: (freq) => (plank_constant/boltzman_constant) * freq,
-        um: (freq) => (c/freq)*1e+6
-      },
-      cm_1:{
-        hz: (cm_1) => cm_1 * 1e-2 * c,
-        eV: (cm_1) => (plank_constant*c*electron_charge) * cm_1 * 1e-2,
-        kelvin: (cm_1) => (plank_constant/boltzman_constant) * c * cm_1 * 1e-2,
-        um: (cm_1) => 1e4/cm_1
-      }
-    }
-
-    const convert = (e) => {
-
-      let target = e.target.getAttribute("target")
-      console.log(target)
-      let value = e.target.value
-      let fn = energy_conversion[target]
-
-      switch (target) {
-
-        case "hz":
-
-          cm_1 = fn.cm_1(value)
-          eV = fn.eV(value)
-          um = fn.um(value)
-          kelvin = fn.kelvin(value)
-
-          break;
-
-        case "cm_1":
-
-          hz = fn.hz(value)
-          eV = fn.eV(value)
-          um = fn.um(value)
-          kelvin = fn.kelvin(value)
-
-          break;
-      
-        default:
-          break;
-      }
-    }
-    function convert_energy() {
-      console.log(`Input received: ${energy_input}`)
-      let formula = energy_input.split(" ")
-      console.log(formula)
-
-      let from_data = parseFloat(formula[0])
-      let from = formula[1];
-      let to = formula[3];
-      let conversion_fn = energy_conversion[from][to]
-
-      let to_data = conversion_fn(from_data)
-      console.log(`Converted: ${to_data}`)
+      let fundamental_constants = Array.from(document.getElementsByClassName("fun.constants"))
+      let status = document.getElementById("edit_constants").checked
+      fundamental_constants.forEach(input => input.disabled = !status)
     }
 
 </script>
@@ -132,24 +78,24 @@
         <div class="column {table_sz}">
 
           <h1 class="title">Energy Conversion</h1>
-          <input class="input" type="number" bind:value={hz} target="hz" on:keyup={convert}>Hz
-          <input class="input" type="number" bind:value={um} target="um" on:keyup={convert}>&mu;m
-          <input class="input" type="number" bind:value={cm_1} target="cm_1" on:keyup={convert}>cm-1
-          <input class="input" type="number" bind:value={kelvin} target="kelvin" on:keyup={convert}>K
-          <input class="input" type="number" bind:value={eV} target="eV" on:keyup={convert}>eV
+          <input class="input" type="number" bind:value={hz} target="hz">Hz
+          <input class="input" type="number" bind:value={um} target="um" on:change="{()=>hz=(c/um)*1e6}">&mu;m
+          <input class="input" type="number" bind:value={cm_1} target="cm_1" on:change="{()=>hz=cm_1*c*1e2}">cm-1
+          <input class="input" type="number" bind:value={kelvin} target="kelvin" on:change="{()=>hz=(boltzman_constant/plank_constant)*kelvin}">K
+          <input class="input" type="number" bind:value={eV} target="eV" on:change="{()=>hz=(electron_charge/plank_constant)*eV}">eV
 
           <hr>
           <h1 class="subtitle is-pulled-left">Fundamental constants</h1>
-          <div class="pretty p-switch p-slim is-pulled-right">
+          <div class="pretty p-switch p-slim is-pulled-right" on:click={editmode_constants}>
               <input type="checkbox" id="edit_constants"/>
               <div class="state p-info p-on">
                   <label>Edit</label>
               </div>
           </div>
-          <input class="input" type="number" bind:value={c} data-tippy="Speed of light in vaccum">m/s
-          <input class="input" type="number" bind:value={boltzman_constant} data-tippy="Boltzman constant">J/K
-          <input class="input" type="number" bind:value={plank_constant} data-tippy="Plank's constant">J.s
-          <input class="input" type="number" bind:value={electron_charge} data-tippy="Electric charge">Columb
+          <input class="input fun.constants" type="number" disabled bind:value={c} data-tippy="Speed of light in vaccum">m/s
+          <input class="input fun.constants" type="number" disabled bind:value={boltzman_constant} data-tippy="Boltzman constant">J/K
+          <input class="input fun.constants" type="number" disabled bind:value={plank_constant} data-tippy="Plank's constant">J.s
+          <input class="input fun.constants" type="number" disabled bind:value={electron_charge} data-tippy="Electric charge">Columb
 
         </div>
         
