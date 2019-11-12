@@ -323,28 +323,32 @@
 
     $: backupName = "FELion_GUI_backup"
 
+    function openFolder() {
+        return new Promise((resolve, reject) => {
+
+            const options = {
+                title: "Browse folder",
+                properties: ["openDirectory"],
+                message: "Browse folder" //For macOS
+
+            }
+            electron.remote.dialog.showOpenDialog(null, options, location => {
+                location === undefined ? reject("No folder selected") : resolve(location[0])
+
+            })
+        })
+    }
+
     const archive = (event) => {
 
         backupClass = "is-loading"
 
-        console.log("Archiving existing software to old.zip")
-        const options = {
-          title: "Browse folder",
-          properties: ["openDirectory"],
-          message: "Browse folder" //For macOS
-        };
+        console.log(`Archiving existing software to ${backupName}.zip`)
 
-        electron.remote.dialog.showOpenDialog(null, options, location => {
+        openFolder()
+        .then(location=>{
 
-          if (location === undefined) {
-
-              backupClass = "is-danger animated shake faster"
-              console.log("No folder selected")
-              setTimeout(()=>backupClass = "is-link", 2000)
-          }
-          else {
-
-            let folderName = location[0]
+            let folderName = location
 
             console.log("Selected folder: ", folderName)
 
@@ -374,14 +378,60 @@
             backupClass = "is-success bounce"
             setTimeout(()=>backupClass = "is-link", 2000)
             
-          }
-        });
-
-        
-        
-        
+        })
+        .catch(err=>{
+            backupClass = "is-danger animated shake faster"
+            console.log(err)
+            setTimeout(()=>backupClass = "is-link", 2000)
+        })
     }
 
+    $: restoreClass = "is-warning"
+    
+
+    const restore = () =>{
+        restoreClass = "is-warning is-loading"
+        console.log(`Restoring existing software to ${__dirname}`)
+        openFolder()
+        .then(location=>{
+
+            let folderName = location
+
+            console.log("Selected folder: ", folderName)
+
+            let _src = {path:path.resolve(folderName, "src"), name:"src"}
+            let _static = {path:path.resolve(folderName, "static"), name:"static"}
+            let _dist = {path:path.resolve(folderName, "dist"), name:"dist"}
+            let packageFile = {path:path.resolve(folderName, "package.json"), name:"package.json"}
+            let rollup = {path:path.resolve(folderName, "rollup.config.js"), name:"rollup.config.js"}
+            let tsconfig = {path:path.resolve(folderName, "tsconfig.json"), name:"tsconfig.json"}
+
+            let folders = [_src, _dist, _static, packageFile, rollup, tsconfig]
+
+            folders.forEach(folder=>{
+                const _dest = path.resolve(__dirname, "..", folder.name)
+                copy(folder.path, _dest, {overwrite: true}, function(error, results) {
+                    if (error) {
+                        console.log('Copy failed: ' + error);
+                    } else {
+                        console.info('Copied ' + results.length + ' files')
+                        console.info('Copied ' + results + ' files')
+                        console.log("Restoring completed")
+                    }
+                })
+                
+            })
+
+            restoreClass = "is-success bounce"
+            setTimeout(()=>restoreClass = "is-link", 2000)
+            
+        })
+        .catch(err=>{
+            restoreClass = "is-danger animated shake faster"
+            console.log(err)
+            setTimeout(()=>restoreClass = "is-link", 2000)
+        })
+    }
 </script>
 
 <style>
@@ -516,6 +566,7 @@
                         <div class="field is-grouped">
                             <p class="control"><input type="text" class="input" bind:value={backupName} data-tippy="Backup folder name"></p>
                             <p class="control"><button class="button animated {backupClass}" on:click={archive} >Backup</button></p>
+                            <p class="control"><button class="button animated {restoreClass}" on:click={restore} >Restore</button></p>
                         </div>
                         
                     </div>
