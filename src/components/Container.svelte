@@ -490,7 +490,8 @@
     }
   }
 
-  let output_filename = "averaged"
+  $: output_filename = "averaged"
+
 </script>
 
 <style>

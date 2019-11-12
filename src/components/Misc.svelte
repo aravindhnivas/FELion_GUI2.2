@@ -199,7 +199,7 @@
             </div>
 
             <div class="field">
-              <label class="label">Room Temperature</label>
+              <label class="label">Chamber Temperature (RT)</label>
               <div class="control">
                 <input class="input number_constants" bind:value={rt} type="number" step="0.1" placeholder="Number density" disabled>
               </div>

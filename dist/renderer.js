@@ -1840,6 +1840,7 @@ class program {
                                     let { range } = data;
                                     window.index = range.x;
                                     console.log(`Index selected: ${window.index}`);
+                                    // document.getElementById("avg_output_name").value = ""
                                 }
                             });
 
@@ -2155,7 +2156,7 @@ function get_each_context_6(ctx, list, i) {
 	return child_ctx;
 }
 
-// (606:14) {#if name === "Exp. Fit"}
+// (607:14) {#if name === "Exp. Fit"}
 function create_if_block_11(ctx) {
 	var div, input, dispose;
 
@@ -2193,7 +2194,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (599:12) {#each funcBtns as { id, name }}
+// (600:12) {#each funcBtns as { id, name }}
 function create_each_block_6(ctx) {
 	var div, t0_value = ctx.name + "", t0, div_id_value, t1, if_block_anchor, dispose;
 
@@ -2259,7 +2260,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (626:18) {:else}
+// (627:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2297,7 +2298,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (624:18) {#if name[0]==="Log"}
+// (625:18) {#if name[0]==="Log"}
 function create_if_block_10(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2335,7 +2336,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (619:12) {#each checkBtns as {id, name, bind, help}}
+// (620:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_5(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -2423,7 +2424,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (638:12) {#if filetag == 'felix'}
+// (639:12) {#if filetag == 'felix'}
 function create_if_block_9(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
@@ -2506,7 +2507,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (666:12) {#if filetag == 'thz'}
+// (667:12) {#if filetag == 'thz'}
 function create_if_block_8(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -2606,7 +2607,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (718:6) {#if filetag=="felix"}
+// (719:6) {#if filetag=="felix"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2727,7 +2728,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (737:6) {#if filetag=="scan"}
+// (738:6) {#if filetag=="scan"}
 function create_if_block_1$1(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2857,7 +2858,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (750:28) {#if folderFile.files != undefined}
+// (751:28) {#if folderFile.files != undefined}
 function create_if_block_6(ctx) {
 	var each_1_anchor;
 
@@ -2920,7 +2921,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (751:31) {#each folderFile.files as scanfile}
+// (752:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2957,7 +2958,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (742:16) {#each ["ResON", "ResOFF"] as name}
+// (743:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3025,7 +3026,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (773:57) 
+// (774:57) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3064,7 +3065,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (771:52) 
+// (772:52) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3103,7 +3104,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (769:50) 
+// (770:50) 
 function create_if_block_3(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3142,7 +3143,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (767:22) {#if name=="Power (ON, OFF)"}
+// (768:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_2(ctx) {
 	var input, dispose;
 
@@ -3175,7 +3176,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (762:16) {#each depletionLabels as {name, id}}
+// (763:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -3233,7 +3234,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (804:12) {:else}
+// (805:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3263,7 +3264,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (798:12) {#if filetag == 'scan'}
+// (799:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3337,7 +3338,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (800:16) {#each fileChecked as scanfile}
+// (801:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3367,7 +3368,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (797:10) {#each plotID as id}
+// (798:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -4298,8 +4299,6 @@ function instance$4($$self, $$props, $$invalidate) {
     }
   };
 
-  let output_filename = "averaged";
-
 	const click_handler = () => $$invalidate('modal', modal[filetag]='', modal);
 
 	const click_handler_1 = () => $$invalidate('modal', modal[filetag]='', modal);
@@ -4385,7 +4384,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		if ('MenuItem' in $$props) $$invalidate('MenuItem', MenuItem = $$props.MenuItem);
 	};
 
-	let plotContainerHeight, fileChecked, fullfiles, theoryfilenames, modal, error_msg, gamma_thz;
+	let plotContainerHeight, fileChecked, fullfiles, theoryfilenames, modal, error_msg, gamma_thz, output_filename;
 
 	$$self.$$.update = ($$dirty = { normMethod: 1, filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1 }) => {
 		if ($$dirty.normMethod) { normMethod == "Relative" ? (normlog = false) : (normlog = true); }
@@ -4401,6 +4400,7 @@ function instance$4($$self, $$props, $$invalidate) {
 	$$invalidate('modal', modal = {mass:"", felix:"", scan:"", thz:""});
 	$$invalidate('error_msg', error_msg = {mass:"", felix:"", scan:"", thz:""});
 	$$invalidate('gamma_thz', gamma_thz = 0);
+	$$invalidate('output_filename', output_filename = "averaged");
 
 	return {
 		id,
@@ -4437,7 +4437,6 @@ function instance$4($$self, $$props, $$invalidate) {
 		depletionLabels,
 		depletionPlot,
 		changeTHz,
-		output_filename,
 		plotContainerHeight,
 		fileChecked,
 		console,
@@ -4445,6 +4444,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		theoryfilenames,
 		modal,
 		error_msg,
+		output_filename,
 		gamma_thz,
 		click_handler,
 		click_handler_1,
@@ -5916,7 +5916,7 @@ function create_fragment$8(ctx) {
 			t41 = space();
 			div22 = element("div");
 			label6 = element("label");
-			label6.textContent = "Room Temperature";
+			label6.textContent = "Chamber Temperature (RT)";
 			t43 = space();
 			div21 = element("div");
 			input16 = element("input");
