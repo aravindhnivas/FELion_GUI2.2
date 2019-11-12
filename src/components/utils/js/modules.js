@@ -225,6 +225,7 @@ class program {
                                     let { range } = data
                                     window.index = range.x
                                     console.log(`Index selected: ${window.index}`)
+                                    // document.getElementById("avg_output_name").value = ""
                                 }
                             })
 
