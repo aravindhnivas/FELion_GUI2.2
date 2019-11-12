@@ -29,6 +29,7 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename="averaged",
     line_freq_fit = model.get_value(uline_freq)
     fwhm = model.get_value(ufwhm)
     amplitude = model.get_value(uamplitude)
+    sigma = model.get_value(usigma)
 
     data = {
 
@@ -44,7 +45,7 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename="averaged",
 
     
     with open(expfile, "a") as f:
-        f.write(f"{uline_freq:.4f}\t{usigma:.4f}\t{ufwhm:.4f}\t{uamplitude:.4f}\n")
+        f.write(f"{line_freq_fit:.4f}\t{uline_freq.std_dev:.4f}\t{sigma:.4f}\t{usigma.std_dev:.4f}\t{fwhm:.4f}\t{ufwhm.std_dev:.4f}\t{amplitude:.4f}\t{uamplitude.std_dev:.4f}\n")
 
     data_tosend = json.dumps(data)
     print(data_tosend)
