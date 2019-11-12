@@ -140,8 +140,8 @@
               <div class="field">
                 <label class="label">Press. Quad I</label>
                 <div class="control">
-                  <input class="input ndensity" bind:value={pq1_before} type="number" placeholder="Before">
-                  <input class="input ndensity" bind:value={pq1_after} type="number" placeholder="After">
+                  <input class="input ndensity" bind:value={pq1_before} type="number" step="0.000000001" placeholder="Before" data-tippy="Before letting in gas">
+                  <input class="input ndensity" bind:value={pq1_after} type="number" step="0.000000001" placeholder="After" data-tippy="After letting in gas">
                 </div>
               </div>
             </div>
@@ -160,7 +160,7 @@
               <div class="field">
                 <label class="label">Temperature</label>
                 <div class="control">
-                  <input class="input ndensity" bind:value={temperature} type="number" placeholder="Temeprature">
+                  <input class="input ndensity" bind:value={temperature} type="number"  placeholder="Temeprature">
                 </div>
               </div>
             </div>
@@ -169,7 +169,7 @@
               <div class="field">
                 <label class="label">Number density</label>
                 <div class="control">
-                  <input class="input ndensity" bind:value={ndensity} type="number" placeholder="Number density" disabled>
+                  <input class="input ndensity" bind:value={ndensity} type="number"  placeholder="Number density" disabled>
                 </div>
               </div>
             </div>

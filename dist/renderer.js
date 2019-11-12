@@ -5966,10 +5966,14 @@ function create_fragment$8(ctx) {
 			attr(label1, "class", "label svelte-75l8qt");
 			attr(input10, "class", "input ndensity svelte-75l8qt");
 			attr(input10, "type", "number");
+			attr(input10, "step", "0.000000001");
 			attr(input10, "placeholder", "Before");
+			attr(input10, "data-tippy", "Before letting in gas");
 			attr(input11, "class", "input ndensity svelte-75l8qt");
 			attr(input11, "type", "number");
+			attr(input11, "step", "0.000000001");
 			attr(input11, "placeholder", "After");
+			attr(input11, "data-tippy", "After letting in gas");
 			attr(div6, "class", "control");
 			attr(div7, "class", "field");
 			attr(div8, "class", "column is-half");
