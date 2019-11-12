@@ -319,10 +319,11 @@
         clearInterval(check_update_continuously)
     }
 
+    $: backupClass = "is-link"
+
     const archive = (event) => {
 
-        let $target = jq(event.target)
-        $target.addClass("is-loading")
+        backupClass = "is-loading"
 
         console.log("Archiving existing software to old.zip")
         const options = {
@@ -335,16 +336,15 @@
 
           if (location === undefined) {
 
-              $target.removeClass("is-loading")
-              return console.log("No folder selected")
+              backupClass = "is-danger animated shake faster"
+              console.log("No folder selected")
+              setTimeout(()=>backupClass = "is-link", 2000)
           }
           else {
 
             let folderName = location[0]
 
             console.log("Selected folder: ", folderName)
-
-            // let zip = new admZip();
 
             let _src = {path:path.resolve(__dirname, "..", "src"), name:"src"}
             let _static = {path:path.resolve(__dirname, "..", "static"), name:"static"}
@@ -363,15 +363,14 @@
                     } else {
                         console.info('Copied ' + results.length + ' files')
                         console.info('Copied ' + results + ' files')
-                        // zip.addLocalFolder(_dest);
-                        // zip.writeZip(path.resolve(path.resolve(folderName, "backup"), "backup.zip"))
                         console.log("Archiving completed")
                     }
                 })
                 
             })
 
-            $target.removeClass("is-loading")
+            backupClass = "is-success bounce"
+            setTimeout(()=>backupClass = "is-link", 2000)
             
           }
         });
@@ -512,7 +511,7 @@
                         </div>
 
                         <hr>
-                        <button class="button is-link animated" on:click={archive} >Backup</button>
+                        <button class="button animated {backupClass}" on:click={archive} >Backup</button>
                     </div>
 
                     

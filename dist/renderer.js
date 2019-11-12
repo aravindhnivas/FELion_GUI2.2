@@ -4720,7 +4720,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (441:20) {#each items as item}
+// (440:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -4753,7 +4753,7 @@ function create_each_block$3(ctx) {
 }
 
 function create_fragment$6(ctx) {
-	var section, div22, div1, aside, div0, t1, ul, t2, div21, div20, div19, div2, t3, t4, div8, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div7, button0, t16, h10, t17, h10_class_value, t18, div16, h11, t19, t20, t21, div9, p2, button1, t22, button1_class_value, t23, p3, button2, t24, button2_class_value, t25, h12, t26, t27, hr0, t28, div11, t31, div15, div13, t33, div14, input3, t34, hr1, t35, button3, t37, div18, div17, h13, t39, h14, t40, t41_value = process.versions.electron + "", t41, t42, h15, t43, t44_value = process.versions.node + "", t44, t45, h16, t46, t47_value = process.versions.chrome + "", t47, t48, h17, t49, t50, hr2, t51, h18, t53, h19, t54, t55_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t55, t56, h110, t57, t58_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t58, t59, h111, t60, t61_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t61, t62, h112, t63, t64_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t64, t65, hr3, t66, h113, t68, h114, t69, t70_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t70, t71, h115, t72, t73_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t73, t74, h116, t75, t76_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t76, t77, h117, t78, t79_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t79, dispose;
+	var section, div22, div1, aside, div0, t1, ul, t2, div21, div20, div19, div2, t3, t4, div8, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div7, button0, t16, h10, t17, h10_class_value, t18, div16, h11, t19, t20, t21, div9, p2, button1, t22, button1_class_value, t23, p3, button2, t24, button2_class_value, t25, h12, t26, t27, hr0, t28, div11, t31, div15, div13, t33, div14, input3, t34, hr1, t35, button3, t36, button3_class_value, t37, div18, div17, h13, t39, h14, t40, t41_value = process.versions.electron + "", t41, t42, h15, t43, t44_value = process.versions.node + "", t44, t45, h16, t46, t47_value = process.versions.chrome + "", t47, t48, h17, t49, t50, hr2, t51, h18, t53, h19, t54, t55_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t55, t56, h110, t57, t58_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t58, t59, h111, t60, t61_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t61, t62, h112, t63, t64_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t64, t65, hr3, t66, h113, t68, h114, t69, t70_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t70, t71, h115, t72, t73_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t73, t74, h116, t75, t76_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t76, t77, h117, t78, t79_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t79, dispose;
 
 	let each_value = ctx.items;
 
@@ -4845,7 +4845,7 @@ function create_fragment$6(ctx) {
 			hr1 = element("hr");
 			t35 = space();
 			button3 = element("button");
-			button3.textContent = "Backup";
+			t36 = text("Backup");
 			t37 = space();
 			div18 = element("div");
 			div17 = element("div");
@@ -4952,7 +4952,7 @@ function create_fragment$6(ctx) {
 			attr(input3, "data-tippy", "Check for update every hour");
 			attr(div14, "class", "control");
 			attr(div15, "class", "field has-addons");
-			attr(button3, "class", "button is-link animated");
+			attr(button3, "class", button3_class_value = "button animated " + ctx.backupClass + " svelte-1c4zmtz");
 			attr(div16, "class", "container");
 			set_style(div16, "display", "none");
 			attr(div16, "id", "Update");
@@ -5087,6 +5087,7 @@ function create_fragment$6(ctx) {
 			append(div16, hr1);
 			append(div16, t35);
 			append(div16, button3);
+			append(button3, t36);
 			append(div19, t37);
 			append(div19, div18);
 			append(div18, div17);
@@ -5196,6 +5197,10 @@ function create_fragment$6(ctx) {
 
 			if (changed.updateStatus) {
 				set_data(t26, ctx.updateStatus);
+			}
+
+			if ((changed.backupClass) && button3_class_value !== (button3_class_value = "button animated " + ctx.backupClass + " svelte-1c4zmtz")) {
+				attr(button3, "class", button3_class_value);
 			}
 
 			if (changed.pythonv) {
@@ -5535,8 +5540,7 @@ function instance$6($$self, $$props, $$invalidate) {
 
     const archive = (event) => {
 
-        let $target = jq(event.target);
-        $target.addClass("is-loading");
+        $$invalidate('backupClass', backupClass = "is-loading");
 
         console.log("Archiving existing software to old.zip");
         const options = {
@@ -5549,16 +5553,15 @@ function instance$6($$self, $$props, $$invalidate) {
 
           if (location === undefined) {
 
-              $target.removeClass("is-loading");
-              return console.log("No folder selected")
+              $$invalidate('backupClass', backupClass = "is-danger animated shake faster");
+              console.log("No folder selected");
+              setTimeout(()=>$$invalidate('backupClass', backupClass = "is-link"), 2000);
           }
           else {
 
             let folderName = location[0];
 
             console.log("Selected folder: ", folderName);
-
-            // let zip = new admZip();
 
             let _src = {path:path.resolve(__dirname, "..", "src"), name:"src"};
             let _static = {path:path.resolve(__dirname, "..", "static"), name:"static"};
@@ -5577,15 +5580,14 @@ function instance$6($$self, $$props, $$invalidate) {
                     } else {
                         console.info('Copied ' + results.length + ' files');
                         console.info('Copied ' + results + ' files');
-                        // zip.addLocalFolder(_dest);
-                        // zip.writeZip(path.resolve(path.resolve(folderName, "backup"), "backup.zip"))
                         console.log("Archiving completed");
                     }
                 });
                 
             });
 
-            $target.removeClass("is-loading");
+            $$invalidate('backupClass', backupClass = "is-success bounce");
+            setTimeout(()=>$$invalidate('backupClass', backupClass = "is-link"), 2000);
             
           }
         });
@@ -5617,7 +5619,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		if ('electron' in $$props) $$invalidate('electron', electron = $$props.electron);
 	};
 
-	let saveChanges, saveChangeanimate, new_version, checkupdateLoading, updateLoading, updateStatus, currentTime, auto_update_check;
+	let saveChanges, saveChangeanimate, new_version, checkupdateLoading, updateLoading, updateStatus, currentTime, auto_update_check, backupClass;
 
 	$$self.$$.update = ($$dirty = { auto_update_check: 1, timeInterval_hr: 1, check_update_continuously: 1 }) => {
 		if ($$dirty.auto_update_check || $$dirty.timeInterval_hr || $$dirty.check_update_continuously) { if (auto_update_check){ 
@@ -5644,6 +5646,7 @@ function instance$6($$self, $$props, $$invalidate) {
 	$$invalidate('updateStatus', updateStatus = "");
 	$$invalidate('currentTime', currentTime = "");
 	$$invalidate('auto_update_check', auto_update_check = true);
+	$$invalidate('backupClass', backupClass = "is-link");
 
 	return {
 		jq,
@@ -5670,6 +5673,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		updateStatus,
 		currentTime,
 		auto_update_check,
+		backupClass,
 		input0_input_handler,
 		input1_input_handler,
 		click_handler,
