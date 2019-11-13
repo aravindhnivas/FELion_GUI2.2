@@ -18,7 +18,7 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename, tkplot=Fal
     wn = read_data[0]
 
     if norm_method == "Log": inten = read_data[1]
-    else: wn = read_data[2]
+    else: inten = read_data[2]
 
     # Getting data from the selected range
     index = np.logical_and(wn > start_wn, wn < end_wn)

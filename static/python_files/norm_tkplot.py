@@ -27,7 +27,7 @@ def main(felixfiles, location, norm_method, index, output_filename="averaged"):
     wn = read_data[0]
 
     if norm_method == "Log": inten = read_data[1]
-    else: wn = read_data[2]
+    else: inten = read_data[2]
     
     ax.plot(wn, inten, "k.-", label="Averaged", zorder=100)
 
