@@ -13,7 +13,12 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename="averaged",
 
     if location.name is "DATA": datfile_location = location.parent/"EXPORT"
     else: datfile_location = location/"EXPORT"
-    wn, inten = np.genfromtxt(f"{datfile_location}/{output_filename}_{norm_method}.dat").T
+    read_data = np.genfromtxt(f"{datfile_location}/{output_filename}.dat").T[:2]
+
+    wn = read_data[0]
+
+    if norm_method == "Log": inten = read_data[1]
+    else: wn = read_data[2]
 
     # Getting data from the selected range
     index = np.logical_and(wn > start_wn, wn < end_wn)
@@ -40,7 +45,7 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename="averaged",
         ]
     }
 
-    filename = f"{output_filename}_{norm_method}.expfit"
+    filename = f"{output_filename}.expfit"
     expfile = datfile_location/filename
 
     
@@ -59,6 +64,7 @@ if __name__ == "__main__":
 
     location = pt(args[-3])
     norm_method = args[-4]
+
     output_filename = args[-5]
     
     exp_fit(location, norm_method, start_wn, end_wn, output_filename)

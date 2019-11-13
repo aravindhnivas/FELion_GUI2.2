@@ -216,7 +216,7 @@ class normplot:
                 "line": {"color": f"rgb{colors[c]}"},
             }
 
-            self.export_file(fname, wavelength, intensity, raw_intensity, relative_depletion, expfit=False)
+            self.export_file(fname, wavelength, intensity, relative_depletion, raw_intensity)
 
             basefile_data = np.array(
                 Create_Baseline(felixfile, self.location,
@@ -277,25 +277,26 @@ class normplot:
             c += 2
 
         binns, intens = self.felix_binning(xs, ys)
-        self.export_file(f"{output_filename}_Log", binns, intens)
+        # self.export_file(f"{output_filename}_Log", binns, intens)
 
         dataToSend["average"]["average"] = {
             "x": list(binns),
             "y": list(intens),
-            "name": "Averaged",
-            "mode": "lines",
+            "name": "averaged",
+            "mode": "lines+markers",
             "line": {"color": "black"},
         }
 
         # For relative
         binns_r, intens_r = self.felix_binning(xs_r, ys_r)
-        self.export_file(f"{output_filename}_Relative", binns_r, intens_r)
+        # self.export_file(f"{output_filename}_Relative", binns_r, intens_r)
+        self.export_file(f"averaged", binns, intens, intens_r)
         
         dataToSend["average_rel"]["average"] = {
             "x": list(binns_r),
             "y": list(intens_r),
-            "name": "Averaged",
-            "mode": "lines",
+            "name": "averaged",
+            "mode": "lines+markers",
             "line": {"color": "black"},
         }
 
@@ -335,22 +336,21 @@ class normplot:
 
         return wavelength, intensity, data[1], relative_depletion
 
-    def export_file(self, fname, wn, inten, raw_intensity=None, relative_depletion=None, expfit=True):
+    def export_file(self, fname, wn, inten, relative_depletion=None, raw_intensity=None):
 
-        f = open('EXPORT/' + fname + '.dat', 'w')
-        if raw_intensity is not None:
-            f.write("#NormalisedWavelength(cm-1)\t#NormalisedIntensity\t#RawIntensity\t#RelativeDepletion(%)\n")
-            for i in range(len(wn)):
-                f.write(f"{wn[i]}\t{inten[i]}\t{raw_intensity[i]}\t{relative_depletion[i]}\n")
-        else:
-            f.write("#NormalisedWavelength(cm-1)\t#AveragedIntensity\n")
-            for i in range(len(wn)):
-                f.write(f"{wn[i]}\t{inten[i]}\n")
-        f.close()
+        with open('EXPORT/' + fname + '.dat', 'w+') as f:
+            if raw_intensity is not None:
+                f.write("#NormalisedWavelength(cm-1)\t#NormalisedIntensity\t#RelativeDepletion(%)\t#RawIntensity\n")
+                for i in range(len(wn)):
+                    f.write(f"{wn[i]}\t{inten[i]}\t{relative_depletion[i]}\t{raw_intensity[i]}\n")
 
-        if expfit:
-            with open('EXPORT/' + fname + '.expfit', 'w+') as f:
-                f.write(f"#Frequency\t#Freq_err\t#Sigma\t#Sigma_err\t#FWHM\t#FWHM_err\t#Amplitude\t#Amplitude_err\n")
+            else:
+                f.write("#NormalisedWavelength(cm-1)\t#NormalisedIntensity\t#RelativeDepletion(%)\n")
+                for i in range(len(wn)):
+                    f.write(f"{wn[i]}\t{inten[i]}\t{relative_depletion[i]}\n")
+
+        with open('EXPORT/' + fname + '.expfit', 'w+') as f:
+            f.write(f"#Frequency\t#Freq_err\t#Sigma\t#Sigma_err\t#FWHM\t#FWHM_err\t#Amplitude\t#Amplitude_err\n")
                 
             
     def felix_binning(self, xs, ys):
