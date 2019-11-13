@@ -344,12 +344,12 @@ class normplot:
 
         with open('EXPORT/' + fname + '.dat', 'w+') as f:
             if raw_intensity is not None:
-                f.write("#NormalisedWavelength(cm-1)\t#NormalisedIntensity\t#RelativeDepletion(%)\t#EnergyPerPhoton\t#RawIntensity\n")
+                f.write("#NormalisedWavelength(cm-1)\t#NormalisedIntensity\t#RelativeDepletion(%)\t#IntensityPerPhoton\t#RawIntensity\n")
                 for i in range(len(wn)):
                     f.write(f"{wn[i]}\t{inten[i]}\t{relative_depletion[i]}\t{energyPerPhoton[i]}\t{raw_intensity[i]}\n")
 
             else:
-                f.write("#NormalisedWavelength(cm-1)\t#NormalisedIntensity\t#RelativeDepletion(%)\t#EnergyPerPhoton\n")
+                f.write("#NormalisedWavelength(cm-1)\t#NormalisedIntensity\t#RelativeDepletion(%)\t#IntensityPerPhoton\n")
                 for i in range(len(wn)):
                     f.write(f"{wn[i]}\t{inten[i]}\t{relative_depletion[i]}\t{energyPerPhoton[i]}\n")
 
