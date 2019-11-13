@@ -92,6 +92,10 @@ class normplot:
         # FELIX Hz
         self.felix_hz = felix_hz
 
+        plank_constant = 6.62607004e-34
+        speed_of_light = 299792458
+        hc = plank_constant * speed_of_light
+
         c = 0
         group = 1
 
@@ -215,8 +219,9 @@ class normplot:
                 "mode": "markers",
                 "line": {"color": f"rgb{colors[c]}"},
             }
-
-            self.export_file(fname, wavelength, intensity, relative_depletion, raw_intensity)
+            
+            energyJ = np.array(wavelength) * np.array(intensity)
+            self.export_file(fname, wavelength, intensity, relative_depletion, energyJ, raw_intensity)
 
             basefile_data = np.array(
                 Create_Baseline(felixfile, self.location,
@@ -277,7 +282,7 @@ class normplot:
             c += 2
 
         binns, intens = self.felix_binning(xs, ys)
-        # self.export_file(f"{output_filename}_Log", binns, intens)
+        energyJ_norm = np.array(binns) * np.array(intens)
 
         dataToSend["average"]["average"] = {
             "x": list(binns),
@@ -289,8 +294,7 @@ class normplot:
 
         # For relative
         binns_r, intens_r = self.felix_binning(xs_r, ys_r)
-        # self.export_file(f"{output_filename}_Relative", binns_r, intens_r)
-        self.export_file(f"averaged", binns, intens, intens_r)
+        self.export_file(f"averaged", binns, intens, intens_r, energyJ_norm)
         
         dataToSend["average_rel"]["average"] = {
             "x": list(binns_r),
@@ -336,18 +340,18 @@ class normplot:
 
         return wavelength, intensity, data[1], relative_depletion
 
-    def export_file(self, fname, wn, inten, relative_depletion=None, raw_intensity=None):
+    def export_file(self, fname, wn, inten, relative_depletion, energyPerPhoton, raw_intensity=None):
 
         with open('EXPORT/' + fname + '.dat', 'w+') as f:
             if raw_intensity is not None:
-                f.write("#NormalisedWavelength(cm-1)\t#NormalisedIntensity\t#RelativeDepletion(%)\t#RawIntensity\n")
+                f.write("#NormalisedWavelength(cm-1)\t#NormalisedIntensity\t#RelativeDepletion(%)\t#EnergyPerPhoton\t#RawIntensity\n")
                 for i in range(len(wn)):
-                    f.write(f"{wn[i]}\t{inten[i]}\t{relative_depletion[i]}\t{raw_intensity[i]}\n")
+                    f.write(f"{wn[i]}\t{inten[i]}\t{relative_depletion[i]}\t{energyPerPhoton[i]}\t{raw_intensity[i]}\n")
 
             else:
-                f.write("#NormalisedWavelength(cm-1)\t#NormalisedIntensity\t#RelativeDepletion(%)\n")
+                f.write("#NormalisedWavelength(cm-1)\t#NormalisedIntensity\t#RelativeDepletion(%)\t#EnergyPerPhoton\n")
                 for i in range(len(wn)):
-                    f.write(f"{wn[i]}\t{inten[i]}\t{relative_depletion[i]}\n")
+                    f.write(f"{wn[i]}\t{inten[i]}\t{relative_depletion[i]}\t{energyPerPhoton[i]}\n")
 
         expfitFile = pt(f"./EXPORT/{fname}.expfit")
 
