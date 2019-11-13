@@ -37,7 +37,7 @@ colors = [
 def gaussian(x, A, sig, center):
     return A*np.exp(-0.5*((x-center)/sig)**2)
 
-def exp_theory(theoryfiles, location, norm_method, sigma, scale, output_filename, tkplot):
+def exp_theory(theoryfiles, location, norm_method, sigma, scale, tkplot, output_filename="averaged"):
 
     location = pt(location)
 
@@ -51,9 +51,14 @@ def exp_theory(theoryfiles, location, norm_method, sigma, scale, output_filename
 
     if location.name is "DATA": datfile_location = location.parent/"EXPORT"
     else: datfile_location = location/"EXPORT"
-    avgfile = datfile_location/f"{output_filename}_{norm_method}.dat"
-    # print(avgfile, avgfile.exists())
-    xs, ys = np.genfromtxt(avgfile).T
+    avgfile = datfile_location/f"{output_filename}.dat"
+
+    read_data = np.genfromtxt(avgfile).T[:2]
+    xs = read_data[0]
+
+    if norm_method == "Log": ys = read_data[1]
+    else: ys = read_data[2]
+    # xs, ys = np.genfromtxt(avgfile).T
 
     if tkplot:
         ax.plot(xs, ys, "k-", label="Experiment")
@@ -116,6 +121,6 @@ if __name__ == "__main__":
     sigma = float(args[-4])
     norm_method = args[-5]
 
-    output_filename = args[-6]
+    # output_filename = args[-6]
     # print(output_filename)
-    exp_theory(theoryfiles, location, norm_method, sigma, scale, output_filename, tkplot)
+    exp_theory(theoryfiles, location, norm_method, sigma, scale, tkplot)
