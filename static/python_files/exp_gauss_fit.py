@@ -13,7 +13,7 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename, tkplot=Fal
 
     if location.name is "DATA": datfile_location = location.parent/"EXPORT"
     else: datfile_location = location/"EXPORT"
-    read_data = np.genfromtxt(f"{datfile_location}/{output_filename}.dat").T[:2]
+    read_data = np.genfromtxt(f"{datfile_location}/{output_filename}.dat").T
 
     wn = read_data[0]
 

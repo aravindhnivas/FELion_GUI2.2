@@ -53,7 +53,7 @@ def exp_theory(theoryfiles, location, norm_method, sigma, scale, tkplot, output_
     else: datfile_location = location/"EXPORT"
     avgfile = datfile_location/f"{output_filename}.dat"
 
-    read_data = np.genfromtxt(avgfile).T[:2]
+    read_data = np.genfromtxt(avgfile).T
     xs = read_data[0]
 
     if norm_method == "Log": ys = read_data[1]

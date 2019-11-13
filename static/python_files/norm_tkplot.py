@@ -22,7 +22,7 @@ def main(felixfiles, location, norm_method, index, output_filename="averaged"):
     datfiles = [dat_location/f"{filename.stem}.dat" for filename in felixfiles]
 
     avgfile = dat_location/f"{output_filename}.dat"
-    read_data = np.genfromtxt(avgfile).T[:2]
+    read_data = np.genfromtxt(avgfile).T
 
     wn = read_data[0]
 
