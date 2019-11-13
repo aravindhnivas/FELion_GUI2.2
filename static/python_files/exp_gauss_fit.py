@@ -9,7 +9,7 @@ import numpy as np
 # FELion module
 from FELion_definitions import gauss_fit
 
-def exp_fit(location, norm_method, start_wn, end_wn, output_filename="averaged", tkplot=False):
+def exp_fit(location, norm_method, start_wn, end_wn, output_filename, tkplot=False):
 
     if location.name is "DATA": datfile_location = location.parent/"EXPORT"
     else: datfile_location = location/"EXPORT"

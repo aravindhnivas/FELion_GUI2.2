@@ -247,8 +247,9 @@
     let btname = event.target.id;
 
     console.log(`Button clicked (id): ${btname}`)
-
     if (btname === "createBaselineBtn"){btname="felix_Matplotlib"}
+
+    let output_filename = document.getElementById("avg_output_name").value
     
 
     switch (btname) {
@@ -426,7 +427,7 @@
   }
 
   function runtheory({tkplot="run", filetype="theory"}) {
-
+    let output_filename = document.getElementById("avg_output_name").value
     runPlot({fullfiles: theoryfiles, filetype: filetype, filetag:filetag,
       btname: "appendTheory", pyfile: "theory.py", args: [output_filename, normMethod, sigma, scale, currentLocation, tkplot] });
   }
@@ -490,7 +491,7 @@
     }
   }
 
-  $: output_filename = "averaged"
+  let output_filename =  "Averaged";
 
 </script>
 

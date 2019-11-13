@@ -230,6 +230,7 @@ class program {
                                     console.log(`Selected file: ${window.filename}`)
                                     console.log(`Index selected: ${window.index}`)
                                     document.getElementById("avg_output_name").value = filename
+                                    // window.outputFile = filename
 
                                 }
                             })

@@ -349,8 +349,12 @@ class normplot:
                 for i in range(len(wn)):
                     f.write(f"{wn[i]}\t{inten[i]}\t{relative_depletion[i]}\n")
 
-        with open('EXPORT/' + fname + '.expfit', 'w+') as f:
-            f.write(f"#Frequency\t#Freq_err\t#Sigma\t#Sigma_err\t#FWHM\t#FWHM_err\t#Amplitude\t#Amplitude_err\n")
+        expfitFile = pt(f"./EXPORT/{fname}.expfit")
+
+        if not expfitFile.exists():
+            
+            with open(expfitFile, 'w+') as f:
+                f.write(f"#Frequency\t#Freq_err\t#Sigma\t#Sigma_err\t#FWHM\t#FWHM_err\t#Amplitude\t#Amplitude_err\n")
                 
             
     def felix_binning(self, xs, ys):
