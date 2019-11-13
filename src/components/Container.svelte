@@ -280,11 +280,15 @@
       
       break;
 
+
       case "exp_fit":
+
+        let expfit_overwrite = document.getElementById("overwrite_expfit").checked
+        console.log("Expfit overwrite: ", expfit_overwrite)
         console.log(`Avgplot Index: ${window.index}`)
         runPlot({
           fullfiles: fullfiles, filetype: "exp_fit", btname: btname,
-          pyfile: "exp_gauss_fit.py", args: [output_filename, normMethod, currentLocation, ...window.index]
+          pyfile: "exp_gauss_fit.py", args: [expfit_overwrite, output_filename, normMethod, currentLocation, ...window.index]
         })
         .then((output)=>{
           console.log(output)
@@ -820,8 +824,14 @@
                   </div>
 
                   <div class="level-item">
-                    <div class="pretty p-switch p-slim" style="margin-left:1em;">
-                        <input type="checkbox" checked id="overwrite_expfit"/>
+
+                    <div class="level-item button hvr-glow funcBtn is-link animated"
+                      id="exp_fit" on:click={functionRun}>Exp. Fit
+                    </div>
+                  </div>
+                  <div class="level-item">
+                    <div class="pretty p-switch p-slim" style="margin-left:1em;" data-tippy="Overwrite existing expfit file with only new values ? or else will append to existing file">
+                        <input type="checkbox" id="overwrite_expfit"/>
                         <div class="state p-info p-on">
                             <label>Overwrite</label>
                         </div>

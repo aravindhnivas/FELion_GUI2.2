@@ -9,7 +9,7 @@ import numpy as np
 # FELion module
 from FELion_definitions import gauss_fit
 
-def exp_fit(location, norm_method, start_wn, end_wn, output_filename, tkplot=False):
+def exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite=False, tkplot=False):
 
     if location.name is "DATA": datfile_location = location.parent/"EXPORT"
     else: datfile_location = location/"EXPORT"
@@ -48,10 +48,15 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename, tkplot=Fal
     filename = f"{output_filename}.expfit"
     expfile = datfile_location/filename
 
-    
-    with open(expfile, "a") as f:
-        f.write(f"{line_freq_fit:.4f}\t{uline_freq.std_dev:.4f}\t{sigma:.4f}\t{usigma.std_dev:.4f}\t{fwhm:.4f}\t{ufwhm.std_dev:.4f}\t{amplitude:.4f}\t{uamplitude.std_dev:.4f}\n")
+    if overwrite:
+        with open(expfile, "w") as f:
+            f.write(f"#Frequency\t#Freq_err\t#Sigma\t#Sigma_err\t#FWHM\t#FWHM_err\t#Amplitude\t#Amplitude_err\n")
+            f.write(f"{line_freq_fit:.4f}\t{uline_freq.std_dev:.4f}\t{sigma:.4f}\t{usigma.std_dev:.4f}\t{fwhm:.4f}\t{ufwhm.std_dev:.4f}\t{amplitude:.4f}\t{uamplitude.std_dev:.4f}\n")
+    else:
+        with open(expfile, "a") as f:
+            f.write(f"{line_freq_fit:.4f}\t{uline_freq.std_dev:.4f}\t{sigma:.4f}\t{usigma.std_dev:.4f}\t{fwhm:.4f}\t{ufwhm.std_dev:.4f}\t{amplitude:.4f}\t{uamplitude.std_dev:.4f}\n")
 
+    
     data_tosend = json.dumps(data)
     print(data_tosend)
 
@@ -66,5 +71,8 @@ if __name__ == "__main__":
     norm_method = args[-4]
 
     output_filename = args[-5]
+    overwrite = args[-6]
+    if overwrite == "true": overwrite = True
+    else: overwrite = False
     
-    exp_fit(location, norm_method, start_wn, end_wn, output_filename)
+    exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite)
