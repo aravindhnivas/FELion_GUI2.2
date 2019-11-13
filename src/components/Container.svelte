@@ -268,6 +268,8 @@
         })
         .then((output)=>{
           console.log(output)
+
+          expfitDiv = "block"
         })
 
         .catch((err)=>{
@@ -492,7 +494,7 @@
   }
 
   let output_filename =  "Averaged";
-
+  $: expfitDiv = "none"
 </script>
 
 <style>
@@ -605,7 +607,7 @@
                 {name}
               </div>
 
-              {#if name === "Exp. Fit"}
+              <!-- {#if name === "Exp. Fit"}
                 <div class="level-item" >
                   <input
                   class="input"
@@ -615,7 +617,7 @@
                   data-tippy="Averaged spectra output filename"
                   bind:value={output_filename}/>
                 </div>
-              {/if}
+              {/if} -->
             {/each}
 
             {#each checkBtns as {id, name, bind, help}}
@@ -803,6 +805,31 @@
                   <div id="{scanfile}_tplot" style="padding-bottom:1em" />
                 {/each}
               </div>
+
+            {:else if id == 'avgplot'}
+
+              <div {id} style="padding-bottom:1em" />
+
+
+              <div class="level" style="display:{expfitDiv}">
+                <div class="level-left">
+
+                  <div class="level-item">
+                    <input class="input" type="text" id="avg_output_name" placeholder="Averaged spectra output filename"
+                      data-tippy="Averaged spectra output filename" bind:value={output_filename} />
+                  </div>
+
+                  <div class="level-item">
+                    <div class="pretty p-switch p-slim" style="margin-left:1em;">
+                        <input type="checkbox" checked id="overwrite_expfit"/>
+                        <div class="state p-info p-on">
+                            <label>Overwrite</label>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
             {:else}
               <div {id} style="padding-bottom:1em" />
             {/if}

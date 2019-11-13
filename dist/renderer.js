@@ -2162,57 +2162,14 @@ function get_each_context_6(ctx, list, i) {
 	return child_ctx;
 }
 
-// (608:14) {#if name === "Exp. Fit"}
-function create_if_block_11(ctx) {
-	var div, input, dispose;
-
-	return {
-		c() {
-			div = element("div");
-			input = element("input");
-			attr(input, "class", "input");
-			attr(input, "type", "text");
-			attr(input, "id", "avg_output_name");
-			attr(input, "placeholder", "Averaged spectra output filename");
-			attr(input, "data-tippy", "Averaged spectra output filename");
-			attr(div, "class", "level-item");
-			dispose = listen(input, "input", ctx.input_input_handler);
-		},
-
-		m(target, anchor) {
-			insert(target, div, anchor);
-			append(div, input);
-
-			set_input_value(input, ctx.output_filename);
-		},
-
-		p(changed, ctx) {
-			if (changed.output_filename && (input.value !== ctx.output_filename)) set_input_value(input, ctx.output_filename);
-		},
-
-		d(detaching) {
-			if (detaching) {
-				detach(div);
-			}
-
-			dispose();
-		}
-	};
-}
-
-// (601:12) {#each funcBtns as { id, name }}
+// (603:12) {#each funcBtns as { id, name }}
 function create_each_block_6(ctx) {
-	var div, t0_value = ctx.name + "", t0, div_id_value, t1, if_block_anchor, dispose;
-
-	var if_block = (ctx.name === "Exp. Fit") && create_if_block_11(ctx);
+	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
 	return {
 		c() {
 			div = element("div");
-			t0 = text(t0_value);
-			t1 = space();
-			if (if_block) if_block.c();
-			if_block_anchor = empty();
+			t = text(t_value);
 			attr(div, "class", "level-item button hvr-glow funcBtn is-link animated svelte-1z8f7");
 			attr(div, "id", div_id_value = ctx.id);
 			dispose = listen(div, "click", ctx.functionRun);
@@ -2220,45 +2177,22 @@ function create_each_block_6(ctx) {
 
 		m(target, anchor) {
 			insert(target, div, anchor);
-			append(div, t0);
-			insert(target, t1, anchor);
-			if (if_block) if_block.m(target, anchor);
-			insert(target, if_block_anchor, anchor);
+			append(div, t);
 		},
 
 		p(changed, ctx) {
-			if ((changed.funcBtns) && t0_value !== (t0_value = ctx.name + "")) {
-				set_data(t0, t0_value);
+			if ((changed.funcBtns) && t_value !== (t_value = ctx.name + "")) {
+				set_data(t, t_value);
 			}
 
 			if ((changed.funcBtns) && div_id_value !== (div_id_value = ctx.id)) {
 				attr(div, "id", div_id_value);
-			}
-
-			if (ctx.name === "Exp. Fit") {
-				if (if_block) {
-					if_block.p(changed, ctx);
-				} else {
-					if_block = create_if_block_11(ctx);
-					if_block.c();
-					if_block.m(if_block_anchor.parentNode, if_block_anchor);
-				}
-			} else if (if_block) {
-				if_block.d(1);
-				if_block = null;
 			}
 		},
 
 		d(detaching) {
 			if (detaching) {
 				detach(div);
-				detach(t1);
-			}
-
-			if (if_block) if_block.d(detaching);
-
-			if (detaching) {
-				detach(if_block_anchor);
 			}
 
 			dispose();
@@ -2266,7 +2200,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (628:18) {:else}
+// (630:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2304,8 +2238,8 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (626:18) {#if name[0]==="Log"}
-function create_if_block_10(ctx) {
+// (628:18) {#if name[0]==="Log"}
+function create_if_block_11(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
 	return {
@@ -2342,12 +2276,12 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (621:12) {#each checkBtns as {id, name, bind, help}}
+// (623:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_5(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
 	function select_block_type(changed, ctx) {
-		if (ctx.name[0]==="Log") return create_if_block_10;
+		if (ctx.name[0]==="Log") return create_if_block_11;
 		return create_else_block_1$1;
 	}
 
@@ -2430,13 +2364,13 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (640:12) {#if filetag == 'felix'}
-function create_if_block_9(ctx) {
+// (642:12) {#if filetag == 'felix'}
+function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
 
-	function input_input_handler_1() {
+	function input_input_handler() {
 		input_updating = true;
-		ctx.input_input_handler_1.call(input);
+		ctx.input_input_handler.call(input);
 	}
 
 	return {
@@ -2474,7 +2408,7 @@ function create_if_block_9(ctx) {
 
 			dispose = [
 				listen(select, "change", ctx.select_change_handler),
-				listen(input, "input", input_input_handler_1),
+				listen(input, "input", input_input_handler),
 				listen(input, "keyup", ctx.changeDelta)
 			];
 		},
@@ -2513,8 +2447,8 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (668:12) {#if filetag == 'thz'}
-function create_if_block_8(ctx) {
+// (670:12) {#if filetag == 'thz'}
+function create_if_block_9(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
 	function input0_input_handler() {
@@ -2613,8 +2547,8 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (720:6) {#if filetag=="felix"}
-function create_if_block_7(ctx) {
+// (722:6) {#if filetag=="felix"}
+function create_if_block_8(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
 	function input0_input_handler_1() {
@@ -2734,8 +2668,8 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (739:6) {#if filetag=="scan"}
-function create_if_block_1$1(ctx) {
+// (741:6) {#if filetag=="scan"}
+function create_if_block_2(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
 	let each_value_3 = ["ResON", "ResOFF"];
@@ -2864,8 +2798,8 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (752:28) {#if folderFile.files != undefined}
-function create_if_block_6(ctx) {
+// (754:28) {#if folderFile.files != undefined}
+function create_if_block_7(ctx) {
 	var each_1_anchor;
 
 	let each_value_4 = ctx.folderFile.files;
@@ -2927,7 +2861,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (753:31) {#each folderFile.files as scanfile}
+// (755:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2964,11 +2898,11 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (744:16) {#each ["ResON", "ResOFF"] as name}
+// (746:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
-	var if_block = (ctx.folderFile.files != ctx.undefined) && create_if_block_6(ctx);
+	var if_block = (ctx.folderFile.files != ctx.undefined) && create_if_block_7(ctx);
 
 	return {
 		c() {
@@ -3012,7 +2946,7 @@ function create_each_block_3(ctx) {
 				if (if_block) {
 					if_block.p(changed, ctx);
 				} else {
-					if_block = create_if_block_6(ctx);
+					if_block = create_if_block_7(ctx);
 					if_block.c();
 					if_block.m(select, null);
 				}
@@ -3032,13 +2966,13 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (775:57) 
-function create_if_block_5(ctx) {
+// (777:57) 
+function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
-	function input_input_handler_5() {
+	function input_input_handler_4() {
 		input_updating = true;
-		ctx.input_input_handler_5.call(input);
+		ctx.input_input_handler_4.call(input);
 	}
 
 	return {
@@ -3047,7 +2981,7 @@ function create_if_block_5(ctx) {
 			attr(input, "class", "input svelte-1z8f7");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
-			dispose = listen(input, "input", input_input_handler_5);
+			dispose = listen(input, "input", input_input_handler_4);
 		},
 
 		m(target, anchor) {
@@ -3071,13 +3005,13 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (773:52) 
-function create_if_block_4(ctx) {
+// (775:52) 
+function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
-	function input_input_handler_4() {
+	function input_input_handler_3() {
 		input_updating = true;
-		ctx.input_input_handler_4.call(input);
+		ctx.input_input_handler_3.call(input);
 	}
 
 	return {
@@ -3086,7 +3020,7 @@ function create_if_block_4(ctx) {
 			attr(input, "class", "input svelte-1z8f7");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
-			dispose = listen(input, "input", input_input_handler_4);
+			dispose = listen(input, "input", input_input_handler_3);
 		},
 
 		m(target, anchor) {
@@ -3110,13 +3044,13 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (771:50) 
-function create_if_block_3(ctx) {
+// (773:50) 
+function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
-	function input_input_handler_3() {
+	function input_input_handler_2() {
 		input_updating = true;
-		ctx.input_input_handler_3.call(input);
+		ctx.input_input_handler_2.call(input);
 	}
 
 	return {
@@ -3125,7 +3059,7 @@ function create_if_block_3(ctx) {
 			attr(input, "class", "input svelte-1z8f7");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
-			dispose = listen(input, "input", input_input_handler_3);
+			dispose = listen(input, "input", input_input_handler_2);
 		},
 
 		m(target, anchor) {
@@ -3149,8 +3083,8 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (769:22) {#if name=="Power (ON, OFF)"}
-function create_if_block_2(ctx) {
+// (771:22) {#if name=="Power (ON, OFF)"}
+function create_if_block_3(ctx) {
 	var input, dispose;
 
 	return {
@@ -3159,7 +3093,7 @@ function create_if_block_2(ctx) {
 			attr(input, "class", "input svelte-1z8f7");
 			attr(input, "type", "text");
 			attr(input, "id", ctx.id);
-			dispose = listen(input, "input", ctx.input_input_handler_2);
+			dispose = listen(input, "input", ctx.input_input_handler_1);
 		},
 
 		m(target, anchor) {
@@ -3182,15 +3116,15 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (764:16) {#each depletionLabels as {name, id}}
+// (766:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
 	function select_block_type_1(changed, ctx) {
-		if (ctx.name=="Power (ON, OFF)") return create_if_block_2;
-		if (ctx.name=="FELIX Hz") return create_if_block_3;
-		if (ctx.name=="Mass Index") return create_if_block_4;
-		if (ctx.name=="TimeStart Index") return create_if_block_5;
+		if (ctx.name=="Power (ON, OFF)") return create_if_block_3;
+		if (ctx.name=="FELIX Hz") return create_if_block_4;
+		if (ctx.name=="Mass Index") return create_if_block_5;
+		if (ctx.name=="TimeStart Index") return create_if_block_6;
 	}
 
 	var current_block_type = select_block_type_1(null, ctx);
@@ -3240,7 +3174,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (806:12) {:else}
+// (833:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3270,7 +3204,78 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (800:12) {#if filetag == 'scan'}
+// (809:38) 
+function create_if_block_1$1(ctx) {
+	var div0, div0_id_value, t0, div6, div5, div1, input, t1, div4, t4, dispose;
+
+	return {
+		c() {
+			div0 = element("div");
+			t0 = space();
+			div6 = element("div");
+			div5 = element("div");
+			div1 = element("div");
+			input = element("input");
+			t1 = space();
+			div4 = element("div");
+			div4.innerHTML = `<div class="pretty p-switch p-slim" style="margin-left:1em;"><input type="checkbox" checked id="overwrite_expfit"> <div class="state p-info p-on"><label class="svelte-1z8f7">Overwrite</label></div></div>`;
+			t4 = space();
+			attr(div0, "id", div0_id_value = ctx.id);
+			set_style(div0, "padding-bottom", "1em");
+			attr(div0, "class", "svelte-1z8f7");
+			attr(input, "class", "input");
+			attr(input, "type", "text");
+			attr(input, "id", "avg_output_name");
+			attr(input, "placeholder", "Averaged spectra output filename");
+			attr(input, "data-tippy", "Averaged spectra output filename");
+			attr(div1, "class", "level-item");
+			attr(div4, "class", "level-item");
+			attr(div5, "class", "level-left");
+			attr(div6, "class", "level");
+			set_style(div6, "display", ctx.expfitDiv);
+			dispose = listen(input, "input", ctx.input_input_handler_5);
+		},
+
+		m(target, anchor) {
+			insert(target, div0, anchor);
+			insert(target, t0, anchor);
+			insert(target, div6, anchor);
+			append(div6, div5);
+			append(div5, div1);
+			append(div1, input);
+
+			set_input_value(input, ctx.output_filename);
+
+			append(div5, t1);
+			append(div5, div4);
+			append(div6, t4);
+		},
+
+		p(changed, ctx) {
+			if ((changed.plotID) && div0_id_value !== (div0_id_value = ctx.id)) {
+				attr(div0, "id", div0_id_value);
+			}
+
+			if (changed.output_filename && (input.value !== ctx.output_filename)) set_input_value(input, ctx.output_filename);
+
+			if (changed.expfitDiv) {
+				set_style(div6, "display", ctx.expfitDiv);
+			}
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(div0);
+				detach(t0);
+				detach(div6);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (802:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3344,7 +3349,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (802:16) {#each fileChecked as scanfile}
+// (804:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3374,12 +3379,13 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (799:10) {#each plotID as id}
+// (801:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
 	function select_block_type_2(changed, ctx) {
 		if (ctx.filetag == 'scan') return create_if_block$2;
+		if (ctx.id == 'avgplot') return create_if_block_1$1;
 		return create_else_block$2;
 	}
 
@@ -3450,13 +3456,13 @@ function create_fragment$4(ctx) {
 		each_blocks_1[i] = create_each_block_5(get_each_context_5(ctx, each_value_5, i));
 	}
 
-	var if_block0 = (ctx.filetag == 'felix') && create_if_block_9(ctx);
+	var if_block0 = (ctx.filetag == 'felix') && create_if_block_10(ctx);
 
-	var if_block1 = (ctx.filetag == 'thz') && create_if_block_8(ctx);
+	var if_block1 = (ctx.filetag == 'thz') && create_if_block_9(ctx);
 
-	var if_block2 = (ctx.filetag=="felix") && create_if_block_7(ctx);
+	var if_block2 = (ctx.filetag=="felix") && create_if_block_8(ctx);
 
-	var if_block3 = (ctx.filetag=="scan") && create_if_block_1$1(ctx);
+	var if_block3 = (ctx.filetag=="scan") && create_if_block_2(ctx);
 
 	let each_value = ctx.plotID;
 
@@ -3678,7 +3684,7 @@ function create_fragment$4(ctx) {
 				attr(div5, "data-tippy", div5_data_tippy_value);
 			}
 
-			if (changed.funcBtns || changed.output_filename) {
+			if (changed.funcBtns) {
 				each_value_6 = ctx.funcBtns;
 
 				let i;
@@ -3726,7 +3732,7 @@ function create_fragment$4(ctx) {
 				if (if_block0) {
 					if_block0.p(changed, ctx);
 				} else {
-					if_block0 = create_if_block_9(ctx);
+					if_block0 = create_if_block_10(ctx);
 					if_block0.c();
 					if_block0.m(div9, t14);
 				}
@@ -3739,7 +3745,7 @@ function create_fragment$4(ctx) {
 				if (if_block1) {
 					if_block1.p(changed, ctx);
 				} else {
-					if_block1 = create_if_block_8(ctx);
+					if_block1 = create_if_block_9(ctx);
 					if_block1.c();
 					if_block1.m(div9, null);
 				}
@@ -3752,7 +3758,7 @@ function create_fragment$4(ctx) {
 				if (if_block2) {
 					if_block2.p(changed, ctx);
 				} else {
-					if_block2 = create_if_block_7(ctx);
+					if_block2 = create_if_block_8(ctx);
 					if_block2.c();
 					if_block2.m(div14, t16);
 				}
@@ -3765,7 +3771,7 @@ function create_fragment$4(ctx) {
 				if (if_block3) {
 					if_block3.p(changed, ctx);
 				} else {
-					if_block3 = create_if_block_1$1(ctx);
+					if_block3 = create_if_block_2(ctx);
 					if_block3.c();
 					if_block3.m(div14, t17);
 				}
@@ -3774,7 +3780,7 @@ function create_fragment$4(ctx) {
 				if_block3 = null;
 			}
 
-			if (changed.filetag || changed.plotID || changed.fileChecked) {
+			if (changed.filetag || changed.plotID || changed.fileChecked || changed.expfitDiv || changed.output_filename) {
 				each_value = ctx.plotID;
 
 				let i;
@@ -4085,6 +4091,8 @@ function instance$4($$self, $$props, $$invalidate) {
         })
         .then((output)=>{
           console.log(output);
+
+          $$invalidate('expfitDiv', expfitDiv = "block");
         })
 
         .catch((err)=>{
@@ -4320,11 +4328,6 @@ function instance$4($$self, $$props, $$invalidate) {
 	                  }
 	                };
 
-	function input_input_handler() {
-		output_filename = this.value;
-		$$invalidate('output_filename', output_filename);
-	}
-
 	const click_handler_2 = (e) => {console.log(`Status (${e.target.id}):\n ${e.target.checked}`);};
 
 	function select_change_handler() {
@@ -4332,7 +4335,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		$$invalidate('normMethod', normMethod);
 	}
 
-	function input_input_handler_1() {
+	function input_input_handler() {
 		delta = to_number(this.value);
 		$$invalidate('delta', delta);
 	}
@@ -4359,24 +4362,29 @@ function instance$4($$self, $$props, $$invalidate) {
 
 	const click_handler_3 = () => runtheory({tkplot:"plot", filetype:"general"});
 
-	function input_input_handler_2() {
+	function input_input_handler_1() {
 		powerinfo = this.value;
 		$$invalidate('powerinfo', powerinfo);
 	}
 
-	function input_input_handler_3() {
+	function input_input_handler_2() {
 		nshots = to_number(this.value);
 		$$invalidate('nshots', nshots);
 	}
 
-	function input_input_handler_4() {
+	function input_input_handler_3() {
 		massIndex = to_number(this.value);
 		$$invalidate('massIndex', massIndex);
 	}
 
-	function input_input_handler_5() {
+	function input_input_handler_4() {
 		timestartIndex = to_number(this.value);
 		$$invalidate('timestartIndex', timestartIndex);
+	}
+
+	function input_input_handler_5() {
+		output_filename = this.value;
+		$$invalidate('output_filename', output_filename);
 	}
 
 	$$self.$set = $$props => {
@@ -4393,7 +4401,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		if ('MenuItem' in $$props) $$invalidate('MenuItem', MenuItem = $$props.MenuItem);
 	};
 
-	let plotContainerHeight, fileChecked, fullfiles, theoryfilenames, modal, error_msg, gamma_thz;
+	let plotContainerHeight, fileChecked, fullfiles, theoryfilenames, modal, error_msg, gamma_thz, expfitDiv;
 
 	$$self.$$.update = ($$dirty = { normMethod: 1, filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1 }) => {
 		if ($$dirty.normMethod) { normMethod == "Relative" ? (normlog = false) : (normlog = true); }
@@ -4409,6 +4417,7 @@ function instance$4($$self, $$props, $$invalidate) {
 	$$invalidate('modal', modal = {mass:"", felix:"", scan:"", thz:""});
 	$$invalidate('error_msg', error_msg = {mass:"", felix:"", scan:"", thz:""});
 	$$invalidate('gamma_thz', gamma_thz = 0);
+	$$invalidate('expfitDiv', expfitDiv = "none");
 
 	return {
 		id,
@@ -4453,19 +4462,20 @@ function instance$4($$self, $$props, $$invalidate) {
 		theoryfilenames,
 		modal,
 		error_msg,
+		expfitDiv,
 		gamma_thz,
 		click_handler,
 		click_handler_1,
 		keyup_handler,
-		input_input_handler,
 		click_handler_2,
 		select_change_handler,
-		input_input_handler_1,
+		input_input_handler,
 		input0_input_handler,
 		input1_input_handler,
 		input0_input_handler_1,
 		input1_input_handler_1,
 		click_handler_3,
+		input_input_handler_1,
 		input_input_handler_2,
 		input_input_handler_3,
 		input_input_handler_4,
