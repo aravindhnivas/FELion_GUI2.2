@@ -63,7 +63,7 @@ def var_find(openfile):
     return res, b0, trap
 
 class normplot:
-    def __init__(self, received_files, delta, output_filename="averaged", felix_hz=10):
+    def __init__(self, received_files, delta, output_filename="averaged"):
 
         self.delta = delta
         received_files = [pt(files) for files in received_files]
@@ -89,13 +89,6 @@ class normplot:
         xs_r = np.array([], dtype=np.float)
         ys_r = np.array([], dtype=np.float)
 
-        # FELIX Hz
-        self.felix_hz = felix_hz
-
-        plank_constant = 6.62607004e-34
-        speed_of_light = 299792458
-        hc = plank_constant * speed_of_light
-
         c = 0
         group = 1
 
@@ -103,12 +96,20 @@ class normplot:
 
             res, b0, trap = var_find(filename)
             label = f"Res:{res}; B0: {b0}ms; trap: {trap}ms"
-            self.nshots = (trap/1000) * self.felix_hz
-
+            
             felixfile = filename.name
             fname = filename.stem
             basefile = f"{fname}.base"
             powerfile = f"{fname}.pow"
+            
+            with open(f"./DATA/{powerfile}") as f:
+                for line in f:
+                    if line[0] == "#":
+                        if line.find("Hz") > -1:
+                            felix_hz = int(line.split(" ")[1])
+                            break
+            self.felix_hz = felix_hz
+            self.nshots = (trap/1000) * self.felix_hz
 
             self.filetypes = [felixfile, basefile, powerfile]
 
@@ -139,9 +140,6 @@ class normplot:
             wavelength_rel, relative_depletion = self.felix_binning(
                 wavelength_rel, relative_depletion)
 
-            # self.powerPlot(powerfile, wavelength)
-            ##################################
-
             # Spectrum Analyser
 
             wn, sa = self.saCal.get_data()
@@ -166,8 +164,6 @@ class normplot:
                 "legendgroup": f'group{group}',
             }
             
-            ###############################
-
             dataToSend["felix"][f"{felixfile}_histo"] = {
                 "x": list(wavelength),
                 "y": list(intensity),
@@ -184,7 +180,6 @@ class normplot:
                 "type": "scatter",
                 "line": {"color": f"rgb{colors[c]}"},
             }
-
 
             dataToSend["felix_rel"][f"{felixfile}_histo"] = {
                 "x": list(wavelength_rel),
@@ -359,7 +354,6 @@ class normplot:
             
             with open(expfitFile, 'w+') as f:
                 f.write(f"#Frequency\t#Freq_err\t#Sigma\t#Sigma_err\t#FWHM\t#FWHM_err\t#Amplitude\t#Amplitude_err\n")
-                
             
     def felix_binning(self, xs, ys):
 
@@ -405,20 +399,12 @@ class normplot:
 
         return binsx, data_binned
 
-    def powerPlot(self, powerfile, wavelength):
-        # with open(f"./DATA/{powerfile}") as f:
-        #     for line in f:
-        #         if line[0] == "#":
-        #             if line.find("SHOTS") == 1:
-        #                 self.n_shots = float(line.split("=")[-1])
-
-        # self.xw, self.yw = np.genfromtxt(f"./DATA/{powerfile}").T
-        # self.f = interp1d(self.xw, self.yw, kind="linear",
-        #                   fill_value="extrapolate")
-        self.power_wn = wavelength
-        self.power_mj = self.total_power
-
-        # self.power_mj = self.f(wavelength)
+    def powerfileInfo(self, powerfile):
+        with open(f"./DATA/{powerfile}") as f:
+            for line in f:
+                if line[0] == "#":
+                    if line.find("Hz") == 1:
+                        return int(line.split(" ")[1])
 
 if __name__ == "__main__":
 
