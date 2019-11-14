@@ -162,20 +162,38 @@ class program {
                             plot(`Timescan Plot: ${filename}`, "Time (in ms)", "Counts", dataFromPython, this.obj.plotArea);
                         } else if (this.filetype == "felix") {
                             window.line = []
-                            let normlog = this.obj.normethod;
+                            let normMethod = this.obj.normethod;
                             let delta = this.args[0];
 
                             let felixdataToPlot;
                             let avgdataToPlot;
 
-                            if (normlog) {
+                            let signal_formula;
+                            let ylabel;
+
+                            if (normMethod === "Log") {
 
                                 felixdataToPlot = dataFromPython["felix"];
                                 avgdataToPlot = dataFromPython["average"]
-                            } else {
+
+                                signal_formula = "Signal = -ln(C/B)/Power(in J)"
+                                ylabel = "Normalised Intensity per J"
+
+                            } else if (normMethod == "Relative") {
 
                                 felixdataToPlot = dataFromPython["felix_rel"]
                                 avgdataToPlot = dataFromPython["average_rel"]
+
+                                signal_formula = "Signal = (1-C/B)*100"
+                                ylabel = "Relative Depletion (%)"
+
+                            } else if (normMethod == "IntensityPerPhoton") {
+
+                                felixdataToPlot = dataFromPython["felix_per_photon"]
+                                avgdataToPlot = dataFromPython["average_per_photon"]
+
+                                signal_formula = "Signal = -ln(C/B)/#Photons"
+                                ylabel = "Normalised Intensity per photon"
                             }
 
                             plot(
@@ -186,21 +204,23 @@ class program {
                                 "bplot"
                             );
 
-                            let signal_formula;
+                            // // let signal_formula;
+                            // let normlog;
 
-                            normlog ? signal_formula = "Signal = -ln(C/B)/Power(in J)" : signal_formula = "Signal = (1-C/B)*100";
+                            // normMethod == "Log" ? normlog = true : normlog = false
+                            // normlog ? signal_formula = "Signal = -ln(C/B)/Power(in J)" : signal_formula = "Signal = (1-C/B)*100";
                             // console.log(normlog)
                             plot(
                                 `Normalized Spectrum (delta=${delta})<br>${signal_formula}; {C=Measured Count, B=Baseline Count}`,
                                 "Calibrated Wavelength (cm-1)",
-                                normlog ? "Normalised Intesity" : "Relative depletion (%)",
+                                ylabel,
                                 felixdataToPlot,
                                 "nplot"
                             );
                             plot(
                                 `Average of Normalised Spectrum (delta=${delta})`,
                                 "Calibrated Wavelength (cm-1)",
-                                normlog ? "Normalised Intesity" : "Relative depletion (%)",
+                                ylabel,
                                 avgdataToPlot,
                                 "avgplot"
                             );

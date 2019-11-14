@@ -79,7 +79,7 @@ class normplot:
 
         os.chdir(self.location)
 
-        dataToSend = {"felix": {}, "base": {}, "average": {}, "SA": {}, "pow": {}, "felix_rel": {}, "average_rel": {}}
+        dataToSend = {"felix": {}, "base": {}, "average": {}, "SA": {}, "pow": {}, "felix_rel": {}, "average_rel": {}, "felix_per_photon": {}, "average_per_photon": {}}
 
         # For Average binning (Norm. method: log)
         xs = np.array([], dtype=np.float)
@@ -143,7 +143,10 @@ class normplot:
             wavelength_rel, relative_depletion = self.felix_binning(
                 wavelength_rel, relative_depletion)
 
-            # Spectrum Analyser
+            energyJ = self.inten_per_photon(wavelength, intensity)
+            self.export_file(fname, wavelength, intensity, relative_depletion, energyJ, raw_intensity)
+
+            ################### Spectrum Analyser #################################
 
             wn, sa = self.saCal.get_data()
             X = np.arange(wn.min(), wn.max(), 1)
@@ -167,6 +170,11 @@ class normplot:
                 "legendgroup": f'group{group}',
             }
             
+            ################### Spectrum Analyser END #################################
+
+            ################### FELIX Spectrum #################################
+
+            # Normalised Intensity
             dataToSend["felix"][f"{felixfile}_histo"] = {
                 "x": list(wavelength),
                 "y": list(intensity),
@@ -183,6 +191,8 @@ class normplot:
                 "type": "scatter",
                 "line": {"color": f"rgb{colors[c]}"},
             }
+
+            # Relative Depletion Intensity
 
             dataToSend["felix_rel"][f"{felixfile}_histo"] = {
                 "x": list(wavelength_rel),
@@ -201,6 +211,28 @@ class normplot:
                 "line": {"color": f"rgb{colors[c]}"},
             }
 
+            # Intensity Per photon
+            dataToSend["felix_per_photon"][f"{felixfile}_histo"] = {
+                "x": list(wavelength),
+                "y": list(energyJ),
+                "name": felixfile,
+                "type": "bar",
+                "marker": {"color": f"rgb{colors[c]}"},
+                "legendgroup": 'group',
+            }
+
+            dataToSend["felix_per_photon"][felixfile] = {
+                "x": list(wavelength),
+                "y": list(energyJ),
+                "name": felixfile,
+                "type": "scatter",
+                "line": {"color": f"rgb{colors[c]}"},
+            }
+            ################### FELIX Spectrum END #################################
+
+            ################### Averaged Spectrum #################################
+
+            # Normalised Intensity
 
             dataToSend["average"][felixfile] = {
                 "x": list(wavelength),
@@ -210,6 +242,7 @@ class normplot:
                 "line": {"color": f"rgb{colors[c]}"},
             }
 
+            # Relative Depletion Intensity
             dataToSend["average_rel"][felixfile] = {
                 "x": list(wavelength_rel),
                 "y": list(relative_depletion),
@@ -217,9 +250,16 @@ class normplot:
                 "mode": "markers",
                 "line": {"color": f"rgb{colors[c]}"},
             }
-            
-            energyJ = np.array(wavelength) * np.array(intensity)
-            self.export_file(fname, wavelength, intensity, relative_depletion, energyJ, raw_intensity)
+
+            # Intensitz per photon
+            dataToSend["average_per_photon"][felixfile] = {
+                "x": list(wavelength),
+                "y": list(energyJ),
+                "name": felixfile,
+                "mode": "markers",
+                "line": {"color": f"rgb{colors[c]}"},
+            }
+            ################### Averaged Spectrum END #################################
 
             basefile_data = np.array(
                 Create_Baseline(felixfile, self.location,
@@ -265,23 +305,11 @@ class normplot:
                 "showlegend": True,
             }
 
-            # dataToSend["pow"][f"{powerfile}_"] = {
-            #     "x": list(wavelength),
-            #     "y": list(self.power_measured),
-            #     "mode": "markers",
-            #     "xaxis": "x2",
-            #     "yaxis": "y3",
-            #     "marker": {"color": f"rgb{colors[c]}"},
-            #     "legendgroup": f'group{group}',
-            #     "showlegend": False,
-            # }
-
             group += 1
             c += 2
 
+        # For Normalised Intensity
         binns, intens = self.felix_binning(xs, ys)
-        energyJ_norm = np.array(binns) * np.array(intens)
-
         dataToSend["average"]["average"] = {
             "x": list(binns),
             "y": list(intens),
@@ -290,10 +318,19 @@ class normplot:
             "line": {"color": "black"},
         }
 
+        # For intensityPerPhoton
+        energyJ_norm = self.inten_per_photon(binns, intens)
+        dataToSend["average_per_photon"]["average"] = {
+            "x": list(binns),
+            "y": list(energyJ_norm),
+            "name": "averaged",
+            "mode": "lines+markers",
+            "line": {"color": "black"},
+        }
+
+
         # For relative
         binns_r, intens_r = self.felix_binning(xs_r, ys_r)
-        self.export_file(f"averaged", binns, intens, intens_r, energyJ_norm)
-        
         dataToSend["average_rel"]["average"] = {
             "x": list(binns_r),
             "y": list(intens_r),
@@ -302,10 +339,16 @@ class normplot:
             "line": {"color": "black"},
         }
 
+        # Exporting averaged.dat file
+        self.export_file(f"averaged", binns, intens, intens_r, energyJ_norm)
+        
         # print(f"Before JSON DATA: {dataToSend}")
         dataJson = json.dumps(dataToSend)
         print(dataJson)
         # print("DONE")
+
+
+    def inten_per_photon(self, wn, inten): return (np.array(wn) * np.array(inten)) / 1e3
 
     def norm_line_felix(self, PD=True):
 

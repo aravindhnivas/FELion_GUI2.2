@@ -93,5 +93,6 @@ def read_dat_file(filename, norm_method):
     xs = read_data[0]
 
     if norm_method == "Log": ys = read_data[1]
-    else: ys = read_data[2]
+    elif norm_method == "Relative": ys = read_data[2]
+    else: ys = read_data[3]
     return xs, ys

@@ -68,6 +68,7 @@
     }
   };
 
+
   let normMethod = "Log";
 
   let normlog = true;
@@ -264,7 +265,7 @@
 
         runPlot({
           fullfiles: fullfiles, filetype: filetag, btname: btname,
-          pyfile: "normline.py", normethod: normlog, args: [delta, output_filename]
+          pyfile: "normline.py", normethod: normMethod, args: [delta, output_filename]
         })
         .then((output)=>{
           console.log(output)
@@ -611,17 +612,6 @@
                 {name}
               </div>
 
-              <!-- {#if name === "Exp. Fit"}
-                <div class="level-item" >
-                  <input
-                  class="input"
-                  type="text" 
-                  id="avg_output_name"
-                  placeholder="Averaged spectra output filename"
-                  data-tippy="Averaged spectra output filename"
-                  bind:value={output_filename}/>
-                </div>
-              {/if} -->
             {/each}
 
             {#each checkBtns as {id, name, bind, help}}
@@ -654,6 +644,7 @@
                         data-tippy="Normalisation method">
                         <option>Relative</option>
                         <option>Log</option>
+                        <option>IntensityPerPhoton</option>
                       </select>
                     </span>
                   </div>

@@ -1777,20 +1777,38 @@ class program {
                             plot(`Timescan Plot: ${filename}`, "Time (in ms)", "Counts", dataFromPython, this.obj.plotArea);
                         } else if (this.filetype == "felix") {
                             window.line = [];
-                            let normlog = this.obj.normethod;
+                            let normMethod = this.obj.normethod;
                             let delta = this.args[0];
 
                             let felixdataToPlot;
                             let avgdataToPlot;
 
-                            if (normlog) {
+                            let signal_formula;
+                            let ylabel;
+
+                            if (normMethod === "Log") {
 
                                 felixdataToPlot = dataFromPython["felix"];
                                 avgdataToPlot = dataFromPython["average"];
-                            } else {
+
+                                signal_formula = "Signal = -ln(C/B)/Power(in J)";
+                                ylabel = "Normalised Intensity per J";
+
+                            } else if (normMethod == "Relative") {
 
                                 felixdataToPlot = dataFromPython["felix_rel"];
                                 avgdataToPlot = dataFromPython["average_rel"];
+
+                                signal_formula = "Signal = (1-C/B)*100";
+                                ylabel = "Relative Depletion (%)";
+
+                            } else if (normMethod == "IntensityPerPhoton") {
+
+                                felixdataToPlot = dataFromPython["felix_per_photon"];
+                                avgdataToPlot = dataFromPython["average_per_photon"];
+
+                                signal_formula = "Signal = -ln(C/B)/#Photons";
+                                ylabel = "Normalised Intensity per photon";
                             }
 
                             plot(
@@ -1801,21 +1819,23 @@ class program {
                                 "bplot"
                             );
 
-                            let signal_formula;
+                            // // let signal_formula;
+                            // let normlog;
 
-                            normlog ? signal_formula = "Signal = -ln(C/B)/Power(in J)" : signal_formula = "Signal = (1-C/B)*100";
+                            // normMethod == "Log" ? normlog = true : normlog = false
+                            // normlog ? signal_formula = "Signal = -ln(C/B)/Power(in J)" : signal_formula = "Signal = (1-C/B)*100";
                             // console.log(normlog)
                             plot(
                                 `Normalized Spectrum (delta=${delta})<br>${signal_formula}; {C=Measured Count, B=Baseline Count}`,
                                 "Calibrated Wavelength (cm-1)",
-                                normlog ? "Normalised Intesity" : "Relative depletion (%)",
+                                ylabel,
                                 felixdataToPlot,
                                 "nplot"
                             );
                             plot(
                                 `Average of Normalised Spectrum (delta=${delta})`,
                                 "Calibrated Wavelength (cm-1)",
-                                normlog ? "Normalised Intesity" : "Relative depletion (%)",
+                                ylabel,
                                 avgdataToPlot,
                                 "avgplot"
                             );
@@ -2162,7 +2182,7 @@ function get_each_context_6(ctx, list, i) {
 	return child_ctx;
 }
 
-// (607:12) {#each funcBtns as { id, name }}
+// (608:12) {#each funcBtns as { id, name }}
 function create_each_block_6(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -2200,7 +2220,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (634:18) {:else}
+// (624:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2238,7 +2258,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (632:18) {#if name[0]==="Log"}
+// (622:18) {#if name[0]==="Log"}
 function create_if_block_11(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2276,7 +2296,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (627:12) {#each checkBtns as {id, name, bind, help}}
+// (617:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_5(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -2364,9 +2384,9 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (646:12) {#if filetag == 'felix'}
+// (636:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
-	var div3, div2, div0, span, select, option0, option1, t_2, div1, input, input_updating = false, dispose;
+	var div3, div2, div0, span, select, option0, option1, option2, t_3, div1, input, input_updating = false, dispose;
 
 	function input_input_handler() {
 		input_updating = true;
@@ -2384,13 +2404,17 @@ function create_if_block_10(ctx) {
 			option0.textContent = "Relative";
 			option1 = element("option");
 			option1.textContent = "Log";
-			t_2 = space();
+			option2 = element("option");
+			option2.textContent = "IntensityPerPhoton";
+			t_3 = space();
 			div1 = element("div");
 			input = element("input");
 			option0.__value = "Relative";
 			option0.value = option0.__value;
 			option1.__value = "Log";
 			option1.value = option1.__value;
+			option2.__value = "IntensityPerPhoton";
+			option2.value = option2.__value;
 			if (ctx.normMethod === void 0) add_render_callback(() => ctx.select_change_handler.call(select));
 			attr(select, "id", "felixmethod");
 			attr(select, "data-tippy", "Normalisation method");
@@ -2421,10 +2445,11 @@ function create_if_block_10(ctx) {
 			append(span, select);
 			append(select, option0);
 			append(select, option1);
+			append(select, option2);
 
 			select_option(select, ctx.normMethod);
 
-			append(div2, t_2);
+			append(div2, t_3);
 			append(div2, div1);
 			append(div1, input);
 
@@ -2447,7 +2472,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (674:12) {#if filetag == 'thz'}
+// (665:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -2547,7 +2572,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (726:6) {#if filetag=="felix"}
+// (717:6) {#if filetag=="felix"}
 function create_if_block_8(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2668,7 +2693,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (745:6) {#if filetag=="scan"}
+// (736:6) {#if filetag=="scan"}
 function create_if_block_2(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2798,7 +2823,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (758:28) {#if folderFile.files != undefined}
+// (749:28) {#if folderFile.files != undefined}
 function create_if_block_7(ctx) {
 	var each_1_anchor;
 
@@ -2861,7 +2886,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (759:31) {#each folderFile.files as scanfile}
+// (750:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2898,7 +2923,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (750:16) {#each ["ResON", "ResOFF"] as name}
+// (741:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -2966,7 +2991,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (781:57) 
+// (772:57) 
 function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3005,7 +3030,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (779:52) 
+// (770:52) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3044,7 +3069,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (777:50) 
+// (768:50) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3083,7 +3108,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (775:22) {#if name=="Power (ON, OFF)"}
+// (766:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_3(ctx) {
 	var input, dispose;
 
@@ -3116,7 +3141,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (770:16) {#each depletionLabels as {name, id}}
+// (761:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -3174,7 +3199,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (843:12) {:else}
+// (834:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3204,7 +3229,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (813:38) 
+// (804:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div8, div7, div1, input, t1, div3, div2, t3, div6, t6, dispose;
 
@@ -3290,7 +3315,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (806:12) {#if filetag == 'scan'}
+// (797:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3364,7 +3389,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (808:16) {#each fileChecked as scanfile}
+// (799:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3394,7 +3419,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (805:10) {#each plotID as id}
+// (796:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3919,6 +3944,7 @@ function instance$4($$self, $$props, $$invalidate) {
     }
   };
 
+
   let normMethod = "Log";
 
   let normlog = true;
@@ -4102,7 +4128,7 @@ function instance$4($$self, $$props, $$invalidate) {
 
         runPlot({
           fullfiles: fullfiles, filetype: filetag, btname: btname,
-          pyfile: "normline.py", normethod: normlog, args: [delta, output_filename]
+          pyfile: "normline.py", normethod: normMethod, args: [delta, output_filename]
         })
         .then((output)=>{
           console.log(output);
