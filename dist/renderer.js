@@ -3942,7 +3942,7 @@ function instance$4($$self, $$props, $$invalidate) {
   };
 
 
-  let normMethod = "Log";
+  let normMethod = "IntensityPerPhoton";
 
   let normlog = true;
 

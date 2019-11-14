@@ -69,7 +69,7 @@
   };
 
 
-  let normMethod = "Log";
+  let normMethod = "IntensityPerPhoton";
 
   let normlog = true;
   $: normMethod == "Relative" ? (normlog = false) : (normlog = true);
