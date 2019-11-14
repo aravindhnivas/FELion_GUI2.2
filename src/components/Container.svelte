@@ -35,7 +35,6 @@
       runPlot(obj);
     } 
   }))
-
   
   $: plotContainerHeight = "60vh"
 
@@ -48,43 +47,29 @@
     jq("#felix_shell_Container").addClass("fadeInUp").css("display", "block");
 
   });
-
   
   const join = file => {
     return [path.join(currentLocation, file)];
   };
 
   let delta = 1;
-  const changeDelta = event => {
-    if (event.key == "Enter") {
-      runPlot({
-        fullfiles: fullfiles,
-        filetype: filetag,
-        btname: "felixPlotBtn",
-        pyfile: "normline.py",
-        normethod: normlog,
-        args: delta
-      });
-    }
-  };
-
 
   let normMethod = "IntensityPerPhoton";
-
-  let normlog = true;
-  $: normMethod == "Relative" ? (normlog = false) : (normlog = true);
-  let log;
+  let normalisation_method = ["Log", "Relative", "IntensityPerPhoton"]
   
+  let log;
   $: filetag == "mass" ? (log = true) : (log = false);
 
   const linearlogCheck = event => {
+
     let target = event.target;
     let layout = {
       yaxis: {
         title: "Counts",
         type: target.checked ? "log" : null
       }
-    };
+    }
+
     if (filetag == "mass") {
       Plotly.relayout("mplot", layout);
     } else {
@@ -205,9 +190,10 @@
     }
 
   }
-  let delta_thz = 1
-
-  const fileInfo = {
+  
+  $: delta_thz = 1
+  $: gamma_thz = 0
+  let fileInfo = {
 
     // Create baseline matplotlib
 
@@ -235,24 +221,23 @@
     thz:{
 
       pyfile:"thz_scan.py",
-      // args:[delta_thz, "plot"] // Doesn't take the binded delta_thz value
+      // args:[delta_thz, "plot", gamma_thz] // Doesn't take the binded delta_thz value
       
     }
   }
   $: modal = {mass:"", felix:"", scan:"", thz:""}
   $: error_msg = {mass:"", felix:"", scan:"", thz:""}
 
+  function functionRun(event, target_id=null) {
+    let btname;
 
-  const functionRun = event => {
-
-    let btname = event.target.id;
+    target_id === null ? btname = event.target.id : btname = target_id
 
     console.log(`Button clicked (id): ${btname}`)
     if (btname === "createBaselineBtn"){btname="felix_Matplotlib"}
 
     let output_filename = document.getElementById("avg_output_name").value
     
-
     switch (btname) {
 
       ////////////// FELIX PLOT //////////////////////
@@ -269,10 +254,8 @@
         })
         .then((output)=>{
           console.log(output)
-
           expfitDiv = "block"
         })
-
         .catch((err)=>{
           console.log('Error Occured', err); 
           error_msg[filetag]=err; 
@@ -336,8 +319,12 @@
             pyfile: fileInfo[filetag]["pyfile"],
             args: fileInfo[filetag]["args"]
           }
-
-        runPlot(obj);
+        runPlot(obj).then((output)=>console.log(output))
+        .catch((err)=>{
+          console.log('Error Occured', err); 
+          error_msg[filetag]=err; 
+          modal[filetag]="is-active"
+        })
 
       break;
 
@@ -424,22 +411,28 @@
     
       default:
         break;
+
       //////////////////////////////////////////////////// 
     }
   };
 
-  
   function opentheory() {
     browseFile({theory:true}).then(file =>  theoryfiles = file).catch(err => console.log(err));
   }
 
   function runtheory({tkplot="run", filetype="theory"}) {
+    runPlot({
+      fullfiles: theoryfiles, filetype: filetype, filetag:filetag,
+      btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot]
+    }).then((output)=>{console.log(output)})
+    .catch((err)=>{
+        console.log('Error Occured', err); 
 
-    runPlot({fullfiles: theoryfiles, filetype: filetype, filetag:filetag,
-      btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot] });
+        error_msg[filetag]=err; 
+        modal[filetag]="is-active"
+      })
   }
 
-  const runtheory_keyup = (event) => {if(event.key=="Enter") runtheory({tkplot:"run"})}
   let sigma=20; //Sigma value for felixplot thoery gaussian profile
   let scale=1;
 
@@ -483,23 +476,11 @@
       })
   }
 
-  $: gamma_thz = 0
   
-  const changeTHz = (event) => {
-
-    if (event.key == "Enter") {
-      runPlot({
-          fullfiles: fullfiles,
-          filetype: filetag,
-          btname: "thzBtn",
-          pyfile: "thz_scan.py",
-          args: [delta_thz, "run", gamma_thz]
-        });
-    }
-  }
-
+  
   let output_filename =  "averaged";
   $: expfitDiv = "none"
+  
 </script>
 
 <style>
@@ -571,6 +552,7 @@
       </div>
 
       <div class="row locationRow">
+
         <div class="field has-addons">
           <div class="control is-expanded">
             <input
@@ -642,9 +624,12 @@
                         id="felixmethod"
                         bind:value={normMethod}
                         data-tippy="Normalisation method">
-                        <option>Relative</option>
+                        {#each normalisation_method as method}
+                           <option>{method}</option>
+                        {/each}
+                        <!-- <option>Relative</option>
                         <option>Log</option>
-                        <option>IntensityPerPhoton</option>
+                        <option>IntensityPerPhoton</option> -->
                       </select>
                     </span>
                   </div>
@@ -656,7 +641,7 @@
                       placeholder="Delta value"
                       data-tippy="Delta value for averaging FELIX spectrum"
                       bind:value={delta}
-                      on:keyup={changeDelta} />
+                      on:change="{(e)=>functionRun(e, "felixPlotBtn")}" />
                   </div>
                 </div>
               </div>
@@ -678,7 +663,7 @@
                       placeholder="Delta value"
                       data-tippy="Delta value for spectrum (in KHz)"
                       bind:value={delta_thz}
-                      on:keyup={changeTHz} />
+                      on:change="{(e)=>functionRun(e, "thzBtn")}" />
                   </div>
                   
                 </div>
@@ -700,7 +685,7 @@
                       placeholder="Gamma value for lorentz part"
                       data-tippy="Lorentz gamma for fitting (Voigt Profile)"
                       bind:value={gamma_thz}
-                      on:keyup={changeTHz}/>
+                      on:change="{(e)=>functionRun(e, "thzBtn")}"/>
                   </div>
                   
                 </div>
@@ -723,8 +708,8 @@
                 </label>
                 <div class="control">
                     <button class="button is-warning" on:click={opentheory}>Choose file</button>
-                    <input class="input" type="number" on:keyup={runtheory_keyup} bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
-                    <input class="input" type="number" on:keyup={runtheory_keyup} step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
+                    <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
+                    <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
                     <button class="funcBtn button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
                     <button class="funcBtn button is-link animated" on:click="{()=>runtheory({tkplot:"plot", filetype:"general"})}" id="theory_Matplotlib">Open in Matplotlib</button>
                 </div>

@@ -1,7 +1,8 @@
+
+
 const { spawn, exec } = require("child_process");
 const path = require('path');
 const fs = require("fs")
-
 const plot_width = window.screen.width * .65;
 const plot_height = window.screen.height * .42;
 
@@ -85,7 +86,6 @@ function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
 
     try { Plotly.react(plotArea, dataPlot, dataLayout, { editable: true }) } catch (err) { console.log(err) }
 }
-
 class program {
 
     constructor(obj) {
@@ -321,6 +321,5 @@ class program {
         })
     }
 }
-
 
 exports.program = program
