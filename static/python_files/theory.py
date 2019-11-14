@@ -1,38 +1,15 @@
 
-# Importing Modules
-import json
-from pathlib import Path as pt
-import sys
+# Importing Built-In modules
+import json, sys
 from pathlib import Path as pt
 
-# FELion tkinter figure module
+# FELion Modules
 from FELion_widgets import FELion_Tk
+from FELion_definitions import read_dat_file
 
 # Data analysis
 import numpy as np
 
-colors = [
-    (31, 119, 180),
-    (174, 199, 232),
-    (255, 127, 14),
-    (255, 187, 120),
-    (44, 160, 44),
-    (152, 223, 138),
-    (214, 39, 40),
-    (255, 152, 150),
-    (148, 103, 189),
-    (197, 176, 213),
-    (140, 86, 75),
-    (196, 156, 148),
-    (227, 119, 194),
-    (247, 182, 210),
-    (127, 127, 127),
-    (199, 199, 199),
-    (188, 189, 34),
-    (219, 219, 141),
-    (23, 190, 207),
-    (158, 218, 229),
-]
 
 def gaussian(x, A, sig, center):
     return A*np.exp(-0.5*((x-center)/sig)**2)
@@ -47,18 +24,16 @@ def exp_theory(theoryfiles, location, norm_method, sigma, scale, tkplot, output_
         fig, canvas = widget.Figure()
         if len(theoryfiles) == 1: savename=theoryfiles[0].stem
         else: savename = "Exp vs Theory"
-        ax = widget.make_figure_layout(title="Experimental vs Theory", xaxis="Wavenumber $(cm^{-1})$", yaxis="counts", yscale="linear", savename=savename)
+        
+
+        if norm_method == "Relative": ylabel = "Relative Depletion (%)"
+        else: ylabel =  "Norm. Intensity"
+        ax = widget.make_figure_layout(title="Experimental vs Theory", xaxis="Wavenumber $(cm^{-1})$", yaxis=ylabel, yscale="linear", savename=savename)
 
     if location.name is "DATA": datfile_location = location.parent/"EXPORT"
     else: datfile_location = location/"EXPORT"
     avgfile = datfile_location/f"{output_filename}.dat"
-
-    read_data = np.genfromtxt(avgfile).T
-    xs = read_data[0]
-
-    if norm_method == "Log": ys = read_data[1]
-    else: ys = read_data[2]
-    # xs, ys = np.genfromtxt(avgfile).T
+    xs, ys = read_dat_file(avgfile, norm_method)
 
     if tkplot:
         ax.plot(xs, ys, "k-", label="Experiment")
@@ -110,7 +85,7 @@ def exp_theory(theoryfiles, location, norm_method, sigma, scale, tkplot, output_
 if __name__ == "__main__":
     args = sys.argv[1:][0].split(",")
 
-    theoryfiles = [pt(i) for i in args[0:-6]]
+    theoryfiles = [pt(i) for i in args[0:-5]]
     tkplot = args[-1]
 
     if tkplot == "plot": tkplot=True
@@ -121,6 +96,4 @@ if __name__ == "__main__":
     sigma = float(args[-4])
     norm_method = args[-5]
 
-    # output_filename = args[-6]
-    # print(output_filename)
     exp_theory(theoryfiles, location, norm_method, sigma, scale, tkplot)

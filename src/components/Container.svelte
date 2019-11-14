@@ -312,7 +312,7 @@
                 filetag: "felix",
                 btname: "norm_tkplot",
                 pyfile: "norm_tkplot.py",
-                args: [output_filename, normMethod]
+                args: [normMethod]
               })
       break;
       
@@ -433,9 +433,9 @@
   }
 
   function runtheory({tkplot="run", filetype="theory"}) {
-    let output_filename = document.getElementById("avg_output_name").value
+
     runPlot({fullfiles: theoryfiles, filetype: filetype, filetag:filetag,
-      btname: "appendTheory", pyfile: "theory.py", args: [output_filename, normMethod, sigma, scale, currentLocation, tkplot] });
+      btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot] });
   }
 
   const runtheory_keyup = (event) => {if(event.key=="Enter") runtheory({tkplot:"run"})}

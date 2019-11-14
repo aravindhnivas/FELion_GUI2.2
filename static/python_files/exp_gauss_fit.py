@@ -8,17 +8,17 @@ import numpy as np
 
 # FELion module
 from FELion_definitions import gauss_fit
+from FELion_definitions import read_dat_file
+
 
 def exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite=False, tkplot=False):
 
     if location.name is "DATA": datfile_location = location.parent/"EXPORT"
     else: datfile_location = location/"EXPORT"
-    read_data = np.genfromtxt(f"{datfile_location}/{output_filename}.dat").T
 
-    wn = read_data[0]
 
-    if norm_method == "Log": inten = read_data[1]
-    else: inten = read_data[2]
+    readfile = f"{datfile_location}/{output_filename}.dat"
+    wn, inten = read_dat_file(readfile, norm_method)
 
     # Getting data from the selected range
     index = np.logical_and(wn > start_wn, wn < end_wn)

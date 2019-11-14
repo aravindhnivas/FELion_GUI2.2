@@ -1,5 +1,4 @@
 #################################################################
-#################################################################
 
 # Modules
 import shutil
@@ -11,11 +10,8 @@ from lmfit.models import GaussianModel
 from uncertainties import ufloat as uf
 import numpy as np
 
-#################################################################
 
 def move(pathdir, x): return (shutil.move(join(pathdir, x), join(pathdir, "DATA", x)), print("%s moved to DATA folder" % x))
-
-# Gaussian fitting
 
 class gauss_fit:
 
@@ -66,7 +62,6 @@ class gauss_fit:
     def get_std(self, value): return value.std_dev
     def get_value(self, value): return value.nominal_value
 
-
 def var_find(filename, var=None, get_defaults=True):
 
     if var is None:
@@ -90,3 +85,13 @@ def var_find(filename, var=None, get_defaults=True):
         return res, b0, trap
 
     else: return var
+
+def read_dat_file(filename, norm_method):
+
+
+    read_data = np.genfromtxt(filename).T
+    xs = read_data[0]
+
+    if norm_method == "Log": ys = read_data[1]
+    else: ys = read_data[2]
+    return xs, ys
