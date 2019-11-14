@@ -1819,12 +1819,6 @@ class program {
                                 "bplot"
                             );
 
-                            // // let signal_formula;
-                            // let normlog;
-
-                            // normMethod == "Log" ? normlog = true : normlog = false
-                            // normlog ? signal_formula = "Signal = -ln(C/B)/Power(in J)" : signal_formula = "Signal = (1-C/B)*100";
-                            // console.log(normlog)
                             plot(
                                 `Normalized Spectrum (delta=${delta})<br>${signal_formula}; {C=Measured Count, B=Baseline Count}`,
                                 "Calibrated Wavelength (cm-1)",
@@ -1872,8 +1866,11 @@ class program {
 
                         } else if (this.filetype == "theory") {
 
-                            let log = this.args[1];
-                            console.log(":: run -> log", log);
+                            let normethod = this.args[0];
+                            let ylabel;
+                            if (normethod === "Log") { ylabel = "Normalised Intensity per J"; }
+                            else if (normethod === "Relative") { ylabel = "Relative Depletion (%)"; }
+                            else { ylabel = "Normalised Intensity per Photon"; }
 
                             let theoryData = [];
                             for (let x in dataFromPython["line_simulation"]) { theoryData.push(dataFromPython["line_simulation"][x]); }
@@ -1881,7 +1878,7 @@ class program {
                             plot(
                                 "Experimental vs Theory",
                                 "Calibrated Wavelength (cm-1)",
-                                log == "Log" ? "Normalised Intesity" : "Relative depletion (%)", [dataFromPython["averaged"], ...theoryData],
+                                ylabel, [dataFromPython["averaged"], ...theoryData],
                                 "exp-theory-plot"
                             );
                         } else if (this.filetype == "thz") {
