@@ -3232,6 +3232,7 @@ function create_if_block_1$1(ctx) {
 			attr(input, "id", "avg_output_name");
 			attr(input, "placeholder", "Averaged spectra output filename");
 			attr(input, "data-tippy", "Averaged spectra output filename");
+			input.disabled = true;
 			attr(div1, "class", "level-item");
 			attr(div2, "class", "level-item button hvr-glow funcBtn is-link animated svelte-1z8f7");
 			attr(div2, "id", "exp_fit");
@@ -4332,7 +4333,7 @@ function instance$4($$self, $$props, $$invalidate) {
     }
   };
 
-  let output_filename =  "Averaged";
+  let output_filename =  "averaged";
 
 	const click_handler = () => $$invalidate('modal', modal[filetag]='', modal);
 
@@ -4756,7 +4757,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (492:20) {#each items as item}
+// (498:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -5629,7 +5630,7 @@ function instance$6($$self, $$props, $$invalidate) {
 
     const archive = (event) => {
 
-        $$invalidate('backupClass', backupClass = "is-loading");
+        $$invalidate('backupClass', backupClass = "is-loading is-link");
 
         console.log(`Archiving existing software to ${backupName}.zip`);
 
@@ -5668,9 +5669,13 @@ function instance$6($$self, $$props, $$invalidate) {
             
         })
         .catch(err=>{
-            $$invalidate('backupClass', backupClass = "is-danger animated shake faster");
+            if (err != "No folder selected") {
+                $$invalidate('backupClass', backupClass = "is-danger animated shake faster");
+                setTimeout(()=>$$invalidate('backupClass', backupClass = "is-link"), 2000);
+            } else {$$invalidate('backupClass', backupClass = "is-link");}
+            
             console.log(err);
-            setTimeout(()=>$$invalidate('backupClass', backupClass = "is-link"), 2000);
+            
         });
     };
     
@@ -5691,7 +5696,6 @@ function instance$6($$self, $$props, $$invalidate) {
             let packageFile = {path:path.resolve(folderName, "package.json"), name:"package.json"};
             let rollup = {path:path.resolve(folderName, "rollup.config.js"), name:"rollup.config.js"};
             let tsconfig = {path:path.resolve(folderName, "tsconfig.json"), name:"tsconfig.json"};
-
             let folders = [_src, _dist, _static, packageFile, rollup, tsconfig];
 
             folders.forEach(folder=>{
@@ -5713,9 +5717,12 @@ function instance$6($$self, $$props, $$invalidate) {
             
         })
         .catch(err=>{
-            $$invalidate('restoreClass', restoreClass = "is-danger animated shake faster");
+
+            if (err != "No folder selected") {
+                $$invalidate('restoreClass', restoreClass = "is-danger animated shake faster");
+                setTimeout(()=>$$invalidate('restoreClass', restoreClass = "is-warning"), 2000);
+            } else {$$invalidate('restoreClass', restoreClass = "is-warning");}
             console.log(err);
-            setTimeout(()=>$$invalidate('restoreClass', restoreClass = "is-warning"), 2000);
         });
     };
 

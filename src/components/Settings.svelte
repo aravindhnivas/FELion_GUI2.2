@@ -341,7 +341,7 @@
 
     const archive = (event) => {
 
-        backupClass = "is-loading"
+        backupClass = "is-loading is-link"
 
         console.log(`Archiving existing software to ${backupName}.zip`)
 
@@ -380,9 +380,13 @@
             
         })
         .catch(err=>{
-            backupClass = "is-danger animated shake faster"
+            if (err != "No folder selected") {
+                backupClass = "is-danger animated shake faster"
+                setTimeout(()=>backupClass = "is-link", 2000)
+            } else {backupClass = "is-link"}
+            
             console.log(err)
-            setTimeout(()=>backupClass = "is-link", 2000)
+            
         })
     }
 
@@ -405,7 +409,6 @@
             let packageFile = {path:path.resolve(folderName, "package.json"), name:"package.json"}
             let rollup = {path:path.resolve(folderName, "rollup.config.js"), name:"rollup.config.js"}
             let tsconfig = {path:path.resolve(folderName, "tsconfig.json"), name:"tsconfig.json"}
-
             let folders = [_src, _dist, _static, packageFile, rollup, tsconfig]
 
             folders.forEach(folder=>{
@@ -427,9 +430,12 @@
             
         })
         .catch(err=>{
-            restoreClass = "is-danger animated shake faster"
+
+            if (err != "No folder selected") {
+                restoreClass = "is-danger animated shake faster"
+                setTimeout(()=>restoreClass = "is-warning", 2000)
+            } else {restoreClass = "is-warning"}
             console.log(err)
-            setTimeout(()=>restoreClass = "is-warning", 2000)
         })
     }
 </script>

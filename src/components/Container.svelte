@@ -497,7 +497,7 @@
     }
   }
 
-  let output_filename =  "Averaged";
+  let output_filename =  "averaged";
   $: expfitDiv = "none"
 </script>
 
@@ -820,7 +820,7 @@
 
                   <div class="level-item">
                     <input class="input" type="text" id="avg_output_name" placeholder="Averaged spectra output filename"
-                      data-tippy="Averaged spectra output filename" bind:value={output_filename} />
+                      data-tippy="Averaged spectra output filename" bind:value={output_filename} disabled />
                   </div>
 
                   <div class="level-item">

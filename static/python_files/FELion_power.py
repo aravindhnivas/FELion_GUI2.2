@@ -13,11 +13,11 @@ class PowerCalibrator(object):
         with open(f'./DATA/{powerfile}') as f:
             for line in f:
                 if line[0] == '#':
-                    if line.find('SHOTS')==1:
+                    if line.find('SHOTS')>-1:
                         self.n_shots = float(line.split('=')[-1])
-                    if line.find('IN_UM')==1:
+                    if line.find('IN_UM')>-1:
                         in_um = True
-                    if line.find('INTERP')==1:
+                    if line.find('INTERP')>-1:
                         self.interpol = line.split('=')[-1].strip('\n')
                     continue
                 else:
