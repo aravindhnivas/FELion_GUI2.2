@@ -3,7 +3,6 @@
   // Importing Svelte modules
   import Filebrowser from "./utils/Filebrowser.svelte";
   import { runPlot } from "./utils/js/felion_main.js";
-
   import * as dirTree from "directory-tree";
 
   export let id;
@@ -14,13 +13,13 @@
 
   export let checkBtns;
   export let jq;
-
   export let electron;
 
   export let path;
-
   export let menu;
   export let MenuItem;
+
+  // export let PythonShell;
 
   menu.append(new MenuItem({ label: `Open ${filetag} plot in Matplotlib`, click() {
 
@@ -468,19 +467,96 @@
       .then((output)=>{
         console.log(output)
       })
-      
       .catch((err)=>{
         console.log('Error Occured', err); 
         error_msg["scan"]=err; 
         modal["scan"]="is-active"
       })
   }
-
-  
   
   let output_filename =  "averaged";
+
+  // Finding peak
+  $: prominence = 5
+  $: findPeak_btnCSS = "is-warning"
+  $: revertPeak_btnCSS = "is-static"
+
   $: expfitDiv = "none"
-  
+  $: exp_fitall_div_status = false
+  $: exp_fitall_div = "none"
+  $: exp_fitall_div_status ? exp_fitall_div = "block" : exp_fitall_div = "none"
+
+  // const findPeak = () => {
+
+  //   revertPeak_btnCSS  = "is-link"
+  //   findPeak_btnCSS = "is-static"
+
+  //   let output_filename = document.getElementById("avg_output_name").value
+  //   let location = path.resolve(currentLocation, "..", "EXPORT")
+
+  //   let index;
+  //   if (normMethod == "Log") index = 1
+  //   else if (normMethod == "Relative") index = 2
+  //   else index = 3
+
+  //   let runString = `
+  //     import numpy as np;
+  //     from scipy.signal import find_peaks as peak;
+  //     from pathlib import Path as pt;
+  //     import json;
+
+  //     location = pt(f"${location}");
+  //     print(location);
+
+  //     filename = location / f"${output_filename}.dat";
+  //     print(filename);
+      
+  //     data = np.genfromtxt(filename).T;
+  //     wn = data[0];
+  //     inten = data[${index}];
+
+  //     print("Calculating indices");
+  //     indices, prominence_prop = peak(inten, prominence=${prominence});
+  //     print(f"prominence_prop: {prominence_prop}");
+
+  //     prominences = list(prominence_prop["prominences"]);
+  //     left_bases = list(prominence_prop["left_bases"]);
+  //     right_bases = list(prominence_prop["right_bases"]);
+  //     print(prominences, left_bases, right_bases);
+
+  //     wn_left = wn[left_bases];
+  //     wn_right = wn[right_bases];
+  //     wn_range = list(np.array([wn_left, wn_right]).T);
+
+  //     print(wn_range);
+
+  //     wn_ = list(wn[indices]);
+  //     inten_ = list(inten[indices]);
+      
+  //     dataJson = json.dumps({"x":wn_, "y":inten_, "name":"peaks", "mode":"markers", "marker":{"color":"blue", "symbol": "star-triangle-up", "size": 12 }});
+  //     print(dataJson);
+  //   `
+  //   runString  = runString.replace(/\s+/g,' ').trim()
+  //   // console.log(`Python script:\n\n${runString}`)
+
+  //   PythonShell.runString(runString, null, function (err, result) {
+  //     if (err) throw err
+  //     console.log(`Python shell result: `, result)
+
+  //     let data = result.slice(result.length - 1)
+  //     data = JSON.parse(data)
+  //     console.log("Peak list: ", data)
+
+  //     Plotly.addTraces("avgplot", data)
+  //   })
+  // }
+
+  // const revertPeak = () => {
+
+  //   Plotly.deleteTraces("avgplot", [-1])
+  //   revertPeak_btnCSS = "is-static"
+  //   findPeak_btnCSS = "is-warning"
+  // }
 </script>
 
 <style>
@@ -790,6 +866,28 @@
 
               <div {id} style="padding-bottom:1em" />
 
+              <div class="level" style="display:{exp_fitall_div}">
+                <div class="level-left">
+
+                  <div class="level-item">
+                      <input class="input" type="number" id="find_peak_prominance" placeholder="Peak prominance value"
+                      data-tippy="Peak prominace value" bind:value={prominence}/>
+                  </div>
+
+                  <div class="level-item">
+                      <div class="level-item button hvr-glow funcBtn animated {findPeak_btnCSS}"
+                        id="get_expfit_peaks">Submit
+                      </div>
+                  </div>
+
+                  <div class="level-item">
+                      <div class="level-item button hvr-glow funcBtn animated {revertPeak_btnCSS}"
+                        id="revert_plotted_peaks">Revert
+                      </div>
+                  </div>
+
+                </div>
+              </div>
 
               <div class="level" style="display:{expfitDiv}">
                 <div class="level-left">
@@ -800,11 +898,11 @@
                   </div>
 
                   <div class="level-item">
-
                     <div class="level-item button hvr-glow funcBtn is-link animated"
                       id="exp_fit" on:click={functionRun}>Exp. Fit
                     </div>
                   </div>
+
                   <div class="level-item">
                     <div class="pretty p-switch p-slim" style="margin-left:1em;" data-tippy="Overwrite existing expfit file with only new values ? or else will append to existing file">
                         <input type="checkbox" id="overwrite_expfit"/>
@@ -812,6 +910,13 @@
                             <label>Overwrite</label>
                         </div>
                     </div>
+                  </div>
+
+                  <div class="level-item">
+
+                      <div class="level-item button hvr-glow funcBtn is-link animated"
+                        id="exp_fit_all" on:click="{()=>exp_fitall_div_status = !exp_fitall_div_status}">Find Peak
+                      </div>
                   </div>
                 </div>
               </div>
