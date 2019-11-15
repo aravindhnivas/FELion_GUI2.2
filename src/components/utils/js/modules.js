@@ -147,14 +147,12 @@ class program {
 
                     let dataFromPython;
                     dataFromPython = data.toString("utf8");
-                    let data_before_json = dataFromPython
-                    // console.log("Before JSON parse :" + dataFromPython)
 
                     if (!this.obj.checking) {
                         console.log("Running python code")
                         dataFromPython = JSON.parse(dataFromPython);
                         console.log("After JSON parse :", dataFromPython);
-                    }
+                    } else { console.log("Before JSON parse :" + dataFromPython) }
 
                     try {
 
@@ -290,14 +288,7 @@ class program {
                             window.line = [...window.line, ...dataFromPython["line"]]
                             Plotly.relayout("avgplot", { shapes: window.line })
                         } else if (this.filetype == "expfit_all") {
-                            console.log("Data received")
-                            console.log(data_before_json)
-                            if (!this.obj.checking) {
-                                console.log(dataFromPython)
-                                Plotly.addTraces("avgplot", dataFromPython)
-                            }
-
-
+                            Plotly.addTraces("avgplot", dataFromPython["data"])
                         }
 
                         console.log("Graph Plotted");

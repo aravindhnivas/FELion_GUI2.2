@@ -12,20 +12,14 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
     wn, inten = read_dat_file(filename, norm_method)
 
     indices, _ = peak(inten, prominence=prominence, width=width, height=height)
-
-    if prominence is not None: 
-        
-        prominences = _["prominences"]
-        left_bases = _["left_bases"]
-        right_bases = _["right_bases"]
-        wn_left = wn[left_bases]
-        wn_right = wn[right_bases]
-        wn_range = np.array([wn_left, wn_right]).T
+    for item in _:
+        _[item] = _[item].tolist()
 
     wn_ = list(wn[indices])
     inten_ = list(inten[indices])
 
-    data = {
+    data = {"data": {}, "extras": _}
+    data["data"] = {
         "x":wn_, "y":inten_, "name":"peaks", "mode":"markers",
         "marker":{
             "color":"blue", "symbol": "star-triangle-up", "size": int(12)
