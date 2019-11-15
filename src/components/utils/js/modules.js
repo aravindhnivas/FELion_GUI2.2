@@ -147,11 +147,14 @@ class program {
 
                     let dataFromPython;
                     dataFromPython = data.toString("utf8");
-
+                    let data_before_json = dataFromPython
                     // console.log("Before JSON parse :" + dataFromPython)
 
-                    dataFromPython = JSON.parse(dataFromPython);
-                    console.log("After JSON parse :", dataFromPython);
+                    if (!this.obj.checking) {
+                        console.log("Running python code")
+                        dataFromPython = JSON.parse(dataFromPython);
+                        console.log("After JSON parse :", dataFromPython);
+                    }
 
                     try {
 
@@ -286,6 +289,11 @@ class program {
                             Plotly.addTraces("avgplot", dataFromPython["fit"])
                             window.line = [...window.line, ...dataFromPython["line"]]
                             Plotly.relayout("avgplot", { shapes: window.line })
+                        } else if (this.filetype == "expfit_all") {
+                            console.log("Data received")
+                            console.log(dataFromPython)
+                            Plotly.addTraces("avgplot", dataFromPython)
+
                         }
 
                         console.log("Graph Plotted");

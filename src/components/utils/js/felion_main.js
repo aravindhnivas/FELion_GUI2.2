@@ -17,7 +17,7 @@ function felixbtntoggle(toggle = "none") {
 
 }
 
-function runPlot({ fullfiles, filetype, btname, pyfile, filetag = null, args = [], plotArea = "", normethod = true }) {
+function runPlot({ fullfiles, filetype, btname, pyfile, filetag = null, args = [], plotArea = "", normethod = true, checking = false }) {
 
     let obj = {
         files: fullfiles,
@@ -29,8 +29,8 @@ function runPlot({ fullfiles, filetype, btname, pyfile, filetag = null, args = [
         filetag: filetag,
         args: args,
         plotArea: plotArea,
-        normethod: normethod
-
+        normethod: normethod,
+        checking: checking
     };
 
     let $target = $(obj.mainbtn);

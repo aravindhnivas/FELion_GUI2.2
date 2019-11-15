@@ -9,7 +9,7 @@ import json, sys
 # FELion modules
 from FELion_definitions import read_dat_file
 
-def fit_all_peaks(filename, norm_method, prominence=5):
+def fit_all_peaks(filename, norm_method, prominence=5, fitall=False):
 
     wn, inten = read_dat_file(filename, norm_method)
 
@@ -26,15 +26,34 @@ def fit_all_peaks(filename, norm_method, prominence=5):
     wn_ = list(wn[indices])
     inten_ = list(inten[indices])
 
-    dataJson = json.dumps({"x":wn_, "y":inten_, "name":"peaks", "mode":"markers", "marker":{"color":"blue", "symbol": "star-triangle-up", "size": 12 }})
+    data = {
+        "x":list(wn_), "y":list(inten_), "name":"peaks", "mode":"markers",
+        "marker":{
+            "color":"blue", "symbol": "star-triangle-up", "size": int(12)
+        }
+    }
+
+    dataJson = json.dumps(data)
     print(dataJson)
 
 if __name__ == "__main__":
 
     args = sys.argv[1:][0].split(",")
 
-    filename = args[-2]
-    norm_method = float(args[-3])
-    prominence = float(args[-4])
+    filename = args[0]
 
-    fit_all_peaks(filename, norm_method, prominence)
+    location = pt(args[1])
+    if location.name == "DATA": location = location.parent
+    filename = location / f"EXPORT/{filename}.dat"
+
+    norm_method = args[2]
+    prominence = float(args[3])
+
+    fitall = args[4]
+
+    if fitall == "true": fitall = True
+    else: fitall = False
+
+    # print(fitall)
+
+    fit_all_peaks(filename, norm_method, prominence, fitall)

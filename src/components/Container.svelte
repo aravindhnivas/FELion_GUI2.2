@@ -234,7 +234,6 @@
 
     console.log(`Button clicked (id): ${btname}`)
     if (btname === "createBaselineBtn"){btname="felix_Matplotlib"}
-
     let output_filename = document.getElementById("avg_output_name").value
     
     switch (btname) {
@@ -476,87 +475,64 @@
   
   let output_filename =  "averaged";
 
+  // Experimental fit (gaussian)
+
+  // Fit one peak
+  $: expfitDiv = "none"
+
   // Finding peak
   $: prominence = 5
-  $: findPeak_btnCSS = "is-warning"
+  $: findPeak_btnCSS = "is-link"
   $: revertPeak_btnCSS = "is-static"
+  $: fitallPeak_btnCSS = "is-static"
 
-  $: expfitDiv = "none"
+  // Toggle find all peaks row
   $: exp_fitall_div_status = false
   $: exp_fitall_div = "none"
   $: exp_fitall_div_status ? exp_fitall_div = "block" : exp_fitall_div = "none"
 
-  // const findPeak = () => {
+  function expfit_func({runfit = false, btname = "find_expfit_peaks", checking = false} = {}) {
+    let output_filename = document.getElementById("avg_output_name").value
 
-  //   revertPeak_btnCSS  = "is-link"
-  //   findPeak_btnCSS = "is-static"
+    runPlot({
+      fullfiles: [output_filename],
+      filetype: "expfit_all",
+      btname: btname,
+      pyfile: "fit_all.py",
+      args: [currentLocation, normMethod, prominence, runfit],
+      checking: checking
+    })
+    .then((output)=>console.log(output))
+    .catch((err)=>{
+      console.log('Error Occured', err); 
+      error_msg[filetag]=err; 
+      modal[filetag]="is-active"
+    })
+  }
+  const findPeak = () => {
+    console.log("Finding preak with prominence value: ", prominence)
+    revertPeak_btnCSS  = "is-warning"
+    fitallPeak_btnCSS = "is-link"
+    setTimeout(()=>findPeak_btnCSS = "is-static", 2000)
+    expfit_func()
+  }
 
-  //   let output_filename = document.getElementById("avg_output_name").value
-  //   let location = path.resolve(currentLocation, "..", "EXPORT")
+  const revertPeak = () => {
 
-  //   let index;
-  //   if (normMethod == "Log") index = 1
-  //   else if (normMethod == "Relative") index = 2
-  //   else index = 3
+    console.log("Removing last found peak values")
+    revertPeak_btnCSS = "is-static"
+    findPeak_btnCSS = "is-link"
+    fitallPeak_btnCSS = "is-static"
+    Plotly.deleteTraces("avgplot", [-1])
+  }
 
-  //   let runString = `
-  //     import numpy as np;
-  //     from scipy.signal import find_peaks as peak;
-  //     from pathlib import Path as pt;
-  //     import json;
+  const fitall = () => {
 
-  //     location = pt(f"${location}");
-  //     print(location);
+    console.log("Fitting all found peaks")
+    expfit_func({runfit:true, btname:"fitall_expfit_peaks"})
 
-  //     filename = location / f"${output_filename}.dat";
-  //     print(filename);
-      
-  //     data = np.genfromtxt(filename).T;
-  //     wn = data[0];
-  //     inten = data[${index}];
-
-  //     print("Calculating indices");
-  //     indices, prominence_prop = peak(inten, prominence=${prominence});
-  //     print(f"prominence_prop: {prominence_prop}");
-
-  //     prominences = list(prominence_prop["prominences"]);
-  //     left_bases = list(prominence_prop["left_bases"]);
-  //     right_bases = list(prominence_prop["right_bases"]);
-  //     print(prominences, left_bases, right_bases);
-
-  //     wn_left = wn[left_bases];
-  //     wn_right = wn[right_bases];
-  //     wn_range = list(np.array([wn_left, wn_right]).T);
-
-  //     print(wn_range);
-
-  //     wn_ = list(wn[indices]);
-  //     inten_ = list(inten[indices]);
-      
-  //     dataJson = json.dumps({"x":wn_, "y":inten_, "name":"peaks", "mode":"markers", "marker":{"color":"blue", "symbol": "star-triangle-up", "size": 12 }});
-  //     print(dataJson);
-  //   `
-  //   runString  = runString.replace(/\s+/g,' ').trim()
-  //   // console.log(`Python script:\n\n${runString}`)
-
-  //   PythonShell.runString(runString, null, function (err, result) {
-  //     if (err) throw err
-  //     console.log(`Python shell result: `, result)
-
-  //     let data = result.slice(result.length - 1)
-  //     data = JSON.parse(data)
-  //     console.log("Peak list: ", data)
-
-  //     Plotly.addTraces("avgplot", data)
-  //   })
-  // }
-
-  // const revertPeak = () => {
-
-  //   Plotly.deleteTraces("avgplot", [-1])
-  //   revertPeak_btnCSS = "is-static"
-  //   findPeak_btnCSS = "is-warning"
-  // }
+    
+  }
 </script>
 
 <style>
@@ -703,9 +679,6 @@
                         {#each normalisation_method as method}
                            <option>{method}</option>
                         {/each}
-                        <!-- <option>Relative</option>
-                        <option>Log</option>
-                        <option>IntensityPerPhoton</option> -->
                       </select>
                     </span>
                   </div>
@@ -871,18 +844,24 @@
 
                   <div class="level-item">
                       <input class="input" type="number" id="find_peak_prominance" placeholder="Peak prominance value"
-                      data-tippy="Peak prominace value" bind:value={prominence}/>
+                        data-tippy="Peak prominace value" bind:value={prominence} />
                   </div>
 
                   <div class="level-item">
                       <div class="level-item button hvr-glow funcBtn animated {findPeak_btnCSS}"
-                        id="get_expfit_peaks">Submit
+                        id="find_expfit_peaks" on:click={findPeak} data-tippy="Find the peaks by adjusting the prominence value">Find Peaks
                       </div>
                   </div>
 
                   <div class="level-item">
                       <div class="level-item button hvr-glow funcBtn animated {revertPeak_btnCSS}"
-                        id="revert_plotted_peaks">Revert
+                        id="revert_plotted_peaks" on:click={revertPeak} data-tippy="Undo the applied/found peaks (to make it better by adjusting the prominence value)">Revert
+                      </div>
+                  </div>
+
+                  <div class="level-item">
+                      <div class="level-item button hvr-glow funcBtn animated {fitallPeak_btnCSS}"
+                        id="fitall_expfit_peaks" data-tippy="Fit all the peaks positions found using gaussian" on:click={fitall}>Fit all
                       </div>
                   </div>
 
@@ -915,7 +894,7 @@
                   <div class="level-item">
 
                       <div class="level-item button hvr-glow funcBtn is-link animated"
-                        id="exp_fit_all" on:click="{()=>exp_fitall_div_status = !exp_fitall_div_status}">Find Peak
+                        id="findall_expfit_toggle" on:click="{()=>exp_fitall_div_status = !exp_fitall_div_status}">Fit all
                       </div>
                   </div>
                 </div>
