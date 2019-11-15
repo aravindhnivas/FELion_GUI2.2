@@ -245,6 +245,7 @@ class program {
                                     console.log(`Selected file: ${window.filename}`)
                                     console.log(`Index selected: ${window.index}`)
                                     document.getElementById("avg_output_name").value = filename
+                                    document.getElementById("fitFiles").value = filename
                                     // window.outputFile = filename
 
                                 }
@@ -289,15 +290,12 @@ class program {
                             Plotly.relayout("avgplot", { shapes: window.line })
                         } else if (this.filetype == "expfit_all") {
 
-
                             Plotly.relayout("avgplot", { annotations: [] })
                             Plotly.relayout("avgplot", { annotations: dataFromPython[2]["annotations"] })
                             if (dataFromPython[3] != undefined) {
                                 let fit = dataFromPython.slice(3)
                                 fit.forEach(data => {
-
                                     Plotly.addTraces("avgplot", data["fit"])
-
                                     window.line = [...window.line, ...data["line"]]
                                     Plotly.relayout("avgplot", { shapes: window.line })
 

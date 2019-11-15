@@ -487,7 +487,8 @@
   $: peak_height = 0
 
   $: findPeak_btnCSS = "is-link"
-  $: revertPeak_btnCSS = "is-warning"
+  $: clear_all_Peak_btnCSS = "is-danger"
+  $: clear_last_Peak_btnCSS = "is-warning"
   $: fitallPeak_btnCSS = "is-link"
 
   // Toggle find all peaks row
@@ -517,14 +518,15 @@
       modal[filetag]="is-active"
     })
   }
+
   const findPeak = () => {
     console.log("Finding preak with prominence value: ", prominence)
     expfit_func()
   }
 
-  const revertPeak = () => {
+  const clearAllPeak = () => {
 
-    console.log("Removing last found peak values")
+    console.log("Removing all found peak values")
 
     Plotly.relayout("avgplot", { annotations: [], shapes: [] })
     let plottedFiles_length = window.line.length / 2
@@ -533,11 +535,20 @@
     window.line = []
   }
 
+  const clearLastPeak = () => {
+
+    console.log("Removing only last found peak values")
+    if (window.line.length != 0) {Plotly.deleteTraces("avgplot", [-1])}
+    window.line = window.line.slice(0, window.line.length - 2)
+    Plotly.relayout("avgplot", { annotations: [], shapes: window.line })
+    
+  }
+
   const fitall = () => {
     console.log("Fitting all found peaks")
     expfit_func({runfit:true, btname:"fitall_expfit_peaks"})
-    
   }
+
 </script>
 
 <style>
@@ -913,8 +924,14 @@
                   </div>
 
                   <div class="level-item">
-                      <div class="level-item button hvr-glow funcBtn animated {revertPeak_btnCSS}"
-                        id="revert_plotted_peaks" on:click={revertPeak} data-tippy="Clear fitted lines">Clear
+                      <div class="level-item button hvr-glow funcBtn animated {clear_last_Peak_btnCSS}"
+                        id="clearLast_plotted_peaks" on:click={clearLastPeak} data-tippy="Clear last fitted lines">Clear last
+                      </div>
+                  </div>
+
+                  <div class="level-item">
+                      <div class="level-item button hvr-glow funcBtn animated {clear_all_Peak_btnCSS}"
+                        id="clearAll_plotted_peaks" on:click={clearAllPeak} data-tippy="Clear all fitted lines">Clear all
                       </div>
                   </div>
 
