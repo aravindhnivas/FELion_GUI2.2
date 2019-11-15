@@ -481,7 +481,8 @@
   $: expfitDiv = "none"
 
   // Finding peak
-  $: prominence = 2
+  
+  $: prominence = 5
   $: peak_width = 5
   $: peak_height = 0
 
@@ -499,6 +500,7 @@
   $: fit_file_list = [...fit_file_list_temp, "averaged"]
 
   function expfit_func({runfit = false, btname = "find_expfit_peaks"} = {}) {
+
     let output_filename = document.getElementById("avg_output_name").value
     let expfit_overwrite = document.getElementById("overwrite_expfit").checked
     runPlot({
@@ -508,9 +510,7 @@
       pyfile: "fit_all.py",
       args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite]
     })
-    .then((output)=>{
-      console.log(output)
-    })
+    .then((output)=>console.log(output))
     .catch((err)=>{
       console.log('Error Occured', err); 
       error_msg[filetag]=err; 
@@ -523,8 +523,14 @@
   }
 
   const revertPeak = () => {
+
     console.log("Removing last found peak values")
-    Plotly.relayout("avgplot", { annotations: [] })
+
+    Plotly.relayout("avgplot", { annotations: [], shapes: [] })
+    let plottedFiles_length = window.line.length / 2
+    console.log(`Total files plotted: ${plottedFiles_length}`)
+    for (let i=0; i<plottedFiles_length; i++) {Plotly.deleteTraces("avgplot", [-1])}
+    window.line = []
   }
 
   const fitall = () => {
@@ -864,13 +870,6 @@
                   </div>
 
                   <div class="level-item">
-                      <div class="level-item button hvr-glow funcBtn animated {revertPeak_btnCSS}"
-                        id="revert_plotted_peaks" on:click={revertPeak} data-tippy="Undo the applied/found peaks (to make it better by adjusting the prominence value)">Clear
-                      </div>
-                  </div>
-
-                  <div class="level-item">
-                    
                     <div class="select">
                       <select id="fitFiles" bind:value={fit_files}>
                           {#each fit_file_list as file}
@@ -914,7 +913,12 @@
                   </div>
 
                   <div class="level-item">
+                      <div class="level-item button hvr-glow funcBtn animated {revertPeak_btnCSS}"
+                        id="revert_plotted_peaks" on:click={revertPeak} data-tippy="Clear fitted lines">Clear
+                      </div>
+                  </div>
 
+                  <div class="level-item">
                       <div class="level-item button hvr-glow funcBtn is-link animated"
                         id="findall_expfit_toggle" on:click="{()=>exp_fitall_div_status = !exp_fitall_div_status}">Find Peaks
                       </div>

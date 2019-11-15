@@ -2206,7 +2206,7 @@ function get_each_context_8(ctx, list, i) {
 	return child_ctx;
 }
 
-// (643:12) {#each funcBtns as { id, name }}
+// (649:12) {#each funcBtns as { id, name }}
 function create_each_block_8(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -2244,7 +2244,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (659:18) {:else}
+// (665:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2282,7 +2282,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (657:18) {#if name[0]==="Log"}
+// (663:18) {#if name[0]==="Log"}
 function create_if_block_11(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2320,7 +2320,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (652:12) {#each checkBtns as {id, name, bind, help}}
+// (658:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_7(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -2408,7 +2408,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (671:12) {#if filetag == 'felix'}
+// (677:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -2522,7 +2522,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (680:24) {#each normalisation_method as method}
+// (686:24) {#each normalisation_method as method}
 function create_each_block_6(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -2549,7 +2549,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (700:12) {#if filetag == 'thz'}
+// (706:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -2649,7 +2649,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (751:6) {#if filetag=="felix"}
+// (757:6) {#if filetag=="felix"}
 function create_if_block_8(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2770,7 +2770,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (770:6) {#if filetag=="scan"}
+// (776:6) {#if filetag=="scan"}
 function create_if_block_2(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2900,7 +2900,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (783:28) {#if folderFile.files != undefined}
+// (789:28) {#if folderFile.files != undefined}
 function create_if_block_7(ctx) {
 	var each_1_anchor;
 
@@ -2963,7 +2963,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (784:31) {#each folderFile.files as scanfile}
+// (790:31) {#each folderFile.files as scanfile}
 function create_each_block_5(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3000,7 +3000,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (775:16) {#each ["ResON", "ResOFF"] as name}
+// (781:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_4(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3068,7 +3068,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (806:57) 
+// (812:57) 
 function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3107,7 +3107,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (804:52) 
+// (810:52) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3146,7 +3146,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (802:50) 
+// (808:50) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3185,7 +3185,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (800:22) {#if name=="Power (ON, OFF)"}
+// (806:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_3(ctx) {
 	var input, dispose;
 
@@ -3218,7 +3218,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (795:16) {#each depletionLabels as {name, id}}
+// (801:16) {#each depletionLabels as {name, id}}
 function create_each_block_3(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -3276,7 +3276,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (925:12) {:else}
+// (929:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3306,9 +3306,9 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (838:38) 
+// (844:38) 
 function create_if_block_1$1(ctx) {
-	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, t6, div6_class_value, t7, div9, div8, select, t8, div11, div10, t9, div10_class_value, t10, div23, div22, div14, input3, t11, div16, div15, t13, div19, t16, div21, div20, t18, dispose;
+	var div0, div0_id_value, t0, div11, div10, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select, t6, div9, div8, t7, div8_class_value, t8, div23, div22, div12, input3, t9, div14, div13, t11, div17, t14, div19, div18, t15, div18_class_value, t16, div21, div20, t18, dispose;
 
 	function input0_input_handler_2() {
 		input0_updating = true;
@@ -3337,8 +3337,8 @@ function create_if_block_1$1(ctx) {
 		c() {
 			div0 = element("div");
 			t0 = space();
-			div13 = element("div");
-			div12 = element("div");
+			div11 = element("div");
+			div10 = element("div");
 			div1 = element("div");
 			input0 = element("input");
 			t1 = space();
@@ -3354,32 +3354,32 @@ function create_if_block_1$1(ctx) {
 			t5 = space();
 			div7 = element("div");
 			div6 = element("div");
-			t6 = text("Clear");
-			t7 = space();
-			div9 = element("div");
-			div8 = element("div");
 			select = element("select");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
+			t6 = space();
+			div9 = element("div");
+			div8 = element("div");
+			t7 = text("Fit");
 			t8 = space();
-			div11 = element("div");
-			div10 = element("div");
-			t9 = text("Fit");
-			t10 = space();
 			div23 = element("div");
 			div22 = element("div");
-			div14 = element("div");
+			div12 = element("div");
 			input3 = element("input");
+			t9 = space();
+			div14 = element("div");
+			div13 = element("div");
+			div13.textContent = "Exp. Fit";
 			t11 = space();
-			div16 = element("div");
-			div15 = element("div");
-			div15.textContent = "Exp. Fit";
-			t13 = space();
+			div17 = element("div");
+			div17.innerHTML = `<div class="pretty p-switch p-slim" style="margin-left:1em;" data-tippy="Overwrite existing expfit file with only new values ? or else will append to existing file"><input type="checkbox" id="overwrite_expfit"> <div class="state p-info p-on"><label class="svelte-1z8f7">Overwrite</label></div></div>`;
+			t14 = space();
 			div19 = element("div");
-			div19.innerHTML = `<div class="pretty p-switch p-slim" style="margin-left:1em;" data-tippy="Overwrite existing expfit file with only new values ? or else will append to existing file"><input type="checkbox" id="overwrite_expfit"> <div class="state p-info p-on"><label class="svelte-1z8f7">Overwrite</label></div></div>`;
+			div18 = element("div");
+			t15 = text("Clear");
 			t16 = space();
 			div21 = element("div");
 			div20 = element("div");
@@ -3413,31 +3413,31 @@ function create_if_block_1$1(ctx) {
 			attr(div4, "id", "find_expfit_peaks");
 			attr(div4, "data-tippy", "Find the peaks by adjusting the prominence value");
 			attr(div5, "class", "level-item");
-			attr(div6, "class", div6_class_value = "level-item button hvr-glow funcBtn animated " + ctx.revertPeak_btnCSS + " svelte-1z8f7");
-			attr(div6, "id", "revert_plotted_peaks");
-			attr(div6, "data-tippy", "Undo the applied/found peaks (to make it better by adjusting the prominence value)");
-			attr(div7, "class", "level-item");
 			if (ctx.fit_files === void 0) add_render_callback(() => ctx.select_change_handler_1.call(select));
 			attr(select, "id", "fitFiles");
-			attr(div8, "class", "select");
+			attr(div6, "class", "select");
+			attr(div7, "class", "level-item");
+			attr(div8, "class", div8_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-1z8f7");
+			attr(div8, "id", "fitall_expfit_peaks");
+			attr(div8, "data-tippy", "Fit all the peaks positions found using gaussian");
 			attr(div9, "class", "level-item");
-			attr(div10, "class", div10_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-1z8f7");
-			attr(div10, "id", "fitall_expfit_peaks");
-			attr(div10, "data-tippy", "Fit all the peaks positions found using gaussian");
-			attr(div11, "class", "level-item");
-			attr(div12, "class", "level-left");
-			attr(div13, "class", "level");
-			set_style(div13, "display", ctx.exp_fitall_div);
+			attr(div10, "class", "level-left");
+			attr(div11, "class", "level");
+			set_style(div11, "display", ctx.exp_fitall_div);
 			attr(input3, "class", "input");
 			attr(input3, "type", "text");
 			attr(input3, "id", "avg_output_name");
 			attr(input3, "placeholder", "Averaged spectra output filename");
 			attr(input3, "data-tippy", "Averaged spectra output filename");
 			input3.disabled = true;
+			attr(div12, "class", "level-item");
+			attr(div13, "class", "level-item button hvr-glow funcBtn is-link animated svelte-1z8f7");
+			attr(div13, "id", "exp_fit");
 			attr(div14, "class", "level-item");
-			attr(div15, "class", "level-item button hvr-glow funcBtn is-link animated svelte-1z8f7");
-			attr(div15, "id", "exp_fit");
-			attr(div16, "class", "level-item");
+			attr(div17, "class", "level-item");
+			attr(div18, "class", div18_class_value = "level-item button hvr-glow funcBtn animated " + ctx.revertPeak_btnCSS + " svelte-1z8f7");
+			attr(div18, "id", "revert_plotted_peaks");
+			attr(div18, "data-tippy", "Clear fitted lines");
 			attr(div19, "class", "level-item");
 			attr(div20, "class", "level-item button hvr-glow funcBtn is-link animated svelte-1z8f7");
 			attr(div20, "id", "findall_expfit_toggle");
@@ -3454,11 +3454,11 @@ function create_if_block_1$1(ctx) {
 				listen(input2, "input", input2_input_handler),
 				listen(input2, "change", ctx.expfit_func),
 				listen(div4, "click", ctx.findPeak),
-				listen(div6, "click", ctx.revertPeak),
 				listen(select, "change", ctx.select_change_handler_1),
-				listen(div10, "click", ctx.fitall),
+				listen(div8, "click", ctx.fitall),
 				listen(input3, "input", ctx.input3_input_handler),
-				listen(div15, "click", ctx.functionRun),
+				listen(div13, "click", ctx.functionRun),
+				listen(div18, "click", ctx.revertPeak),
 				listen(div20, "click", ctx.click_handler_4)
 			];
 		},
@@ -3466,37 +3466,33 @@ function create_if_block_1$1(ctx) {
 		m(target, anchor) {
 			insert(target, div0, anchor);
 			insert(target, t0, anchor);
-			insert(target, div13, anchor);
-			append(div13, div12);
-			append(div12, div1);
+			insert(target, div11, anchor);
+			append(div11, div10);
+			append(div10, div1);
 			append(div1, input0);
 
 			set_input_value(input0, ctx.prominence);
 
-			append(div12, t1);
-			append(div12, div2);
+			append(div10, t1);
+			append(div10, div2);
 			append(div2, input1);
 
 			set_input_value(input1, ctx.peak_width);
 
-			append(div12, t2);
-			append(div12, div3);
+			append(div10, t2);
+			append(div10, div3);
 			append(div3, input2);
 
 			set_input_value(input2, ctx.peak_height);
 
-			append(div12, t3);
-			append(div12, div5);
+			append(div10, t3);
+			append(div10, div5);
 			append(div5, div4);
 			append(div4, t4);
-			append(div12, t5);
-			append(div12, div7);
+			append(div10, t5);
+			append(div10, div7);
 			append(div7, div6);
-			append(div6, t6);
-			append(div12, t7);
-			append(div12, div9);
-			append(div9, div8);
-			append(div8, select);
+			append(div6, select);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].m(select, null);
@@ -3504,23 +3500,27 @@ function create_if_block_1$1(ctx) {
 
 			select_option(select, ctx.fit_files);
 
-			append(div12, t8);
-			append(div12, div11);
-			append(div11, div10);
-			append(div10, t9);
-			insert(target, t10, anchor);
+			append(div10, t6);
+			append(div10, div9);
+			append(div9, div8);
+			append(div8, t7);
+			insert(target, t8, anchor);
 			insert(target, div23, anchor);
 			append(div23, div22);
-			append(div22, div14);
-			append(div14, input3);
+			append(div22, div12);
+			append(div12, input3);
 
 			set_input_value(input3, ctx.output_filename);
 
+			append(div22, t9);
+			append(div22, div14);
+			append(div14, div13);
 			append(div22, t11);
-			append(div22, div16);
-			append(div16, div15);
-			append(div22, t13);
+			append(div22, div17);
+			append(div22, t14);
 			append(div22, div19);
+			append(div19, div18);
+			append(div18, t15);
 			append(div22, t16);
 			append(div22, div21);
 			append(div21, div20);
@@ -3541,10 +3541,6 @@ function create_if_block_1$1(ctx) {
 
 			if ((changed.findPeak_btnCSS) && div4_class_value !== (div4_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-1z8f7")) {
 				attr(div4, "class", div4_class_value);
-			}
-
-			if ((changed.revertPeak_btnCSS) && div6_class_value !== (div6_class_value = "level-item button hvr-glow funcBtn animated " + ctx.revertPeak_btnCSS + " svelte-1z8f7")) {
-				attr(div6, "class", div6_class_value);
 			}
 
 			if (changed.fit_file_list) {
@@ -3571,15 +3567,19 @@ function create_if_block_1$1(ctx) {
 
 			if (changed.fit_files) select_option(select, ctx.fit_files);
 
-			if ((changed.fitallPeak_btnCSS) && div10_class_value !== (div10_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-1z8f7")) {
-				attr(div10, "class", div10_class_value);
+			if ((changed.fitallPeak_btnCSS) && div8_class_value !== (div8_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-1z8f7")) {
+				attr(div8, "class", div8_class_value);
 			}
 
 			if (changed.exp_fitall_div) {
-				set_style(div13, "display", ctx.exp_fitall_div);
+				set_style(div11, "display", ctx.exp_fitall_div);
 			}
 
 			if (changed.output_filename && (input3.value !== ctx.output_filename)) set_input_value(input3, ctx.output_filename);
+
+			if ((changed.revertPeak_btnCSS) && div18_class_value !== (div18_class_value = "level-item button hvr-glow funcBtn animated " + ctx.revertPeak_btnCSS + " svelte-1z8f7")) {
+				attr(div18, "class", div18_class_value);
+			}
 
 			if (changed.expfitDiv) {
 				set_style(div23, "display", ctx.expfitDiv);
@@ -3590,13 +3590,13 @@ function create_if_block_1$1(ctx) {
 			if (detaching) {
 				detach(div0);
 				detach(t0);
-				detach(div13);
+				detach(div11);
 			}
 
 			destroy_each(each_blocks, detaching);
 
 			if (detaching) {
-				detach(t10);
+				detach(t8);
 				detach(div23);
 			}
 
@@ -3605,7 +3605,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (831:12) {#if filetag == 'scan'}
+// (837:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3679,7 +3679,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (876:26) {#each fit_file_list as file}
+// (875:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -3716,7 +3716,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (833:16) {#each fileChecked as scanfile}
+// (839:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3746,7 +3746,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (830:10) {#each plotID as id}
+// (836:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -4147,7 +4147,7 @@ function create_fragment$4(ctx) {
 				if_block3 = null;
 			}
 
-			if (changed.filetag || changed.plotID || changed.fileChecked || changed.expfitDiv || changed.output_filename || changed.exp_fitall_div || changed.fitallPeak_btnCSS || changed.fit_files || changed.fit_file_list || changed.revertPeak_btnCSS || changed.findPeak_btnCSS || changed.peak_height || changed.peak_width || changed.prominence) {
+			if (changed.filetag || changed.plotID || changed.fileChecked || changed.expfitDiv || changed.revertPeak_btnCSS || changed.output_filename || changed.exp_fitall_div || changed.fitallPeak_btnCSS || changed.fit_files || changed.fit_file_list || changed.findPeak_btnCSS || changed.peak_height || changed.peak_width || changed.prominence) {
 				each_value = ctx.plotID;
 
 				let i;
@@ -4667,6 +4667,7 @@ function instance$4($$self, $$props, $$invalidate) {
   let output_filename =  "averaged";
 
   function expfit_func({runfit = false, btname = "find_expfit_peaks"} = {}) {
+
     let output_filename = document.getElementById("avg_output_name").value;
     let expfit_overwrite = document.getElementById("overwrite_expfit").checked;
     runPlot({
@@ -4676,9 +4677,7 @@ function instance$4($$self, $$props, $$invalidate) {
       pyfile: "fit_all.py",
       args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite]
     })
-    .then((output)=>{
-      console.log(output);
-    })
+    .then((output)=>console.log(output))
     .catch((err)=>{
       console.log('Error Occured', err); 
       $$invalidate('error_msg', error_msg[filetag]=err, error_msg); 
@@ -4691,8 +4690,14 @@ function instance$4($$self, $$props, $$invalidate) {
   };
 
   const revertPeak = () => {
+
     console.log("Removing last found peak values");
-    Plotly.relayout("avgplot", { annotations: [] });
+
+    Plotly.relayout("avgplot", { annotations: [], shapes: [] });
+    let plottedFiles_length = window.line.length / 2;
+    console.log(`Total files plotted: ${plottedFiles_length}`);
+    for (let i=0; i<plottedFiles_length; i++) {Plotly.deleteTraces("avgplot", [-1]);}
+    window.line = [];
   };
 
   const fitall = () => {
@@ -4840,7 +4845,7 @@ function instance$4($$self, $$props, $$invalidate) {
 	$$invalidate('modal', modal = {mass:"", felix:"", scan:"", thz:""});
 	$$invalidate('error_msg', error_msg = {mass:"", felix:"", scan:"", thz:""});
 	$$invalidate('expfitDiv', expfitDiv = "none");
-	$$invalidate('prominence', prominence = 2);
+	$$invalidate('prominence', prominence = 5);
 	$$invalidate('peak_width', peak_width = 5);
 	$$invalidate('peak_height', peak_height = 0);
 	$$invalidate('findPeak_btnCSS', findPeak_btnCSS = "is-link");
@@ -22238,7 +22243,7 @@ function get_each_context$5(ctx, list, i) {
 	return child_ctx;
 }
 
-// (69:0) {#each mainPages as page}
+// (68:0) {#each mainPages as page}
 function create_each_block$5(ctx) {
 	var current;
 

@@ -63,15 +63,13 @@
 <Header {jq} />
 
 <Navbar {navItems} {jq}/>
-
 <Welcome {jq}/>
 
 {#each mainPages as page}
   <Container {...page} {jq} {electron} {menu} {MenuItem} {path}/>
 {/each}
+
 <Powerfile {electron} {path} {jq}/>
-
 <Settings {jq} {path} {mainWindow} {showinfo} {electron}/>
-
 <Misc />
 <Footer {jq}/>
