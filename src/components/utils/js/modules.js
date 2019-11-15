@@ -301,7 +301,7 @@ class program {
                             window.annotations = dataFromPython[2]["annotations"]
 
                             if (dataFromPython[3] != undefined) {
-                                let fit = dataFromPython.slice(3)
+                                let fit = dataFromPython[3]
                                 fit.forEach(data => {
                                     Plotly.addTraces("avgplot", data["fit"])
                                     window.line = [...window.line, ...data["line"]]

@@ -53,7 +53,7 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
         location = filename.parent.parent
         output_filename = filename.stem
 
-        fit_data = [{"data": data["data"]}, {"extras":data["extras"]}, {"annotations":data["annotations"]}]
+        fit_data = [{"data": data["data"]}, {"extras":data["extras"]}]
 
         filename = f"{output_filename}.expfit"
         datfile_location = location/"EXPORT"
@@ -62,16 +62,26 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
 
         if overwrite: method = "w"
         else: method = "a"
+        annotations = []
+        get_data = []
 
         with open(expfile, method) as f:
 
             if overwrite: f.write(f"#Frequency\t#Freq_err\t#Sigma\t#Sigma_err\t#FWHM\t#FWHM_err\t#Amplitude\t#Amplitude_err\n")
 
             for wavelength in _["wn_range"]:
-                get_data, uline_freq, usigma, uamplitude, ufwhm = exp_fit(location, norm_method, wavelength[0], wavelength[1], output_filename, getvalue=True)
-                fit_data.append(get_data)
 
+                get_data_temp, uline_freq, usigma, uamplitude, ufwhm = exp_fit(location, norm_method, wavelength[0], wavelength[1], output_filename, getvalue=True)
+                annotate = {
+                    "x": uline_freq.nominal_value, "y": uamplitude.nominal_value, "xref": 'x', "yref": 'y', "text": f'{uline_freq.nominal_value:.2f}',
+                    "showarrow": True, "arrowhead": 2, "ax": -25, "ay": -40
+                }
+                annotations.append(annotate)
+                get_data.append(get_data_temp)
                 f.write(f"{uline_freq.nominal_value:.4f}\t{uline_freq.std_dev:.4f}\t{usigma.nominal_value:.4f}\t{usigma.std_dev:.4f}\t{ufwhm.nominal_value:.4f}\t{ufwhm.std_dev:.4f}\t{uamplitude.nominal_value:.4f}\t{uamplitude.std_dev:.4f}\n")
+
+        fit_data.append({"annotations":annotations})
+        fit_data.append(get_data)
 
         dataJson = json.dumps(fit_data)
         print(dataJson)
