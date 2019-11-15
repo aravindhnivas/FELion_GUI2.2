@@ -288,7 +288,21 @@ class program {
                             window.line = [...window.line, ...dataFromPython["line"]]
                             Plotly.relayout("avgplot", { shapes: window.line })
                         } else if (this.filetype == "expfit_all") {
-                            Plotly.addTraces("avgplot", dataFromPython["data"])
+
+
+                            Plotly.relayout("avgplot", { annotations: [] })
+                            Plotly.relayout("avgplot", { annotations: dataFromPython[2]["annotations"] })
+                            if (dataFromPython[3] != undefined) {
+                                let fit = dataFromPython.slice(3)
+                                fit.forEach(data => {
+
+                                    Plotly.addTraces("avgplot", data["fit"])
+
+                                    window.line = [...window.line, ...data["line"]]
+                                    Plotly.relayout("avgplot", { shapes: window.line })
+
+                                })
+                            }
                         }
 
                         console.log("Graph Plotted");

@@ -11,7 +11,7 @@ from FELion_definitions import gauss_fit
 from FELion_definitions import read_dat_file
 
 
-def exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite=False, tkplot=False):
+def exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite=False, tkplot=False, getvalue=False):
 
     if location.name is "DATA": datfile_location = location.parent/"EXPORT"
     else: datfile_location = location/"EXPORT"
@@ -44,10 +44,9 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite=
             {"type":"line", "x0":line_freq_fit-fwhm/2, "x1":line_freq_fit+fwhm/2, "y0":amplitude/2, "y1":amplitude/2, "line":{"color":"black", "dash":"dot"}}
         ]
     }
-
+    if getvalue: return data, uline_freq, usigma, uamplitude, ufwhm
     filename = f"{output_filename}.expfit"
     expfile = datfile_location/filename
-
     if overwrite:
         with open(expfile, "w") as f:
             f.write(f"#Frequency\t#Freq_err\t#Sigma\t#Sigma_err\t#FWHM\t#FWHM_err\t#Amplitude\t#Amplitude_err\n")
@@ -55,7 +54,6 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite=
     else:
         with open(expfile, "a") as f:
             f.write(f"{line_freq_fit:.4f}\t{uline_freq.std_dev:.4f}\t{sigma:.4f}\t{usigma.std_dev:.4f}\t{fwhm:.4f}\t{ufwhm.std_dev:.4f}\t{amplitude:.4f}\t{uamplitude.std_dev:.4f}\n")
-
     
     data_tosend = json.dumps(data)
     print(data_tosend)
@@ -72,6 +70,7 @@ if __name__ == "__main__":
 
     output_filename = args[-5]
     overwrite = args[-6]
+
     if overwrite == "true": overwrite = True
     else: overwrite = False
     

@@ -481,30 +481,36 @@
   $: expfitDiv = "none"
 
   // Finding peak
-  $: prominence = 5
-  $: peak_width = null
-  $: peak_height = null
+  $: prominence = 2
+  $: peak_width = 5
+  $: peak_height = 0
 
   $: findPeak_btnCSS = "is-link"
-  $: revertPeak_btnCSS = "is-static"
-  $: fitallPeak_btnCSS = "is-static"
+  $: revertPeak_btnCSS = "is-warning"
+  $: fitallPeak_btnCSS = "is-link"
 
   // Toggle find all peaks row
   $: exp_fitall_div_status = false
   $: exp_fitall_div = "none"
   $: exp_fitall_div_status ? exp_fitall_div = "block" : exp_fitall_div = "none"
 
-  
+  $: fit_files = "averaged"
+  $: fit_file_list_temp = fileChecked.map(file => file.split(".")[0])
+  $: fit_file_list = [...fit_file_list_temp, "averaged"]
+
   function expfit_func({runfit = false, btname = "find_expfit_peaks"} = {}) {
     let output_filename = document.getElementById("avg_output_name").value
+    let expfit_overwrite = document.getElementById("overwrite_expfit").checked
     runPlot({
-      fullfiles: [output_filename],
+      fullfiles: [fit_files],
       filetype: "expfit_all",
       btname: btname,
       pyfile: "fit_all.py",
-      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height]
+      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite]
     })
-    .then((output)=>console.log(output))
+    .then((output)=>{
+      console.log(output)
+    })
     .catch((err)=>{
       console.log('Error Occured', err); 
       error_msg[filetag]=err; 
@@ -513,26 +519,17 @@
   }
   const findPeak = () => {
     console.log("Finding preak with prominence value: ", prominence)
-    revertPeak_btnCSS  = "is-warning"
-    fitallPeak_btnCSS = "is-link"
-    setTimeout(()=>findPeak_btnCSS = "is-static", 2000)
     expfit_func()
   }
 
   const revertPeak = () => {
-
     console.log("Removing last found peak values")
-    revertPeak_btnCSS = "is-static"
-    findPeak_btnCSS = "is-link"
-    fitallPeak_btnCSS = "is-static"
-    Plotly.deleteTraces("avgplot", [-1])
+    Plotly.relayout("avgplot", { annotations: [] })
   }
 
   const fitall = () => {
-
     console.log("Fitting all found peaks")
     expfit_func({runfit:true, btname:"fitall_expfit_peaks"})
-
     
   }
 </script>
@@ -847,34 +844,46 @@
 
                   <div class="level-item">
                       <input class="input" type="number" id="peak_prominance" placeholder="Peak prominance value"
-                        data-tippy="Peak prominace value" bind:value={prominence} />
+                        data-tippy="Peak prominace value" bind:value={prominence} on:change={expfit_func} min="0"/>
                   </div>
 
                   <div class="level-item">
                       <input class="input" type="number" id="peak_width_fit" placeholder="Peak width"
-                        data-tippy="Optional: Peak width" bind:value={peak_width} />
+                        data-tippy="Optional: Peak width" bind:value={peak_width} on:change={expfit_func} min="0"/>
                   </div>
 
                   <div class="level-item">
                       <input class="input" type="number" id="peak_height_fit" placeholder="Peak height"
-                        data-tippy="Optional: Peak height" bind:value={peak_height} />
+                        data-tippy="Optional: Peak height" bind:value={peak_height} on:change={expfit_func} min="0"/>
                   </div>
 
                   <div class="level-item">
                       <div class="level-item button hvr-glow funcBtn animated {findPeak_btnCSS}"
-                        id="find_expfit_peaks" on:click={findPeak} data-tippy="Find the peaks by adjusting the prominence value">Find Peaks
+                        id="find_expfit_peaks" on:click={findPeak} data-tippy="Find the peaks by adjusting the prominence value">Get Peaks
                       </div>
                   </div>
 
                   <div class="level-item">
                       <div class="level-item button hvr-glow funcBtn animated {revertPeak_btnCSS}"
-                        id="revert_plotted_peaks" on:click={revertPeak} data-tippy="Undo the applied/found peaks (to make it better by adjusting the prominence value)">Revert
+                        id="revert_plotted_peaks" on:click={revertPeak} data-tippy="Undo the applied/found peaks (to make it better by adjusting the prominence value)">Clear
                       </div>
                   </div>
 
                   <div class="level-item">
+                    
+                    <div class="select">
+                      <select id="fitFiles" bind:value={fit_files}>
+                          {#each fit_file_list as file}
+                            <option>{file}</option>
+                          {/each}
+                        </select>
+                    </div>
+                      
+                  </div>
+
+                  <div class="level-item">
                       <div class="level-item button hvr-glow funcBtn animated {fitallPeak_btnCSS}"
-                        id="fitall_expfit_peaks" data-tippy="Fit all the peaks positions found using gaussian" on:click={fitall}>Fit all
+                        id="fitall_expfit_peaks" data-tippy="Fit all the peaks positions found using gaussian" on:click={fitall}>Fit
                       </div>
                   </div>
 
@@ -907,7 +916,7 @@
                   <div class="level-item">
 
                       <div class="level-item button hvr-glow funcBtn is-link animated"
-                        id="findall_expfit_toggle" on:click="{()=>exp_fitall_div_status = !exp_fitall_div_status}">Fit all
+                        id="findall_expfit_toggle" on:click="{()=>exp_fitall_div_status = !exp_fitall_div_status}">Find Peaks
                       </div>
                   </div>
                 </div>
