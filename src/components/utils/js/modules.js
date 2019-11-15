@@ -248,12 +248,10 @@ class program {
                                     console.log(`Index selected: ${window.index}`)
                                     document.getElementById("avg_output_name").value = filename
                                     document.getElementById("fitFiles").value = filename
-                                    // window.outputFile = filename
-
                                 }
                             })
-
-                        } else if (this.filetype == "theory") {
+                        } 
+                        else if (this.filetype == "theory") {
 
                             let normethod = this.args[0];
                             let ylabel;
@@ -270,7 +268,8 @@ class program {
                                 ylabel, [dataFromPython["averaged"], ...theoryData],
                                 "exp-theory-plot"
                             );
-                        } else if (this.filetype == "thz") {
+                        } 
+                        else if (this.filetype == "thz") {
 
 
                             let delta_thz = this.args
@@ -284,7 +283,8 @@ class program {
                                 shapes: lines
                             }
                             Plotly.relayout("thzplot_Container", layout_update)
-                        } else if (this.filetype == "depletion") { console.log('Graph plotted') }
+                        } 
+                        else if (this.filetype == "depletion") { console.log('Graph plotted') }
                         else if (this.filetype == "norm_tkplot") { console.log('Graph plotted') }
                         else if (this.filetype == "exp_fit") {
 
