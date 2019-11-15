@@ -19,6 +19,7 @@ function felixbtntoggle(toggle = "none") {
 
 function runPlot({ fullfiles, filetype, btname, pyfile, filetag = null, args = [], plotArea = "", normethod = true, checking = false }) {
 
+    console.log("DEVELOPER MODE: ", window.developerMode)
     let obj = {
         files: fullfiles,
 
@@ -30,7 +31,7 @@ function runPlot({ fullfiles, filetype, btname, pyfile, filetag = null, args = [
         args: args,
         plotArea: plotArea,
         normethod: normethod,
-        checking: checking
+        checking: window.developerMode
     };
 
     let $target = $(obj.mainbtn);

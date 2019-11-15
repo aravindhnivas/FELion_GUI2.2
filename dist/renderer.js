@@ -1760,6 +1760,7 @@ class program {
 
                     let dataFromPython;
                     dataFromPython = data.toString("utf8");
+                    let data_before_json = dataFromPython;
                     // console.log("Before JSON parse :" + dataFromPython)
 
                     if (!this.obj.checking) {
@@ -1903,8 +1904,12 @@ class program {
                             Plotly.relayout("avgplot", { shapes: window.line });
                         } else if (this.filetype == "expfit_all") {
                             console.log("Data received");
-                            console.log(dataFromPython);
-                            Plotly.addTraces("avgplot", dataFromPython);
+                            console.log(data_before_json);
+                            if (!this.obj.checking) {
+                                console.log(dataFromPython);
+                                Plotly.addTraces("avgplot", dataFromPython);
+                            }
+
 
                         }
 
@@ -1961,6 +1966,7 @@ function felixbtntoggle(toggle = "none") {
 
 function runPlot({ fullfiles, filetype, btname, pyfile, filetag = null, args = [], plotArea = "", normethod = true, checking = false }) {
 
+    console.log("DEVELOPER MODE: ", window.developerMode);
     let obj = {
         files: fullfiles,
 
@@ -1972,7 +1978,7 @@ function runPlot({ fullfiles, filetype, btname, pyfile, filetag = null, args = [
         args: args,
         plotArea: plotArea,
         normethod: normethod,
-        checking: checking
+        checking: window.developerMode
     };
 
     let $target = $(obj.mainbtn);
@@ -2189,7 +2195,7 @@ function get_each_context_7(ctx, list, i) {
 	return child_ctx;
 }
 
-// (642:12) {#each funcBtns as { id, name }}
+// (646:12) {#each funcBtns as { id, name }}
 function create_each_block_7(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -2227,7 +2233,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (658:18) {:else}
+// (662:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2265,7 +2271,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (656:18) {#if name[0]==="Log"}
+// (660:18) {#if name[0]==="Log"}
 function create_if_block_11(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2303,7 +2309,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (651:12) {#each checkBtns as {id, name, bind, help}}
+// (655:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_6(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -2391,7 +2397,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (670:12) {#if filetag == 'felix'}
+// (674:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -2505,7 +2511,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (679:24) {#each normalisation_method as method}
+// (683:24) {#each normalisation_method as method}
 function create_each_block_5(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -2532,7 +2538,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (699:12) {#if filetag == 'thz'}
+// (703:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -2632,7 +2638,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (751:6) {#if filetag=="felix"}
+// (754:6) {#if filetag=="felix"}
 function create_if_block_8(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2753,7 +2759,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (770:6) {#if filetag=="scan"}
+// (773:6) {#if filetag=="scan"}
 function create_if_block_2(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2883,7 +2889,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (783:28) {#if folderFile.files != undefined}
+// (786:28) {#if folderFile.files != undefined}
 function create_if_block_7(ctx) {
 	var each_1_anchor;
 
@@ -2946,7 +2952,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (784:31) {#each folderFile.files as scanfile}
+// (787:31) {#each folderFile.files as scanfile}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2983,7 +2989,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (775:16) {#each ["ResON", "ResOFF"] as name}
+// (778:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_3(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3051,7 +3057,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (806:57) 
+// (809:57) 
 function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3090,7 +3096,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (804:52) 
+// (807:52) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3129,7 +3135,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (802:50) 
+// (805:50) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3168,7 +3174,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (800:22) {#if name=="Power (ON, OFF)"}
+// (803:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_3(ctx) {
 	var input, dispose;
 
@@ -3201,7 +3207,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (795:16) {#each depletionLabels as {name, id}}
+// (798:16) {#each depletionLabels as {name, id}}
 function create_each_block_2(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -3259,7 +3265,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (903:12) {:else}
+// (916:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3289,144 +3295,186 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (838:38) 
+// (841:38) 
 function create_if_block_1$1(ctx) {
-	var div0, div0_id_value, t0, div9, div8, div1, input0, input0_updating = false, t1, div3, div2, t2, div2_class_value, t3, div5, div4, t4, div4_class_value, t5, div7, div6, t6, div6_class_value, t7, div19, div18, div10, input1, t8, div12, div11, t10, div15, t13, div17, div16, t15, dispose;
+	var div0, div0_id_value, t0, div11, div10, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, t6, div6_class_value, t7, div9, div8, t8, div8_class_value, t9, div21, div20, div12, input3, t10, div14, div13, t12, div17, t15, div19, div18, t17, dispose;
 
 	function input0_input_handler_2() {
 		input0_updating = true;
 		ctx.input0_input_handler_2.call(input0);
 	}
 
+	function input1_input_handler_2() {
+		input1_updating = true;
+		ctx.input1_input_handler_2.call(input1);
+	}
+
+	function input2_input_handler() {
+		input2_updating = true;
+		ctx.input2_input_handler.call(input2);
+	}
+
 	return {
 		c() {
 			div0 = element("div");
 			t0 = space();
-			div9 = element("div");
-			div8 = element("div");
+			div11 = element("div");
+			div10 = element("div");
 			div1 = element("div");
 			input0 = element("input");
 			t1 = space();
-			div3 = element("div");
 			div2 = element("div");
-			t2 = text("Find Peaks");
+			input1 = element("input");
+			t2 = space();
+			div3 = element("div");
+			input2 = element("input");
 			t3 = space();
 			div5 = element("div");
 			div4 = element("div");
-			t4 = text("Revert");
+			t4 = text("Find Peaks");
 			t5 = space();
 			div7 = element("div");
 			div6 = element("div");
-			t6 = text("Fit all");
+			t6 = text("Revert");
 			t7 = space();
+			div9 = element("div");
+			div8 = element("div");
+			t8 = text("Fit all");
+			t9 = space();
+			div21 = element("div");
+			div20 = element("div");
+			div12 = element("div");
+			input3 = element("input");
+			t10 = space();
+			div14 = element("div");
+			div13 = element("div");
+			div13.textContent = "Exp. Fit";
+			t12 = space();
+			div17 = element("div");
+			div17.innerHTML = `<div class="pretty p-switch p-slim" style="margin-left:1em;" data-tippy="Overwrite existing expfit file with only new values ? or else will append to existing file"><input type="checkbox" id="overwrite_expfit"> <div class="state p-info p-on"><label class="svelte-1z8f7">Overwrite</label></div></div>`;
+			t15 = space();
 			div19 = element("div");
 			div18 = element("div");
-			div10 = element("div");
-			input1 = element("input");
-			t8 = space();
-			div12 = element("div");
-			div11 = element("div");
-			div11.textContent = "Exp. Fit";
-			t10 = space();
-			div15 = element("div");
-			div15.innerHTML = `<div class="pretty p-switch p-slim" style="margin-left:1em;" data-tippy="Overwrite existing expfit file with only new values ? or else will append to existing file"><input type="checkbox" id="overwrite_expfit"> <div class="state p-info p-on"><label class="svelte-1z8f7">Overwrite</label></div></div>`;
-			t13 = space();
-			div17 = element("div");
-			div16 = element("div");
-			div16.textContent = "Fit all";
-			t15 = space();
+			div18.textContent = "Fit all";
+			t17 = space();
 			attr(div0, "id", div0_id_value = ctx.id);
 			set_style(div0, "padding-bottom", "1em");
 			attr(div0, "class", "svelte-1z8f7");
 			attr(input0, "class", "input svelte-1z8f7");
 			attr(input0, "type", "number");
-			attr(input0, "id", "find_peak_prominance");
+			attr(input0, "id", "peak_prominance");
 			attr(input0, "placeholder", "Peak prominance value");
 			attr(input0, "data-tippy", "Peak prominace value");
 			attr(div1, "class", "level-item");
-			attr(div2, "class", div2_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-1z8f7");
-			attr(div2, "id", "find_expfit_peaks");
-			attr(div2, "data-tippy", "Find the peaks by adjusting the prominence value");
+			attr(input1, "class", "input svelte-1z8f7");
+			attr(input1, "type", "number");
+			attr(input1, "id", "peak_width_fit");
+			attr(input1, "placeholder", "Peak width");
+			attr(input1, "data-tippy", "Optional: Peak width");
+			attr(div2, "class", "level-item");
+			attr(input2, "class", "input svelte-1z8f7");
+			attr(input2, "type", "number");
+			attr(input2, "id", "peak_height_fit");
+			attr(input2, "placeholder", "Peak height");
+			attr(input2, "data-tippy", "Optional: Peak height");
 			attr(div3, "class", "level-item");
-			attr(div4, "class", div4_class_value = "level-item button hvr-glow funcBtn animated " + ctx.revertPeak_btnCSS + " svelte-1z8f7");
-			attr(div4, "id", "revert_plotted_peaks");
-			attr(div4, "data-tippy", "Undo the applied/found peaks (to make it better by adjusting the prominence value)");
+			attr(div4, "class", div4_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-1z8f7");
+			attr(div4, "id", "find_expfit_peaks");
+			attr(div4, "data-tippy", "Find the peaks by adjusting the prominence value");
 			attr(div5, "class", "level-item");
-			attr(div6, "class", div6_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-1z8f7");
-			attr(div6, "id", "fitall_expfit_peaks");
-			attr(div6, "data-tippy", "Fit all the peaks positions found using gaussian");
+			attr(div6, "class", div6_class_value = "level-item button hvr-glow funcBtn animated " + ctx.revertPeak_btnCSS + " svelte-1z8f7");
+			attr(div6, "id", "revert_plotted_peaks");
+			attr(div6, "data-tippy", "Undo the applied/found peaks (to make it better by adjusting the prominence value)");
 			attr(div7, "class", "level-item");
-			attr(div8, "class", "level-left");
-			attr(div9, "class", "level");
-			set_style(div9, "display", ctx.exp_fitall_div);
-			attr(input1, "class", "input");
-			attr(input1, "type", "text");
-			attr(input1, "id", "avg_output_name");
-			attr(input1, "placeholder", "Averaged spectra output filename");
-			attr(input1, "data-tippy", "Averaged spectra output filename");
-			input1.disabled = true;
-			attr(div10, "class", "level-item");
-			attr(div11, "class", "level-item button hvr-glow funcBtn is-link animated svelte-1z8f7");
-			attr(div11, "id", "exp_fit");
+			attr(div8, "class", div8_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-1z8f7");
+			attr(div8, "id", "fitall_expfit_peaks");
+			attr(div8, "data-tippy", "Fit all the peaks positions found using gaussian");
+			attr(div9, "class", "level-item");
+			attr(div10, "class", "level-left");
+			attr(div11, "class", "level");
+			set_style(div11, "display", ctx.exp_fitall_div);
+			attr(input3, "class", "input");
+			attr(input3, "type", "text");
+			attr(input3, "id", "avg_output_name");
+			attr(input3, "placeholder", "Averaged spectra output filename");
+			attr(input3, "data-tippy", "Averaged spectra output filename");
+			input3.disabled = true;
 			attr(div12, "class", "level-item");
-			attr(div15, "class", "level-item");
-			attr(div16, "class", "level-item button hvr-glow funcBtn is-link animated svelte-1z8f7");
-			attr(div16, "id", "findall_expfit_toggle");
+			attr(div13, "class", "level-item button hvr-glow funcBtn is-link animated svelte-1z8f7");
+			attr(div13, "id", "exp_fit");
+			attr(div14, "class", "level-item");
 			attr(div17, "class", "level-item");
-			attr(div18, "class", "level-left");
-			attr(div19, "class", "level");
-			set_style(div19, "display", ctx.expfitDiv);
+			attr(div18, "class", "level-item button hvr-glow funcBtn is-link animated svelte-1z8f7");
+			attr(div18, "id", "findall_expfit_toggle");
+			attr(div19, "class", "level-item");
+			attr(div20, "class", "level-left");
+			attr(div21, "class", "level");
+			set_style(div21, "display", ctx.expfitDiv);
 
 			dispose = [
 				listen(input0, "input", input0_input_handler_2),
-				listen(div2, "click", ctx.findPeak),
-				listen(div4, "click", ctx.revertPeak),
-				listen(div6, "click", ctx.fitall),
-				listen(input1, "input", ctx.input1_input_handler_2),
-				listen(div11, "click", ctx.functionRun),
-				listen(div16, "click", ctx.click_handler_4)
+				listen(input1, "input", input1_input_handler_2),
+				listen(input2, "input", input2_input_handler),
+				listen(div4, "click", ctx.findPeak),
+				listen(div6, "click", ctx.revertPeak),
+				listen(div8, "click", ctx.fitall),
+				listen(input3, "input", ctx.input3_input_handler),
+				listen(div13, "click", ctx.functionRun),
+				listen(div18, "click", ctx.click_handler_4)
 			];
 		},
 
 		m(target, anchor) {
 			insert(target, div0, anchor);
 			insert(target, t0, anchor);
-			insert(target, div9, anchor);
-			append(div9, div8);
-			append(div8, div1);
+			insert(target, div11, anchor);
+			append(div11, div10);
+			append(div10, div1);
 			append(div1, input0);
 
 			set_input_value(input0, ctx.prominence);
 
-			append(div8, t1);
-			append(div8, div3);
-			append(div3, div2);
-			append(div2, t2);
-			append(div8, t3);
-			append(div8, div5);
+			append(div10, t1);
+			append(div10, div2);
+			append(div2, input1);
+
+			set_input_value(input1, ctx.peak_width);
+
+			append(div10, t2);
+			append(div10, div3);
+			append(div3, input2);
+
+			set_input_value(input2, ctx.peak_height);
+
+			append(div10, t3);
+			append(div10, div5);
 			append(div5, div4);
 			append(div4, t4);
-			append(div8, t5);
-			append(div8, div7);
+			append(div10, t5);
+			append(div10, div7);
 			append(div7, div6);
 			append(div6, t6);
-			insert(target, t7, anchor);
-			insert(target, div19, anchor);
+			append(div10, t7);
+			append(div10, div9);
+			append(div9, div8);
+			append(div8, t8);
+			insert(target, t9, anchor);
+			insert(target, div21, anchor);
+			append(div21, div20);
+			append(div20, div12);
+			append(div12, input3);
+
+			set_input_value(input3, ctx.output_filename);
+
+			append(div20, t10);
+			append(div20, div14);
+			append(div14, div13);
+			append(div20, t12);
+			append(div20, div17);
+			append(div20, t15);
+			append(div20, div19);
 			append(div19, div18);
-			append(div18, div10);
-			append(div10, input1);
-
-			set_input_value(input1, ctx.output_filename);
-
-			append(div18, t8);
-			append(div18, div12);
-			append(div12, div11);
-			append(div18, t10);
-			append(div18, div15);
-			append(div18, t13);
-			append(div18, div17);
-			append(div17, div16);
-			append(div19, t15);
+			append(div21, t17);
 		},
 
 		p(changed, ctx) {
@@ -3436,27 +3484,31 @@ function create_if_block_1$1(ctx) {
 
 			if (!input0_updating && changed.prominence) set_input_value(input0, ctx.prominence);
 			input0_updating = false;
+			if (!input1_updating && changed.peak_width) set_input_value(input1, ctx.peak_width);
+			input1_updating = false;
+			if (!input2_updating && changed.peak_height) set_input_value(input2, ctx.peak_height);
+			input2_updating = false;
 
-			if ((changed.findPeak_btnCSS) && div2_class_value !== (div2_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-1z8f7")) {
-				attr(div2, "class", div2_class_value);
-			}
-
-			if ((changed.revertPeak_btnCSS) && div4_class_value !== (div4_class_value = "level-item button hvr-glow funcBtn animated " + ctx.revertPeak_btnCSS + " svelte-1z8f7")) {
+			if ((changed.findPeak_btnCSS) && div4_class_value !== (div4_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-1z8f7")) {
 				attr(div4, "class", div4_class_value);
 			}
 
-			if ((changed.fitallPeak_btnCSS) && div6_class_value !== (div6_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-1z8f7")) {
+			if ((changed.revertPeak_btnCSS) && div6_class_value !== (div6_class_value = "level-item button hvr-glow funcBtn animated " + ctx.revertPeak_btnCSS + " svelte-1z8f7")) {
 				attr(div6, "class", div6_class_value);
 			}
 
-			if (changed.exp_fitall_div) {
-				set_style(div9, "display", ctx.exp_fitall_div);
+			if ((changed.fitallPeak_btnCSS) && div8_class_value !== (div8_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-1z8f7")) {
+				attr(div8, "class", div8_class_value);
 			}
 
-			if (changed.output_filename && (input1.value !== ctx.output_filename)) set_input_value(input1, ctx.output_filename);
+			if (changed.exp_fitall_div) {
+				set_style(div11, "display", ctx.exp_fitall_div);
+			}
+
+			if (changed.output_filename && (input3.value !== ctx.output_filename)) set_input_value(input3, ctx.output_filename);
 
 			if (changed.expfitDiv) {
-				set_style(div19, "display", ctx.expfitDiv);
+				set_style(div21, "display", ctx.expfitDiv);
 			}
 		},
 
@@ -3464,9 +3516,9 @@ function create_if_block_1$1(ctx) {
 			if (detaching) {
 				detach(div0);
 				detach(t0);
-				detach(div9);
-				detach(t7);
-				detach(div19);
+				detach(div11);
+				detach(t9);
+				detach(div21);
 			}
 
 			run_all(dispose);
@@ -3474,7 +3526,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (831:12) {#if filetag == 'scan'}
+// (834:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3548,7 +3600,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (833:16) {#each fileChecked as scanfile}
+// (836:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3578,7 +3630,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (830:10) {#each plotID as id}
+// (833:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3979,7 +4031,7 @@ function create_fragment$4(ctx) {
 				if_block3 = null;
 			}
 
-			if (changed.filetag || changed.plotID || changed.fileChecked || changed.expfitDiv || changed.output_filename || changed.exp_fitall_div || changed.fitallPeak_btnCSS || changed.revertPeak_btnCSS || changed.findPeak_btnCSS || changed.prominence) {
+			if (changed.filetag || changed.plotID || changed.fileChecked || changed.expfitDiv || changed.output_filename || changed.exp_fitall_div || changed.fitallPeak_btnCSS || changed.revertPeak_btnCSS || changed.findPeak_btnCSS || changed.peak_height || changed.peak_width || changed.prominence) {
 				each_value = ctx.plotID;
 
 				let i;
@@ -4498,16 +4550,15 @@ function instance$4($$self, $$props, $$invalidate) {
   
   let output_filename =  "averaged";
 
-  function expfit_func({runfit = false, btname = "find_expfit_peaks", checking = false} = {}) {
+  
+  function expfit_func({runfit = false, btname = "find_expfit_peaks"} = {}) {
     let output_filename = document.getElementById("avg_output_name").value;
-
     runPlot({
       fullfiles: [output_filename],
       filetype: "expfit_all",
       btname: btname,
       pyfile: "fit_all.py",
-      args: [currentLocation, normMethod, prominence, runfit],
-      checking: checking
+      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height]
     })
     .then((output)=>console.log(output))
     .catch((err)=>{
@@ -4624,6 +4675,16 @@ function instance$4($$self, $$props, $$invalidate) {
 	}
 
 	function input1_input_handler_2() {
+		peak_width = to_number(this.value);
+		$$invalidate('peak_width', peak_width);
+	}
+
+	function input2_input_handler() {
+		peak_height = to_number(this.value);
+		$$invalidate('peak_height', peak_height);
+	}
+
+	function input3_input_handler() {
 		output_filename = this.value;
 		$$invalidate('output_filename', output_filename);
 	}
@@ -4644,7 +4705,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		if ('MenuItem' in $$props) $$invalidate('MenuItem', MenuItem = $$props.MenuItem);
 	};
 
-	let plotContainerHeight, fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, expfitDiv, prominence, findPeak_btnCSS, revertPeak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div;
+	let plotContainerHeight, fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, revertPeak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div;
 
 	$$self.$$.update = ($$dirty = { filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1, exp_fitall_div_status: 1 }) => {
 		if ($$dirty.filetag) ;
@@ -4663,6 +4724,8 @@ function instance$4($$self, $$props, $$invalidate) {
 	$$invalidate('error_msg', error_msg = {mass:"", felix:"", scan:"", thz:""});
 	$$invalidate('expfitDiv', expfitDiv = "none");
 	$$invalidate('prominence', prominence = 5);
+	$$invalidate('peak_width', peak_width = null);
+	$$invalidate('peak_height', peak_height = null);
 	$$invalidate('findPeak_btnCSS', findPeak_btnCSS = "is-link");
 	$$invalidate('revertPeak_btnCSS', revertPeak_btnCSS = "is-static");
 	$$invalidate('fitallPeak_btnCSS', fitallPeak_btnCSS = "is-static");
@@ -4716,6 +4779,8 @@ function instance$4($$self, $$props, $$invalidate) {
 		error_msg,
 		expfitDiv,
 		prominence,
+		peak_width,
+		peak_height,
 		findPeak_btnCSS,
 		revertPeak_btnCSS,
 		fitallPeak_btnCSS,
@@ -4743,6 +4808,8 @@ function instance$4($$self, $$props, $$invalidate) {
 		input_input_handler_4,
 		input0_input_handler_2,
 		input1_input_handler_2,
+		input2_input_handler,
+		input3_input_handler,
 		click_handler_4
 	};
 }
@@ -5002,7 +5069,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (498:20) {#each items as item}
+// (502:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -5035,7 +5102,7 @@ function create_each_block$3(ctx) {
 }
 
 function create_fragment$6(ctx) {
-	var section, div23, div1, aside, div0, t1, ul, t2, div22, div21, div20, div2, t3, t4, div8, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div7, button0, t16, h10, t17, h10_class_value, t18, div17, h11, t19, t20, t21, div9, p2, button1, t22, button1_class_value, t23, p3, button2, t24, button2_class_value, t25, h12, t26, t27, hr0, t28, div11, t31, div15, div13, t33, div14, input3, t34, hr1, t35, div16, p4, input4, t36, p5, button3, t37, button3_class_value, t38, p6, button4, t39, button4_class_value, t40, div19, div18, h13, t42, h14, t43, t44_value = process.versions.electron + "", t44, t45, h15, t46, t47_value = process.versions.node + "", t47, t48, h16, t49, t50_value = process.versions.chrome + "", t50, t51, h17, t52, t53, hr2, t54, h18, t56, h19, t57, t58_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t58, t59, h110, t60, t61_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t61, t62, h111, t63, t64_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t64, t65, h112, t66, t67_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t67, t68, hr3, t69, h113, t71, h114, t72, t73_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t73, t74, h115, t75, t76_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t76, t77, h116, t78, t79_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t79, t80, h117, t81, t82_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t82, dispose;
+	var section, div26, div1, aside, div0, t1, ul, t2, div25, div24, div23, div2, t3, t4, div11, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div7, button0, t16, h10, t17, h10_class_value, t18, div10, div9, input2, t19, div8, t21, div20, h11, t22, t23, t24, div12, p2, button1, t25, button1_class_value, t26, p3, button2, t27, button2_class_value, t28, h12, t29, t30, hr0, t31, div14, t34, div18, div16, t36, div17, input4, t37, hr1, t38, div19, p4, input5, t39, p5, button3, t40, button3_class_value, t41, p6, button4, t42, button4_class_value, t43, div22, div21, h13, t45, h14, t46, t47_value = process.versions.electron + "", t47, t48, h15, t49, t50_value = process.versions.node + "", t50, t51, h16, t52, t53_value = process.versions.chrome + "", t53, t54, h17, t55, t56, hr2, t57, h18, t59, h19, t60, t61_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t61, t62, h110, t63, t64_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t64, t65, h111, t66, t67_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t67, t68, h112, t69, t70_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t70, t71, hr3, t72, h113, t74, h114, t75, t76_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t76, t77, h115, t78, t79_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t79, t80, h116, t81, t82_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t82, t83, h117, t84, t85_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t85, dispose;
 
 	let each_value = ctx.items;
 
@@ -5048,7 +5115,7 @@ function create_fragment$6(ctx) {
 	return {
 		c() {
 			section = element("section");
-			div23 = element("div");
+			div26 = element("div");
 			div1 = element("div");
 			aside = element("aside");
 			div0 = element("div");
@@ -5061,13 +5128,13 @@ function create_fragment$6(ctx) {
 			}
 
 			t2 = space();
-			div22 = element("div");
-			div21 = element("div");
-			div20 = element("div");
+			div25 = element("div");
+			div24 = element("div");
+			div23 = element("div");
 			div2 = element("div");
 			t3 = text(ctx.currentTime);
 			t4 = space();
-			div8 = element("div");
+			div11 = element("div");
 			div4 = element("div");
 			label0 = element("label");
 			label0.textContent = "PythonPath";
@@ -5095,110 +5162,117 @@ function create_fragment$6(ctx) {
 			h10 = element("h1");
 			t17 = text("Changes saved!");
 			t18 = space();
-			div17 = element("div");
-			h11 = element("h1");
-			t19 = text("FELion GUI (Current version): ");
-			t20 = text(ctx.currentVersion);
-			t21 = space();
+			div10 = element("div");
 			div9 = element("div");
+			input2 = element("input");
+			t19 = space();
+			div8 = element("div");
+			div8.innerHTML = `<label class="svelte-1c4zmtz">Developer mode</label>`;
+			t21 = space();
+			div20 = element("div");
+			h11 = element("h1");
+			t22 = text("FELion GUI (Current version): ");
+			t23 = text(ctx.currentVersion);
+			t24 = space();
+			div12 = element("div");
 			p2 = element("p");
 			button1 = element("button");
-			t22 = text("Check Update");
-			t23 = space();
+			t25 = text("Check Update");
+			t26 = space();
 			p3 = element("p");
 			button2 = element("button");
-			t24 = text("Update");
-			t25 = space();
-			h12 = element("h1");
-			t26 = text(ctx.updateStatus);
-			t27 = space();
-			hr0 = element("hr");
+			t27 = text("Update");
 			t28 = space();
-			div11 = element("div");
-			div11.innerHTML = `<input type="checkbox" checked id="autoupdate"> <div class="state p-info p-on"><label class="svelte-1c4zmtz">Auto update</label></div>`;
+			h12 = element("h1");
+			t29 = text(ctx.updateStatus);
+			t30 = space();
+			hr0 = element("hr");
 			t31 = space();
-			div15 = element("div");
-			div13 = element("div");
-			div13.innerHTML = `<div class="button is-static">Time Interval (in hours)</div>`;
-			t33 = space();
 			div14 = element("div");
-			input3 = element("input");
+			div14.innerHTML = `<input type="checkbox" checked id="autoupdate"> <div class="state p-info p-on"><label class="svelte-1c4zmtz">Auto update</label></div>`;
 			t34 = space();
-			hr1 = element("hr");
-			t35 = space();
+			div18 = element("div");
 			div16 = element("div");
-			p4 = element("p");
-			input4 = element("input");
+			div16.innerHTML = `<div class="button is-static">Time Interval (in hours)</div>`;
 			t36 = space();
+			div17 = element("div");
+			input4 = element("input");
+			t37 = space();
+			hr1 = element("hr");
+			t38 = space();
+			div19 = element("div");
+			p4 = element("p");
+			input5 = element("input");
+			t39 = space();
 			p5 = element("p");
 			button3 = element("button");
-			t37 = text("Backup");
-			t38 = space();
+			t40 = text("Backup");
+			t41 = space();
 			p6 = element("p");
 			button4 = element("button");
-			t39 = text("Restore");
-			t40 = space();
-			div19 = element("div");
-			div18 = element("div");
+			t42 = text("Restore");
+			t43 = space();
+			div22 = element("div");
+			div21 = element("div");
 			h13 = element("h1");
 			h13.textContent = "Software details (version)";
-			t42 = space();
-			h14 = element("h1");
-			t43 = text("Electron.js: ");
-			t44 = text(t44_value);
 			t45 = space();
-			h15 = element("h1");
-			t46 = text("Node.js: ");
+			h14 = element("h1");
+			t46 = text("Electron.js: ");
 			t47 = text(t47_value);
 			t48 = space();
-			h16 = element("h1");
-			t49 = text("Chrome: ");
+			h15 = element("h1");
+			t49 = text("Node.js: ");
 			t50 = text(t50_value);
 			t51 = space();
-			h17 = element("h1");
-			t52 = text(ctx.pythonv);
-			t53 = space();
-			hr2 = element("hr");
+			h16 = element("h1");
+			t52 = text("Chrome: ");
+			t53 = text(t53_value);
 			t54 = space();
+			h17 = element("h1");
+			t55 = text(ctx.pythonv);
+			t56 = space();
+			hr2 = element("hr");
+			t57 = space();
 			h18 = element("h1");
 			h18.textContent = "Javascript Frameworks and libraries";
-			t56 = space();
-			h19 = element("h1");
-			t57 = text("Svelte.js: ");
-			t58 = text(t58_value);
 			t59 = space();
-			h110 = element("h1");
-			t60 = text("jQuery: ");
+			h19 = element("h1");
+			t60 = text("Svelte.js: ");
 			t61 = text(t61_value);
 			t62 = space();
-			h111 = element("h1");
-			t63 = text("Typescript: ");
+			h110 = element("h1");
+			t63 = text("jQuery: ");
 			t64 = text(t64_value);
 			t65 = space();
-			h112 = element("h1");
-			t66 = text("Tippy.js: ");
+			h111 = element("h1");
+			t66 = text("Typescript: ");
 			t67 = text(t67_value);
 			t68 = space();
+			h112 = element("h1");
+			t69 = text("Tippy.js: ");
+			t70 = text(t70_value);
+			t71 = space();
 			hr3 = element("hr");
-			t69 = space();
+			t72 = space();
 			h113 = element("h1");
 			h113.textContent = "CSS Frameworks and libraries";
-			t71 = space();
-			h114 = element("h1");
-			t72 = text("Bulma: ");
-			t73 = text(t73_value);
 			t74 = space();
-			h115 = element("h1");
-			t75 = text("Fontawesome: ");
+			h114 = element("h1");
+			t75 = text("Bulma: ");
 			t76 = text(t76_value);
 			t77 = space();
-			h116 = element("h1");
-			t78 = text("pretty-checkbox: ");
+			h115 = element("h1");
+			t78 = text("Fontawesome: ");
 			t79 = text(t79_value);
 			t80 = space();
-			h117 = element("h1");
-			t81 = text("hover.css: ");
+			h116 = element("h1");
+			t81 = text("pretty-checkbox: ");
 			t82 = text(t82_value);
+			t83 = space();
+			h117 = element("h1");
+			t84 = text("hover.css: ");
+			t85 = text(t85_value);
 			attr(div0, "class", "menu-label svelte-1c4zmtz");
 			attr(ul, "class", "menu-list svelte-1c4zmtz");
 			attr(aside, "class", "menu box svelte-1c4zmtz");
@@ -5223,38 +5297,45 @@ function create_fragment$6(ctx) {
 			attr(h10, "class", h10_class_value = "subtitle animated " + ctx.saveChangeanimate + " svelte-1c4zmtz");
 			set_style(h10, "display", ctx.saveChanges);
 			attr(div7, "class", "control");
-			attr(div8, "class", "container");
-			attr(div8, "id", "Configuration");
+			attr(input2, "type", "checkbox");
+			input2.checked = true;
+			attr(input2, "id", "developerMode");
+			attr(div8, "class", "state p-info p-on");
+			attr(div9, "class", "pretty p-switch p-slim");
+			set_style(div9, "margin-bottom", "1em");
+			attr(div10, "class", "control");
+			attr(div11, "class", "container");
+			attr(div11, "id", "Configuration");
 			attr(h11, "class", "title svelte-1c4zmtz");
 			attr(button1, "class", button1_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-1c4zmtz");
 			attr(p2, "class", "control");
 			attr(button2, "class", button2_class_value = "button is-warning " + ctx.updateLoading + " svelte-1c4zmtz");
 			attr(p3, "class", "control");
-			attr(div9, "class", "field is-grouped");
+			attr(div12, "class", "field is-grouped");
 			attr(h12, "class", "subtitle");
 			set_style(h12, "display", "block");
-			attr(div11, "class", "pretty p-switch p-slim");
-			set_style(div11, "margin-bottom", "1em");
-			attr(div13, "class", "control");
-			attr(input3, "type", "number");
-			attr(input3, "class", "input");
-			attr(input3, "placeholder", "Enter update check for every (time in hrs) interval");
-			input3.value = "1";
-			attr(input3, "data-tippy", "Check for update every hour");
-			attr(div14, "class", "control");
-			attr(div15, "class", "field has-addons");
-			attr(input4, "type", "text");
+			attr(div14, "class", "pretty p-switch p-slim");
+			set_style(div14, "margin-bottom", "1em");
+			attr(div16, "class", "control");
+			attr(input4, "type", "number");
 			attr(input4, "class", "input");
-			attr(input4, "data-tippy", "Backup folder name");
+			attr(input4, "placeholder", "Enter update check for every (time in hrs) interval");
+			input4.value = "1";
+			attr(input4, "data-tippy", "Check for update every hour");
+			attr(div17, "class", "control");
+			attr(div18, "class", "field has-addons");
+			attr(input5, "type", "text");
+			attr(input5, "class", "input");
+			attr(input5, "data-tippy", "Backup folder name");
 			attr(p4, "class", "control");
 			attr(button3, "class", button3_class_value = "button animated " + ctx.backupClass + " svelte-1c4zmtz");
 			attr(p5, "class", "control");
 			attr(button4, "class", button4_class_value = "button animated " + ctx.restoreClass + " svelte-1c4zmtz");
 			attr(p6, "class", "control");
-			attr(div16, "class", "field is-grouped");
-			attr(div17, "class", "container");
-			set_style(div17, "display", "none");
-			attr(div17, "id", "Update");
+			attr(div19, "class", "field is-grouped");
+			attr(div20, "class", "container");
+			set_style(div20, "display", "none");
+			attr(div20, "id", "Update");
 			attr(h13, "class", "title svelte-1c4zmtz");
 			attr(h14, "class", "subtitle");
 			set_style(h14, "margin-bottom", "0");
@@ -5282,15 +5363,15 @@ function create_fragment$6(ctx) {
 			set_style(h116, "margin-bottom", "0");
 			attr(h117, "class", "subtitle");
 			set_style(h117, "margin-bottom", "0");
-			attr(div18, "class", "control");
-			attr(div19, "class", "container");
-			set_style(div19, "display", "none");
-			attr(div19, "id", "About");
-			attr(div20, "class", "container is-fluid");
-			attr(div21, "class", "row box box2 svelte-1c4zmtz");
-			set_style(div21, "height", "100%");
-			attr(div22, "class", "column");
-			attr(div23, "class", "columns");
+			attr(div21, "class", "control");
+			attr(div22, "class", "container");
+			set_style(div22, "display", "none");
+			attr(div22, "id", "About");
+			attr(div23, "class", "container is-fluid");
+			attr(div24, "class", "row box box2 svelte-1c4zmtz");
+			set_style(div24, "height", "100%");
+			attr(div25, "class", "column");
+			attr(div26, "class", "columns");
 			attr(section, "class", "section animated fadeIn");
 			set_style(section, "display", "none");
 			attr(section, "id", "Settings");
@@ -5299,11 +5380,12 @@ function create_fragment$6(ctx) {
 				listen(input0, "input", ctx.input0_input_handler),
 				listen(input1, "input", ctx.input1_input_handler),
 				listen(button0, "click", ctx.configSave),
+				listen(input2, "change", ctx.input2_change_handler),
 				listen(button1, "click", ctx.updateCheck),
 				listen(button2, "click", ctx.update),
-				listen(div11, "click", ctx.click_handler),
-				listen(input3, "change", ctx.change_handler),
-				listen(input4, "input", ctx.input4_input_handler),
+				listen(div14, "click", ctx.click_handler),
+				listen(input4, "change", ctx.change_handler),
+				listen(input5, "input", ctx.input5_input_handler),
 				listen(button3, "click", ctx.archive),
 				listen(button4, "click", ctx.restore)
 			];
@@ -5311,8 +5393,8 @@ function create_fragment$6(ctx) {
 
 		m(target, anchor) {
 			insert(target, section, anchor);
-			append(section, div23);
-			append(div23, div1);
+			append(section, div26);
+			append(div26, div1);
 			append(div1, aside);
 			append(aside, div0);
 			append(aside, t1);
@@ -5322,15 +5404,15 @@ function create_fragment$6(ctx) {
 				each_blocks[i].m(ul, null);
 			}
 
-			append(div23, t2);
-			append(div23, div22);
-			append(div22, div21);
-			append(div21, div20);
-			append(div20, div2);
+			append(div26, t2);
+			append(div26, div25);
+			append(div25, div24);
+			append(div24, div23);
+			append(div23, div2);
 			append(div2, t3);
-			append(div20, t4);
-			append(div20, div8);
-			append(div8, div4);
+			append(div23, t4);
+			append(div23, div11);
+			append(div11, div4);
 			append(div4, label0);
 			append(div4, t6);
 			append(div4, div3);
@@ -5340,8 +5422,8 @@ function create_fragment$6(ctx) {
 
 			append(div4, t7);
 			append(div4, p0);
-			append(div8, t9);
-			append(div8, div6);
+			append(div11, t9);
+			append(div11, div6);
 			append(div6, label1);
 			append(div6, t11);
 			append(div6, div5);
@@ -5351,115 +5433,124 @@ function create_fragment$6(ctx) {
 
 			append(div6, t12);
 			append(div6, p1);
-			append(div8, t14);
-			append(div8, div7);
+			append(div11, t14);
+			append(div11, div7);
 			append(div7, button0);
 			append(div7, t16);
 			append(div7, h10);
 			append(h10, t17);
-			append(div20, t18);
-			append(div20, div17);
-			append(div17, h11);
-			append(h11, t19);
-			append(h11, t20);
-			append(div17, t21);
-			append(div17, div9);
-			append(div9, p2);
+			append(div11, t18);
+			append(div11, div10);
+			append(div10, div9);
+			append(div9, input2);
+
+			input2.checked = ctx.developer_mode;
+
+			append(div9, t19);
+			append(div9, div8);
+			append(div23, t21);
+			append(div23, div20);
+			append(div20, h11);
+			append(h11, t22);
+			append(h11, t23);
+			append(div20, t24);
+			append(div20, div12);
+			append(div12, p2);
 			append(p2, button1);
-			append(button1, t22);
-			append(div9, t23);
-			append(div9, p3);
+			append(button1, t25);
+			append(div12, t26);
+			append(div12, p3);
 			append(p3, button2);
-			append(button2, t24);
-			append(div17, t25);
-			append(div17, h12);
-			append(h12, t26);
-			append(div17, t27);
-			append(div17, hr0);
-			append(div17, t28);
-			append(div17, div11);
-			append(div17, t31);
-			append(div17, div15);
-			append(div15, div13);
-			append(div15, t33);
-			append(div15, div14);
-			append(div14, input3);
-			append(div17, t34);
-			append(div17, hr1);
-			append(div17, t35);
-			append(div17, div16);
-			append(div16, p4);
-			append(p4, input4);
-
-			set_input_value(input4, ctx.backupName);
-
-			append(div16, t36);
-			append(div16, p5);
-			append(p5, button3);
-			append(button3, t37);
-			append(div16, t38);
-			append(div16, p6);
-			append(p6, button4);
-			append(button4, t39);
-			append(div20, t40);
+			append(button2, t27);
+			append(div20, t28);
+			append(div20, h12);
+			append(h12, t29);
+			append(div20, t30);
+			append(div20, hr0);
+			append(div20, t31);
+			append(div20, div14);
+			append(div20, t34);
+			append(div20, div18);
+			append(div18, div16);
+			append(div18, t36);
+			append(div18, div17);
+			append(div17, input4);
+			append(div20, t37);
+			append(div20, hr1);
+			append(div20, t38);
 			append(div20, div19);
-			append(div19, div18);
-			append(div18, h13);
-			append(div18, t42);
-			append(div18, h14);
-			append(h14, t43);
-			append(h14, t44);
-			append(div18, t45);
-			append(div18, h15);
-			append(h15, t46);
-			append(h15, t47);
-			append(div18, t48);
-			append(div18, h16);
-			append(h16, t49);
-			append(h16, t50);
-			append(div18, t51);
-			append(div18, h17);
-			append(h17, t52);
-			append(div18, t53);
-			append(div18, hr2);
-			append(div18, t54);
-			append(div18, h18);
-			append(div18, t56);
-			append(div18, h19);
-			append(h19, t57);
-			append(h19, t58);
-			append(div18, t59);
-			append(div18, h110);
-			append(h110, t60);
-			append(h110, t61);
-			append(div18, t62);
-			append(div18, h111);
-			append(h111, t63);
-			append(h111, t64);
-			append(div18, t65);
-			append(div18, h112);
-			append(h112, t66);
-			append(h112, t67);
-			append(div18, t68);
-			append(div18, hr3);
-			append(div18, t69);
-			append(div18, h113);
-			append(div18, t71);
-			append(div18, h114);
-			append(h114, t72);
-			append(h114, t73);
-			append(div18, t74);
-			append(div18, h115);
-			append(h115, t75);
-			append(h115, t76);
-			append(div18, t77);
-			append(div18, h116);
-			append(h116, t78);
-			append(h116, t79);
-			append(div18, t80);
-			append(div18, h117);
-			append(h117, t81);
-			append(h117, t82);
+			append(div19, p4);
+			append(p4, input5);
+
+			set_input_value(input5, ctx.backupName);
+
+			append(div19, t39);
+			append(div19, p5);
+			append(p5, button3);
+			append(button3, t40);
+			append(div19, t41);
+			append(div19, p6);
+			append(p6, button4);
+			append(button4, t42);
+			append(div23, t43);
+			append(div23, div22);
+			append(div22, div21);
+			append(div21, h13);
+			append(div21, t45);
+			append(div21, h14);
+			append(h14, t46);
+			append(h14, t47);
+			append(div21, t48);
+			append(div21, h15);
+			append(h15, t49);
+			append(h15, t50);
+			append(div21, t51);
+			append(div21, h16);
+			append(h16, t52);
+			append(h16, t53);
+			append(div21, t54);
+			append(div21, h17);
+			append(h17, t55);
+			append(div21, t56);
+			append(div21, hr2);
+			append(div21, t57);
+			append(div21, h18);
+			append(div21, t59);
+			append(div21, h19);
+			append(h19, t60);
+			append(h19, t61);
+			append(div21, t62);
+			append(div21, h110);
+			append(h110, t63);
+			append(h110, t64);
+			append(div21, t65);
+			append(div21, h111);
+			append(h111, t66);
+			append(h111, t67);
+			append(div21, t68);
+			append(div21, h112);
+			append(h112, t69);
+			append(h112, t70);
+			append(div21, t71);
+			append(div21, hr3);
+			append(div21, t72);
+			append(div21, h113);
+			append(div21, t74);
+			append(div21, h114);
+			append(h114, t75);
+			append(h114, t76);
+			append(div21, t77);
+			append(div21, h115);
+			append(h115, t78);
+			append(h115, t79);
+			append(div21, t80);
+			append(div21, h116);
+			append(h116, t81);
+			append(h116, t82);
+			append(div21, t83);
+			append(div21, h117);
+			append(h117, t84);
+			append(h117, t85);
 		},
 
 		p(changed, ctx) {
@@ -5500,6 +5591,8 @@ function create_fragment$6(ctx) {
 				set_style(h10, "display", ctx.saveChanges);
 			}
 
+			if (changed.developer_mode) input2.checked = ctx.developer_mode;
+
 			if ((changed.checkupdateLoading) && button1_class_value !== (button1_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-1c4zmtz")) {
 				attr(button1, "class", button1_class_value);
 			}
@@ -5509,10 +5602,10 @@ function create_fragment$6(ctx) {
 			}
 
 			if (changed.updateStatus) {
-				set_data(t26, ctx.updateStatus);
+				set_data(t29, ctx.updateStatus);
 			}
 
-			if (changed.backupName && (input4.value !== ctx.backupName)) set_input_value(input4, ctx.backupName);
+			if (changed.backupName && (input5.value !== ctx.backupName)) set_input_value(input5, ctx.backupName);
 
 			if ((changed.backupClass) && button3_class_value !== (button3_class_value = "button animated " + ctx.backupClass + " svelte-1c4zmtz")) {
 				attr(button3, "class", button3_class_value);
@@ -5523,39 +5616,39 @@ function create_fragment$6(ctx) {
 			}
 
 			if (changed.pythonv) {
-				set_data(t52, ctx.pythonv);
+				set_data(t55, ctx.pythonv);
 			}
 
-			if ((changed.packageJSON) && t58_value !== (t58_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "")) {
-				set_data(t58, t58_value);
-			}
-
-			if ((changed.packageJSON) && t61_value !== (t61_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
+			if ((changed.packageJSON) && t61_value !== (t61_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "")) {
 				set_data(t61, t61_value);
 			}
 
-			if ((changed.packageJSON) && t64_value !== (t64_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
+			if ((changed.packageJSON) && t64_value !== (t64_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
 				set_data(t64, t64_value);
 			}
 
-			if ((changed.packageJSON) && t67_value !== (t67_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
+			if ((changed.packageJSON) && t67_value !== (t67_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
 				set_data(t67, t67_value);
 			}
 
-			if ((changed.packageJSON) && t73_value !== (t73_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
-				set_data(t73, t73_value);
+			if ((changed.packageJSON) && t70_value !== (t70_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
+				set_data(t70, t70_value);
 			}
 
-			if ((changed.packageJSON) && t76_value !== (t76_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
+			if ((changed.packageJSON) && t76_value !== (t76_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
 				set_data(t76, t76_value);
 			}
 
-			if ((changed.packageJSON) && t79_value !== (t79_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
+			if ((changed.packageJSON) && t79_value !== (t79_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
 				set_data(t79, t79_value);
 			}
 
-			if ((changed.packageJSON) && t82_value !== (t82_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
+			if ((changed.packageJSON) && t82_value !== (t82_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
 				set_data(t82, t82_value);
+			}
+
+			if ((changed.packageJSON) && t85_value !== (t85_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
+				set_data(t85, t85_value);
 			}
 		},
 
@@ -5981,11 +6074,16 @@ function instance$6($$self, $$props, $$invalidate) {
 		$$invalidate('pythonscript', pythonscript);
 	}
 
+	function input2_change_handler() {
+		developer_mode = this.checked;
+		$$invalidate('developer_mode', developer_mode);
+	}
+
 	const click_handler = () => $$invalidate('auto_update_check', auto_update_check = !auto_update_check);
 
 	const change_handler = (e) => $$invalidate('timeInterval_hr', timeInterval_hr = e.target.value);
 
-	function input4_input_handler() {
+	function input5_input_handler() {
 		backupName = this.value;
 		$$invalidate('backupName', backupName);
 	}
@@ -5998,9 +6096,9 @@ function instance$6($$self, $$props, $$invalidate) {
 		if ('electron' in $$props) $$invalidate('electron', electron = $$props.electron);
 	};
 
-	let saveChanges, saveChangeanimate, new_version, checkupdateLoading, updateLoading, updateStatus, currentTime, auto_update_check, backupClass, backupName, restoreClass;
+	let saveChanges, saveChangeanimate, new_version, checkupdateLoading, updateLoading, updateStatus, currentTime, auto_update_check, backupClass, backupName, restoreClass, developer_mode;
 
-	$$self.$$.update = ($$dirty = { auto_update_check: 1, timeInterval_hr: 1, check_update_continuously: 1 }) => {
+	$$self.$$.update = ($$dirty = { auto_update_check: 1, timeInterval_hr: 1, check_update_continuously: 1, developer_mode: 1 }) => {
 		if ($$dirty.auto_update_check || $$dirty.timeInterval_hr || $$dirty.check_update_continuously) { if (auto_update_check){ 
             console.log("Auto update On");
             let timeInterval = hr_ms(timeInterval_hr);
@@ -6015,6 +6113,7 @@ function instance$6($$self, $$props, $$invalidate) {
             console.log("Auto update Off");
             clearInterval(check_update_continuously);
         } }
+		if ($$dirty.developer_mode) { developer_mode ? window.developerMode = true : window.developerMode = false; }
 	};
 
 	$$invalidate('saveChanges', saveChanges = "none");
@@ -6028,6 +6127,7 @@ function instance$6($$self, $$props, $$invalidate) {
 	$$invalidate('backupClass', backupClass = "is-link");
 	$$invalidate('backupName', backupName = "FELion_GUI_backup");
 	$$invalidate('restoreClass', restoreClass = "is-warning");
+	$$invalidate('developer_mode', developer_mode = false);
 
 	return {
 		jq,
@@ -6058,11 +6158,13 @@ function instance$6($$self, $$props, $$invalidate) {
 		backupClass,
 		backupName,
 		restoreClass,
+		developer_mode,
 		input0_input_handler,
 		input1_input_handler,
+		input2_change_handler,
 		click_handler,
 		change_handler,
-		input4_input_handler
+		input5_input_handler
 	};
 }
 
@@ -22014,7 +22116,7 @@ function get_each_context$5(ctx, list, i) {
 	return child_ctx;
 }
 
-// (67:0) {#each mainPages as page}
+// (69:0) {#each mainPages as page}
 function create_each_block$5(ctx) {
 	var current;
 
@@ -22284,6 +22386,9 @@ function create_fragment$9(ctx) {
 
 function instance$8($$self, $$props, $$invalidate) {
 	
+  // require('v8-compile-cache');
+
+  window.developerMode = false;
 
   const fs = require("fs");
   const https = require('https');

@@ -438,6 +438,10 @@
             console.log(err)
         })
     }
+    
+    $: developer_mode = false
+    $: developer_mode ? window.developerMode = true : window.developerMode = false
+
 </script>
 
 <style>
@@ -534,6 +538,15 @@
                         <div class="control">
                             <button class="button is-link is-pulled-right" on:click={configSave}>Save</button>
                             <h1 class="subtitle animated {saveChangeanimate}" style="display:{saveChanges}">Changes saved!</h1>
+                        </div>
+                    
+                        <div class="control">
+                            <div class="pretty p-switch p-slim" style="margin-bottom:1em;" >
+                                <input type="checkbox" checked id="developerMode" bind:checked={developer_mode}/>
+                                <div class="state p-info p-on">
+                                    <label>Developer mode</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

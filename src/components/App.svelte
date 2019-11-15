@@ -11,6 +11,8 @@
   import Misc from "./Misc.svelte"
   // require('v8-compile-cache');
 
+  window.developerMode = false
+
   // Importing other modules
   import tippy from 'tippy.js'; //For tooltip
   import * as jQuery from 'jquery';

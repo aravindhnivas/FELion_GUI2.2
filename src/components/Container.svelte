@@ -482,6 +482,9 @@
 
   // Finding peak
   $: prominence = 5
+  $: peak_width = null
+  $: peak_height = null
+
   $: findPeak_btnCSS = "is-link"
   $: revertPeak_btnCSS = "is-static"
   $: fitallPeak_btnCSS = "is-static"
@@ -491,16 +494,15 @@
   $: exp_fitall_div = "none"
   $: exp_fitall_div_status ? exp_fitall_div = "block" : exp_fitall_div = "none"
 
-  function expfit_func({runfit = false, btname = "find_expfit_peaks", checking = false} = {}) {
+  
+  function expfit_func({runfit = false, btname = "find_expfit_peaks"} = {}) {
     let output_filename = document.getElementById("avg_output_name").value
-
     runPlot({
       fullfiles: [output_filename],
       filetype: "expfit_all",
       btname: btname,
       pyfile: "fit_all.py",
-      args: [currentLocation, normMethod, prominence, runfit],
-      checking: checking
+      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height]
     })
     .then((output)=>console.log(output))
     .catch((err)=>{
@@ -636,7 +638,9 @@
       </div>
 
       <div class="row buttonsRow">
+
         <div class="level">
+
           <div class="level-left animated fadeIn">
 
             {#each funcBtns as { id, name }}
@@ -742,7 +746,6 @@
               </div>
 
             {/if}
-
           </div>
         </div>
 
@@ -843,8 +846,18 @@
                 <div class="level-left">
 
                   <div class="level-item">
-                      <input class="input" type="number" id="find_peak_prominance" placeholder="Peak prominance value"
+                      <input class="input" type="number" id="peak_prominance" placeholder="Peak prominance value"
                         data-tippy="Peak prominace value" bind:value={prominence} />
+                  </div>
+
+                  <div class="level-item">
+                      <input class="input" type="number" id="peak_width_fit" placeholder="Peak width"
+                        data-tippy="Optional: Peak width" bind:value={peak_width} />
+                  </div>
+
+                  <div class="level-item">
+                      <input class="input" type="number" id="peak_height_fit" placeholder="Peak height"
+                        data-tippy="Optional: Peak height" bind:value={peak_height} />
                   </div>
 
                   <div class="level-item">

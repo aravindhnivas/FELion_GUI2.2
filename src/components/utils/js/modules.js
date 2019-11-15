@@ -291,8 +291,12 @@ class program {
                             Plotly.relayout("avgplot", { shapes: window.line })
                         } else if (this.filetype == "expfit_all") {
                             console.log("Data received")
-                            console.log(dataFromPython)
-                            Plotly.addTraces("avgplot", dataFromPython)
+                            console.log(data_before_json)
+                            if (!this.obj.checking) {
+                                console.log(dataFromPython)
+                                Plotly.addTraces("avgplot", dataFromPython)
+                            }
+
 
                         }
 
