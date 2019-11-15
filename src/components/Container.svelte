@@ -268,19 +268,23 @@
         let expfit_overwrite = document.getElementById("overwrite_expfit").checked
         console.log("Expfit overwrite: ", expfit_overwrite)
         console.log(`Avgplot Index: ${window.index}`)
-        runPlot({
+
+        if (window.index.length > 0) {
+          runPlot({
           fullfiles: fullfiles, filetype: "exp_fit", btname: btname,
           pyfile: "exp_gauss_fit.py", args: [expfit_overwrite, output_filename, normMethod, currentLocation, ...window.index]
-        })
-        .then((output)=>{
-          console.log(output)
-        })
+          })
+          .then((output)=>{
+            console.log(output)
+          })
 
-        .catch((err)=>{
-          console.log('Error Occured', err); 
-          error_msg[filetag]=err; 
-          modal[filetag]="is-active"
-        })
+          .catch((err)=>{
+            console.log('Error Occured', err); 
+            error_msg[filetag]=err; 
+            modal[filetag]="is-active"
+          })
+        } 
+        
       break;
 
       // Norm_tkplot (Averaged plot experimental in Matplotlib)
@@ -500,6 +504,8 @@
   $: fit_file_list_temp = fileChecked.map(file => file.split(".")[0])
   $: fit_file_list = [...fit_file_list_temp, "averaged"]
 
+  let ready_to_fit = false
+
   function expfit_func({runfit = false, btname = "find_expfit_peaks"} = {}) {
 
     let output_filename = document.getElementById("avg_output_name").value
@@ -521,6 +527,7 @@
 
   const findPeak = () => {
     console.log("Finding preak with prominence value: ", prominence)
+    ready_to_fit = true
     expfit_func()
   }
 
@@ -533,20 +540,32 @@
     console.log(`Total files plotted: ${plottedFiles_length}`)
     for (let i=0; i<plottedFiles_length; i++) {Plotly.deleteTraces("avgplot", [-1])}
     window.line = []
+    ready_to_fit = false
   }
 
   const clearLastPeak = () => {
 
     console.log("Removing only last found peak values")
     if (window.line.length != 0) {Plotly.deleteTraces("avgplot", [-1])}
+    
     window.line = window.line.slice(0, window.line.length - 2)
-    Plotly.relayout("avgplot", { annotations: [], shapes: window.line })
+    window.annotations = window.annotations.slice(0, window.annotations.length - 1)
+
+    Plotly.relayout("avgplot", { annotations: window.annotations, shapes: window.line })
+
+    if (window.line.length === 0) {ready_to_fit = false}
     
   }
 
   const fitall = () => {
+
     console.log("Fitting all found peaks")
-    expfit_func({runfit:true, btname:"fitall_expfit_peaks"})
+
+    if (ready_to_fit) {expfit_func({runfit:true, btname:"fitall_expfit_peaks"})}
+    else {
+      findPeak_btnCSS = "is-link shake"
+      setTimeout(()=>findPeak_btnCSS = "is-link", 1000)
+    }
   }
 
 </script>

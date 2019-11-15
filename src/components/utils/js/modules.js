@@ -163,6 +163,7 @@ class program {
                             plot(`Timescan Plot: ${filename}`, "Time (in ms)", "Counts", dataFromPython, this.obj.plotArea);
                         } else if (this.filetype == "felix") {
                             window.line = []
+                            window.index = []
                             let normMethod = this.obj.normethod;
                             let delta = this.args[0];
 
@@ -285,13 +286,17 @@ class program {
                         } else if (this.filetype == "depletion") { console.log('Graph plotted') }
                         else if (this.filetype == "norm_tkplot") { console.log('Graph plotted') }
                         else if (this.filetype == "exp_fit") {
+                            
                             Plotly.addTraces("avgplot", dataFromPython["fit"])
                             window.line = [...window.line, ...dataFromPython["line"]]
                             Plotly.relayout("avgplot", { shapes: window.line })
+
                         } else if (this.filetype == "expfit_all") {
 
                             Plotly.relayout("avgplot", { annotations: [] })
                             Plotly.relayout("avgplot", { annotations: dataFromPython[2]["annotations"] })
+                            window.annotations = dataFromPython[2]["annotations"]
+                            
                             if (dataFromPython[3] != undefined) {
                                 let fit = dataFromPython.slice(3)
                                 fit.forEach(data => {

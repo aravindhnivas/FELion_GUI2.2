@@ -1776,6 +1776,7 @@ class program {
                             plot(`Timescan Plot: ${filename}`, "Time (in ms)", "Counts", dataFromPython, this.obj.plotArea);
                         } else if (this.filetype == "felix") {
                             window.line = [];
+                            window.index = [];
                             let normMethod = this.obj.normethod;
                             let delta = this.args[0];
 
@@ -1898,13 +1899,17 @@ class program {
                         } else if (this.filetype == "depletion") { console.log('Graph plotted'); }
                         else if (this.filetype == "norm_tkplot") { console.log('Graph plotted'); }
                         else if (this.filetype == "exp_fit") {
+                            
                             Plotly.addTraces("avgplot", dataFromPython["fit"]);
                             window.line = [...window.line, ...dataFromPython["line"]];
                             Plotly.relayout("avgplot", { shapes: window.line });
+
                         } else if (this.filetype == "expfit_all") {
 
                             Plotly.relayout("avgplot", { annotations: [] });
                             Plotly.relayout("avgplot", { annotations: dataFromPython[2]["annotations"] });
+                            window.annotations = dataFromPython[2]["annotations"];
+                            
                             if (dataFromPython[3] != undefined) {
                                 let fit = dataFromPython.slice(3);
                                 fit.forEach(data => {
@@ -2204,7 +2209,7 @@ function get_each_context_8(ctx, list, i) {
 	return child_ctx;
 }
 
-// (660:12) {#each funcBtns as { id, name }}
+// (679:12) {#each funcBtns as { id, name }}
 function create_each_block_8(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -2242,7 +2247,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (676:18) {:else}
+// (695:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2280,7 +2285,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (674:18) {#if name[0]==="Log"}
+// (693:18) {#if name[0]==="Log"}
 function create_if_block_11(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2318,7 +2323,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (669:12) {#each checkBtns as {id, name, bind, help}}
+// (688:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_7(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -2406,7 +2411,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (688:12) {#if filetag == 'felix'}
+// (707:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -2520,7 +2525,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (697:24) {#each normalisation_method as method}
+// (716:24) {#each normalisation_method as method}
 function create_each_block_6(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -2547,7 +2552,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (717:12) {#if filetag == 'thz'}
+// (736:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -2647,7 +2652,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (768:6) {#if filetag=="felix"}
+// (787:6) {#if filetag=="felix"}
 function create_if_block_8(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2768,7 +2773,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (787:6) {#if filetag=="scan"}
+// (806:6) {#if filetag=="scan"}
 function create_if_block_2(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2898,7 +2903,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (800:28) {#if folderFile.files != undefined}
+// (819:28) {#if folderFile.files != undefined}
 function create_if_block_7(ctx) {
 	var each_1_anchor;
 
@@ -2961,7 +2966,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (801:31) {#each folderFile.files as scanfile}
+// (820:31) {#each folderFile.files as scanfile}
 function create_each_block_5(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -2998,7 +3003,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (792:16) {#each ["ResON", "ResOFF"] as name}
+// (811:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_4(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3066,7 +3071,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (823:57) 
+// (842:57) 
 function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3105,7 +3110,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (821:52) 
+// (840:52) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3144,7 +3149,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (819:50) 
+// (838:50) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3183,7 +3188,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (817:22) {#if name=="Power (ON, OFF)"}
+// (836:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_3(ctx) {
 	var input, dispose;
 
@@ -3216,7 +3221,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (812:16) {#each depletionLabels as {name, id}}
+// (831:16) {#each depletionLabels as {name, id}}
 function create_each_block_3(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -3274,7 +3279,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (946:12) {:else}
+// (965:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3304,7 +3309,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (855:38) 
+// (874:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div11, div10, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select, t6, div9, div8, t7, div8_class_value, t8, div25, div24, div12, input3, t9, div14, div13, t11, div17, t14, div19, div18, t15, div18_class_value, t16, div21, div20, t17, div20_class_value, t18, div23, div22, t20, dispose;
 
@@ -3620,7 +3625,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (848:12) {#if filetag == 'scan'}
+// (867:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3694,7 +3699,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (886:26) {#each fit_file_list as file}
+// (905:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -3731,7 +3736,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (850:16) {#each fileChecked as scanfile}
+// (869:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3761,7 +3766,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (847:10) {#each plotID as id}
+// (866:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -4475,19 +4480,23 @@ function instance$4($$self, $$props, $$invalidate) {
         let expfit_overwrite = document.getElementById("overwrite_expfit").checked;
         console.log("Expfit overwrite: ", expfit_overwrite);
         console.log(`Avgplot Index: ${window.index}`);
-        runPlot({
+
+        if (window.index.length > 0) {
+          runPlot({
           fullfiles: fullfiles, filetype: "exp_fit", btname: btname,
           pyfile: "exp_gauss_fit.py", args: [expfit_overwrite, output_filename, normMethod, currentLocation, ...window.index]
-        })
-        .then((output)=>{
-          console.log(output);
-        })
+          })
+          .then((output)=>{
+            console.log(output);
+          })
 
-        .catch((err)=>{
-          console.log('Error Occured', err); 
-          $$invalidate('error_msg', error_msg[filetag]=err, error_msg); 
-          $$invalidate('modal', modal[filetag]="is-active", modal);
-        });
+          .catch((err)=>{
+            console.log('Error Occured', err); 
+            $$invalidate('error_msg', error_msg[filetag]=err, error_msg); 
+            $$invalidate('modal', modal[filetag]="is-active", modal);
+          });
+        } 
+        
       break;
 
       // Norm_tkplot (Averaged plot experimental in Matplotlib)
@@ -4681,6 +4690,8 @@ function instance$4($$self, $$props, $$invalidate) {
   
   let output_filename =  "averaged";
 
+  let ready_to_fit = false;
+
   function expfit_func({runfit = false, btname = "find_expfit_peaks"} = {}) {
 
     let output_filename = document.getElementById("avg_output_name").value;
@@ -4702,6 +4713,7 @@ function instance$4($$self, $$props, $$invalidate) {
 
   const findPeak = () => {
     console.log("Finding preak with prominence value: ", prominence);
+    ready_to_fit = true;
     expfit_func();
   };
 
@@ -4714,20 +4726,32 @@ function instance$4($$self, $$props, $$invalidate) {
     console.log(`Total files plotted: ${plottedFiles_length}`);
     for (let i=0; i<plottedFiles_length; i++) {Plotly.deleteTraces("avgplot", [-1]);}
     window.line = [];
+    ready_to_fit = false;
   };
 
   const clearLastPeak = () => {
 
     console.log("Removing only last found peak values");
     if (window.line.length != 0) {Plotly.deleteTraces("avgplot", [-1]);}
+    
     window.line = window.line.slice(0, window.line.length - 2);
-    Plotly.relayout("avgplot", { annotations: [], shapes: window.line });
+    window.annotations = window.annotations.slice(0, window.annotations.length - 1);
+
+    Plotly.relayout("avgplot", { annotations: window.annotations, shapes: window.line });
+
+    if (window.line.length === 0) {ready_to_fit = false;}
     
   };
 
   const fitall = () => {
+
     console.log("Fitting all found peaks");
-    expfit_func({runfit:true, btname:"fitall_expfit_peaks"});
+
+    if (ready_to_fit) {expfit_func({runfit:true, btname:"fitall_expfit_peaks"});}
+    else {
+      $$invalidate('findPeak_btnCSS', findPeak_btnCSS = "is-link shake");
+      setTimeout(()=>$$invalidate('findPeak_btnCSS', findPeak_btnCSS = "is-link"), 1000);
+    }
   };
 
 	const click_handler = () => $$invalidate('modal', modal[filetag]='', modal);
