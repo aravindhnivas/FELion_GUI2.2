@@ -536,12 +536,14 @@
     console.log("Removing all found peak values")
 
     window.annotations = []
+    window.index = []
 
     Plotly.relayout("avgplot", { annotations: [], shapes: [] })
     let plottedFiles_length = window.line.length / 2
     console.log(`Total files plotted: ${plottedFiles_length}`)
     for (let i=0; i<plottedFiles_length; i++) {Plotly.deleteTraces("avgplot", [-1])}
     window.line = []
+
     ready_to_fit = false
   }
 
@@ -552,6 +554,8 @@
     
     window.line = window.line.slice(0, window.line.length - 2)
     window.annotations = window.annotations.slice(0, window.annotations.length - 1)
+
+    window.index = []
 
     Plotly.relayout("avgplot", { annotations: window.annotations, shapes: window.line })
 
