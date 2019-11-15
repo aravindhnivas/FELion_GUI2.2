@@ -164,6 +164,7 @@ class program {
                         } else if (this.filetype == "felix") {
                             window.line = []
                             window.index = []
+                            window.annotations = []
                             let normMethod = this.obj.normethod;
                             let delta = this.args[0];
 
@@ -296,7 +297,7 @@ class program {
                             Plotly.relayout("avgplot", { annotations: [] })
                             Plotly.relayout("avgplot", { annotations: dataFromPython[2]["annotations"] })
                             window.annotations = dataFromPython[2]["annotations"]
-                            
+
                             if (dataFromPython[3] != undefined) {
                                 let fit = dataFromPython.slice(3)
                                 fit.forEach(data => {

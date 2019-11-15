@@ -1777,6 +1777,7 @@ class program {
                         } else if (this.filetype == "felix") {
                             window.line = [];
                             window.index = [];
+                            window.annotations = [];
                             let normMethod = this.obj.normethod;
                             let delta = this.args[0];
 
@@ -1909,7 +1910,7 @@ class program {
                             Plotly.relayout("avgplot", { annotations: [] });
                             Plotly.relayout("avgplot", { annotations: dataFromPython[2]["annotations"] });
                             window.annotations = dataFromPython[2]["annotations"];
-                            
+
                             if (dataFromPython[3] != undefined) {
                                 let fit = dataFromPython.slice(3);
                                 fit.forEach(data => {
@@ -2209,7 +2210,7 @@ function get_each_context_8(ctx, list, i) {
 	return child_ctx;
 }
 
-// (679:12) {#each funcBtns as { id, name }}
+// (681:12) {#each funcBtns as { id, name }}
 function create_each_block_8(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -2247,7 +2248,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (695:18) {:else}
+// (697:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2285,7 +2286,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (693:18) {#if name[0]==="Log"}
+// (695:18) {#if name[0]==="Log"}
 function create_if_block_11(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2323,7 +2324,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (688:12) {#each checkBtns as {id, name, bind, help}}
+// (690:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_7(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -2411,7 +2412,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (707:12) {#if filetag == 'felix'}
+// (709:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -2525,7 +2526,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (716:24) {#each normalisation_method as method}
+// (718:24) {#each normalisation_method as method}
 function create_each_block_6(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -2552,7 +2553,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (736:12) {#if filetag == 'thz'}
+// (738:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -2652,7 +2653,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (787:6) {#if filetag=="felix"}
+// (789:6) {#if filetag=="felix"}
 function create_if_block_8(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2773,7 +2774,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (806:6) {#if filetag=="scan"}
+// (808:6) {#if filetag=="scan"}
 function create_if_block_2(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2903,7 +2904,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (819:28) {#if folderFile.files != undefined}
+// (821:28) {#if folderFile.files != undefined}
 function create_if_block_7(ctx) {
 	var each_1_anchor;
 
@@ -2966,7 +2967,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (820:31) {#each folderFile.files as scanfile}
+// (822:31) {#each folderFile.files as scanfile}
 function create_each_block_5(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3003,7 +3004,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (811:16) {#each ["ResON", "ResOFF"] as name}
+// (813:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_4(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3071,7 +3072,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (842:57) 
+// (844:57) 
 function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3110,7 +3111,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (840:52) 
+// (842:52) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3149,7 +3150,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (838:50) 
+// (840:50) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3188,7 +3189,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (836:22) {#if name=="Power (ON, OFF)"}
+// (838:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_3(ctx) {
 	var input, dispose;
 
@@ -3221,7 +3222,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (831:16) {#each depletionLabels as {name, id}}
+// (833:16) {#each depletionLabels as {name, id}}
 function create_each_block_3(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -3279,7 +3280,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (965:12) {:else}
+// (967:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3309,7 +3310,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (874:38) 
+// (876:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div11, div10, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select, t6, div9, div8, t7, div8_class_value, t8, div25, div24, div12, input3, t9, div14, div13, t11, div17, t14, div19, div18, t15, div18_class_value, t16, div21, div20, t17, div20_class_value, t18, div23, div22, t20, dispose;
 
@@ -3625,7 +3626,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (867:12) {#if filetag == 'scan'}
+// (869:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3699,7 +3700,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (905:26) {#each fit_file_list as file}
+// (907:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -3736,7 +3737,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (869:16) {#each fileChecked as scanfile}
+// (871:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3766,7 +3767,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (866:10) {#each plotID as id}
+// (868:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -4720,6 +4721,8 @@ function instance$4($$self, $$props, $$invalidate) {
   const clearAllPeak = () => {
 
     console.log("Removing all found peak values");
+
+    window.annotations = [];
 
     Plotly.relayout("avgplot", { annotations: [], shapes: [] });
     let plottedFiles_length = window.line.length / 2;

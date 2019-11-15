@@ -535,6 +535,8 @@
 
     console.log("Removing all found peak values")
 
+    window.annotations = []
+
     Plotly.relayout("avgplot", { annotations: [], shapes: [] })
     let plottedFiles_length = window.line.length / 2
     console.log(`Total files plotted: ${plottedFiles_length}`)
