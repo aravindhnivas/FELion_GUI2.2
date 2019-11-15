@@ -1900,11 +1900,11 @@ class program {
                         } else if (this.filetype == "depletion") { console.log('Graph plotted'); }
                         else if (this.filetype == "norm_tkplot") { console.log('Graph plotted'); }
                         else if (this.filetype == "exp_fit") {
-                            
+                            window.index = [];
                             Plotly.addTraces("avgplot", dataFromPython["fit"]);
                             window.line = [...window.line, ...dataFromPython["line"]];
                             Plotly.relayout("avgplot", { shapes: window.line });
-
+                        
                         } else if (this.filetype == "expfit_all") {
 
                             Plotly.relayout("avgplot", { annotations: [] });
