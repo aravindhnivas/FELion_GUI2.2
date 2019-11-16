@@ -506,13 +506,14 @@
   $: fitall_tkplot_Peak_btnCSS = "is-link"
   let ready_to_fit = false
 
-  function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false} = {}) {
+  function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all"} = {}) {
 
     let output_filename = document.getElementById("avg_output_name").value
     let expfit_overwrite = document.getElementById("overwrite_expfit").checked
     runPlot({
       fullfiles: [fit_files],
-      filetype: "expfit_all",
+      filetype: filetype,
+      filetag: filetag,
       btname: btname,
       pyfile: "fit_all.py",
       args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite, tkplot]
@@ -563,11 +564,11 @@
     
   }
 
-  const fitall = (tkplot=false, btname="fitall_expfit_peaks") => {
+  const fitall = (tkplot=false, btname="fitall_expfit_peaks", filetype="expfit_all") => {
 
     console.log("Fitting all found peaks")
 
-    if (ready_to_fit) {expfit_func({runfit:true, btname:btname, tkplot:tkplot})}
+    if (ready_to_fit) {expfit_func({runfit:true, btname:btname, tkplot:tkplot, filetype:filetype})}
 
     else {
       findPeak_btnCSS = "is-link shake"
@@ -925,7 +926,7 @@
 
                   <div class="level-item">
                       <div class="level-item button hvr-glow funcBtn animated {fitall_tkplot_Peak_btnCSS}"
-                        id="fitall_tkplot_expfit_peaks" data-tippy="Fit all the peaks positions found using gaussian" on:click="{()=>fitall(true, 'fitall_tkplot_expfit_peaks')}">Open in Matplotlib
+                        id="fitall_tkplot_expfit_peaks" data-tippy="Fit all the peaks positions found using gaussian" on:click="{()=>fitall(true, 'fitall_tkplot_expfit_peaks', 'general')}">Open in Matplotlib
                       </div>
                   </div>
 

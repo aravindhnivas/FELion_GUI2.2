@@ -2212,7 +2212,7 @@ function get_each_context_8(ctx, list, i) {
 	return child_ctx;
 }
 
-// (686:12) {#each funcBtns as { id, name }}
+// (687:12) {#each funcBtns as { id, name }}
 function create_each_block_8(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -2250,7 +2250,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (702:18) {:else}
+// (703:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2288,7 +2288,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (700:18) {#if name[0]==="Log"}
+// (701:18) {#if name[0]==="Log"}
 function create_if_block_11(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2326,7 +2326,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (695:12) {#each checkBtns as {id, name, bind, help}}
+// (696:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_7(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -2414,7 +2414,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (714:12) {#if filetag == 'felix'}
+// (715:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -2528,7 +2528,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (723:24) {#each normalisation_method as method}
+// (724:24) {#each normalisation_method as method}
 function create_each_block_6(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -2555,7 +2555,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (743:12) {#if filetag == 'thz'}
+// (744:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -2655,7 +2655,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (794:6) {#if filetag=="felix"}
+// (795:6) {#if filetag=="felix"}
 function create_if_block_8(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2776,7 +2776,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (813:6) {#if filetag=="scan"}
+// (814:6) {#if filetag=="scan"}
 function create_if_block_2(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2906,7 +2906,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (826:28) {#if folderFile.files != undefined}
+// (827:28) {#if folderFile.files != undefined}
 function create_if_block_7(ctx) {
 	var each_1_anchor;
 
@@ -2969,7 +2969,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (827:31) {#each folderFile.files as scanfile}
+// (828:31) {#each folderFile.files as scanfile}
 function create_each_block_5(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3006,7 +3006,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (818:16) {#each ["ResON", "ResOFF"] as name}
+// (819:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_4(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3074,7 +3074,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (849:57) 
+// (850:57) 
 function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3113,7 +3113,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (847:52) 
+// (848:52) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3152,7 +3152,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (845:50) 
+// (846:50) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3191,7 +3191,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (843:22) {#if name=="Power (ON, OFF)"}
+// (844:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_3(ctx) {
 	var input, dispose;
 
@@ -3224,7 +3224,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (838:16) {#each depletionLabels as {name, id}}
+// (839:16) {#each depletionLabels as {name, id}}
 function create_each_block_3(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -3282,7 +3282,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (978:12) {:else}
+// (979:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3312,7 +3312,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (881:38) 
+// (882:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div27, div26, div14, input3, t11, div16, div15, t13, div19, t16, div21, div20, t17, div20_class_value, t18, div23, div22, t19, div22_class_value, t20, div25, div24, t22, dispose;
 
@@ -3645,7 +3645,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (874:12) {#if filetag == 'scan'}
+// (875:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3719,7 +3719,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (912:26) {#each fit_file_list as file}
+// (913:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -3756,7 +3756,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (876:16) {#each fileChecked as scanfile}
+// (877:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3786,7 +3786,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (873:10) {#each plotID as id}
+// (874:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -4711,13 +4711,14 @@ function instance$4($$self, $$props, $$invalidate) {
   let output_filename =  "averaged";
   let ready_to_fit = false;
 
-  function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false} = {}) {
+  function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all"} = {}) {
 
     let output_filename = document.getElementById("avg_output_name").value;
     let expfit_overwrite = document.getElementById("overwrite_expfit").checked;
     runPlot({
       fullfiles: [fit_files],
-      filetype: "expfit_all",
+      filetype: filetype,
+      filetag: filetag,
       btname: btname,
       pyfile: "fit_all.py",
       args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite, tkplot]
@@ -4768,11 +4769,11 @@ function instance$4($$self, $$props, $$invalidate) {
     
   };
 
-  const fitall = (tkplot=false, btname="fitall_expfit_peaks") => {
+  const fitall = (tkplot=false, btname="fitall_expfit_peaks", filetype="expfit_all") => {
 
     console.log("Fitting all found peaks");
 
-    if (ready_to_fit) {expfit_func({runfit:true, btname:btname, tkplot:tkplot});}
+    if (ready_to_fit) {expfit_func({runfit:true, btname:btname, tkplot:tkplot, filetype:filetype});}
 
     else {
       $$invalidate('findPeak_btnCSS', findPeak_btnCSS = "is-link shake");
@@ -4878,7 +4879,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		$$invalidate('fit_file_list', fit_file_list), $$invalidate('fit_file_list_temp', fit_file_list_temp), $$invalidate('fileChecked', fileChecked), $$invalidate('allFiles', allFiles);
 	}
 
-	const click_handler_4 = () => fitall(true, 'fitall_tkplot_expfit_peaks');
+	const click_handler_4 = () => fitall(true, 'fitall_tkplot_expfit_peaks', 'general');
 
 	function input3_input_handler() {
 		output_filename = this.value;
