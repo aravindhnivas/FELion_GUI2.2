@@ -73,7 +73,7 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
 
                 get_data_temp, uline_freq, usigma, uamplitude, ufwhm = exp_fit(location, norm_method, wavelength[0], wavelength[1], output_filename, getvalue=True)
                 annotate = {
-                    "x": uline_freq.nominal_value, "y": uamplitude.nominal_value, "xref": 'x', "yref": 'y', "text": f'{uline_freq.nominal_value:.2f}',
+                    "x": uline_freq.nominal_value, "y": uamplitude.nominal_value, "xref": 'x', "yref": 'y', "text": f'{uline_freq:.2uP}',
                     "showarrow": True, "arrowhead": 2, "ax": -25, "ay": -40
                 }
                 annotations.append(annotate)
