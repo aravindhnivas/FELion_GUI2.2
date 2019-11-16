@@ -21,7 +21,7 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
 
         if norm_method == "Relative": ylabel = "Relative Depletion (%)"
         else: ylabel =  "Norm. Intensity"
-        ax = widget.make_figure_layout(title="Experimental fitted Spectrum", xaxis="Wavenumber $(cm^{-1})$", yaxis=ylabel, yscale="linear", savename=f"{filename.stem}_expfit")
+        ax = widget.make_figure_layout(title=f"Experimental fitted Spectrum: {filename.name}", xaxis="Wavenumber $(cm^{-1})$", yaxis=ylabel, yscale="linear", savename=f"{filename.stem}_expfit")
         ax.plot(wn, inten, ".", label=filename.name)
 
     indices, _ = peak(inten, prominence=prominence, width=width, height=height)
@@ -88,7 +88,7 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
                     ax.plot(get_data_temp["fit"]["x"], get_data_temp["fit"]["y"], "k-", label=get_data_temp["fit"]["name"])
                     xcord, ycord = uline_freq.nominal_value, uamplitude.nominal_value
                     text_frac = 0.01
-                    
+
                     ax.annotate(f'{uline_freq:.2uP}', xy=(xcord, ycord), xycoords='data',
                                 xytext=(xcord+xcord*text_frac, ycord+ycord*text_frac), textcoords='data',
                                 arrowprops=dict(arrowstyle="->", connectionstyle="arc3")
