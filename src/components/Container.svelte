@@ -503,10 +503,10 @@
   $: fit_files = "averaged"
   $: fit_file_list_temp = fileChecked.map(file => file.split(".")[0])
   $: fit_file_list = [...fit_file_list_temp, "averaged"]
-
+  $: fitall_tkplot_Peak_btnCSS = "is-link"
   let ready_to_fit = false
 
-  function expfit_func({runfit = false, btname = "find_expfit_peaks"} = {}) {
+  function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false} = {}) {
 
     let output_filename = document.getElementById("avg_output_name").value
     let expfit_overwrite = document.getElementById("overwrite_expfit").checked
@@ -515,7 +515,7 @@
       filetype: "expfit_all",
       btname: btname,
       pyfile: "fit_all.py",
-      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite]
+      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite, tkplot]
     })
     .then((output)=>console.log(output))
     .catch((err)=>{
@@ -563,11 +563,12 @@
     
   }
 
-  const fitall = () => {
+  const fitall = (tkplot=false, btname="fitall_expfit_peaks") => {
 
     console.log("Fitting all found peaks")
 
-    if (ready_to_fit) {expfit_func({runfit:true, btname:"fitall_expfit_peaks"})}
+    if (ready_to_fit) {expfit_func({runfit:true, btname:btname, tkplot:tkplot})}
+
     else {
       findPeak_btnCSS = "is-link shake"
       setTimeout(()=>findPeak_btnCSS = "is-link", 1000)
@@ -919,6 +920,12 @@
                   <div class="level-item">
                       <div class="level-item button hvr-glow funcBtn animated {fitallPeak_btnCSS}"
                         id="fitall_expfit_peaks" data-tippy="Fit all the peaks positions found using gaussian" on:click={fitall}>Fit
+                      </div>
+                  </div>
+
+                  <div class="level-item">
+                      <div class="level-item button hvr-glow funcBtn animated {fitall_tkplot_Peak_btnCSS}"
+                        id="fitall_tkplot_expfit_peaks" data-tippy="Fit all the peaks positions found using gaussian" on:click="{()=>fitall(true, 'fitall_tkplot_expfit_peaks')}">Open in Matplotlib
                       </div>
                   </div>
 

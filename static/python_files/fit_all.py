@@ -4,13 +4,26 @@ import numpy as np
 from scipy.signal import find_peaks as peak
 from pathlib import Path as pt
 import json, sys
+
+
 from FELion_definitions import read_dat_file
+from FELion_widgets import FELion_Tk
 
 from exp_gauss_fit import exp_fit
 
-def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=None, fitall=False, overwrite=False):
+def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=None, fitall=False, overwrite=False, tkplot=False):
 
     wn, inten = read_dat_file(filename, norm_method)
+
+    if tkplot:
+        widget = FELion_Tk(title="Experimental fitted Spectrum", location=filename.parent.parent / "OUT")
+        fig, canvas = widget.Figure()
+
+        if norm_method == "Relative": ylabel = "Relative Depletion (%)"
+        else: ylabel =  "Norm. Intensity"
+        ax = widget.make_figure_layout(title="Experimental fitted Spectrum", xaxis="Wavenumber $(cm^{-1})$", yaxis=ylabel, yscale="linear", savename=f"{filename.stem}_expfit")
+        ax.plot(wn, inten, ".", label=filename.name)
+
     indices, _ = peak(inten, prominence=prominence, width=width, height=height)
 
     _["wn_range"] = np.array([wn[_["left_bases"]], wn[_["right_bases"]]]).T
@@ -67,9 +80,19 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
 
         with open(expfile, method) as f:
             if overwrite: f.write(f"#Frequency\t#Freq_err\t#Sigma\t#Sigma_err\t#FWHM\t#FWHM_err\t#Amplitude\t#Amplitude_err\n")
+
             for wavelength in _["wn_range"]:
 
                 get_data_temp, uline_freq, usigma, uamplitude, ufwhm = exp_fit(location, norm_method, wavelength[0], wavelength[1], output_filename, getvalue=True)
+                if tkplot: 
+                    ax.plot(get_data_temp["fit"]["x"], get_data_temp["fit"]["y"], "k-", label=get_data_temp["fit"]["name"])
+                    xcord, ycord = uline_freq.nominal_value, uamplitude.nominal_value
+                    text_frac = 0.01
+                    
+                    ax.annotate(f'{uline_freq:.2uP}', xy=(xcord, ycord), xycoords='data',
+                                xytext=(xcord+xcord*text_frac, ycord+ycord*text_frac), textcoords='data',
+                                arrowprops=dict(arrowstyle="->", connectionstyle="arc3")
+                    )
                 annotate = {
                     "x": uline_freq.nominal_value, "y": uamplitude.nominal_value, "xref": 'x', "yref": 'y', "text": f'{uline_freq:.2uP}',
                     "showarrow": True, "arrowhead": 2, "ax": -25, "ay": -40
@@ -80,6 +103,10 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
 
         fit_data.append({"annotations":annotations})
         fit_data.append(get_data)
+
+        if tkplot:
+            widget.plot_legend = ax.legend()
+            widget.mainloop()
 
         dataJson = json.dumps(fit_data)
         print(dataJson)
@@ -116,5 +143,9 @@ if __name__ == "__main__":
     overwrite = args[7]
     if overwrite == "true": overwrite = True
     else: overwrite = False
+
+    tkplot = args[8]
+    if tkplot == "true": tkplot = True
+    else: tkplot = False
     
-    fit_all_peaks(filename, norm_method, prominence, width, height, fitall, overwrite)
+    fit_all_peaks(filename, norm_method, prominence, width, height, fitall, overwrite, tkplot)

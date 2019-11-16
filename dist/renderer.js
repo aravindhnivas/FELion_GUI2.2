@@ -2212,7 +2212,7 @@ function get_each_context_8(ctx, list, i) {
 	return child_ctx;
 }
 
-// (685:12) {#each funcBtns as { id, name }}
+// (686:12) {#each funcBtns as { id, name }}
 function create_each_block_8(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -2250,7 +2250,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (701:18) {:else}
+// (702:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2288,7 +2288,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (699:18) {#if name[0]==="Log"}
+// (700:18) {#if name[0]==="Log"}
 function create_if_block_11(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2326,7 +2326,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (694:12) {#each checkBtns as {id, name, bind, help}}
+// (695:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_7(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -2414,7 +2414,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (713:12) {#if filetag == 'felix'}
+// (714:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -2528,7 +2528,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (722:24) {#each normalisation_method as method}
+// (723:24) {#each normalisation_method as method}
 function create_each_block_6(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -2555,7 +2555,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (742:12) {#if filetag == 'thz'}
+// (743:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -2655,7 +2655,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (793:6) {#if filetag=="felix"}
+// (794:6) {#if filetag=="felix"}
 function create_if_block_8(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2776,7 +2776,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (812:6) {#if filetag=="scan"}
+// (813:6) {#if filetag=="scan"}
 function create_if_block_2(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2906,7 +2906,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (825:28) {#if folderFile.files != undefined}
+// (826:28) {#if folderFile.files != undefined}
 function create_if_block_7(ctx) {
 	var each_1_anchor;
 
@@ -2969,7 +2969,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (826:31) {#each folderFile.files as scanfile}
+// (827:31) {#each folderFile.files as scanfile}
 function create_each_block_5(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3006,7 +3006,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (817:16) {#each ["ResON", "ResOFF"] as name}
+// (818:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_4(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3074,7 +3074,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (848:57) 
+// (849:57) 
 function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3113,7 +3113,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (846:52) 
+// (847:52) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3152,7 +3152,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (844:50) 
+// (845:50) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3191,7 +3191,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (842:22) {#if name=="Power (ON, OFF)"}
+// (843:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_3(ctx) {
 	var input, dispose;
 
@@ -3224,7 +3224,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (837:16) {#each depletionLabels as {name, id}}
+// (838:16) {#each depletionLabels as {name, id}}
 function create_each_block_3(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -3282,7 +3282,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (971:12) {:else}
+// (978:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3312,9 +3312,9 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (880:38) 
+// (881:38) 
 function create_if_block_1$1(ctx) {
-	var div0, div0_id_value, t0, div11, div10, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select, t6, div9, div8, t7, div8_class_value, t8, div25, div24, div12, input3, t9, div14, div13, t11, div17, t14, div19, div18, t15, div18_class_value, t16, div21, div20, t17, div20_class_value, t18, div23, div22, t20, dispose;
+	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div27, div26, div14, input3, t11, div16, div15, t13, div19, t16, div21, div20, t17, div20_class_value, t18, div23, div22, t19, div22_class_value, t20, div25, div24, t22, dispose;
 
 	function input0_input_handler_2() {
 		input0_updating = true;
@@ -3343,8 +3343,8 @@ function create_if_block_1$1(ctx) {
 		c() {
 			div0 = element("div");
 			t0 = space();
-			div11 = element("div");
-			div10 = element("div");
+			div13 = element("div");
+			div12 = element("div");
 			div1 = element("div");
 			input0 = element("input");
 			t1 = space();
@@ -3371,30 +3371,34 @@ function create_if_block_1$1(ctx) {
 			div8 = element("div");
 			t7 = text("Fit");
 			t8 = space();
-			div25 = element("div");
-			div24 = element("div");
-			div12 = element("div");
-			input3 = element("input");
-			t9 = space();
+			div11 = element("div");
+			div10 = element("div");
+			t9 = text("Open in Matplotlib");
+			t10 = space();
+			div27 = element("div");
+			div26 = element("div");
 			div14 = element("div");
-			div13 = element("div");
-			div13.textContent = "Exp. Fit";
+			input3 = element("input");
 			t11 = space();
-			div17 = element("div");
-			div17.innerHTML = `<div class="pretty p-switch p-slim" style="margin-left:1em;" data-tippy="Overwrite existing expfit file with only new values ? or else will append to existing file"><input type="checkbox" id="overwrite_expfit"> <div class="state p-info p-on"><label class="svelte-1z8f7">Overwrite</label></div></div>`;
-			t14 = space();
+			div16 = element("div");
+			div15 = element("div");
+			div15.textContent = "Exp. Fit";
+			t13 = space();
 			div19 = element("div");
-			div18 = element("div");
-			t15 = text("Clear last");
+			div19.innerHTML = `<div class="pretty p-switch p-slim" style="margin-left:1em;" data-tippy="Overwrite existing expfit file with only new values ? or else will append to existing file"><input type="checkbox" id="overwrite_expfit"> <div class="state p-info p-on"><label class="svelte-1z8f7">Overwrite</label></div></div>`;
 			t16 = space();
 			div21 = element("div");
 			div20 = element("div");
-			t17 = text("Clear all");
+			t17 = text("Clear last");
 			t18 = space();
 			div23 = element("div");
 			div22 = element("div");
-			div22.textContent = "Find Peaks";
+			t19 = text("Clear all");
 			t20 = space();
+			div25 = element("div");
+			div24 = element("div");
+			div24.textContent = "Find Peaks";
+			t22 = space();
 			attr(div0, "id", div0_id_value = ctx.id);
 			set_style(div0, "padding-bottom", "1em");
 			attr(div0, "class", "svelte-1z8f7");
@@ -3431,34 +3435,38 @@ function create_if_block_1$1(ctx) {
 			attr(div8, "id", "fitall_expfit_peaks");
 			attr(div8, "data-tippy", "Fit all the peaks positions found using gaussian");
 			attr(div9, "class", "level-item");
-			attr(div10, "class", "level-left");
-			attr(div11, "class", "level");
-			set_style(div11, "display", ctx.exp_fitall_div);
+			attr(div10, "class", div10_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitall_tkplot_Peak_btnCSS + " svelte-1z8f7");
+			attr(div10, "id", "fitall_tkplot_expfit_peaks");
+			attr(div10, "data-tippy", "Fit all the peaks positions found using gaussian");
+			attr(div11, "class", "level-item");
+			attr(div12, "class", "level-left");
+			attr(div13, "class", "level");
+			set_style(div13, "display", ctx.exp_fitall_div);
 			attr(input3, "class", "input");
 			attr(input3, "type", "text");
 			attr(input3, "id", "avg_output_name");
 			attr(input3, "placeholder", "Averaged spectra output filename");
 			attr(input3, "data-tippy", "Averaged spectra output filename");
 			input3.disabled = true;
-			attr(div12, "class", "level-item");
-			attr(div13, "class", "level-item button hvr-glow funcBtn is-link animated svelte-1z8f7");
-			attr(div13, "id", "exp_fit");
 			attr(div14, "class", "level-item");
-			attr(div17, "class", "level-item");
-			attr(div18, "class", div18_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_last_Peak_btnCSS + " svelte-1z8f7");
-			attr(div18, "id", "clearLast_plotted_peaks");
-			attr(div18, "data-tippy", "Clear last fitted lines");
+			attr(div15, "class", "level-item button hvr-glow funcBtn is-link animated svelte-1z8f7");
+			attr(div15, "id", "exp_fit");
+			attr(div16, "class", "level-item");
 			attr(div19, "class", "level-item");
-			attr(div20, "class", div20_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_all_Peak_btnCSS + " svelte-1z8f7");
-			attr(div20, "id", "clearAll_plotted_peaks");
-			attr(div20, "data-tippy", "Clear all fitted lines");
+			attr(div20, "class", div20_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_last_Peak_btnCSS + " svelte-1z8f7");
+			attr(div20, "id", "clearLast_plotted_peaks");
+			attr(div20, "data-tippy", "Clear last fitted lines");
 			attr(div21, "class", "level-item");
-			attr(div22, "class", "level-item button hvr-glow funcBtn is-link animated svelte-1z8f7");
-			attr(div22, "id", "findall_expfit_toggle");
+			attr(div22, "class", div22_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_all_Peak_btnCSS + " svelte-1z8f7");
+			attr(div22, "id", "clearAll_plotted_peaks");
+			attr(div22, "data-tippy", "Clear all fitted lines");
 			attr(div23, "class", "level-item");
-			attr(div24, "class", "level-left");
-			attr(div25, "class", "level");
-			set_style(div25, "display", ctx.expfitDiv);
+			attr(div24, "class", "level-item button hvr-glow funcBtn is-link animated svelte-1z8f7");
+			attr(div24, "id", "findall_expfit_toggle");
+			attr(div25, "class", "level-item");
+			attr(div26, "class", "level-left");
+			attr(div27, "class", "level");
+			set_style(div27, "display", ctx.expfitDiv);
 
 			dispose = [
 				listen(input0, "input", input0_input_handler_2),
@@ -3470,42 +3478,43 @@ function create_if_block_1$1(ctx) {
 				listen(div4, "click", ctx.findPeak),
 				listen(select, "change", ctx.select_change_handler_1),
 				listen(div8, "click", ctx.fitall),
+				listen(div10, "click", ctx.click_handler_4),
 				listen(input3, "input", ctx.input3_input_handler),
-				listen(div13, "click", ctx.functionRun),
-				listen(div18, "click", ctx.clearLastPeak),
-				listen(div20, "click", ctx.clearAllPeak),
-				listen(div22, "click", ctx.click_handler_4)
+				listen(div15, "click", ctx.functionRun),
+				listen(div20, "click", ctx.clearLastPeak),
+				listen(div22, "click", ctx.clearAllPeak),
+				listen(div24, "click", ctx.click_handler_5)
 			];
 		},
 
 		m(target, anchor) {
 			insert(target, div0, anchor);
 			insert(target, t0, anchor);
-			insert(target, div11, anchor);
-			append(div11, div10);
-			append(div10, div1);
+			insert(target, div13, anchor);
+			append(div13, div12);
+			append(div12, div1);
 			append(div1, input0);
 
 			set_input_value(input0, ctx.prominence);
 
-			append(div10, t1);
-			append(div10, div2);
+			append(div12, t1);
+			append(div12, div2);
 			append(div2, input1);
 
 			set_input_value(input1, ctx.peak_width);
 
-			append(div10, t2);
-			append(div10, div3);
+			append(div12, t2);
+			append(div12, div3);
 			append(div3, input2);
 
 			set_input_value(input2, ctx.peak_height);
 
-			append(div10, t3);
-			append(div10, div5);
+			append(div12, t3);
+			append(div12, div5);
 			append(div5, div4);
 			append(div4, t4);
-			append(div10, t5);
-			append(div10, div7);
+			append(div12, t5);
+			append(div12, div7);
 			append(div7, div6);
 			append(div6, select);
 
@@ -3515,35 +3524,39 @@ function create_if_block_1$1(ctx) {
 
 			select_option(select, ctx.fit_files);
 
-			append(div10, t6);
-			append(div10, div9);
+			append(div12, t6);
+			append(div12, div9);
 			append(div9, div8);
 			append(div8, t7);
-			insert(target, t8, anchor);
-			insert(target, div25, anchor);
-			append(div25, div24);
-			append(div24, div12);
-			append(div12, input3);
+			append(div12, t8);
+			append(div12, div11);
+			append(div11, div10);
+			append(div10, t9);
+			insert(target, t10, anchor);
+			insert(target, div27, anchor);
+			append(div27, div26);
+			append(div26, div14);
+			append(div14, input3);
 
 			set_input_value(input3, ctx.output_filename);
 
-			append(div24, t9);
-			append(div24, div14);
-			append(div14, div13);
-			append(div24, t11);
-			append(div24, div17);
-			append(div24, t14);
-			append(div24, div19);
-			append(div19, div18);
-			append(div18, t15);
-			append(div24, t16);
-			append(div24, div21);
+			append(div26, t11);
+			append(div26, div16);
+			append(div16, div15);
+			append(div26, t13);
+			append(div26, div19);
+			append(div26, t16);
+			append(div26, div21);
 			append(div21, div20);
 			append(div20, t17);
-			append(div24, t18);
-			append(div24, div23);
+			append(div26, t18);
+			append(div26, div23);
 			append(div23, div22);
-			append(div25, t20);
+			append(div22, t19);
+			append(div26, t20);
+			append(div26, div25);
+			append(div25, div24);
+			append(div27, t22);
 		},
 
 		p(changed, ctx) {
@@ -3590,22 +3603,26 @@ function create_if_block_1$1(ctx) {
 				attr(div8, "class", div8_class_value);
 			}
 
+			if ((changed.fitall_tkplot_Peak_btnCSS) && div10_class_value !== (div10_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitall_tkplot_Peak_btnCSS + " svelte-1z8f7")) {
+				attr(div10, "class", div10_class_value);
+			}
+
 			if (changed.exp_fitall_div) {
-				set_style(div11, "display", ctx.exp_fitall_div);
+				set_style(div13, "display", ctx.exp_fitall_div);
 			}
 
 			if (changed.output_filename && (input3.value !== ctx.output_filename)) set_input_value(input3, ctx.output_filename);
 
-			if ((changed.clear_last_Peak_btnCSS) && div18_class_value !== (div18_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_last_Peak_btnCSS + " svelte-1z8f7")) {
-				attr(div18, "class", div18_class_value);
-			}
-
-			if ((changed.clear_all_Peak_btnCSS) && div20_class_value !== (div20_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_all_Peak_btnCSS + " svelte-1z8f7")) {
+			if ((changed.clear_last_Peak_btnCSS) && div20_class_value !== (div20_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_last_Peak_btnCSS + " svelte-1z8f7")) {
 				attr(div20, "class", div20_class_value);
 			}
 
+			if ((changed.clear_all_Peak_btnCSS) && div22_class_value !== (div22_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_all_Peak_btnCSS + " svelte-1z8f7")) {
+				attr(div22, "class", div22_class_value);
+			}
+
 			if (changed.expfitDiv) {
-				set_style(div25, "display", ctx.expfitDiv);
+				set_style(div27, "display", ctx.expfitDiv);
 			}
 		},
 
@@ -3613,14 +3630,14 @@ function create_if_block_1$1(ctx) {
 			if (detaching) {
 				detach(div0);
 				detach(t0);
-				detach(div11);
+				detach(div13);
 			}
 
 			destroy_each(each_blocks, detaching);
 
 			if (detaching) {
-				detach(t8);
-				detach(div25);
+				detach(t10);
+				detach(div27);
 			}
 
 			run_all(dispose);
@@ -3628,7 +3645,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (873:12) {#if filetag == 'scan'}
+// (874:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3702,7 +3719,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (911:26) {#each fit_file_list as file}
+// (912:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -3739,7 +3756,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (875:16) {#each fileChecked as scanfile}
+// (876:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3769,7 +3786,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (872:10) {#each plotID as id}
+// (873:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -4170,7 +4187,7 @@ function create_fragment$4(ctx) {
 				if_block3 = null;
 			}
 
-			if (changed.filetag || changed.plotID || changed.fileChecked || changed.expfitDiv || changed.clear_all_Peak_btnCSS || changed.clear_last_Peak_btnCSS || changed.output_filename || changed.exp_fitall_div || changed.fitallPeak_btnCSS || changed.fit_files || changed.fit_file_list || changed.findPeak_btnCSS || changed.peak_height || changed.peak_width || changed.prominence) {
+			if (changed.filetag || changed.plotID || changed.fileChecked || changed.expfitDiv || changed.clear_all_Peak_btnCSS || changed.clear_last_Peak_btnCSS || changed.output_filename || changed.exp_fitall_div || changed.fitall_tkplot_Peak_btnCSS || changed.fitallPeak_btnCSS || changed.fit_files || changed.fit_file_list || changed.findPeak_btnCSS || changed.peak_height || changed.peak_width || changed.prominence) {
 				each_value = ctx.plotID;
 
 				let i;
@@ -4692,10 +4709,9 @@ function instance$4($$self, $$props, $$invalidate) {
   };
   
   let output_filename =  "averaged";
-
   let ready_to_fit = false;
 
-  function expfit_func({runfit = false, btname = "find_expfit_peaks"} = {}) {
+  function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false} = {}) {
 
     let output_filename = document.getElementById("avg_output_name").value;
     let expfit_overwrite = document.getElementById("overwrite_expfit").checked;
@@ -4704,7 +4720,7 @@ function instance$4($$self, $$props, $$invalidate) {
       filetype: "expfit_all",
       btname: btname,
       pyfile: "fit_all.py",
-      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite]
+      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite, tkplot]
     })
     .then((output)=>console.log(output))
     .catch((err)=>{
@@ -4752,11 +4768,12 @@ function instance$4($$self, $$props, $$invalidate) {
     
   };
 
-  const fitall = () => {
+  const fitall = (tkplot=false, btname="fitall_expfit_peaks") => {
 
     console.log("Fitting all found peaks");
 
-    if (ready_to_fit) {expfit_func({runfit:true, btname:"fitall_expfit_peaks"});}
+    if (ready_to_fit) {expfit_func({runfit:true, btname:btname, tkplot:tkplot});}
+
     else {
       $$invalidate('findPeak_btnCSS', findPeak_btnCSS = "is-link shake");
       setTimeout(()=>$$invalidate('findPeak_btnCSS', findPeak_btnCSS = "is-link"), 1000);
@@ -4861,12 +4878,14 @@ function instance$4($$self, $$props, $$invalidate) {
 		$$invalidate('fit_file_list', fit_file_list), $$invalidate('fit_file_list_temp', fit_file_list_temp), $$invalidate('fileChecked', fileChecked), $$invalidate('allFiles', allFiles);
 	}
 
+	const click_handler_4 = () => fitall(true, 'fitall_tkplot_expfit_peaks');
+
 	function input3_input_handler() {
 		output_filename = this.value;
 		$$invalidate('output_filename', output_filename);
 	}
 
-	const click_handler_4 = () => $$invalidate('exp_fitall_div_status', exp_fitall_div_status = !exp_fitall_div_status);
+	const click_handler_5 = () => $$invalidate('exp_fitall_div_status', exp_fitall_div_status = !exp_fitall_div_status);
 
 	$$self.$set = $$props => {
 		if ('id' in $$props) $$invalidate('id', id = $$props.id);
@@ -4882,7 +4901,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		if ('MenuItem' in $$props) $$invalidate('MenuItem', MenuItem = $$props.MenuItem);
 	};
 
-	let plotContainerHeight, fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, clear_all_Peak_btnCSS, clear_last_Peak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div, fit_files, fit_file_list_temp, fit_file_list;
+	let plotContainerHeight, fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, clear_all_Peak_btnCSS, clear_last_Peak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div, fit_files, fit_file_list_temp, fit_file_list, fitall_tkplot_Peak_btnCSS;
 
 	$$self.$$.update = ($$dirty = { filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1, exp_fitall_div_status: 1, fit_file_list_temp: 1 }) => {
 		if ($$dirty.filetag) ;
@@ -4912,6 +4931,7 @@ function instance$4($$self, $$props, $$invalidate) {
 	$$invalidate('exp_fitall_div_status', exp_fitall_div_status = false);
 	$$invalidate('exp_fitall_div', exp_fitall_div = "none");
 	$$invalidate('fit_files', fit_files = "averaged");
+	$$invalidate('fitall_tkplot_Peak_btnCSS', fitall_tkplot_Peak_btnCSS = "is-link");
 
 	return {
 		id,
@@ -4972,6 +4992,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		exp_fitall_div,
 		fit_files,
 		fit_file_list,
+		fitall_tkplot_Peak_btnCSS,
 		click_handler,
 		click_handler_1,
 		keyup_handler,
@@ -4996,8 +5017,9 @@ function instance$4($$self, $$props, $$invalidate) {
 		input1_input_handler_2,
 		input2_input_handler,
 		select_change_handler_1,
+		click_handler_4,
 		input3_input_handler,
-		click_handler_4
+		click_handler_5
 	};
 }
 
@@ -9779,6 +9801,7 @@ var Popper = function () {
 Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
 Popper.placements = placements;
 Popper.Defaults = Defaults;
+//# sourceMappingURL=popper.js.map
 
 /**!
 * tippy.js v4.3.5
@@ -11718,6 +11741,7 @@ function injectCSS(css) {
 }
 
 injectCSS(css);
+//# sourceMappingURL=index.all.js.map
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -22772,6 +22796,7 @@ const app = new App({
     target: document.body,
     props: { mainPages }
 });
+//# sourceMappingURL=renderer.js.map
 
 module.exports = app;
 //# sourceMappingURL=renderer.js.map
