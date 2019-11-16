@@ -50,6 +50,7 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
         print(dataJson)
 
     else:
+
         location = filename.parent.parent
         output_filename = filename.stem
 
@@ -57,7 +58,6 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
 
         filename = f"{output_filename}.expfit"
         datfile_location = location/"EXPORT"
-
         expfile = datfile_location/filename
 
         if overwrite: method = "w"
@@ -66,9 +66,7 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
         get_data = []
 
         with open(expfile, method) as f:
-
             if overwrite: f.write(f"#Frequency\t#Freq_err\t#Sigma\t#Sigma_err\t#FWHM\t#FWHM_err\t#Amplitude\t#Amplitude_err\n")
-
             for wavelength in _["wn_range"]:
 
                 get_data_temp, uline_freq, usigma, uamplitude, ufwhm = exp_fit(location, norm_method, wavelength[0], wavelength[1], output_filename, getvalue=True)
