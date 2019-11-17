@@ -26,7 +26,7 @@ def main(felixfiles, location, norm_method, output_filename="averaged"):
 
     wn, inten = read_dat_file(avgfile, norm_method)
     
-    ax.plot(wn, inten, "k.-", label="Averaged", zorder=100)
+    ax.plot(wn, inten, "k.-", label="Averaged", alpha = 0.7, zorder=100)
 
     print(f"felix dat files: {datfiles}\nAveraged file: {avgfile}")
     for felixfile, datfile in zip(felixfiles, datfiles):

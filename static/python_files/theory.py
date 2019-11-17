@@ -36,7 +36,7 @@ def exp_theory(theoryfiles, location, norm_method, sigma, scale, tkplot, output_
     xs, ys = read_dat_file(avgfile, norm_method)
 
     if tkplot:
-        ax.plot(xs, ys, "k-", label="Experiment")
+        ax.plot(xs, ys, "k-", label="Experiment", alpha=0.9)
     else:
         data = {"line_simulation":{}, "averaged": {
                     "x": list(xs), "y": list(ys),  "name": "Exp",
@@ -63,8 +63,8 @@ def exp_theory(theoryfiles, location, norm_method, sigma, scale, tkplot, output_
             theory_x = np.append(theory_x, x)
             theory_y = np.append(theory_y, y)
 
-        if tkplot:
-            ax.fill(theory_x, theory_y, label=theoryfile.stem)
+        if tkplot: ax.fill(theory_x, theory_y, label=theoryfile.stem)
+
         else:
             data["line_simulation"][f"{theoryfile.name}"] = {
                     "x":list(theory_x), "y":list(theory_y),  "name":f"{theoryfile.stem}", "fill":"tozerox"
