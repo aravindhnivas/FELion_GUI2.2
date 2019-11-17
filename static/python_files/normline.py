@@ -90,6 +90,7 @@ class normplot:
 
         c = 0
         group = 1
+        color_size = len(colors)
 
         for filename in received_files:
 
@@ -306,6 +307,8 @@ class normplot:
 
             group += 1
             c += 2
+
+            if c >= color_size: c = 1
 
         # For Normalised Intensity
         binns, intens = self.felix_binning(xs, ys)
