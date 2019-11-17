@@ -34,7 +34,7 @@
       <span class="icon">
         <i class="fas fa-chart-pie" />
       </span>
-      <span>FELion_GUI{localStorage["version"]}</span>
+      <span>FELion_GUI v.{localStorage["version"]}</span>
     </div>
   </div>
 

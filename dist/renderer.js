@@ -397,7 +397,7 @@ function create_fragment(ctx) {
 			span0.innerHTML = `<i class="fas fa-chart-pie"></i>`;
 			t0 = space();
 			span1 = element("span");
-			t1 = text("FELion_GUI");
+			t1 = text("FELion_GUI v.");
 			t2 = text(t2_value);
 			t3 = space();
 			div6 = element("div");
