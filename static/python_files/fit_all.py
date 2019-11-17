@@ -84,7 +84,7 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
             for wavelength in _["wn_range"]:
 
                 get_data_temp, uline_freq, usigma, uamplitude, ufwhm = exp_fit(location, norm_method, wavelength[0], wavelength[1], output_filename, getvalue=True)
-
+                if uline_freq.nominal_value < 0 or ufwhm.nominal_value > 100: continue
                 if tkplot:
 
                     print("Fitting for wavelength range: ", wavelength[0], wavelength[1])
