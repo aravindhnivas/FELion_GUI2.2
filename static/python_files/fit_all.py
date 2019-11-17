@@ -16,7 +16,7 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
     wn, inten = read_dat_file(filename, norm_method)
 
     if tkplot:
-        widget = FELion_Tk(title="Experimental fitted Spectrum", location=filename.parent.parent / "OUT")
+        widget = FELion_Tk(title=f"Fitted: {filename.name}", location=filename.parent.parent / "OUT")
         fig, canvas = widget.Figure()
 
         if norm_method == "Relative": ylabel = "Relative Depletion (%)"
@@ -84,7 +84,10 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
             for wavelength in _["wn_range"]:
 
                 get_data_temp, uline_freq, usigma, uamplitude, ufwhm = exp_fit(location, norm_method, wavelength[0], wavelength[1], output_filename, getvalue=True)
-                if tkplot: 
+
+                if tkplot:
+
+                    print("Fitting for wavelength range: ", wavelength[0], wavelength[1])
                     ax.plot(get_data_temp["fit"]["x"], get_data_temp["fit"]["y"], "k-", label=get_data_temp["fit"]["name"])
                     xcord, ycord = uline_freq.nominal_value, uamplitude.nominal_value
                     text_frac = 0.01
@@ -93,23 +96,26 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
                                 xytext=(xcord+xcord*text_frac, ycord+ycord*text_frac), textcoords='data',
                                 arrowprops=dict(arrowstyle="->", connectionstyle="arc3")
                     )
-                annotate = {
-                    "x": uline_freq.nominal_value, "y": uamplitude.nominal_value, "xref": 'x', "yref": 'y', "text": f'{uline_freq:.2uP}',
-                    "showarrow": True, "arrowhead": 2, "ax": -25, "ay": -40
-                }
-                annotations.append(annotate)
-                get_data.append(get_data_temp)
-                f.write(f"{uline_freq.nominal_value:.4f}\t{uline_freq.std_dev:.4f}\t{usigma.nominal_value:.4f}\t{usigma.std_dev:.4f}\t{ufwhm.nominal_value:.4f}\t{ufwhm.std_dev:.4f}\t{uamplitude.nominal_value:.4f}\t{uamplitude.std_dev:.4f}\n")
-
-        fit_data.append({"annotations":annotations})
-        fit_data.append(get_data)
-
+                else:
+                    annotate = {
+                        "x": uline_freq.nominal_value, "y": uamplitude.nominal_value, "xref": 'x', "yref": 'y', "text": f'{uline_freq:.2uP}',
+                        "showarrow": True, "arrowhead": 2, "ax": -25, "ay": -40
+                    }
+                    annotations.append(annotate)
+                    get_data.append(get_data_temp)
+                    f.write(f"{uline_freq.nominal_value:.4f}\t{uline_freq.std_dev:.4f}\t{usigma.nominal_value:.4f}\t{usigma.std_dev:.4f}\t{ufwhm.nominal_value:.4f}\t{ufwhm.std_dev:.4f}\t{uamplitude.nominal_value:.4f}\t{uamplitude.std_dev:.4f}\n")
+                
         if tkplot:
             widget.plot_legend = ax.legend()
             widget.mainloop()
+            
+        else:
 
-        dataJson = json.dumps(fit_data)
-        print(dataJson)
+            fit_data.append({"annotations":annotations})
+            fit_data.append(get_data)
+            dataJson = json.dumps(fit_data)
+            print(dataJson)
+        
 
 if __name__ == "__main__":
 

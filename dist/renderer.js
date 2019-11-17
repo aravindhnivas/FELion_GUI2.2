@@ -4913,7 +4913,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		if ($$dirty.theoryfiles || $$dirty.path) { $$invalidate('theoryfilenames', theoryfilenames = theoryfiles.map(file=>path.basename(file))); }
 		if ($$dirty.exp_fitall_div_status) { exp_fitall_div_status ? $$invalidate('exp_fitall_div', exp_fitall_div = "block") : $$invalidate('exp_fitall_div', exp_fitall_div = "none"); }
 		if ($$dirty.fileChecked) { $$invalidate('fit_file_list_temp', fit_file_list_temp = fileChecked.map(file => file.split(".")[0])); }
-		if ($$dirty.fit_file_list_temp) { $$invalidate('fit_file_list', fit_file_list = [...fit_file_list_temp, "averaged"]); }
+		if ($$dirty.fit_file_list_temp) { $$invalidate('fit_file_list', fit_file_list = ["averaged", ...fit_file_list_temp]); }
 	};
 
 	$$invalidate('plotContainerHeight', plotContainerHeight = "60vh");

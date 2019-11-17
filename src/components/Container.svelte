@@ -502,7 +502,7 @@
 
   $: fit_files = "averaged"
   $: fit_file_list_temp = fileChecked.map(file => file.split(".")[0])
-  $: fit_file_list = [...fit_file_list_temp, "averaged"]
+  $: fit_file_list = ["averaged", ...fit_file_list_temp]
   $: fitall_tkplot_Peak_btnCSS = "is-link"
   let ready_to_fit = false
 
