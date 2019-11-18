@@ -19,8 +19,6 @@
   export let menu;
   export let MenuItem;
 
-  // export let PythonShell;
-
   menu.append(new MenuItem({ label: `Open ${filetag} plot in Matplotlib`, click() {
 
       let obj = {
@@ -532,6 +530,24 @@
     expfit_func()
   }
 
+  const delete_file_line = ({btname = "exp_fit"} = {}) => {
+
+    let output_filename = document.getElementById("avg_output_name").value
+    runPlot({
+      fullfiles: [output_filename],
+      filetype: "general",
+      filetag: filetag,
+      btname: btname,
+      pyfile: "delete_fileLines.py",
+      args: [currentLocation]
+    })
+    .then((output)=>console.log(output))
+    .catch((err)=>{
+      console.log('Error Occured', err); 
+      error_msg[filetag]=err; 
+      modal[filetag]="is-active"
+    })
+  }
   const clearAllPeak = () => {
 
     console.log("Removing all found peak values")
@@ -549,9 +565,13 @@
   }
 
   const clearLastPeak = () => {
-
+    
     console.log("Removing only last found peak values")
-    if (window.line.length != 0) {Plotly.deleteTraces("avgplot", [-1])}
+
+    if (window.line.length > 0) {
+      delete_file_line()
+      Plotly.deleteTraces("avgplot", [-1])
+    }
     
     window.line = window.line.slice(0, window.line.length - 2)
     window.annotations = window.annotations.slice(0, window.annotations.length - 1)
