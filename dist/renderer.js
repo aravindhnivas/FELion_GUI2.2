@@ -2226,7 +2226,7 @@ function get_each_context_8(ctx, list, i) {
 	return child_ctx;
 }
 
-// (687:12) {#each funcBtns as { id, name }}
+// (707:12) {#each funcBtns as { id, name }}
 function create_each_block_8(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -2264,7 +2264,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (703:18) {:else}
+// (723:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2302,7 +2302,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (701:18) {#if name[0]==="Log"}
+// (721:18) {#if name[0]==="Log"}
 function create_if_block_11(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2340,7 +2340,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (696:12) {#each checkBtns as {id, name, bind, help}}
+// (716:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_7(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -2428,7 +2428,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (715:12) {#if filetag == 'felix'}
+// (735:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -2542,7 +2542,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (724:24) {#each normalisation_method as method}
+// (744:24) {#each normalisation_method as method}
 function create_each_block_6(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -2569,7 +2569,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (744:12) {#if filetag == 'thz'}
+// (764:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -2669,7 +2669,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (795:6) {#if filetag=="felix"}
+// (815:6) {#if filetag=="felix"}
 function create_if_block_8(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2790,7 +2790,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (814:6) {#if filetag=="scan"}
+// (834:6) {#if filetag=="scan"}
 function create_if_block_2(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2920,7 +2920,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (827:28) {#if folderFile.files != undefined}
+// (847:28) {#if folderFile.files != undefined}
 function create_if_block_7(ctx) {
 	var each_1_anchor;
 
@@ -2983,7 +2983,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (828:31) {#each folderFile.files as scanfile}
+// (848:31) {#each folderFile.files as scanfile}
 function create_each_block_5(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3020,7 +3020,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (819:16) {#each ["ResON", "ResOFF"] as name}
+// (839:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_4(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3088,7 +3088,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (850:57) 
+// (870:57) 
 function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3127,7 +3127,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (848:52) 
+// (868:52) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3166,7 +3166,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (846:50) 
+// (866:50) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3205,7 +3205,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (844:22) {#if name=="Power (ON, OFF)"}
+// (864:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_3(ctx) {
 	var input, dispose;
 
@@ -3238,7 +3238,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (839:16) {#each depletionLabels as {name, id}}
+// (859:16) {#each depletionLabels as {name, id}}
 function create_each_block_3(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -3296,7 +3296,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (979:12) {:else}
+// (999:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3326,7 +3326,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (882:38) 
+// (902:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div27, div26, div14, input3, t11, div16, div15, t13, div19, t16, div21, div20, t17, div20_class_value, t18, div23, div22, t19, div22_class_value, t20, div25, div24, t22, dispose;
 
@@ -3659,7 +3659,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (875:12) {#if filetag == 'scan'}
+// (895:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3733,7 +3733,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (913:26) {#each fit_file_list as file}
+// (933:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -3770,7 +3770,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (877:16) {#each fileChecked as scanfile}
+// (897:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3800,7 +3800,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (874:10) {#each plotID as id}
+// (894:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -4282,8 +4282,6 @@ function instance$4($$self, $$props, $$invalidate) {
 
   let { id, filetag, filetype, funcBtns, plotID, checkBtns, jq, electron, path, menu, MenuItem } = $$props;
 
-  // export let PythonShell;
-
   menu.append(new MenuItem({ label: `Open ${filetag} plot in Matplotlib`, click() {
 
       let obj = {
@@ -4751,6 +4749,24 @@ function instance$4($$self, $$props, $$invalidate) {
     expfit_func();
   };
 
+  const delete_file_line = ({btname = "exp_fit"} = {}) => {
+
+    let output_filename = document.getElementById("avg_output_name").value;
+    runPlot({
+      fullfiles: [output_filename],
+      filetype: "general",
+      filetag: filetag,
+      btname: btname,
+      pyfile: "delete_fileLines.py",
+      args: [currentLocation]
+    })
+    .then((output)=>console.log(output))
+    .catch((err)=>{
+      console.log('Error Occured', err); 
+      $$invalidate('error_msg', error_msg[filetag]=err, error_msg); 
+      $$invalidate('modal', modal[filetag]="is-active", modal);
+    });
+  };
   const clearAllPeak = () => {
 
     console.log("Removing all found peak values");
@@ -4768,9 +4784,13 @@ function instance$4($$self, $$props, $$invalidate) {
   };
 
   const clearLastPeak = () => {
-
+    
     console.log("Removing only last found peak values");
-    if (window.line.length != 0) {Plotly.deleteTraces("avgplot", [-1]);}
+
+    if (window.line.length > 0) {
+      delete_file_line();
+      Plotly.deleteTraces("avgplot", [-1]);
+    }
     
     window.line = window.line.slice(0, window.line.length - 2);
     window.annotations = window.annotations.slice(0, window.annotations.length - 1);
@@ -9816,6 +9836,7 @@ var Popper = function () {
 Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
 Popper.placements = placements;
 Popper.Defaults = Defaults;
+//# sourceMappingURL=popper.js.map
 
 /**!
 * tippy.js v4.3.5
@@ -11755,6 +11776,7 @@ function injectCSS(css) {
 }
 
 injectCSS(css);
+//# sourceMappingURL=index.all.js.map
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -22809,6 +22831,7 @@ const app = new App({
     target: document.body,
     props: { mainPages }
 });
+//# sourceMappingURL=renderer.js.map
 
 module.exports = app;
 //# sourceMappingURL=renderer.js.map
