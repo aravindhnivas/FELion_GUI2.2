@@ -1,7 +1,7 @@
 #################################################################
 
 # Modules
-import shutil
+import shutil, os
 from os.path import join 
 # from tkinter import ttk, messagebox, Tk
 
@@ -96,3 +96,31 @@ def read_dat_file(filename, norm_method):
     elif norm_method == "Relative": ys = read_data[2]
     else: ys = read_data[3]
     return xs, ys
+
+def delete_last_line(filename):
+    print(f"File received: {filename}")
+    with open(filename, "r+", encoding = "utf-8") as file:
+
+        # Move the pointer (similar to a cursor in a text editor) to the end of the file
+        lastline = file.seek(0, os.SEEK_END)
+        print(lastline)
+        
+        # This code means the following code skips the very last character in the file -
+        # i.e. in the case the last line is null we delete the last line
+        # and the penultimate one
+        pos = file.tell() - 2
+        print(f"Position: {pos}")
+
+        # Read each character in the file one at a time from the penultimate
+        # character going backwards, searching for a newline character
+        # If we find a new line, exit the search
+        while pos > 0 and file.read(1) != "\n":
+            pos -= 1
+            file.seek(pos, os.SEEK_SET)
+
+        # So long as we're not at the start of the file, delete all the characters ahead
+        # of this position
+        if pos > 0:
+            file.seek(pos, os.SEEK_SET)
+            file.truncate()
+        print(f"Last line deleted")
