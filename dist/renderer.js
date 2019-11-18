@@ -2226,7 +2226,7 @@ function get_each_context_8(ctx, list, i) {
 	return child_ctx;
 }
 
-// (707:12) {#each funcBtns as { id, name }}
+// (723:12) {#each funcBtns as { id, name }}
 function create_each_block_8(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -2264,7 +2264,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (723:18) {:else}
+// (739:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2302,7 +2302,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (721:18) {#if name[0]==="Log"}
+// (737:18) {#if name[0]==="Log"}
 function create_if_block_11(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2340,7 +2340,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (716:12) {#each checkBtns as {id, name, bind, help}}
+// (732:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_7(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -2428,7 +2428,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (735:12) {#if filetag == 'felix'}
+// (751:12) {#if filetag == 'felix'}
 function create_if_block_10(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -2542,7 +2542,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (744:24) {#each normalisation_method as method}
+// (760:24) {#each normalisation_method as method}
 function create_each_block_6(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -2569,7 +2569,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (764:12) {#if filetag == 'thz'}
+// (780:12) {#if filetag == 'thz'}
 function create_if_block_9(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -2669,7 +2669,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (815:6) {#if filetag=="felix"}
+// (831:6) {#if filetag=="felix"}
 function create_if_block_8(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2790,7 +2790,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (834:6) {#if filetag=="scan"}
+// (850:6) {#if filetag=="scan"}
 function create_if_block_2(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2920,7 +2920,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (847:28) {#if folderFile.files != undefined}
+// (863:28) {#if folderFile.files != undefined}
 function create_if_block_7(ctx) {
 	var each_1_anchor;
 
@@ -2983,7 +2983,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (848:31) {#each folderFile.files as scanfile}
+// (864:31) {#each folderFile.files as scanfile}
 function create_each_block_5(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3020,7 +3020,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (839:16) {#each ["ResON", "ResOFF"] as name}
+// (855:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_4(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3088,7 +3088,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (870:57) 
+// (886:57) 
 function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3127,7 +3127,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (868:52) 
+// (884:52) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3166,7 +3166,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (866:50) 
+// (882:50) 
 function create_if_block_4(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3205,7 +3205,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (864:22) {#if name=="Power (ON, OFF)"}
+// (880:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_3(ctx) {
 	var input, dispose;
 
@@ -3238,7 +3238,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (859:16) {#each depletionLabels as {name, id}}
+// (875:16) {#each depletionLabels as {name, id}}
 function create_each_block_3(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -3296,7 +3296,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (999:12) {:else}
+// (1023:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3326,9 +3326,9 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (902:38) 
+// (918:38) 
 function create_if_block_1$1(ctx) {
-	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div27, div26, div14, input3, t11, div16, div15, t13, div19, t16, div21, div20, t17, div20_class_value, t18, div23, div22, t19, div22_class_value, t20, div25, div24, t22, dispose;
+	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div28, div27, div14, input3, t11, div16, div15, t13, div19, t16, div21, div20, t17, div20_class_value, t18, div23, div22, t19, div22_class_value, t20, div25, div24, t22, div26, h1, t23, t24, dispose;
 
 	function input0_input_handler_2() {
 		input0_updating = true;
@@ -3389,8 +3389,8 @@ function create_if_block_1$1(ctx) {
 			div10 = element("div");
 			t9 = text("Open in Matplotlib");
 			t10 = space();
+			div28 = element("div");
 			div27 = element("div");
-			div26 = element("div");
 			div14 = element("div");
 			input3 = element("input");
 			t11 = space();
@@ -3413,6 +3413,10 @@ function create_if_block_1$1(ctx) {
 			div24 = element("div");
 			div24.textContent = "Find Peaks";
 			t22 = space();
+			div26 = element("div");
+			h1 = element("h1");
+			t23 = text(ctx.expfit_log);
+			t24 = space();
 			attr(div0, "id", div0_id_value = ctx.id);
 			set_style(div0, "padding-bottom", "1em");
 			attr(div0, "class", "svelte-1z8f7");
@@ -3478,9 +3482,12 @@ function create_if_block_1$1(ctx) {
 			attr(div24, "class", "level-item button hvr-glow funcBtn is-link animated svelte-1z8f7");
 			attr(div24, "id", "findall_expfit_toggle");
 			attr(div25, "class", "level-item");
-			attr(div26, "class", "level-left");
-			attr(div27, "class", "level");
-			set_style(div27, "display", ctx.expfitDiv);
+			attr(h1, "class", "subtitle");
+			attr(div26, "class", "level-item");
+			attr(div26, "id", "expfit_log_id");
+			attr(div27, "class", "level-left");
+			attr(div28, "class", "level");
+			set_style(div28, "display", ctx.expfitDiv);
 
 			dispose = [
 				listen(input0, "input", input0_input_handler_2),
@@ -3547,30 +3554,34 @@ function create_if_block_1$1(ctx) {
 			append(div11, div10);
 			append(div10, t9);
 			insert(target, t10, anchor);
-			insert(target, div27, anchor);
-			append(div27, div26);
-			append(div26, div14);
+			insert(target, div28, anchor);
+			append(div28, div27);
+			append(div27, div14);
 			append(div14, input3);
 
 			set_input_value(input3, ctx.output_filename);
 
-			append(div26, t11);
-			append(div26, div16);
+			append(div27, t11);
+			append(div27, div16);
 			append(div16, div15);
-			append(div26, t13);
-			append(div26, div19);
-			append(div26, t16);
-			append(div26, div21);
+			append(div27, t13);
+			append(div27, div19);
+			append(div27, t16);
+			append(div27, div21);
 			append(div21, div20);
 			append(div20, t17);
-			append(div26, t18);
-			append(div26, div23);
+			append(div27, t18);
+			append(div27, div23);
 			append(div23, div22);
 			append(div22, t19);
-			append(div26, t20);
-			append(div26, div25);
+			append(div27, t20);
+			append(div27, div25);
 			append(div25, div24);
 			append(div27, t22);
+			append(div27, div26);
+			append(div26, h1);
+			append(h1, t23);
+			append(div28, t24);
 		},
 
 		p(changed, ctx) {
@@ -3635,8 +3646,12 @@ function create_if_block_1$1(ctx) {
 				attr(div22, "class", div22_class_value);
 			}
 
+			if (changed.expfit_log) {
+				set_data(t23, ctx.expfit_log);
+			}
+
 			if (changed.expfitDiv) {
-				set_style(div27, "display", ctx.expfitDiv);
+				set_style(div28, "display", ctx.expfitDiv);
 			}
 		},
 
@@ -3651,7 +3666,7 @@ function create_if_block_1$1(ctx) {
 
 			if (detaching) {
 				detach(t10);
-				detach(div27);
+				detach(div28);
 			}
 
 			run_all(dispose);
@@ -3659,7 +3674,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (895:12) {#if filetag == 'scan'}
+// (911:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3733,7 +3748,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (933:26) {#each fit_file_list as file}
+// (949:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -3770,7 +3785,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (897:16) {#each fileChecked as scanfile}
+// (913:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3800,7 +3815,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (894:10) {#each plotID as id}
+// (910:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -4201,7 +4216,7 @@ function create_fragment$4(ctx) {
 				if_block3 = null;
 			}
 
-			if (changed.filetag || changed.plotID || changed.fileChecked || changed.expfitDiv || changed.clear_all_Peak_btnCSS || changed.clear_last_Peak_btnCSS || changed.output_filename || changed.exp_fitall_div || changed.fitall_tkplot_Peak_btnCSS || changed.fitallPeak_btnCSS || changed.fit_files || changed.fit_file_list || changed.findPeak_btnCSS || changed.peak_height || changed.peak_width || changed.prominence) {
+			if (changed.filetag || changed.plotID || changed.fileChecked || changed.expfitDiv || changed.expfit_log || changed.clear_all_Peak_btnCSS || changed.clear_last_Peak_btnCSS || changed.output_filename || changed.exp_fitall_div || changed.fitall_tkplot_Peak_btnCSS || changed.fitallPeak_btnCSS || changed.fit_files || changed.fit_file_list || changed.findPeak_btnCSS || changed.peak_height || changed.peak_width || changed.prominence) {
 				each_value = ctx.plotID;
 
 				let i;
@@ -4527,7 +4542,7 @@ function instance$4($$self, $$props, $$invalidate) {
             $$invalidate('error_msg', error_msg[filetag]=err, error_msg); 
             $$invalidate('modal', modal[filetag]="is-active", modal);
           });
-        } 
+        } else {expfit_log_it("Please select a range from Averaged Spectrum");}
         
       break;
 
@@ -4721,6 +4736,11 @@ function instance$4($$self, $$props, $$invalidate) {
   };
   
   let output_filename =  "averaged";
+  const expfit_log_it = (str) => {
+    $$invalidate('expfit_log', expfit_log = str);
+    setTimeout(()=>{$$invalidate('expfit_log', expfit_log = "");}, 2000);
+  };
+
   let ready_to_fit = false;
 
   function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all"} = {}) {
@@ -4744,6 +4764,7 @@ function instance$4($$self, $$props, $$invalidate) {
   }
 
   const findPeak = () => {
+
     console.log("Finding preak with prominence value: ", prominence);
     ready_to_fit = true;
     expfit_func();
@@ -4768,13 +4789,15 @@ function instance$4($$self, $$props, $$invalidate) {
     });
   };
   const clearAllPeak = () => {
-
     console.log("Removing all found peak values");
+    let lines_length = window.line.length;
+    let annotations_length = window.annotations.length;
+    if (lines_length === 0 & annotations_length === 0) {expfit_log_it("No fitted lines found");}
 
     window.annotations = [];
     window.index = [];
-
     Plotly.relayout("avgplot", { annotations: [], shapes: [] });
+
     let plottedFiles_length = window.line.length / 2;
     console.log(`Total files plotted: ${plottedFiles_length}`);
     for (let i=0; i<plottedFiles_length; i++) {Plotly.deleteTraces("avgplot", [-1]);}
@@ -4785,11 +4808,15 @@ function instance$4($$self, $$props, $$invalidate) {
 
   const clearLastPeak = () => {
     
-    console.log("Removing only last found peak values");
-
     if (window.line.length > 0) {
       delete_file_line();
       Plotly.deleteTraces("avgplot", [-1]);
+
+      console.log("Last fitted peak removed");
+    } else {
+      
+      if (window.annotations.length === 0) {expfit_log_it("No fitted lines found");}
+      console.log("No line fit is found to remove");
     }
     
     window.line = window.line.slice(0, window.line.length - 2);
@@ -4936,7 +4963,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		if ('MenuItem' in $$props) $$invalidate('MenuItem', MenuItem = $$props.MenuItem);
 	};
 
-	let plotContainerHeight, fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, clear_all_Peak_btnCSS, clear_last_Peak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div, fit_files, fit_file_list_temp, fit_file_list, fitall_tkplot_Peak_btnCSS;
+	let plotContainerHeight, fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, clear_all_Peak_btnCSS, clear_last_Peak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div, fit_files, fit_file_list_temp, fit_file_list, fitall_tkplot_Peak_btnCSS, expfit_log;
 
 	$$self.$$.update = ($$dirty = { filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1, exp_fitall_div_status: 1, fit_file_list_temp: 1 }) => {
 		if ($$dirty.filetag) ;
@@ -4967,6 +4994,7 @@ function instance$4($$self, $$props, $$invalidate) {
 	$$invalidate('exp_fitall_div', exp_fitall_div = "none");
 	$$invalidate('fit_files', fit_files = "averaged");
 	$$invalidate('fitall_tkplot_Peak_btnCSS', fitall_tkplot_Peak_btnCSS = "is-link");
+	$$invalidate('expfit_log', expfit_log = "");
 
 	return {
 		id,
@@ -5028,6 +5056,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		fit_files,
 		fit_file_list,
 		fitall_tkplot_Peak_btnCSS,
+		expfit_log,
 		click_handler,
 		click_handler_1,
 		keyup_handler,

@@ -281,7 +281,7 @@
             error_msg[filetag]=err; 
             modal[filetag]="is-active"
           })
-        } 
+        } else {expfit_log_it("Please select a range from Averaged Spectrum")}
         
       break;
 
@@ -502,6 +502,13 @@
   $: fit_file_list_temp = fileChecked.map(file => file.split(".")[0])
   $: fit_file_list = ["averaged", ...fit_file_list_temp]
   $: fitall_tkplot_Peak_btnCSS = "is-link"
+
+  $: expfit_log = ""
+  const expfit_log_it = (str) => {
+    expfit_log = str
+    setTimeout(()=>{expfit_log = ""}, 2000)
+  }
+
   let ready_to_fit = false
 
   function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all"} = {}) {
@@ -525,6 +532,7 @@
   }
 
   const findPeak = () => {
+
     console.log("Finding preak with prominence value: ", prominence)
     ready_to_fit = true
     expfit_func()
@@ -549,13 +557,15 @@
     })
   }
   const clearAllPeak = () => {
-
     console.log("Removing all found peak values")
+    let lines_length = window.line.length
+    let annotations_length = window.annotations.length
+    if (lines_length === 0 & annotations_length === 0) {expfit_log_it("No fitted lines found")}
 
     window.annotations = []
     window.index = []
-
     Plotly.relayout("avgplot", { annotations: [], shapes: [] })
+
     let plottedFiles_length = window.line.length / 2
     console.log(`Total files plotted: ${plottedFiles_length}`)
     for (let i=0; i<plottedFiles_length; i++) {Plotly.deleteTraces("avgplot", [-1])}
@@ -566,11 +576,15 @@
 
   const clearLastPeak = () => {
     
-    console.log("Removing only last found peak values")
-
     if (window.line.length > 0) {
       delete_file_line()
       Plotly.deleteTraces("avgplot", [-1])
+
+      console.log("Last fitted peak removed")
+    } else {
+      
+      if (window.annotations.length === 0) {expfit_log_it("No fitted lines found")}
+      console.log("No line fit is found to remove")
     }
     
     window.line = window.line.slice(0, window.line.length - 2)
@@ -595,6 +609,8 @@
       setTimeout(()=>findPeak_btnCSS = "is-link", 1000)
     }
   }
+
+  
 
 </script>
 
@@ -992,6 +1008,14 @@
                       <div class="level-item button hvr-glow funcBtn is-link animated"
                         id="findall_expfit_toggle" on:click="{()=>exp_fitall_div_status = !exp_fitall_div_status}">Find Peaks
                       </div>
+                  </div>
+
+                  <div class="level-item" id="expfit_log_id">
+                    <!-- <div class="notification is-warning">
+                      <button class="delete" on:click="{()=>expfit_log = ""}"></button>
+                      {expfit_log}
+                    </div> -->
+                      <h1 class="subtitle">{expfit_log}</h1>
                   </div>
                 </div>
               </div>
