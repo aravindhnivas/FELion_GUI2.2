@@ -1689,8 +1689,6 @@ function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
 
 function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
 
-
-
     let dataLayout = {
         title: mainTitle,
         xaxis: {
@@ -1768,7 +1766,6 @@ class program {
                         [path__default.join(localStorage["pythonscript"], this.pyfile), this.files.concat(this.args)]
                     );
                 } catch (err) { reject(`Check python location (Settings-->Configuration-->Pythonpath)\n${err}`); }
-
 
                 py.stdout.on("data", data => {
 
@@ -1922,7 +1919,6 @@ class program {
                             Plotly.relayout("avgplot", { shapes: window.line });
                         
                         } else if (this.filetype == "expfit_all") {
-
                             Plotly.relayout("avgplot", { annotations: [] });
                             Plotly.relayout("avgplot", { annotations: dataFromPython[2]["annotations"] });
                             window.annotations = dataFromPython[2]["annotations"];
@@ -1936,6 +1932,11 @@ class program {
 
                                 });
                             }
+                        } else if (this.filetype == "find_peaks") {
+                            Plotly.relayout("mplot", { yaxis: {type : "" }});
+                            Plotly.relayout("mplot", { annotations: [] });
+                            Plotly.relayout("mplot", { annotations: dataFromPython["annotations"] });
+                            Plotly.relayout("mplot", { yaxis: {type : "log" }});
                         }
 
                         console.log("Graph Plotted");
@@ -2226,7 +2227,7 @@ function get_each_context_8(ctx, list, i) {
 	return child_ctx;
 }
 
-// (723:12) {#each funcBtns as { id, name }}
+// (748:12) {#each funcBtns as { id, name }}
 function create_each_block_8(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -2264,7 +2265,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (739:18) {:else}
+// (764:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2302,8 +2303,8 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (737:18) {#if name[0]==="Log"}
-function create_if_block_11(ctx) {
+// (762:18) {#if name[0]==="Log"}
+function create_if_block_12(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
 	return {
@@ -2340,12 +2341,12 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (732:12) {#each checkBtns as {id, name, bind, help}}
+// (757:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_7(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
 	function select_block_type(changed, ctx) {
-		if (ctx.name[0]==="Log") return create_if_block_11;
+		if (ctx.name[0]==="Log") return create_if_block_12;
 		return create_else_block_1$1;
 	}
 
@@ -2428,8 +2429,8 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (751:12) {#if filetag == 'felix'}
-function create_if_block_10(ctx) {
+// (776:12) {#if filetag == 'felix'}
+function create_if_block_11(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
 	let each_value_6 = ctx.normalisation_method;
@@ -2542,7 +2543,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (760:24) {#each normalisation_method as method}
+// (785:24) {#each normalisation_method as method}
 function create_each_block_6(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -2569,8 +2570,8 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (780:12) {#if filetag == 'thz'}
-function create_if_block_9(ctx) {
+// (805:12) {#if filetag == 'thz'}
+function create_if_block_10(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
 	function input0_input_handler() {
@@ -2669,8 +2670,8 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (831:6) {#if filetag=="felix"}
-function create_if_block_8(ctx) {
+// (857:6) {#if filetag=="felix"}
+function create_if_block_9(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
 	function input0_input_handler_1() {
@@ -2790,8 +2791,8 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (850:6) {#if filetag=="scan"}
-function create_if_block_2(ctx) {
+// (876:6) {#if filetag=="scan"}
+function create_if_block_3(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
 	let each_value_4 = ["ResON", "ResOFF"];
@@ -2920,8 +2921,8 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (863:28) {#if folderFile.files != undefined}
-function create_if_block_7(ctx) {
+// (889:28) {#if folderFile.files != undefined}
+function create_if_block_8(ctx) {
 	var each_1_anchor;
 
 	let each_value_5 = ctx.folderFile.files;
@@ -2983,7 +2984,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (864:31) {#each folderFile.files as scanfile}
+// (890:31) {#each folderFile.files as scanfile}
 function create_each_block_5(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3020,11 +3021,11 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (855:16) {#each ["ResON", "ResOFF"] as name}
+// (881:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_4(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
-	var if_block = (ctx.folderFile.files != ctx.undefined) && create_if_block_7(ctx);
+	var if_block = (ctx.folderFile.files != ctx.undefined) && create_if_block_8(ctx);
 
 	return {
 		c() {
@@ -3068,7 +3069,7 @@ function create_each_block_4(ctx) {
 				if (if_block) {
 					if_block.p(changed, ctx);
 				} else {
-					if_block = create_if_block_7(ctx);
+					if_block = create_if_block_8(ctx);
 					if_block.c();
 					if_block.m(select, null);
 				}
@@ -3088,8 +3089,8 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (886:57) 
-function create_if_block_6(ctx) {
+// (912:57) 
+function create_if_block_7(ctx) {
 	var input, input_updating = false, dispose;
 
 	function input_input_handler_4() {
@@ -3127,8 +3128,8 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (884:52) 
-function create_if_block_5(ctx) {
+// (910:52) 
+function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
 	function input_input_handler_3() {
@@ -3166,8 +3167,8 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (882:50) 
-function create_if_block_4(ctx) {
+// (908:50) 
+function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
 	function input_input_handler_2() {
@@ -3205,8 +3206,8 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (880:22) {#if name=="Power (ON, OFF)"}
-function create_if_block_3(ctx) {
+// (906:22) {#if name=="Power (ON, OFF)"}
+function create_if_block_4(ctx) {
 	var input, dispose;
 
 	return {
@@ -3238,15 +3239,15 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (875:16) {#each depletionLabels as {name, id}}
+// (901:16) {#each depletionLabels as {name, id}}
 function create_each_block_3(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
 	function select_block_type_1(changed, ctx) {
-		if (ctx.name=="Power (ON, OFF)") return create_if_block_3;
-		if (ctx.name=="FELIX Hz") return create_if_block_4;
-		if (ctx.name=="Mass Index") return create_if_block_5;
-		if (ctx.name=="TimeStart Index") return create_if_block_6;
+		if (ctx.name=="Power (ON, OFF)") return create_if_block_4;
+		if (ctx.name=="FELIX Hz") return create_if_block_5;
+		if (ctx.name=="Mass Index") return create_if_block_6;
+		if (ctx.name=="TimeStart Index") return create_if_block_7;
 	}
 
 	var current_block_type = select_block_type_1(null, ctx);
@@ -3296,7 +3297,120 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (1023:12) {:else}
+// (930:6) {#if filetag === "mass"}
+function create_if_block_2(ctx) {
+	var div8, div7, div6, div0, input0, input0_updating = false, t0, div1, input1, input1_updating = false, t1, div3, div2, t3, div5, div4, dispose;
+
+	function input0_input_handler_2() {
+		input0_updating = true;
+		ctx.input0_input_handler_2.call(input0);
+	}
+
+	function input1_input_handler_2() {
+		input1_updating = true;
+		ctx.input1_input_handler_2.call(input1);
+	}
+
+	return {
+		c() {
+			div8 = element("div");
+			div7 = element("div");
+			div6 = element("div");
+			div0 = element("div");
+			input0 = element("input");
+			t0 = space();
+			div1 = element("div");
+			input1 = element("input");
+			t1 = space();
+			div3 = element("div");
+			div2 = element("div");
+			div2.textContent = "Get Peaks";
+			t3 = space();
+			div5 = element("div");
+			div4 = element("div");
+			div4.textContent = "Clear";
+			attr(input0, "class", "input svelte-1z8f7");
+			attr(input0, "type", "number");
+			attr(input0, "id", "mass_peak_prominance");
+			attr(input0, "placeholder", "Peak prominance value");
+			attr(input0, "data-tippy", "Peak prominace value");
+			attr(input0, "min", "0");
+			attr(input0, "step", "0.5");
+			attr(div0, "class", "level-item");
+			attr(input1, "class", "input svelte-1z8f7");
+			attr(input1, "type", "number");
+			attr(input1, "id", "mass_peak_width_fit");
+			attr(input1, "placeholder", "Peak width");
+			attr(input1, "data-tippy", "Optional: Peak width");
+			attr(input1, "min", "0");
+			attr(input1, "step", "0.5");
+			attr(div1, "class", "level-item");
+			attr(div2, "class", "level-item button is-link hvr-glow funcBtn animated svelte-1z8f7");
+			attr(div2, "id", "mass_get_peaks");
+			attr(div2, "data-tippy", "Find the peaks by adjusting the prominence value");
+			attr(div3, "class", "level-item");
+			attr(div4, "class", "level-item button is-warning hvr-glow funcBtn animated svelte-1z8f7");
+			attr(div4, "id", "mass_clear_peaks");
+			attr(div4, "data-tippy", "Clear all peaks");
+			attr(div5, "class", "level-item");
+			attr(div6, "class", "level-left");
+			attr(div7, "class", "level");
+			attr(div8, "class", "row svelte-1z8f7");
+			attr(div8, "id", "mass_peak_find_row");
+			set_style(div8, "display", "none");
+			set_style(div8, "padding-bottom", "1em");
+
+			dispose = [
+				listen(input0, "input", input0_input_handler_2),
+				listen(input0, "change", ctx.find_masspec_peaks),
+				listen(input1, "input", input1_input_handler_2),
+				listen(input1, "change", ctx.find_masspec_peaks),
+				listen(div2, "click", ctx.find_masspec_peaks),
+				listen(div4, "click", ctx.clear_mass_peaks)
+			];
+		},
+
+		m(target, anchor) {
+			insert(target, div8, anchor);
+			append(div8, div7);
+			append(div7, div6);
+			append(div6, div0);
+			append(div0, input0);
+
+			set_input_value(input0, ctx.mass_prominence);
+
+			append(div6, t0);
+			append(div6, div1);
+			append(div1, input1);
+
+			set_input_value(input1, ctx.mass_peak_width);
+
+			append(div6, t1);
+			append(div6, div3);
+			append(div3, div2);
+			append(div6, t3);
+			append(div6, div5);
+			append(div5, div4);
+		},
+
+		p(changed, ctx) {
+			if (!input0_updating && changed.mass_prominence) set_input_value(input0, ctx.mass_prominence);
+			input0_updating = false;
+			if (!input1_updating && changed.mass_peak_width) set_input_value(input1, ctx.mass_peak_width);
+			input1_updating = false;
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(div8);
+			}
+
+			run_all(dispose);
+		}
+	};
+}
+
+// (1080:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3326,18 +3440,18 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (918:38) 
+// (975:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div28, div27, div14, input3, t11, div16, div15, t13, div19, t16, div21, div20, t17, div20_class_value, t18, div23, div22, t19, div22_class_value, t20, div25, div24, t22, div26, h1, t23, t24, dispose;
 
-	function input0_input_handler_2() {
+	function input0_input_handler_3() {
 		input0_updating = true;
-		ctx.input0_input_handler_2.call(input0);
+		ctx.input0_input_handler_3.call(input0);
 	}
 
-	function input1_input_handler_2() {
+	function input1_input_handler_3() {
 		input1_updating = true;
-		ctx.input1_input_handler_2.call(input1);
+		ctx.input1_input_handler_3.call(input1);
 	}
 
 	function input2_input_handler() {
@@ -3490,9 +3604,9 @@ function create_if_block_1$1(ctx) {
 			set_style(div28, "display", ctx.expfitDiv);
 
 			dispose = [
-				listen(input0, "input", input0_input_handler_2),
+				listen(input0, "input", input0_input_handler_3),
 				listen(input0, "change", ctx.expfit_func),
-				listen(input1, "input", input1_input_handler_2),
+				listen(input1, "input", input1_input_handler_3),
 				listen(input1, "change", ctx.expfit_func),
 				listen(input2, "input", input2_input_handler),
 				listen(input2, "change", ctx.expfit_func),
@@ -3674,7 +3788,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (911:12) {#if filetag == 'scan'}
+// (968:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3748,7 +3862,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (949:26) {#each fit_file_list as file}
+// (1006:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -3785,7 +3899,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (913:16) {#each fileChecked as scanfile}
+// (970:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3815,7 +3929,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (910:10) {#each plotID as id}
+// (967:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -3863,7 +3977,7 @@ function create_each_block$2(ctx) {
 }
 
 function create_fragment$4(ctx) {
-	var section1, div15, div0, div0_id_value, t0, div14, div3, div1, t1, div2, header, p, t3, button0, t4, section0, t5_value = ctx.error_msg[ctx.filetag] + "", t5, t6, footer, button1, div3_class_value, t8, div8, div7, div4, input, input_id_value, t9, div6, div5, t10, div5_data_tippy_value, t11, div11, div10, div9, t12, t13, t14, t15, t16, t17, hr, t18, div13, div12, div12_id_value, div13_id_value, current, dispose;
+	var section1, div15, div0, div0_id_value, t0, div14, div3, div1, t1, div2, header, p, t3, button0, t4, section0, t5_value = ctx.error_msg[ctx.filetag] + "", t5, t6, footer, button1, div3_class_value, t8, div8, div7, div4, input, input_id_value, t9, div6, div5, t10, div5_data_tippy_value, t11, div11, div10, div9, t12, t13, t14, t15, t16, t17, t18, hr, t19, div13, div12, div12_id_value, div13_id_value, current, dispose;
 
 	var filebrowser = new Filebrowser({
 		props: {
@@ -3892,13 +4006,15 @@ function create_fragment$4(ctx) {
 		each_blocks_1[i] = create_each_block_7(get_each_context_7(ctx, each_value_7, i));
 	}
 
-	var if_block0 = (ctx.filetag == 'felix') && create_if_block_10(ctx);
+	var if_block0 = (ctx.filetag == 'felix') && create_if_block_11(ctx);
 
-	var if_block1 = (ctx.filetag == 'thz') && create_if_block_9(ctx);
+	var if_block1 = (ctx.filetag == 'thz') && create_if_block_10(ctx);
 
-	var if_block2 = (ctx.filetag=="felix") && create_if_block_8(ctx);
+	var if_block2 = (ctx.filetag=="felix") && create_if_block_9(ctx);
 
-	var if_block3 = (ctx.filetag=="scan") && create_if_block_2(ctx);
+	var if_block3 = (ctx.filetag=="scan") && create_if_block_3(ctx);
+
+	var if_block4 = (ctx.filetag === "mass") && create_if_block_2(ctx);
 
 	let each_value = ctx.plotID;
 
@@ -3965,8 +4081,10 @@ function create_fragment$4(ctx) {
 			t16 = space();
 			if (if_block3) if_block3.c();
 			t17 = space();
-			hr = element("hr");
+			if (if_block4) if_block4.c();
 			t18 = space();
+			hr = element("hr");
+			t19 = space();
 			div13 = element("div");
 			div12 = element("div");
 
@@ -4076,8 +4194,10 @@ function create_fragment$4(ctx) {
 			append(div14, t16);
 			if (if_block3) if_block3.m(div14, null);
 			append(div14, t17);
-			append(div14, hr);
+			if (if_block4) if_block4.m(div14, null);
 			append(div14, t18);
+			append(div14, hr);
+			append(div14, t19);
 			append(div14, div13);
 			append(div13, div12);
 
@@ -4168,7 +4288,7 @@ function create_fragment$4(ctx) {
 				if (if_block0) {
 					if_block0.p(changed, ctx);
 				} else {
-					if_block0 = create_if_block_10(ctx);
+					if_block0 = create_if_block_11(ctx);
 					if_block0.c();
 					if_block0.m(div9, t14);
 				}
@@ -4181,7 +4301,7 @@ function create_fragment$4(ctx) {
 				if (if_block1) {
 					if_block1.p(changed, ctx);
 				} else {
-					if_block1 = create_if_block_9(ctx);
+					if_block1 = create_if_block_10(ctx);
 					if_block1.c();
 					if_block1.m(div9, null);
 				}
@@ -4194,7 +4314,7 @@ function create_fragment$4(ctx) {
 				if (if_block2) {
 					if_block2.p(changed, ctx);
 				} else {
-					if_block2 = create_if_block_8(ctx);
+					if_block2 = create_if_block_9(ctx);
 					if_block2.c();
 					if_block2.m(div14, t16);
 				}
@@ -4207,13 +4327,26 @@ function create_fragment$4(ctx) {
 				if (if_block3) {
 					if_block3.p(changed, ctx);
 				} else {
-					if_block3 = create_if_block_2(ctx);
+					if_block3 = create_if_block_3(ctx);
 					if_block3.c();
 					if_block3.m(div14, t17);
 				}
 			} else if (if_block3) {
 				if_block3.d(1);
 				if_block3 = null;
+			}
+
+			if (ctx.filetag === "mass") {
+				if (if_block4) {
+					if_block4.p(changed, ctx);
+				} else {
+					if_block4 = create_if_block_2(ctx);
+					if_block4.c();
+					if_block4.m(div14, t18);
+				}
+			} else if (if_block4) {
+				if_block4.d(1);
+				if_block4 = null;
 			}
 
 			if (changed.filetag || changed.plotID || changed.fileChecked || changed.expfitDiv || changed.expfit_log || changed.clear_all_Peak_btnCSS || changed.clear_last_Peak_btnCSS || changed.output_filename || changed.exp_fitall_div || changed.fitall_tkplot_Peak_btnCSS || changed.fitallPeak_btnCSS || changed.fit_files || changed.fit_file_list || changed.findPeak_btnCSS || changed.peak_height || changed.peak_width || changed.prominence) {
@@ -4282,6 +4415,7 @@ function create_fragment$4(ctx) {
 			if (if_block1) if_block1.d();
 			if (if_block2) if_block2.d();
 			if (if_block3) if_block3.d();
+			if (if_block4) if_block4.d();
 
 			destroy_each(each_blocks, detaching);
 
@@ -4609,6 +4743,11 @@ function instance$4($$self, $$props, $$invalidate) {
           });
       break;
 
+      case "mass_find_peaks":
+        console.log("Finding mass peaks");
+        jq("#mass_peak_find_row").toggle();
+      break;
+
       ////////////// Timescan PLOT //////////////////////
 
       case "timescanBtn":
@@ -4743,17 +4882,18 @@ function instance$4($$self, $$props, $$invalidate) {
 
   let ready_to_fit = false;
 
-  function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all"} = {}) {
+  function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all", for_masspec=false} = {}) {
 
     let output_filename = document.getElementById("avg_output_name").value;
     let expfit_overwrite = document.getElementById("overwrite_expfit").checked;
+
     runPlot({
       fullfiles: [fit_files],
       filetype: filetype,
       filetag: filetag,
       btname: btname,
       pyfile: "fit_all.py",
-      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite, tkplot]
+      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite, tkplot, for_masspec]
     })
     .then((output)=>console.log(output))
     .catch((err)=>{
@@ -4821,19 +4961,14 @@ function instance$4($$self, $$props, $$invalidate) {
     
     window.line = window.line.slice(0, window.line.length - 2);
     window.annotations = window.annotations.slice(0, window.annotations.length - 1);
-
     window.index = [];
-
     Plotly.relayout("avgplot", { annotations: window.annotations, shapes: window.line });
-
     if (window.line.length === 0) {ready_to_fit = false;}
-    
   };
 
   const fitall = (tkplot=false, btname="fitall_expfit_peaks", filetype="expfit_all") => {
 
     console.log("Fitting all found peaks");
-
     if (ready_to_fit) {expfit_func({runfit:true, btname:btname, tkplot:tkplot, filetype:filetype});}
 
     else {
@@ -4841,6 +4976,28 @@ function instance$4($$self, $$props, $$invalidate) {
       setTimeout(()=>$$invalidate('findPeak_btnCSS', findPeak_btnCSS = "is-link"), 1000);
     }
   };
+  
+  const find_masspec_peaks = () => {
+
+    console.log("Finding masspec peaks");
+
+    runPlot({
+      fullfiles: [fullfiles[0]],
+      filetype: "find_peaks",
+      filetag: filetag,
+      btname: "mass_get_peaks",
+      pyfile: "find_peaks_masspec.py",
+      args: [mass_prominence, mass_peak_width]
+    })
+    .then((output)=>console.log(output))
+    .catch((err)=>{
+      console.log('Error Occured', err); 
+      $$invalidate('error_msg', error_msg[filetag]=err, error_msg); 
+      $$invalidate('modal', modal[filetag]="is-active", modal);
+    });
+  };
+
+  const clear_mass_peaks = () => {Plotly.relayout("mplot", { annotations: [] });};
 
 	const click_handler = () => $$invalidate('modal', modal[filetag]='', modal);
 
@@ -4920,11 +5077,21 @@ function instance$4($$self, $$props, $$invalidate) {
 	}
 
 	function input0_input_handler_2() {
+		mass_prominence = to_number(this.value);
+		$$invalidate('mass_prominence', mass_prominence);
+	}
+
+	function input1_input_handler_2() {
+		mass_peak_width = to_number(this.value);
+		$$invalidate('mass_peak_width', mass_peak_width);
+	}
+
+	function input0_input_handler_3() {
 		prominence = to_number(this.value);
 		$$invalidate('prominence', prominence);
 	}
 
-	function input1_input_handler_2() {
+	function input1_input_handler_3() {
 		peak_width = to_number(this.value);
 		$$invalidate('peak_width', peak_width);
 	}
@@ -4963,7 +5130,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		if ('MenuItem' in $$props) $$invalidate('MenuItem', MenuItem = $$props.MenuItem);
 	};
 
-	let plotContainerHeight, fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, clear_all_Peak_btnCSS, clear_last_Peak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div, fit_files, fit_file_list_temp, fit_file_list, fitall_tkplot_Peak_btnCSS, expfit_log;
+	let plotContainerHeight, fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, clear_all_Peak_btnCSS, clear_last_Peak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div, fit_files, fit_file_list_temp, fit_file_list, fitall_tkplot_Peak_btnCSS, expfit_log, mass_peak_width, mass_prominence;
 
 	$$self.$$.update = ($$dirty = { filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1, exp_fitall_div_status: 1, fit_file_list_temp: 1 }) => {
 		if ($$dirty.filetag) ;
@@ -4995,6 +5162,8 @@ function instance$4($$self, $$props, $$invalidate) {
 	$$invalidate('fit_files', fit_files = "averaged");
 	$$invalidate('fitall_tkplot_Peak_btnCSS', fitall_tkplot_Peak_btnCSS = "is-link");
 	$$invalidate('expfit_log', expfit_log = "");
+	$$invalidate('mass_peak_width', mass_peak_width = 2);
+	$$invalidate('mass_prominence', mass_prominence = 3);
 
 	return {
 		id,
@@ -5034,6 +5203,8 @@ function instance$4($$self, $$props, $$invalidate) {
 		clearAllPeak,
 		clearLastPeak,
 		fitall,
+		find_masspec_peaks,
+		clear_mass_peaks,
 		plotContainerHeight,
 		fileChecked,
 		console,
@@ -5057,6 +5228,8 @@ function instance$4($$self, $$props, $$invalidate) {
 		fit_file_list,
 		fitall_tkplot_Peak_btnCSS,
 		expfit_log,
+		mass_peak_width,
+		mass_prominence,
 		click_handler,
 		click_handler_1,
 		keyup_handler,
@@ -5079,6 +5252,8 @@ function instance$4($$self, $$props, $$invalidate) {
 		input_input_handler_4,
 		input0_input_handler_2,
 		input1_input_handler_2,
+		input0_input_handler_3,
+		input1_input_handler_3,
 		input2_input_handler,
 		select_change_handler_1,
 		click_handler_4,
@@ -22741,10 +22916,6 @@ const mainPages = [
                 id: "felixPlotBtn",
                 name: "Felix Plot"
             },
-            // {
-            // 	id: "exp_fit",
-            // 	name: "Exp. Fit"
-            // },
             {
                 id: "theoryBtn",
                 name: "Add Theory"
@@ -22773,6 +22944,10 @@ const mainPages = [
             {
                 id: "massPlotBtn",
                 name: "Masspec Plot",
+            },
+            {
+                id: "mass_find_peaks",
+                name: "Find Peaks"
             },
             {
                 id: "mass_Matplotlib",

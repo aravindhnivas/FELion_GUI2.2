@@ -6,10 +6,10 @@ from pathlib import Path as pt
 import numpy as np
 from scipy.signal import find_peaks as peak
 
-def find_mass_peaks(filename, prominence, width, height):
+def find_mass_peaks(filename, prominence, width):
 
     mass, counts = np.genfromtxt(filename).T
-    indices, _ = peak(counts, prominence=prominence, width=width, height=height)
+    indices, _ = peak(counts, prominence=prominence, width=width)
 
     mass = list(mass[indices])
     counts = list(counts[indices])
@@ -49,8 +49,4 @@ if __name__ == "__main__":
     if width == "": width = None
     else: width = float(width)
 
-    height = args[3]
-    if height == "": height = None
-    else: height = float(height)
-    
-    find_mass_peaks(filename, prominence, width, height)
+    find_mass_peaks(filename, prominence, width)

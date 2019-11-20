@@ -617,14 +617,14 @@
   const find_masspec_peaks = () => {
 
     console.log("Finding masspec peaks")
-    
+
     runPlot({
       fullfiles: [fullfiles[0]],
       filetype: "find_peaks",
       filetag: filetag,
-      btname: "mass_find_expfit_peaks",
+      btname: "mass_get_peaks",
       pyfile: "find_peaks_masspec.py",
-      args: [mass_prominence, mass_peak_width, mass_peak_height]
+      args: [mass_prominence, mass_peak_width]
     })
     .then((output)=>console.log(output))
     .catch((err)=>{
@@ -633,6 +633,8 @@
       modal[filetag]="is-active"
     })
   }
+
+  const clear_mass_peaks = () => {Plotly.relayout("mplot", { annotations: [] })}
 
 </script>
 
@@ -932,17 +934,23 @@
 
               <div class="level-item">
                     <input class="input" type="number" id="mass_peak_prominance" placeholder="Peak prominance value"
-                      data-tippy="Peak prominace value" bind:value={mass_prominence} on:change={find_masspec_peaks} min="0"/>
+                      data-tippy="Peak prominace value" bind:value={mass_prominence} on:change={find_masspec_peaks} min="0" step="0.5"/>
                 </div>
 
                 <div class="level-item">
                     <input class="input" type="number" id="mass_peak_width_fit" placeholder="Peak width"
-                      data-tippy="Optional: Peak width" bind:value={mass_peak_width} on:change={find_masspec_peaks} min="0"/>
+                      data-tippy="Optional: Peak width" bind:value={mass_peak_width} on:change={find_masspec_peaks} min="0" step="0.5"/>
+                </div>
+
+                <div class="level-item">
+                    <div class="level-item button is-link hvr-glow funcBtn animated"
+                      id="mass_get_peaks" on:click={find_masspec_peaks} data-tippy="Find the peaks by adjusting the prominence value">Get Peaks
+                    </div>
                 </div>
 
                 <div class="level-item">
                     <div class="level-item button is-warning hvr-glow funcBtn animated"
-                      id="mass_find_expfit_peaks" on:click={find_masspec_peaks} data-tippy="Find the peaks by adjusting the prominence value">Get Peaks
+                      id="mass_clear_peaks" on:click={clear_mass_peaks} data-tippy="Clear all peaks">Clear
                     </div>
                 </div>
             </div>
