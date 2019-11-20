@@ -348,6 +348,11 @@
           })
       break;
 
+      case "mass_find_peaks":
+        console.log("Finding mass peaks")
+        jq("#mass_peak_find_row").toggle()
+      break;
+
       ////////////// Timescan PLOT //////////////////////
 
       case "timescanBtn":
@@ -511,17 +516,18 @@
 
   let ready_to_fit = false
 
-  function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all"} = {}) {
+  function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all", for_masspec=false} = {}) {
 
     let output_filename = document.getElementById("avg_output_name").value
     let expfit_overwrite = document.getElementById("overwrite_expfit").checked
+
     runPlot({
       fullfiles: [fit_files],
       filetype: filetype,
       filetag: filetag,
       btname: btname,
       pyfile: "fit_all.py",
-      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite, tkplot]
+      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite, tkplot, for_masspec]
     })
     .then((output)=>console.log(output))
     .catch((err)=>{
@@ -589,19 +595,14 @@
     
     window.line = window.line.slice(0, window.line.length - 2)
     window.annotations = window.annotations.slice(0, window.annotations.length - 1)
-
     window.index = []
-
     Plotly.relayout("avgplot", { annotations: window.annotations, shapes: window.line })
-
     if (window.line.length === 0) {ready_to_fit = false}
-    
   }
 
   const fitall = (tkplot=false, btname="fitall_expfit_peaks", filetype="expfit_all") => {
 
     console.log("Fitting all found peaks")
-
     if (ready_to_fit) {expfit_func({runfit:true, btname:btname, tkplot:tkplot, filetype:filetype})}
 
     else {
@@ -610,7 +611,28 @@
     }
   }
 
+  $: mass_peak_width = 2
+  $: mass_prominence = 3
   
+  const find_masspec_peaks = () => {
+
+    console.log("Finding masspec peaks")
+    
+    runPlot({
+      fullfiles: [fullfiles[0]],
+      filetype: "find_peaks",
+      filetag: filetag,
+      btname: "mass_find_expfit_peaks",
+      pyfile: "find_peaks_masspec.py",
+      args: [mass_prominence, mass_peak_width, mass_peak_height]
+    })
+    .then((output)=>console.log(output))
+    .catch((err)=>{
+      console.log('Error Occured', err); 
+      error_msg[filetag]=err; 
+      modal[filetag]="is-active"
+    })
+  }
 
 </script>
 
@@ -712,6 +734,7 @@
             </div>
           </div>
         </div>
+
       </div>
 
       <div class="row buttonsRow">
@@ -824,6 +847,7 @@
 
             {/if}
           </div>
+
         </div>
 
       </div>
@@ -899,6 +923,31 @@
               <button class="funcBtn button is-link animated" id="depletionSubmit" on:click={depletionPlot}>Submit</button>
             </div>
          </div>
+      {/if}
+
+      {#if filetag === "mass"}
+        <div class="row" id="mass_peak_find_row" style="display:none; padding-bottom:1em">
+          <div class="level">
+            <div class="level-left">
+
+              <div class="level-item">
+                    <input class="input" type="number" id="mass_peak_prominance" placeholder="Peak prominance value"
+                      data-tippy="Peak prominace value" bind:value={mass_prominence} on:change={find_masspec_peaks} min="0"/>
+                </div>
+
+                <div class="level-item">
+                    <input class="input" type="number" id="mass_peak_width_fit" placeholder="Peak width"
+                      data-tippy="Optional: Peak width" bind:value={mass_peak_width} on:change={find_masspec_peaks} min="0"/>
+                </div>
+
+                <div class="level-item">
+                    <div class="level-item button is-warning hvr-glow funcBtn animated"
+                      id="mass_find_expfit_peaks" on:click={find_masspec_peaks} data-tippy="Find the peaks by adjusting the prominence value">Get Peaks
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
       {/if}
 
       <hr style="margin: 0.5em 0; background-color:#bdc3c7" />
