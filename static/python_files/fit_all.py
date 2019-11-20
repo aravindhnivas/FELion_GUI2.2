@@ -116,13 +116,9 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
             dataJson = json.dumps(fit_data)
             print(dataJson)
         
-
 if __name__ == "__main__":
-
     args = sys.argv[1:][0].split(",")
-
     filename = args[0]
-
     location = pt(args[1])
     if location.name == "DATA": location = location.parent
     filename = location / f"EXPORT/{filename}.dat"
