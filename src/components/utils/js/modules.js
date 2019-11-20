@@ -62,8 +62,6 @@ function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
 
 function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
 
-
-
     let dataLayout = {
         title: mainTitle,
         xaxis: {
@@ -141,7 +139,6 @@ class program {
                         [path.join(localStorage["pythonscript"], this.pyfile), this.files.concat(this.args)]
                     );
                 } catch (err) { reject(`Check python location (Settings-->Configuration-->Pythonpath)\n${err}`) }
-
 
                 py.stdout.on("data", data => {
 
@@ -295,7 +292,6 @@ class program {
                             Plotly.relayout("avgplot", { shapes: window.line })
                         
                         } else if (this.filetype == "expfit_all") {
-
                             Plotly.relayout("avgplot", { annotations: [] })
                             Plotly.relayout("avgplot", { annotations: dataFromPython[2]["annotations"] })
                             window.annotations = dataFromPython[2]["annotations"]
@@ -309,6 +305,11 @@ class program {
 
                                 })
                             }
+                        } else if (this.filetype == "find_peaks") {
+                            Plotly.relayout("mplot", { yaxis: {type : "" }})
+                            Plotly.relayout("mplot", { annotations: [] })
+                            Plotly.relayout("mplot", { annotations: dataFromPython["annotations"] })
+                            Plotly.relayout("mplot", { yaxis: {type : "log" }})
                         }
 
                         console.log("Graph Plotted");
