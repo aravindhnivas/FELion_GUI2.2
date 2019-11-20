@@ -19,10 +19,6 @@ const mainPages = [
 				id: "felixPlotBtn",
 				name: "Felix Plot"
 			},
-			// {
-			// 	id: "exp_fit",
-			// 	name: "Exp. Fit"
-			// },
 			{
 				id: "theoryBtn",
 				name: "Add Theory"
@@ -56,9 +52,14 @@ const mainPages = [
 				name: "Masspec Plot",
 			},
 			{
+				id: "mass_find_peaks",
+				name: "Find Peaks"
+			},
+			{
 				id: "mass_Matplotlib",
 				name: "Open in matplotlib"
 			}
+			
 		],
 		plotID: ["mplot"],
 		checkBtns: [
