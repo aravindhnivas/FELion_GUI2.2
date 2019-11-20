@@ -306,10 +306,10 @@ class program {
                                 })
                             }
                         } else if (this.filetype == "find_peaks") {
-                            Plotly.relayout("mplot", { yaxis: {type : "" }})
+                            Plotly.relayout("mplot", { yaxis: {title:"Counts", type : "" }})
                             Plotly.relayout("mplot", { annotations: [] })
                             Plotly.relayout("mplot", { annotations: dataFromPython["annotations"] })
-                            Plotly.relayout("mplot", { yaxis: {type : "log" }})
+                            Plotly.relayout("mplot", { yaxis: {title:"Counts", type : "log" }})
                         }
 
                         console.log("Graph Plotted");

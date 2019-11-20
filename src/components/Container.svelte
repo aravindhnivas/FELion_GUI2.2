@@ -613,6 +613,8 @@
 
   $: mass_peak_width = 2
   $: mass_prominence = 3
+
+  $: mass_peak_height = 10
   
   const find_masspec_peaks = () => {
 
@@ -624,7 +626,7 @@
       filetag: filetag,
       btname: "mass_get_peaks",
       pyfile: "find_peaks_masspec.py",
-      args: [mass_prominence, mass_peak_width]
+      args: [mass_prominence, mass_peak_width, mass_peak_height]
     })
     .then((output)=>console.log(output))
     .catch((err)=>{
@@ -928,18 +930,23 @@
       {/if}
 
       {#if filetag === "mass"}
-        <div class="row" id="mass_peak_find_row" style="display:none; padding-bottom:1em">
+        <div class="row" id="mass_peak_find_row" style="display:block; padding-bottom:1em; margin-left:0.7em">
           <div class="level">
             <div class="level-left">
 
               <div class="level-item">
-                    <input class="input" type="number" id="mass_peak_prominance" placeholder="Peak prominance value"
+                    <input class="input" type="number" placeholder="Peak prominance value"
                       data-tippy="Peak prominace value" bind:value={mass_prominence} on:change={find_masspec_peaks} min="0" step="0.5"/>
                 </div>
 
                 <div class="level-item">
-                    <input class="input" type="number" id="mass_peak_width_fit" placeholder="Peak width"
+                    <input class="input" type="number" placeholder="Peak width"
                       data-tippy="Optional: Peak width" bind:value={mass_peak_width} on:change={find_masspec_peaks} min="0" step="0.5"/>
+                </div>
+
+                <div class="level-item">
+                    <input class="input" type="number" placeholder="Peak Height"
+                      data-tippy="Optional: Peak Height" bind:value={mass_peak_height} on:change={find_masspec_peaks} min="0" step="0.5"/>
                 </div>
 
                 <div class="level-item">
