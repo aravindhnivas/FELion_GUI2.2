@@ -76,14 +76,14 @@
     if (visible) {
       $filebrowser.css("max-width", "100%");
       $filebrowserNav.css("max-width", "100%");
-      $plotContainer.css("width", "70%");
+      $plotContainer.css("width", "80%");
       if ($target.hasClass("fa-rotate-90")) {
         $target.removeClass("fa-rotate-90");
       }
     } else {
-      $filebrowser.css("max-width", "10%");
+      $filebrowser.css("max-width", "2%");
       $filebrowserNav.css("max-width", "3%");
-      $plotContainer.css("width", "86%");
+      $plotContainer.css("width", "95%");
       $target.addClass("fa-rotate-90");
     }
 
