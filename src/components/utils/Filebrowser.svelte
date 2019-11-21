@@ -135,13 +135,13 @@
 
       <div class="level-left">
         <div class="level-item">
-          <span class="icon">
+          <!-- <span class="icon">
             <i
               class="fas fa-bars"
               style="padding-right:0.5em; cursor:pointer"
               on:click={fileExplorerToggle}
               aria-hidden="true" />
-          </span>
+          </span> -->
           <span class={animation} style="display:{display}">File Explorer</span>
         </div>
       </div>
