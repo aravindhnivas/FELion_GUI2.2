@@ -98,14 +98,15 @@
       Plotly.relayout("mplot", obj);
     }
   };
+  
 </script>
 
 <style>
   .filexplorer {
     overflow-y: auto;
     position: absolute;
-    max-height: 75vh;
-    width: 20%;
+    height: 63vh;
+    width: 15.3%;
   }
   .menu-list {
     padding-left: 2em;
@@ -119,9 +120,15 @@
   :focus {
     outline-color: transparent;
   }
+
+  ul {
+    width: 100%;
+    height: 100%;
+  }
+
 </style>
 
-<nav class="panel filexplorer">
+<nav class="panel">
 
   <div class="panel-heading">
     <div class="level">
@@ -148,7 +155,6 @@
             <i
               class="fas fa-sync refreshIcon hvr-icon"
               id="{filetag}refreshIcon"
-              data-tippy="Refresh folder"
               aria-hidden="true" />
           </span>
         </div>
@@ -159,7 +165,6 @@
             on:click={() => changeDir('..')}>
             <i
               class="fas fa-angle-left hvr-icon"
-              data-tippy="Go back (location)"
               aria-hidden="true" />
           </span>
         </div>
@@ -169,6 +174,7 @@
   </div>
 
   <div id="{filetag}panel-block" class={animation} style="display:{display}">
+    
     <div class="panel-block">
       <p class="control has-icons-left">
         <input
@@ -184,75 +190,88 @@
 
       </p>
     </div>
+    
+    <div class="panel-block" style="height:2em;">
+      <div class="animated fadeIn" id="{filetag}locationUpdate" style="display:none">Location Update</div>
+    </div>
+    
+    <div class="panel-block filexplorer">
 
-    {#if folderFile != undefined}
-      <div class="panel-block">
-        <aside class="menu" id="{filetag}FileBrowser">
+      <ul>
 
-          <div class="menu-label has-text-white" id="{filetag}FolderContainer">
-            <span class="icon" on:click={folderToggle}>
-              <i class="fas fa-angle-right fa-rotate-90" aria-hidden="true" />
-            </span>
-            <span>{folderFile.parentFolder}</span>
-          </div>
+        {#if folderFile != undefined}
 
-          <ul class="menu-list" id="{filetag}FileContainer">
+          <li>
+            <aside class="menu" id="{filetag}FileBrowser">
 
-            {#if folderFile.files.length > 0}
+              <div class="menu-label has-text-white" id="{filetag}FolderContainer">
+                <span class="icon" on:click={folderToggle}>
+                  <i class="fas fa-angle-right fa-rotate-90" aria-hidden="true" />
+                </span>
+                <span>{folderFile.parentFolder}</span>
+              </div>
+
+              <ul class="menu-list" id="{filetag}FileContainer">
+                
+                {#if folderFile.files.length > 0}
+                  <li>
+                    <div class="pretty p-icon p-round p-pulse">
+                      <input
+                        type="checkbox"
+                        id="{filetag}selectall"
+                        on:click={selectAllToggle} />
+                      <div class="state p-primary">
+                        <i class="icon mdi mdi-check" />
+                        <label>Select All</label>
+                      </div>
+                    </div>
+                  </li>
+                {:else}
+                  <li><div style="margin:2em;">No {filetag} files here</div></li>
+                {/if}
+
+                {#each folderFile.files.sort() as filename}
+                  <li class={filename} style="display:block;">
+                    <div class="pretty p-icon p-round p-smooth">
+                      <input
+                        type="checkbox"
+                        id={filename}
+                        class="{filetag}-files"
+                        on:click={getCheckedFiles} />
+                      <div class="state p-success">
+                        <i class="icon mdi mdi-check" />
+                        <label for={filename}>{filename}</label>
+                      </div>
+                    </div>
+                  </li>
+                {/each}
+
+              </ul>
+            </aside>
+          </li>
+
+          {#each folderFile.folders as foldername}
               <li>
-                <div class="pretty p-icon p-round p-pulse">
-                  <input
-                    type="checkbox"
-                    id="{filetag}selectall"
-                    on:click={selectAllToggle} />
-                  <div class="state p-primary">
-                    <i class="icon mdi mdi-check" />
-                    <label>Select All</label>
+                <aside class="menu">
+                  <div class="menu-label has-text-white">
+                    <span class="icon">
+                      <i class="fas fa-angle-right" aria-hidden="true" />
+                    </span>
+                    <span id={foldername} on:click={() => changeDir(foldername)}>
+                      {foldername}
+                    </span>
                   </div>
-                </div>
+                </aside>
               </li>
-            {:else}
-              <h1 class="subtitle">No {filetag} files here</h1>
-            {/if}
+          {/each}
 
-            {#each folderFile.files.sort() as filename}
-              <li class={filename} style="display:block;">
-                <div class="pretty p-icon p-round p-smooth">
-                  <input
-                    type="checkbox"
-                    id={filename}
-                    class="{filetag}-files"
-                    on:click={getCheckedFiles} />
-                  <div class="state p-success">
-                    <i class="icon mdi mdi-check" />
-                    <label for={filename}>{filename}</label>
-                  </div>
-                </div>
-              </li>
-            {/each}
+        {:else}
+            <li><h1 class="subtitle">Browse to load files</h1></li>
+        {/if}
+      
+      </ul>
 
-          </ul>
-        </aside>
-      </div>
+    </div>
 
-      {#each folderFile.folders as foldername}
-        <div class="panel-block">
-          <aside class="menu">
-            <div class="menu-label has-text-white">
-              <span class="icon">
-                <i class="fas fa-angle-right" aria-hidden="true" />
-              </span>
-              <span id={foldername} on:click={() => changeDir(foldername)}>
-                {foldername}
-              </span>
-            </div>
-          </aside>
-        </div>
-      {/each}
-    {:else}
-      <div class="panel-block">
-        <h1 class="subtitle">Browse to load files</h1>
-      </div>
-    {/if}
   </div>
 </nav>

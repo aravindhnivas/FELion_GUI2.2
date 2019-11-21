@@ -3,7 +3,7 @@
 const { spawn, exec } = require("child_process");
 const path = require('path');
 const fs = require("fs")
-const plot_width = window.screen.width * .65;
+const plot_width = window.screen.width * .75;
 const plot_height = window.screen.height * .42;
 
 

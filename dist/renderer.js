@@ -860,34 +860,34 @@ function get_each_context_1(ctx, list, i) {
 	return child_ctx;
 }
 
-// (252:4) {:else}
+// (268:8) {:else}
 function create_else_block_1(ctx) {
-	var div;
+	var li;
 
 	return {
 		c() {
-			div = element("div");
-			div.innerHTML = `<h1 class="subtitle svelte-a3c26p">Browse to load files</h1>`;
-			attr(div, "class", "panel-block svelte-a3c26p");
+			li = element("li");
+			li.innerHTML = `<h1 class="subtitle svelte-m69grg">Browse to load files</h1>`;
+			attr(li, "class", "svelte-m69grg");
 		},
 
 		m(target, anchor) {
-			insert(target, div, anchor);
+			insert(target, li, anchor);
 		},
 
 		p: noop,
 
 		d(detaching) {
 			if (detaching) {
-				detach(div);
+				detach(li);
 			}
 		}
 	};
 }
 
-// (188:4) {#if folderFile != undefined}
+// (202:8) {#if folderFile != undefined}
 function create_if_block$1(ctx) {
-	var div1, aside, div0, span0, t0, span1, t1_value = ctx.folderFile.parentFolder + "", t1, div0_id_value, t2, ul, t3, ul_id_value, aside_id_value, t4, each1_anchor, dispose;
+	var li, aside, div, span0, t0, span1, t1_value = ctx.folderFile.parentFolder + "", t1, div_id_value, t2, ul, t3, ul_id_value, aside_id_value, t4, each1_anchor, dispose;
 
 	function select_block_type_1(changed, ctx) {
 		if (ctx.folderFile.files.length > 0) return create_if_block_1;
@@ -915,11 +915,11 @@ function create_if_block$1(ctx) {
 
 	return {
 		c() {
-			div1 = element("div");
+			li = element("li");
 			aside = element("aside");
-			div0 = element("div");
+			div = element("div");
 			span0 = element("span");
-			span0.innerHTML = `<i class="fas fa-angle-right fa-rotate-90 svelte-a3c26p" aria-hidden="true"></i>`;
+			span0.innerHTML = `<i class="fas fa-angle-right fa-rotate-90 svelte-m69grg" aria-hidden="true"></i>`;
 			t0 = space();
 			span1 = element("span");
 			t1 = text(t1_value);
@@ -939,25 +939,25 @@ function create_if_block$1(ctx) {
 			}
 
 			each1_anchor = empty();
-			attr(span0, "class", "icon svelte-a3c26p");
-			attr(span1, "class", "svelte-a3c26p");
-			attr(div0, "class", "menu-label has-text-white svelte-a3c26p");
-			attr(div0, "id", div0_id_value = "" + ctx.filetag + "FolderContainer");
-			attr(ul, "class", "menu-list svelte-a3c26p");
+			attr(span0, "class", "icon svelte-m69grg");
+			attr(span1, "class", "svelte-m69grg");
+			attr(div, "class", "menu-label has-text-white svelte-m69grg");
+			attr(div, "id", div_id_value = "" + ctx.filetag + "FolderContainer");
+			attr(ul, "class", "menu-list svelte-m69grg");
 			attr(ul, "id", ul_id_value = "" + ctx.filetag + "FileContainer");
-			attr(aside, "class", "menu svelte-a3c26p");
+			attr(aside, "class", "menu svelte-m69grg");
 			attr(aside, "id", aside_id_value = "" + ctx.filetag + "FileBrowser");
-			attr(div1, "class", "panel-block svelte-a3c26p");
+			attr(li, "class", "svelte-m69grg");
 			dispose = listen(span0, "click", ctx.folderToggle);
 		},
 
 		m(target, anchor) {
-			insert(target, div1, anchor);
-			append(div1, aside);
-			append(aside, div0);
-			append(div0, span0);
-			append(div0, t0);
-			append(div0, span1);
+			insert(target, li, anchor);
+			append(li, aside);
+			append(aside, div);
+			append(div, span0);
+			append(div, t0);
+			append(div, span1);
 			append(span1, t1);
 			append(aside, t2);
 			append(aside, ul);
@@ -982,8 +982,8 @@ function create_if_block$1(ctx) {
 				set_data(t1, t1_value);
 			}
 
-			if ((changed.filetag) && div0_id_value !== (div0_id_value = "" + ctx.filetag + "FolderContainer")) {
-				attr(div0, "id", div0_id_value);
+			if ((changed.filetag) && div_id_value !== (div_id_value = "" + ctx.filetag + "FolderContainer")) {
+				attr(div, "id", div_id_value);
 			}
 
 			if (current_block_type === (current_block_type = select_block_type_1(changed, ctx)) && if_block) {
@@ -1052,7 +1052,7 @@ function create_if_block$1(ctx) {
 
 		d(detaching) {
 			if (detaching) {
-				detach(div1);
+				detach(li);
 			}
 
 			if_block.d();
@@ -1074,24 +1074,28 @@ function create_if_block$1(ctx) {
 	};
 }
 
-// (214:12) {:else}
+// (229:16) {:else}
 function create_else_block$1(ctx) {
-	var h1, t0, t1, t2;
+	var li, div, t0, t1, t2;
 
 	return {
 		c() {
-			h1 = element("h1");
+			li = element("li");
+			div = element("div");
 			t0 = text("No ");
 			t1 = text(ctx.filetag);
 			t2 = text(" files here");
-			attr(h1, "class", "subtitle svelte-a3c26p");
+			set_style(div, "margin", "2em");
+			attr(div, "class", "svelte-m69grg");
+			attr(li, "class", "svelte-m69grg");
 		},
 
 		m(target, anchor) {
-			insert(target, h1, anchor);
-			append(h1, t0);
-			append(h1, t1);
-			append(h1, t2);
+			insert(target, li, anchor);
+			append(li, div);
+			append(div, t0);
+			append(div, t1);
+			append(div, t2);
 		},
 
 		p(changed, ctx) {
@@ -1102,13 +1106,13 @@ function create_else_block$1(ctx) {
 
 		d(detaching) {
 			if (detaching) {
-				detach(h1);
+				detach(li);
 			}
 		}
 	};
 }
 
-// (201:12) {#if folderFile.files.length > 0}
+// (216:16) {#if folderFile.files.length > 0}
 function create_if_block_1(ctx) {
 	var li, div1, input, input_id_value, t, div0, dispose;
 
@@ -1119,13 +1123,13 @@ function create_if_block_1(ctx) {
 			input = element("input");
 			t = space();
 			div0 = element("div");
-			div0.innerHTML = `<i class="icon mdi mdi-check svelte-a3c26p"></i> <label class="svelte-a3c26p">Select All</label>`;
+			div0.innerHTML = `<i class="icon mdi mdi-check svelte-m69grg"></i> <label class="svelte-m69grg">Select All</label>`;
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "selectall");
-			attr(input, "class", "svelte-a3c26p");
-			attr(div0, "class", "state p-primary svelte-a3c26p");
-			attr(div1, "class", "pretty p-icon p-round p-pulse svelte-a3c26p");
-			attr(li, "class", "svelte-a3c26p");
+			attr(input, "class", "svelte-m69grg");
+			attr(div0, "class", "state p-primary svelte-m69grg");
+			attr(div1, "class", "pretty p-icon p-round p-pulse svelte-m69grg");
+			attr(li, "class", "svelte-m69grg");
 			dispose = listen(input, "click", ctx.selectAllToggle);
 		},
 
@@ -1153,7 +1157,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (218:12) {#each folderFile.files.sort() as filename}
+// (233:16) {#each folderFile.files.sort() as filename}
 function create_each_block_1(ctx) {
 	var li, div1, input, input_id_value, input_class_value, t0, div0, i, t1, label, t2_value = ctx.filename + "", t2, label_for_value, t3, li_class_value, dispose;
 
@@ -1171,13 +1175,13 @@ function create_each_block_1(ctx) {
 			t3 = space();
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = ctx.filename);
-			attr(input, "class", input_class_value = "" + ctx.filetag + "-files" + " svelte-a3c26p");
-			attr(i, "class", "icon mdi mdi-check svelte-a3c26p");
+			attr(input, "class", input_class_value = "" + ctx.filetag + "-files" + " svelte-m69grg");
+			attr(i, "class", "icon mdi mdi-check svelte-m69grg");
 			attr(label, "for", label_for_value = ctx.filename);
-			attr(label, "class", "svelte-a3c26p");
-			attr(div0, "class", "state p-success svelte-a3c26p");
-			attr(div1, "class", "pretty p-icon p-round p-smooth svelte-a3c26p");
-			attr(li, "class", li_class_value = "" + null_to_empty(ctx.filename) + " svelte-a3c26p");
+			attr(label, "class", "svelte-m69grg");
+			attr(div0, "class", "state p-success svelte-m69grg");
+			attr(div1, "class", "pretty p-icon p-round p-smooth svelte-m69grg");
+			attr(li, "class", li_class_value = "" + null_to_empty(ctx.filename) + " svelte-m69grg");
 			set_style(li, "display", "block");
 			dispose = listen(input, "click", ctx.getCheckedFiles);
 		},
@@ -1200,7 +1204,7 @@ function create_each_block_1(ctx) {
 				attr(input, "id", input_id_value);
 			}
 
-			if ((changed.filetag) && input_class_value !== (input_class_value = "" + ctx.filetag + "-files" + " svelte-a3c26p")) {
+			if ((changed.filetag) && input_class_value !== (input_class_value = "" + ctx.filetag + "-files" + " svelte-m69grg")) {
 				attr(input, "class", input_class_value);
 			}
 
@@ -1212,7 +1216,7 @@ function create_each_block_1(ctx) {
 				attr(label, "for", label_for_value);
 			}
 
-			if ((changed.folderFile) && li_class_value !== (li_class_value = "" + null_to_empty(ctx.filename) + " svelte-a3c26p")) {
+			if ((changed.folderFile) && li_class_value !== (li_class_value = "" + null_to_empty(ctx.filename) + " svelte-m69grg")) {
 				attr(li, "class", li_class_value);
 			}
 		},
@@ -1227,9 +1231,9 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (238:6) {#each folderFile.folders as foldername}
+// (253:10) {#each folderFile.folders as foldername}
 function create_each_block$1(ctx) {
-	var div1, aside, div0, span0, t0, span1, t1_value = ctx.foldername + "", t1, span1_id_value, t2, dispose;
+	var li, aside, div, span0, t0, span1, t1_value = ctx.foldername + "", t1, span1_id_value, t2, dispose;
 
 	function click_handler_1() {
 		return ctx.click_handler_1(ctx);
@@ -1237,33 +1241,33 @@ function create_each_block$1(ctx) {
 
 	return {
 		c() {
-			div1 = element("div");
+			li = element("li");
 			aside = element("aside");
-			div0 = element("div");
+			div = element("div");
 			span0 = element("span");
-			span0.innerHTML = `<i class="fas fa-angle-right svelte-a3c26p" aria-hidden="true"></i>`;
+			span0.innerHTML = `<i class="fas fa-angle-right svelte-m69grg" aria-hidden="true"></i>`;
 			t0 = space();
 			span1 = element("span");
 			t1 = text(t1_value);
 			t2 = space();
-			attr(span0, "class", "icon svelte-a3c26p");
+			attr(span0, "class", "icon svelte-m69grg");
 			attr(span1, "id", span1_id_value = ctx.foldername);
-			attr(span1, "class", "svelte-a3c26p");
-			attr(div0, "class", "menu-label has-text-white svelte-a3c26p");
-			attr(aside, "class", "menu svelte-a3c26p");
-			attr(div1, "class", "panel-block svelte-a3c26p");
+			attr(span1, "class", "svelte-m69grg");
+			attr(div, "class", "menu-label has-text-white svelte-m69grg");
+			attr(aside, "class", "menu svelte-m69grg");
+			attr(li, "class", "svelte-m69grg");
 			dispose = listen(span1, "click", click_handler_1);
 		},
 
 		m(target, anchor) {
-			insert(target, div1, anchor);
-			append(div1, aside);
-			append(aside, div0);
-			append(div0, span0);
-			append(div0, t0);
-			append(div0, span1);
+			insert(target, li, anchor);
+			append(li, aside);
+			append(aside, div);
+			append(div, span0);
+			append(div, t0);
+			append(div, span1);
 			append(span1, t1);
-			append(div1, t2);
+			append(li, t2);
 		},
 
 		p(changed, new_ctx) {
@@ -1279,7 +1283,7 @@ function create_each_block$1(ctx) {
 
 		d(detaching) {
 			if (detaching) {
-				detach(div1);
+				detach(li);
 			}
 
 			dispose();
@@ -1288,7 +1292,7 @@ function create_each_block$1(ctx) {
 }
 
 function create_fragment$3(ctx) {
-	var nav, div6, div5, div1, div0, span0, i0, t0, span1, t1, t2, div4, div2, span2, i1, i1_id_value, span2_id_value, t3, div3, span3, i2, span3_id_value, t4, div8, div7, p, input, input_placeholder_value, input_id_value, t5, span4, t6, div8_id_value, dispose;
+	var nav, div6, div5, div1, div0, span0, i0, t0, span1, t1, t2, div4, div2, span2, i1, i1_id_value, span2_id_value, t3, div3, span3, i2, span3_id_value, t4, div11, div7, p, input, input_placeholder_value, input_id_value, t5, span4, t6, div9, div8, t7, div8_id_value, t8, div10, ul, div11_id_value, dispose;
 
 	function select_block_type(changed, ctx) {
 		if (ctx.folderFile != ctx.undefined) return create_if_block$1;
@@ -1320,53 +1324,64 @@ function create_fragment$3(ctx) {
 			span3 = element("span");
 			i2 = element("i");
 			t4 = space();
-			div8 = element("div");
+			div11 = element("div");
 			div7 = element("div");
 			p = element("p");
 			input = element("input");
 			t5 = space();
 			span4 = element("span");
-			span4.innerHTML = `<i class="fas fa-search svelte-a3c26p" aria-hidden="true"></i>`;
+			span4.innerHTML = `<i class="fas fa-search svelte-m69grg" aria-hidden="true"></i>`;
 			t6 = space();
+			div9 = element("div");
+			div8 = element("div");
+			t7 = text("Location Update");
+			t8 = space();
+			div10 = element("div");
+			ul = element("ul");
 			if_block.c();
-			attr(i0, "class", "fas fa-bars svelte-a3c26p");
+			attr(i0, "class", "fas fa-bars svelte-m69grg");
 			set_style(i0, "padding-right", "0.5em");
 			set_style(i0, "cursor", "pointer");
 			attr(i0, "aria-hidden", "true");
-			attr(span0, "class", "icon svelte-a3c26p");
-			attr(span1, "class", "" + animation + " svelte-a3c26p");
+			attr(span0, "class", "icon svelte-m69grg");
+			attr(span1, "class", "" + animation + " svelte-m69grg");
 			set_style(span1, "display", ctx.display);
-			attr(div0, "class", "level-item svelte-a3c26p");
-			attr(div1, "class", "level-left svelte-a3c26p");
-			attr(i1, "class", "fas fa-sync refreshIcon hvr-icon svelte-a3c26p");
+			attr(div0, "class", "level-item svelte-m69grg");
+			attr(div1, "class", "level-left svelte-m69grg");
+			attr(i1, "class", "fas fa-sync refreshIcon hvr-icon svelte-m69grg");
 			attr(i1, "id", i1_id_value = "" + ctx.filetag + "refreshIcon");
-			attr(i1, "data-tippy", "Refresh folder");
 			attr(i1, "aria-hidden", "true");
-			attr(span2, "class", "icon refresh hvr-icon-spin svelte-a3c26p");
+			attr(span2, "class", "icon refresh hvr-icon-spin svelte-m69grg");
 			attr(span2, "id", span2_id_value = "" + ctx.filetag + "refresh");
-			attr(div2, "class", "level-item " + animation + " svelte-a3c26p");
+			attr(div2, "class", "level-item " + animation + " svelte-m69grg");
 			set_style(div2, "display", ctx.display);
-			attr(i2, "class", "fas fa-angle-left hvr-icon svelte-a3c26p");
-			attr(i2, "data-tippy", "Go back (location)");
+			attr(i2, "class", "fas fa-angle-left hvr-icon svelte-m69grg");
 			attr(i2, "aria-hidden", "true");
-			attr(span3, "class", "icon backbtn hvr-icon-back svelte-a3c26p");
+			attr(span3, "class", "icon backbtn hvr-icon-back svelte-m69grg");
 			attr(span3, "id", span3_id_value = "" + ctx.filetag + "BackButton");
-			attr(div3, "class", "level-item " + animation + " svelte-a3c26p");
+			attr(div3, "class", "level-item " + animation + " svelte-m69grg");
 			set_style(div3, "display", ctx.display);
-			attr(div4, "class", "level-right svelte-a3c26p");
-			attr(div5, "class", "level svelte-a3c26p");
-			attr(div6, "class", "panel-heading svelte-a3c26p");
-			attr(input, "class", "input is-small  svelte-a3c26p");
+			attr(div4, "class", "level-right svelte-m69grg");
+			attr(div5, "class", "level svelte-m69grg");
+			attr(div6, "class", "panel-heading svelte-m69grg");
+			attr(input, "class", "input is-small  svelte-m69grg");
 			attr(input, "type", "text");
 			attr(input, "placeholder", input_placeholder_value = "Search " + ctx.filetag + " files");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "-searchFiles");
-			attr(span4, "class", "icon is-small is-left svelte-a3c26p");
-			attr(p, "class", "control has-icons-left svelte-a3c26p");
-			attr(div7, "class", "panel-block svelte-a3c26p");
-			attr(div8, "id", div8_id_value = "" + ctx.filetag + "panel-block");
-			attr(div8, "class", "" + animation + " svelte-a3c26p");
-			set_style(div8, "display", ctx.display);
-			attr(nav, "class", "panel filexplorer svelte-a3c26p");
+			attr(span4, "class", "icon is-small is-left svelte-m69grg");
+			attr(p, "class", "control has-icons-left svelte-m69grg");
+			attr(div7, "class", "panel-block svelte-m69grg");
+			attr(div8, "class", "animated fadeIn svelte-m69grg");
+			attr(div8, "id", div8_id_value = "" + ctx.filetag + "locationUpdate");
+			set_style(div8, "display", "none");
+			attr(div9, "class", "panel-block svelte-m69grg");
+			set_style(div9, "height", "2em");
+			attr(ul, "class", "svelte-m69grg");
+			attr(div10, "class", "panel-block filexplorer svelte-m69grg");
+			attr(div11, "id", div11_id_value = "" + ctx.filetag + "panel-block");
+			attr(div11, "class", "" + animation + " svelte-m69grg");
+			set_style(div11, "display", ctx.display);
+			attr(nav, "class", "panel svelte-m69grg");
 
 			dispose = [
 				listen(i0, "click", ctx.fileExplorerToggle),
@@ -1398,8 +1413,8 @@ function create_fragment$3(ctx) {
 			append(div3, span3);
 			append(span3, i2);
 			append(nav, t4);
-			append(nav, div8);
-			append(div8, div7);
+			append(nav, div11);
+			append(div11, div7);
 			append(div7, p);
 			append(p, input);
 
@@ -1407,8 +1422,14 @@ function create_fragment$3(ctx) {
 
 			append(p, t5);
 			append(p, span4);
-			append(div8, t6);
-			if_block.m(div8, null);
+			append(div11, t6);
+			append(div11, div9);
+			append(div9, div8);
+			append(div8, t7);
+			append(div11, t8);
+			append(div11, div10);
+			append(div10, ul);
+			if_block.m(ul, null);
 		},
 
 		p(changed, ctx) {
@@ -1446,6 +1467,10 @@ function create_fragment$3(ctx) {
 				attr(input, "id", input_id_value);
 			}
 
+			if ((changed.filetag) && div8_id_value !== (div8_id_value = "" + ctx.filetag + "locationUpdate")) {
+				attr(div8, "id", div8_id_value);
+			}
+
 			if (current_block_type === (current_block_type = select_block_type(changed, ctx)) && if_block) {
 				if_block.p(changed, ctx);
 			} else {
@@ -1453,16 +1478,16 @@ function create_fragment$3(ctx) {
 				if_block = current_block_type(ctx);
 				if (if_block) {
 					if_block.c();
-					if_block.m(div8, null);
+					if_block.m(ul, null);
 				}
 			}
 
-			if ((changed.filetag) && div8_id_value !== (div8_id_value = "" + ctx.filetag + "panel-block")) {
-				attr(div8, "id", div8_id_value);
+			if ((changed.filetag) && div11_id_value !== (div11_id_value = "" + ctx.filetag + "panel-block")) {
+				attr(div11, "id", div11_id_value);
 			}
 
 			if (changed.display) {
-				set_style(div8, "display", ctx.display);
+				set_style(div11, "display", ctx.display);
 			}
 		},
 
@@ -1630,7 +1655,7 @@ class Filebrowser extends SvelteComponent {
 const { spawn, exec } = child_process;
 
 
-const plot_width = window.screen.width * .65;
+const plot_width = window.screen.width * .75;
 const plot_height = window.screen.height * .42;
 
 
@@ -2227,7 +2252,7 @@ function get_each_context_8(ctx, list, i) {
 	return child_ctx;
 }
 
-// (750:12) {#each funcBtns as { id, name }}
+// (776:12) {#each funcBtns as { id, name }}
 function create_each_block_8(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -2265,7 +2290,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (766:18) {:else}
+// (792:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2303,7 +2328,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (764:18) {#if name[0]==="Log"}
+// (790:18) {#if name[0]==="Log"}
 function create_if_block_12(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2341,7 +2366,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (759:12) {#each checkBtns as {id, name, bind, help}}
+// (785:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_7(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -2429,7 +2454,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (778:12) {#if filetag == 'felix'}
+// (804:12) {#if filetag == 'felix'}
 function create_if_block_11(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -2543,7 +2568,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (787:24) {#each normalisation_method as method}
+// (813:24) {#each normalisation_method as method}
 function create_each_block_6(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -2570,7 +2595,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (807:12) {#if filetag == 'thz'}
+// (833:12) {#if filetag == 'thz'}
 function create_if_block_10(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -2670,7 +2695,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (859:6) {#if filetag=="felix"}
+// (885:6) {#if filetag=="felix"}
 function create_if_block_9(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2791,7 +2816,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (878:6) {#if filetag=="scan"}
+// (904:6) {#if filetag=="scan"}
 function create_if_block_3(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2921,7 +2946,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (891:28) {#if folderFile.files != undefined}
+// (917:28) {#if folderFile.files != undefined}
 function create_if_block_8(ctx) {
 	var each_1_anchor;
 
@@ -2984,7 +3009,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (892:31) {#each folderFile.files as scanfile}
+// (918:31) {#each folderFile.files as scanfile}
 function create_each_block_5(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3021,7 +3046,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (883:16) {#each ["ResON", "ResOFF"] as name}
+// (909:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_4(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3089,7 +3114,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (914:57) 
+// (940:57) 
 function create_if_block_7(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3128,7 +3153,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (912:52) 
+// (938:52) 
 function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3167,7 +3192,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (910:50) 
+// (936:50) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3206,7 +3231,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (908:22) {#if name=="Power (ON, OFF)"}
+// (934:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_4(ctx) {
 	var input, dispose;
 
@@ -3239,7 +3264,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (903:16) {#each depletionLabels as {name, id}}
+// (929:16) {#each depletionLabels as {name, id}}
 function create_each_block_3(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -3297,7 +3322,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (932:6) {#if filetag === "mass"}
+// (958:6) {#if filetag === "mass"}
 function create_if_block_2(ctx) {
 	var div9, div8, div7, div0, input0, input0_updating = false, t0, div1, input1, input1_updating = false, t1, div2, input2, input2_updating = false, t2, div4, div3, t4, div6, div5, dispose;
 
@@ -3434,7 +3459,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (1087:12) {:else}
+// (1113:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3464,7 +3489,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (982:38) 
+// (1008:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div28, div27, div14, input3, t11, div16, div15, t13, div19, t16, div21, div20, t17, div20_class_value, t18, div23, div22, t19, div22_class_value, t20, div25, div24, t22, div26, h1, t23, t24, dispose;
 
@@ -3812,7 +3837,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (975:12) {#if filetag == 'scan'}
+// (1001:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3886,7 +3911,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (1013:26) {#each fit_file_list as file}
+// (1039:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -3923,7 +3948,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (977:16) {#each fileChecked as scanfile}
+// (1003:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -3953,7 +3978,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (974:10) {#each plotID as id}
+// (1000:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -4115,7 +4140,7 @@ function create_fragment$4(ctx) {
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
-			attr(div0, "class", "column is-3 filebrowserColumn svelte-1z8f7");
+			attr(div0, "class", "column is-2 filebrowserColumn svelte-1z8f7");
 			attr(div0, "id", div0_id_value = "" + ctx.filetag + "filebrowserColumn");
 			attr(div1, "class", "modal-background");
 			attr(p, "class", "modal-card-title");
@@ -4149,6 +4174,7 @@ function create_fragment$4(ctx) {
 			attr(div12, "id", div12_id_value = "" + ctx.filetag + "plotContainer");
 			attr(div13, "class", "row box plotContainer svelte-1z8f7");
 			set_style(div13, "max-height", ctx.plotContainerHeight);
+			set_style(div13, "width", "80%");
 			attr(div13, "id", div13_id_value = "" + ctx.filetag + "plotMainContainer");
 			attr(div14, "class", "column");
 			attr(div15, "class", "columns");
@@ -4517,25 +4543,45 @@ function instance$4($$self, $$props, $$invalidate) {
 
   let allFiles = [];
 
+
   const getCheckedFiles = () => {
     $$invalidate('allFiles', allFiles = Array.from(document.querySelectorAll("." + filetag + "-files")));
   };
 
+  const locationUpdateStatus = (status, classname) => {
+    jq(document).ready(()=>{
+      
+      let locationUpdateDiv = document.getElementById(`${filetag}locationUpdate`);
+
+      locationUpdateDiv.innerHTML = status;
+      locationUpdateDiv.classList.add(classname);
+      locationUpdateDiv.style.display = "block";
+      
+      setTimeout(()=>{
+        locationUpdateDiv.innerHTML="";
+        locationUpdateDiv.style.display = "none";
+        locationUpdateDiv.classList.remove(classname);
+      }, 2000);
+      
+    });
+  };
+
   const updateFolder = location => {
+
+    
     console.log("Folder updating");
 
     if (location === undefined || location === 'undefined') {
-      jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
       console.log("Location is undefined");
+      jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
       return undefined;
     } 
 
     $$invalidate('currentLocation', currentLocation = location);
     localStorage.setItem(`${filetag}_location`, currentLocation);
-
+    jq(`#${filetag}refreshIcon`).addClass("fa-spin");
     console.log(`[${filetag}]: location is stored locally\n${currentLocation}`);
 
-    jq(`#${filetag}refreshIcon`).addClass("fa-spin");
     try {
 
       let folder = [];
@@ -4559,9 +4605,15 @@ function instance$4($$self, $$props, $$invalidate) {
       $$invalidate('folderFile', folderFile.folders = folder, folderFile);
       $$invalidate('folderFile', folderFile.files = file, folderFile);
       console.log("Folder updated");
-    } catch (err) {console.log(`Error Occured: ${err}`);}
+      locationUpdateStatus("Folder updated", "is-link");
+
+    } catch (err) {
+      console.log(`Error Occured: ${err}`);
+      locationUpdateStatus("Error Occured:", "is-danger");
+    }
 
     jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
+
     return folderFile;
 
   };

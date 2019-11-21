@@ -91,25 +91,45 @@
   $: console.log("fileChecked", fileChecked, "\n");
   $: fullfiles = fileChecked.map(file => path.join(currentLocation, file));
 
+
   const getCheckedFiles = () => {
     allFiles = Array.from(document.querySelectorAll("." + filetag + "-files"));
   };
 
+  const locationUpdateStatus = (status, classname) => {
+    jq(document).ready(()=>{
+      
+      let locationUpdateDiv = document.getElementById(`${filetag}locationUpdate`)
+
+      locationUpdateDiv.innerHTML = status
+      locationUpdateDiv.classList.add(classname)
+      locationUpdateDiv.style.display = "block"
+      
+      setTimeout(()=>{
+        locationUpdateDiv.innerHTML=""
+        locationUpdateDiv.style.display = "none"
+        locationUpdateDiv.classList.remove(classname)
+      }, 2000)
+      
+    })
+  }
+
   const updateFolder = location => {
+
+    
     console.log("Folder updating");
 
     if (location === undefined || location === 'undefined') {
-      jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
       console.log("Location is undefined");
+      jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
       return undefined;
     } 
 
     currentLocation = location;
     localStorage.setItem(`${filetag}_location`, currentLocation)
-
+    jq(`#${filetag}refreshIcon`).addClass("fa-spin");
     console.log(`[${filetag}]: location is stored locally\n${currentLocation}`)
 
-    jq(`#${filetag}refreshIcon`).addClass("fa-spin");
     try {
 
       let folder = [];
@@ -133,9 +153,15 @@
       folderFile.folders = folder;
       folderFile.files = file;
       console.log("Folder updated");
-    } catch (err) {console.log(`Error Occured: ${err}`)}
+      locationUpdateStatus("Folder updated", "is-link")
+
+    } catch (err) {
+      console.log(`Error Occured: ${err}`)
+      locationUpdateStatus("Error Occured:", "is-danger")
+    }
 
     jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
+
     return folderFile;
 
   };
@@ -685,7 +711,7 @@
 
   <div class="columns">
 
-    <div class="column is-3 filebrowserColumn" id="{filetag}filebrowserColumn">
+    <div class="column is-2 filebrowserColumn" id="{filetag}filebrowserColumn">
       <Filebrowser
         {filetag} {currentLocation} {updateFolder}
         {getCheckedFiles} {jq} {path} />
@@ -968,7 +994,7 @@
       <hr style="margin: 0.5em 0; background-color:#bdc3c7" />
       <!-- <h1 class="subtitle">Data Visualisation</h1> -->
 
-      <div class="row box plotContainer" style="max-height: {plotContainerHeight};" id="{filetag}plotMainContainer" >
+      <div class="row box plotContainer" style="max-height: {plotContainerHeight}; width:80%;" id="{filetag}plotMainContainer" >
         
         <div class="container is-fluid" id="{filetag}plotContainer">
           {#each plotID as id}
