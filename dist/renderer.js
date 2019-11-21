@@ -1658,7 +1658,6 @@ const { spawn, exec } = child_process;
 const plot_width = window.screen.width * .75;
 const plot_height = window.screen.height * .42;
 
-
 function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
 
     let dataLayout = {
