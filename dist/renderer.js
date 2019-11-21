@@ -499,7 +499,7 @@ function get_each_context(ctx, list, i) {
 	return child_ctx;
 }
 
-// (100:10) {:else}
+// (97:10) {:else}
 function create_else_block(ctx) {
 	var li, a, t0_value = ctx.item + "", t0, t1, li_id_value, dispose;
 
@@ -541,7 +541,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (96:10) {#if item == 'Welcome'}
+// (93:10) {#if item == 'Welcome'}
 function create_if_block(ctx) {
 	var li, a, t0_value = ctx.item + "", t0, t1, li_id_value, dispose;
 
@@ -583,7 +583,7 @@ function create_if_block(ctx) {
 	};
 }
 
-// (95:8) {#each navItems as item}
+// (92:8) {#each navItems as item}
 function create_each_block(ctx) {
 	var if_block_anchor;
 
@@ -723,21 +723,19 @@ function instance$1($$self, $$props, $$invalidate) {
   });
 
   const displayToggle = (element, value, classname) => {
-    let parent = (document.getElementById(
-      element + "-nav"
-    ).classList = classname);
+
+    let parent = (document.getElementById(element + "-nav").classList = classname);
     try {
-      let targetElement = (document.getElementById(
-        element
-      ).style.display = value);
+
+      let targetElement = (document.getElementById(element).style.display = value);
     } catch (err) {
       console.log(element + " Not yet created or Error loading the page.");
     }
   };
 
   const controlNav = event => {
-    let target = event.target.innerHTML;
 
+    let target = event.target.innerHTML;
     console.log(target + " is-active");
 
     navItems.forEach(item => {
@@ -757,7 +755,6 @@ function instance$1($$self, $$props, $$invalidate) {
 
     let display = jq(".buttonsRow").css("display");
 
-
     if (display === "none"){
 
       jq(".plotContainer").css("max-height", "75vh");
@@ -766,7 +763,7 @@ function instance$1($$self, $$props, $$invalidate) {
     } 
     else {
       jq(".plotContainer").css("max-height", "60vh");
-      jq(".plotContainer").css("width", "70%");
+      jq(".plotContainer").css("width", "81%");
 
     }
     

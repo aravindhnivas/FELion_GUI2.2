@@ -7,21 +7,19 @@
   });
 
   const displayToggle = (element, value, classname) => {
-    let parent = (document.getElementById(
-      element + "-nav"
-    ).classList = classname);
+
+    let parent = (document.getElementById(element + "-nav").classList = classname)
     try {
-      let targetElement = (document.getElementById(
-        element
-      ).style.display = value);
+
+      let targetElement = (document.getElementById(element).style.display = value)
     } catch (err) {
       console.log(element + " Not yet created or Error loading the page.");
     }
-  };
+  }
 
   const controlNav = event => {
-    let target = event.target.innerHTML;
 
+    let target = event.target.innerHTML;
     console.log(target + " is-active");
 
     navItems.forEach(item => {
@@ -41,7 +39,6 @@
 
     let display = jq(".buttonsRow").css("display");
 
-
     if (display === "none"){
 
       jq(".plotContainer").css("max-height", "75vh")
@@ -50,7 +47,7 @@
     } 
     else {
       jq(".plotContainer").css("max-height", "60vh");
-      jq(".plotContainer").css("width", "70%")
+      jq(".plotContainer").css("width", "81%")
 
     }
     
