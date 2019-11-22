@@ -20,15 +20,15 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite=
     readfile = f"{datfile_location}/{output_filename}.dat"
     wn, inten = read_dat_file(readfile, norm_method)
 
-    if not getvalue:
+    # if not getvalue:
         
-        if output_filename == "averaged": line_color = "black"
-        else:
-            index = fullfiles.index(output_filename)
+    if output_filename == "averaged": line_color = "black"
+    else:
+        index = fullfiles.index(output_filename)
 
-            line_color = f"rgb{colors[2*index]}"
+        line_color = f"rgb{colors[2*index]}"
 
-    else: line_color = "black"
+    # else: line_color = "black"
 
     # Getting data from the selected range
     index = np.logical_and(wn > start_wn, wn < end_wn)
@@ -58,7 +58,7 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite=
             "showarrow": True, "arrowhead": 2, "ax": -25, "ay": -40
         }
     }
-    if getvalue: return data, uline_freq, usigma, uamplitude, ufwhm
+    if getvalue: return data, uline_freq, usigma, uamplitude, ufwhm, line_color
     filename = f"{output_filename}.expfit"
     expfile = datfile_location/filename
     if overwrite:

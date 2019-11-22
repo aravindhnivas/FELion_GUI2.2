@@ -553,7 +553,7 @@
       filetag: filetag,
       btname: btname,
       pyfile: "fit_all.py",
-      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite, tkplot]
+      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite, tkplot, ...fullfiles]
     })
     .then((output)=>console.log(output))
     .catch((err)=>{

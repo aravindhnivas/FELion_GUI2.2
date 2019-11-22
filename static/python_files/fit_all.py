@@ -8,10 +8,10 @@ import json, sys
 
 from FELion_definitions import read_dat_file
 from FELion_widgets import FELion_Tk
-
+from FELion_constants import colors 
 from exp_gauss_fit import exp_fit
 
-def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=None, fitall=False, overwrite=False, tkplot=False):
+def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=None, fitall=False, overwrite=False, tkplot=False, fullfiles=None):
 
     wn, inten = read_dat_file(filename, norm_method)
 
@@ -30,11 +30,15 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
 
     for item in _:
         _[item] = _[item].tolist()
-
     wn_ = list(wn[indices])
     inten_ = list(inten[indices])
     
     data = {"data": {}, "extras": _, "annotations":{}}
+
+    if filename.stem == "averaged": line_color = "black"
+    else:
+        index = fullfiles.index(filename.stem)
+        line_color = f"rgb{colors[2*index]}"
 
     data["data"] = {
         "x":wn_, "y":inten_, "name":"peaks", "mode":"markers",
@@ -53,7 +57,8 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
             "showarrow": True,
             "arrowhead": 2,
             "ax": -25,
-            "ay": -40
+            "ay": -40,
+            "font":{"color":line_color}
         }
         for x, y in zip(wn_, inten_)
     ]
@@ -83,7 +88,7 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
 
             for wavelength in _["wn_range"]:
 
-                get_data_temp, uline_freq, usigma, uamplitude, ufwhm = exp_fit(location, norm_method, wavelength[0], wavelength[1], output_filename, getvalue=True)
+                get_data_temp, uline_freq, usigma, uamplitude, ufwhm, line_color = exp_fit(location, norm_method, wavelength[0], wavelength[1], output_filename, getvalue=True, fullfiles=fullfiles)
                 if uline_freq.nominal_value < 0 or ufwhm.nominal_value > 100: continue
                 if tkplot:
 
@@ -98,7 +103,7 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
                     )
                 else:
                     annotate = {
-                        "x": uline_freq.nominal_value, "y": uamplitude.nominal_value, "xref": 'x', "yref": 'y', "text": f'{uline_freq:.2uP}',
+                        "x": uline_freq.nominal_value, "y": uamplitude.nominal_value, "xref": 'x', "yref": 'y', "text": f'{uline_freq:.2uP}', "font":{"color":line_color},
                         "showarrow": True, "arrowhead": 2, "ax": -25, "ay": -40
                     }
                     annotations.append(annotate)
@@ -149,5 +154,7 @@ if __name__ == "__main__":
     tkplot = args[8]
     if tkplot == "true": tkplot = True
     else: tkplot = False
+
+    fullfiles = [pt(i).stem for i in args[9:]]
     
-    fit_all_peaks(filename, norm_method, prominence, width, height, fitall, overwrite, tkplot)
+    fit_all_peaks(filename, norm_method, prominence, width, height, fitall, overwrite, tkplot, fullfiles)
