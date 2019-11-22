@@ -969,7 +969,7 @@
                 </div>
               </div>
 
-              <div class="level-item">
+                <div class="level-item">
                     <input class="input" type="number" placeholder="Peak prominance value"
                       data-tippy="Peak prominace value" bind:value={mass_prominence} on:change={find_masspec_peaks} min="0" step="0.5"/>
                 </div>
