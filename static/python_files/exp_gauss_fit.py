@@ -26,7 +26,12 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite=
     else:
         index = fullfiles.index(output_filename)
 
-        line_color = f"rgb{colors[2*index]}"
+        index = 2*index
+
+        if index > len(colors): 
+            index = (index - len(colors)) - 1
+            line_color = f"rgb{colors[index]}"
+        else: line_color = f"rgb{colors[index]}"
 
     # else: line_color = "black"
 
