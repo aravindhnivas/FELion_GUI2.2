@@ -1837,7 +1837,7 @@ class program {
                                     document.getElementById("fitFiles").value = filename;
                                 }
                             });
-                        } 
+                        }
                         else if (this.filetype == "theory") {
 
                             let normethod = this.args[0];
@@ -1855,7 +1855,7 @@ class program {
                                 ylabel, [dataFromPython["averaged"], ...theoryData],
                                 "exp-theory-plot"
                             );
-                        } 
+                        }
                         else if (this.filetype == "thz") {
 
 
@@ -1870,13 +1870,13 @@ class program {
                                 shapes: lines
                             };
                             Plotly.relayout("thzplot_Container", layout_update);
-                        } 
+                        }
                         else if (this.filetype == "depletion") { console.log('Graph plotted'); }
                         else if (this.filetype == "norm_tkplot") { console.log('Graph plotted'); }
                         else if (this.filetype == "exp_fit") {
 
-                            window.index = [];
-                            
+                            // window.index = []
+
                             Plotly.addTraces("avgplot", dataFromPython["fit"]);
 
                             window.line = [...window.line, ...dataFromPython["line"]];
@@ -1884,7 +1884,7 @@ class program {
 
                             window.annotations = [...window.annotations, dataFromPython["annotations"]];
                             Plotly.relayout("avgplot", { annotations: window.annotations });
-                        
+
                         } else if (this.filetype == "expfit_all") {
                             Plotly.relayout("avgplot", { annotations: [] });
                             Plotly.relayout("avgplot", { annotations: dataFromPython[2]["annotations"] });
@@ -1900,10 +1900,10 @@ class program {
                                 });
                             }
                         } else if (this.filetype == "find_peaks") {
-                            Plotly.relayout("mplot", { yaxis: {title:"Counts", type : "" }});
+                            Plotly.relayout("mplot", { yaxis: { title: "Counts", type: "" } });
                             Plotly.relayout("mplot", { annotations: [] });
                             Plotly.relayout("mplot", { annotations: dataFromPython["annotations"] });
-                            Plotly.relayout("mplot", { yaxis: {title:"Counts", type : "log" }});
+                            Plotly.relayout("mplot", { yaxis: { title: "Counts", type: "log" } });
                         }
 
                         console.log("Graph Plotted");
