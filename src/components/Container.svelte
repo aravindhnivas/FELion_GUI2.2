@@ -258,7 +258,6 @@
 
     console.log(`Button clicked (id): ${btname}`)
     if (btname === "createBaselineBtn"){btname="felix_Matplotlib"}
-    let output_filename = document.getElementById("avg_output_name").value
     
     switch (btname) {
 
@@ -272,7 +271,7 @@
 
         runPlot({
           fullfiles: fullfiles, filetype: filetag, btname: btname,
-          pyfile: "normline.py", normethod: normMethod, args: [delta, output_filename]
+          pyfile: "normline.py", normethod: normMethod, args: [delta, fit_files]
         })
         .then((output)=>{
           console.log(output)
@@ -296,7 +295,7 @@
         if (window.index.length > 0) {
           runPlot({
           fullfiles: fullfiles, filetype: "exp_fit", btname: btname,
-          pyfile: "exp_gauss_fit.py", args: [expfit_overwrite, output_filename, normMethod, currentLocation, ...window.index]
+          pyfile: "exp_gauss_fit.py", args: [expfit_overwrite, fit_files, normMethod, currentLocation, ...window.index]
           })
           .then((output)=>{
             console.log(output)
@@ -506,7 +505,6 @@
       })
   }
   
-  let output_filename =  "averaged";
 
   // Experimental fit (gaussian)
 
@@ -532,6 +530,7 @@
   $: fit_files = "averaged"
   $: fit_file_list_temp = fileChecked.map(file => file.split(".")[0])
   $: fit_file_list = ["averaged", ...fit_file_list_temp]
+
   $: fitall_tkplot_Peak_btnCSS = "is-link"
 
   $: expfit_log = ""
@@ -544,7 +543,6 @@
 
   function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all"} = {}) {
 
-    let output_filename = document.getElementById("avg_output_name").value
     let expfit_overwrite = document.getElementById("overwrite_expfit").checked
 
     runPlot({
@@ -572,9 +570,8 @@
 
   const delete_file_line = ({btname = "exp_fit"} = {}) => {
 
-    let output_filename = document.getElementById("avg_output_name").value
     runPlot({
-      fullfiles: [output_filename],
+      fullfiles: [fit_files],
       filetype: "general",
       filetag: filetag,
       btname: btname,
@@ -1041,7 +1038,6 @@
                           {/each}
                         </select>
                     </div>
-                      
                   </div>
 
                   <div class="level-item">
@@ -1063,13 +1059,18 @@
                 <div class="level-left">
 
                   <div class="level-item">
-                    <input class="input" type="text" id="avg_output_name" placeholder="Averaged spectra output filename"
-                      data-tippy="Averaged spectra output filename" bind:value={output_filename} disabled />
+                    <div class="select">
+                      <select id="expfitFiles" bind:value={fit_files}>
+                          {#each fit_file_list as file}
+                            <option>{file}</option>
+                          {/each}
+                        </select>
+                    </div>
                   </div>
 
                   <div class="level-item">
                     <div class="level-item button hvr-glow funcBtn is-link animated"
-                      id="exp_fit" on:click={functionRun}>Exp. Fit
+                      id="exp_fit" on:click={functionRun} data-tippy="Choose the file from the dropdown --> Fit">Exp. Fit
                     </div>
                   </div>
 
