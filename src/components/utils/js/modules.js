@@ -226,6 +226,7 @@ class program {
                                 if (!data) console.log("No data available to fit")
                                 else {
                                     console.log(data)
+                                    
                                     let { range } = data
                                     let filename = data.points[0].data.name.split(".")[0]
                                     window.index = range.x
@@ -233,8 +234,9 @@ class program {
 
                                     console.log(`Selected file: ${window.filename}`)
                                     console.log(`Index selected: ${window.index}`)
-                                    document.getElementById("avg_output_name").value = filename
                                     document.getElementById("fitFiles").value = filename
+                                    document.getElementById("expfitFiles").value = filename
+
                                 }
                             })
                         }

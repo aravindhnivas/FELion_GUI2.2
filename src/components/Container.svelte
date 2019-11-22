@@ -289,13 +289,15 @@
       case "exp_fit":
 
         let expfit_overwrite = document.getElementById("overwrite_expfit").checked
+        let fitfile = document.getElementById("expfitFiles").value
+
         console.log("Expfit overwrite: ", expfit_overwrite)
         console.log(`Avgplot Index: ${window.index}`)
 
         if (window.index.length > 0) {
           runPlot({
           fullfiles: fullfiles, filetype: "exp_fit", btname: btname,
-          pyfile: "exp_gauss_fit.py", args: [expfit_overwrite, fit_files, normMethod, currentLocation, ...window.index]
+          pyfile: "exp_gauss_fit.py", args: [expfit_overwrite, fitfile, normMethod, currentLocation, ...window.index]
           })
           .then((output)=>{
             console.log(output)
@@ -544,9 +546,10 @@
   function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all"} = {}) {
 
     let expfit_overwrite = document.getElementById("overwrite_expfit").checked
+    let fitfile = document.getElementById("fitFiles").value
 
     runPlot({
-      fullfiles: [fit_files],
+      fullfiles: [fitfile],
       filetype: filetype,
       filetag: filetag,
       btname: btname,
@@ -569,9 +572,9 @@
   }
 
   const delete_file_line = ({btname = "exp_fit"} = {}) => {
-
+    let fitfile = document.getElementById("expfitFiles").value
     runPlot({
-      fullfiles: [fit_files],
+      fullfiles: [fitfile],
       filetype: "general",
       filetag: filetag,
       btname: btname,
