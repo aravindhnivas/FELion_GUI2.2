@@ -2216,7 +2216,7 @@ function get_each_context_9(ctx, list, i) {
 	return child_ctx;
 }
 
-// (773:12) {#each funcBtns as { id, name }}
+// (772:12) {#each funcBtns as { id, name }}
 function create_each_block_9(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -2254,7 +2254,7 @@ function create_each_block_9(ctx) {
 	};
 }
 
-// (789:18) {:else}
+// (788:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2292,7 +2292,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (787:18) {#if name[0]==="Log"}
+// (786:18) {#if name[0]==="Log"}
 function create_if_block_12(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2330,7 +2330,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (782:12) {#each checkBtns as {id, name, bind, help}}
+// (781:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_8(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -2418,7 +2418,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (801:12) {#if filetag == 'felix'}
+// (800:12) {#if filetag == 'felix'}
 function create_if_block_11(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -2532,7 +2532,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (810:24) {#each normalisation_method as method}
+// (809:24) {#each normalisation_method as method}
 function create_each_block_7(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -2559,7 +2559,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (830:12) {#if filetag == 'thz'}
+// (829:12) {#if filetag == 'thz'}
 function create_if_block_10(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -2659,7 +2659,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (882:6) {#if filetag=="felix"}
+// (881:6) {#if filetag=="felix"}
 function create_if_block_9(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2780,7 +2780,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (901:6) {#if filetag=="scan"}
+// (900:6) {#if filetag=="scan"}
 function create_if_block_3(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -2910,7 +2910,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (914:28) {#if folderFile.files != undefined}
+// (913:28) {#if folderFile.files != undefined}
 function create_if_block_8(ctx) {
 	var each_1_anchor;
 
@@ -2973,7 +2973,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (915:31) {#each folderFile.files as scanfile}
+// (914:31) {#each folderFile.files as scanfile}
 function create_each_block_6(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3010,7 +3010,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (906:16) {#each ["ResON", "ResOFF"] as name}
+// (905:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_5(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3078,7 +3078,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (937:57) 
+// (936:57) 
 function create_if_block_7(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3117,7 +3117,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (935:52) 
+// (934:52) 
 function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3156,7 +3156,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (933:50) 
+// (932:50) 
 function create_if_block_5(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3195,7 +3195,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (931:22) {#if name=="Power (ON, OFF)"}
+// (930:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_4(ctx) {
 	var input, dispose;
 
@@ -3228,7 +3228,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (926:16) {#each depletionLabels as {name, id}}
+// (925:16) {#each depletionLabels as {name, id}}
 function create_each_block_4(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -3286,7 +3286,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (955:6) {#if filetag === "mass"}
+// (954:6) {#if filetag === "mass"}
 function create_if_block_2(ctx) {
 	var div9, div8, div7, div0, input0, input0_updating = false, t0, div1, input1, input1_updating = false, t1, div2, input2, input2_updating = false, t2, div4, div3, t4, div6, div5, dispose;
 
@@ -3349,7 +3349,7 @@ function create_if_block_2(ctx) {
 			attr(div2, "class", "level-item");
 			attr(div3, "class", "level-item button is-link hvr-glow funcBtn animated svelte-1z8f7");
 			attr(div3, "id", "mass_get_peaks");
-			attr(div3, "data-tippy", "Find the peaks by adjusting the prominence value");
+			attr(div3, "data-tippy", "Ctrl + Click the legend of plot --> Get Peaks");
 			attr(div4, "class", "level-item");
 			attr(div5, "class", "level-item button is-warning hvr-glow funcBtn animated svelte-1z8f7");
 			attr(div5, "id", "mass_clear_peaks");
@@ -3423,7 +3423,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (1114:12) {:else}
+// (1113:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3453,7 +3453,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (1005:38) 
+// (1004:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select0, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div29, div28, div15, div14, select1, t11, div17, div16, t13, div20, t16, div22, div21, t17, div21_class_value, t18, div24, div23, t19, div23_class_value, t20, div26, div25, t22, div27, h1, t23, t24, dispose;
 
@@ -3842,7 +3842,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (998:12) {#if filetag == 'scan'}
+// (997:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3916,7 +3916,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (1036:26) {#each fit_file_list as file}
+// (1035:26) {#each fit_file_list as file}
 function create_each_block_3(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -3953,7 +3953,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (1064:26) {#each fit_file_list as file}
+// (1063:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -3990,7 +3990,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (1000:16) {#each fileChecked as scanfile}
+// (999:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -4020,7 +4020,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (997:10) {#each plotID as id}
+// (996:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -5283,7 +5283,7 @@ function instance$4($$self, $$props, $$invalidate) {
 	$$invalidate('expfit_log', expfit_log = "");
 	$$invalidate('mass_peak_width', mass_peak_width = 2);
 	$$invalidate('mass_prominence', mass_prominence = 3);
-	$$invalidate('mass_peak_height', mass_peak_height = 10);
+	$$invalidate('mass_peak_height', mass_peak_height = 40);
 
 	return {
 		id,

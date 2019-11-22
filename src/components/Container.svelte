@@ -636,8 +636,7 @@
 
   $: mass_peak_width = 2
   $: mass_prominence = 3
-
-  $: mass_peak_height = 10
+  $: mass_peak_height = 40
   
   const find_masspec_peaks = () => {
 
@@ -974,7 +973,7 @@
 
                 <div class="level-item">
                     <div class="level-item button is-link hvr-glow funcBtn animated"
-                      id="mass_get_peaks" on:click={find_masspec_peaks} data-tippy="Find the peaks by adjusting the prominence value">Get Peaks
+                      id="mass_get_peaks" on:click={find_masspec_peaks} data-tippy="Ctrl + Click the legend of plot --> Get Peaks">Get Peaks
                     </div>
                 </div>
 
