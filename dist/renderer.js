@@ -1754,7 +1754,23 @@ class program {
                     try {
 
                         if (this.filetype == "mass") {
+                            window.massIndex = 0;
+
                             plot("Mass spectrum", "Mass [u]", "Counts", dataFromPython, "mplot", "mass");
+
+                            let mplotGraphDiv = document.getElementById("mplot");
+
+                            mplotGraphDiv.on("plotly_legendclick", (data) => {
+                                console.log(data);
+
+                                let ctrlPressed = data.event.ctrlKey;
+                                if (ctrlPressed) {
+                                    window.massIndex = data.curveNumber;
+                                }
+
+                                console.log(window.massIndex, ctrlPressed);
+                            });
+
                         } else if (this.filetype == "scan") {
                             let filename = this.obj.plotArea.split("_t")[0];
                             plot(`Timescan Plot: ${filename}`, "Time (in ms)", "Counts", dataFromPython, this.obj.plotArea);
@@ -5079,7 +5095,7 @@ function instance$4($$self, $$props, $$invalidate) {
     console.log("Finding masspec peaks");
 
     runPlot({
-      fullfiles: [fullfiles[0]],
+      fullfiles: [fullfiles[window.massIndex]],
       filetype: "find_peaks",
       filetag: filetag,
       btname: "mass_get_peaks",

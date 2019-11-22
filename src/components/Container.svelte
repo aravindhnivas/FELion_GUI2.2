@@ -644,7 +644,7 @@
     console.log("Finding masspec peaks")
 
     runPlot({
-      fullfiles: [fullfiles[0]],
+      fullfiles: [fullfiles[window.massIndex]],
       filetype: "find_peaks",
       filetag: filetag,
       btname: "mass_get_peaks",
