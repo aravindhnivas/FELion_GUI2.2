@@ -28,7 +28,7 @@ const mainPages = [
 				name: "Open in matplotlib"
 			}
 		],
-		plotID: ["exp-theory-plot", "bplot", "saPlot", "nplot", "avgplot"],
+		plotID: ["exp-theory-plot", "bplot", "saPlot", "avgplot"],
 		checkBtns: [
 			{
 				id: "felix_shell",

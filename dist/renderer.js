@@ -510,7 +510,7 @@ function create_else_block(ctx) {
 			t0 = text(t0_value);
 			t1 = space();
 			attr(li, "id", li_id_value = "" + ctx.item + "-nav");
-			attr(li, "class", "svelte-15h80tc");
+			attr(li, "class", "svelte-ceyz4r");
 			dispose = listen(a, "click", ctx.controlNav);
 		},
 
@@ -551,7 +551,7 @@ function create_if_block(ctx) {
 			a = element("a");
 			t0 = text(t0_value);
 			t1 = space();
-			attr(li, "class", "is-active svelte-15h80tc");
+			attr(li, "class", "is-active svelte-ceyz4r");
 			attr(li, "id", li_id_value = "" + ctx.item + "-nav");
 			dispose = listen(a, "click", ctx.controlNav);
 		},
@@ -646,14 +646,14 @@ function create_fragment$1(ctx) {
 			div1 = element("div");
 			div0 = element("div");
 			span = element("span");
-			span.innerHTML = `<i class="fas fa-bars fa-2x svelte-15h80tc" style="padding:0.5em;" aria-hidden="true" data-tippy="Show/Hide layout" data-tippy-placement="right-start" data-tippy-arrow="true"></i>`;
+			span.innerHTML = `<i class="fas fa-bars fa-2x svelte-ceyz4r" style="padding:0.5em;" aria-hidden="true" data-tippy="Show/Hide layout" data-tippy-placement="right-start" data-tippy-arrow="true"></i>`;
 			t = space();
 			ul = element("ul");
 
 			for (let i_1 = 0; i_1 < each_blocks.length; i_1 += 1) {
 				each_blocks[i_1].c();
 			}
-			attr(span, "class", "icon is-pulled-left svelte-15h80tc");
+			attr(span, "class", "icon is-pulled-left svelte-ceyz4r");
 			attr(span, "id", "fullToggle");
 			attr(div0, "class", "tabs is-centered is-boxed is-medium");
 			attr(div1, "class", "container is-fluid");
@@ -771,7 +771,6 @@ function instance$1($$self, $$props, $$invalidate) {
     Plotly.relayout("saPlot", obj);
     Plotly.relayout("bplot", obj);
     Plotly.relayout("avgplot", obj);
-    Plotly.relayout("nplot", obj);
 
     Plotly.relayout("exp-theory-plot", obj);
     Plotly.relayout("mplot", obj);
@@ -857,7 +856,7 @@ function get_each_context_1(ctx, list, i) {
 	return child_ctx;
 }
 
-// (268:8) {:else}
+// (228:8) {:else}
 function create_else_block_1(ctx) {
 	var li;
 
@@ -882,7 +881,7 @@ function create_else_block_1(ctx) {
 	};
 }
 
-// (202:8) {#if folderFile != undefined}
+// (162:8) {#if folderFile != undefined}
 function create_if_block$1(ctx) {
 	var li, aside, div, span0, t0, span1, t1_value = ctx.folderFile.parentFolder + "", t1, div_id_value, t2, ul, t3, ul_id_value, aside_id_value, t4, each1_anchor, dispose;
 
@@ -1071,7 +1070,7 @@ function create_if_block$1(ctx) {
 	};
 }
 
-// (229:16) {:else}
+// (189:16) {:else}
 function create_else_block$1(ctx) {
 	var li, div, t0, t1, t2;
 
@@ -1109,7 +1108,7 @@ function create_else_block$1(ctx) {
 	};
 }
 
-// (216:16) {#if folderFile.files.length > 0}
+// (176:16) {#if folderFile.files.length > 0}
 function create_if_block_1(ctx) {
 	var li, div1, input, input_id_value, t, div0, dispose;
 
@@ -1154,7 +1153,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (233:16) {#each folderFile.files.sort() as filename}
+// (193:16) {#each folderFile.files.sort() as filename}
 function create_each_block_1(ctx) {
 	var li, div1, input, input_id_value, input_class_value, t0, div0, i, t1, label, t2_value = ctx.filename + "", t2, label_for_value, t3, li_class_value, dispose;
 
@@ -1228,7 +1227,7 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (253:10) {#each folderFile.folders as foldername}
+// (213:10) {#each folderFile.folders as foldername}
 function create_each_block$1(ctx) {
 	var li, aside, div, span0, t0, span1, t1_value = ctx.foldername + "", t1, span1_id_value, t2, dispose;
 
@@ -1545,7 +1544,6 @@ function instance$3($$self, $$props, $$invalidate) {
   };
 
   let display = "block";
-  let visible = true;
 
 	const click_handler = () => changeDir('..');
 
@@ -1571,7 +1569,7 @@ function instance$3($$self, $$props, $$invalidate) {
       } else {
         $$invalidate('folderFile', folderFile = updateFolder(currentLocation));
       } }
-		if ($$dirty.visible) { visible ? ($$invalidate('display', display = "block")) : ($$invalidate('display', display = "none")); }
+		if ($$dirty.visible) {  ($$invalidate('display', display = "block")) ; }
 	};
 
 	return {
@@ -1775,7 +1773,6 @@ class program {
 
                             if (normMethod === "Log") {
 
-                                felixdataToPlot = dataFromPython["felix"];
                                 avgdataToPlot = dataFromPython["average"];
 
                                 signal_formula = "Signal = -ln(C/B)/Power(in J)";
@@ -1783,7 +1780,6 @@ class program {
 
                             } else if (normMethod == "Relative") {
 
-                                felixdataToPlot = dataFromPython["felix_rel"];
                                 avgdataToPlot = dataFromPython["average_rel"];
 
                                 signal_formula = "Signal = (1-C/B)*100";
@@ -1791,7 +1787,6 @@ class program {
 
                             } else if (normMethod == "IntensityPerPhoton") {
 
-                                felixdataToPlot = dataFromPython["felix_per_photon"];
                                 avgdataToPlot = dataFromPython["average_per_photon"];
 
                                 signal_formula = "Signal = -ln(C/B)/#Photons";
@@ -1807,14 +1802,7 @@ class program {
                             );
 
                             plot(
-                                `Normalized Spectrum (delta=${delta})<br>${signal_formula}; {C=Measured Count, B=Baseline Count}`,
-                                "Calibrated Wavelength (cm-1)",
-                                ylabel,
-                                felixdataToPlot,
-                                "nplot"
-                            );
-                            plot(
-                                `Average of Normalised Spectrum (delta=${delta})`,
+                                `Normalised and Averaged Spectrum (delta=${delta})<br>${signal_formula}; {C=Measured Count, B=Baseline Count}`,
                                 "Calibrated Wavelength (cm-1)",
                                 ylabel,
                                 avgdataToPlot,
@@ -22959,7 +22947,7 @@ const mainPages = [
                 name: "Open in matplotlib"
             }
         ],
-        plotID: ["exp-theory-plot", "bplot", "saPlot", "nplot", "avgplot"],
+        plotID: ["exp-theory-plot", "bplot", "saPlot", "avgplot"],
         checkBtns: [
             {
                 id: "felix_shell",

@@ -172,7 +172,6 @@ class program {
 
                             if (normMethod === "Log") {
 
-                                felixdataToPlot = dataFromPython["felix"];
                                 avgdataToPlot = dataFromPython["average"]
 
                                 signal_formula = "Signal = -ln(C/B)/Power(in J)"
@@ -180,7 +179,6 @@ class program {
 
                             } else if (normMethod == "Relative") {
 
-                                felixdataToPlot = dataFromPython["felix_rel"]
                                 avgdataToPlot = dataFromPython["average_rel"]
 
                                 signal_formula = "Signal = (1-C/B)*100"
@@ -188,7 +186,6 @@ class program {
 
                             } else if (normMethod == "IntensityPerPhoton") {
 
-                                felixdataToPlot = dataFromPython["felix_per_photon"]
                                 avgdataToPlot = dataFromPython["average_per_photon"]
 
                                 signal_formula = "Signal = -ln(C/B)/#Photons"
@@ -204,14 +201,7 @@ class program {
                             );
 
                             plot(
-                                `Normalized Spectrum (delta=${delta})<br>${signal_formula}; {C=Measured Count, B=Baseline Count}`,
-                                "Calibrated Wavelength (cm-1)",
-                                ylabel,
-                                felixdataToPlot,
-                                "nplot"
-                            );
-                            plot(
-                                `Average of Normalised Spectrum (delta=${delta})`,
+                                `Normalised and Averaged Spectrum (delta=${delta})<br>${signal_formula}; {C=Measured Count, B=Baseline Count}`,
                                 "Calibrated Wavelength (cm-1)",
                                 ylabel,
                                 avgdataToPlot,

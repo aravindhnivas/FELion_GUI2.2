@@ -172,65 +172,8 @@ class normplot:
             
             ################### Spectrum Analyser END #################################
 
-            ################### FELIX Spectrum #################################
 
-            # Normalised Intensity
-            dataToSend["felix"][f"{felixfile}_histo"] = {
-                "x": list(wavelength),
-                "y": list(intensity),
-                "name": felixfile,
-                "type": "bar",
-                "marker": {"color": f"rgb{colors[c]}"},
-                "legendgroup": 'group',
-            }
-
-            dataToSend["felix"][felixfile] = {
-                "x": list(wavelength),
-                "y": list(intensity),
-                "name": felixfile,
-                "type": "scatter",
-                "line": {"color": f"rgb{colors[c]}"},
-            }
-
-            # Relative Depletion Intensity
-
-            dataToSend["felix_rel"][f"{felixfile}_histo"] = {
-                "x": list(wavelength_rel),
-                "y": list(relative_depletion),
-                "name": felixfile,
-                "type": "bar",
-                "marker": {"color": f"rgb{colors[c]}"},
-                "legendgroup": 'group',
-            }
-
-            dataToSend["felix_rel"][felixfile] = {
-                "x": list(wavelength_rel),
-                "y": list(relative_depletion),
-                "name": felixfile,
-                "type": "scatter",
-                "line": {"color": f"rgb{colors[c]}"},
-            }
-
-            # Intensity Per photon
-            dataToSend["felix_per_photon"][f"{felixfile}_histo"] = {
-                "x": list(wavelength),
-                "y": list(energyJ),
-                "name": felixfile,
-                "type": "bar",
-                "marker": {"color": f"rgb{colors[c]}"},
-                "legendgroup": 'group',
-            }
-
-            dataToSend["felix_per_photon"][felixfile] = {
-                "x": list(wavelength),
-                "y": list(energyJ),
-                "name": felixfile,
-                "type": "scatter",
-                "line": {"color": f"rgb{colors[c]}"},
-            }
-            ################### FELIX Spectrum END #################################
-
-            ################### Averaged Spectrum #################################
+            ################### Averaged and Normalised Spectrum #################################
 
             # Normalised Intensity
 
@@ -238,8 +181,10 @@ class normplot:
                 "x": list(wavelength),
                 "y": list(intensity),
                 "name": felixfile,
-                "mode": "markers",
+                "fill": 'tozeroy',
+                "mode": "lines+markers",
                 "line": {"color": f"rgb{colors[c]}"},
+                "marker": {"size":1}
             }
 
             # Relative Depletion Intensity
@@ -247,8 +192,10 @@ class normplot:
                 "x": list(wavelength_rel),
                 "y": list(relative_depletion),
                 "name": felixfile,
-                "mode": "markers",
+                "fill": 'tozeroy',
+                "mode": "lines+markers",
                 "line": {"color": f"rgb{colors[c]}"},
+                "marker": {"size":1}
             }
 
             # Intensitz per photon
@@ -256,8 +203,10 @@ class normplot:
                 "x": list(wavelength),
                 "y": list(energyJ),
                 "name": felixfile,
-                "mode": "markers",
+                "fill": 'tozeroy',
+                "mode": "lines+markers",
                 "line": {"color": f"rgb{colors[c]}"},
+                "marker": {"size":1}
             }
             ################### Averaged Spectrum END #################################
 
@@ -318,6 +267,7 @@ class normplot:
             "name": "averaged",
             "mode": "lines+markers",
             "line": {"color": "black"},
+            "marker": {"size":1}
         }
 
         # For intensityPerPhoton
@@ -328,6 +278,7 @@ class normplot:
             "name": "averaged",
             "mode": "lines+markers",
             "line": {"color": "black"},
+            "marker": {"size":1}
         }
 
 
@@ -339,6 +290,7 @@ class normplot:
             "name": "averaged",
             "mode": "lines+markers",
             "line": {"color": "black"},
+            "marker": {"size":1}
         }
 
         # Exporting averaged.dat file

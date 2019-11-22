@@ -63,41 +63,8 @@
   let display = "block";
   let visible = true;
   $: visible ? (display = "block") : (display = "none");
-
   let animation = "animated fadeIn";
-  const fileExplorerToggle = event => {
-    let $target = jq(event.target);
-    visible = !visible;
 
-    let $filebrowser = jq(`#${filetag}filebrowserColumn`);
-    let $filebrowserNav = jq(`#${filetag}filebrowserColumn nav`);
-    let $plotContainer = jq(`#${filetag}plotMainContainer`);
-
-    if (visible) {
-      $filebrowser.css("max-width", "100%");
-      $filebrowserNav.css("max-width", "100%");
-      $plotContainer.css("width", "80%");
-      if ($target.hasClass("fa-rotate-90")) {
-        $target.removeClass("fa-rotate-90");
-      }
-    } else {
-      $filebrowser.css("max-width", "2%");
-      $filebrowserNav.css("max-width", "3%");
-      $plotContainer.css("width", "95%");
-      $target.addClass("fa-rotate-90");
-    }
-
-    let obj = { width: $plotContainer.width() * 0.97 };
-    if (filetag == "felix") {
-      Plotly.relayout("saPlot", obj);
-      Plotly.relayout("bplot", obj);
-      Plotly.relayout("avgplot", obj);
-      Plotly.relayout("nplot", obj);
-      Plotly.relayout("exp-theory-plot", obj);
-    } else if (filetag == "mass") {
-      Plotly.relayout("mplot", obj);
-    }
-  };
   
 </script>
 
@@ -135,13 +102,6 @@
 
       <div class="level-left">
         <div class="level-item">
-          <!-- <span class="icon">
-            <i
-              class="fas fa-bars"
-              style="padding-right:0.5em; cursor:pointer"
-              on:click={fileExplorerToggle}
-              aria-hidden="true" />
-          </span> -->
           <span class={animation} style="display:{display}">File Explorer</span>
         </div>
       </div>

@@ -55,7 +55,6 @@
     Plotly.relayout("saPlot", obj);
     Plotly.relayout("bplot", obj);
     Plotly.relayout("avgplot", obj);
-    Plotly.relayout("nplot", obj);
 
     Plotly.relayout("exp-theory-plot", obj);
     Plotly.relayout("mplot", obj);
@@ -64,6 +63,7 @@
 </script>
 
 <style>
+
   i:focus {outline-color: transparent;}
   #fullToggle {
 
