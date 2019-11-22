@@ -277,8 +277,12 @@ class program {
                             window.index = []
                             
                             Plotly.addTraces("avgplot", dataFromPython["fit"])
+
                             window.line = [...window.line, ...dataFromPython["line"]]
                             Plotly.relayout("avgplot", { shapes: window.line })
+
+                            window.annotations = [...window.annotations, dataFromPython["annotations"]]
+                            Plotly.relayout("avgplot", { annotations: window.annotations })
                         
                         } else if (this.filetype == "expfit_all") {
                             Plotly.relayout("avgplot", { annotations: [] })

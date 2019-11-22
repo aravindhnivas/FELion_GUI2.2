@@ -7,11 +7,11 @@ import sys
 import numpy as np
 
 # FELion module
-from FELion_definitions import gauss_fit
-from FELion_definitions import read_dat_file
+from FELion_definitions import gauss_fit, read_dat_file
+from FELion_constants import colors 
 
 
-def exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite=False, tkplot=False, getvalue=False):
+def exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite=False, fullfiles=None, tkplot=False, getvalue=False):
 
     if location.name is "DATA": datfile_location = location.parent/"EXPORT"
     else: datfile_location = location/"EXPORT"
@@ -19,6 +19,17 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite=
 
     readfile = f"{datfile_location}/{output_filename}.dat"
     wn, inten = read_dat_file(readfile, norm_method)
+
+    if not getvalue:
+        
+        if output_filename == "averaged": line_color = "black"
+        else:
+            index = fullfiles.index(output_filename)
+
+            if index == 0: line_color = f"rgb{colors[index]}"
+            else: line_color = f"rgb{colors[2*index]}"
+
+    else: line_color = "black"
 
     # Getting data from the selected range
     index = np.logical_and(wn > start_wn, wn < end_wn)
@@ -38,11 +49,15 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite=
 
     data = {
 
-        "fit": {"x":list(wn), "y":list(fit_data), "name":f"{uline_freq:.2uP}; A: {uamplitude:.2uP}, {_del}: {ufwhm:.2uP}", "mode": "lines", "line": {"color": "black"}},
+        "fit": {"x":list(wn), "y":list(fit_data), "name":f"{uline_freq:.2uP}; A: {uamplitude:.2uP}, {_del}: {ufwhm:.2uP}", "mode": "lines", "line": {"color":line_color}},
         "line": [
-            {"type":"line", "x0":line_freq_fit, "x1":line_freq_fit, "y0":0, "y1":amplitude, "line":{"color":"black"}},
-            {"type":"line", "x0":line_freq_fit-fwhm/2, "x1":line_freq_fit+fwhm/2, "y0":amplitude/2, "y1":amplitude/2, "line":{"color":"black", "dash":"dot"}}
-        ]
+            {"type":"line", "x0":line_freq_fit, "x1":line_freq_fit, "y0":0, "y1":amplitude, "line":{"color":line_color}},
+            {"type":"line", "x0":line_freq_fit-fwhm/2, "x1":line_freq_fit+fwhm/2, "y0":amplitude/2, "y1":amplitude/2, "line":{"color":line_color, "dash":"dot"}}
+        ],
+        "annotations": {
+            "x": uline_freq.nominal_value, "y": uamplitude.nominal_value, "xref": 'x', "yref": 'y', "text": f'{uline_freq:.2uP}',
+            "showarrow": True, "arrowhead": 2, "ax": -25, "ay": -40
+        }
     }
     if getvalue: return data, uline_freq, usigma, uamplitude, ufwhm
     filename = f"{output_filename}.expfit"
@@ -62,6 +77,8 @@ if __name__ == "__main__":
 
     args = sys.argv[1:][0].split(",")
 
+    fullfiles = [pt(i).stem for i in args[0:-6]]
+
     start_wn = float(args[-2])
     end_wn = float(args[-1])
 
@@ -74,4 +91,4 @@ if __name__ == "__main__":
     if overwrite == "true": overwrite = True
     else: overwrite = False
     
-    exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite)
+    exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite, fullfiles)

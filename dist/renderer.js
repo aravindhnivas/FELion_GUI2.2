@@ -1878,8 +1878,12 @@ class program {
                             window.index = [];
                             
                             Plotly.addTraces("avgplot", dataFromPython["fit"]);
+
                             window.line = [...window.line, ...dataFromPython["line"]];
                             Plotly.relayout("avgplot", { shapes: window.line });
+
+                            window.annotations = [...window.annotations, dataFromPython["annotations"]];
+                            Plotly.relayout("avgplot", { annotations: window.annotations });
                         
                         } else if (this.filetype == "expfit_all") {
                             Plotly.relayout("avgplot", { annotations: [] });
@@ -4896,7 +4900,7 @@ function instance$4($$self, $$props, $$invalidate) {
 
   let ready_to_fit = false;
 
-  function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all", for_masspec=false} = {}) {
+  function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all"} = {}) {
 
     let output_filename = document.getElementById("avg_output_name").value;
     let expfit_overwrite = document.getElementById("overwrite_expfit").checked;
@@ -4907,7 +4911,7 @@ function instance$4($$self, $$props, $$invalidate) {
       filetag: filetag,
       btname: btname,
       pyfile: "fit_all.py",
-      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite, tkplot, for_masspec]
+      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite, tkplot]
     })
     .then((output)=>console.log(output))
     .catch((err)=>{

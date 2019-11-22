@@ -542,7 +542,7 @@
 
   let ready_to_fit = false
 
-  function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all", for_masspec=false} = {}) {
+  function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all"} = {}) {
 
     let output_filename = document.getElementById("avg_output_name").value
     let expfit_overwrite = document.getElementById("overwrite_expfit").checked
@@ -553,7 +553,7 @@
       filetag: filetag,
       btname: btname,
       pyfile: "fit_all.py",
-      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite, tkplot, for_masspec]
+      args: [currentLocation, normMethod, prominence, runfit, peak_width, peak_height, expfit_overwrite, tkplot]
     })
     .then((output)=>console.log(output))
     .catch((err)=>{
