@@ -639,11 +639,12 @@
   $: mass_peak_height = 40
   
   const find_masspec_peaks = () => {
-
     console.log("Finding masspec peaks")
 
+    let sendMassFile = path.join(currentLocation, massFiles.value)
+
     runPlot({
-      fullfiles: [fullfiles[window.massIndex]],
+      fullfiles: [sendMassFile],
       filetype: "find_peaks",
       filetag: filetag,
       btname: "mass_get_peaks",
@@ -657,7 +658,6 @@
       modal[filetag]="is-active"
     })
   }
-
   const clear_mass_peaks = () => {Plotly.relayout("mplot", { annotations: [] })}
 
 </script>
@@ -957,6 +957,16 @@
             <div class="level-left">
 
               <div class="level-item">
+                <div class="select">
+                  <select id="massFiles">
+                      {#each fileChecked as file}
+                        <option>{file}</option>
+                      {/each}
+                    </select>
+                </div>
+              </div>
+
+              <div class="level-item">
                     <input class="input" type="number" placeholder="Peak prominance value"
                       data-tippy="Peak prominace value" bind:value={mass_prominence} on:change={find_masspec_peaks} min="0" step="0.5"/>
                 </div>
@@ -973,7 +983,7 @@
 
                 <div class="level-item">
                     <div class="level-item button is-link hvr-glow funcBtn animated"
-                      id="mass_get_peaks" on:click={find_masspec_peaks} data-tippy="Ctrl + Click the legend of plot --> Get Peaks">Get Peaks
+                      id="mass_get_peaks" on:click={find_masspec_peaks} >Get Peaks
                     </div>
                 </div>
 

@@ -1754,22 +1754,7 @@ class program {
                     try {
 
                         if (this.filetype == "mass") {
-                            window.massIndex = 0;
-
                             plot("Mass spectrum", "Mass [u]", "Counts", dataFromPython, "mplot", "mass");
-
-                            let mplotGraphDiv = document.getElementById("mplot");
-
-                            mplotGraphDiv.on("plotly_legendclick", (data) => {
-                                console.log(data);
-
-                                let ctrlPressed = data.event.ctrlKey;
-                                if (ctrlPressed) {
-                                    window.massIndex = data.curveNumber;
-                                }
-
-                                console.log(window.massIndex, ctrlPressed);
-                            });
 
                         } else if (this.filetype == "scan") {
                             let filename = this.obj.plotArea.split("_t")[0];
@@ -2177,30 +2162,36 @@ function get_each_context$2(ctx, list, i) {
 
 function get_each_context_4(ctx, list, i) {
 	const child_ctx = Object.create(ctx);
-	child_ctx.name = list[i].name;
-	child_ctx.id = list[i].id;
-	return child_ctx;
-}
-
-function get_each_context_6(ctx, list, i) {
-	const child_ctx = Object.create(ctx);
-	child_ctx.scanfile = list[i];
+	child_ctx.file = list[i];
 	return child_ctx;
 }
 
 function get_each_context_5(ctx, list, i) {
 	const child_ctx = Object.create(ctx);
-	child_ctx.name = list[i];
+	child_ctx.name = list[i].name;
+	child_ctx.id = list[i].id;
 	return child_ctx;
 }
 
 function get_each_context_7(ctx, list, i) {
 	const child_ctx = Object.create(ctx);
-	child_ctx.method = list[i];
+	child_ctx.scanfile = list[i];
+	return child_ctx;
+}
+
+function get_each_context_6(ctx, list, i) {
+	const child_ctx = Object.create(ctx);
+	child_ctx.name = list[i];
 	return child_ctx;
 }
 
 function get_each_context_8(ctx, list, i) {
+	const child_ctx = Object.create(ctx);
+	child_ctx.method = list[i];
+	return child_ctx;
+}
+
+function get_each_context_9(ctx, list, i) {
 	const child_ctx = Object.create(ctx);
 	child_ctx.id = list[i].id;
 	child_ctx.name = list[i].name;
@@ -2209,7 +2200,7 @@ function get_each_context_8(ctx, list, i) {
 	return child_ctx;
 }
 
-function get_each_context_9(ctx, list, i) {
+function get_each_context_10(ctx, list, i) {
 	const child_ctx = Object.create(ctx);
 	child_ctx.id = list[i].id;
 	child_ctx.name = list[i].name;
@@ -2217,7 +2208,7 @@ function get_each_context_9(ctx, list, i) {
 }
 
 // (772:12) {#each funcBtns as { id, name }}
-function create_each_block_9(ctx) {
+function create_each_block_10(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
 	return {
@@ -2331,7 +2322,7 @@ function create_if_block_12(ctx) {
 }
 
 // (781:12) {#each checkBtns as {id, name, bind, help}}
-function create_each_block_8(ctx) {
+function create_each_block_9(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
 	function select_block_type(changed, ctx) {
@@ -2422,12 +2413,12 @@ function create_each_block_8(ctx) {
 function create_if_block_11(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
-	let each_value_7 = ctx.normalisation_method;
+	let each_value_8 = ctx.normalisation_method;
 
 	let each_blocks = [];
 
-	for (let i = 0; i < each_value_7.length; i += 1) {
-		each_blocks[i] = create_each_block_7(get_each_context_7(ctx, each_value_7, i));
+	for (let i = 0; i < each_value_8.length; i += 1) {
+		each_blocks[i] = create_each_block_8(get_each_context_8(ctx, each_value_8, i));
 	}
 
 	function input_input_handler() {
@@ -2494,16 +2485,16 @@ function create_if_block_11(ctx) {
 
 		p(changed, ctx) {
 			if (changed.normalisation_method) {
-				each_value_7 = ctx.normalisation_method;
+				each_value_8 = ctx.normalisation_method;
 
 				let i;
-				for (i = 0; i < each_value_7.length; i += 1) {
-					const child_ctx = get_each_context_7(ctx, each_value_7, i);
+				for (i = 0; i < each_value_8.length; i += 1) {
+					const child_ctx = get_each_context_8(ctx, each_value_8, i);
 
 					if (each_blocks[i]) {
 						each_blocks[i].p(changed, child_ctx);
 					} else {
-						each_blocks[i] = create_each_block_7(child_ctx);
+						each_blocks[i] = create_each_block_8(child_ctx);
 						each_blocks[i].c();
 						each_blocks[i].m(select, null);
 					}
@@ -2512,7 +2503,7 @@ function create_if_block_11(ctx) {
 				for (; i < each_blocks.length; i += 1) {
 					each_blocks[i].d(1);
 				}
-				each_blocks.length = each_value_7.length;
+				each_blocks.length = each_value_8.length;
 			}
 
 			if (changed.normMethod) select_option(select, ctx.normMethod);
@@ -2533,7 +2524,7 @@ function create_if_block_11(ctx) {
 }
 
 // (809:24) {#each normalisation_method as method}
-function create_each_block_7(ctx) {
+function create_each_block_8(ctx) {
 	var option, t_value = ctx.method + "", t;
 
 	return {
@@ -2784,20 +2775,20 @@ function create_if_block_9(ctx) {
 function create_if_block_3(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
-	let each_value_5 = ["ResON", "ResOFF"];
+	let each_value_6 = ["ResON", "ResOFF"];
 
 	let each_blocks_1 = [];
 
 	for (let i = 0; i < 2; i += 1) {
-		each_blocks_1[i] = create_each_block_5(get_each_context_5(ctx, each_value_5, i));
+		each_blocks_1[i] = create_each_block_6(get_each_context_6(ctx, each_value_6, i));
 	}
 
-	let each_value_4 = ctx.depletionLabels;
+	let each_value_5 = ctx.depletionLabels;
 
 	let each_blocks = [];
 
-	for (let i = 0; i < each_value_4.length; i += 1) {
-		each_blocks[i] = create_each_block_4(get_each_context_4(ctx, each_value_4, i));
+	for (let i = 0; i < each_value_5.length; i += 1) {
+		each_blocks[i] = create_each_block_5(get_each_context_5(ctx, each_value_5, i));
 	}
 
 	return {
@@ -2853,16 +2844,16 @@ function create_if_block_3(ctx) {
 
 		p(changed, ctx) {
 			if (changed.folderFile || changed.undefined) {
-				each_value_5 = ["ResON", "ResOFF"];
+				each_value_6 = ["ResON", "ResOFF"];
 
 				let i;
-				for (i = 0; i < each_value_5.length; i += 1) {
-					const child_ctx = get_each_context_5(ctx, each_value_5, i);
+				for (i = 0; i < each_value_6.length; i += 1) {
+					const child_ctx = get_each_context_6(ctx, each_value_6, i);
 
 					if (each_blocks_1[i]) {
 						each_blocks_1[i].p(changed, child_ctx);
 					} else {
-						each_blocks_1[i] = create_each_block_5(child_ctx);
+						each_blocks_1[i] = create_each_block_6(child_ctx);
 						each_blocks_1[i].c();
 						each_blocks_1[i].m(div0, t0);
 					}
@@ -2874,16 +2865,16 @@ function create_if_block_3(ctx) {
 			}
 
 			if (changed.depletionLabels || changed.powerinfo || changed.nshots || changed.massIndex || changed.timestartIndex) {
-				each_value_4 = ctx.depletionLabels;
+				each_value_5 = ctx.depletionLabels;
 
 				let i;
-				for (i = 0; i < each_value_4.length; i += 1) {
-					const child_ctx = get_each_context_4(ctx, each_value_4, i);
+				for (i = 0; i < each_value_5.length; i += 1) {
+					const child_ctx = get_each_context_5(ctx, each_value_5, i);
 
 					if (each_blocks[i]) {
 						each_blocks[i].p(changed, child_ctx);
 					} else {
-						each_blocks[i] = create_each_block_4(child_ctx);
+						each_blocks[i] = create_each_block_5(child_ctx);
 						each_blocks[i].c();
 						each_blocks[i].m(div0, null);
 					}
@@ -2892,7 +2883,7 @@ function create_if_block_3(ctx) {
 				for (; i < each_blocks.length; i += 1) {
 					each_blocks[i].d(1);
 				}
-				each_blocks.length = each_value_4.length;
+				each_blocks.length = each_value_5.length;
 			}
 		},
 
@@ -2914,12 +2905,12 @@ function create_if_block_3(ctx) {
 function create_if_block_8(ctx) {
 	var each_1_anchor;
 
-	let each_value_6 = ctx.folderFile.files;
+	let each_value_7 = ctx.folderFile.files;
 
 	let each_blocks = [];
 
-	for (let i = 0; i < each_value_6.length; i += 1) {
-		each_blocks[i] = create_each_block_6(get_each_context_6(ctx, each_value_6, i));
+	for (let i = 0; i < each_value_7.length; i += 1) {
+		each_blocks[i] = create_each_block_7(get_each_context_7(ctx, each_value_7, i));
 	}
 
 	return {
@@ -2941,16 +2932,16 @@ function create_if_block_8(ctx) {
 
 		p(changed, ctx) {
 			if (changed.folderFile) {
-				each_value_6 = ctx.folderFile.files;
+				each_value_7 = ctx.folderFile.files;
 
 				let i;
-				for (i = 0; i < each_value_6.length; i += 1) {
-					const child_ctx = get_each_context_6(ctx, each_value_6, i);
+				for (i = 0; i < each_value_7.length; i += 1) {
+					const child_ctx = get_each_context_7(ctx, each_value_7, i);
 
 					if (each_blocks[i]) {
 						each_blocks[i].p(changed, child_ctx);
 					} else {
-						each_blocks[i] = create_each_block_6(child_ctx);
+						each_blocks[i] = create_each_block_7(child_ctx);
 						each_blocks[i].c();
 						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
 					}
@@ -2959,7 +2950,7 @@ function create_if_block_8(ctx) {
 				for (; i < each_blocks.length; i += 1) {
 					each_blocks[i].d(1);
 				}
-				each_blocks.length = each_value_6.length;
+				each_blocks.length = each_value_7.length;
 			}
 		},
 
@@ -2974,7 +2965,7 @@ function create_if_block_8(ctx) {
 }
 
 // (914:31) {#each folderFile.files as scanfile}
-function create_each_block_6(ctx) {
+function create_each_block_7(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
 	return {
@@ -3011,7 +3002,7 @@ function create_each_block_6(ctx) {
 }
 
 // (905:16) {#each ["ResON", "ResOFF"] as name}
-function create_each_block_5(ctx) {
+function create_each_block_6(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
 	var if_block = (ctx.folderFile.files != ctx.undefined) && create_if_block_8(ctx);
@@ -3229,7 +3220,7 @@ function create_if_block_4(ctx) {
 }
 
 // (925:16) {#each depletionLabels as {name, id}}
-function create_each_block_4(ctx) {
+function create_each_block_5(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
 	function select_block_type_1(changed, ctx) {
@@ -3288,7 +3279,15 @@ function create_each_block_4(ctx) {
 
 // (954:6) {#if filetag === "mass"}
 function create_if_block_2(ctx) {
-	var div9, div8, div7, div0, input0, input0_updating = false, t0, div1, input1, input1_updating = false, t1, div2, input2, input2_updating = false, t2, div4, div3, t4, div6, div5, dispose;
+	var div11, div10, div9, div1, div0, select, t0, div2, input0, input0_updating = false, t1, div3, input1, input1_updating = false, t2, div4, input2, input2_updating = false, t3, div6, div5, t5, div8, div7, dispose;
+
+	let each_value_4 = ctx.fileChecked;
+
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value_4.length; i += 1) {
+		each_blocks[i] = create_each_block_4(get_each_context_4(ctx, each_value_4, i));
+	}
 
 	function input0_input_handler_2() {
 		input0_updating = true;
@@ -3307,61 +3306,72 @@ function create_if_block_2(ctx) {
 
 	return {
 		c() {
+			div11 = element("div");
+			div10 = element("div");
 			div9 = element("div");
-			div8 = element("div");
-			div7 = element("div");
-			div0 = element("div");
-			input0 = element("input");
-			t0 = space();
 			div1 = element("div");
-			input1 = element("input");
-			t1 = space();
+			div0 = element("div");
+			select = element("select");
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			t0 = space();
 			div2 = element("div");
-			input2 = element("input");
+			input0 = element("input");
+			t1 = space();
+			div3 = element("div");
+			input1 = element("input");
 			t2 = space();
 			div4 = element("div");
-			div3 = element("div");
-			div3.textContent = "Get Peaks";
-			t4 = space();
+			input2 = element("input");
+			t3 = space();
 			div6 = element("div");
 			div5 = element("div");
-			div5.textContent = "Clear";
+			div5.textContent = "Get Peaks";
+			t5 = space();
+			div8 = element("div");
+			div7 = element("div");
+			div7.textContent = "Clear";
+			attr(select, "id", "massFiles");
+			attr(div0, "class", "select");
+			attr(div1, "class", "level-item");
 			attr(input0, "class", "input svelte-1z8f7");
 			attr(input0, "type", "number");
 			attr(input0, "placeholder", "Peak prominance value");
 			attr(input0, "data-tippy", "Peak prominace value");
 			attr(input0, "min", "0");
 			attr(input0, "step", "0.5");
-			attr(div0, "class", "level-item");
+			attr(div2, "class", "level-item");
 			attr(input1, "class", "input svelte-1z8f7");
 			attr(input1, "type", "number");
 			attr(input1, "placeholder", "Peak width");
 			attr(input1, "data-tippy", "Optional: Peak width");
 			attr(input1, "min", "0");
 			attr(input1, "step", "0.5");
-			attr(div1, "class", "level-item");
+			attr(div3, "class", "level-item");
 			attr(input2, "class", "input svelte-1z8f7");
 			attr(input2, "type", "number");
 			attr(input2, "placeholder", "Peak Height");
 			attr(input2, "data-tippy", "Optional: Peak Height");
 			attr(input2, "min", "0");
 			attr(input2, "step", "0.5");
-			attr(div2, "class", "level-item");
-			attr(div3, "class", "level-item button is-link hvr-glow funcBtn animated svelte-1z8f7");
-			attr(div3, "id", "mass_get_peaks");
-			attr(div3, "data-tippy", "Ctrl + Click the legend of plot --> Get Peaks");
 			attr(div4, "class", "level-item");
-			attr(div5, "class", "level-item button is-warning hvr-glow funcBtn animated svelte-1z8f7");
-			attr(div5, "id", "mass_clear_peaks");
-			attr(div5, "data-tippy", "Clear all peaks");
+			attr(div5, "class", "level-item button is-link hvr-glow funcBtn animated svelte-1z8f7");
+			attr(div5, "id", "mass_get_peaks");
 			attr(div6, "class", "level-item");
-			attr(div7, "class", "level-left");
-			attr(div8, "class", "level");
-			attr(div9, "class", "row svelte-1z8f7");
-			attr(div9, "id", "mass_peak_find_row");
-			set_style(div9, "display", "block");
-			set_style(div9, "padding-bottom", "1em");
-			set_style(div9, "margin-left", "0.7em");
+			attr(div7, "class", "level-item button is-warning hvr-glow funcBtn animated svelte-1z8f7");
+			attr(div7, "id", "mass_clear_peaks");
+			attr(div7, "data-tippy", "Clear all peaks");
+			attr(div8, "class", "level-item");
+			attr(div9, "class", "level-left");
+			attr(div10, "class", "level");
+			attr(div11, "class", "row svelte-1z8f7");
+			attr(div11, "id", "mass_peak_find_row");
+			set_style(div11, "display", "block");
+			set_style(div11, "padding-bottom", "1em");
+			set_style(div11, "margin-left", "0.7em");
 
 			dispose = [
 				listen(input0, "input", input0_input_handler_2),
@@ -3370,41 +3380,72 @@ function create_if_block_2(ctx) {
 				listen(input1, "change", ctx.find_masspec_peaks),
 				listen(input2, "input", input2_input_handler),
 				listen(input2, "change", ctx.find_masspec_peaks),
-				listen(div3, "click", ctx.find_masspec_peaks),
-				listen(div5, "click", ctx.clear_mass_peaks)
+				listen(div5, "click", ctx.find_masspec_peaks),
+				listen(div7, "click", ctx.clear_mass_peaks)
 			];
 		},
 
 		m(target, anchor) {
-			insert(target, div9, anchor);
-			append(div9, div8);
-			append(div8, div7);
-			append(div7, div0);
-			append(div0, input0);
+			insert(target, div11, anchor);
+			append(div11, div10);
+			append(div10, div9);
+			append(div9, div1);
+			append(div1, div0);
+			append(div0, select);
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(select, null);
+			}
+
+			append(div9, t0);
+			append(div9, div2);
+			append(div2, input0);
 
 			set_input_value(input0, ctx.mass_prominence);
 
-			append(div7, t0);
-			append(div7, div1);
-			append(div1, input1);
+			append(div9, t1);
+			append(div9, div3);
+			append(div3, input1);
 
 			set_input_value(input1, ctx.mass_peak_width);
 
-			append(div7, t1);
-			append(div7, div2);
-			append(div2, input2);
+			append(div9, t2);
+			append(div9, div4);
+			append(div4, input2);
 
 			set_input_value(input2, ctx.mass_peak_height);
 
-			append(div7, t2);
-			append(div7, div4);
-			append(div4, div3);
-			append(div7, t4);
-			append(div7, div6);
+			append(div9, t3);
+			append(div9, div6);
 			append(div6, div5);
+			append(div9, t5);
+			append(div9, div8);
+			append(div8, div7);
 		},
 
 		p(changed, ctx) {
+			if (changed.fileChecked) {
+				each_value_4 = ctx.fileChecked;
+
+				let i;
+				for (i = 0; i < each_value_4.length; i += 1) {
+					const child_ctx = get_each_context_4(ctx, each_value_4, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(changed, child_ctx);
+					} else {
+						each_blocks[i] = create_each_block_4(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(select, null);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+				each_blocks.length = each_value_4.length;
+			}
+
 			if (!input0_updating && changed.mass_prominence) set_input_value(input0, ctx.mass_prominence);
 			input0_updating = false;
 			if (!input1_updating && changed.mass_peak_width) set_input_value(input1, ctx.mass_peak_width);
@@ -3415,15 +3456,54 @@ function create_if_block_2(ctx) {
 
 		d(detaching) {
 			if (detaching) {
-				detach(div9);
+				detach(div11);
 			}
+
+			destroy_each(each_blocks, detaching);
 
 			run_all(dispose);
 		}
 	};
 }
 
-// (1113:12) {:else}
+// (962:22) {#each fileChecked as file}
+function create_each_block_4(ctx) {
+	var option, t_value = ctx.file + "", t, option_value_value;
+
+	return {
+		c() {
+			option = element("option");
+			t = text(t_value);
+			option.__value = option_value_value = ctx.file;
+			option.value = option.__value;
+		},
+
+		m(target, anchor) {
+			insert(target, option, anchor);
+			append(option, t);
+		},
+
+		p(changed, ctx) {
+			if ((changed.fileChecked) && t_value !== (t_value = ctx.file + "")) {
+				set_data(t, t_value);
+			}
+
+			if ((changed.fileChecked) && option_value_value !== (option_value_value = ctx.file)) {
+				option.__value = option_value_value;
+			}
+
+			option.value = option.__value;
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(option);
+			}
+		}
+	};
+}
+
+// (1123:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3453,7 +3533,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (1004:38) 
+// (1014:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select0, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div29, div28, div15, div14, select1, t11, div17, div16, t13, div20, t16, div22, div21, t17, div21_class_value, t18, div24, div23, t19, div23_class_value, t20, div26, div25, t22, div27, h1, t23, t24, dispose;
 
@@ -3842,7 +3922,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (997:12) {#if filetag == 'scan'}
+// (1007:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -3916,7 +3996,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (1035:26) {#each fit_file_list as file}
+// (1045:26) {#each fit_file_list as file}
 function create_each_block_3(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -3953,7 +4033,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (1063:26) {#each fit_file_list as file}
+// (1073:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -3990,7 +4070,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (999:16) {#each fileChecked as scanfile}
+// (1009:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -4020,7 +4100,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (996:10) {#each plotID as id}
+// (1006:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var if_block_anchor;
 
@@ -4081,20 +4161,20 @@ function create_fragment$4(ctx) {
 	}
 	});
 
-	let each_value_9 = ctx.funcBtns;
+	let each_value_10 = ctx.funcBtns;
 
 	let each_blocks_2 = [];
 
-	for (let i = 0; i < each_value_9.length; i += 1) {
-		each_blocks_2[i] = create_each_block_9(get_each_context_9(ctx, each_value_9, i));
+	for (let i = 0; i < each_value_10.length; i += 1) {
+		each_blocks_2[i] = create_each_block_10(get_each_context_10(ctx, each_value_10, i));
 	}
 
-	let each_value_8 = ctx.checkBtns;
+	let each_value_9 = ctx.checkBtns;
 
 	let each_blocks_1 = [];
 
-	for (let i = 0; i < each_value_8.length; i += 1) {
-		each_blocks_1[i] = create_each_block_8(get_each_context_8(ctx, each_value_8, i));
+	for (let i = 0; i < each_value_9.length; i += 1) {
+		each_blocks_1[i] = create_each_block_9(get_each_context_9(ctx, each_value_9, i));
 	}
 
 	var if_block0 = (ctx.filetag == 'felix') && create_if_block_11(ctx);
@@ -4333,16 +4413,16 @@ function create_fragment$4(ctx) {
 			}
 
 			if (changed.funcBtns) {
-				each_value_9 = ctx.funcBtns;
+				each_value_10 = ctx.funcBtns;
 
 				let i;
-				for (i = 0; i < each_value_9.length; i += 1) {
-					const child_ctx = get_each_context_9(ctx, each_value_9, i);
+				for (i = 0; i < each_value_10.length; i += 1) {
+					const child_ctx = get_each_context_10(ctx, each_value_10, i);
 
 					if (each_blocks_2[i]) {
 						each_blocks_2[i].p(changed, child_ctx);
 					} else {
-						each_blocks_2[i] = create_each_block_9(child_ctx);
+						each_blocks_2[i] = create_each_block_10(child_ctx);
 						each_blocks_2[i].c();
 						each_blocks_2[i].m(div9, t12);
 					}
@@ -4351,20 +4431,20 @@ function create_fragment$4(ctx) {
 				for (; i < each_blocks_2.length; i += 1) {
 					each_blocks_2[i].d(1);
 				}
-				each_blocks_2.length = each_value_9.length;
+				each_blocks_2.length = each_value_10.length;
 			}
 
 			if (changed.checkBtns) {
-				each_value_8 = ctx.checkBtns;
+				each_value_9 = ctx.checkBtns;
 
 				let i;
-				for (i = 0; i < each_value_8.length; i += 1) {
-					const child_ctx = get_each_context_8(ctx, each_value_8, i);
+				for (i = 0; i < each_value_9.length; i += 1) {
+					const child_ctx = get_each_context_9(ctx, each_value_9, i);
 
 					if (each_blocks_1[i]) {
 						each_blocks_1[i].p(changed, child_ctx);
 					} else {
-						each_blocks_1[i] = create_each_block_8(child_ctx);
+						each_blocks_1[i] = create_each_block_9(child_ctx);
 						each_blocks_1[i].c();
 						each_blocks_1[i].m(div9, t13);
 					}
@@ -4373,7 +4453,7 @@ function create_fragment$4(ctx) {
 				for (; i < each_blocks_1.length; i += 1) {
 					each_blocks_1[i].d(1);
 				}
-				each_blocks_1.length = each_value_8.length;
+				each_blocks_1.length = each_value_9.length;
 			}
 
 			if (ctx.filetag == 'felix') {
@@ -5091,11 +5171,12 @@ function instance$4($$self, $$props, $$invalidate) {
   };
   
   const find_masspec_peaks = () => {
-
     console.log("Finding masspec peaks");
 
+    let sendMassFile = path.join(currentLocation, massFiles.value);
+
     runPlot({
-      fullfiles: [fullfiles[window.massIndex]],
+      fullfiles: [sendMassFile],
       filetype: "find_peaks",
       filetag: filetag,
       btname: "mass_get_peaks",
@@ -5109,7 +5190,6 @@ function instance$4($$self, $$props, $$invalidate) {
       $$invalidate('modal', modal[filetag]="is-active", modal);
     });
   };
-
   const clear_mass_peaks = () => {Plotly.relayout("mplot", { annotations: [] });};
 
 	const click_handler = () => $$invalidate('modal', modal[filetag]='', modal);
