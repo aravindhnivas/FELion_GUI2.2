@@ -65,16 +65,10 @@
   $: visible ? (display = "block") : (display = "none");
   let animation = "animated fadeIn";
 
-  
 </script>
 
 <style>
-  .filexplorer {
-    overflow-y: auto;
-    position: absolute;
-    height: 63vh;
-    width: 15.3%;
-  }
+ 
   .menu-list {
     padding-left: 2em;
   }
@@ -93,6 +87,18 @@
     height: 100%;
   }
 
+   .filexplorer {
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+
+ .otherFolderList {
+  margin-top: 1em;
+ }
+  .folderContainerPanelBlock {
+    height:63vh;
+    overflow: auto;
+  }
 </style>
 
 <nav class="panel">
@@ -155,12 +161,11 @@
       <div class="animated fadeIn" id="{filetag}locationUpdate" style="display:none">Location Update</div>
     </div>
     
-    <div class="panel-block filexplorer">
+    <div class="panel-block folderContainerPanelBlock">
 
       <ul>
 
         {#if folderFile != undefined}
-
           <li>
             <aside class="menu" id="{filetag}FileBrowser">
 
@@ -171,7 +176,7 @@
                 <span>{folderFile.parentFolder}</span>
               </div>
 
-              <ul class="menu-list" id="{filetag}FileContainer">
+              <ul class="menu-list filexplorer" id="{filetag}FileContainer">
                 
                 {#if folderFile.files.length > 0}
                   <li>
@@ -187,7 +192,7 @@
                     </div>
                   </li>
                 {:else}
-                  <li><div style="margin:2em;">No {filetag} files here</div></li>
+                  <li><div >No {filetag} files here</div></li>
                 {/if}
 
                 {#each folderFile.files.sort() as filename}
@@ -209,26 +214,29 @@
               </ul>
             </aside>
           </li>
-
-          {#each folderFile.folders as foldername}
-              <li>
-                <aside class="menu">
-                  <div class="menu-label has-text-white">
-                    <span class="icon">
-                      <i class="fas fa-angle-right" aria-hidden="true" />
-                    </span>
-                    <span id={foldername} on:click={() => changeDir(foldername)}>
-                      {foldername}
-                    </span>
-                  </div>
-                </aside>
-              </li>
-          {/each}
-
+          
+          <li class="otherFolderList">
+            <ul>
+              {#each folderFile.folders as foldername}
+                  <li>
+                    <aside class="menu">
+                      <div class="menu-label has-text-white">
+                        <span class="icon">
+                          <i class="fas fa-angle-right" aria-hidden="true" />
+                        </span>
+                        <span id={foldername} on:click={() => changeDir(foldername)}>
+                          {foldername}
+                        </span>
+                      </div>
+                    </aside>
+                  </li>
+              {/each}
+            </ul>
+          </li>
         {:else}
             <li><h1 class="subtitle">Browse to load files</h1></li>
         {/if}
-      
+        
       </ul>
 
     </div>
