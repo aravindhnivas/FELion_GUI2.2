@@ -58,7 +58,8 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
             "arrowhead": 2,
             "ax": -25,
             "ay": -40,
-            "font":{"color":line_color}
+            "font":{"color":line_color}, "arrowcolor":line_color
+            
         }
         for x, y in zip(wn_, inten_)
     ]
