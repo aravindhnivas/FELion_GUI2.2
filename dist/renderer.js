@@ -313,108 +313,121 @@ function transition_out(block, local, detach, callback) {
     }
 }
 const null_transition = { duration: 0 };
-function create_bidirectional_transition(node, fn, params, intro) {
+function create_in_transition(node, fn, params) {
     let config = fn(node, params);
-    let t = intro ? 0 : 1;
-    let running_program = null;
-    let pending_program = null;
-    let animation_name = null;
-    function clear_animation() {
+    let running = false;
+    let animation_name;
+    let task;
+    let uid = 0;
+    function cleanup() {
         if (animation_name)
             delete_rule(node, animation_name);
     }
-    function init(program, duration) {
-        const d = program.b - t;
-        duration *= Math.abs(d);
-        return {
-            a: t,
-            b: program.b,
-            d,
-            duration,
-            start: program.start,
-            end: program.start + duration,
-            group: program.group
-        };
-    }
-    function go(b) {
+    function go() {
         const { delay = 0, duration = 300, easing = identity, tick = noop, css } = config || null_transition;
-        const program = {
-            start: now() + delay,
-            b
-        };
-        if (!b) {
-            // @ts-ignore todo: improve typings
-            program.group = outros;
-            outros.r += 1;
-        }
-        if (running_program) {
-            pending_program = program;
-        }
-        else {
-            // if this is an intro, and there's a delay, we need to do
-            // an initial tick and/or apply CSS animation immediately
-            if (css) {
-                clear_animation();
-                animation_name = create_rule(node, t, b, duration, delay, easing, css);
+        if (css)
+            animation_name = create_rule(node, 0, 1, duration, delay, easing, css, uid++);
+        tick(0, 1);
+        const start_time = now() + delay;
+        const end_time = start_time + duration;
+        if (task)
+            task.abort();
+        running = true;
+        add_render_callback(() => dispatch(node, true, 'start'));
+        task = loop(now => {
+            if (running) {
+                if (now >= end_time) {
+                    tick(1, 0);
+                    dispatch(node, true, 'end');
+                    cleanup();
+                    return running = false;
+                }
+                if (now >= start_time) {
+                    const t = easing((now - start_time) / duration);
+                    tick(t, 1 - t);
+                }
             }
-            if (b)
-                tick(0, 1);
-            running_program = init(program, duration);
-            add_render_callback(() => dispatch(node, b, 'start'));
-            loop(now => {
-                if (pending_program && now > pending_program.start) {
-                    running_program = init(pending_program, duration);
-                    pending_program = null;
-                    dispatch(node, running_program.b, 'start');
-                    if (css) {
-                        clear_animation();
-                        animation_name = create_rule(node, t, running_program.b, running_program.duration, 0, easing, config.css);
-                    }
-                }
-                if (running_program) {
-                    if (now >= running_program.end) {
-                        tick(t = running_program.b, 1 - t);
-                        dispatch(node, running_program.b, 'end');
-                        if (!pending_program) {
-                            // we're done
-                            if (running_program.b) {
-                                // intro — we can tidy up immediately
-                                clear_animation();
-                            }
-                            else {
-                                // outro — needs to be coordinated
-                                if (!--running_program.group.r)
-                                    run_all(running_program.group.c);
-                            }
-                        }
-                        running_program = null;
-                    }
-                    else if (now >= running_program.start) {
-                        const p = now - running_program.start;
-                        t = running_program.a + running_program.d * easing(p / running_program.duration);
-                        tick(t, 1 - t);
-                    }
-                }
-                return !!(running_program || pending_program);
-            });
-        }
+            return running;
+        });
     }
+    let started = false;
     return {
-        run(b) {
+        start() {
+            if (started)
+                return;
+            delete_rule(node);
             if (is_function(config)) {
-                wait().then(() => {
-                    // @ts-ignore
-                    config = config();
-                    go(b);
-                });
+                config = config();
+                wait().then(go);
             }
             else {
-                go(b);
+                go();
             }
         },
+        invalidate() {
+            started = false;
+        },
         end() {
-            clear_animation();
-            running_program = pending_program = null;
+            if (running) {
+                cleanup();
+                running = false;
+            }
+        }
+    };
+}
+function create_out_transition(node, fn, params) {
+    let config = fn(node, params);
+    let running = true;
+    let animation_name;
+    const group = outros;
+    group.r += 1;
+    function go() {
+        const { delay = 0, duration = 300, easing = identity, tick = noop, css } = config || null_transition;
+        if (css)
+            animation_name = create_rule(node, 1, 0, duration, delay, easing, css);
+        const start_time = now() + delay;
+        const end_time = start_time + duration;
+        add_render_callback(() => dispatch(node, false, 'start'));
+        loop(now => {
+            if (running) {
+                if (now >= end_time) {
+                    tick(0, 1);
+                    dispatch(node, false, 'end');
+                    if (!--group.r) {
+                        // this will result in `end()` being called,
+                        // so we don't need to clean up here
+                        run_all(group.c);
+                    }
+                    return false;
+                }
+                if (now >= start_time) {
+                    const t = easing((now - start_time) / duration);
+                    tick(1 - t, t);
+                }
+            }
+            return running;
+        });
+    }
+    if (is_function(config)) {
+        wait().then(() => {
+            // @ts-ignore
+            config = config();
+            go();
+        });
+    }
+    else {
+        go();
+    }
+    return {
+        end(reset) {
+            if (reset && config.tick) {
+                config.tick(1, 0);
+            }
+            if (running) {
+                if (animation_name)
+                    delete_rule(node, animation_name);
+                running = false;
+            }
         }
     };
 }
@@ -2351,12 +2364,31 @@ function directoryTree (path, options, onEachFile, onEachDirectory) {
 
 var directoryTree_1 = directoryTree;
 
+function cubicOut(t) {
+    const f = t - 1.0;
+    return f * f * f + 1.0;
+}
+
 function fade(node, { delay = 0, duration = 400 }) {
     const o = +getComputedStyle(node).opacity;
     return {
         delay,
         duration,
         css: t => `opacity: ${t * o}`
+    };
+}
+function fly(node, { delay = 0, duration = 400, easing = cubicOut, x = 0, y = 0, opacity = 0 }) {
+    const style = getComputedStyle(node);
+    const target_opacity = +style.opacity;
+    const transform = style.transform === 'none' ? '' : style.transform;
+    const od = target_opacity * (1 - opacity);
+    return {
+        delay,
+        duration,
+        easing,
+        css: (t, u) => `
+			transform: ${transform} translate(${(1 - t) * x}px, ${(1 - t) * y}px);
+			opacity: ${target_opacity - (od * u)}`
     };
 }
 
@@ -2433,7 +2465,7 @@ function get_each_context_10(ctx, list, i) {
 	return child_ctx;
 }
 
-// (783:12) {#each funcBtns as { id, name }}
+// (782:12) {#each funcBtns as { id, name }}
 function create_each_block_10(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -2471,7 +2503,7 @@ function create_each_block_10(ctx) {
 	};
 }
 
-// (799:18) {:else}
+// (798:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2509,7 +2541,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (797:18) {#if name[0]==="Log"}
+// (796:18) {#if name[0]==="Log"}
 function create_if_block_13(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -2547,7 +2579,7 @@ function create_if_block_13(ctx) {
 	};
 }
 
-// (792:12) {#each checkBtns as {id, name, bind, help}}
+// (791:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_9(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -2635,7 +2667,7 @@ function create_each_block_9(ctx) {
 	};
 }
 
-// (811:12) {#if filetag == 'felix'}
+// (810:12) {#if filetag == 'felix'}
 function create_if_block_12(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -2749,7 +2781,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (820:24) {#each normalisation_method as method}
+// (819:24) {#each normalisation_method as method}
 function create_each_block_8(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -2776,7 +2808,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (840:12) {#if filetag == 'thz'}
+// (839:12) {#if filetag == 'thz'}
 function create_if_block_11(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -2876,7 +2908,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (892:6) {#if filetag=="felix"}
+// (891:6) {#if filetag=="felix"}
 function create_if_block_10(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -2997,7 +3029,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (911:6) {#if filetag=="scan"}
+// (910:6) {#if filetag=="scan"}
 function create_if_block_4(ctx) {
 	var div3, div1, div0, t0, t1, div2, button, dispose;
 
@@ -3127,7 +3159,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (924:28) {#if folderFile.files != undefined}
+// (923:28) {#if folderFile.files != undefined}
 function create_if_block_9(ctx) {
 	var each_1_anchor;
 
@@ -3190,7 +3222,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (925:31) {#each folderFile.files as scanfile}
+// (924:31) {#each folderFile.files as scanfile}
 function create_each_block_7(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3227,7 +3259,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (916:16) {#each ["ResON", "ResOFF"] as name}
+// (915:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_6(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3295,7 +3327,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (947:57) 
+// (946:57) 
 function create_if_block_8(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3334,7 +3366,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (945:52) 
+// (944:52) 
 function create_if_block_7(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3373,7 +3405,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (943:50) 
+// (942:50) 
 function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3412,7 +3444,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (941:22) {#if name=="Power (ON, OFF)"}
+// (940:22) {#if name=="Power (ON, OFF)"}
 function create_if_block_5(ctx) {
 	var input, dispose;
 
@@ -3445,7 +3477,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (936:16) {#each depletionLabels as {name, id}}
+// (935:16) {#each depletionLabels as {name, id}}
 function create_each_block_5(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0, t2;
 
@@ -3503,7 +3535,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (965:6) {#if filetag === "mass"}
+// (964:6) {#if filetag === "mass"}
 function create_if_block_3(ctx) {
 	var div11, div10, div9, div1, div0, select, t0, div2, input0, input0_updating = false, t1, div3, input1, input1_updating = false, t2, div4, input2, input2_updating = false, t3, div6, div5, t5, div8, div7, dispose;
 
@@ -3692,7 +3724,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (973:22) {#each fileChecked as file}
+// (972:22) {#each fileChecked as file}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -3729,7 +3761,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (1132:12) {:else}
+// (1131:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -3762,7 +3794,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (1025:38) 
+// (1024:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select0, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div28, div27, div15, div14, select1, t11, div17, div16, t13, div20, t16, div22, div21, t17, div21_class_value, t18, div24, div23, t19, div23_class_value, t20, div26, div25, t22, t23, current, dispose;
 
@@ -4173,7 +4205,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (1018:12) {#if filetag == 'scan'}
+// (1017:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -4250,7 +4282,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (1056:26) {#each fit_file_list as file}
+// (1055:26) {#each fit_file_list as file}
 function create_each_block_3(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4287,7 +4319,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (1084:26) {#each fit_file_list as file}
+// (1083:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4324,9 +4356,9 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (1124:18) {#if expfit_log_display}
+// (1123:18) {#if expfit_log_display}
 function create_if_block_2(ctx) {
-	var div, label, t, div_transition, current;
+	var div, label, t, div_intro, div_outro, current;
 
 	return {
 		c() {
@@ -4355,16 +4387,18 @@ function create_if_block_2(ctx) {
 		i(local) {
 			if (current) return;
 			add_render_callback(() => {
-				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {delay: 250, duration: 300}, true);
-				div_transition.run(1);
+				if (div_outro) div_outro.end(1);
+				if (!div_intro) div_intro = create_in_transition(div, fade, {});
+				div_intro.start();
 			});
 
 			current = true;
 		},
 
 		o(local) {
-			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {delay: 250, duration: 300}, false);
-			div_transition.run(0);
+			if (div_intro) div_intro.invalidate();
+
+			div_outro = create_out_transition(div, fly, { y: 50, duration: 1000 });
 
 			current = false;
 		},
@@ -4372,13 +4406,13 @@ function create_if_block_2(ctx) {
 		d(detaching) {
 			if (detaching) {
 				detach(div);
-				if (div_transition) div_transition.end();
+				if (div_outro) div_outro.end();
 			}
 		}
 	};
 }
 
-// (1020:16) {#each fileChecked as scanfile}
+// (1019:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -4408,7 +4442,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (1017:10) {#each plotID as id}
+// (1016:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var current_block_type_index, if_block, if_block_anchor, current;
 
@@ -5426,14 +5460,13 @@ function instance$4($$self, $$props, $$invalidate) {
         $$invalidate('modal', modal["scan"]="is-active", modal);
       });
   };
-
   const expfit_log_it = (str) => {
     
     $$invalidate('expfit_log_display', expfit_log_display = true);
     $$invalidate('expfit_log', expfit_log = str);
     setTimeout(()=>{
       $$invalidate('expfit_log_display', expfit_log_display = false);
-    }, 2000);
+    }, 4000);
   };
 
   let ready_to_fit = false;

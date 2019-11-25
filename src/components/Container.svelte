@@ -4,7 +4,7 @@
   import Filebrowser from "./utils/Filebrowser.svelte";
   import { runPlot } from "./utils/js/felion_main.js";
   import * as dirTree from "directory-tree";
-  import { fade } from 'svelte/transition';
+  import { fade, fly } from 'svelte/transition';
 
   export let id;
   export let filetag;
@@ -539,14 +539,13 @@
   // expfit clear and clear all status
   $: expfit_log_display = false
   $: expfit_log = ""
-
   const expfit_log_it = (str) => {
     
     expfit_log_display = true
     expfit_log = str
     setTimeout(()=>{
       expfit_log_display = false
-    }, 2000)
+    }, 4000)
   }
 
   let ready_to_fit = false
@@ -1122,7 +1121,7 @@
                   </div>
 
                   {#if expfit_log_display}
-                    <div class="level-item" transition:fade="{{delay: 250, duration: 300}}" id="expfit_log_id">
+                    <div class="level-item" in:fade out:fly="{{ y: 50, duration: 1000 }}" id="expfit_log_id">
                       <label class="label" style="font-weight:400">{expfit_log}</label>
                     </div>
                   {/if}
