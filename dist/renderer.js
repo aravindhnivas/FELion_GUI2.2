@@ -6406,7 +6406,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (490:20) {#each items as item}
+// (487:20) {#each items as item}
 function create_each_block$3(ctx) {
 	let li;
 	let a;
@@ -6437,21 +6437,29 @@ function create_each_block$3(ctx) {
 	};
 }
 
-// (528:28) {#if saveChanges}
+// (525:28) {#if saveChanges}
 function create_if_block$3(ctx) {
 	let h1;
 	let h1_transition;
 	let current;
+	let dispose;
 
 	return {
 		c() {
 			h1 = element("h1");
 			h1.textContent = "Changes saved!";
 			attr(h1, "class", "subtitle");
+
+			dispose = listen(h1, "introend", function () {
+				setTimeout(ctx.introend_handler, 2000).apply(this, arguments);
+			});
 		},
 		m(target, anchor) {
 			insert(target, h1, anchor);
 			current = true;
+		},
+		p(changed, new_ctx) {
+			ctx = new_ctx;
 		},
 		i(local) {
 			if (current) return;
@@ -6471,6 +6479,7 @@ function create_if_block$3(ctx) {
 		d(detaching) {
 			if (detaching) detach(h1);
 			if (detaching && h1_transition) h1_transition.end();
+			dispose();
 		}
 	};
 }
@@ -6629,7 +6638,7 @@ function create_fragment$6(ctx) {
 		each_blocks[i] = create_each_block$3(get_each_context$3(ctx, each_value, i));
 	}
 
-	let if_block = ctx.saveChanges && create_if_block$3();
+	let if_block = ctx.saveChanges && create_if_block$3(ctx);
 
 	return {
 		c() {
@@ -7089,13 +7098,14 @@ function create_fragment$6(ctx) {
 			}
 
 			if (ctx.saveChanges) {
-				if (!if_block) {
-					if_block = create_if_block$3();
+				if (if_block) {
+					if_block.p(changed, ctx);
+					transition_in(if_block, 1);
+				} else {
+					if_block = create_if_block$3(ctx);
 					if_block.c();
 					transition_in(if_block, 1);
 					if_block.m(div7, null);
-				} else {
-					transition_in(if_block, 1);
 				}
 			} else if (if_block) {
 				group_outros();
@@ -7209,7 +7219,6 @@ function instance$6($$self, $$props, $$invalidate) {
 		localStorage["pythonscript"] = pythonscript;
 		console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`);
 		$$invalidate("saveChanges", saveChanges = true);
-		setTimeout(() => $$invalidate("saveChanges", saveChanges = false), 3000);
 	};
 
 	const toggle = event => {
@@ -7571,6 +7580,8 @@ function instance$6($$self, $$props, $$invalidate) {
 		$$invalidate("pythonscript", pythonscript);
 	}
 
+	const introend_handler = () => $$invalidate("saveChanges", saveChanges = false);
+
 	function input2_change_handler() {
 		developer_mode = this.checked;
 		$$invalidate("developer_mode", developer_mode);
@@ -7677,6 +7688,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		developer_mode,
 		input0_input_handler,
 		input1_input_handler,
+		introend_handler,
 		input2_change_handler,
 		click_handler,
 		change_handler,

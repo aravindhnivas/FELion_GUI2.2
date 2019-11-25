@@ -38,19 +38,17 @@
     let items = ["Configuration", "Update", "About"]
 
     //////////////////////////////////////////////////// FUNCTIONS ////////////////////////////////////////////////////
-    $: saveChanges = false
 
+    $: saveChanges = false
     const configSave = () => {
 
         localStorage["pythonpath"] = pythonpath
         localStorage["pythonscript"] = pythonscript
         console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`)
         saveChanges = true
-        setTimeout(()=>saveChanges=false, 3000)
     }
 
     // Page toggle function
-    
     const toggle = (event) => {
         let target = event.target.id
         items.forEach(item=>{
@@ -379,7 +377,6 @@
     }
 
     $: restoreClass = "is-warning"
-    
 
     const restore = () =>{
         restoreClass = "is-warning is-loading"
@@ -526,7 +523,7 @@
                         <div class="control" >
                             <button class="button is-link is-pulled-right" on:click={configSave}>Save</button>
                             {#if saveChanges}
-                                <h1 class="subtitle" transition:fade>Changes saved!</h1>
+                                <h1 class="subtitle" transition:fade on:introend="{setTimeout(() => saveChanges=false, 2000)}">Changes saved!</h1>
                             {/if}
                         </div>
                     
