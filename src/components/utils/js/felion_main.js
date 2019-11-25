@@ -70,6 +70,7 @@ function runPlot({ fullfiles, filetype, btname, pyfile, filetag = null, args = [
     })
 }
 
+
 $(document).on('animationend', '.funcBtn', (event) => {
 
     let $target = $(event.target);
@@ -82,8 +83,4 @@ $(document).on('animationend', '.funcBtn', (event) => {
     if ($target[0].id === "norm_tkplot" || $target[0].id === "exp_fit") if ($target.hasClass("fadeInUp")) $target.removeClass("fadeInUp");
 
 });
-
-// $(".plotContainer .container").on("plotly_click", "#avgplot", (data) => {
-//     console.log(data)
-// })
 export { runPlot };
