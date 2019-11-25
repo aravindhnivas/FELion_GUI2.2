@@ -6,6 +6,8 @@
     export let showinfo;
     export let electron;
 
+    import { fade, fly } from 'svelte/transition';
+
     // Importing modules
     const {exec} = require("child_process")
     const https = require('https');
@@ -36,33 +38,19 @@
     let items = ["Configuration", "Update", "About"]
 
     //////////////////////////////////////////////////// FUNCTIONS ////////////////////////////////////////////////////
-
-    // Config save function
-
-    const fadeInfadeOut = () => {
-
-        saveChanges = "block"
-        setTimeout(()=>saveChangeanimate="fadeOut", 1200)
-        setTimeout(()=>{
-            saveChangeanimate = "fadeIn"
-            saveChanges = "none"
-        }, 2000)
-    }
-
-    $: saveChanges = "none"
-    $: saveChangeanimate = "fadeIn"
+    $: saveChanges = false
 
     const configSave = () => {
 
         localStorage["pythonpath"] = pythonpath
         localStorage["pythonscript"] = pythonscript
         console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`)
-
-        fadeInfadeOut()
-
+        saveChanges = true
+        setTimeout(()=>saveChanges=false, 3000)
     }
 
     // Page toggle function
+    
     const toggle = (event) => {
         let target = event.target.id
         items.forEach(item=>{
@@ -535,9 +523,11 @@
                         </div>
 
                         <!-- Save changes button -->
-                        <div class="control">
+                        <div class="control" >
                             <button class="button is-link is-pulled-right" on:click={configSave}>Save</button>
-                            <h1 class="subtitle animated {saveChangeanimate}" style="display:{saveChanges}">Changes saved!</h1>
+                            {#if saveChanges}
+                                <h1 class="subtitle" transition:fade>Changes saved!</h1>
+                            {/if}
                         </div>
                     
                         <div class="control">
