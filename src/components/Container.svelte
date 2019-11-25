@@ -4,6 +4,7 @@
   import Filebrowser from "./utils/Filebrowser.svelte";
   import { runPlot } from "./utils/js/felion_main.js";
   import * as dirTree from "directory-tree";
+  import { fade } from 'svelte/transition';
 
   export let id;
   export let filetag;
@@ -535,10 +536,17 @@
 
   $: fitall_tkplot_Peak_btnCSS = "is-link"
 
+  // expfit clear and clear all status
+  $: expfit_log_display = false
   $: expfit_log = ""
+
   const expfit_log_it = (str) => {
+    
+    expfit_log_display = true
     expfit_log = str
-    setTimeout(()=>{expfit_log = ""}, 2000)
+    setTimeout(()=>{
+      expfit_log_display = false
+    }, 2000)
   }
 
   let ready_to_fit = false
@@ -1113,13 +1121,11 @@
                       </div>
                   </div>
 
-                  <div class="level-item" id="expfit_log_id">
-                    <!-- <div class="notification is-warning">
-                      <button class="delete" on:click="{()=>expfit_log = ""}"></button>
-                      {expfit_log}
-                    </div> -->
-                      <h1 class="subtitle">{expfit_log}</h1>
-                  </div>
+                  {#if expfit_log_display}
+                    <div class="level-item" transition:fade="{{delay: 250, duration: 300}}" id="expfit_log_id">
+                      <label class="label" style="font-weight:400">{expfit_log}</label>
+                    </div>
+                  {/if}
                 </div>
               </div>
               
