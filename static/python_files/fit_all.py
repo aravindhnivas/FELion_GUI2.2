@@ -64,6 +64,7 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
         for x, y in zip(wn_, inten_)
     ]
     dataToSend = [{"data": data["data"]}, {"extras":data["extras"]}, {"annotations":data["annotations"]}]
+
     if not fitall:
         dataJson = json.dumps(dataToSend)
         print(dataJson)
@@ -105,7 +106,7 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
                 else:
                     annotate = {
                         "x": uline_freq.nominal_value, "y": uamplitude.nominal_value, "xref": 'x', "yref": 'y', "text": f'{uline_freq:.2uP}', "font":{"color":line_color},
-                        "showarrow": True, "arrowhead": 2, "ax": -25, "ay": -40
+                        "arrowcolor":line_color, "showarrow": True, "arrowhead": 2, "ax": -25, "ay": -40
                     }
                     annotations.append(annotate)
                     get_data.append(get_data_temp)
