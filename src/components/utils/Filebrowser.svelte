@@ -88,7 +88,7 @@
   }
 
   .filexplorer {
-    max-height: 30vh;
+    max-height: 40vh;
     overflow-y: auto;
   }
 

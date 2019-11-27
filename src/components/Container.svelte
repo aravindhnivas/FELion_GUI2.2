@@ -550,6 +550,7 @@
     
     expfit_log_display = true
     expfit_log = str
+    
     setTimeout(()=>{
       expfit_log_display = false
     }, 4000)
