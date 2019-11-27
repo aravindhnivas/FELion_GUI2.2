@@ -2,11 +2,14 @@
 const { spawn, exec } = require("child_process");
 const path = require('path');
 const fs = require("fs")
-
-let plot_width = window.screen.width * .65;
-let plot_height = window.screen.width * .22;
+let screenWidth = window.screen.width
+// let plot_width = screenWidth * .65
+let plot_height = screenWidth * .22
 
 function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
+
+    let felixPlotContainer = document.getElementById("felixplotContainer")
+    let plot_width = $(felixPlotContainer).width()
 
     let dataLayout = {
         title: mainTitle,
@@ -56,10 +59,16 @@ function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
     for (let x in data2) {
         dataPlot2.push(data2[x]);
     }
-    Plotly.react(plotArea, dataPlot1.concat(dataPlot2), dataLayout, { editable: true });
+
+    Plotly.react(plotArea, dataPlot1.concat(dataPlot2), dataLayout, { editable: true })
+
 }
 
+
 function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
+
+    let felixPlotContainer = document.getElementById("felixplotContainer")
+    let plot_width = $(felixPlotContainer).width()
 
     let dataLayout = {
         title: mainTitle,
