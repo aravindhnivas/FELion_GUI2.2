@@ -1,10 +1,10 @@
 
-
 const { spawn, exec } = require("child_process");
 const path = require('path');
 const fs = require("fs")
+
 let plot_width = window.screen.width * .65;
-let plot_height = window.screen.height * .42;
+let plot_height = window.screen.width * .22;
 
 function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
 
@@ -226,7 +226,7 @@ class program {
                                 if (!data) console.log("No data available to fit")
                                 else {
                                     console.log(data)
-                                    
+
                                     let { range } = data
                                     let filename = data.points[0].data.name.split(".")[0]
                                     window.index = range.x

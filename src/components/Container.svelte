@@ -675,20 +675,25 @@
 <style>
 
   input[type="number"] {width: 5vw;}
+
   label {color:white;}
+
   #theorylabel{
     color:white;
     border:solid 3px #bdc3c7; 
     padding:0.4em;
   }
+
   .locationLabel {
     text-align: center;
   }
+
   .row {
     display: flex;
     flex-direction: column;
     padding-bottom: 2em;
   }
+
   .funcBtn {
     margin: 0 0.5em;
   }
@@ -697,10 +702,10 @@
     position: fixed;
     width: 100%;
   }
-  .plotContainer {
 
+  .plotContainer {
     overflow-y: auto;
-    width: 90%;
+    width: 97%;
     max-height: 50vh;
   }
 
@@ -711,7 +716,18 @@
 
   .column {max-height: 90vh}
 
-  .filebrowserColumn {width: 20%}
+
+  @media only screen
+  and (max-width: 1400px) {
+
+    .filebrowserColumn {width: 25%!important}
+
+    .plotContainer {
+      max-height: 45vh;
+    }
+  }
+
+
   
 </style>
 
