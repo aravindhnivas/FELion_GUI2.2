@@ -32,17 +32,24 @@
       }
       runPlot(obj);
     } 
+
   }))
   
-  // $: plotContainerHeight = "60vh"
-
   jq(document).ready(() => {
 
-    jq("#theoryBtn").addClass("fadeInUp").css("display", "none");
-    jq("#norm_tkplot").addClass("fadeInUp").css("display", "none");
+    jq("#theoryBtn").addClass("fadeInUp").css("display", "none")
+    jq("#norm_tkplot").addClass("fadeInUp").css("display", "none")
 
-    jq("#exp_fit").addClass("fadeInUp").css("display", "none");
-    jq("#felix_shell_Container").addClass("fadeInUp").css("display", "block");
+    jq("#exp_fit").addClass("fadeInUp").css("display", "none")
+    jq("#felix_shell_Container").addClass("fadeInUp").css("display", "block")
+
+    let plotHeight;
+    let ScreenHeight = window.screen.height;
+
+    if (ScreenHeight >= 1000) plotHeight = 570
+    else plotHeight = 400
+
+    jq(".plotContainer").css("max-height", plotHeight)
 
   });
   
@@ -706,7 +713,6 @@
   .plotContainer {
     overflow-y: auto;
     width: 97%;
-    max-height: 50vh;
   }
 
   #theoryContainer {
@@ -720,11 +726,8 @@
   @media only screen
   and (max-width: 1400px) {
 
-    .filebrowserColumn {width: 25%!important}
+    .filebrowserColumn {width: 20%!important}
 
-    .plotContainer {
-      max-height: 45vh;
-    }
   }
 
 

@@ -1,17 +1,18 @@
 
+
+// Importing modules
+
 const { spawn, exec } = require("child_process");
 const path = require('path');
 const fs = require("fs")
+
 let screenWidth = window.screen.width
-// let plot_width = screenWidth * .65
 let plot_height = screenWidth * .22
 
 function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
 
-    let felixPlotContainer = document.getElementById("felixplotContainer")
-    let plot_width = $(felixPlotContainer).width()
-
     let dataLayout = {
+
         title: mainTitle,
 
         xaxis: {
@@ -44,11 +45,9 @@ function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
             position: 0.97
         },
 
-
         autosize: true,
-        width: plot_width,
         height: plot_height,
-    };
+    }
 
     let dataPlot1 = [];
     for (let x in data) {
@@ -64,11 +63,7 @@ function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
 
 }
 
-
 function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
-
-    let felixPlotContainer = document.getElementById("felixplotContainer")
-    let plot_width = $(felixPlotContainer).width()
 
     let dataLayout = {
         title: mainTitle,
@@ -81,7 +76,6 @@ function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
 
         hovermode: 'closest',
         autosize: true,
-        width: plot_width,
         height: plot_height,
 
     };
