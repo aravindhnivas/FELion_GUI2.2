@@ -699,15 +699,9 @@
   }
   .plotContainer {
 
-    max-height: 60%;
     overflow-y: auto;
-    width: 100%;
+    width: 90%;
     max-height: 50vh;
-
-  }
-
-  .data-loading {
-    display: none;
   }
 
   #theoryContainer {
@@ -716,6 +710,9 @@
   }
 
   .column {max-height: 90vh}
+
+  .filebrowserColumn {width: 20%}
+  
 </style>
 
 <section class="section" {id} {style}>
@@ -938,31 +935,35 @@
                 {/each}
 
                 {#each depletionLabels as {name, id}}
+
                   <div class="level-item">
+
                     <div class="field">
                       <label class="label"><h1 class="subtitle">{name}</h1></label>
                       <div class="control">
-                      {#if name=="Power (ON, OFF)"}
-                        <input class="input" type="text" bind:value={powerinfo} {id}>
-                      {:else if  name=="FELIX Hz"}
-                        <input class="input" type="number" bind:value={nshots} {id}>
-                      {:else if  name=="Mass Index"}
-                        <input class="input" type="number" bind:value={massIndex} {id}>
-                      {:else if  name=="TimeStart Index"}
-                        <input class="input" type="number" bind:value={timestartIndex} {id}>
-                      {/if}
-                          
+                        {#if name=="Power (ON, OFF)"}
+                          <input class="input" type="text" bind:value={powerinfo} {id}>
+                        {:else if  name=="FELIX Hz"}
+                          <input class="input" type="number" bind:value={nshots} {id}>
+                        {:else if  name=="Mass Index"}
+                          <input class="input" type="number" bind:value={massIndex} {id}>
+                        {:else if  name=="TimeStart Index"}
+                          <input class="input" type="number" bind:value={timestartIndex} {id}>
+                        {/if}
                       </div>
                     </div>
+
                   </div>
                 {/each}
-              
+
+                <div class="level-item" style="margin-top:2em">
+                  <button class="funcBtn button is-link animated" id="depletionSubmit" on:click={depletionPlot}>Submit</button>
+                </div>
+
               </div>
             </div>
 
-            <div class="control">
-              <button class="funcBtn button is-link animated" id="depletionSubmit" on:click={depletionPlot}>Submit</button>
-            </div>
+            
          </div>
       {/if}
 
