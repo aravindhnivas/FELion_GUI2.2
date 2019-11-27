@@ -31,35 +31,35 @@
     });
   };
 
-  const toggleRow = () => {
+  // const toggleRow = () => {
 
-    jq(".locationRow").toggle();
-    jq(".buttonsRow").toggle();
-    jq(".filebrowserColumn").toggle();
+  //   jq(".locationRow").toggle();
+  //   jq(".buttonsRow").toggle();
+  //   jq(".filebrowserColumn").toggle();
 
-    let display = jq(".buttonsRow").css("display");
+  //   let display = jq(".buttonsRow").css("display");
 
-    if (display === "none"){
+  //   if (display === "none"){
 
-      jq(".plotContainer").css("max-height", "75vh")
-      jq(".plotContainer").css("width", "97%")
+  //     jq(".plotContainer").css("max-height", "75vh")
+  //     jq(".plotContainer").css("width", "97%")
 
-    } 
-    else {
-      jq(".plotContainer").css("max-height", "60vh");
-      jq(".plotContainer").css("width", "81%")
+  //   } 
+  //   else {
+  //     jq(".plotContainer").css("max-height", "60vh");
+  //     jq(".plotContainer").css("width", "81%")
 
-    }
+  //   }
     
-    let obj = { width: jq(".plotContainer").width() * 0.97 };
-    Plotly.relayout("saPlot", obj);
-    Plotly.relayout("bplot", obj);
-    Plotly.relayout("avgplot", obj);
+  //   let obj = { width: jq(".plotContainer").width() * 0.97 };
+  //   Plotly.relayout("saPlot", obj);
+  //   Plotly.relayout("bplot", obj);
+  //   Plotly.relayout("avgplot", obj);
 
-    Plotly.relayout("exp-theory-plot", obj);
-    Plotly.relayout("mplot", obj);
+  //   Plotly.relayout("exp-theory-plot", obj);
+  //   Plotly.relayout("mplot", obj);
+  // };
 
-  };
 </script>
 
 <style>
@@ -79,7 +79,7 @@
 <section class="section animated fadeInDown" id="Navbar" style="display:none">
   <div class="container is-fluid">
     <div class="tabs is-centered is-boxed is-medium">
-      <span
+      <!-- <span
         class="icon is-pulled-left"
         on:click={toggleRow} id="fullToggle"
         >
@@ -87,7 +87,8 @@
           class="fas fa-bars fa-2x"
           style="padding:0.5em;"
           aria-hidden="true" data-tippy="Show/Hide layout" data-tippy-placement="right-start" data-tippy-arrow="true"/>
-      </span>
+      </span> -->
+      
       <ul>
         {#each navItems as item}
           {#if item == 'Welcome'}

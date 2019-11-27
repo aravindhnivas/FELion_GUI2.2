@@ -34,7 +34,7 @@
     } 
   }))
   
-  $: plotContainerHeight = "60vh"
+  // $: plotContainerHeight = "60vh"
 
   jq(document).ready(() => {
 
@@ -267,7 +267,7 @@
       case "felixPlotBtn":
 
         jq("#theoryRow").css("display", "none")
-        plotContainerHeight = "60vh"
+        // plotContainerHeight = "60vh"
         Plotly.purge("exp-theory-plot");
 
         runPlot({
@@ -430,14 +430,14 @@
 
       case "theoryBtn": 
         jq("#theoryRow").toggle()
-        if (document.getElementById("theoryRow").style.display === "none") {plotContainerHeight = "60vh"} 
-        else {plotContainerHeight = "50vh"}
+        // if (document.getElementById("theoryRow").style.display === "none") {plotContainerHeight = "60vh"} 
+        // else {plotContainerHeight = "50vh"}
       break;
 
       case "depletionscanBtn":
         jq("#depletionRow").toggle()
-        if (document.getElementById("depletionRow").style.display === "none") {plotContainerHeight = "60vh"} 
-        else {plotContainerHeight = "50vh"}
+        // if (document.getElementById("depletionRow").style.display === "none") {plotContainerHeight = "60vh"} 
+        // else {plotContainerHeight = "50vh"}
       break;
 
       ////////////////////////////////////////////////////
@@ -698,9 +698,12 @@
     width: 100%;
   }
   .plotContainer {
+
+    max-height: 60%;
     overflow-y: auto;
-    width: 70%;
-    position: absolute;
+    width: 100%;
+    max-height: 50vh;
+
   }
 
   .data-loading {
@@ -711,6 +714,8 @@
     margin-left: 20%;
     margin-right:20%;
   }
+
+  .column {max-height: 90vh}
 </style>
 
 <section class="section" {id} {style}>
@@ -1010,7 +1015,7 @@
       <hr style="margin: 0.5em 0; background-color:#bdc3c7" />
       <!-- <h1 class="subtitle">Data Visualisation</h1> -->
 
-      <div class="row box plotContainer" style="max-height: {plotContainerHeight}; width:80%;" id="{filetag}plotMainContainer" >
+      <div class="row box plotContainer" id="{filetag}plotMainContainer" >
         
         <div class="container is-fluid" id="{filetag}plotContainer">
           {#each plotID as id}

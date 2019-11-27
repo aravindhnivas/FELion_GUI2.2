@@ -87,18 +87,20 @@
     height: 100%;
   }
 
-   .filexplorer {
-    max-height: 50vh;
+  .filexplorer {
+    max-height: 30vh;
     overflow-y: auto;
   }
 
- .otherFolderList {
-  margin-top: 1em;
- }
   .folderContainerPanelBlock {
-    height:63vh;
+    height:50vh;
     overflow: auto;
   }
+
+ .otherFolderList {
+    margin-top: 1em;
+  }
+  
 </style>
 
 <nav class="panel">
