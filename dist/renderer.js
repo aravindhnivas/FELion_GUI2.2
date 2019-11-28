@@ -6628,7 +6628,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (502:20) {#each items as item}
+// (505:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -6660,7 +6660,7 @@ function create_each_block$3(ctx) {
 	};
 }
 
-// (540:28) {#if saveChanges}
+// (543:28) {#if saveChanges}
 function create_if_block_1$2(ctx) {
 	var h1, h1_transition, current, dispose;
 
@@ -6705,7 +6705,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (591:28) {#if back_restore_display}
+// (594:28) {#if back_restore_display}
 function create_if_block$3(ctx) {
 	var p, t, p_transition, current;
 
@@ -7748,6 +7748,9 @@ function instance$7($$self, $$props, $$invalidate) {
                         console.info('Copied ' + results + ' files');
                         console.log("Restoring completed");
                         backup_restore_logIt("Restoring completed");
+                        let response = showinfo(mainWindow, {title:"FELion_GUI2", type:"info", message:"Restored succesfull", buttons:["Restart", "Restart later"]});
+                        if (response===0) mainWindow.reload();
+                        else console.log("Restarting later");
                     }
                 });
                 

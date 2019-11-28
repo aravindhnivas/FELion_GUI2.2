@@ -419,6 +419,9 @@
                         console.info('Copied ' + results + ' files')
                         console.log("Restoring completed")
                         backup_restore_logIt("Restoring completed")
+                        let response = showinfo(mainWindow, {title:"FELion_GUI2", type:"info", message:"Restored succesfull", buttons:["Restart", "Restart later"]})
+                        if (response===0) mainWindow.reload()
+                        else console.log("Restarting later")
                     }
                 })
                 
