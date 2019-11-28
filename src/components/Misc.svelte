@@ -1,46 +1,41 @@
 <script>
-    const pages = ["Converter"]
+  const pages = ["Converter"]
 
-    const navigator = [
-      {
-        name: "Unit Converter",
-        target: "Converter",
-        id: "unit_converter_navbtn"
-      }
-    ]
-    
-    const toggler = (event) => {
-      let target_id = event.target.getAttribute("target")
-      let target = document.getElementById(target_id).style.display = "block"
-      pages.filter(page=> page != target_id).forEach(page=>document.getElementById(page).style.display="none")
+  const navigator = [
+    {
+      name: "Unit Converter",
+      target: "Converter",
+      id: "unit_converter_navbtn"
     }
+  ]
+  
+  const toggler = (event) => {
+    let target_id = event.target.getAttribute("target")
+    let target = document.getElementById(target_id).style.display = "block"
+    pages.filter(page=> page != target_id).forEach(page=>document.getElementById(page).style.display="none")
+  }
 
-    $: table_sz  = "is-3 box conversion_table"
+  $: table_sz  = "is-3 box conversion_table"
 
-    // Fundamental constants
+  // Fundamental constants
 
-    $: c = 299792458 // m/s
-    $: plank_constant = 6.62607004e-34 // Js
-    $: boltzman_constant = 1.380649e-23 // J/K
-    $: electron_charge = 1.602176565e-19 // C or eV = J
+  $: c = 299792458 // m/s
+  $: plank_constant = 6.62607004e-34 // Js
+  $: boltzman_constant = 1.380649e-23 // J/K
+  $: electron_charge = 1.602176565e-19 // C or eV = J
 
-    // eV/q = h.c/lam = h.f = KB.T = h.c.cm_1
+  // eV/q = h.c/lam = h.f = KB.T = h.c.cm_1
 
-    $: hz = 1e12;
-    $: eV = (plank_constant/electron_charge) * hz;
-    $: kelvin = (plank_constant/boltzman_constant) * hz;
-    $: cm_1 = hz/(c*1e2);
-    $: um = (c/hz)*1e+6;
-    const energy_list = ["hz", "um", "kelvin", "cm_1", "eV"]
+  $: hz = 1e12;
+  $: eV = (plank_constant/electron_charge) * hz;
+  $: kelvin = (plank_constant/boltzman_constant) * hz;
+  $: cm_1 = hz/(c*1e2);
+  $: um = (c/hz)*1e+6;
+  const energy_list = ["hz", "um", "kelvin", "cm_1", "eV"]
 
-    const editmode_constants = (e, classname) => {
+  $: edit_constants = false
 
-      let fundamental_constants = Array.from(document.getElementsByClassName(classname))
-      let status = e.target.checked
-      fundamental_constants.forEach(input => input.disabled = !status)
-    }
-
-
+  $: edit_numberDensity_constants = false
 
   // Number density
 
@@ -116,15 +111,15 @@
 
           <h1 class="subtitle is-pulled-left">Fundamental constants</h1>
           <div class="pretty p-switch p-slim is-pulled-right">
-              <input type="checkbox" id="edit_constants" on:change="{(e)=>editmode_constants(e, 'fun.constants')}"/>
+              <input type="checkbox" bind:checked={edit_constants}/>
               <div class="state p-info p-on">
                   <label>Edit</label>
               </div>
           </div>
-          <input class="input fun.constants energy" type="number" disabled bind:value={c} data-tippy="Speed of light in vaccum">m/s
-          <input class="input fun.constants energy" type="number" disabled bind:value={boltzman_constant} data-tippy="Boltzman constant">J/K
-          <input class="input fun.constants energy" type="number" disabled bind:value={plank_constant} data-tippy="Plank's constant">J.s
-          <input class="input fun.constants energy" type="number" disabled bind:value={electron_charge} data-tippy="Electric charge">Columb
+          <input class="input fun.constants energy" type="number" disabled={!edit_constants} bind:value={c} data-tippy="Speed of light in vaccum">m/s
+          <input class="input fun.constants energy" type="number" disabled={!edit_constants} bind:value={boltzman_constant} data-tippy="Boltzman constant">J/K
+          <input class="input fun.constants energy" type="number" disabled={!edit_constants} bind:value={plank_constant} data-tippy="Plank's constant">J.s
+          <input class="input fun.constants energy" type="number" disabled={!edit_constants} bind:value={electron_charge} data-tippy="Electric charge">Columb
 
         </div>
 
@@ -138,23 +133,13 @@
 
             <div class="column is-half">
               <div class="field">
-                <label class="label">Press. Quad I</label>
+                <label class="label">Main Chamber Press.</label>
                 <div class="control">
                   <input class="input ndensity" bind:value={pq1_before} type="number" step="0.000000001" placeholder="Before" data-tippy="Before letting in gas">
                   <input class="input ndensity" bind:value={pq1_after} type="number" step="0.000000001" placeholder="After" data-tippy="After letting in gas">
                 </div>
               </div>
             </div>
-
-            <!-- <div class="column is-half">
-              <div class="field">
-                <label class="label">Press. Trap</label>
-                <div class="control">
-                  <input class="input ndensity" bind:value={ptrap_before} type="number" placeholder="Before">
-                  <input class="input ndensity" bind:value={ptrap_after} type="number" placeholder="After">
-                </div>
-              </div>
-            </div> -->
 
             <div class="column is-half">
               <div class="field">
@@ -169,20 +154,19 @@
               <div class="field">
                 <label class="label">Number density</label>
                 <div class="control">
-                  <input class="input ndensity" bind:value={ndensity} type="number"  placeholder="Number density" disabled>
+                  <button class="button is-static">{ndensity}</button>
                 </div>
               </div>
             </div>
 
           </div>
 
-
           <hr>
 
           <div class="control">
             <h1 class="subtitle is-pulled-left">Constants</h1>
             <div class="pretty p-switch p-slim is-pulled-right">
-                <input type="checkbox" id="edit_numberDensity_constants" on:change="{(e)=>editmode_constants(e, 'number_constants')}"/>
+                <input type="checkbox" bind:checked={edit_numberDensity_constants}/>
                 <div class="state p-info p-on">
                     <label>Edit</label>
                 </div>
@@ -194,14 +178,14 @@
             <div class="field">
               <label class="label">Calibration Factor</label>
               <div class="control">
-                <input class="input number_constants" bind:value={calibration_factor} type="number" placeholder="Number density" disabled>
+                <input class="input number_constants" bind:value={calibration_factor} type="number" placeholder="Number density" disabled={!edit_numberDensity_constants}>
               </div>
             </div>
 
             <div class="field">
               <label class="label">Chamber Temperature (RT)</label>
               <div class="control">
-                <input class="input number_constants" bind:value={rt} type="number" step="0.1" placeholder="Number density" disabled>
+                <input class="input number_constants" bind:value={rt} type="number" step="0.1" placeholder="Number density" disabled={!edit_numberDensity_constants}>
               </div>
             </div>
 
