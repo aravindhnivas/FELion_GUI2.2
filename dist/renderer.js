@@ -7836,8 +7836,8 @@ function instance$7($$self, $$props, $$invalidate) {
 	$$invalidate('auto_update_check', auto_update_check = true);
 	$$invalidate('backupClass', backupClass = "is-link");
 	$$invalidate('backupName', backupName = "FELion_GUI_backup");
-	$$invalidate('back_restore_display', back_restore_display = true);
-	$$invalidate('back_restore_log', back_restore_log = "Backup Completed");
+	$$invalidate('back_restore_display', back_restore_display = false);
+	$$invalidate('back_restore_log', back_restore_log = "");
 	$$invalidate('restoreClass', restoreClass = "is-warning");
 	$$invalidate('developer_mode', developer_mode = false);
 

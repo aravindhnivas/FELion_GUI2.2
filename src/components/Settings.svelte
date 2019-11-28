@@ -323,8 +323,8 @@
         })
     }
 
-    $: back_restore_display = true;
-    $: back_restore_log = "Backup Completed"
+    $: back_restore_display = false;
+    $: back_restore_log = ""
 
     const backup_restore_logIt = (str) => {
 
