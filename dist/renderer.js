@@ -6628,7 +6628,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (487:20) {#each items as item}
+// (502:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -6660,8 +6660,8 @@ function create_each_block$3(ctx) {
 	};
 }
 
-// (525:28) {#if saveChanges}
-function create_if_block$3(ctx) {
+// (540:28) {#if saveChanges}
+function create_if_block_1$2(ctx) {
 	var h1, h1_transition, current, dispose;
 
 	return {
@@ -6705,8 +6705,57 @@ function create_if_block$3(ctx) {
 	};
 }
 
+// (591:28) {#if back_restore_display}
+function create_if_block$3(ctx) {
+	var p, t, p_transition, current;
+
+	return {
+		c() {
+			p = element("p");
+			t = text(ctx.back_restore_log);
+			attr(p, "class", "control");
+		},
+
+		m(target, anchor) {
+			insert(target, p, anchor);
+			append(p, t);
+			current = true;
+		},
+
+		p(changed, ctx) {
+			if (!current || changed.back_restore_log) {
+				set_data(t, ctx.back_restore_log);
+			}
+		},
+
+		i(local) {
+			if (current) return;
+			add_render_callback(() => {
+				if (!p_transition) p_transition = create_bidirectional_transition(p, fade, {}, true);
+				p_transition.run(1);
+			});
+
+			current = true;
+		},
+
+		o(local) {
+			if (!p_transition) p_transition = create_bidirectional_transition(p, fade, {}, false);
+			p_transition.run(0);
+
+			current = false;
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(p);
+				if (p_transition) p_transition.end();
+			}
+		}
+	};
+}
+
 function create_fragment$7(ctx) {
-	var section, div26, div1, aside, div0, t1, ul, t2, div25, div24, div23, div2, t3, t4, div11, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div7, button0, t16, t17, div10, div9, input2, t18, div8, t20, div20, h10, t21, t22, t23, div12, p2, button1, t24, button1_class_value, t25, p3, button2, t26, button2_class_value, t27, h11, t28, t29, hr0, t30, div14, t33, div18, div16, t35, div17, input4, t36, hr1, t37, div19, p4, input5, t38, p5, button3, t39, button3_class_value, t40, p6, button4, t41, button4_class_value, t42, div22, div21, h12, t44, h13, t45, t46_value = process.versions.electron + "", t46, t47, h14, t48, t49_value = process.versions.node + "", t49, t50, h15, t51, t52_value = process.versions.chrome + "", t52, t53, h16, t54, t55, hr2, t56, h17, t58, h18, t59, t60_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t60, t61, h19, t62, t63_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t63, t64, h110, t65, t66_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t66, t67, h111, t68, t69_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t69, t70, hr3, t71, h112, t73, h113, t74, t75_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t75, t76, h114, t77, t78_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t78, t79, h115, t80, t81_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t81, t82, h116, t83, t84_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t84, current, dispose;
+	var section, div26, div1, aside, div0, t1, ul, t2, div25, div24, div23, div2, t3, t4, div11, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div7, button0, t16, t17, div10, div9, input2, t18, div8, t20, div20, h10, t21, t22, t23, div12, p2, button1, t24, button1_class_value, t25, p3, button2, t26, button2_class_value, t27, h11, t28, t29, hr0, t30, div14, input3, t31, div13, t33, div18, div16, t35, div17, input4, t36, hr1, t37, div19, p4, input5, t38, p5, button3, t39, button3_class_value, t40, p6, button4, t41, button4_class_value, t42, t43, div22, div21, h12, t45, h13, t46, t47_value = process.versions.electron + "", t47, t48, h14, t49, t50_value = process.versions.node + "", t50, t51, h15, t52, t53_value = process.versions.chrome + "", t53, t54, h16, t55, t56, hr2, t57, h17, t59, h18, t60, t61_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t61, t62, h19, t63, t64_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t64, t65, h110, t66, t67_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t67, t68, h111, t69, t70_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t70, t71, hr3, t72, h112, t74, h113, t75, t76_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t76, t77, h114, t78, t79_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t79, t80, h115, t81, t82_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t82, t83, h116, t84, t85_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t85, current, dispose;
 
 	let each_value = ctx.items;
 
@@ -6716,7 +6765,9 @@ function create_fragment$7(ctx) {
 		each_blocks[i] = create_each_block$3(get_each_context$3(ctx, each_value, i));
 	}
 
-	var if_block = (ctx.saveChanges) && create_if_block$3(ctx);
+	var if_block0 = (ctx.saveChanges) && create_if_block_1$2(ctx);
+
+	var if_block1 = (ctx.back_restore_display) && create_if_block$3(ctx);
 
 	return {
 		c() {
@@ -6765,7 +6816,7 @@ function create_fragment$7(ctx) {
 			button0 = element("button");
 			button0.textContent = "Save";
 			t16 = space();
-			if (if_block) if_block.c();
+			if (if_block0) if_block0.c();
 			t17 = space();
 			div10 = element("div");
 			div9 = element("div");
@@ -6794,7 +6845,10 @@ function create_fragment$7(ctx) {
 			hr0 = element("hr");
 			t30 = space();
 			div14 = element("div");
-			div14.innerHTML = `<input type="checkbox" checked id="autoupdate"> <div class="state p-info p-on"><label class="svelte-1c4zmtz">Auto update</label></div>`;
+			input3 = element("input");
+			t31 = space();
+			div13 = element("div");
+			div13.innerHTML = `<label class="svelte-1c4zmtz">Auto update</label>`;
 			t33 = space();
 			div18 = element("div");
 			div16 = element("div");
@@ -6817,67 +6871,69 @@ function create_fragment$7(ctx) {
 			button4 = element("button");
 			t41 = text("Restore");
 			t42 = space();
+			if (if_block1) if_block1.c();
+			t43 = space();
 			div22 = element("div");
 			div21 = element("div");
 			h12 = element("h1");
 			h12.textContent = "Software details (version)";
-			t44 = space();
+			t45 = space();
 			h13 = element("h1");
-			t45 = text("Electron.js: ");
-			t46 = text(t46_value);
-			t47 = space();
+			t46 = text("Electron.js: ");
+			t47 = text(t47_value);
+			t48 = space();
 			h14 = element("h1");
-			t48 = text("Node.js: ");
-			t49 = text(t49_value);
-			t50 = space();
+			t49 = text("Node.js: ");
+			t50 = text(t50_value);
+			t51 = space();
 			h15 = element("h1");
-			t51 = text("Chrome: ");
-			t52 = text(t52_value);
-			t53 = space();
+			t52 = text("Chrome: ");
+			t53 = text(t53_value);
+			t54 = space();
 			h16 = element("h1");
-			t54 = text(ctx.pythonv);
-			t55 = space();
-			hr2 = element("hr");
+			t55 = text(ctx.pythonv);
 			t56 = space();
+			hr2 = element("hr");
+			t57 = space();
 			h17 = element("h1");
 			h17.textContent = "Javascript Frameworks and libraries";
-			t58 = space();
+			t59 = space();
 			h18 = element("h1");
-			t59 = text("Svelte.js: ");
-			t60 = text(t60_value);
-			t61 = space();
+			t60 = text("Svelte.js: ");
+			t61 = text(t61_value);
+			t62 = space();
 			h19 = element("h1");
-			t62 = text("jQuery: ");
-			t63 = text(t63_value);
-			t64 = space();
+			t63 = text("jQuery: ");
+			t64 = text(t64_value);
+			t65 = space();
 			h110 = element("h1");
-			t65 = text("Typescript: ");
-			t66 = text(t66_value);
-			t67 = space();
+			t66 = text("Typescript: ");
+			t67 = text(t67_value);
+			t68 = space();
 			h111 = element("h1");
-			t68 = text("Tippy.js: ");
-			t69 = text(t69_value);
-			t70 = space();
-			hr3 = element("hr");
+			t69 = text("Tippy.js: ");
+			t70 = text(t70_value);
 			t71 = space();
+			hr3 = element("hr");
+			t72 = space();
 			h112 = element("h1");
 			h112.textContent = "CSS Frameworks and libraries";
-			t73 = space();
+			t74 = space();
 			h113 = element("h1");
-			t74 = text("Bulma: ");
-			t75 = text(t75_value);
-			t76 = space();
+			t75 = text("Bulma: ");
+			t76 = text(t76_value);
+			t77 = space();
 			h114 = element("h1");
-			t77 = text("Fontawesome: ");
-			t78 = text(t78_value);
-			t79 = space();
+			t78 = text("Fontawesome: ");
+			t79 = text(t79_value);
+			t80 = space();
 			h115 = element("h1");
-			t80 = text("pretty-checkbox: ");
-			t81 = text(t81_value);
-			t82 = space();
+			t81 = text("pretty-checkbox: ");
+			t82 = text(t82_value);
+			t83 = space();
 			h116 = element("h1");
-			t83 = text("hover.css: ");
-			t84 = text(t84_value);
+			t84 = text("hover.css: ");
+			t85 = text(t85_value);
 			attr(div0, "class", "menu-label svelte-1c4zmtz");
 			attr(ul, "class", "menu-list svelte-1c4zmtz");
 			attr(aside, "class", "menu box svelte-1c4zmtz");
@@ -6917,6 +6973,9 @@ function create_fragment$7(ctx) {
 			attr(div12, "class", "field is-grouped");
 			attr(h11, "class", "subtitle");
 			set_style(h11, "display", "block");
+			attr(input3, "type", "checkbox");
+			attr(input3, "id", "autoupdate");
+			attr(div13, "class", "state p-info p-on");
 			attr(div14, "class", "pretty p-switch p-slim");
 			set_style(div14, "margin-bottom", "1em");
 			attr(div16, "class", "control");
@@ -6986,7 +7045,7 @@ function create_fragment$7(ctx) {
 				listen(input2, "change", ctx.input2_change_handler),
 				listen(button1, "click", ctx.updateCheck),
 				listen(button2, "click", ctx.update),
-				listen(div14, "click", ctx.click_handler),
+				listen(input3, "change", ctx.input3_change_handler),
 				listen(input4, "change", ctx.change_handler),
 				listen(input5, "input", ctx.input5_input_handler),
 				listen(button3, "click", ctx.archive),
@@ -7040,7 +7099,7 @@ function create_fragment$7(ctx) {
 			append(div11, div7);
 			append(div7, button0);
 			append(div7, t16);
-			if (if_block) if_block.m(div7, null);
+			if (if_block0) if_block0.m(div7, null);
 			append(div11, t17);
 			append(div11, div10);
 			append(div10, div9);
@@ -7071,6 +7130,12 @@ function create_fragment$7(ctx) {
 			append(div20, hr0);
 			append(div20, t30);
 			append(div20, div14);
+			append(div14, input3);
+
+			input3.checked = ctx.auto_update_check;
+
+			append(div14, t31);
+			append(div14, div13);
 			append(div20, t33);
 			append(div20, div18);
 			append(div18, div16);
@@ -7094,65 +7159,67 @@ function create_fragment$7(ctx) {
 			append(div19, p6);
 			append(p6, button4);
 			append(button4, t41);
-			append(div23, t42);
+			append(div19, t42);
+			if (if_block1) if_block1.m(div19, null);
+			append(div23, t43);
 			append(div23, div22);
 			append(div22, div21);
 			append(div21, h12);
-			append(div21, t44);
+			append(div21, t45);
 			append(div21, h13);
-			append(h13, t45);
 			append(h13, t46);
-			append(div21, t47);
+			append(h13, t47);
+			append(div21, t48);
 			append(div21, h14);
-			append(h14, t48);
 			append(h14, t49);
-			append(div21, t50);
+			append(h14, t50);
+			append(div21, t51);
 			append(div21, h15);
-			append(h15, t51);
 			append(h15, t52);
-			append(div21, t53);
+			append(h15, t53);
+			append(div21, t54);
 			append(div21, h16);
-			append(h16, t54);
-			append(div21, t55);
-			append(div21, hr2);
+			append(h16, t55);
 			append(div21, t56);
+			append(div21, hr2);
+			append(div21, t57);
 			append(div21, h17);
-			append(div21, t58);
+			append(div21, t59);
 			append(div21, h18);
-			append(h18, t59);
 			append(h18, t60);
-			append(div21, t61);
+			append(h18, t61);
+			append(div21, t62);
 			append(div21, h19);
-			append(h19, t62);
 			append(h19, t63);
-			append(div21, t64);
+			append(h19, t64);
+			append(div21, t65);
 			append(div21, h110);
-			append(h110, t65);
 			append(h110, t66);
-			append(div21, t67);
+			append(h110, t67);
+			append(div21, t68);
 			append(div21, h111);
-			append(h111, t68);
 			append(h111, t69);
-			append(div21, t70);
-			append(div21, hr3);
+			append(h111, t70);
 			append(div21, t71);
+			append(div21, hr3);
+			append(div21, t72);
 			append(div21, h112);
-			append(div21, t73);
+			append(div21, t74);
 			append(div21, h113);
-			append(h113, t74);
 			append(h113, t75);
-			append(div21, t76);
+			append(h113, t76);
+			append(div21, t77);
 			append(div21, h114);
-			append(h114, t77);
 			append(h114, t78);
-			append(div21, t79);
+			append(h114, t79);
+			append(div21, t80);
 			append(div21, h115);
-			append(h115, t80);
 			append(h115, t81);
-			append(div21, t82);
+			append(h115, t82);
+			append(div21, t83);
 			append(div21, h116);
-			append(h116, t83);
 			append(h116, t84);
+			append(h116, t85);
 			current = true;
 		},
 
@@ -7187,16 +7254,16 @@ function create_fragment$7(ctx) {
 			if (changed.pythonscript && (input1.value !== ctx.pythonscript)) set_input_value(input1, ctx.pythonscript);
 
 			if (ctx.saveChanges) {
-				if (!if_block) {
-					if_block = create_if_block$3(ctx);
-					if_block.c();
-					transition_in(if_block, 1);
-					if_block.m(div7, null);
-				} else transition_in(if_block, 1);
-			} else if (if_block) {
+				if (!if_block0) {
+					if_block0 = create_if_block_1$2(ctx);
+					if_block0.c();
+					transition_in(if_block0, 1);
+					if_block0.m(div7, null);
+				} else transition_in(if_block0, 1);
+			} else if (if_block0) {
 				group_outros();
-				transition_out(if_block, 1, 1, () => {
-					if_block = null;
+				transition_out(if_block0, 1, 1, () => {
+					if_block0 = null;
 				});
 				check_outros();
 			}
@@ -7215,6 +7282,7 @@ function create_fragment$7(ctx) {
 				set_data(t28, ctx.updateStatus);
 			}
 
+			if (changed.auto_update_check) input3.checked = ctx.auto_update_check;
 			if (changed.backupName && (input5.value !== ctx.backupName)) set_input_value(input5, ctx.backupName);
 
 			if ((!current || changed.backupClass) && button3_class_value !== (button3_class_value = "button animated " + ctx.backupClass + " svelte-1c4zmtz")) {
@@ -7225,51 +7293,71 @@ function create_fragment$7(ctx) {
 				attr(button4, "class", button4_class_value);
 			}
 
+			if (ctx.back_restore_display) {
+				if (if_block1) {
+					if_block1.p(changed, ctx);
+					transition_in(if_block1, 1);
+				} else {
+					if_block1 = create_if_block$3(ctx);
+					if_block1.c();
+					transition_in(if_block1, 1);
+					if_block1.m(div19, null);
+				}
+			} else if (if_block1) {
+				group_outros();
+				transition_out(if_block1, 1, 1, () => {
+					if_block1 = null;
+				});
+				check_outros();
+			}
+
 			if (!current || changed.pythonv) {
-				set_data(t54, ctx.pythonv);
+				set_data(t55, ctx.pythonv);
 			}
 
-			if ((!current || changed.packageJSON) && t60_value !== (t60_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "")) {
-				set_data(t60, t60_value);
+			if ((!current || changed.packageJSON) && t61_value !== (t61_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "")) {
+				set_data(t61, t61_value);
 			}
 
-			if ((!current || changed.packageJSON) && t63_value !== (t63_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
-				set_data(t63, t63_value);
+			if ((!current || changed.packageJSON) && t64_value !== (t64_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
+				set_data(t64, t64_value);
 			}
 
-			if ((!current || changed.packageJSON) && t66_value !== (t66_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
-				set_data(t66, t66_value);
+			if ((!current || changed.packageJSON) && t67_value !== (t67_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
+				set_data(t67, t67_value);
 			}
 
-			if ((!current || changed.packageJSON) && t69_value !== (t69_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
-				set_data(t69, t69_value);
+			if ((!current || changed.packageJSON) && t70_value !== (t70_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
+				set_data(t70, t70_value);
 			}
 
-			if ((!current || changed.packageJSON) && t75_value !== (t75_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
-				set_data(t75, t75_value);
+			if ((!current || changed.packageJSON) && t76_value !== (t76_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
+				set_data(t76, t76_value);
 			}
 
-			if ((!current || changed.packageJSON) && t78_value !== (t78_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
-				set_data(t78, t78_value);
+			if ((!current || changed.packageJSON) && t79_value !== (t79_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
+				set_data(t79, t79_value);
 			}
 
-			if ((!current || changed.packageJSON) && t81_value !== (t81_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
-				set_data(t81, t81_value);
+			if ((!current || changed.packageJSON) && t82_value !== (t82_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
+				set_data(t82, t82_value);
 			}
 
-			if ((!current || changed.packageJSON) && t84_value !== (t84_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
-				set_data(t84, t84_value);
+			if ((!current || changed.packageJSON) && t85_value !== (t85_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
+				set_data(t85, t85_value);
 			}
 		},
 
 		i(local) {
 			if (current) return;
-			transition_in(if_block);
+			transition_in(if_block0);
+			transition_in(if_block1);
 			current = true;
 		},
 
 		o(local) {
-			transition_out(if_block);
+			transition_out(if_block0);
+			transition_out(if_block1);
 			current = false;
 		},
 
@@ -7280,7 +7368,8 @@ function create_fragment$7(ctx) {
 
 			destroy_each(each_blocks, detaching);
 
-			if (if_block) if_block.d();
+			if (if_block0) if_block0.d();
+			if (if_block1) if_block1.d();
 			run_all(dispose);
 		}
 	};
@@ -7568,6 +7657,15 @@ function instance$7($$self, $$props, $$invalidate) {
         })
     }
 
+    const backup_restore_logIt = (str) => {
+
+        $$invalidate('back_restore_display', back_restore_display = true);
+        $$invalidate('back_restore_log', back_restore_log = str);
+
+        setTimeout(()=>{$$invalidate('back_restore_display', back_restore_display = false);}, 4000);
+    };
+
+
     const archive = (event) => {
 
         $$invalidate('backupClass', backupClass = "is-loading is-link");
@@ -7595,10 +7693,12 @@ function instance$7($$self, $$props, $$invalidate) {
                 copy(folder.path, _dest, {overwrite: true}, function(error, results) {
                     if (error) {
                         console.log('Copy failed: ' + error);
+                        
                     } else {
                         console.info('Copied ' + results.length + ' files');
                         console.info('Copied ' + results + ' files');
-                        console.log("Archiving completed");
+                        console.log("BackUp completed");
+                        backup_restore_logIt("BackUp completed");
                     }
                 });
                 
@@ -7612,6 +7712,7 @@ function instance$7($$self, $$props, $$invalidate) {
             if (err != "No folder selected") {
                 $$invalidate('backupClass', backupClass = "is-danger animated shake faster");
                 setTimeout(()=>$$invalidate('backupClass', backupClass = "is-link"), 2000);
+                backup_restore_logIt("BackUp Failed !!!");
             } else {$$invalidate('backupClass', backupClass = "is-link");}
             
             console.log(err);
@@ -7646,6 +7747,7 @@ function instance$7($$self, $$props, $$invalidate) {
                         console.info('Copied ' + results.length + ' files');
                         console.info('Copied ' + results + ' files');
                         console.log("Restoring completed");
+                        backup_restore_logIt("Restoring completed");
                     }
                 });
                 
@@ -7660,6 +7762,7 @@ function instance$7($$self, $$props, $$invalidate) {
             if (err != "No folder selected") {
                 $$invalidate('restoreClass', restoreClass = "is-danger animated shake faster");
                 setTimeout(()=>$$invalidate('restoreClass', restoreClass = "is-warning"), 2000);
+                backup_restore_logIt("Restoring Failed !!!");
             } else {$$invalidate('restoreClass', restoreClass = "is-warning");}
             console.log(err);
         });
@@ -7682,7 +7785,10 @@ function instance$7($$self, $$props, $$invalidate) {
 		$$invalidate('developer_mode', developer_mode);
 	}
 
-	const click_handler = () => $$invalidate('auto_update_check', auto_update_check = !auto_update_check);
+	function input3_change_handler() {
+		auto_update_check = this.checked;
+		$$invalidate('auto_update_check', auto_update_check);
+	}
 
 	const change_handler = (e) => $$invalidate('timeInterval_hr', timeInterval_hr = e.target.value);
 
@@ -7699,7 +7805,7 @@ function instance$7($$self, $$props, $$invalidate) {
 		if ('electron' in $$props) $$invalidate('electron', electron = $$props.electron);
 	};
 
-	let saveChanges, new_version, checkupdateLoading, updateLoading, updateStatus, currentTime, auto_update_check, backupClass, backupName, restoreClass, developer_mode;
+	let saveChanges, new_version, checkupdateLoading, updateLoading, updateStatus, currentTime, auto_update_check, backupClass, backupName, back_restore_display, back_restore_log, restoreClass, developer_mode;
 
 	$$self.$$.update = ($$dirty = { auto_update_check: 1, timeInterval_hr: 1, check_update_continuously: 1, developer_mode: 1 }) => {
 		if ($$dirty.auto_update_check || $$dirty.timeInterval_hr || $$dirty.check_update_continuously) { if (auto_update_check){ 
@@ -7711,8 +7817,7 @@ function instance$7($$self, $$props, $$invalidate) {
                 checkInternet(function(isConnected) {isConnected ? updateCheck() : console.log("Internet is not connected");});
                 }, timeInterval
             ));
-         } 
-        else {
+         } else {
             console.log("Auto update Off");
             clearInterval(check_update_continuously);
         } }
@@ -7728,6 +7833,8 @@ function instance$7($$self, $$props, $$invalidate) {
 	$$invalidate('auto_update_check', auto_update_check = true);
 	$$invalidate('backupClass', backupClass = "is-link");
 	$$invalidate('backupName', backupName = "FELion_GUI_backup");
+	$$invalidate('back_restore_display', back_restore_display = true);
+	$$invalidate('back_restore_log', back_restore_log = "Backup Completed");
 	$$invalidate('restoreClass', restoreClass = "is-warning");
 	$$invalidate('developer_mode', developer_mode = false);
 
@@ -7759,13 +7866,15 @@ function instance$7($$self, $$props, $$invalidate) {
 		auto_update_check,
 		backupClass,
 		backupName,
+		back_restore_display,
+		back_restore_log,
 		restoreClass,
 		developer_mode,
 		input0_input_handler,
 		input1_input_handler,
 		introend_handler,
 		input2_change_handler,
-		click_handler,
+		input3_change_handler,
 		change_handler,
 		input5_input_handler
 	};

@@ -299,14 +299,12 @@
             checkInternet(function(isConnected) {isConnected ? updateCheck() : console.log("Internet is not connected")})
             }, timeInterval
         )
-     } 
-    else {
+     } else {
         console.log("Auto update Off")
         clearInterval(check_update_continuously)
     }
 
     $: backupClass = "is-link"
-
     $: backupName = "FELion_GUI_backup"
 
     function openFolder() {
@@ -324,6 +322,18 @@
             })
         })
     }
+
+    $: back_restore_display = true;
+    $: back_restore_log = "Backup Completed"
+
+    const backup_restore_logIt = (str) => {
+
+        back_restore_display = true
+        back_restore_log = str
+
+        setTimeout(()=>{back_restore_display = false}, 4000)
+    }
+
 
     const archive = (event) => {
 
@@ -352,10 +362,12 @@
                 copy(folder.path, _dest, {overwrite: true}, function(error, results) {
                     if (error) {
                         console.log('Copy failed: ' + error);
+                        
                     } else {
                         console.info('Copied ' + results.length + ' files')
                         console.info('Copied ' + results + ' files')
-                        console.log("Archiving completed")
+                        console.log("BackUp completed")
+                        backup_restore_logIt("BackUp completed")
                     }
                 })
                 
@@ -369,6 +381,7 @@
             if (err != "No folder selected") {
                 backupClass = "is-danger animated shake faster"
                 setTimeout(()=>backupClass = "is-link", 2000)
+                backup_restore_logIt("BackUp Failed !!!")
             } else {backupClass = "is-link"}
             
             console.log(err)
@@ -405,6 +418,7 @@
                         console.info('Copied ' + results.length + ' files')
                         console.info('Copied ' + results + ' files')
                         console.log("Restoring completed")
+                        backup_restore_logIt("Restoring completed")
                     }
                 })
                 
@@ -419,6 +433,7 @@
             if (err != "No folder selected") {
                 restoreClass = "is-danger animated shake faster"
                 setTimeout(()=>restoreClass = "is-warning", 2000)
+                backup_restore_logIt("Restoring Failed !!!")
             } else {restoreClass = "is-warning"}
             console.log(err)
         })
@@ -551,8 +566,8 @@
                         <hr>
 
                         <!-- Auto update options -->
-                        <div class="pretty p-switch p-slim" style="margin-bottom:1em;" on:click="{()=>auto_update_check = !auto_update_check}">
-                            <input type="checkbox" checked id="autoupdate"/>
+                        <div class="pretty p-switch p-slim" style="margin-bottom:1em;">
+                            <input type="checkbox" bind:checked={auto_update_check} id="autoupdate"/>
                             <div class="state p-info p-on">
                                 <label>Auto update</label>
                             </div>
@@ -573,6 +588,9 @@
                             <p class="control"><input type="text" class="input" bind:value={backupName} data-tippy="Backup folder name"></p>
                             <p class="control"><button class="button animated {backupClass}" on:click={archive} >Backup</button></p>
                             <p class="control"><button class="button animated {restoreClass}" on:click={restore} >Restore</button></p>
+                            {#if back_restore_display}
+                                <p class="control" transition:fade> {back_restore_log} </p>
+                            {/if}
                         </div>
                         
                     </div>
