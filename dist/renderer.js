@@ -6669,7 +6669,7 @@ function create_if_block_1$2(ctx) {
 			h1 = element("h1");
 			h1.textContent = "Changes saved!";
 			attr(h1, "class", "subtitle");
-			dispose = listen(h1, "introend", ctx.setTimeout(ctx.introend_handler, 2000));
+			dispose = listen(h1, "introend", ctx.introend_handler);
 		},
 
 		m(target, anchor) {
@@ -7781,7 +7781,7 @@ function instance$7($$self, $$props, $$invalidate) {
 		$$invalidate('pythonscript', pythonscript);
 	}
 
-	const introend_handler = () => $$invalidate('saveChanges', saveChanges=false);
+	const introend_handler = () => setTimeout(() => $$invalidate('saveChanges', saveChanges=false), 2000);
 
 	function input2_change_handler() {
 		developer_mode = this.checked;
