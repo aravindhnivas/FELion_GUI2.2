@@ -541,7 +541,7 @@
                         <div class="control" >
                             <button class="button is-link is-pulled-right" on:click={configSave}>Save</button>
                             {#if saveChanges}
-                                <h1 class="subtitle" transition:fade on:introend="{setTimeout(() => saveChanges=false, 2000)}">Changes saved!</h1>
+                                <h1 class="subtitle" transition:fade on:introend="{()=>setTimeout(() => saveChanges=false, 2000)}">Changes saved!</h1>
                             {/if}
                         </div>
                     
