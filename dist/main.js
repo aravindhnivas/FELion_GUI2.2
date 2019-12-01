@@ -7,6 +7,28 @@ var path__default = _interopDefault(path);
 var url = require('url');
 var electron = require('electron');
 
+const find_process = require("find-process");
+const { exec } = require("child_process");
+function killPort(port) {
+    return new Promise((resolve, reject) => {
+        find_process("port", port).then(result => {
+            if (result.length > 0) {
+                let pid = result[0].pid;
+                let platform = process.platform;
+                if (platform === "win32")
+                    exec(`taskkill /F /PID ${pid}`);
+                else if (platform === "darwin")
+                    exec(`kill ${pid}`);
+                else if (platform === "linux")
+                    exec(`killall ${pid}`);
+                resolve(`Port ${port} closed`);
+            }
+            else {
+                reject(`Port ${port} already closed `);
+            }
+        });
+    });
+}
 let mainWindow;
 function createWindow() {
     const { width, height } = electron.screen.getPrimaryDisplay().workAreaSize;
@@ -36,21 +58,23 @@ function createWindow() {
         }
     });
     mainWindow.on("closed", function () {
+        killPort(8501).then((result) => console.log(result)).catch((err) => console.log(err));
         mainWindow = null;
     });
     mainWindow.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures) => {
-        if (frameName === 'modal') {
-            event.preventDefault();
-            Object.assign(options, {
-                // modal: true,
-                parent: mainWindow,
-                width: 1000,
-                height: 600,
-                frame: true,
-                backgroundColor: "#fafafa",
-            });
-            event.newGuest = new electron.BrowserWindow(options);
-        }
+        event.preventDefault();
+        Object.assign(options, {
+            parent: mainWindow,
+            width: width * .75,
+            height: 600,
+            frame: true,
+        });
+        let newWindow = event.newGuest = new electron.BrowserWindow(options);
+        newWindow.on("closed", () => {
+            console.log("Window closed");
+            killPort(8501).then((result) => console.log(result)).catch((err) => console.log(err));
+        });
+        // console.log(newWindow)
     });
 }
 electron.app.on("ready", createWindow);

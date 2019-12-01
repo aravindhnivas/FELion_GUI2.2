@@ -14,17 +14,18 @@
     const fs = require('fs')
     const admZip = require('adm-zip');
     const copy = require('recursive-copy');
-    // const openDir = electron.remote
 
     // When DOMContentent is loaded and ready
     jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active")})
 
     // Reading local package.json file
+    
     let packageJSON = fs.readFileSync(path.join(__dirname, "../package.json"))
     packageJSON = JSON.parse(packageJSON.toString("utf-8"))
     let currentVersion = packageJSON.version
 
     // Pythonpath and pythonscript files location
+    
     if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python")
     if (!localStorage["pythonscript"]) localStorage["pythonscript"] = path.resolve(__dirname, "python_files")
     let pythonpath = localStorage["pythonpath"];
@@ -541,7 +542,7 @@
                         <div class="control" >
                             <button class="button is-link is-pulled-right" on:click={configSave}>Save</button>
                             {#if saveChanges}
-                                <h1 class="subtitle" transition:fade on:introend="{setTimeout(() => saveChanges=false, 2000)}">Changes saved!</h1>
+                                <h1 class="subtitle" transition:fade on:introend="{()=>setTimeout(() => saveChanges=false, 2000)}">Changes saved!</h1>
                             {/if}
                         </div>
                     

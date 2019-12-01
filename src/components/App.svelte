@@ -9,8 +9,10 @@
   import Settings from "./Settings.svelte"
   import Footer from "./Footer.svelte";
   import Misc from "./Misc.svelte"
-  // require('v8-compile-cache');
+  import { onMount } from 'svelte';
 
+  const copy = require('recursive-copy');
+  const { exec } = require("child_process");
   window.developerMode = false
 
   // Importing other modules
@@ -33,6 +35,8 @@
   current_version = JSON.parse(current_version.toString("utf-8")).version
   localStorage["version"] = current_version
 
+  if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python")
+
   // Getting variables
   export let mainPages;
   const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile", "Misc", "Settings"];
@@ -51,12 +55,28 @@
   menu.append(new MenuItem({ label: "Inspect Element", click() { remote.getCurrentWindow().inspectElement(rightClickPosition.x, rightClickPosition.y) } }))
   menu.append(new MenuItem({ type: 'separator' }))
 
-  
   window.addEventListener('contextmenu', (e) => {
       e.preventDefault()
       rightClickPosition = {x: e.x, y: e.y}
       menu.popup(remote.getCurrentWindow())
+
     }, false)
+
+  let src = path.resolve(__dirname, "npmPackages")
+  let dest = path.resolve(__dirname, "../node_modules")
+
+  copy(src, dest, {overwrite: false}, function(error, results) {
+      console.log(results)
+      if (error) console.log('Copy failed: ' + error)
+      else console.info('Copied ' + results.length + ' files')
+  })
+
+  let pipFilename = path.resolve(__dirname, "pipPackages", "streamlit-0.51.0-py2.py3-none-any.whl")
+  exec(`${localStorage.pythonpath} -m pip install ${pipFilename}`, (err, result)=>{
+    
+    if(err) {console.log(err)} 
+    else {console.log(result)}
+  })
 
 </script>
 

@@ -2,12 +2,12 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var path = require('path');
-var path__default = _interopDefault(path);
+var path$1 = require('path');
+var path$1__default = _interopDefault(path$1);
 var electron = require('electron');
-var child_process = _interopDefault(require('child_process'));
-var fs = require('fs');
-var fs__default = _interopDefault(fs);
+var fs$1 = require('fs');
+var fs$1__default = _interopDefault(fs$1);
+var child_process = require('child_process');
 
 function noop() { }
 const identity = x => x;
@@ -2344,9 +2344,31 @@ class Filebrowser extends SvelteComponent {
 
 // Importing modules
 
-const { spawn, exec } = child_process;
+const { spawn, exec } = require("child_process");
+const path = require('path');
+const fs = require("fs");
 
+const find_process = require("find-process");
 
+function killPort(port) {
+    return new Promise((resolve, reject)=>{
+
+        find_process("port", port).then(result=>{
+
+            if (result.length > 0) {
+
+                let pid = result[0].pid;
+                let platform = process.platform;
+
+                if (platform === "win32") exec(`taskkill /F /PID ${pid}`);
+                else if (platform === "darwin") exec(`kill ${pid}`);
+                else if (platform === "linux") exec(`killall ${pid}`);
+                resolve(`Port ${port} closed`);
+            } else {reject(`Port ${port} already closed `);}
+
+        });
+    })
+}
 
 let screenWidth = window.screen.width;
 let plot_height = screenWidth * .22;
@@ -2460,7 +2482,7 @@ class program {
 
                 const py = spawn(
                     localStorage["pythonpath"],
-                    ["-i", path__default.join(localStorage["pythonscript"], this.pyfile), this.files.concat(this.args)],
+                    ["-i", path.join(localStorage["pythonscript"], this.pyfile), this.files.concat(this.args)],
                     {
                         detached: true,
                         stdio: 'ignore',
@@ -2477,10 +2499,10 @@ class program {
 
                 let py;
                 try {
-                    fs__default.readFileSync(`${localStorage["pythonpath"]}.exe`);
+                    fs.readFileSync(`${localStorage["pythonpath"]}.exe`);
                     py = spawn(
                         localStorage["pythonpath"],
-                        [path__default.join(localStorage["pythonscript"], this.pyfile), this.files.concat(this.args)]
+                        [path.join(localStorage["pythonscript"], this.pyfile), this.files.concat(this.args)]
                     );
                 } catch (err) { reject(`Check python location (Settings-->Configuration-->Pythonpath)\n${err}`); }
 
@@ -2687,8 +2709,6 @@ class program {
     }
 }
 
-var program_1 = program;
-
 const successAnimation = "is-success bounce faster";
 const dangerAnimation = "is-danger shake faster";
 const loadAnimation = "is-loading is-link";
@@ -2729,7 +2749,7 @@ function runPlot({ fullfiles, filetype, btname, pyfile, filetag = null, args = [
     if (filetype == "felix") { felixbtntoggle("none"); }
 
     return new Promise((resolve, reject) => {
-        let start = new program_1(obj);
+        let start = new program(obj);
         start.filecheck()
             .then(filecheckResult => {
 
@@ -2779,7 +2799,7 @@ const constants = {
 function safeReadDirSync (path) {
 	let dirData = {};
 	try {
-		dirData = fs__default.readdirSync(path);
+		dirData = fs$1__default.readdirSync(path);
 	} catch(ex) {
 		if (ex.code == "EACCES" || ex.code == "EPERM") {
 			//User does not have permissions, ignore directory
@@ -2818,12 +2838,12 @@ function isRegExp(regExp) {
  * @return {Object}
  */
 function directoryTree (path, options, onEachFile, onEachDirectory) {
-	const name = path__default.basename(path);
+	const name = path$1__default.basename(path);
 	path = options && options.normalizePath ? normalizePath(path) : path;
 	const item = { path, name };
 	let stats;
 
-	try { stats = fs__default.statSync(path); }
+	try { stats = fs$1__default.statSync(path); }
 	catch (e) { return null; }
 
 	// Skip if it matches the exclude regex
@@ -2836,7 +2856,7 @@ function directoryTree (path, options, onEachFile, onEachDirectory) {
 
 	if (stats.isFile()) {
 
-		const ext = path__default.extname(path).toLowerCase();
+		const ext = path$1__default.extname(path).toLowerCase();
 
 		// Skip if it does not match the extension regex
 		if (options && options.extensions && !options.extensions.test(ext))
@@ -2853,7 +2873,7 @@ function directoryTree (path, options, onEachFile, onEachDirectory) {
 		}
 
 		if (onEachFile) {
-			onEachFile(item, path__default, stats);
+			onEachFile(item, path$1__default, stats);
 		}
 	}
 	else if (stats.isDirectory()) {
@@ -2866,12 +2886,12 @@ function directoryTree (path, options, onEachFile, onEachDirectory) {
 			});
 		}
 		item.children = dirData
-			.map(child => directoryTree(path__default.join(path, child), options, onEachFile, onEachDirectory))
+			.map(child => directoryTree(path$1__default.join(path, child), options, onEachFile, onEachDirectory))
 			.filter(e => !!e);
 		item.size = item.children.reduce((prev, cur) => prev + cur.size, 0);
 		item.type = constants.DIRECTORY;
 		if (onEachDirectory) {
-			onEachDirectory(item, path__default, stats);
+			onEachDirectory(item, path$1__default, stats);
 		}
 	} else {
 		return null; // Or set item.size = 0 for devices, FIFO and sockets ?
@@ -2977,7 +2997,7 @@ function get_each_context_10(ctx, list, i) {
 	return child_ctx;
 }
 
-// (804:12) {#each funcBtns as { id, name }}
+// (852:12) {#each funcBtns as { id, name }}
 function create_each_block_10(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -2985,7 +3005,7 @@ function create_each_block_10(ctx) {
 		c() {
 			div = element("div");
 			t = text(t_value);
-			attr(div, "class", "level-item button hvr-glow funcBtn is-link animated svelte-orgd3y");
+			attr(div, "class", "level-item button hvr-glow funcBtn is-link animated svelte-f7zhs2");
 			attr(div, "id", div_id_value = ctx.id);
 			dispose = listen(div, "click", ctx.functionRun);
 		},
@@ -3015,7 +3035,7 @@ function create_each_block_10(ctx) {
 	};
 }
 
-// (820:18) {:else}
+// (868:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3025,7 +3045,7 @@ function create_else_block_1$1(ctx) {
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = ctx.id);
 			input.checked = input_checked_value = ctx.bind;
-			attr(input, "class", "svelte-orgd3y");
+			attr(input, "class", "svelte-f7zhs2");
 			dispose = listen(input, "click", ctx.click_handler_2);
 		},
 
@@ -3053,7 +3073,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (818:18) {#if name[0]==="Log"}
+// (866:18) {#if name[0]==="Log"}
 function create_if_block_13(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3063,7 +3083,7 @@ function create_if_block_13(ctx) {
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = ctx.id);
 			input.checked = input_checked_value = ctx.bind;
-			attr(input, "class", "svelte-orgd3y");
+			attr(input, "class", "svelte-f7zhs2");
 			dispose = listen(input, "click", ctx.linearlogCheck);
 		},
 
@@ -3091,7 +3111,7 @@ function create_if_block_13(ctx) {
 	};
 }
 
-// (813:12) {#each checkBtns as {id, name, bind, help}}
+// (861:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_9(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -3116,13 +3136,13 @@ function create_each_block_9(ctx) {
 			div1 = element("div");
 			label1 = element("label");
 			t3 = text(t3_value);
-			attr(label0, "class", "svelte-orgd3y");
+			attr(label0, "class", "svelte-f7zhs2");
 			attr(div0, "class", "state p-success p-on");
-			attr(label1, "class", "svelte-orgd3y");
+			attr(label1, "class", "svelte-f7zhs2");
 			attr(div1, "class", "state p-danger p-off");
 			attr(div2, "class", "pretty p-default p-curve p-toggle");
 			attr(div2, "data-tippy", div2_data_tippy_value = ctx.help);
-			attr(div3, "class", "level-item animated svelte-orgd3y");
+			attr(div3, "class", "level-item animated svelte-f7zhs2");
 			attr(div3, "id", div3_id_value = "" + ctx.id + "_Container");
 		},
 
@@ -3179,7 +3199,7 @@ function create_each_block_9(ctx) {
 	};
 }
 
-// (832:12) {#if filetag == 'felix'}
+// (880:12) {#if filetag == 'felix'}
 function create_if_block_12(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -3216,7 +3236,7 @@ function create_if_block_12(ctx) {
 			attr(select, "data-tippy", "Normalisation method");
 			attr(span, "class", "select");
 			attr(div0, "class", "control");
-			attr(input, "class", "input svelte-orgd3y");
+			attr(input, "class", "input svelte-f7zhs2");
 			attr(input, "type", "number");
 			attr(input, "step", "0.5");
 			attr(input, "id", "delta_value");
@@ -3293,7 +3313,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (841:24) {#each normalisation_method as method}
+// (889:24) {#each normalisation_method as method}
 function create_each_block_8(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -3320,7 +3340,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (861:12) {#if filetag == 'thz'}
+// (909:12) {#if filetag == 'thz'}
 function create_if_block_11(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -3352,7 +3372,7 @@ function create_if_block_11(ctx) {
 			div7 = element("div");
 			input1 = element("input");
 			attr(div1, "class", "control");
-			attr(input0, "class", "input svelte-orgd3y");
+			attr(input0, "class", "input svelte-f7zhs2");
 			attr(input0, "type", "number");
 			attr(input0, "step", "0.5");
 			attr(input0, "id", "delta_value_thz");
@@ -3362,7 +3382,7 @@ function create_if_block_11(ctx) {
 			attr(div3, "class", "field has-addons");
 			attr(div4, "class", "level-item");
 			attr(div6, "class", "control");
-			attr(input1, "class", "input svelte-orgd3y");
+			attr(input1, "class", "input svelte-f7zhs2");
 			attr(input1, "type", "number");
 			attr(input1, "step", "0.01");
 			attr(input1, "id", "gamma_thz");
@@ -3420,7 +3440,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (913:6) {#if filetag=="felix"}
+// (961:6) {#if filetag=="felix"}
 function create_if_block_10(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -3458,27 +3478,27 @@ function create_if_block_10(ctx) {
 			button2.textContent = "Open in Matplotlib";
 			attr(h1, "class", "subtitle");
 			attr(h1, "id", "theoryfilename");
-			attr(label, "class", "label svelte-orgd3y");
+			attr(label, "class", "label svelte-f7zhs2");
 			attr(label, "id", "theorylabel");
 			attr(button0, "class", "button is-warning");
-			attr(input0, "class", "input svelte-orgd3y");
+			attr(input0, "class", "input svelte-f7zhs2");
 			attr(input0, "type", "number");
 			set_style(input0, "width", "150px");
 			attr(input0, "data-tippy", "Sigma (deviation) from central frequency");
-			attr(input1, "class", "input svelte-orgd3y");
+			attr(input1, "class", "input svelte-f7zhs2");
 			attr(input1, "type", "number");
 			attr(input1, "step", "0.001");
 			set_style(input1, "width", "150px");
 			attr(input1, "data-tippy", "Scaling factor (to shift in position)");
-			attr(button1, "class", "funcBtn button is-link animated svelte-orgd3y");
+			attr(button1, "class", "funcBtn button is-link animated svelte-f7zhs2");
 			attr(button1, "id", "appendTheory");
-			attr(button2, "class", "funcBtn button is-link animated svelte-orgd3y");
+			attr(button2, "class", "funcBtn button is-link animated svelte-f7zhs2");
 			attr(button2, "id", "theory_Matplotlib");
 			attr(div0, "class", "control");
 			attr(div1, "class", "field");
-			attr(div2, "class", "container is-marginless svelte-orgd3y");
+			attr(div2, "class", "container is-marginless svelte-f7zhs2");
 			attr(div2, "id", "theoryContainer");
-			attr(div3, "class", "row svelte-orgd3y");
+			attr(div3, "class", "row svelte-f7zhs2");
 			attr(div3, "id", "theoryRow");
 			set_style(div3, "display", "none");
 			set_style(div3, "padding-bottom", "1em");
@@ -3541,9 +3561,9 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (932:6) {#if filetag=="scan"}
+// (980:6) {#if filetag=="scan"}
 function create_if_block_4(ctx) {
-	var div3, div2, div1, t0, t1, div0, button, dispose;
+	var div3, div2, div1, t0, t1, div0, button, t2, button_class_value, dispose;
 
 	let each_value_6 = ["ResON", "ResOFF"];
 
@@ -3580,14 +3600,14 @@ function create_if_block_4(ctx) {
 			t1 = space();
 			div0 = element("div");
 			button = element("button");
-			button.textContent = "Submit";
-			attr(button, "class", "funcBtn button is-link animated svelte-orgd3y");
+			t2 = text("Submit");
+			attr(button, "class", button_class_value = "funcBtn button animated " + ctx.depletionAnimate + " svelte-f7zhs2");
 			attr(button, "id", "depletionSubmit");
 			attr(div0, "class", "level-item");
 			set_style(div0, "margin-top", "2em");
 			attr(div1, "class", "level-left");
 			attr(div2, "class", "level");
-			attr(div3, "class", "row svelte-orgd3y");
+			attr(div3, "class", "row svelte-f7zhs2");
 			attr(div3, "id", "depletionRow");
 			set_style(div3, "display", "none");
 			dispose = listen(button, "click", ctx.depletionPlot);
@@ -3611,6 +3631,7 @@ function create_if_block_4(ctx) {
 			append(div1, t1);
 			append(div1, div0);
 			append(div0, button);
+			append(button, t2);
 		},
 
 		p(changed, ctx) {
@@ -3656,6 +3677,10 @@ function create_if_block_4(ctx) {
 				}
 				each_blocks.length = each_value_5.length;
 			}
+
+			if ((changed.depletionAnimate) && button_class_value !== (button_class_value = "funcBtn button animated " + ctx.depletionAnimate + " svelte-f7zhs2")) {
+				attr(button, "class", button_class_value);
+			}
 		},
 
 		d(detaching) {
@@ -3672,7 +3697,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (945:28) {#if folderFile.files != undefined}
+// (993:28) {#if folderFile.files != undefined}
 function create_if_block_9(ctx) {
 	var each_1_anchor;
 
@@ -3735,7 +3760,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (946:31) {#each folderFile.files as scanfile}
+// (994:31) {#each folderFile.files as scanfile}
 function create_each_block_7(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3772,7 +3797,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (937:16) {#each ["ResON", "ResOFF"] as name}
+// (985:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_6(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3792,9 +3817,9 @@ function create_each_block_6(ctx) {
 			select = element("select");
 			if (if_block) if_block.c();
 			attr(h1, "class", "subtitle");
-			attr(label, "class", "label svelte-orgd3y");
+			attr(label, "class", "label svelte-f7zhs2");
 			attr(select, "id", ctx.name);
-			attr(select, "class", "svelte-orgd3y");
+			attr(select, "class", "svelte-f7zhs2");
 			attr(div0, "class", "select");
 			attr(div1, "class", "control");
 			attr(div2, "class", "field");
@@ -3840,7 +3865,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (970:59) 
+// (1018:59) 
 function create_if_block_8(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3852,7 +3877,7 @@ function create_if_block_8(ctx) {
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-orgd3y");
+			attr(input, "class", "input svelte-f7zhs2");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
 			dispose = listen(input, "input", input_input_handler_4);
@@ -3879,7 +3904,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (968:54) 
+// (1016:54) 
 function create_if_block_7(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3891,7 +3916,7 @@ function create_if_block_7(ctx) {
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-orgd3y");
+			attr(input, "class", "input svelte-f7zhs2");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
 			dispose = listen(input, "input", input_input_handler_3);
@@ -3918,7 +3943,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (966:52) 
+// (1014:52) 
 function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3930,7 +3955,7 @@ function create_if_block_6(ctx) {
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-orgd3y");
+			attr(input, "class", "input svelte-f7zhs2");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
 			dispose = listen(input, "input", input_input_handler_2);
@@ -3957,14 +3982,14 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (964:24) {#if name=="Power (ON, OFF)"}
+// (1012:24) {#if name=="Power (ON, OFF)"}
 function create_if_block_5(ctx) {
 	var input, dispose;
 
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-orgd3y");
+			attr(input, "class", "input svelte-f7zhs2");
 			attr(input, "type", "text");
 			attr(input, "id", ctx.id);
 			dispose = listen(input, "input", ctx.input_input_handler_1);
@@ -3990,7 +4015,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (957:16) {#each depletionLabels as {name, id}}
+// (1005:16) {#each depletionLabels as {name, id}}
 function create_each_block_5(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0;
 
@@ -4015,7 +4040,7 @@ function create_each_block_5(ctx) {
 			div0 = element("div");
 			if (if_block) if_block.c();
 			attr(h1, "class", "subtitle");
-			attr(label, "class", "label svelte-orgd3y");
+			attr(label, "class", "label svelte-f7zhs2");
 			attr(div0, "class", "control");
 			attr(div1, "class", "field");
 			attr(div2, "class", "level-item");
@@ -4046,7 +4071,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (990:6) {#if filetag === "mass"}
+// (1038:6) {#if filetag === "mass"}
 function create_if_block_3(ctx) {
 	var div11, div10, div9, div1, div0, select, t0, div2, input0, input0_updating = false, t1, div3, input1, input1_updating = false, t2, div4, input2, input2_updating = false, t3, div6, div5, t5, div8, div7, dispose;
 
@@ -4106,37 +4131,37 @@ function create_if_block_3(ctx) {
 			attr(select, "id", "massFiles");
 			attr(div0, "class", "select");
 			attr(div1, "class", "level-item");
-			attr(input0, "class", "input svelte-orgd3y");
+			attr(input0, "class", "input svelte-f7zhs2");
 			attr(input0, "type", "number");
 			attr(input0, "placeholder", "Peak prominance value");
 			attr(input0, "data-tippy", "Peak prominace value");
 			attr(input0, "min", "0");
 			attr(input0, "step", "0.5");
 			attr(div2, "class", "level-item");
-			attr(input1, "class", "input svelte-orgd3y");
+			attr(input1, "class", "input svelte-f7zhs2");
 			attr(input1, "type", "number");
 			attr(input1, "placeholder", "Peak width");
 			attr(input1, "data-tippy", "Optional: Peak width");
 			attr(input1, "min", "0");
 			attr(input1, "step", "0.5");
 			attr(div3, "class", "level-item");
-			attr(input2, "class", "input svelte-orgd3y");
+			attr(input2, "class", "input svelte-f7zhs2");
 			attr(input2, "type", "number");
 			attr(input2, "placeholder", "Peak Height");
 			attr(input2, "data-tippy", "Optional: Peak Height");
 			attr(input2, "min", "0");
 			attr(input2, "step", "0.5");
 			attr(div4, "class", "level-item");
-			attr(div5, "class", "level-item button is-link hvr-glow funcBtn animated svelte-orgd3y");
+			attr(div5, "class", "level-item button is-link hvr-glow funcBtn animated svelte-f7zhs2");
 			attr(div5, "id", "mass_get_peaks");
 			attr(div6, "class", "level-item");
-			attr(div7, "class", "level-item button is-warning hvr-glow funcBtn animated svelte-orgd3y");
+			attr(div7, "class", "level-item button is-warning hvr-glow funcBtn animated svelte-f7zhs2");
 			attr(div7, "id", "mass_clear_peaks");
 			attr(div7, "data-tippy", "Clear all peaks");
 			attr(div8, "class", "level-item");
 			attr(div9, "class", "level-left");
 			attr(div10, "class", "level");
-			attr(div11, "class", "row svelte-orgd3y");
+			attr(div11, "class", "row svelte-f7zhs2");
 			attr(div11, "id", "mass_peak_find_row");
 			set_style(div11, "display", "block");
 			set_style(div11, "padding-bottom", "1em");
@@ -4235,7 +4260,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (998:22) {#each fileChecked as file}
+// (1046:22) {#each fileChecked as file}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4272,7 +4297,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (1157:12) {:else}
+// (1217:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -4281,7 +4306,7 @@ function create_else_block$2(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-orgd3y");
+			attr(div, "class", "svelte-f7zhs2");
 		},
 
 		m(target, anchor) {
@@ -4305,7 +4330,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (1050:38) 
+// (1110:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select0, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div28, div27, div15, div14, select1, t11, div17, div16, t13, div20, t16, div22, div21, t17, div21_class_value, t18, div24, div23, t19, div23_class_value, t20, div26, div25, t22, t23, current, dispose;
 
@@ -4394,7 +4419,7 @@ function create_if_block_1$1(ctx) {
 			div16.textContent = "Exp. Fit";
 			t13 = space();
 			div20 = element("div");
-			div20.innerHTML = `<div class="pretty p-switch p-slim" style="margin-left:1em;" data-tippy="Overwrite existing expfit file with only new values ? or else will append to existing file"><input type="checkbox" id="overwrite_expfit"> <div class="state p-info p-on"><label class="svelte-orgd3y">Overwrite</label></div></div>`;
+			div20.innerHTML = `<div class="pretty p-switch p-slim" style="margin-left:1em;" data-tippy="Overwrite existing expfit file with only new values ? or else will append to existing file"><input type="checkbox" id="overwrite_expfit"> <div class="state p-info p-on"><label class="svelte-f7zhs2">Overwrite</label></div></div>`;
 			t16 = space();
 			div22 = element("div");
 			div21 = element("div");
@@ -4412,29 +4437,29 @@ function create_if_block_1$1(ctx) {
 			t23 = space();
 			attr(div0, "id", div0_id_value = ctx.id);
 			set_style(div0, "padding-bottom", "1em");
-			attr(div0, "class", "svelte-orgd3y");
-			attr(input0, "class", "input svelte-orgd3y");
+			attr(div0, "class", "svelte-f7zhs2");
+			attr(input0, "class", "input svelte-f7zhs2");
 			attr(input0, "type", "number");
 			attr(input0, "id", "peak_prominance");
 			attr(input0, "placeholder", "Peak prominance value");
 			attr(input0, "data-tippy", "Peak prominace value");
 			attr(input0, "min", "0");
 			attr(div1, "class", "level-item");
-			attr(input1, "class", "input svelte-orgd3y");
+			attr(input1, "class", "input svelte-f7zhs2");
 			attr(input1, "type", "number");
 			attr(input1, "id", "peak_width_fit");
 			attr(input1, "placeholder", "Peak width");
 			attr(input1, "data-tippy", "Optional: Peak width");
 			attr(input1, "min", "0");
 			attr(div2, "class", "level-item");
-			attr(input2, "class", "input svelte-orgd3y");
+			attr(input2, "class", "input svelte-f7zhs2");
 			attr(input2, "type", "number");
 			attr(input2, "id", "peak_height_fit");
 			attr(input2, "placeholder", "Peak height");
 			attr(input2, "data-tippy", "Optional: Peak height");
 			attr(input2, "min", "0");
 			attr(div3, "class", "level-item");
-			attr(div4, "class", div4_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-orgd3y");
+			attr(div4, "class", div4_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-f7zhs2");
 			attr(div4, "id", "find_expfit_peaks");
 			attr(div4, "data-tippy", "Find the peaks by adjusting the prominence value");
 			attr(div5, "class", "level-item");
@@ -4442,11 +4467,11 @@ function create_if_block_1$1(ctx) {
 			attr(select0, "id", "fitFiles");
 			attr(div6, "class", "select");
 			attr(div7, "class", "level-item");
-			attr(div8, "class", div8_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-orgd3y");
+			attr(div8, "class", div8_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-f7zhs2");
 			attr(div8, "id", "fitall_expfit_peaks");
 			attr(div8, "data-tippy", "Fit all the peaks positions found using gaussian");
 			attr(div9, "class", "level-item");
-			attr(div10, "class", div10_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitall_tkplot_Peak_btnCSS + " svelte-orgd3y");
+			attr(div10, "class", div10_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitall_tkplot_Peak_btnCSS + " svelte-f7zhs2");
 			attr(div10, "id", "fitall_tkplot_expfit_peaks");
 			attr(div10, "data-tippy", "Fit all the peaks positions found using gaussian");
 			attr(div11, "class", "level-item");
@@ -4457,20 +4482,20 @@ function create_if_block_1$1(ctx) {
 			attr(select1, "id", "expfitFiles");
 			attr(div14, "class", "select");
 			attr(div15, "class", "level-item");
-			attr(div16, "class", "level-item button hvr-glow funcBtn is-link animated svelte-orgd3y");
+			attr(div16, "class", "level-item button hvr-glow funcBtn is-link animated svelte-f7zhs2");
 			attr(div16, "id", "exp_fit");
 			attr(div16, "data-tippy", "Choose the file from the dropdown --> Fit");
 			attr(div17, "class", "level-item");
 			attr(div20, "class", "level-item");
-			attr(div21, "class", div21_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_last_Peak_btnCSS + " svelte-orgd3y");
+			attr(div21, "class", div21_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_last_Peak_btnCSS + " svelte-f7zhs2");
 			attr(div21, "id", "clearLast_plotted_peaks");
 			attr(div21, "data-tippy", "Clear last fitted lines");
 			attr(div22, "class", "level-item");
-			attr(div23, "class", div23_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_all_Peak_btnCSS + " svelte-orgd3y");
+			attr(div23, "class", div23_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_all_Peak_btnCSS + " svelte-f7zhs2");
 			attr(div23, "id", "clearAll_plotted_peaks");
 			attr(div23, "data-tippy", "Clear all fitted lines");
 			attr(div24, "class", "level-item");
-			attr(div25, "class", "level-item button hvr-glow funcBtn is-link animated svelte-orgd3y");
+			attr(div25, "class", "level-item button hvr-glow funcBtn is-link animated svelte-f7zhs2");
 			attr(div25, "id", "findall_expfit_toggle");
 			attr(div26, "class", "level-item");
 			attr(div27, "class", "level-left");
@@ -4588,7 +4613,7 @@ function create_if_block_1$1(ctx) {
 			if (!input2_updating && changed.peak_height) set_input_value(input2, ctx.peak_height);
 			input2_updating = false;
 
-			if ((!current || changed.findPeak_btnCSS) && div4_class_value !== (div4_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-orgd3y")) {
+			if ((!current || changed.findPeak_btnCSS) && div4_class_value !== (div4_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-f7zhs2")) {
 				attr(div4, "class", div4_class_value);
 			}
 
@@ -4616,11 +4641,11 @@ function create_if_block_1$1(ctx) {
 
 			if (changed.fit_files) select_option(select0, ctx.fit_files);
 
-			if ((!current || changed.fitallPeak_btnCSS) && div8_class_value !== (div8_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-orgd3y")) {
+			if ((!current || changed.fitallPeak_btnCSS) && div8_class_value !== (div8_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-f7zhs2")) {
 				attr(div8, "class", div8_class_value);
 			}
 
-			if ((!current || changed.fitall_tkplot_Peak_btnCSS) && div10_class_value !== (div10_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitall_tkplot_Peak_btnCSS + " svelte-orgd3y")) {
+			if ((!current || changed.fitall_tkplot_Peak_btnCSS) && div10_class_value !== (div10_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitall_tkplot_Peak_btnCSS + " svelte-f7zhs2")) {
 				attr(div10, "class", div10_class_value);
 			}
 
@@ -4652,11 +4677,11 @@ function create_if_block_1$1(ctx) {
 
 			if (changed.fit_files) select_option(select1, ctx.fit_files);
 
-			if ((!current || changed.clear_last_Peak_btnCSS) && div21_class_value !== (div21_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_last_Peak_btnCSS + " svelte-orgd3y")) {
+			if ((!current || changed.clear_last_Peak_btnCSS) && div21_class_value !== (div21_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_last_Peak_btnCSS + " svelte-f7zhs2")) {
 				attr(div21, "class", div21_class_value);
 			}
 
-			if ((!current || changed.clear_all_Peak_btnCSS) && div23_class_value !== (div23_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_all_Peak_btnCSS + " svelte-orgd3y")) {
+			if ((!current || changed.clear_all_Peak_btnCSS) && div23_class_value !== (div23_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_all_Peak_btnCSS + " svelte-f7zhs2")) {
 				attr(div23, "class", div23_class_value);
 			}
 
@@ -4716,7 +4741,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (1043:12) {#if filetag == 'scan'}
+// (1103:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -4739,7 +4764,7 @@ function create_if_block$2(ctx) {
 			t = space();
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-orgd3y");
+			attr(div, "class", "svelte-f7zhs2");
 		},
 
 		m(target, anchor) {
@@ -4793,7 +4818,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (1081:26) {#each fit_file_list as file}
+// (1141:26) {#each fit_file_list as file}
 function create_each_block_3(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4830,7 +4855,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (1109:26) {#each fit_file_list as file}
+// (1169:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4867,7 +4892,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (1149:18) {#if expfit_log_display}
+// (1209:18) {#if expfit_log_display}
 function create_if_block_2(ctx) {
 	var div, label, t, div_intro, div_outro, current;
 
@@ -4876,7 +4901,7 @@ function create_if_block_2(ctx) {
 			div = element("div");
 			label = element("label");
 			t = text(ctx.expfit_log);
-			attr(label, "class", "label svelte-orgd3y");
+			attr(label, "class", "label svelte-f7zhs2");
 			set_style(label, "font-weight", "400");
 			attr(div, "class", "level-item");
 			attr(div, "id", "expfit_log_id");
@@ -4923,7 +4948,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (1045:16) {#each fileChecked as scanfile}
+// (1105:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -4932,7 +4957,7 @@ function create_each_block_1$1(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = "" + ctx.scanfile + "_tplot");
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-orgd3y");
+			attr(div, "class", "svelte-f7zhs2");
 		},
 
 		m(target, anchor) {
@@ -4953,7 +4978,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (1042:10) {#each plotID as id}
+// (1101:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var current_block_type_index, if_block, if_block_anchor, current;
 
@@ -5148,11 +5173,11 @@ function create_fragment$5(ctx) {
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
-			attr(div0, "class", "column is-2 filebrowserColumn svelte-orgd3y");
+			attr(div0, "class", "column is-2 filebrowserColumn svelte-f7zhs2");
 			attr(div0, "id", div0_id_value = "" + ctx.filetag + "filebrowserColumn");
 			attr(div1, "class", "modal-background");
 			attr(p, "class", "modal-card-title");
-			attr(button0, "class", "delete");
+			attr(button0, "class", "delete svelte-f7zhs2");
 			attr(button0, "aria-label", "close");
 			attr(header, "class", "modal-card-head");
 			attr(section0, "class", "modal-card-body");
@@ -5160,8 +5185,8 @@ function create_fragment$5(ctx) {
 			attr(button1, "class", "button");
 			attr(footer, "class", "modal-card-foot");
 			attr(div2, "class", "modal-card");
-			attr(div3, "class", div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-orgd3y");
-			attr(input, "class", "input locationLabel svelte-orgd3y");
+			attr(div3, "class", div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-f7zhs2");
+			attr(input, "class", "input locationLabel svelte-f7zhs2");
 			attr(input, "type", "text");
 			attr(input, "placeholder", "Location will be displayed");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "LocationLabel");
@@ -5172,19 +5197,19 @@ function create_fragment$5(ctx) {
 			attr(div5, "data-tippy", div5_data_tippy_value = "Browse " + ctx.filetag + " file");
 			attr(div6, "class", "control");
 			attr(div7, "class", "field has-addons");
-			attr(div8, "class", "row locationRow svelte-orgd3y");
+			attr(div8, "class", "row locationRow svelte-f7zhs2");
 			attr(div9, "class", "level-left animated fadeIn");
 			attr(div10, "class", "level");
-			attr(div11, "class", "row buttonsRow svelte-orgd3y");
+			attr(div11, "class", "row buttonsRow svelte-f7zhs2");
 			set_style(hr, "margin", "0.5em 0");
 			set_style(hr, "background-color", "#bdc3c7");
-			attr(div12, "class", "container is-fluid svelte-orgd3y");
+			attr(div12, "class", "container is-fluid svelte-f7zhs2");
 			attr(div12, "id", div12_id_value = "" + ctx.filetag + "plotContainer");
-			attr(div13, "class", "row box plotContainer svelte-orgd3y");
+			attr(div13, "class", "row box plotContainer svelte-f7zhs2");
 			attr(div13, "id", div13_id_value = "" + ctx.filetag + "plotMainContainer");
-			attr(div14, "class", "column svelte-orgd3y");
+			attr(div14, "class", "column svelte-f7zhs2");
 			attr(div15, "class", "columns");
-			attr(section1, "class", "section svelte-orgd3y");
+			attr(section1, "class", "section svelte-f7zhs2");
 			attr(section1, "id", ctx.id);
 			attr(section1, "style", style);
 
@@ -5280,7 +5305,7 @@ function create_fragment$5(ctx) {
 				set_data(t5, t5_value);
 			}
 
-			if ((!current || changed.modal || changed.filetag) && div3_class_value !== (div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-orgd3y")) {
+			if ((!current || changed.modal || changed.filetag) && div3_class_value !== (div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-f7zhs2")) {
 				attr(div3, "class", div3_class_value);
 			}
 
@@ -5491,25 +5516,14 @@ function create_fragment$5(ctx) {
 
 const style = "display:none;";
 
+let port = 8501;
+
 function instance$5($$self, $$props, $$invalidate) {
 	
 
   let { id, filetag, filetype, funcBtns, plotID, checkBtns, jq, electron, path, menu, MenuItem } = $$props;
 
-  menu.append(new MenuItem({ label: `Open ${filetag} plot in Matplotlib`, click() {
-
-      let obj = {
-        fullfiles: fullfiles,
-        filetag:filetag,            
-        filetype: "general",
-        btname: `${filetag}_Matplotlib`,
-        pyfile: fileInfo[filetag]["pyfile"],
-        args: fileInfo[filetag]["args"]
-      };
-      runPlot(obj);
-    } 
-
-  }));
+  // const ipc = require('electron').ipcRenderer;
   
   jq(document).ready(() => {
 
@@ -5562,7 +5576,6 @@ function instance$5($$self, $$props, $$invalidate) {
 
   let tree = directoryTree_1;
   let currentLocation;
-
   if (localStorage.getItem(`${filetag}_location`) != undefined) {$$invalidate('currentLocation', currentLocation = localStorage.getItem(`${filetag}_location`));}
 
   let allFiles = [];
@@ -5572,19 +5585,17 @@ function instance$5($$self, $$props, $$invalidate) {
     $$invalidate('allFiles', allFiles = Array.from(document.querySelectorAll("." + filetag + "-files")));
   };
 
-  const locationUpdateStatus = (status, classname) => {
+  const locationUpdateStatus = (status) => {
     jq(document).ready(()=>{
       
       let locationUpdateDiv = document.getElementById(`${filetag}locationUpdate`);
 
       locationUpdateDiv.innerHTML = status;
-      locationUpdateDiv.classList.add(classname);
       locationUpdateDiv.style.display = "block";
       
       setTimeout(()=>{
         locationUpdateDiv.innerHTML="";
         locationUpdateDiv.style.display = "none";
-        locationUpdateDiv.classList.remove(classname);
       }, 2000);
       
     });
@@ -5592,12 +5603,13 @@ function instance$5($$self, $$props, $$invalidate) {
 
   const updateFolder = location => {
 
-    
     console.log("Folder updating");
+    locationUpdateStatus("Folder updating...");
 
     if (location === undefined || location === 'undefined') {
       console.log("Location is undefined");
       jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
+      locationUpdateStatus("Location undefined!");
       return undefined;
     } 
 
@@ -5629,11 +5641,11 @@ function instance$5($$self, $$props, $$invalidate) {
       $$invalidate('folderFile', folderFile.folders = folder, folderFile);
       $$invalidate('folderFile', folderFile.files = file, folderFile);
       console.log("Folder updated");
-      locationUpdateStatus("Folder updated", "is-link");
+      locationUpdateStatus("Folder updated");
 
     } catch (err) {
       console.log(`Error Occured: ${err}`);
-      locationUpdateStatus("Error Occured:", "is-danger");
+      locationUpdateStatus("Error Occured:");
     }
 
     jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
@@ -5687,6 +5699,7 @@ function instance$5($$self, $$props, $$invalidate) {
     }
 
   }
+
   let fileInfo = {
 
     // Create baseline matplotlib
@@ -5903,7 +5916,9 @@ function instance$5($$self, $$props, $$invalidate) {
       break;
 
       case "depletionscanBtn":
-        jq("#depletionRow").toggle();
+        // jq("#depletionRow").toggle()
+        depletionPlot();
+
         // if (document.getElementById("depletionRow").style.display === "none") {plotContainerHeight = "60vh"} 
         // else {plotContainerHeight = "50vh"}
       break;
@@ -5959,20 +5974,55 @@ function instance$5($$self, $$props, $$invalidate) {
       id: "timeIndex"
     }
   ];
+  let localhostDepletion = `http://localhost:${port}`;
+  // let localhost_running = true
+  const closePort = async () => {
 
-  const depletionPlot = () => {
+    await killPort(port)
+    .then(result=>console.log(result))
+    .catch(err=>{
+      // localhost_running =false
+      console.log(err);
+    });
+    // setTimeout(webviewReload, 2000)
+  };
+  const depletionPlot = async () => {
 
-    runPlot({fullfiles: [currentLocation], filetype: "depletion",
-      btname: "depletionSubmit", pyfile: "depletionscan.py", 
-      args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] })
-      .then((output)=>{
-        console.log(output);
-      })
-      .catch((err)=>{
-        console.log('Error Occured', err); 
-        $$invalidate('error_msg', error_msg["scan"]=err, error_msg); 
-        $$invalidate('modal', modal["scan"]="is-active", modal);
-      });
+    let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py");
+    let streamlit_path = path.resolve(path.dirname(localStorage["pythonpath"]), "Scripts", "streamlit");
+    $$invalidate('depletionAnimate', depletionAnimate = "is-link is-loading");
+
+    // await webviewClick()
+
+    let defaultArguments = ["run", pyFile, "--server.port", port, "--server.headless", "true"];
+    let sendArguments = [currentLocation, ...folderFile.files];
+
+    console.log(fullfiles);
+
+    let st = child_process.spawn(streamlit_path, [...defaultArguments, ...sendArguments]);
+    
+    st.stdout.on('data', data => {
+      console.log("Standard output");
+      console.log(data.toString("utf8"));
+
+      $$invalidate('depletionAnimate', depletionAnimate = "is-success bounce");
+      
+    });
+
+    st.stderr.on('data', err => {
+      console.log("Error occured:", err.toString("utf8"));
+      $$invalidate('depletionAnimate', depletionAnimate = "is-danger shake faster");
+    });
+
+    st.on('close', ()=>{
+      console.log("Completed");
+
+      closePort();
+      setTimeout(()=>{$$invalidate('depletionAnimate', depletionAnimate = "is-link");}, 2000);
+    });
+
+    window.open(localhostDepletion);
+
   };
   const expfit_log_it = (str) => {
     
@@ -6069,6 +6119,7 @@ function instance$5($$self, $$props, $$invalidate) {
     if (window.line.length === 0) {ready_to_fit = false;}
   };
 
+
   const fitall = (tkplot=false, btname="fitall_expfit_peaks", filetype="expfit_all") => {
 
     console.log("Fitting all found peaks");
@@ -6100,6 +6151,7 @@ function instance$5($$self, $$props, $$invalidate) {
       $$invalidate('modal', modal[filetag]="is-active", modal);
     });
   };
+
   const clear_mass_peaks = () => {Plotly.relayout("mplot", { annotations: [] });};
 
 	const click_handler = () => $$invalidate('modal', modal[filetag]='', modal);
@@ -6239,7 +6291,7 @@ function instance$5($$self, $$props, $$invalidate) {
 		if ('MenuItem' in $$props) $$invalidate('MenuItem', MenuItem = $$props.MenuItem);
 	};
 
-	let fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, clear_all_Peak_btnCSS, clear_last_Peak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div, fit_files, fit_file_list_temp, fit_file_list, fitall_tkplot_Peak_btnCSS, expfit_log_display, expfit_log, mass_peak_width, mass_prominence, mass_peak_height;
+	let fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, depletionAnimate, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, clear_all_Peak_btnCSS, clear_last_Peak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div, fit_files, fit_file_list_temp, fit_file_list, fitall_tkplot_Peak_btnCSS, expfit_log_display, expfit_log, mass_peak_width, mass_prominence, mass_peak_height;
 
 	$$self.$$.update = ($$dirty = { filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1, exp_fitall_div_status: 1, fit_file_list_temp: 1 }) => {
 		if ($$dirty.filetag) ;
@@ -6257,6 +6309,7 @@ function instance$5($$self, $$props, $$invalidate) {
 	$$invalidate('gamma_thz', gamma_thz = 0);
 	$$invalidate('modal', modal = {mass:"", felix:"", scan:"", thz:""});
 	$$invalidate('error_msg', error_msg = {mass:"", felix:"", scan:"", thz:""});
+	$$invalidate('depletionAnimate', depletionAnimate = "is-link");
 	$$invalidate('expfitDiv', expfitDiv = "none");
 	$$invalidate('prominence', prominence = 5);
 	$$invalidate('peak_width', peak_width = 5);
@@ -6324,6 +6377,7 @@ function instance$5($$self, $$props, $$invalidate) {
 		error_msg,
 		fit_files,
 		expfitDiv,
+		depletionAnimate,
 		prominence,
 		peak_width,
 		peak_height,
@@ -6563,7 +6617,7 @@ function instance$6($$self, $$props, $$invalidate) {
     function powSave() { 
 
         if(currentLocation==undefined) {return btnAnimate("Browse folder first !!!", "is-link", "is-danger animated shake faster", 3000);}
-        fs.writeFile(path.join(currentLocation, filename), fileContent, (err) => {
+        fs$1.writeFile(path.join(currentLocation, filename), fileContent, (err) => {
 
             btnAnimate("File saved", "is-link", "is-success animated bounce", 2000);
             if (err) throw err;
@@ -6628,7 +6682,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (505:20) {#each items as item}
+// (506:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -6660,7 +6714,7 @@ function create_each_block$3(ctx) {
 	};
 }
 
-// (543:28) {#if saveChanges}
+// (544:28) {#if saveChanges}
 function create_if_block_1$2(ctx) {
 	var h1, h1_transition, current, dispose;
 
@@ -6669,7 +6723,7 @@ function create_if_block_1$2(ctx) {
 			h1 = element("h1");
 			h1.textContent = "Changes saved!";
 			attr(h1, "class", "subtitle");
-			dispose = listen(h1, "introend", ctx.setTimeout(ctx.introend_handler, 2000));
+			dispose = listen(h1, "introend", ctx.introend_handler);
 		},
 
 		m(target, anchor) {
@@ -6705,7 +6759,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (594:28) {#if back_restore_display}
+// (595:28) {#if back_restore_display}
 function create_if_block$3(ctx) {
 	var p, t, p_transition, current;
 
@@ -7397,17 +7451,18 @@ function instance$7($$self, $$props, $$invalidate) {
     const fs = require('fs');
     const admZip = require('adm-zip');
     const copy = require('recursive-copy');
-    // const openDir = electron.remote
 
     // When DOMContentent is loaded and ready
     jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active");});
 
     // Reading local package.json file
+    
     let packageJSON = fs.readFileSync(path.join(__dirname, "../package.json"));
     $$invalidate('packageJSON', packageJSON = JSON.parse(packageJSON.toString("utf-8")));
     let currentVersion = packageJSON.version;
 
     // Pythonpath and pythonscript files location
+    
     if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python");
     if (!localStorage["pythonscript"]) localStorage["pythonscript"] = path.resolve(__dirname, "python_files");
     let pythonpath = localStorage["pythonpath"];
@@ -7781,7 +7836,7 @@ function instance$7($$self, $$props, $$invalidate) {
 		$$invalidate('pythonscript', pythonscript);
 	}
 
-	const introend_handler = () => $$invalidate('saveChanges', saveChanges=false);
+	const introend_handler = () => setTimeout(() => $$invalidate('saveChanges', saveChanges=false), 2000);
 
 	function input2_change_handler() {
 		developer_mode = this.checked;
@@ -23854,7 +23909,7 @@ function get_each_context$5(ctx, list, i) {
 	return child_ctx;
 }
 
-// (68:0) {#each mainPages as page}
+// (88:0) {#each mainPages as page}
 function create_each_block$5(ctx) {
 	var current;
 
@@ -23864,7 +23919,7 @@ function create_each_block$5(ctx) {
 		{ electron: electron },
 		{ menu: ctx.menu },
 		{ MenuItem: ctx.MenuItem },
-		{ path: path }
+		{ path: path$1 }
 	];
 
 	let container_props = {};
@@ -23890,7 +23945,7 @@ function create_each_block$5(ctx) {
 			(changed.electron) && { electron: electron },
 			(changed.menu) && { menu: ctx.menu },
 			(changed.MenuItem) && { MenuItem: ctx.MenuItem },
-			(changed.path) && { path: path }
+			(changed.path) && { path: path$1 }
 								]) : {};
 			container.$set(container_changes);
 		},
@@ -23942,7 +23997,7 @@ function create_fragment$a(ctx) {
 	var powerfile = new Powerfile({
 		props: {
 		electron: electron,
-		path: path,
+		path: path$1,
 		jq: ctx.jq
 	}
 	});
@@ -23950,7 +24005,7 @@ function create_fragment$a(ctx) {
 	var settings = new Settings({
 		props: {
 		jq: ctx.jq,
-		path: path,
+		path: path$1,
 		mainWindow: ctx.mainWindow,
 		showinfo: ctx.showinfo,
 		electron: electron
@@ -24124,8 +24179,9 @@ function create_fragment$a(ctx) {
 
 function instance$9($$self, $$props, $$invalidate) {
 	
-  // require('v8-compile-cache');
 
+  const copy = require('recursive-copy');
+  const { exec } = require("child_process");
   window.developerMode = false;
 
   const fs = require("fs");
@@ -24138,9 +24194,11 @@ function instance$9($$self, $$props, $$invalidate) {
   const MenuItem = remote.MenuItem;
   const showinfo = remote.dialog.showMessageBox;
 
-  let current_version = fs.readFileSync(path.join(__dirname, "../package.json"));
+  let current_version = fs.readFileSync(path$1.join(__dirname, "../package.json"));
   current_version = JSON.parse(current_version.toString("utf-8")).version;
   localStorage["version"] = current_version;
+
+  if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path$1.resolve(__dirname, "..", "python3.7", "python");
 
   // Getting variables
   let { mainPages } = $$props;
@@ -24160,12 +24218,28 @@ function instance$9($$self, $$props, $$invalidate) {
   menu.append(new MenuItem({ label: "Inspect Element", click() { remote.getCurrentWindow().inspectElement(rightClickPosition.x, rightClickPosition.y); } }));
   menu.append(new MenuItem({ type: 'separator' }));
 
-  
   window.addEventListener('contextmenu', (e) => {
       e.preventDefault();
       rightClickPosition = {x: e.x, y: e.y};
       menu.popup(remote.getCurrentWindow());
+
     }, false);
+
+  let src = path$1.resolve(__dirname, "npmPackages");
+  let dest = path$1.resolve(__dirname, "../node_modules");
+
+  copy(src, dest, {overwrite: false}, function(error, results) {
+      console.log(results);
+      if (error) console.log('Copy failed: ' + error);
+      else console.info('Copied ' + results.length + ' files');
+  });
+
+  let pipFilename = path$1.resolve(__dirname, "pipPackages", "streamlit-0.51.0-py2.py3-none-any.whl");
+  exec(`${localStorage.pythonpath} -m pip install ${pipFilename}`, (err, result)=>{
+    
+    if(err) {console.log(err);} 
+    else {console.log(result);}
+  });
 
 	$$self.$set = $$props => {
 		if ('mainPages' in $$props) $$invalidate('mainPages', mainPages = $$props.mainPages);

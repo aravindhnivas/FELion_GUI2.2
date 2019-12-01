@@ -1,10 +1,13 @@
 <script>
-
   // Importing Svelte modules
+
   import Filebrowser from "./utils/Filebrowser.svelte";
   import { runPlot } from "./utils/js/felion_main.js";
+  import { killPort } from "./utils/js/modules.js";
   import * as dirTree from "directory-tree";
+
   import { fade, fly } from 'svelte/transition';
+  import { spawn } from "child_process";
 
   export let id;
   export let filetag;
@@ -20,20 +23,7 @@
   export let menu;
   export let MenuItem;
 
-  menu.append(new MenuItem({ label: `Open ${filetag} plot in Matplotlib`, click() {
-
-      let obj = {
-        fullfiles: fullfiles,
-        filetag:filetag,            
-        filetype: "general",
-        btname: `${filetag}_Matplotlib`,
-        pyfile: fileInfo[filetag]["pyfile"],
-        args: fileInfo[filetag]["args"]
-      }
-      runPlot(obj);
-    } 
-
-  }))
+  // const ipc = require('electron').ipcRenderer;
   
   jq(document).ready(() => {
 
@@ -91,7 +81,6 @@
   const style = "display:none;";
   let currentLocation;
   $: console.log(`Locally stored location: [${filetag}]: ${localStorage.getItem(`${filetag}_location`)}`)
-
   if (localStorage.getItem(`${filetag}_location`) != undefined) {currentLocation = localStorage.getItem(`${filetag}_location`)}
 
   let allFiles = [];
@@ -104,19 +93,17 @@
     allFiles = Array.from(document.querySelectorAll("." + filetag + "-files"));
   };
 
-  const locationUpdateStatus = (status, classname) => {
+  const locationUpdateStatus = (status) => {
     jq(document).ready(()=>{
       
       let locationUpdateDiv = document.getElementById(`${filetag}locationUpdate`)
 
       locationUpdateDiv.innerHTML = status
-      locationUpdateDiv.classList.add(classname)
       locationUpdateDiv.style.display = "block"
       
       setTimeout(()=>{
         locationUpdateDiv.innerHTML=""
         locationUpdateDiv.style.display = "none"
-        locationUpdateDiv.classList.remove(classname)
       }, 2000)
       
     })
@@ -124,12 +111,13 @@
 
   const updateFolder = location => {
 
-    
     console.log("Folder updating");
+    locationUpdateStatus("Folder updating...")
 
     if (location === undefined || location === 'undefined') {
       console.log("Location is undefined");
       jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
+      locationUpdateStatus("Location undefined!")
       return undefined;
     } 
 
@@ -161,11 +149,11 @@
       folderFile.folders = folder;
       folderFile.files = file;
       console.log("Folder updated");
-      locationUpdateStatus("Folder updated", "is-link")
+      locationUpdateStatus("Folder updated")
 
     } catch (err) {
       console.log(`Error Occured: ${err}`)
-      locationUpdateStatus("Error Occured:", "is-danger")
+      locationUpdateStatus("Error Occured:")
     }
 
     jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
@@ -224,6 +212,7 @@
   
   $: delta_thz = 1
   $: gamma_thz = 0
+
   let fileInfo = {
 
     // Create baseline matplotlib
@@ -442,7 +431,9 @@
       break;
 
       case "depletionscanBtn":
-        jq("#depletionRow").toggle()
+        // jq("#depletionRow").toggle()
+        depletionPlot()
+
         // if (document.getElementById("depletionRow").style.display === "none") {plotContainerHeight = "60vh"} 
         // else {plotContainerHeight = "50vh"}
       break;
@@ -500,19 +491,72 @@
     }
   ]
 
-  const depletionPlot = () => {
+  let port = 8501
+  let localhostDepletion = `http://localhost:${port}`
+  // let localhost_running = true
+  const closePort = async () => {
 
-    runPlot({fullfiles: [currentLocation], filetype: "depletion",
-      btname: "depletionSubmit", pyfile: "depletionscan.py", 
-      args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] })
-      .then((output)=>{
-        console.log(output)
-      })
-      .catch((err)=>{
-        console.log('Error Occured', err); 
-        error_msg["scan"]=err; 
-        modal["scan"]="is-active"
-      })
+    await killPort(port)
+    .then(result=>console.log(result))
+    .catch(err=>{
+      // localhost_running =false
+      console.log(err)
+    })
+    // setTimeout(webviewReload, 2000)
+  }
+
+
+  const webviewReload = async () => {
+    depletionAnimate = "is-link is-loading"
+    console.log("Reloading...")
+    await document.getElementById("depletionWebview").reload()
+
+    depletionAnimate = "is-success bounce"
+    setTimeout(()=>{depletionAnimate = "is-link"}, 2000)
+
+  }
+
+  
+  $: depletionAnimate = "is-link"
+  const depletionPlot = async () => {
+
+    let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py")
+    let streamlit_path = path.resolve(path.dirname(localStorage["pythonpath"]), "Scripts", "streamlit")
+    
+    let command = `${streamlit_path} run ${pyFile} `
+    depletionAnimate = "is-link is-loading"
+
+    // await webviewClick()
+
+    let defaultArguments = ["run", pyFile, "--server.port", port, "--server.headless", "true"]
+    let sendArguments = [currentLocation, ...folderFile.files]
+
+    console.log(fullfiles)
+
+    let st = spawn(streamlit_path, [...defaultArguments, ...sendArguments])
+    
+    st.stdout.on('data', data => {
+      console.log("Standard output")
+      console.log(data.toString("utf8"))
+
+      depletionAnimate = "is-success bounce"
+      
+    })
+
+    st.stderr.on('data', err => {
+      console.log("Error occured:", err.toString("utf8"))
+      depletionAnimate = "is-danger shake faster"
+    })
+
+    st.on('close', ()=>{
+      console.log("Completed")
+
+      closePort()
+      setTimeout(()=>{depletionAnimate = "is-link"}, 2000)
+    })
+
+    window.open(localhostDepletion)
+
   }
   
 
@@ -641,6 +685,7 @@
     if (window.line.length === 0) {ready_to_fit = false}
   }
 
+
   const fitall = (tkplot=false, btname="fitall_expfit_peaks", filetype="expfit_all") => {
 
     console.log("Fitting all found peaks")
@@ -676,7 +721,9 @@
       modal[filetag]="is-active"
     })
   }
+
   const clear_mass_peaks = () => {Plotly.relayout("mplot", { annotations: [] })}
+  
 
 </script>
 
@@ -723,6 +770,7 @@
 
   .column {max-height: 90vh}
 
+  .delete:hover {background-color:#ff3860}
 
   @media only screen
   and (max-width: 1400px) {
@@ -977,7 +1025,7 @@
                 {/each}
 
                 <div class="level-item" style="margin-top:2em">
-                  <button class="funcBtn button is-link animated" id="depletionSubmit" on:click={depletionPlot}>Submit</button>
+                  <button class="funcBtn button animated {depletionAnimate}" id="depletionSubmit" on:click={depletionPlot}>Submit</button>
                 </div>
 
               </div>
@@ -1034,12 +1082,24 @@
       {/if}
 
       <hr style="margin: 0.5em 0; background-color:#bdc3c7" />
-      <!-- <h1 class="subtitle">Data Visualisation</h1> -->
+
+      <!-- {#if filetag==="scan"}
+        <div class="row">
+            <div class="block is-pulled-right">
+              <span class="icon">
+                <i class="fas fa-sync" aria-hidden="true" style="margin-right:1em; cursor:pointer;" on:click={webviewReload}/>
+                <button class="delete is-large" on:click={webviewClick}></button>
+              </span>
+            </div>
+            <webview src={localhostDepletion} style="height: 650px; width:100%" id="depletionWebview"></webview>
+        </div>
+      {/if} -->
 
       <div class="row box plotContainer" id="{filetag}plotMainContainer" >
         
         <div class="container is-fluid" id="{filetag}plotContainer">
           {#each plotID as id}
+
             {#if filetag == 'scan'}
               <div {id} style="padding-bottom:1em">
                 {#each fileChecked as scanfile}
