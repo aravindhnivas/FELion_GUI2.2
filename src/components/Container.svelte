@@ -504,50 +504,22 @@
 
   }
 
-  
-  $: depletionAnimate = "is-link"
   const depletionPlot = async () => {
 
     let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py")
     let streamlit_path = path.resolve(path.dirname(localStorage["pythonpath"]), "Scripts", "streamlit")
-    
     let command = `${streamlit_path} run ${pyFile} `
-    depletionAnimate = "is-link is-loading"
-    // await closePort()
 
     let defaultArguments = ["run", pyFile, "--server.port", port, "--server.headless", "true"]
     let sendArguments = [currentLocation, ...folderFile.files]
 
-    console.log(fullfiles)
-
     let st = spawn(streamlit_path, [...defaultArguments, ...sendArguments])
     
-    st.stdout.on('data', data => {
-      console.log("Standard output")
-      console.log(data.toString("utf8"))
-
-      depletionAnimate = "is-success bounce"
-      
-    })
-
-    st.stderr.on('data', err => {
-      console.log("Error occured:", err.toString("utf8"))
-      depletionAnimate = "is-danger shake faster"
-    })
-
-    st.on('close', ()=>{
-      console.log("Completed")
-
-      // closePort()
-      setTimeout(()=>{depletionAnimate = "is-link"}, 2000)
-    })
+    st.stdout.on('data', data => {console.log(data.toString("utf8"))})
+    st.stderr.on('data', err => {console.log("Error occured:", err.toString("utf8"))})
+    st.on('close', ()=>{console.log("Completed")})
 
     setTimeout(()=>window.open(localhostDepletion), 1000)
-
-    // depletionPlotWindow.document.write('<h1>Hello</h1>')
-    // depletionPlotWindow.document.write(`<webview webpreferences="nativeWindowOpen=yes" src=${localhostDepletion}></webview>`)
-
-    // setTimeout(()=>depletionPlotWindow.reload(), 1000)
 
   }
   
@@ -1017,7 +989,7 @@
                 {/each}
 
                 <div class="level-item" style="margin-top:2em">
-                  <button class="funcBtn button animated {depletionAnimate}" id="depletionSubmit" on:click={depletionPlot}>Submit</button>
+                  <button class="funcBtn button animated is-link" id="depletionSubmit" on:click={depletionPlot}>Submit</button>
                 </div>
 
               </div>

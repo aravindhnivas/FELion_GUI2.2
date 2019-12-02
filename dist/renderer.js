@@ -3002,7 +3002,7 @@ function get_each_context_10(ctx, list, i) {
 	return child_ctx;
 }
 
-// (844:12) {#each funcBtns as { id, name }}
+// (816:12) {#each funcBtns as { id, name }}
 function create_each_block_10(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -3040,7 +3040,7 @@ function create_each_block_10(ctx) {
 	};
 }
 
-// (860:18) {:else}
+// (832:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3078,7 +3078,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (858:18) {#if name[0]==="Log"}
+// (830:18) {#if name[0]==="Log"}
 function create_if_block_13(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3116,7 +3116,7 @@ function create_if_block_13(ctx) {
 	};
 }
 
-// (853:12) {#each checkBtns as {id, name, bind, help}}
+// (825:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_9(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -3204,7 +3204,7 @@ function create_each_block_9(ctx) {
 	};
 }
 
-// (872:12) {#if filetag == 'felix'}
+// (844:12) {#if filetag == 'felix'}
 function create_if_block_12(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -3318,7 +3318,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (881:24) {#each normalisation_method as method}
+// (853:24) {#each normalisation_method as method}
 function create_each_block_8(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -3345,7 +3345,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (901:12) {#if filetag == 'thz'}
+// (873:12) {#if filetag == 'thz'}
 function create_if_block_11(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -3445,7 +3445,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (953:6) {#if filetag=="felix"}
+// (925:6) {#if filetag=="felix"}
 function create_if_block_10(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -3566,9 +3566,9 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (972:6) {#if filetag=="scan"}
+// (944:6) {#if filetag=="scan"}
 function create_if_block_4(ctx) {
-	var div3, div2, div1, t0, t1, div0, button, t2, button_class_value, dispose;
+	var div3, div2, div1, t0, t1, div0, button, dispose;
 
 	let each_value_6 = ["ResON", "ResOFF"];
 
@@ -3605,8 +3605,8 @@ function create_if_block_4(ctx) {
 			t1 = space();
 			div0 = element("div");
 			button = element("button");
-			t2 = text("Submit");
-			attr(button, "class", button_class_value = "funcBtn button animated " + ctx.depletionAnimate + " svelte-f7zhs2");
+			button.textContent = "Submit";
+			attr(button, "class", "funcBtn button animated is-link svelte-f7zhs2");
 			attr(button, "id", "depletionSubmit");
 			attr(div0, "class", "level-item");
 			set_style(div0, "margin-top", "2em");
@@ -3636,7 +3636,6 @@ function create_if_block_4(ctx) {
 			append(div1, t1);
 			append(div1, div0);
 			append(div0, button);
-			append(button, t2);
 		},
 
 		p(changed, ctx) {
@@ -3682,10 +3681,6 @@ function create_if_block_4(ctx) {
 				}
 				each_blocks.length = each_value_5.length;
 			}
-
-			if ((changed.depletionAnimate) && button_class_value !== (button_class_value = "funcBtn button animated " + ctx.depletionAnimate + " svelte-f7zhs2")) {
-				attr(button, "class", button_class_value);
-			}
 		},
 
 		d(detaching) {
@@ -3702,7 +3697,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (985:28) {#if folderFile.files != undefined}
+// (957:28) {#if folderFile.files != undefined}
 function create_if_block_9(ctx) {
 	var each_1_anchor;
 
@@ -3765,7 +3760,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (986:31) {#each folderFile.files as scanfile}
+// (958:31) {#each folderFile.files as scanfile}
 function create_each_block_7(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3802,7 +3797,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (977:16) {#each ["ResON", "ResOFF"] as name}
+// (949:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_6(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3870,7 +3865,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (1010:59) 
+// (982:59) 
 function create_if_block_8(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3909,7 +3904,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (1008:54) 
+// (980:54) 
 function create_if_block_7(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3948,7 +3943,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (1006:52) 
+// (978:52) 
 function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3987,7 +3982,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (1004:24) {#if name=="Power (ON, OFF)"}
+// (976:24) {#if name=="Power (ON, OFF)"}
 function create_if_block_5(ctx) {
 	var input, dispose;
 
@@ -4020,7 +4015,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (997:16) {#each depletionLabels as {name, id}}
+// (969:16) {#each depletionLabels as {name, id}}
 function create_each_block_5(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0;
 
@@ -4076,7 +4071,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (1030:6) {#if filetag === "mass"}
+// (1002:6) {#if filetag === "mass"}
 function create_if_block_3(ctx) {
 	var div11, div10, div9, div1, div0, select, t0, div2, input0, input0_updating = false, t1, div3, input1, input1_updating = false, t2, div4, input2, input2_updating = false, t3, div6, div5, t5, div8, div7, dispose;
 
@@ -4265,7 +4260,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (1038:22) {#each fileChecked as file}
+// (1010:22) {#each fileChecked as file}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4302,7 +4297,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (1209:12) {:else}
+// (1181:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -4335,7 +4330,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (1102:38) 
+// (1074:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select0, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div28, div27, div15, div14, select1, t11, div17, div16, t13, div20, t16, div22, div21, t17, div21_class_value, t18, div24, div23, t19, div23_class_value, t20, div26, div25, t22, t23, current, dispose;
 
@@ -4746,7 +4741,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (1095:12) {#if filetag == 'scan'}
+// (1067:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -4823,7 +4818,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (1133:26) {#each fit_file_list as file}
+// (1105:26) {#each fit_file_list as file}
 function create_each_block_3(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4860,7 +4855,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (1161:26) {#each fit_file_list as file}
+// (1133:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4897,7 +4892,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (1201:18) {#if expfit_log_display}
+// (1173:18) {#if expfit_log_display}
 function create_if_block_2(ctx) {
 	var div, label, t, div_intro, div_outro, current;
 
@@ -4953,7 +4948,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (1097:16) {#each fileChecked as scanfile}
+// (1069:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -4983,7 +4978,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (1093:10) {#each plotID as id}
+// (1065:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var current_block_type_index, if_block, if_block_anchor, current;
 
@@ -5974,46 +5969,22 @@ function instance$5($$self, $$props, $$invalidate) {
     }
   ];
   let localhostDepletion = `http://localhost:${port}`;
+
   const depletionPlot = async () => {
 
     let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py");
     let streamlit_path = path.resolve(path.dirname(localStorage["pythonpath"]), "Scripts", "streamlit");
-    $$invalidate('depletionAnimate', depletionAnimate = "is-link is-loading");
-    // await closePort()
 
     let defaultArguments = ["run", pyFile, "--server.port", port, "--server.headless", "true"];
     let sendArguments = [currentLocation, ...folderFile.files];
 
-    console.log(fullfiles);
-
     let st = child_process.spawn(streamlit_path, [...defaultArguments, ...sendArguments]);
     
-    st.stdout.on('data', data => {
-      console.log("Standard output");
-      console.log(data.toString("utf8"));
-
-      $$invalidate('depletionAnimate', depletionAnimate = "is-success bounce");
-      
-    });
-
-    st.stderr.on('data', err => {
-      console.log("Error occured:", err.toString("utf8"));
-      $$invalidate('depletionAnimate', depletionAnimate = "is-danger shake faster");
-    });
-
-    st.on('close', ()=>{
-      console.log("Completed");
-
-      // closePort()
-      setTimeout(()=>{$$invalidate('depletionAnimate', depletionAnimate = "is-link");}, 2000);
-    });
+    st.stdout.on('data', data => {console.log(data.toString("utf8"));});
+    st.stderr.on('data', err => {console.log("Error occured:", err.toString("utf8"));});
+    st.on('close', ()=>{console.log("Completed");});
 
     setTimeout(()=>window.open(localhostDepletion), 1000);
-
-    // depletionPlotWindow.document.write('<h1>Hello</h1>')
-    // depletionPlotWindow.document.write(`<webview webpreferences="nativeWindowOpen=yes" src=${localhostDepletion}></webview>`)
-
-    // setTimeout(()=>depletionPlotWindow.reload(), 1000)
 
   };
   const expfit_log_it = (str) => {
@@ -6283,7 +6254,7 @@ function instance$5($$self, $$props, $$invalidate) {
 		if ('MenuItem' in $$props) $$invalidate('MenuItem', MenuItem = $$props.MenuItem);
 	};
 
-	let fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, depletionAnimate, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, clear_all_Peak_btnCSS, clear_last_Peak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div, fit_files, fit_file_list_temp, fit_file_list, fitall_tkplot_Peak_btnCSS, expfit_log_display, expfit_log, mass_peak_width, mass_prominence, mass_peak_height;
+	let fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, clear_all_Peak_btnCSS, clear_last_Peak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div, fit_files, fit_file_list_temp, fit_file_list, fitall_tkplot_Peak_btnCSS, expfit_log_display, expfit_log, mass_peak_width, mass_prominence, mass_peak_height;
 
 	$$self.$$.update = ($$dirty = { filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1, exp_fitall_div_status: 1, fit_file_list_temp: 1 }) => {
 		if ($$dirty.filetag) ;
@@ -6301,7 +6272,6 @@ function instance$5($$self, $$props, $$invalidate) {
 	$$invalidate('gamma_thz', gamma_thz = 0);
 	$$invalidate('modal', modal = {mass:"", felix:"", scan:"", thz:""});
 	$$invalidate('error_msg', error_msg = {mass:"", felix:"", scan:"", thz:""});
-	$$invalidate('depletionAnimate', depletionAnimate = "is-link");
 	$$invalidate('expfitDiv', expfitDiv = "none");
 	$$invalidate('prominence', prominence = 5);
 	$$invalidate('peak_width', peak_width = 5);
@@ -6369,7 +6339,6 @@ function instance$5($$self, $$props, $$invalidate) {
 		error_msg,
 		fit_files,
 		expfitDiv,
-		depletionAnimate,
 		prominence,
 		peak_width,
 		peak_height,
