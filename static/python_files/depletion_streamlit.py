@@ -72,11 +72,9 @@ class depletionplot:
                 yaxis2={"title":"Relative depletion of active isomer"}
             )
             self.fig.update_layout(layout)
-
             st.plotly_chart(self.fig, height=700)
             
             pycode = st.text_area("pyCode")
-            
             with stdoutIO() as result:
                 exec(pycode)
                 st.write(result.getvalue())
