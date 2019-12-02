@@ -11,8 +11,8 @@
   import Misc from "./Misc.svelte"
   import { onMount } from 'svelte';
 
-  const copy = require('recursive-copy');
-  const { exec } = require("child_process");
+  // const copy = require('recursive-copy');
+  // const { exec } = require("child_process");
   window.developerMode = false
 
   // Importing other modules
@@ -62,21 +62,21 @@
 
     }, false)
 
-  let src = path.resolve(__dirname, "npmPackages")
-  let dest = path.resolve(__dirname, "../node_modules")
+  // let src = path.resolve(__dirname, "npmPackages")
+  // let dest = path.resolve(__dirname, "../node_modules")
 
-  copy(src, dest, {overwrite: false}, function(error, results) {
-      console.log(results)
-      if (error) console.log('Copy failed: ' + error)
-      else console.info('Copied ' + results.length + ' files')
-  })
+  // copy(src, dest, {overwrite: false}, function(error, results) {
+  //     console.log(results)
+  //     if (error) console.log('Copy failed: ' + error)
+  //     else console.info('Copied ' + results.length + ' files')
+  // })
 
-  let pipFilename = path.resolve(__dirname, "pipPackages", "streamlit-0.51.0-py2.py3-none-any.whl")
-  exec(`${localStorage.pythonpath} -m pip install ${pipFilename}`, (err, result)=>{
+  // let pipFilename = path.resolve(__dirname, "pipPackages", "streamlit-0.51.0-py2.py3-none-any.whl")
+  // exec(`${localStorage.pythonpath} -m pip install ${pipFilename}`, (err, result)=>{
     
-    if(err) {console.log(err)} 
-    else {console.log(result)}
-  })
+  //   if(err) {console.log(err)} 
+  //   else {console.log(result)}
+  // })
 
 </script>
 

@@ -3,7 +3,7 @@
 
   import Filebrowser from "./utils/Filebrowser.svelte";
   import { runPlot } from "./utils/js/felion_main.js";
-  import { killPort } from "./utils/js/modules.js";
+  // import { killPort } from "./utils/js/modules.js";
   import * as dirTree from "directory-tree";
 
   import { fade, fly } from 'svelte/transition';
@@ -431,8 +431,8 @@
       break;
 
       case "depletionscanBtn":
-        // jq("#depletionRow").toggle()
-        depletionPlot()
+        jq("#depletionRow").toggle()
+        // depletionPlot()
 
         // if (document.getElementById("depletionRow").style.display === "none") {plotContainerHeight = "60vh"} 
         // else {plotContainerHeight = "50vh"}
@@ -491,71 +491,82 @@
     }
   ]
 
-  let port = 8501
-  let localhostDepletion = `http://localhost:${port}`
+  // let port = 8501
+  // let localhostDepletion = `http://localhost:${port}`
   // let localhost_running = true
-  const closePort = async () => {
+  // const closePort = async () => {
 
-    await killPort(port)
-    .then(result=>console.log(result))
-    .catch(err=>{
-      // localhost_running =false
-      console.log(err)
-    })
-    // setTimeout(webviewReload, 2000)
-  }
+  //   await killPort(port)
+  //   .then(result=>console.log(result))
+  //   .catch(err=>{
+  //     // localhost_running =false
+  //     console.log(err)
+  //   })
+  //   // setTimeout(webviewReload, 2000)
+  // }
 
 
-  const webviewReload = async () => {
-    depletionAnimate = "is-link is-loading"
-    console.log("Reloading...")
-    await document.getElementById("depletionWebview").reload()
+  // const webviewReload = async () => {
+  //   depletionAnimate = "is-link is-loading"
+  //   console.log("Reloading...")
+  //   await document.getElementById("depletionWebview").reload()
 
-    depletionAnimate = "is-success bounce"
-    setTimeout(()=>{depletionAnimate = "is-link"}, 2000)
-
-  }
+  //   depletionAnimate = "is-success bounce"
+  //   setTimeout(()=>{depletionAnimate = "is-link"}, 2000)
+  // }
 
   
   $: depletionAnimate = "is-link"
   const depletionPlot = async () => {
 
-    let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py")
-    let streamlit_path = path.resolve(path.dirname(localStorage["pythonpath"]), "Scripts", "streamlit")
+    // let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py")
+    // let streamlit_path = path.resolve(path.dirname(localStorage["pythonpath"]), "Scripts", "streamlit")
     
-    let command = `${streamlit_path} run ${pyFile} `
-    depletionAnimate = "is-link is-loading"
+    // let command = `${streamlit_path} run ${pyFile} `
+    // depletionAnimate = "is-link is-loading"
 
-    // await webviewClick()
+    // // await webviewClick()
 
-    let defaultArguments = ["run", pyFile, "--server.port", port, "--server.headless", "true"]
-    let sendArguments = [currentLocation, ...folderFile.files]
+    // let defaultArguments = ["run", pyFile, "--server.port", port, "--server.headless", "true"]
+    // let sendArguments = [currentLocation, ...folderFile.files]
 
-    console.log(fullfiles)
+    // console.log(fullfiles)
 
-    let st = spawn(streamlit_path, [...defaultArguments, ...sendArguments])
+    // let st = spawn(streamlit_path, [...defaultArguments, ...sendArguments])
     
-    st.stdout.on('data', data => {
-      console.log("Standard output")
-      console.log(data.toString("utf8"))
+    // st.stdout.on('data', data => {
+    //   console.log("Standard output")
+    //   console.log(data.toString("utf8"))
 
-      depletionAnimate = "is-success bounce"
+    //   depletionAnimate = "is-success bounce"
       
-    })
+    // })
 
-    st.stderr.on('data', err => {
-      console.log("Error occured:", err.toString("utf8"))
-      depletionAnimate = "is-danger shake faster"
-    })
+    // st.stderr.on('data', err => {
+    //   console.log("Error occured:", err.toString("utf8"))
+    //   depletionAnimate = "is-danger shake faster"
+    // })
 
-    st.on('close', ()=>{
-      console.log("Completed")
+    // st.on('close', ()=>{
+    //   console.log("Completed")
 
-      closePort()
-      setTimeout(()=>{depletionAnimate = "is-link"}, 2000)
-    })
+    //   closePort()
+    //   setTimeout(()=>{depletionAnimate = "is-link"}, 2000)
+    // })
 
-    window.open(localhostDepletion)
+    // window.open(localhostDepletion)
+
+    runPlot({fullfiles: [currentLocation], filetype: "depletion",
+      btname: "depletionSubmit", pyfile: "depletionscan.py", 
+      args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] })
+      .then((output)=>{
+        console.log(output)
+      })
+      .catch((err)=>{
+        console.log('Error Occured', err); 
+        error_msg["scan"]=err; 
+        modal["scan"]="is-active"
+      })
 
   }
   

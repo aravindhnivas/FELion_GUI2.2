@@ -1,27 +1,27 @@
 import * as path from "path"
 import * as url from "url"
 import { app, BrowserWindow, screen } from "electron"
-const find_process = require("find-process")
-const { exec } = require("child_process");
-function killPort(port) {
-    return new Promise((resolve, reject)=>{
+// const find_process = require("find-process")
+// const { exec } = require("child_process");
+// function killPort(port) {
+//     return new Promise((resolve, reject)=>{
 
-        find_process("port", port).then(result=>{
+//         find_process("port", port).then(result=>{
 
-            if (result.length > 0) {
+//             if (result.length > 0) {
 
-                let pid = result[0].pid
-                let platform = process.platform
+//                 let pid = result[0].pid
+//                 let platform = process.platform
 
-                if (platform === "win32") exec(`taskkill /F /PID ${pid}`)
-                else if (platform === "darwin") exec(`kill ${pid}`)
-                else if (platform === "linux") exec(`killall ${pid}`)
-                resolve(`Port ${port} closed`)
-            } else {reject(`Port ${port} already closed `)}
+//                 if (platform === "win32") exec(`taskkill /F /PID ${pid}`)
+//                 else if (platform === "darwin") exec(`kill ${pid}`)
+//                 else if (platform === "linux") exec(`killall ${pid}`)
+//                 resolve(`Port ${port} closed`)
+//             } else {reject(`Port ${port} already closed `)}
 
-        })
-    })
-}
+//         })
+//     })
+// }
 
 let mainWindow: BrowserWindow | null;
 
@@ -60,7 +60,7 @@ function createWindow() {
 	});
 
 	mainWindow.on("closed", function() {
-		killPort(8501).then((result:any)=>console.log(result)).catch((err:any)=>console.log(err))
+		// killPort(8501).then((result:any)=>console.log(result)).catch((err:any)=>console.log(err))
 
 		mainWindow = null;
 	});
@@ -79,7 +79,7 @@ function createWindow() {
 		let newWindow = event.newGuest = new BrowserWindow(options)
 		newWindow.on("closed", ()=>{
 			console.log("Window closed")
-			killPort(8501).then((result:any)=>console.log(result)).catch((err:any)=>console.log(err))
+			// killPort(8501).then((result:any)=>console.log(result)).catch((err:any)=>console.log(err))
 
 		})
 

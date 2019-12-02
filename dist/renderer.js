@@ -7,7 +7,7 @@ var path$1__default = _interopDefault(path$1);
 var electron = require('electron');
 var fs$1 = require('fs');
 var fs$1__default = _interopDefault(fs$1);
-var child_process = require('child_process');
+require('child_process');
 
 function noop() { }
 const identity = x => x;
@@ -2344,31 +2344,32 @@ class Filebrowser extends SvelteComponent {
 
 // Importing modules
 
-const { spawn, exec } = require("child_process");
+// const { spawn, exec } = require("child_process");
+const { spawn } = require("child_process");
 const path = require('path');
 const fs = require("fs");
 
-const find_process = require("find-process");
+// const find_process = require("find-process")
 
-function killPort(port) {
-    return new Promise((resolve, reject)=>{
+// function killPort(port) {
+//     return new Promise((resolve, reject)=>{
 
-        find_process("port", port).then(result=>{
+//         find_process("port", port).then(result=>{
 
-            if (result.length > 0) {
+//             if (result.length > 0) {
 
-                let pid = result[0].pid;
-                let platform = process.platform;
+//                 let pid = result[0].pid
+//                 let platform = process.platform
 
-                if (platform === "win32") exec(`taskkill /F /PID ${pid}`);
-                else if (platform === "darwin") exec(`kill ${pid}`);
-                else if (platform === "linux") exec(`killall ${pid}`);
-                resolve(`Port ${port} closed`);
-            } else {reject(`Port ${port} already closed `);}
+//                 if (platform === "win32") exec(`taskkill /F /PID ${pid}`)
+//                 else if (platform === "darwin") exec(`kill ${pid}`)
+//                 else if (platform === "linux") exec(`killall ${pid}`)
+//                 resolve(`Port ${port} closed`)
+//             } else {reject(`Port ${port} already closed `)}
 
-        });
-    })
-}
+//         })
+//     })
+// }
 
 let screenWidth = window.screen.width;
 let plot_height = screenWidth * .22;
@@ -2997,7 +2998,7 @@ function get_each_context_10(ctx, list, i) {
 	return child_ctx;
 }
 
-// (852:12) {#each funcBtns as { id, name }}
+// (863:12) {#each funcBtns as { id, name }}
 function create_each_block_10(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -3035,7 +3036,7 @@ function create_each_block_10(ctx) {
 	};
 }
 
-// (868:18) {:else}
+// (879:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3073,7 +3074,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (866:18) {#if name[0]==="Log"}
+// (877:18) {#if name[0]==="Log"}
 function create_if_block_13(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3111,7 +3112,7 @@ function create_if_block_13(ctx) {
 	};
 }
 
-// (861:12) {#each checkBtns as {id, name, bind, help}}
+// (872:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_9(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -3199,7 +3200,7 @@ function create_each_block_9(ctx) {
 	};
 }
 
-// (880:12) {#if filetag == 'felix'}
+// (891:12) {#if filetag == 'felix'}
 function create_if_block_12(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -3313,7 +3314,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (889:24) {#each normalisation_method as method}
+// (900:24) {#each normalisation_method as method}
 function create_each_block_8(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -3340,7 +3341,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (909:12) {#if filetag == 'thz'}
+// (920:12) {#if filetag == 'thz'}
 function create_if_block_11(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -3440,7 +3441,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (961:6) {#if filetag=="felix"}
+// (972:6) {#if filetag=="felix"}
 function create_if_block_10(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -3561,7 +3562,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (980:6) {#if filetag=="scan"}
+// (991:6) {#if filetag=="scan"}
 function create_if_block_4(ctx) {
 	var div3, div2, div1, t0, t1, div0, button, t2, button_class_value, dispose;
 
@@ -3697,7 +3698,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (993:28) {#if folderFile.files != undefined}
+// (1004:28) {#if folderFile.files != undefined}
 function create_if_block_9(ctx) {
 	var each_1_anchor;
 
@@ -3760,7 +3761,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (994:31) {#each folderFile.files as scanfile}
+// (1005:31) {#each folderFile.files as scanfile}
 function create_each_block_7(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3797,7 +3798,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (985:16) {#each ["ResON", "ResOFF"] as name}
+// (996:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_6(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3865,7 +3866,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (1018:59) 
+// (1029:59) 
 function create_if_block_8(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3904,7 +3905,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (1016:54) 
+// (1027:54) 
 function create_if_block_7(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3943,7 +3944,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (1014:52) 
+// (1025:52) 
 function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3982,7 +3983,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (1012:24) {#if name=="Power (ON, OFF)"}
+// (1023:24) {#if name=="Power (ON, OFF)"}
 function create_if_block_5(ctx) {
 	var input, dispose;
 
@@ -4015,7 +4016,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (1005:16) {#each depletionLabels as {name, id}}
+// (1016:16) {#each depletionLabels as {name, id}}
 function create_each_block_5(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0;
 
@@ -4071,7 +4072,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (1038:6) {#if filetag === "mass"}
+// (1049:6) {#if filetag === "mass"}
 function create_if_block_3(ctx) {
 	var div11, div10, div9, div1, div0, select, t0, div2, input0, input0_updating = false, t1, div3, input1, input1_updating = false, t2, div4, input2, input2_updating = false, t3, div6, div5, t5, div8, div7, dispose;
 
@@ -4260,7 +4261,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (1046:22) {#each fileChecked as file}
+// (1057:22) {#each fileChecked as file}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4297,7 +4298,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (1217:12) {:else}
+// (1228:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -4330,7 +4331,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (1110:38) 
+// (1121:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select0, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div28, div27, div15, div14, select1, t11, div17, div16, t13, div20, t16, div22, div21, t17, div21_class_value, t18, div24, div23, t19, div23_class_value, t20, div26, div25, t22, t23, current, dispose;
 
@@ -4741,7 +4742,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (1103:12) {#if filetag == 'scan'}
+// (1114:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -4818,7 +4819,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (1141:26) {#each fit_file_list as file}
+// (1152:26) {#each fit_file_list as file}
 function create_each_block_3(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4855,7 +4856,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (1169:26) {#each fit_file_list as file}
+// (1180:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4892,7 +4893,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (1209:18) {#if expfit_log_display}
+// (1220:18) {#if expfit_log_display}
 function create_if_block_2(ctx) {
 	var div, label, t, div_intro, div_outro, current;
 
@@ -4948,7 +4949,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (1105:16) {#each fileChecked as scanfile}
+// (1116:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -4978,7 +4979,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (1101:10) {#each plotID as id}
+// (1112:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var current_block_type_index, if_block, if_block_anchor, current;
 
@@ -5516,8 +5517,6 @@ function create_fragment$5(ctx) {
 
 const style = "display:none;";
 
-let port = 8501;
-
 function instance$5($$self, $$props, $$invalidate) {
 	
 
@@ -5916,8 +5915,8 @@ function instance$5($$self, $$props, $$invalidate) {
       break;
 
       case "depletionscanBtn":
-        // jq("#depletionRow").toggle()
-        depletionPlot();
+        jq("#depletionRow").toggle();
+        // depletionPlot()
 
         // if (document.getElementById("depletionRow").style.display === "none") {plotContainerHeight = "60vh"} 
         // else {plotContainerHeight = "50vh"}
@@ -5974,54 +5973,56 @@ function instance$5($$self, $$props, $$invalidate) {
       id: "timeIndex"
     }
   ];
-  let localhostDepletion = `http://localhost:${port}`;
-  // let localhost_running = true
-  const closePort = async () => {
-
-    await killPort(port)
-    .then(result=>console.log(result))
-    .catch(err=>{
-      // localhost_running =false
-      console.log(err);
-    });
-    // setTimeout(webviewReload, 2000)
-  };
   const depletionPlot = async () => {
 
-    let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py");
-    let streamlit_path = path.resolve(path.dirname(localStorage["pythonpath"]), "Scripts", "streamlit");
-    $$invalidate('depletionAnimate', depletionAnimate = "is-link is-loading");
-
-    // await webviewClick()
-
-    let defaultArguments = ["run", pyFile, "--server.port", port, "--server.headless", "true"];
-    let sendArguments = [currentLocation, ...folderFile.files];
-
-    console.log(fullfiles);
-
-    let st = child_process.spawn(streamlit_path, [...defaultArguments, ...sendArguments]);
+    // let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py")
+    // let streamlit_path = path.resolve(path.dirname(localStorage["pythonpath"]), "Scripts", "streamlit")
     
-    st.stdout.on('data', data => {
-      console.log("Standard output");
-      console.log(data.toString("utf8"));
+    // let command = `${streamlit_path} run ${pyFile} `
+    // depletionAnimate = "is-link is-loading"
 
-      $$invalidate('depletionAnimate', depletionAnimate = "is-success bounce");
+    // // await webviewClick()
+
+    // let defaultArguments = ["run", pyFile, "--server.port", port, "--server.headless", "true"]
+    // let sendArguments = [currentLocation, ...folderFile.files]
+
+    // console.log(fullfiles)
+
+    // let st = spawn(streamlit_path, [...defaultArguments, ...sendArguments])
+    
+    // st.stdout.on('data', data => {
+    //   console.log("Standard output")
+    //   console.log(data.toString("utf8"))
+
+    //   depletionAnimate = "is-success bounce"
       
-    });
+    // })
 
-    st.stderr.on('data', err => {
-      console.log("Error occured:", err.toString("utf8"));
-      $$invalidate('depletionAnimate', depletionAnimate = "is-danger shake faster");
-    });
+    // st.stderr.on('data', err => {
+    //   console.log("Error occured:", err.toString("utf8"))
+    //   depletionAnimate = "is-danger shake faster"
+    // })
 
-    st.on('close', ()=>{
-      console.log("Completed");
+    // st.on('close', ()=>{
+    //   console.log("Completed")
 
-      closePort();
-      setTimeout(()=>{$$invalidate('depletionAnimate', depletionAnimate = "is-link");}, 2000);
-    });
+    //   closePort()
+    //   setTimeout(()=>{depletionAnimate = "is-link"}, 2000)
+    // })
 
-    window.open(localhostDepletion);
+    // window.open(localhostDepletion)
+
+    runPlot({fullfiles: [currentLocation], filetype: "depletion",
+      btname: "depletionSubmit", pyfile: "depletionscan.py", 
+      args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] })
+      .then((output)=>{
+        console.log(output);
+      })
+      .catch((err)=>{
+        console.log('Error Occured', err); 
+        $$invalidate('error_msg', error_msg["scan"]=err, error_msg); 
+        $$invalidate('modal', modal["scan"]="is-active", modal);
+      });
 
   };
   const expfit_log_it = (str) => {
@@ -6682,7 +6683,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (506:20) {#each items as item}
+// (510:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -6714,7 +6715,7 @@ function create_each_block$3(ctx) {
 	};
 }
 
-// (544:28) {#if saveChanges}
+// (548:28) {#if saveChanges}
 function create_if_block_1$2(ctx) {
 	var h1, h1_transition, current, dispose;
 
@@ -6759,7 +6760,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (595:28) {#if back_restore_display}
+// (599:28) {#if back_restore_display}
 function create_if_block$3(ctx) {
 	var p, t, p_transition, current;
 
@@ -7452,6 +7453,8 @@ function instance$7($$self, $$props, $$invalidate) {
     const admZip = require('adm-zip');
     const copy = require('recursive-copy');
 
+    // const openDir = electron.remote
+
     // When DOMContentent is loaded and ready
     jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active");});
 
@@ -7530,7 +7533,7 @@ function instance$7($$self, $$props, $$invalidate) {
             console.log('headers:', res.headers);
 
             res.on('data', (data) => {
-
+                // console.log(data.toString("utf8"))
                 data = JSON.parse(data.toString("utf8"));
                 new_version = data.version;
 
@@ -7578,7 +7581,9 @@ function instance$7($$self, $$props, $$invalidate) {
                     break;
                 }
             }
+
             console.log("Update check completed");
+            setTimeout(()=>$$invalidate('checkupdateLoading', checkupdateLoading = "is-link"), 2000);
         });
     };
 
@@ -24180,8 +24185,8 @@ function create_fragment$a(ctx) {
 function instance$9($$self, $$props, $$invalidate) {
 	
 
-  const copy = require('recursive-copy');
-  const { exec } = require("child_process");
+  // const copy = require('recursive-copy');
+  // const { exec } = require("child_process");
   window.developerMode = false;
 
   const fs = require("fs");
@@ -24225,21 +24230,21 @@ function instance$9($$self, $$props, $$invalidate) {
 
     }, false);
 
-  let src = path$1.resolve(__dirname, "npmPackages");
-  let dest = path$1.resolve(__dirname, "../node_modules");
+  // let src = path.resolve(__dirname, "npmPackages")
+  // let dest = path.resolve(__dirname, "../node_modules")
 
-  copy(src, dest, {overwrite: false}, function(error, results) {
-      console.log(results);
-      if (error) console.log('Copy failed: ' + error);
-      else console.info('Copied ' + results.length + ' files');
-  });
+  // copy(src, dest, {overwrite: false}, function(error, results) {
+  //     console.log(results)
+  //     if (error) console.log('Copy failed: ' + error)
+  //     else console.info('Copied ' + results.length + ' files')
+  // })
 
-  let pipFilename = path$1.resolve(__dirname, "pipPackages", "streamlit-0.51.0-py2.py3-none-any.whl");
-  exec(`${localStorage.pythonpath} -m pip install ${pipFilename}`, (err, result)=>{
+  // let pipFilename = path.resolve(__dirname, "pipPackages", "streamlit-0.51.0-py2.py3-none-any.whl")
+  // exec(`${localStorage.pythonpath} -m pip install ${pipFilename}`, (err, result)=>{
     
-    if(err) {console.log(err);} 
-    else {console.log(result);}
-  });
+  //   if(err) {console.log(err)} 
+  //   else {console.log(result)}
+  // })
 
 	$$self.$set = $$props => {
 		if ('mainPages' in $$props) $$invalidate('mainPages', mainPages = $$props.mainPages);

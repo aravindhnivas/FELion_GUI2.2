@@ -2,31 +2,32 @@
 
 // Importing modules
 
-const { spawn, exec } = require("child_process");
+// const { spawn, exec } = require("child_process");
+const { spawn } = require("child_process");
 const path = require('path');
 const fs = require("fs")
 
-const find_process = require("find-process")
+// const find_process = require("find-process")
 
-function killPort(port) {
-    return new Promise((resolve, reject)=>{
+// function killPort(port) {
+//     return new Promise((resolve, reject)=>{
 
-        find_process("port", port).then(result=>{
+//         find_process("port", port).then(result=>{
 
-            if (result.length > 0) {
+//             if (result.length > 0) {
 
-                let pid = result[0].pid
-                let platform = process.platform
+//                 let pid = result[0].pid
+//                 let platform = process.platform
 
-                if (platform === "win32") exec(`taskkill /F /PID ${pid}`)
-                else if (platform === "darwin") exec(`kill ${pid}`)
-                else if (platform === "linux") exec(`killall ${pid}`)
-                resolve(`Port ${port} closed`)
-            } else {reject(`Port ${port} already closed `)}
+//                 if (platform === "win32") exec(`taskkill /F /PID ${pid}`)
+//                 else if (platform === "darwin") exec(`kill ${pid}`)
+//                 else if (platform === "linux") exec(`killall ${pid}`)
+//                 resolve(`Port ${port} closed`)
+//             } else {reject(`Port ${port} already closed `)}
 
-        })
-    })
-}
+//         })
+//     })
+// }
 
 let screenWidth = window.screen.width
 let plot_height = screenWidth * .22
@@ -367,4 +368,5 @@ class program {
     }
 }
 
-export { program, killPort }
+// export { program, killPort }
+export { program }

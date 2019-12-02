@@ -15,6 +15,8 @@
     const admZip = require('adm-zip');
     const copy = require('recursive-copy');
 
+    // const openDir = electron.remote
+
     // When DOMContentent is loaded and ready
     jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active")})
 
@@ -106,7 +108,7 @@
             console.log('headers:', res.headers);
 
             res.on('data', (data) => {
-
+                // console.log(data.toString("utf8"))
                 data = JSON.parse(data.toString("utf8"))
                 new_version = data.version
 
@@ -156,7 +158,9 @@
                     break;
                 }
             }
+
             console.log("Update check completed")
+            setTimeout(()=>checkupdateLoading = "is-link", 2000)
         })
     }
 
