@@ -80,11 +80,11 @@
     $: updateStatus = ""
 
     // Github details
-    const github = {
-        username: "aravindhnivas",
-        repo: "FELion_GUI2.2",
-        branch: "master",
-    }
+    // const github = {
+    //     username: "aravindhnivas",
+    //     repo: "FELion_GUI2.2",
+    //     branch: "master",
+    // }
 
     let github_username = "aravindhnivas"
     let github_repo = "FELion_GUI2.2"
@@ -255,7 +255,7 @@
                     .then(result=>{
                         console.log(result)
                         console.log("Copying downloaded files")
-                        let src = path.resolve(__dirname, "..", "update", `${github.repo}-${github.branch}`)
+                        let src = path.resolve(__dirname, "..", "update", `${github_repo}-${gihub_branchname}`)
                         let dest = path.resolve(__dirname, "..")
 
                         copy(src, dest, {overwrite: true}, function(error, results) {

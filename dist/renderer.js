@@ -7578,11 +7578,11 @@ function instance$7($$self, $$props, $$invalidate) {
     };
 
     // Github details
-    const github = {
-        username: "aravindhnivas",
-        repo: "FELion_GUI2.2",
-        branch: "master",
-    };
+    // const github = {
+    //     username: "aravindhnivas",
+    //     repo: "FELion_GUI2.2",
+    //     branch: "master",
+    // }
 
     let github_username = "aravindhnivas";
     let github_repo = "FELion_GUI2.2";
@@ -7741,7 +7741,7 @@ function instance$7($$self, $$props, $$invalidate) {
                     .then(result=>{
                         console.log(result);
                         console.log("Copying downloaded files");
-                        let src = path.resolve(__dirname, "..", "update", `${github.repo}-${github.branch}`);
+                        let src = path.resolve(__dirname, "..", "update", `${github_repo}-${gihub_branchname}`);
                         let dest = path.resolve(__dirname, "..");
 
                         copy(src, dest, {overwrite: true}, function(error, results) {
@@ -11494,7 +11494,6 @@ var Popper = function () {
 Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
 Popper.placements = placements;
 Popper.Defaults = Defaults;
-//# sourceMappingURL=popper.js.map
 
 /**!
 * tippy.js v4.3.5
@@ -13434,7 +13433,6 @@ function injectCSS(css) {
 }
 
 injectCSS(css);
-//# sourceMappingURL=index.all.js.map
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -24508,7 +24506,6 @@ const app = new App({
     target: document.body,
     props: { mainPages }
 });
-//# sourceMappingURL=renderer.js.map
 
 module.exports = app;
 //# sourceMappingURL=renderer.js.map
