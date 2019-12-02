@@ -42,7 +42,6 @@
         "cross-env": "^5.2.0",
         "directory-tree": "^2.2.4",
         "electron-packager": "^14.0.6",
-        "find-process": "^1.4.3",
         "hover.css": "^2.3.2",
         "jquery": "^3.4.1",
         "jquery-ui": "^1.12.1",
