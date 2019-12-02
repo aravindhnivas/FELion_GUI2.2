@@ -7,28 +7,22 @@ var path__default = _interopDefault(path);
 var url = require('url');
 var electron = require('electron');
 
-const find_process = require("find-process");
-const { exec } = require("child_process");
-function killPort(port) {
-    return new Promise((resolve, reject) => {
-        find_process("port", port).then(result => {
-            if (result.length > 0) {
-                let pid = result[0].pid;
-                let platform = process.platform;
-                if (platform === "win32")
-                    exec(`taskkill /F /PID ${pid}`);
-                else if (platform === "darwin")
-                    exec(`kill ${pid}`);
-                else if (platform === "linux")
-                    exec(`killall ${pid}`);
-                resolve(`Port ${port} closed`);
-            }
-            else {
-                reject(`Port ${port} already closed `);
-            }
-        });
-    });
-}
+// const find_process = require("find-process")
+// const { exec } = require("child_process");
+// function killPort(port:number) {
+//     return new Promise((resolve, reject)=>{
+//         find_process("port", port).then((result:any)=>{
+//             if (result.length > 0) {
+//                 let pid = result[0].pid
+//                 let platform = process.platform
+//                 if (platform === "win32") exec(`taskkill /F /PID ${pid}`)
+//                 else if (platform === "darwin") exec(`kill ${pid}`)
+//                 else if (platform === "linux") exec(`killall ${pid}`)
+// 				resolve(`Port ${port} closed`)
+//             } else {reject(`Port ${port} already closed `)}
+//         })
+//     })
+// }
 let mainWindow;
 function createWindow() {
     const { width, height } = electron.screen.getPrimaryDisplay().workAreaSize;
@@ -58,7 +52,7 @@ function createWindow() {
         }
     });
     mainWindow.on("closed", function () {
-        killPort(8501).then((result) => console.log(result)).catch((err) => console.log(err));
+        // killPort(8501).then((result:any)=>console.log(result)).catch((err:any)=>console.log(err))
         mainWindow = null;
     });
     mainWindow.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures) => {
@@ -72,9 +66,8 @@ function createWindow() {
         let newWindow = event.newGuest = new electron.BrowserWindow(options);
         newWindow.on("closed", () => {
             console.log("Window closed");
-            killPort(8501).then((result) => console.log(result)).catch((err) => console.log(err));
+            // killPort(8501).then((result:any)=>console.log(result)).catch((err:any)=>console.log(err))
         });
-        // console.log(newWindow)
     });
 }
 electron.app.on("ready", createWindow);

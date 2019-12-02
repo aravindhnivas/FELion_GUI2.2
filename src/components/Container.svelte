@@ -3,9 +3,8 @@
 
   import Filebrowser from "./utils/Filebrowser.svelte";
   import { runPlot } from "./utils/js/felion_main.js";
-  import { killPort } from "./utils/js/modules.js";
+  // import { killPort } from "./utils/js/modules.js";
   import * as dirTree from "directory-tree";
-
   import { fade, fly } from 'svelte/transition';
   import { spawn } from "child_process";
 
@@ -14,17 +13,13 @@
   export let filetype;
   export let funcBtns;
   export let plotID;
-
   export let checkBtns;
   export let jq;
   export let electron;
-
   export let path;
   export let menu;
   export let MenuItem;
 
-  // const ipc = require('electron').ipcRenderer;
-  
   jq(document).ready(() => {
 
     jq("#theoryBtn").addClass("fadeInUp").css("display", "none")
@@ -157,7 +152,6 @@
     }
 
     jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
-
     return folderFile;
 
   };
@@ -166,7 +160,6 @@
 
   if (localStorage.getItem("theoryfiles") != undefined) {theoryfiles = localStorage.getItem("theoryfiles").split(",")}
   $: theoryfilenames = theoryfiles.map(file=>path.basename(file))
-
   function browseFile({theory=false}) {
     if (theory == true) {
       return new Promise((resolve, reject) => {
@@ -207,7 +200,6 @@
         console.log(`[${filetag}]: location is stored locally\n${currentLocation}`)
       });
     }
-
   }
   
   $: delta_thz = 1
@@ -247,7 +239,6 @@
   }
   $: modal = {mass:"", felix:"", scan:"", thz:""}
   $: error_msg = {mass:"", felix:"", scan:"", thz:""}
-
   function functionRun(event, target_id=null) {
     let btname;
 
@@ -493,17 +484,14 @@
 
   let port = 8501
   let localhostDepletion = `http://localhost:${port}`
-  // let localhost_running = true
-  const closePort = async () => {
+  // const closePort = async () => {
 
-    await killPort(port)
-    .then(result=>console.log(result))
-    .catch(err=>{
-      // localhost_running =false
-      console.log(err)
-    })
-    // setTimeout(webviewReload, 2000)
-  }
+  //   await killPort(port)
+  //   .then(result=>console.log(result))
+  //   .catch(err=>{
+  //     console.log(err)
+  //   })
+  // }
 
 
   const webviewReload = async () => {
@@ -525,8 +513,7 @@
     
     let command = `${streamlit_path} run ${pyFile} `
     depletionAnimate = "is-link is-loading"
-
-    // await webviewClick()
+    // await closePort()
 
     let defaultArguments = ["run", pyFile, "--server.port", port, "--server.headless", "true"]
     let sendArguments = [currentLocation, ...folderFile.files]
@@ -551,11 +538,16 @@
     st.on('close', ()=>{
       console.log("Completed")
 
-      closePort()
+      // closePort()
       setTimeout(()=>{depletionAnimate = "is-link"}, 2000)
     })
 
-    window.open(localhostDepletion)
+    setTimeout(()=>window.open(localhostDepletion), 1000)
+
+    // depletionPlotWindow.document.write('<h1>Hello</h1>')
+    // depletionPlotWindow.document.write(`<webview webpreferences="nativeWindowOpen=yes" src=${localhostDepletion}></webview>`)
+
+    // setTimeout(()=>depletionPlotWindow.reload(), 1000)
 
   }
   
