@@ -1,12 +1,12 @@
 <script>
-  // Importing Svelte modules
 
   import Filebrowser from "./utils/Filebrowser.svelte";
   import { runPlot } from "./utils/js/felion_main.js";
-  // import { killPort } from "./utils/js/modules.js";
   import * as dirTree from "directory-tree";
   import { fade, fly } from 'svelte/transition';
   import { spawn, exec } from "child_process";
+
+  const glob = require("glob")
 
   export let id;
   export let filetag;
@@ -481,31 +481,29 @@
       id: "timeIndex"
     }
   ]
-
   const depletionPlot = async () => {
 
     let port = 8501
     let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py")
     let pyDir = path.dirname(localStorage["pythonpath"])
     let streamlit_path = path.resolve(pyDir, "Scripts", "streamlit")
-    let command = `${streamlit_path} run ${pyFile} `
+
+    glob(path.resolve(pyDir, "Scripts", "streamlit*"), (error, file)=>{
+      if(file.length===0){
+        console.log("Error: Streamlit is not installed.\nInstalling now...")
+        let packageName = "streamlit-0.51.0-py2.py3-none-any.whl"
+        let streamlit_package = path.resolve(__dirname, "pipPackages", packageName)
+        exec(`${path.resolve(pyDir, "python")} -m pip install ${streamlit_package}`, (err, result)=>{
+          if (err) {console.log("Error occured: Streamlit package couldn't be installed to python")}
+          else {console.log("Streamlit package installed to python: \n", result)}
+        })
+      } else {console.log("Streamlit exists")}
+    })
 
     let defaultArguments = ["run", pyFile, "--server.port", port, "--server.headless", "true"]
     let sendArguments = [currentLocation, ...folderFile.files]
-    let st
-    try {
-      st = spawn(streamlit_path, [...defaultArguments, ...sendArguments])
-    } catch (error) {
-      console.log(error)
-      let packageName = "streamlit-0.51.0-py2.py3-none-any.whl"
-      exec(`${path.resolve(pyDir, "python")} -m pip install ${path.resolve(__dirname, "pipPackages", packageName)}`, (err, result)=>{
-        if (err) {console.log("Error occured: Streamlit package couldn't be installed to python")}
-        else {console.log("Streamlit package installed to python: \n", result)}
-      })
 
-      return
-    }
-    
+    let st = spawn(streamlit_path, [...defaultArguments, ...sendArguments])
     st.stdout.on('data', data => {console.log(data.toString("utf8"))})
     st.stderr.on('data', err => {console.log("Error occured:", err.toString("utf8"))})
     st.on('close', ()=>{console.log("Completed")})
