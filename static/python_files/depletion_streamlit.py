@@ -21,11 +21,26 @@ except:
 from timescan import timescanplot
 from FELion_constants import colors
 
+from io import StringIO
+import contextlib
+
+@contextlib.contextmanager
+def stdoutIO(stdout=None):
+    old = sys.stdout
+    if stdout is None:
+        stdout = StringIO()
+    sys.stdout = stdout
+    yield stdout
+    sys.stdout = old
+
 class depletionplot:
-    
+
     def __init__(self, location, scanfiles):
         
-        self.initialise(location, scanfiles)
+        location = st.text_input("Current Location", location)
+        self.location = pt(location)
+
+        self.initialise()
         self.fig = make_subplots(rows=1, cols=2)
 
         try: 
@@ -50,9 +65,16 @@ class depletionplot:
                 xaxis2={"title":self.xaxis_title},
                 yaxis2={"title":"Relative depletion of active isomer"}
             )
-
             self.fig.update_layout(layout)
+
             st.plotly_chart(self.fig, height=700)
+            
+            # pycode = st.text_area("pyCode")
+            
+            # with stdoutIO() as result:
+            #     exec(pycode)
+            #     st.write(result.getvalue())
+
 
         except Exception as error:
             
@@ -60,16 +82,20 @@ class depletionplot:
             st.subheader("Error details")
             st.write(error)
     
-    def initialise(self, location, scanfiles):
-
+    def initialise(self):
         self.method = st.sidebar.selectbox("Method", ("Power dependence", "Time dependece"))
 
         pwidget = st.sidebar.empty()
-
+        scanfiles = list(self.location.glob("*.scan"))
+        scanfiles = [i.name for i in scanfiles]
+        if st.sidebar.button("Refresh"):
+            scanfiles = list(self.location.glob("*.scan"))
+            scanfiles = [i.name for i in scanfiles]
         self.resON_select = st.sidebar.selectbox("Res ON:", scanfiles)
         self.resOFF_select = st.sidebar.selectbox("Res OFF:", scanfiles)
-        self.resOnFile = pt(location)/self.resON_select
-        self.resOffFile = pt(location)/self.resOFF_select
+
+        self.resOnFile = self.location/self.resON_select
+        self.resOffFile = self.location/self.resOFF_select
 
         self.nshots = st.sidebar.radio("FELIX (Hz)", (10, 5))
         self.massIndex = st.sidebar.number_input("MassIndex", 0, value=1)
