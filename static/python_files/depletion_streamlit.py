@@ -1,20 +1,24 @@
-
-
 # Built-In Modules
 import os, sys
 from pathlib import Path as pt
 
 # DATA Analysis
-import streamlit as st
 import numpy as np
 from scipy.optimize import curve_fit
 from uncertainties import ufloat as uf
 from uncertainties import unumpy as unp
 
-from timescan import timescanplot
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 
+
+try: import streamlit as st
+except:
+    import subprocess
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'streamlit'])
+    import streamlit as st
+
+from timescan import timescanplot
 from FELion_constants import colors
 
 class depletionplot:
