@@ -5984,7 +5984,7 @@ function instance$5($$self, $$props, $$invalidate) {
       let packageName = "streamlit-0.51.0-py2.py3-none-any.whl";
       child_process.exec(`${path.resolve(pyDir, "python")} -m pip install ${path.resolve(__dirname, "pipPackages", packageName)}`, (err, result)=>{
         if (err) {console.log("Error occured: Streamlit package couldn't be installed to python");}
-        else {console.log("Streamlit package installed to python");}
+        else {console.log("Streamlit package installed to python: \n", result);}
       });
 
       return
