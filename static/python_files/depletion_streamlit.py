@@ -14,9 +14,15 @@ import plotly.graph_objects as go
 
 try: import streamlit as st
 except:
-    import subprocess
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'streamlit'])
-    import streamlit as st
+
+    filename = pt(__file__)
+    pipFolder = filename.parent.parent / "pipPackages"
+    if pipFolder.exists():
+        packageName = "streamlit-0.51.0-py2.py3-none-any.whl"
+        package = os.path.join(pipFolder, packageName)
+        import subprocess
+        subprocess.check_call([sys.executable, '-m', 'pip', 'install', package])
+        import streamlit as st
 
 from timescan import timescanplot
 from FELion_constants import colors
@@ -69,11 +75,11 @@ class depletionplot:
 
             st.plotly_chart(self.fig, height=700)
             
-            # pycode = st.text_area("pyCode")
+            pycode = st.text_area("pyCode")
             
-            # with stdoutIO() as result:
-            #     exec(pycode)
-            #     st.write(result.getvalue())
+            with stdoutIO() as result:
+                exec(pycode)
+                st.write(result.getvalue())
 
 
         except Exception as error:
