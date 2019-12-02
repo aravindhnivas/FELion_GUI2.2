@@ -86,9 +86,15 @@
         branch: "master",
     }
 
+    let github_username = "aravindhnivas"
+    let github_repo = "FELion_GUI2.2"
+
+    $: gihub_branchname = "master"
+    $: console.log(gihub_branchname)
+
     // URL for github files and folders
-    const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`
-    const urlzip = `https://codeload.github.com/${github.username}/${github.repo}/zip/${github.branch}`
+    $: urlPackageJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/package.json`
+    $: urlzip = `https://codeload.github.com/${github_username}/${github_repo}/zip/${gihub_branchname}`
 
     // Local update-downloaded files
     const updateFolder = path.resolve(__dirname, "..", "update")
@@ -102,16 +108,20 @@
         console.log("Checking for update")
 
         checkupdateLoading = "is-loading"
+        let developer_version = false;
         let request = https.get(urlPackageJson, (res) => {
 
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);
 
             res.on('data', (data) => {
-                // console.log(data.toString("utf8"))
-                data = JSON.parse(data.toString("utf8"))
+                data = data.toString("utf8")
+                // console.log(data, typeof(data), data.trim())
+                data = JSON.parse(data)
+                // console.log(data)
                 new_version = data.version
-
+                developer_version = data.developer
+                console.log(`Developer version: ${developer_version}`)
                 console.log(`Received package:`, data)
                 console.log(`Version available ${new_version}`)
                 console.log(`Current version ${localStorage.version}`)
@@ -135,7 +145,13 @@
         });
 
         request.on("close", ()=>{
-            if (currentVersion === new_version) {updateStatus = `Version available: ${new_version}. You can still update to receive minor update(s) if any.`}
+            if (currentVersion === new_version) {
+                if (developer_version) {
+                    updateStatus = `CAUTION! You are checking with developer branch which has experimental features. Take backup before updating.`
+                } else {
+                    updateStatus = `No stable update available.`
+                }
+            }
             else if (currentVersion < new_version) {
 
                 updateStatus = "New update available"
@@ -565,6 +581,22 @@
                     <div class="container" style="display:none" id="Update">
                         
                         <h1 class="title">FELion GUI (Current version): {currentVersion}</h1>
+                        <hr>
+                        <div class="level">
+                            <div class="level-left">
+                                <div class="level-item"><input type="text" class="input" data-tippy="Github Username" bind:value={github_username}></div>
+                                <div class="level-item"><input type="text" class="input" data-tippy="Github repo" bind:value={github_repo}></div>
+                                <div class="level-item">
+                                    <div class="select">
+                                        <select bind:value={gihub_branchname}>
+                                            <option>master</option>
+                                            <option>developer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                         <div class="field is-grouped">
                             <p class="control"><button class="button is-link {checkupdateLoading}" on:click={updateCheck} >Check Update</button></p>
                             <p class="control"><button class="button is-warning {updateLoading}" on:click={update}>Update</button></p>

@@ -6683,7 +6683,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (510:20) {#each items as item}
+// (526:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -6715,7 +6715,7 @@ function create_each_block$3(ctx) {
 	};
 }
 
-// (548:28) {#if saveChanges}
+// (564:28) {#if saveChanges}
 function create_if_block_1$2(ctx) {
 	var h1, h1_transition, current, dispose;
 
@@ -6760,7 +6760,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (599:28) {#if back_restore_display}
+// (631:28) {#if back_restore_display}
 function create_if_block$3(ctx) {
 	var p, t, p_transition, current;
 
@@ -6810,7 +6810,7 @@ function create_if_block$3(ctx) {
 }
 
 function create_fragment$7(ctx) {
-	var section, div26, div1, aside, div0, t1, ul, t2, div25, div24, div23, div2, t3, t4, div11, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div7, button0, t16, t17, div10, div9, input2, t18, div8, t20, div20, h10, t21, t22, t23, div12, p2, button1, t24, button1_class_value, t25, p3, button2, t26, button2_class_value, t27, h11, t28, t29, hr0, t30, div14, input3, t31, div13, t33, div18, div16, t35, div17, input4, t36, hr1, t37, div19, p4, input5, t38, p5, button3, t39, button3_class_value, t40, p6, button4, t41, button4_class_value, t42, t43, div22, div21, h12, t45, h13, t46, t47_value = process.versions.electron + "", t47, t48, h14, t49, t50_value = process.versions.node + "", t50, t51, h15, t52, t53_value = process.versions.chrome + "", t53, t54, h16, t55, t56, hr2, t57, h17, t59, h18, t60, t61_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t61, t62, h19, t63, t64_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t64, t65, h110, t66, t67_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t67, t68, h111, t69, t70_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t70, t71, hr3, t72, h112, t74, h113, t75, t76_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t76, t77, h114, t78, t79_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t79, t80, h115, t81, t82_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t82, t83, h116, t84, t85_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t85, current, dispose;
+	var section, div32, div1, aside, div0, t1, ul, t2, div31, div30, div29, div2, t3, t4, div11, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div7, button0, t16, t17, div10, div9, input2, t18, div8, t20, div26, h10, t21, t22, t23, hr0, t24, div17, div16, div12, input3, t25, div13, input4, t26, div15, div14, select, option0, option1, t29, hr1, t30, div18, p2, button1, t31, button1_class_value, t32, p3, button2, t33, button2_class_value, t34, h11, t35, t36, hr2, t37, div20, input5, t38, div19, t40, div24, div22, t42, div23, input6, t43, hr3, t44, div25, p4, input7, t45, p5, button3, t46, button3_class_value, t47, p6, button4, t48, button4_class_value, t49, t50, div28, div27, h12, t52, h13, t53, t54_value = process.versions.electron + "", t54, t55, h14, t56, t57_value = process.versions.node + "", t57, t58, h15, t59, t60_value = process.versions.chrome + "", t60, t61, h16, t62, t63, hr4, t64, h17, t66, h18, t67, t68_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t68, t69, h19, t70, t71_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t71, t72, h110, t73, t74_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t74, t75, h111, t76, t77_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t77, t78, hr5, t79, h112, t81, h113, t82, t83_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t83, t84, h114, t85, t86_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t86, t87, h115, t88, t89_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t89, t90, h116, t91, t92_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t92, current, dispose;
 
 	let each_value = ctx.items;
 
@@ -6827,7 +6827,7 @@ function create_fragment$7(ctx) {
 	return {
 		c() {
 			section = element("section");
-			div26 = element("div");
+			div32 = element("div");
 			div1 = element("div");
 			aside = element("aside");
 			div0 = element("div");
@@ -6840,9 +6840,9 @@ function create_fragment$7(ctx) {
 			}
 
 			t2 = space();
-			div25 = element("div");
-			div24 = element("div");
-			div23 = element("div");
+			div31 = element("div");
+			div30 = element("div");
+			div29 = element("div");
 			div2 = element("div");
 			t3 = text(ctx.currentTime);
 			t4 = space();
@@ -6880,115 +6880,135 @@ function create_fragment$7(ctx) {
 			div8 = element("div");
 			div8.innerHTML = `<label class="svelte-1c4zmtz">Developer mode</label>`;
 			t20 = space();
-			div20 = element("div");
+			div26 = element("div");
 			h10 = element("h1");
 			t21 = text("FELion GUI (Current version): ");
 			t22 = text(ctx.currentVersion);
 			t23 = space();
+			hr0 = element("hr");
+			t24 = space();
+			div17 = element("div");
+			div16 = element("div");
 			div12 = element("div");
+			input3 = element("input");
+			t25 = space();
+			div13 = element("div");
+			input4 = element("input");
+			t26 = space();
+			div15 = element("div");
+			div14 = element("div");
+			select = element("select");
+			option0 = element("option");
+			option0.textContent = "master";
+			option1 = element("option");
+			option1.textContent = "developer";
+			t29 = space();
+			hr1 = element("hr");
+			t30 = space();
+			div18 = element("div");
 			p2 = element("p");
 			button1 = element("button");
-			t24 = text("Check Update");
-			t25 = space();
+			t31 = text("Check Update");
+			t32 = space();
 			p3 = element("p");
 			button2 = element("button");
-			t26 = text("Update");
-			t27 = space();
+			t33 = text("Update");
+			t34 = space();
 			h11 = element("h1");
-			t28 = text(ctx.updateStatus);
-			t29 = space();
-			hr0 = element("hr");
-			t30 = space();
-			div14 = element("div");
-			input3 = element("input");
-			t31 = space();
-			div13 = element("div");
-			div13.innerHTML = `<label class="svelte-1c4zmtz">Auto update</label>`;
-			t33 = space();
-			div18 = element("div");
-			div16 = element("div");
-			div16.innerHTML = `<div class="button is-static">Time Interval (in hours)</div>`;
-			t35 = space();
-			div17 = element("div");
-			input4 = element("input");
+			t35 = text(ctx.updateStatus);
 			t36 = space();
-			hr1 = element("hr");
+			hr2 = element("hr");
 			t37 = space();
-			div19 = element("div");
-			p4 = element("p");
+			div20 = element("div");
 			input5 = element("input");
 			t38 = space();
+			div19 = element("div");
+			div19.innerHTML = `<label class="svelte-1c4zmtz">Auto update</label>`;
+			t40 = space();
+			div24 = element("div");
+			div22 = element("div");
+			div22.innerHTML = `<div class="button is-static">Time Interval (in hours)</div>`;
+			t42 = space();
+			div23 = element("div");
+			input6 = element("input");
+			t43 = space();
+			hr3 = element("hr");
+			t44 = space();
+			div25 = element("div");
+			p4 = element("p");
+			input7 = element("input");
+			t45 = space();
 			p5 = element("p");
 			button3 = element("button");
-			t39 = text("Backup");
-			t40 = space();
+			t46 = text("Backup");
+			t47 = space();
 			p6 = element("p");
 			button4 = element("button");
-			t41 = text("Restore");
-			t42 = space();
+			t48 = text("Restore");
+			t49 = space();
 			if (if_block1) if_block1.c();
-			t43 = space();
-			div22 = element("div");
-			div21 = element("div");
+			t50 = space();
+			div28 = element("div");
+			div27 = element("div");
 			h12 = element("h1");
 			h12.textContent = "Software details (version)";
-			t45 = space();
+			t52 = space();
 			h13 = element("h1");
-			t46 = text("Electron.js: ");
-			t47 = text(t47_value);
-			t48 = space();
+			t53 = text("Electron.js: ");
+			t54 = text(t54_value);
+			t55 = space();
 			h14 = element("h1");
-			t49 = text("Node.js: ");
-			t50 = text(t50_value);
-			t51 = space();
+			t56 = text("Node.js: ");
+			t57 = text(t57_value);
+			t58 = space();
 			h15 = element("h1");
-			t52 = text("Chrome: ");
-			t53 = text(t53_value);
-			t54 = space();
+			t59 = text("Chrome: ");
+			t60 = text(t60_value);
+			t61 = space();
 			h16 = element("h1");
-			t55 = text(ctx.pythonv);
-			t56 = space();
-			hr2 = element("hr");
-			t57 = space();
+			t62 = text(ctx.pythonv);
+			t63 = space();
+			hr4 = element("hr");
+			t64 = space();
 			h17 = element("h1");
 			h17.textContent = "Javascript Frameworks and libraries";
-			t59 = space();
+			t66 = space();
 			h18 = element("h1");
-			t60 = text("Svelte.js: ");
-			t61 = text(t61_value);
-			t62 = space();
+			t67 = text("Svelte.js: ");
+			t68 = text(t68_value);
+			t69 = space();
 			h19 = element("h1");
-			t63 = text("jQuery: ");
-			t64 = text(t64_value);
-			t65 = space();
-			h110 = element("h1");
-			t66 = text("Typescript: ");
-			t67 = text(t67_value);
-			t68 = space();
-			h111 = element("h1");
-			t69 = text("Tippy.js: ");
-			t70 = text(t70_value);
-			t71 = space();
-			hr3 = element("hr");
+			t70 = text("jQuery: ");
+			t71 = text(t71_value);
 			t72 = space();
+			h110 = element("h1");
+			t73 = text("Typescript: ");
+			t74 = text(t74_value);
+			t75 = space();
+			h111 = element("h1");
+			t76 = text("Tippy.js: ");
+			t77 = text(t77_value);
+			t78 = space();
+			hr5 = element("hr");
+			t79 = space();
 			h112 = element("h1");
 			h112.textContent = "CSS Frameworks and libraries";
-			t74 = space();
+			t81 = space();
 			h113 = element("h1");
-			t75 = text("Bulma: ");
-			t76 = text(t76_value);
-			t77 = space();
+			t82 = text("Bulma: ");
+			t83 = text(t83_value);
+			t84 = space();
 			h114 = element("h1");
-			t78 = text("Fontawesome: ");
-			t79 = text(t79_value);
-			t80 = space();
+			t85 = text("Fontawesome: ");
+			t86 = text(t86_value);
+			t87 = space();
 			h115 = element("h1");
-			t81 = text("pretty-checkbox: ");
-			t82 = text(t82_value);
-			t83 = space();
+			t88 = text("pretty-checkbox: ");
+			t89 = text(t89_value);
+			t90 = space();
 			h116 = element("h1");
-			t84 = text("hover.css: ");
-			t85 = text(t85_value);
+			t91 = text("hover.css: ");
+			t92 = text(t92_value);
 			attr(div0, "class", "menu-label svelte-1c4zmtz");
 			attr(ul, "class", "menu-list svelte-1c4zmtz");
 			attr(aside, "class", "menu box svelte-1c4zmtz");
@@ -7021,38 +7041,55 @@ function create_fragment$7(ctx) {
 			attr(div11, "class", "container");
 			attr(div11, "id", "Configuration");
 			attr(h10, "class", "title svelte-1c4zmtz");
+			attr(input3, "type", "text");
+			attr(input3, "class", "input");
+			attr(input3, "data-tippy", "Github Username");
+			attr(div12, "class", "level-item");
+			attr(input4, "type", "text");
+			attr(input4, "class", "input");
+			attr(input4, "data-tippy", "Github repo");
+			attr(div13, "class", "level-item");
+			option0.__value = "master";
+			option0.value = option0.__value;
+			option1.__value = "developer";
+			option1.value = option1.__value;
+			if (ctx.gihub_branchname === void 0) add_render_callback(() => ctx.select_change_handler.call(select));
+			attr(div14, "class", "select");
+			attr(div15, "class", "level-item");
+			attr(div16, "class", "level-left");
+			attr(div17, "class", "level");
 			attr(button1, "class", button1_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-1c4zmtz");
 			attr(p2, "class", "control");
 			attr(button2, "class", button2_class_value = "button is-warning " + ctx.updateLoading + " svelte-1c4zmtz");
 			attr(p3, "class", "control");
-			attr(div12, "class", "field is-grouped");
+			attr(div18, "class", "field is-grouped");
 			attr(h11, "class", "subtitle");
 			set_style(h11, "display", "block");
-			attr(input3, "type", "checkbox");
-			attr(input3, "id", "autoupdate");
-			attr(div13, "class", "state p-info p-on");
-			attr(div14, "class", "pretty p-switch p-slim");
-			set_style(div14, "margin-bottom", "1em");
-			attr(div16, "class", "control");
-			attr(input4, "type", "number");
-			attr(input4, "class", "input");
-			attr(input4, "placeholder", "Enter update check for every (time in hrs) interval");
-			input4.value = "1";
-			attr(input4, "data-tippy", "Check for update every hour");
-			attr(div17, "class", "control");
-			attr(div18, "class", "field has-addons");
-			attr(input5, "type", "text");
-			attr(input5, "class", "input");
-			attr(input5, "data-tippy", "Backup folder name");
+			attr(input5, "type", "checkbox");
+			attr(input5, "id", "autoupdate");
+			attr(div19, "class", "state p-info p-on");
+			attr(div20, "class", "pretty p-switch p-slim");
+			set_style(div20, "margin-bottom", "1em");
+			attr(div22, "class", "control");
+			attr(input6, "type", "number");
+			attr(input6, "class", "input");
+			attr(input6, "placeholder", "Enter update check for every (time in hrs) interval");
+			input6.value = "1";
+			attr(input6, "data-tippy", "Check for update every hour");
+			attr(div23, "class", "control");
+			attr(div24, "class", "field has-addons");
+			attr(input7, "type", "text");
+			attr(input7, "class", "input");
+			attr(input7, "data-tippy", "Backup folder name");
 			attr(p4, "class", "control");
 			attr(button3, "class", button3_class_value = "button animated " + ctx.backupClass + " svelte-1c4zmtz");
 			attr(p5, "class", "control");
 			attr(button4, "class", button4_class_value = "button animated " + ctx.restoreClass + " svelte-1c4zmtz");
 			attr(p6, "class", "control");
-			attr(div19, "class", "field is-grouped");
-			attr(div20, "class", "container");
-			set_style(div20, "display", "none");
-			attr(div20, "id", "Update");
+			attr(div25, "class", "field is-grouped");
+			attr(div26, "class", "container");
+			set_style(div26, "display", "none");
+			attr(div26, "id", "Update");
 			attr(h12, "class", "title svelte-1c4zmtz");
 			attr(h13, "class", "subtitle");
 			set_style(h13, "margin-bottom", "0");
@@ -7080,15 +7117,15 @@ function create_fragment$7(ctx) {
 			set_style(h115, "margin-bottom", "0");
 			attr(h116, "class", "subtitle");
 			set_style(h116, "margin-bottom", "0");
-			attr(div21, "class", "control");
-			attr(div22, "class", "container");
-			set_style(div22, "display", "none");
-			attr(div22, "id", "About");
-			attr(div23, "class", "container is-fluid");
-			attr(div24, "class", "row box box2 svelte-1c4zmtz");
-			set_style(div24, "height", "100%");
-			attr(div25, "class", "column");
-			attr(div26, "class", "columns");
+			attr(div27, "class", "control");
+			attr(div28, "class", "container");
+			set_style(div28, "display", "none");
+			attr(div28, "id", "About");
+			attr(div29, "class", "container is-fluid");
+			attr(div30, "class", "row box box2 svelte-1c4zmtz");
+			set_style(div30, "height", "100%");
+			attr(div31, "class", "column");
+			attr(div32, "class", "columns");
 			attr(section, "class", "section animated fadeIn");
 			set_style(section, "display", "none");
 			attr(section, "id", "Settings");
@@ -7098,11 +7135,14 @@ function create_fragment$7(ctx) {
 				listen(input1, "input", ctx.input1_input_handler),
 				listen(button0, "click", ctx.configSave),
 				listen(input2, "change", ctx.input2_change_handler),
+				listen(input3, "input", ctx.input3_input_handler),
+				listen(input4, "input", ctx.input4_input_handler),
+				listen(select, "change", ctx.select_change_handler),
 				listen(button1, "click", ctx.updateCheck),
 				listen(button2, "click", ctx.update),
-				listen(input3, "change", ctx.input3_change_handler),
-				listen(input4, "change", ctx.change_handler),
-				listen(input5, "input", ctx.input5_input_handler),
+				listen(input5, "change", ctx.input5_change_handler),
+				listen(input6, "change", ctx.change_handler),
+				listen(input7, "input", ctx.input7_input_handler),
 				listen(button3, "click", ctx.archive),
 				listen(button4, "click", ctx.restore)
 			];
@@ -7110,8 +7150,8 @@ function create_fragment$7(ctx) {
 
 		m(target, anchor) {
 			insert(target, section, anchor);
-			append(section, div26);
-			append(div26, div1);
+			append(section, div32);
+			append(div32, div1);
 			append(div1, aside);
 			append(aside, div0);
 			append(aside, t1);
@@ -7121,14 +7161,14 @@ function create_fragment$7(ctx) {
 				each_blocks[i].m(ul, null);
 			}
 
-			append(div26, t2);
-			append(div26, div25);
-			append(div25, div24);
-			append(div24, div23);
-			append(div23, div2);
+			append(div32, t2);
+			append(div32, div31);
+			append(div31, div30);
+			append(div30, div29);
+			append(div29, div2);
 			append(div2, t3);
-			append(div23, t4);
-			append(div23, div11);
+			append(div29, t4);
+			append(div29, div11);
 			append(div11, div4);
 			append(div4, label0);
 			append(div4, t6);
@@ -7164,117 +7204,144 @@ function create_fragment$7(ctx) {
 
 			append(div9, t18);
 			append(div9, div8);
-			append(div23, t20);
-			append(div23, div20);
-			append(div20, h10);
+			append(div29, t20);
+			append(div29, div26);
+			append(div26, h10);
 			append(h10, t21);
 			append(h10, t22);
-			append(div20, t23);
-			append(div20, div12);
-			append(div12, p2);
+			append(div26, t23);
+			append(div26, hr0);
+			append(div26, t24);
+			append(div26, div17);
+			append(div17, div16);
+			append(div16, div12);
+			append(div12, input3);
+
+			set_input_value(input3, ctx.github_username);
+
+			append(div16, t25);
+			append(div16, div13);
+			append(div13, input4);
+
+			set_input_value(input4, ctx.github_repo);
+
+			append(div16, t26);
+			append(div16, div15);
+			append(div15, div14);
+			append(div14, select);
+			append(select, option0);
+			append(select, option1);
+
+			select_option(select, ctx.gihub_branchname);
+
+			append(div26, t29);
+			append(div26, hr1);
+			append(div26, t30);
+			append(div26, div18);
+			append(div18, p2);
 			append(p2, button1);
-			append(button1, t24);
-			append(div12, t25);
-			append(div12, p3);
+			append(button1, t31);
+			append(div18, t32);
+			append(div18, p3);
 			append(p3, button2);
-			append(button2, t26);
-			append(div20, t27);
-			append(div20, h11);
-			append(h11, t28);
-			append(div20, t29);
-			append(div20, hr0);
-			append(div20, t30);
-			append(div20, div14);
-			append(div14, input3);
+			append(button2, t33);
+			append(div26, t34);
+			append(div26, h11);
+			append(h11, t35);
+			append(div26, t36);
+			append(div26, hr2);
+			append(div26, t37);
+			append(div26, div20);
+			append(div20, input5);
 
-			input3.checked = ctx.auto_update_check;
+			input5.checked = ctx.auto_update_check;
 
-			append(div14, t31);
-			append(div14, div13);
-			append(div20, t33);
-			append(div20, div18);
-			append(div18, div16);
-			append(div18, t35);
-			append(div18, div17);
-			append(div17, input4);
-			append(div20, t36);
-			append(div20, hr1);
-			append(div20, t37);
+			append(div20, t38);
 			append(div20, div19);
-			append(div19, p4);
-			append(p4, input5);
+			append(div26, t40);
+			append(div26, div24);
+			append(div24, div22);
+			append(div24, t42);
+			append(div24, div23);
+			append(div23, input6);
+			append(div26, t43);
+			append(div26, hr3);
+			append(div26, t44);
+			append(div26, div25);
+			append(div25, p4);
+			append(p4, input7);
 
-			set_input_value(input5, ctx.backupName);
+			set_input_value(input7, ctx.backupName);
 
-			append(div19, t38);
-			append(div19, p5);
+			append(div25, t45);
+			append(div25, p5);
 			append(p5, button3);
-			append(button3, t39);
-			append(div19, t40);
-			append(div19, p6);
+			append(button3, t46);
+			append(div25, t47);
+			append(div25, p6);
 			append(p6, button4);
-			append(button4, t41);
-			append(div19, t42);
-			if (if_block1) if_block1.m(div19, null);
-			append(div23, t43);
-			append(div23, div22);
-			append(div22, div21);
-			append(div21, h12);
-			append(div21, t45);
-			append(div21, h13);
-			append(h13, t46);
-			append(h13, t47);
-			append(div21, t48);
-			append(div21, h14);
-			append(h14, t49);
-			append(h14, t50);
-			append(div21, t51);
-			append(div21, h15);
-			append(h15, t52);
-			append(h15, t53);
-			append(div21, t54);
-			append(div21, h16);
-			append(h16, t55);
-			append(div21, t56);
-			append(div21, hr2);
-			append(div21, t57);
-			append(div21, h17);
-			append(div21, t59);
-			append(div21, h18);
-			append(h18, t60);
-			append(h18, t61);
-			append(div21, t62);
-			append(div21, h19);
-			append(h19, t63);
-			append(h19, t64);
-			append(div21, t65);
-			append(div21, h110);
-			append(h110, t66);
-			append(h110, t67);
-			append(div21, t68);
-			append(div21, h111);
-			append(h111, t69);
-			append(h111, t70);
-			append(div21, t71);
-			append(div21, hr3);
-			append(div21, t72);
-			append(div21, h112);
-			append(div21, t74);
-			append(div21, h113);
-			append(h113, t75);
-			append(h113, t76);
-			append(div21, t77);
-			append(div21, h114);
-			append(h114, t78);
-			append(h114, t79);
-			append(div21, t80);
-			append(div21, h115);
-			append(h115, t81);
-			append(h115, t82);
-			append(div21, t83);
-			append(div21, h116);
-			append(h116, t84);
-			append(h116, t85);
+			append(button4, t48);
+			append(div25, t49);
+			if (if_block1) if_block1.m(div25, null);
+			append(div29, t50);
+			append(div29, div28);
+			append(div28, div27);
+			append(div27, h12);
+			append(div27, t52);
+			append(div27, h13);
+			append(h13, t53);
+			append(h13, t54);
+			append(div27, t55);
+			append(div27, h14);
+			append(h14, t56);
+			append(h14, t57);
+			append(div27, t58);
+			append(div27, h15);
+			append(h15, t59);
+			append(h15, t60);
+			append(div27, t61);
+			append(div27, h16);
+			append(h16, t62);
+			append(div27, t63);
+			append(div27, hr4);
+			append(div27, t64);
+			append(div27, h17);
+			append(div27, t66);
+			append(div27, h18);
+			append(h18, t67);
+			append(h18, t68);
+			append(div27, t69);
+			append(div27, h19);
+			append(h19, t70);
+			append(h19, t71);
+			append(div27, t72);
+			append(div27, h110);
+			append(h110, t73);
+			append(h110, t74);
+			append(div27, t75);
+			append(div27, h111);
+			append(h111, t76);
+			append(h111, t77);
+			append(div27, t78);
+			append(div27, hr5);
+			append(div27, t79);
+			append(div27, h112);
+			append(div27, t81);
+			append(div27, h113);
+			append(h113, t82);
+			append(h113, t83);
+			append(div27, t84);
+			append(div27, h114);
+			append(h114, t85);
+			append(h114, t86);
+			append(div27, t87);
+			append(div27, h115);
+			append(h115, t88);
+			append(h115, t89);
+			append(div27, t90);
+			append(div27, h116);
+			append(h116, t91);
+			append(h116, t92);
 			current = true;
 		},
 
@@ -7324,6 +7391,9 @@ function create_fragment$7(ctx) {
 			}
 
 			if (changed.developer_mode) input2.checked = ctx.developer_mode;
+			if (changed.github_username && (input3.value !== ctx.github_username)) set_input_value(input3, ctx.github_username);
+			if (changed.github_repo && (input4.value !== ctx.github_repo)) set_input_value(input4, ctx.github_repo);
+			if (changed.gihub_branchname) select_option(select, ctx.gihub_branchname);
 
 			if ((!current || changed.checkupdateLoading) && button1_class_value !== (button1_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-1c4zmtz")) {
 				attr(button1, "class", button1_class_value);
@@ -7334,11 +7404,11 @@ function create_fragment$7(ctx) {
 			}
 
 			if (!current || changed.updateStatus) {
-				set_data(t28, ctx.updateStatus);
+				set_data(t35, ctx.updateStatus);
 			}
 
-			if (changed.auto_update_check) input3.checked = ctx.auto_update_check;
-			if (changed.backupName && (input5.value !== ctx.backupName)) set_input_value(input5, ctx.backupName);
+			if (changed.auto_update_check) input5.checked = ctx.auto_update_check;
+			if (changed.backupName && (input7.value !== ctx.backupName)) set_input_value(input7, ctx.backupName);
 
 			if ((!current || changed.backupClass) && button3_class_value !== (button3_class_value = "button animated " + ctx.backupClass + " svelte-1c4zmtz")) {
 				attr(button3, "class", button3_class_value);
@@ -7356,7 +7426,7 @@ function create_fragment$7(ctx) {
 					if_block1 = create_if_block$3(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
-					if_block1.m(div19, null);
+					if_block1.m(div25, null);
 				}
 			} else if (if_block1) {
 				group_outros();
@@ -7367,39 +7437,39 @@ function create_fragment$7(ctx) {
 			}
 
 			if (!current || changed.pythonv) {
-				set_data(t55, ctx.pythonv);
+				set_data(t62, ctx.pythonv);
 			}
 
-			if ((!current || changed.packageJSON) && t61_value !== (t61_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "")) {
-				set_data(t61, t61_value);
+			if ((!current || changed.packageJSON) && t68_value !== (t68_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "")) {
+				set_data(t68, t68_value);
 			}
 
-			if ((!current || changed.packageJSON) && t64_value !== (t64_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
-				set_data(t64, t64_value);
+			if ((!current || changed.packageJSON) && t71_value !== (t71_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
+				set_data(t71, t71_value);
 			}
 
-			if ((!current || changed.packageJSON) && t67_value !== (t67_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
-				set_data(t67, t67_value);
+			if ((!current || changed.packageJSON) && t74_value !== (t74_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
+				set_data(t74, t74_value);
 			}
 
-			if ((!current || changed.packageJSON) && t70_value !== (t70_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
-				set_data(t70, t70_value);
+			if ((!current || changed.packageJSON) && t77_value !== (t77_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
+				set_data(t77, t77_value);
 			}
 
-			if ((!current || changed.packageJSON) && t76_value !== (t76_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
-				set_data(t76, t76_value);
+			if ((!current || changed.packageJSON) && t83_value !== (t83_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
+				set_data(t83, t83_value);
 			}
 
-			if ((!current || changed.packageJSON) && t79_value !== (t79_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
-				set_data(t79, t79_value);
+			if ((!current || changed.packageJSON) && t86_value !== (t86_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
+				set_data(t86, t86_value);
 			}
 
-			if ((!current || changed.packageJSON) && t82_value !== (t82_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
-				set_data(t82, t82_value);
+			if ((!current || changed.packageJSON) && t89_value !== (t89_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
+				set_data(t89, t89_value);
 			}
 
-			if ((!current || changed.packageJSON) && t85_value !== (t85_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
-				set_data(t85, t85_value);
+			if ((!current || changed.packageJSON) && t92_value !== (t92_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
+				set_data(t92, t92_value);
 			}
 		},
 
@@ -7514,9 +7584,8 @@ function instance$7($$self, $$props, $$invalidate) {
         branch: "master",
     };
 
-    // URL for github files and folders
-    const urlPackageJson = `https://raw.githubusercontent.com/${github.username}/${github.repo}/${github.branch}/package.json`;
-    const urlzip = `https://codeload.github.com/${github.username}/${github.repo}/zip/${github.branch}`;
+    let github_username = "aravindhnivas";
+    let github_repo = "FELion_GUI2.2";
 
     // Local update-downloaded files
     const updateFolder = path.resolve(__dirname, "..", "update");
@@ -7527,16 +7596,20 @@ function instance$7($$self, $$props, $$invalidate) {
         console.log("Checking for update");
 
         $$invalidate('checkupdateLoading', checkupdateLoading = "is-loading");
+        let developer_version = false;
         let request = https.get(urlPackageJson, (res) => {
 
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);
 
             res.on('data', (data) => {
-                // console.log(data.toString("utf8"))
-                data = JSON.parse(data.toString("utf8"));
+                data = data.toString("utf8");
+                // console.log(data, typeof(data), data.trim())
+                data = JSON.parse(data);
+                // console.log(data)
                 new_version = data.version;
-
+                developer_version = data.developer;
+                console.log(`Developer version: ${developer_version}`);
                 console.log(`Received package:`, data);
                 console.log(`Version available ${new_version}`);
                 console.log(`Current version ${localStorage.version}`);
@@ -7558,7 +7631,13 @@ function instance$7($$self, $$props, $$invalidate) {
         });
 
         request.on("close", ()=>{
-            if (currentVersion === new_version) {$$invalidate('updateStatus', updateStatus = `Version available: ${new_version}. You can still update to receive minor update(s) if any.`);}
+            if (currentVersion === new_version) {
+                if (developer_version) {
+                    $$invalidate('updateStatus', updateStatus = `CAUTION! You are checking with developer branch which has experimental features. Take backup before updating.`);
+                } else {
+                    $$invalidate('updateStatus', updateStatus = `No stable update available.`);
+                }
+            }
             else if (currentVersion < new_version) {
 
                 $$invalidate('updateStatus', updateStatus = "New update available");
@@ -7848,14 +7927,29 @@ function instance$7($$self, $$props, $$invalidate) {
 		$$invalidate('developer_mode', developer_mode);
 	}
 
-	function input3_change_handler() {
+	function input3_input_handler() {
+		github_username = this.value;
+		$$invalidate('github_username', github_username);
+	}
+
+	function input4_input_handler() {
+		github_repo = this.value;
+		$$invalidate('github_repo', github_repo);
+	}
+
+	function select_change_handler() {
+		gihub_branchname = select_value(this);
+		$$invalidate('gihub_branchname', gihub_branchname);
+	}
+
+	function input5_change_handler() {
 		auto_update_check = this.checked;
 		$$invalidate('auto_update_check', auto_update_check);
 	}
 
 	const change_handler = (e) => $$invalidate('timeInterval_hr', timeInterval_hr = e.target.value);
 
-	function input5_input_handler() {
+	function input7_input_handler() {
 		backupName = this.value;
 		$$invalidate('backupName', backupName);
 	}
@@ -7868,9 +7962,12 @@ function instance$7($$self, $$props, $$invalidate) {
 		if ('electron' in $$props) $$invalidate('electron', electron = $$props.electron);
 	};
 
-	let saveChanges, new_version, checkupdateLoading, updateLoading, updateStatus, currentTime, auto_update_check, backupClass, backupName, back_restore_display, back_restore_log, restoreClass, developer_mode;
+	let saveChanges, new_version, checkupdateLoading, updateLoading, updateStatus, gihub_branchname, urlPackageJson, urlzip, currentTime, auto_update_check, backupClass, backupName, back_restore_display, back_restore_log, restoreClass, developer_mode;
 
-	$$self.$$.update = ($$dirty = { auto_update_check: 1, timeInterval_hr: 1, check_update_continuously: 1, developer_mode: 1 }) => {
+	$$self.$$.update = ($$dirty = { gihub_branchname: 1, github_username: 1, github_repo: 1, auto_update_check: 1, timeInterval_hr: 1, check_update_continuously: 1, developer_mode: 1 }) => {
+		if ($$dirty.gihub_branchname) { console.log(gihub_branchname); }
+		if ($$dirty.github_username || $$dirty.github_repo || $$dirty.gihub_branchname) { urlPackageJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/package.json`; }
+		if ($$dirty.github_username || $$dirty.github_repo || $$dirty.gihub_branchname) { urlzip = `https://codeload.github.com/${github_username}/${github_repo}/zip/${gihub_branchname}`; }
 		if ($$dirty.auto_update_check || $$dirty.timeInterval_hr || $$dirty.check_update_continuously) { if (auto_update_check){ 
             console.log("Auto update On");
             let timeInterval = hr_ms(timeInterval_hr);
@@ -7892,6 +7989,7 @@ function instance$7($$self, $$props, $$invalidate) {
 	$$invalidate('checkupdateLoading', checkupdateLoading = "");
 	$$invalidate('updateLoading', updateLoading = "");
 	$$invalidate('updateStatus', updateStatus = "");
+	$$invalidate('gihub_branchname', gihub_branchname = "master");
 	$$invalidate('currentTime', currentTime = "");
 	$$invalidate('auto_update_check', auto_update_check = true);
 	$$invalidate('backupClass', backupClass = "is-link");
@@ -7915,6 +8013,8 @@ function instance$7($$self, $$props, $$invalidate) {
 		items,
 		configSave,
 		toggle,
+		github_username,
+		github_repo,
 		updateCheck,
 		update,
 		timeInterval_hr,
@@ -7924,6 +8024,7 @@ function instance$7($$self, $$props, $$invalidate) {
 		checkupdateLoading,
 		updateLoading,
 		updateStatus,
+		gihub_branchname,
 		setTimeout,
 		currentTime,
 		auto_update_check,
@@ -7937,9 +8038,12 @@ function instance$7($$self, $$props, $$invalidate) {
 		input1_input_handler,
 		introend_handler,
 		input2_change_handler,
-		input3_change_handler,
+		input3_input_handler,
+		input4_input_handler,
+		select_change_handler,
+		input5_change_handler,
 		change_handler,
-		input5_input_handler
+		input7_input_handler
 	};
 }
 
