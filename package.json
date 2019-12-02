@@ -9,7 +9,6 @@
         "type": "git",
         "url": "https://github.com/aravindhnivas/FELion_GUI2.2.git"
     },
-    "developer":true,
     "main": "dist/main.js",
     "scripts": {
         "start": "cross-env NODE_ENV=development electron .",
@@ -50,5 +49,5 @@
         "python-shell": "^1.0.8",
         "recursive-copy": "^2.0.10",
         "tippy.js": "^4.3.5"
-    }
+    },"developer":true
 }
