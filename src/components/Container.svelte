@@ -6,7 +6,7 @@
   // import { killPort } from "./utils/js/modules.js";
   import * as dirTree from "directory-tree";
   import { fade, fly } from 'svelte/transition';
-  import { spawn } from "child_process";
+  import { spawn, exec } from "child_process";
 
   export let id;
   export let filetag;
@@ -486,13 +486,25 @@
 
     let port = 8501
     let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py")
-    let streamlit_path = path.resolve(path.dirname(localStorage["pythonpath"]), "Scripts", "streamlit")
+    let pyDir = path.dirname(localStorage["pythonpath"])
+    let streamlit_path = path.resolve(pyDir, "Scripts", "streamlit")
     let command = `${streamlit_path} run ${pyFile} `
 
     let defaultArguments = ["run", pyFile, "--server.port", port, "--server.headless", "true"]
     let sendArguments = [currentLocation, ...folderFile.files]
+    let st
+    try {
+      st = spawn(streamlit_path, [...defaultArguments, ...sendArguments])
+    } catch (error) {
+      console.log(error)
+      let packageName = "streamlit-0.51.0-py2.py3-none-any.whl"
+      exec(`${path.resolve(pyDir, "python")} -m pip install ${path.resolve(__dirname, "pipPackages", packageName)}`, (err, result)=>{
+        if (err) {console.log("Error occured: Streamlit package couldn't be installed to python")}
+        else {console.log("Streamlit package installed to python")}
+      })
 
-    let st = spawn(streamlit_path, [...defaultArguments, ...sendArguments])
+      return
+    }
     
     st.stdout.on('data', data => {console.log(data.toString("utf8"))})
     st.stderr.on('data', err => {console.log("Error occured:", err.toString("utf8"))})
