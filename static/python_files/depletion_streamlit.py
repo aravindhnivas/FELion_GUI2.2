@@ -35,7 +35,7 @@ def stdoutIO(stdout=None):
 
 class depletionplot:
 
-    def __init__(self, location, scanfiles):
+    def __init__(self, location):
         
         location = st.text_input("Current Location", location)
         self.location = pt(location)
@@ -305,4 +305,4 @@ if __name__ == "__main__":
     elif len(scanfiles)<1: st.title("This location doesn't have any timescan files")
     else: 
         if st.checkbox("Graph is not properly scaled ?"): st.title("Click top right corner: Settings --> Show app in wide mode")
-        depletionplot(location, scanfiles)
+        depletionplot(location)
