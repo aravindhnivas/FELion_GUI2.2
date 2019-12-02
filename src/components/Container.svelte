@@ -482,30 +482,9 @@
     }
   ]
 
-  let port = 8501
-  let localhostDepletion = `http://localhost:${port}`
-  // const closePort = async () => {
-
-  //   await killPort(port)
-  //   .then(result=>console.log(result))
-  //   .catch(err=>{
-  //     console.log(err)
-  //   })
-  // }
-
-
-  const webviewReload = async () => {
-    depletionAnimate = "is-link is-loading"
-    console.log("Reloading...")
-    await document.getElementById("depletionWebview").reload()
-
-    depletionAnimate = "is-success bounce"
-    setTimeout(()=>{depletionAnimate = "is-link"}, 2000)
-
-  }
-
   const depletionPlot = async () => {
 
+    let port = 8501
     let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py")
     let streamlit_path = path.resolve(path.dirname(localStorage["pythonpath"]), "Scripts", "streamlit")
     let command = `${streamlit_path} run ${pyFile} `
@@ -519,10 +498,11 @@
     st.stderr.on('data', err => {console.log("Error occured:", err.toString("utf8"))})
     st.on('close', ()=>{console.log("Completed")})
 
+    let localhostDepletion = `http://localhost:${port}`
     setTimeout(()=>window.open(localhostDepletion), 1000)
 
   }
-  
+
 
   // Experimental fit (gaussian)
 
@@ -1046,18 +1026,6 @@
       {/if}
 
       <hr style="margin: 0.5em 0; background-color:#bdc3c7" />
-
-      <!-- {#if filetag==="scan"}
-        <div class="row">
-            <div class="block is-pulled-right">
-              <span class="icon">
-                <i class="fas fa-sync" aria-hidden="true" style="margin-right:1em; cursor:pointer;" on:click={webviewReload}/>
-                <button class="delete is-large" on:click={webviewClick}></button>
-              </span>
-            </div>
-            <webview src={localhostDepletion} style="height: 650px; width:100%" id="depletionWebview"></webview>
-        </div>
-      {/if} -->
 
       <div class="row box plotContainer" id="{filetag}plotMainContainer" >
         

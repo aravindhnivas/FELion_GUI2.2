@@ -3002,7 +3002,7 @@ function get_each_context_10(ctx, list, i) {
 	return child_ctx;
 }
 
-// (816:12) {#each funcBtns as { id, name }}
+// (796:12) {#each funcBtns as { id, name }}
 function create_each_block_10(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -3040,7 +3040,7 @@ function create_each_block_10(ctx) {
 	};
 }
 
-// (832:18) {:else}
+// (812:18) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3078,7 +3078,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (830:18) {#if name[0]==="Log"}
+// (810:18) {#if name[0]==="Log"}
 function create_if_block_13(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3116,7 +3116,7 @@ function create_if_block_13(ctx) {
 	};
 }
 
-// (825:12) {#each checkBtns as {id, name, bind, help}}
+// (805:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_9(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -3204,7 +3204,7 @@ function create_each_block_9(ctx) {
 	};
 }
 
-// (844:12) {#if filetag == 'felix'}
+// (824:12) {#if filetag == 'felix'}
 function create_if_block_12(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -3318,7 +3318,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (853:24) {#each normalisation_method as method}
+// (833:24) {#each normalisation_method as method}
 function create_each_block_8(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -3345,7 +3345,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (873:12) {#if filetag == 'thz'}
+// (853:12) {#if filetag == 'thz'}
 function create_if_block_11(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -3445,7 +3445,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (925:6) {#if filetag=="felix"}
+// (905:6) {#if filetag=="felix"}
 function create_if_block_10(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -3566,7 +3566,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (944:6) {#if filetag=="scan"}
+// (924:6) {#if filetag=="scan"}
 function create_if_block_4(ctx) {
 	var div3, div2, div1, t0, t1, div0, button, dispose;
 
@@ -3697,7 +3697,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (957:28) {#if folderFile.files != undefined}
+// (937:28) {#if folderFile.files != undefined}
 function create_if_block_9(ctx) {
 	var each_1_anchor;
 
@@ -3760,7 +3760,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (958:31) {#each folderFile.files as scanfile}
+// (938:31) {#each folderFile.files as scanfile}
 function create_each_block_7(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3797,7 +3797,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (949:16) {#each ["ResON", "ResOFF"] as name}
+// (929:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_6(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3865,7 +3865,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (982:59) 
+// (962:59) 
 function create_if_block_8(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3904,7 +3904,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (980:54) 
+// (960:54) 
 function create_if_block_7(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3943,7 +3943,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (978:52) 
+// (958:52) 
 function create_if_block_6(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3982,7 +3982,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (976:24) {#if name=="Power (ON, OFF)"}
+// (956:24) {#if name=="Power (ON, OFF)"}
 function create_if_block_5(ctx) {
 	var input, dispose;
 
@@ -4015,7 +4015,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (969:16) {#each depletionLabels as {name, id}}
+// (949:16) {#each depletionLabels as {name, id}}
 function create_each_block_5(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0;
 
@@ -4071,7 +4071,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (1002:6) {#if filetag === "mass"}
+// (982:6) {#if filetag === "mass"}
 function create_if_block_3(ctx) {
 	var div11, div10, div9, div1, div0, select, t0, div2, input0, input0_updating = false, t1, div3, input1, input1_updating = false, t2, div4, input2, input2_updating = false, t3, div6, div5, t5, div8, div7, dispose;
 
@@ -4260,7 +4260,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (1010:22) {#each fileChecked as file}
+// (990:22) {#each fileChecked as file}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4297,7 +4297,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (1181:12) {:else}
+// (1149:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -4330,7 +4330,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (1074:38) 
+// (1042:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select0, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div28, div27, div15, div14, select1, t11, div17, div16, t13, div20, t16, div22, div21, t17, div21_class_value, t18, div24, div23, t19, div23_class_value, t20, div26, div25, t22, t23, current, dispose;
 
@@ -4741,7 +4741,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (1067:12) {#if filetag == 'scan'}
+// (1035:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -4818,7 +4818,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (1105:26) {#each fit_file_list as file}
+// (1073:26) {#each fit_file_list as file}
 function create_each_block_3(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4855,7 +4855,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (1133:26) {#each fit_file_list as file}
+// (1101:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4892,7 +4892,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (1173:18) {#if expfit_log_display}
+// (1141:18) {#if expfit_log_display}
 function create_if_block_2(ctx) {
 	var div, label, t, div_intro, div_outro, current;
 
@@ -4948,7 +4948,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (1069:16) {#each fileChecked as scanfile}
+// (1037:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -4978,7 +4978,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (1065:10) {#each plotID as id}
+// (1033:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var current_block_type_index, if_block, if_block_anchor, current;
 
@@ -5516,8 +5516,6 @@ function create_fragment$5(ctx) {
 
 const style = "display:none;";
 
-let port = 8501;
-
 function instance$5($$self, $$props, $$invalidate) {
 	
 
@@ -5968,10 +5966,10 @@ function instance$5($$self, $$props, $$invalidate) {
       id: "timeIndex"
     }
   ];
-  let localhostDepletion = `http://localhost:${port}`;
 
   const depletionPlot = async () => {
 
+    let port = 8501;
     let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py");
     let streamlit_path = path.resolve(path.dirname(localStorage["pythonpath"]), "Scripts", "streamlit");
 
@@ -5984,6 +5982,7 @@ function instance$5($$self, $$props, $$invalidate) {
     st.stderr.on('data', err => {console.log("Error occured:", err.toString("utf8"));});
     st.on('close', ()=>{console.log("Completed");});
 
+    let localhostDepletion = `http://localhost:${port}`;
     setTimeout(()=>window.open(localhostDepletion), 1000);
 
   };
