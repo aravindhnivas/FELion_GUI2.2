@@ -6642,7 +6642,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (523:20) {#each items as item}
+// (521:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -6674,7 +6674,7 @@ function create_each_block$3(ctx) {
 	};
 }
 
-// (561:28) {#if saveChanges}
+// (559:28) {#if saveChanges}
 function create_if_block_1$2(ctx) {
 	var h1, h1_transition, current, dispose;
 
@@ -6719,7 +6719,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (628:28) {#if back_restore_display}
+// (626:28) {#if back_restore_display}
 function create_if_block$3(ctx) {
 	var p, t, p_transition, current;
 
@@ -7512,8 +7512,8 @@ function instance$7($$self, $$props, $$invalidate) {
         $$invalidate('saveChanges', saveChanges = true);
     };
 
-    // Page toggle function
     const toggle = (event) => {
+
         let target = event.target.id;
         items.forEach(item=>{
             let elementID = `${item}Container`;
@@ -7535,11 +7535,6 @@ function instance$7($$self, $$props, $$invalidate) {
     };
 
     // Github details
-    const github = {
-        username: "aravindhnivas",
-        repo: "FELion_GUI2.2",
-        branch: "master",
-    };
 
     let github_username = "aravindhnivas";
     let github_repo = "FELion_GUI2.2";
@@ -7555,6 +7550,9 @@ function instance$7($$self, $$props, $$invalidate) {
 
         $$invalidate('checkupdateLoading', checkupdateLoading = "is-loading");
         let developer_version = false;
+        console.log(`URL_Package: ${urlPackageJson}`);
+
+        console.log(`URL_ZIP: ${urlzip}`);
         let request = https.get(urlPackageJson, (res) => {
 
             console.log('statusCode:', res.statusCode);
@@ -7628,7 +7626,7 @@ function instance$7($$self, $$props, $$invalidate) {
         return new Promise((resolve, reject)=>{
 
             let response = https.get(urlzip, (res) => {
-
+                console.log(`URL: ${urlzip}`);
                 console.log('statusCode:', res.statusCode);
                 console.log('headers:', res.headers);
 
@@ -7697,7 +7695,7 @@ function instance$7($$self, $$props, $$invalidate) {
                     .then(result=>{
                         console.log(result);
                         console.log("Copying downloaded files");
-                        let src = path.resolve(__dirname, "..", "update", `${github.repo}-${github.branch}`);
+                        let src = path.resolve(__dirname, "..", "update", `${github_repo}-${gihub_branchname}`);
                         let dest = path.resolve(__dirname, "..");
 
                         copy(src, dest, {overwrite: true}, function(error, results) {

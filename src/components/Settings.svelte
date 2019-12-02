@@ -49,8 +49,8 @@
         saveChanges = true
     }
 
-    // Page toggle function
     const toggle = (event) => {
+
         let target = event.target.id
         items.forEach(item=>{
             let elementID = `${item}Container`
@@ -73,16 +73,12 @@
 
     $: new_version = ""
     $: updatetoggle = "none"
+
     $: checkupdateLoading = ""
     $: updateLoading = ""
     $: updateStatus = ""
 
     // Github details
-    const github = {
-        username: "aravindhnivas",
-        repo: "FELion_GUI2.2",
-        branch: "master",
-    }
 
     let github_username = "aravindhnivas"
     let github_repo = "FELion_GUI2.2"
@@ -90,7 +86,6 @@
     $: gihub_branchname = "master"
     $: console.log(gihub_branchname)
 
-    // URL for github files and folders
     $: urlPackageJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/package.json`
     $: urlzip = `https://codeload.github.com/${github_username}/${github_repo}/zip/${gihub_branchname}`
 
@@ -108,6 +103,9 @@
 
         checkupdateLoading = "is-loading"
         let developer_version = false;
+        console.log(`URL_Package: ${urlPackageJson}`)
+
+        console.log(`URL_ZIP: ${urlzip}`)
         let request = https.get(urlPackageJson, (res) => {
 
             console.log('statusCode:', res.statusCode);
@@ -183,7 +181,7 @@
         return new Promise((resolve, reject)=>{
 
             let response = https.get(urlzip, (res) => {
-
+                console.log(`URL: ${urlzip}`)
                 console.log('statusCode:', res.statusCode);
                 console.log('headers:', res.headers);
 
@@ -252,7 +250,7 @@
                     .then(result=>{
                         console.log(result)
                         console.log("Copying downloaded files")
-                        let src = path.resolve(__dirname, "..", "update", `${github.repo}-${github.branch}`)
+                        let src = path.resolve(__dirname, "..", "update", `${github_repo}-${gihub_branchname}`)
                         let dest = path.resolve(__dirname, "..")
 
                         copy(src, dest, {overwrite: true}, function(error, results) {
