@@ -449,15 +449,24 @@ class FELion_Tk(Tk):
                         y = line.get_ydata()
                         lg = line.get_label().replace("_", "\_")
                         
-                        if lg.endswith("felix") or lg.find(".thz")>0: ls = "."
+                        if lg.endswith("felix"): ls = f"C{i}."
+                        if lg.find(".thz")>0: 
+                            if i>0: ls = f"C{i-1}."
+                            else: ls = f"C{i}."
                         elif lg.startswith("Binned"): ls="k."
-                        else: ls = "-"
+                        elif lg.startswith("Binned"): ls="k."
+                        elif lg.startswith("Fit."): 
+                            if i==1: ls = f"C0-"
+                            else: ls = f"C{i-2}-"
+                        else: ls = f"C{i}-"
 
                         if lg == "Averaged" or lg.startswith("Fitted"): ax2.plot(x, y, "k-", label=lg, zorder=100)
                         else: ax2.plot(x, y, ls, ms=2, label=lg)
                     
                     ax2.grid()
-                    ax2.legend(bbox_to_anchor=[1, 1], fontsize=self.xlabelSz.get()/2)
+                    
+                    legend = ax2.legend(bbox_to_anchor=[1, 1], fontsize=self.xlabelSz.get()/2)
+                    legend.set_visible(self.plotLegend.get())
 
                     # Setting title
                     ax2.set_title(self.plotTitle.get().replace("_", "\_"), fontsize=self.titleSz.get())
