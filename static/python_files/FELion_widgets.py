@@ -256,19 +256,20 @@ class FELion_Tk(Tk):
         # Row 9
         y += y_diff
         self.plotYscale = self.Entries("Check", "Yscale (log)", x0, y, default=False, bind_btn=True, bind_func=self.set_figureLabel)
+        self.save_fmt = self.Entries("Entry", "png", x0+0.4, y+0.02)
 
-        #  Row 9
+        #  Row 10
         y += y_diff
         # self.browseDir = self.Buttons("Browse", x0, y, self.changeLocation)
         self.latex = self.Entries("Check", "LaTex", x0, y, default=False)
         self.save_btn = self.Buttons("Save", x0+x_diff, y, self.save_fig)
 
-        #  Row 10
+        #  Row 11
         y += 2*y_diff
         txt = "Write valid any python expression"
         self.code = self.TextBox(txt, 0.8, y, w=0.7, h=0.1, bind_func=self.python_exp) 
 
-        #  Row 11
+        #  Row 12
         y += y_diff
         self.runCode = self.Buttons("RunCode", x0, y, self.python_exp)
         self.codeResult = self.TextBox("Result", 0.8, y+y_diff+0.04, w=0.7, h=0.09) 
@@ -437,71 +438,67 @@ class FELion_Tk(Tk):
 
         def savefig():
             style_path = pt(__file__).parent / "matplolib_styles/styles/science.mplstyle"
-            savefile_formats = ("png",)
-
             with style.context([f"{style_path}"]):
-                for fmt in savefile_formats:
-                    fig2, ax2 = plt.subplots()
+                fig2, ax2 = plt.subplots()
 
-                    for i, line in enumerate(self.ax.lines):
-                        
-                        x = line.get_xdata()
-                        y = line.get_ydata()
-                        lg = line.get_label().replace("_", "\_")
-                        
-                        if lg.endswith("felix"): ls = f"C{i}."
-                        if lg.find(".thz")>0: 
-                            if i>0: ls = f"C{i-1}."
-                            else: ls = f"C{i}."
-                        elif lg.startswith("Binned"): ls="k."
-                        elif lg.startswith("Binned"): ls="k."
-                        elif lg.startswith("Fit."): 
-                            if i==1: ls = f"C0-"
-                            else: ls = f"C{i-2}-"
-                        else: ls = f"C{i}-"
-
-                        if lg == "Averaged" or lg.startswith("Fitted"): ax2.plot(x, y, "k-", label=lg, zorder=100)
-                        else: ax2.plot(x, y, ls, ms=2, label=lg)
+                for i, line in enumerate(self.ax.lines):
                     
-                    ax2.grid()
+                    x = line.get_xdata()
+                    y = line.get_ydata()
+                    lg = line.get_label().replace("_", "\_")
                     
-                    legend = ax2.legend(bbox_to_anchor=[1, 1], fontsize=self.xlabelSz.get()/2)
-                    legend.set_visible(self.plotLegend.get())
+                    if lg.endswith("felix"): ls = f"C{i}."
+                    if lg.find(".thz")>0: 
+                        if i>0: ls = f"C{i-1}."
+                        else: ls = f"C{i}."
+                    elif lg.startswith("Binned"): ls="k."
+                    elif lg.startswith("Binned"): ls="k."
+                    elif lg.startswith("Fit."): 
+                        if i==1: ls = f"C0-"
+                        else: ls = f"C{i-2}-"
+                    else: ls = f"C{i}-"
 
-                    # Setting title
-                    ax2.set_title(self.plotTitle.get().replace("_", "\_"), fontsize=self.titleSz.get())
+                    if lg == "Averaged" or lg.startswith("Fitted"): ax2.plot(x, y, "k-", label=lg, zorder=100)
+                    else: ax2.plot(x, y, ls, ms=2, label=lg)
+                
+                ax2.grid()
+                
+                legend = ax2.legend(bbox_to_anchor=[1, 1], fontsize=self.xlabelSz.get()/2)
+                legend.set_visible(self.plotLegend.get())
 
-                    # Setting X and Y label
-                    if self.plotYscale.get(): scale = "log"
-                    else: scale = "linear"
-                    ax2.set(yscale=scale)
-                    ax2.set(
-                        ylabel=self.plotYlabel.get().replace("%", "\%"), 
-                        xlabel=self.plotXlabel.get()
-                    )
+                # Setting title
+                ax2.set_title(self.plotTitle.get().replace("_", "\_"), fontsize=self.titleSz.get())
 
-                    # Xlabel and Ylabel fontsize
-                    ax2.xaxis.label.set_size(self.xlabelSz.get())
-                    ax2.yaxis.label.set_size(self.ylabelSz.get())
+                # Setting X and Y label
+                if self.plotYscale.get(): scale = "log"
+                else: scale = "linear"
+                ax2.set(yscale=scale)
+                ax2.set(
+                    ylabel=self.plotYlabel.get().replace("%", "\%"), 
+                    xlabel=self.plotXlabel.get()
+                )
 
-                    fig2.savefig(f'{self.location}/{self.name.get()}.{fmt}', dpi=self.dpi_value.get()*2)
+                # Xlabel and Ylabel fontsize
+                ax2.xaxis.label.set_size(self.xlabelSz.get())
+                ax2.yaxis.label.set_size(self.ylabelSz.get())
+
+                fig2.savefig(f'{self.location}/{self.name.get()}.{self.save_fmt.get()}', dpi=self.dpi_value.get()*2)
 
         try:
 
             print(f"Figure saving in {self.location}")
-            fmt = "png"
-            if isfile(f'{self.location}/{self.name.get()}.{fmt}'):
+            if isfile(f'{self.location}/{self.name.get()}.{self.save_fmt.get()}'):
                 if askokcancel('Overwrite?', f'File: {self.name.get()}.png already present. \nDo you want to Overwrite the file?'):
                     if self.latex.get(): savefig()
-                    else: self.fig.savefig(f'{self.location}/{self.name.get()}.{fmt}')
-                    showinfo('SAVED', f'File: {self.name.get()}.{fmt} saved in directory: {self.location}')
+                    else: self.fig.savefig(f'{self.location}/{self.name.get()}.{self.save_fmt.get()}')
+                    showinfo('SAVED', f'File: {self.name.get()}.{self.save_fmt.get()} saved in directory: {self.location}')
 
             else:
                 if self.latex.get(): savefig()
-                else: self.fig.savefig(f'{self.location}/{self.name.get()}.{fmt}')
-                showinfo('SAVED', f'File: {self.name.get()}.{fmt} saved in directory: {self.location}')
+                else: self.fig.savefig(f'{self.location}/{self.name.get()}.{self.save_fmt.get()}')
+                showinfo('SAVED', f'File: {self.name.get()}.{self.save_fmt.get()} saved in directory: {self.location}')
 
-            print(f'Filename saved: {self.name.get()}.{fmt}\nLocation: {self.location}\n')
+            print(f'Filename saved: {self.name.get()}.{self.save_fmt.get()}\nLocation: {self.location}\n')
     
         except Exception as error: showerror("Error", error)
 
