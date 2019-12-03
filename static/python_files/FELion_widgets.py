@@ -1,7 +1,7 @@
 
 # Built-In modules
 
-import os, sys
+import os, sys, time
 from os.path import isdir, isfile
 from pathlib import Path as pt
 
@@ -435,6 +435,8 @@ class FELion_Tk(Tk):
             return self.ax 
         
     def save_fig(self, event=None):
+        save_filename = self.location / f"{self.name.get()}.{self.save_fmt.get()}"
+        save_fname = f"{self.name.get()}.{self.save_fmt.get()}"
 
         def savefig():
             style_path = pt(__file__).parent / "matplolib_styles/styles/science.mplstyle"
@@ -482,23 +484,25 @@ class FELion_Tk(Tk):
                 ax2.xaxis.label.set_size(self.xlabelSz.get())
                 ax2.yaxis.label.set_size(self.ylabelSz.get())
 
-                fig2.savefig(f'{self.location}/{self.name.get()}.{self.save_fmt.get()}', dpi=self.dpi_value.get()*2)
+                fig2.savefig(save_filename, dpi=self.dpi_value.get()*2)
 
         try:
 
-            print(f"Figure saving in {self.location}")
-            if isfile(f'{self.location}/{self.name.get()}.{self.save_fmt.get()}'):
-                if askokcancel('Overwrite?', f'File: {self.name.get()}.png already present. \nDo you want to Overwrite the file?'):
-                    if self.latex.get(): savefig()
-                    else: self.fig.savefig(f'{self.location}/{self.name.get()}.{self.save_fmt.get()}')
-                    showinfo('SAVED', f'File: {self.name.get()}.{self.save_fmt.get()} saved in directory: {self.location}')
-
-            else:
+            def saved():
                 if self.latex.get(): savefig()
-                else: self.fig.savefig(f'{self.location}/{self.name.get()}.{self.save_fmt.get()}')
-                showinfo('SAVED', f'File: {self.name.get()}.{self.save_fmt.get()} saved in directory: {self.location}')
+                else: self.fig.savefig(save_filename)
+                time.sleep(0.01)
+                if askokcancel('Open savedfile?', f'File: {save_fname}\nsaved in directory: {self.location}'):
+                    print("Opening file: ", save_filename)
+                    os.system(f"{save_filename}")
+            
+            print(f"Figure saving in {self.location}")
+            if isfile(save_filename):
+                if askokcancel('Overwrite?', f'File: {save_fname} already present. \nDo you want to Overwrite the file?'):
+                    saved()
+            else: saved()
 
-            print(f'Filename saved: {self.name.get()}.{self.save_fmt.get()}\nLocation: {self.location}\n')
+            print(f'Filename saved: {save_fname}\nLocation: {self.location}\n')
     
         except Exception as error: showerror("Error", error)
 
