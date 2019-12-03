@@ -1,17 +1,19 @@
 
 # Built-In modules
+
 import os, sys
 from os.path import isdir, isfile
+from pathlib import Path as pt
 
-# Tkinter
 # import tkinter as tk
+
 from tkinter import Frame, IntVar, StringVar, BooleanVar, DoubleVar, Tk, filedialog, END, Text
 from tkinter.ttk import Button, Checkbutton, Label, Entry, Scale, Scrollbar
 from tkinter.messagebox import showerror, showinfo, showwarning, askokcancel
 
 # Matplotlib
-import matplotlib
-matplotlib.use('TkAgg')
+from matplotlib import style
+import matplotlib.pyplot as plt
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.backend_bases import key_press_handler
@@ -182,7 +184,8 @@ class FELion_Tk(Tk):
 
         if dpi is not None: self.dpi_value.set(dpi)
 
-        self.fig = Figure(dpi=self.dpi_value.get())
+        # self.fig = Figure(dpi=self.dpi_value.get())
+        self.fig = plt.figure(dpi=self.dpi_value.get())
 
         self.fig.subplots_adjust(top=0.95, bottom=0.2, left=0.1, right=0.9)
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.canvas_frame)
@@ -256,7 +259,8 @@ class FELion_Tk(Tk):
 
         #  Row 9
         y += y_diff
-        self.browseDir = self.Buttons("Browse", x0, y, self.changeLocation)
+        # self.browseDir = self.Buttons("Browse", x0, y, self.changeLocation)
+        self.latex = self.Entries("Check", "LaTex", x0, y, default=False)
         self.save_btn = self.Buttons("Save", x0+x_diff, y, self.save_fig)
 
         #  Row 10
@@ -431,20 +435,65 @@ class FELion_Tk(Tk):
         
     def save_fig(self, event=None):
 
-        try:
-            print(f"Figure saving in {self.location}")
+        def savefig():
+            style_path = pt(__file__).parent / "matplolib_styles/styles/science.mplstyle"
+            savefile_formats = ("png",)
 
-            if isfile(f'{self.location}/{self.name.get()}.png'):
+            with style.context([f"{style_path}"]):
+                for fmt in savefile_formats:
+                    fig2, ax2 = plt.subplots()
+
+                    for i, line in enumerate(self.ax.lines):
+                        
+                        x = line.get_xdata()
+                        y = line.get_ydata()
+                        lg = line.get_label().replace("_", "\_")
+                        
+                        if lg.endswith("felix") or lg.find(".thz")>0: ls = "."
+                        elif lg.startswith("Binned"): ls="k."
+                        else: ls = "-"
+
+                        if lg == "Averaged" or lg.startswith("Fitted"): ax2.plot(x, y, "k-", label=lg, zorder=100)
+                        else: ax2.plot(x, y, ls, ms=2, label=lg)
+                    
+                    ax2.grid()
+                    ax2.legend(bbox_to_anchor=[1, 1], fontsize=self.xlabelSz.get()/2)
+
+                    # Setting title
+                    ax2.set_title(self.plotTitle.get().replace("_", "\_"), fontsize=self.titleSz.get())
+
+                    # Setting X and Y label
+                    if self.plotYscale.get(): scale = "log"
+                    else: scale = "linear"
+                    ax2.set(yscale=scale)
+                    ax2.set(
+                        ylabel=self.plotYlabel.get().replace("%", "\%"), 
+                        xlabel=self.plotXlabel.get()
+                    )
+
+                    # Xlabel and Ylabel fontsize
+                    ax2.xaxis.label.set_size(self.xlabelSz.get())
+                    ax2.yaxis.label.set_size(self.ylabelSz.get())
+
+                    fig2.savefig(f'{self.location}/{self.name.get()}.{fmt}', dpi=self.dpi_value.get()*2)
+
+        try:
+
+            print(f"Figure saving in {self.location}")
+            fmt = "png"
+            if isfile(f'{self.location}/{self.name.get()}.{fmt}'):
                 if askokcancel('Overwrite?', f'File: {self.name.get()}.png already present. \nDo you want to Overwrite the file?'):
-                    self.fig.savefig(f'{self.location}/{self.name.get()}.png')
-                    showinfo('SAVED', f'File: {self.name.get()}.png saved in directory: {self.location}')
+                    if self.latex.get(): savefig()
+                    else: self.fig.savefig(f'{self.location}/{self.name.get()}.{fmt}')
+                    showinfo('SAVED', f'File: {self.name.get()}.{fmt} saved in directory: {self.location}')
 
             else:
-                self.fig.savefig(f'{self.location}/{self.name.get()}.png')
-                showinfo('SAVED', f'File: {self.name.get()}.png saved in directory: {self.location}')
+                if self.latex.get(): savefig()
+                else: self.fig.savefig(f'{self.location}/{self.name.get()}.{fmt}')
+                showinfo('SAVED', f'File: {self.name.get()}.{fmt} saved in directory: {self.location}')
 
-            print(f'Filename saved: {self.name.get()}.png\nLocation: {self.location}\n')
-        
+            print(f'Filename saved: {self.name.get()}.{fmt}\nLocation: {self.location}\n')
+    
         except Exception as error: showerror("Error", error)
 
 def main():
