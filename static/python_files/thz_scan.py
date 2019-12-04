@@ -139,7 +139,7 @@ def main(filenames, delta, tkplot, gamma=None):
         
         if tkplot:
             ax.plot(freq, depletion_counts, f"C{i}.", label=f"{filename.name} [{iteraton}]")
-            ax.plot(freq, fit_data, f"C{i}-", label=f"Fit. : {freq_fit:.7f}({freq_fit_err:.0f}) [{ufwhm.nominal_value*1e6:.1f} KHz]")
+            ax.plot(freq, fit_data, f"C{i}-", label=f"Fit.: {freq_fit:.7f} ({freq_fit_err:.0f}) [{ufwhm.nominal_value*1e6:.1f} KHz]")
         else:
             data[filename.name] = {"x": list(freq), "y": list(depletion_counts),  
                                     "name": f"{filename.name} [{iteraton}]", "mode":'markers',
@@ -174,7 +174,7 @@ def main(filenames, delta, tkplot, gamma=None):
         }
 
     if tkplot:
-        ax.plot(binx, fit_data, "k-", label=f"Fitted: {line_freq_fit:.7f}({freq_fit_err:.0f}) [{fwhm*1e6:.1f} KHz]")
+        ax.plot(binx, fit_data, "k-", label=f"Fitted: {line_freq_fit:.7f} ({freq_fit_err:.0f}) [{fwhm*1e6:.1f} KHz]")
         ax.vlines(x=line_freq_fit, ymin=0, ymax=amplitude, zorder=10)
         ax.hlines(y=half_max, xmin=line_freq_fit-fwhm/2, xmax=line_freq_fit+fwhm/2, zorder=10)
         widget.plot_legend = ax.legend()
