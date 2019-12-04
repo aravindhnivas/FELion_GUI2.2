@@ -1,6 +1,5 @@
 
 # Built-In modules
-
 import os, sys, time
 from os.path import isdir, isfile
 from pathlib import Path as pt
@@ -14,6 +13,7 @@ from tkinter.messagebox import showerror, showinfo, showwarning, askokcancel
 # Matplotlib
 from matplotlib import style
 import matplotlib.pyplot as plt
+# import mplcursors
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.backend_bases import key_press_handler
@@ -175,26 +175,19 @@ class FELion_Tk(Tk):
 
         self.widget_frame.scrollbar.place(relx=x, rely=y, anchor="w", relheight=h)
         self.widget_frame.txt.place(relx=x, rely=y, anchor="e", relwidth=w, relheight=h)
-
         return self.widget_frame.txt
 
     def Figure(self, connect=True, dpi=None, **kw):
 
         self.make_figure_widgets()
-
         if dpi is not None: self.dpi_value.set(dpi)
 
-        # self.fig = Figure(dpi=self.dpi_value.get())
         self.fig = plt.figure(dpi=self.dpi_value.get())
-        
-
         self.fig.subplots_adjust(top=0.95, bottom=0.2, left=0.1, right=0.9)
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.canvas_frame)
 
         self.fig_tkcanvas = self.canvas.get_tk_widget()
         self.fig_tkcanvas.place(relx=0, rely=0, relwidth=1, relheight=1)
-        # self.canvas.mpl_connect('pick_event', lambda event: print(event))
-
         self.toolbar = NavigationToolbar2Tk(self.canvas, self)
         self.toolbar.update()
 
@@ -250,19 +243,19 @@ class FELion_Tk(Tk):
 
         # Row 8
         y += y_diff
-        self.plotGrid = self.Entries("Check", "grid", x0, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
-        self.plotLegend = self.Entries("Check", "Legend", x0+x_diff, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
+        self.plotGrid = self.Entries("Check", "G", x0, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
+        self.plotLegend = self.Entries("Check", "Lg", x0+0.2, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
+        self.plotYscale = self.Entries("Check", "Ylog", x0+0.4, y, default=False, bind_btn=True, bind_func=self.set_figureLabel)
 
         # Row 9
         y += y_diff
-        self.plotYscale = self.Entries("Check", "Yscale (log)", x0, y, default=False, bind_btn=True, bind_func=self.set_figureLabel)
-        self.save_fmt = self.Entries("Entry", "png", x0+0.4, y+0.02)
+        self.latex = self.Entries("Check", "Tex", x0, y, default=False, relwidth=0.2)
+        self.save_fmt = self.Entries("Entry", "png", x0+0.2, y+0.02, relwidth=0.2)
+        self.save_btn = self.Buttons("Save", x0+0.4, y, self.save_fig)
 
         #  Row 10
         y += y_diff
-        # self.browseDir = self.Buttons("Browse", x0, y, self.changeLocation)
-        self.latex = self.Entries("Check", "LaTex", x0, y, default=False)
-        self.save_btn = self.Buttons("Save", x0+x_diff, y, self.save_fig)
+        # self.cursors = self.Entries("Check", "Cursor", x0, y, default=False)
 
         #  Row 11
         y += 2*y_diff
@@ -298,12 +291,6 @@ class FELion_Tk(Tk):
                 self.codeResult.delete('1.0', END)
                 self.codeResult.insert(END, f"Error Occured:\n{error}")
                 print(f"Error occured while evaluating above code:\n{error}")
-
-    def changeLocation(self): 
-        newLocation = filedialog.askdirectory(initialdir = "./")
-        
-        if newLocation is not "": self.location=newLocation
-        else: print(f"No location changed\nCurrent Location: {self.location}")
 
     def set_subplot_position(self, event=None):
         self.fig.subplots_adjust(
@@ -368,7 +355,7 @@ class FELion_Tk(Tk):
                 if self.plotYscale.get(): scale = "linear"
                 else: scale = "log"
                 self.ax.set(yscale=scale)
-
+            
         # self.focus_set()
         self.canvas.draw()
 
@@ -411,8 +398,8 @@ class FELion_Tk(Tk):
         self.set_minor = lambda x: self.ax.xaxis.set_minor_locator(AutoMinorLocator(x))
         self.set_minor(10)
         
-        self.ax.tick_params(which='minor', length=4, width=2, color='C1')
-        self.ax.tick_params(which='major', length=10, width=2)
+        # self.ax.tick_params(which='minor', length=4, width=2, color='C1')
+        # self.ax.tick_params(which='major', length=10, width=2)
 
         # Making axis available for modification
         self.xaxis = self.ax.xaxis
@@ -422,6 +409,7 @@ class FELion_Tk(Tk):
 
         # Grid
         self.ax.grid(self.plotGrid.get())
+        # if self.cursors.get(): mplcursors.cursor(hover=True)
 
         # Figure caption
         self.figtext = self.fig.text(0.5, 0.07, self.plotFigText.get(), ha="center", wrap=True, fontsize=self.figtextFont.get())
@@ -461,11 +449,11 @@ class FELion_Tk(Tk):
                         thz_line = float(info[1])
                         self.ax2.vlines(x=thz_line, ymin=0, ymax=y.max(), zorder=100)
                         xcord, ycord = thz_line, y.max()
-                        # text_frac = 0.01
                         self.ax2.annotate(f'{thz_line:.7f}{info[2]}', xy=(xcord, ycord), xycoords='data',
                                     xytext=(xcord, ycord+5), textcoords='data',
                                     arrowprops=dict(arrowstyle="->", connectionstyle="arc3")
                         )
+                        self.ax2.set(ylim=([-(y.max()/2), y.max()*1.5]))
                     elif lg.startswith("Fit."): 
                         if i==1: ls = f"C0-"
                         else: ls = f"C{i-2}-"

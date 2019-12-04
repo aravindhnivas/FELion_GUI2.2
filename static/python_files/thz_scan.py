@@ -64,7 +64,6 @@ def thz_plot(filename):
 
     return freq, depletion_counts, f"{steps} KHz : {iteraton} cycles"
 
-
 def binning(xs, ys, delta=1e-6):
 
     """
@@ -119,10 +118,8 @@ def main(filenames, delta, tkplot, gamma=None):
     if tkplot:
         widget = FELion_Tk(title="THz Scan", location=filenames[0].parent)
         fig, canvas = widget.Figure()
-
         if len(filenames) == 1: savename=filenames[0].stem
         else: savename = "averaged_thzScan"
-
         ax = widget.make_figure_layout(title="THz scan", xaxis="Frequency (GHz)", yaxis="Depletion (%)", savename=savename)
     else: data = {}
 
@@ -178,6 +175,7 @@ def main(filenames, delta, tkplot, gamma=None):
         ax.vlines(x=line_freq_fit, ymin=0, ymax=amplitude, zorder=10)
         ax.hlines(y=half_max, xmin=line_freq_fit-fwhm/2, xmax=line_freq_fit+fwhm/2, zorder=10)
         widget.plot_legend = ax.legend()
+
         widget.mainloop()
 
     else:
