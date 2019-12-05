@@ -435,16 +435,13 @@
 
       case "theoryBtn": 
         jq("#theoryRow").toggle()
-        // if (document.getElementById("theoryRow").style.display === "none") {plotContainerHeight = "60vh"} 
-        // else {plotContainerHeight = "50vh"}
       break;
 
       case "depletionscanBtn":
-        // jq("#depletionRow").toggle()
         depletionPlot()
 
-        // if (document.getElementById("depletionRow").style.display === "none") {plotContainerHeight = "60vh"} 
-        // else {plotContainerHeight = "50vh"}
+        document.getElementById("depletionscanBtn").classList.add("bounce")
+
       break;
 
       ////////////////////////////////////////////////////
