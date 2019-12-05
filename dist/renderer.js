@@ -3002,7 +3002,7 @@ function get_each_context_10(ctx, list, i) {
 	return child_ctx;
 }
 
-// (837:12) {#each funcBtns as { id, name }}
+// (860:12) {#each funcBtns as { id, name }}
 function create_each_block_10(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -3040,7 +3040,7 @@ function create_each_block_10(ctx) {
 	};
 }
 
-// (853:18) {:else}
+// (876:18) {:else}
 function create_else_block_2(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3078,7 +3078,7 @@ function create_else_block_2(ctx) {
 	};
 }
 
-// (851:18) {#if name[0]==="Log"}
+// (874:18) {#if name[0]==="Log"}
 function create_if_block_16(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3116,7 +3116,7 @@ function create_if_block_16(ctx) {
 	};
 }
 
-// (846:12) {#each checkBtns as {id, name, bind, help}}
+// (869:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_9(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -3204,7 +3204,7 @@ function create_each_block_9(ctx) {
 	};
 }
 
-// (865:12) {#if filetag == 'felix'}
+// (888:12) {#if filetag == 'felix'}
 function create_if_block_15(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -3318,7 +3318,7 @@ function create_if_block_15(ctx) {
 	};
 }
 
-// (874:24) {#each normalisation_method as method}
+// (897:24) {#each normalisation_method as method}
 function create_each_block_8(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -3345,7 +3345,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (894:12) {#if filetag == 'thz'}
+// (917:12) {#if filetag == 'thz'}
 function create_if_block_14(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -3445,7 +3445,7 @@ function create_if_block_14(ctx) {
 	};
 }
 
-// (946:6) {#if filetag=="felix"}
+// (969:6) {#if filetag=="felix"}
 function create_if_block_13(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -3566,7 +3566,7 @@ function create_if_block_13(ctx) {
 	};
 }
 
-// (965:6) {#if filetag=="scan"}
+// (988:6) {#if filetag=="scan"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, t0, t1, div0, button, dispose;
 
@@ -3697,7 +3697,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (978:28) {#if folderFile.files != undefined}
+// (1001:28) {#if folderFile.files != undefined}
 function create_if_block_12(ctx) {
 	var each_1_anchor;
 
@@ -3760,7 +3760,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (979:31) {#each folderFile.files as scanfile}
+// (1002:31) {#each folderFile.files as scanfile}
 function create_each_block_7(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3797,7 +3797,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (970:16) {#each ["ResON", "ResOFF"] as name}
+// (993:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_6(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3865,7 +3865,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (1003:59) 
+// (1026:59) 
 function create_if_block_11(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3904,7 +3904,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (1001:54) 
+// (1024:54) 
 function create_if_block_10(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3943,7 +3943,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (999:52) 
+// (1022:52) 
 function create_if_block_9(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3982,7 +3982,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (997:24) {#if name=="Power (ON, OFF)"}
+// (1020:24) {#if name=="Power (ON, OFF)"}
 function create_if_block_8(ctx) {
 	var input, dispose;
 
@@ -4015,7 +4015,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (990:16) {#each depletionLabels as {name, id}}
+// (1013:16) {#each depletionLabels as {name, id}}
 function create_each_block_5(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0;
 
@@ -4071,7 +4071,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (1023:6) {#if filetag === "mass"}
+// (1046:6) {#if filetag === "mass"}
 function create_if_block_5(ctx) {
 	var if_block_anchor;
 
@@ -4117,7 +4117,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (1046:10) {:else}
+// (1073:10) {:else}
 function create_else_block_1$1(ctx) {
 	var div11, div10, div9, div1, div0, select, t0, div2, input0, input0_updating = false, t1, div3, input1, input1_updating = false, t2, div4, input2, input2_updating = false, t3, div6, div5, t5, div8, div7, dispose;
 
@@ -4306,15 +4306,15 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (1024:8) {#if show_nist}
+// (1047:8) {#if show_nist}
 function create_if_block_6(ctx) {
-	var div5, div4, div3, div0, input0, t0, div1, input1, t1, div2, button, dispose;
+	var div6, div5, div4, div0, input0, t0, div1, input1, t1, div2, button0, t3, div3, button1, t4, button1_class_value, dispose;
 
 	return {
 		c() {
+			div6 = element("div");
 			div5 = element("div");
 			div4 = element("div");
-			div3 = element("div");
 			div0 = element("div");
 			input0 = element("input");
 			t0 = space();
@@ -4322,8 +4322,12 @@ function create_if_block_6(ctx) {
 			input1 = element("input");
 			t1 = space();
 			div2 = element("div");
-			button = element("button");
-			button.textContent = "Reload";
+			button0 = element("button");
+			button0.textContent = "Reload";
+			t3 = space();
+			div3 = element("div");
+			button1 = element("button");
+			t4 = text(ctx.internet_connection);
 			attr(input0, "class", "input");
 			attr(input0, "type", "text");
 			attr(input0, "placeholder", "Molecule name");
@@ -4334,50 +4338,64 @@ function create_if_block_6(ctx) {
 			attr(input1, "placeholder", "Molecule Formula");
 			attr(input1, "data-tippy", "Enter molecule formula");
 			attr(div1, "class", "level-item");
-			attr(button, "class", "button is-warning");
+			attr(button0, "class", "button is-warning");
 			attr(div2, "class", "level-item");
-			attr(div3, "class", "level-left");
-			attr(div4, "class", "level");
-			attr(div5, "class", "row svelte-nnp4fz");
-			attr(div5, "id", "nist_row");
+			attr(button1, "class", button1_class_value = "button " + ctx.internet_active + " svelte-nnp4fz");
+			attr(div3, "class", "level-item");
+			attr(div4, "class", "level-left");
+			attr(div5, "class", "level");
+			attr(div6, "class", "row svelte-nnp4fz");
+			attr(div6, "id", "nist_row");
 
 			dispose = [
 				listen(input0, "input", ctx.input0_input_handler_2),
 				listen(input0, "change", ctx.change_handler_5),
 				listen(input1, "input", ctx.input1_input_handler_2),
 				listen(input1, "change", ctx.change_handler_6),
-				listen(button, "click", ctx.nist_reload)
+				listen(button0, "click", ctx.nist_reload)
 			];
 		},
 
 		m(target, anchor) {
-			insert(target, div5, anchor);
+			insert(target, div6, anchor);
+			append(div6, div5);
 			append(div5, div4);
-			append(div4, div3);
-			append(div3, div0);
+			append(div4, div0);
 			append(div0, input0);
 
 			set_input_value(input0, ctx.nist_mname);
 
-			append(div3, t0);
-			append(div3, div1);
+			append(div4, t0);
+			append(div4, div1);
 			append(div1, input1);
 
 			set_input_value(input1, ctx.nist_mformula);
 
-			append(div3, t1);
-			append(div3, div2);
-			append(div2, button);
+			append(div4, t1);
+			append(div4, div2);
+			append(div2, button0);
+			append(div4, t3);
+			append(div4, div3);
+			append(div3, button1);
+			append(button1, t4);
 		},
 
 		p(changed, ctx) {
 			if (changed.nist_mname && (input0.value !== ctx.nist_mname)) set_input_value(input0, ctx.nist_mname);
 			if (changed.nist_mformula && (input1.value !== ctx.nist_mformula)) set_input_value(input1, ctx.nist_mformula);
+
+			if (changed.internet_connection) {
+				set_data(t4, ctx.internet_connection);
+			}
+
+			if ((changed.internet_active) && button1_class_value !== (button1_class_value = "button " + ctx.internet_active + " svelte-nnp4fz")) {
+				attr(button1, "class", button1_class_value);
+			}
 		},
 
 		d(detaching) {
 			if (detaching) {
-				detach(div5);
+				detach(div6);
 			}
 
 			run_all(dispose);
@@ -4385,7 +4403,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (1054:28) {#each fileChecked as file}
+// (1081:28) {#each fileChecked as file}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4422,7 +4440,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (1219:12) {:else}
+// (1246:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -4455,7 +4473,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (1213:39) 
+// (1240:39) 
 function create_if_block_3(ctx) {
 	var div, div_id_value, t, if_block_anchor;
 
@@ -4517,7 +4535,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (1107:38) 
+// (1134:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select0, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div28, div27, div15, div14, select1, t11, div17, div16, t13, div20, t16, div22, div21, t17, div21_class_value, t18, div24, div23, t19, div23_class_value, t20, div26, div25, t22, t23, current, dispose;
 
@@ -4928,7 +4946,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (1100:12) {#if filetag == 'scan'}
+// (1127:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -5005,7 +5023,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (1215:14) {#if show_nist}
+// (1242:14) {#if show_nist}
 function create_if_block_4(ctx) {
 	var webview;
 
@@ -5035,7 +5053,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (1138:26) {#each fit_file_list as file}
+// (1165:26) {#each fit_file_list as file}
 function create_each_block_3(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -5072,7 +5090,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (1166:26) {#each fit_file_list as file}
+// (1193:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -5109,7 +5127,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (1206:18) {#if expfit_log_display}
+// (1233:18) {#if expfit_log_display}
 function create_if_block_2(ctx) {
 	var div, label, t, div_intro, div_outro, current;
 
@@ -5165,7 +5183,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (1102:16) {#each fileChecked as scanfile}
+// (1129:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -5195,7 +5213,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (1098:10) {#each plotID as id}
+// (1125:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var current_block_type_index, if_block, if_block_anchor, current;
 
@@ -5735,6 +5753,19 @@ function create_fragment$5(ctx) {
 
 const style = "display:none;";
 
+function checkInternet() {
+
+  return new Promise((resolve, reject)=>{
+    require('dns').lookup('google.com',function(err) {
+        if (err && err.code == "ENOTFOUND") {
+            reject("No Internet access available");
+        } else {
+            resolve("Internet Connected");
+        }
+    });
+  })
+}
+
 function instance$5($$self, $$props, $$invalidate) {
 	
 
@@ -6084,6 +6115,13 @@ function instance$5($$self, $$props, $$invalidate) {
 
       case "nist_webbook":
         $$invalidate('show_nist', show_nist = !show_nist);
+        checkInternet().then(result=>{
+          $$invalidate('internet_connection', internet_connection = result);
+          $$invalidate('internet_active', internet_active = "is-success");
+        }).catch(err=>{
+          $$invalidate('internet_connection', internet_connection = result);
+          $$invalidate('internet_active', internet_active = "is-danger");
+        });
       break;
 
       ////////////// Timescan PLOT //////////////////////
@@ -6370,7 +6408,7 @@ function instance$5($$self, $$props, $$invalidate) {
   const nist_reload = () => {
     let webview_element = document.getElementById("nist_webview");
     webview_element.reload();
-    
+
   };
 
 	const click_handler = () => $$invalidate('modal', modal[filetag]='', modal);
@@ -6524,7 +6562,7 @@ function instance$5($$self, $$props, $$invalidate) {
 		if ('MenuItem' in $$props) $$invalidate('MenuItem', MenuItem = $$props.MenuItem);
 	};
 
-	let fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, clear_all_Peak_btnCSS, clear_last_Peak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div, fit_files, fit_file_list_temp, fit_file_list, fitall_tkplot_Peak_btnCSS, expfit_log_display, expfit_log, mass_peak_width, mass_prominence, mass_peak_height, show_nist, nist_mformula, nist_mname, nist_molecule_name, nist_molecule_formula, nist_url;
+	let fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, clear_all_Peak_btnCSS, clear_last_Peak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div, fit_files, fit_file_list_temp, fit_file_list, fitall_tkplot_Peak_btnCSS, expfit_log_display, expfit_log, mass_peak_width, mass_prominence, mass_peak_height, show_nist, nist_mformula, nist_mname, nist_molecule_name, nist_molecule_formula, nist_url, internet_connection, internet_active;
 
 	$$self.$$.update = ($$dirty = { filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1, exp_fitall_div_status: 1, fit_file_list_temp: 1, nist_mname: 1, nist_mformula: 1 }) => {
 		if ($$dirty.filetag) ;
@@ -6565,6 +6603,8 @@ function instance$5($$self, $$props, $$invalidate) {
 	$$invalidate('nist_mformula', nist_mformula = "");
 	$$invalidate('nist_mname', nist_mname = "allene");
 	$$invalidate('nist_url', nist_url = `https://webbook.nist.gov/cgi/cbook.cgi?Name=Allene&Units=SI&Mask=200#Mass-Spec`);
+	$$invalidate('internet_connection', internet_connection = "No Internet access available");
+	$$invalidate('internet_active', internet_active = "is-danger");
 
 	return {
 		id,
@@ -6618,6 +6658,8 @@ function instance$5($$self, $$props, $$invalidate) {
 		fit_files,
 		expfitDiv,
 		show_nist,
+		internet_connection,
+		internet_active,
 		prominence,
 		peak_width,
 		peak_height,
@@ -7748,7 +7790,7 @@ function create_fragment$7(ctx) {
 
 const updatefilename = "update.zip";
 
-function checkInternet(cb) {
+function checkInternet$1(cb) {
 
       require('dns').lookup('google.com',function(err) {
           if (err && err.code == "ENOTFOUND") {
@@ -8006,7 +8048,7 @@ function instance$7($$self, $$props, $$invalidate) {
     };
 
     // Checking for update on startup
-    checkInternet(function(isConnected) {
+    checkInternet$1(function(isConnected) {
         isConnected ? updateCheck() : console.log("Internet is not connected");
     });
 
@@ -8215,7 +8257,7 @@ function instance$7($$self, $$props, $$invalidate) {
     
             console.log(`Auto update check for every ${timeInterval_hr} hr. (${timeInterval} ms)`);
             $$invalidate('check_update_continuously', check_update_continuously = setInterval(()=>{
-                checkInternet(function(isConnected) {isConnected ? updateCheck() : console.log("Internet is not connected");});
+                checkInternet$1(function(isConnected) {isConnected ? updateCheck() : console.log("Internet is not connected");});
                 }, timeInterval
             ));
          } else {

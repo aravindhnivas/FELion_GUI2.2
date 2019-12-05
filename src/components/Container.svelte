@@ -377,6 +377,13 @@
 
       case "nist_webbook":
         show_nist = !show_nist
+        checkInternet().then(result=>{
+          internet_connection = result
+          internet_active = "is-success"
+        }).catch(err=>{
+          internet_connection = result
+          internet_active = "is-danger"
+        })
       break;
 
       ////////////// Timescan PLOT //////////////////////
@@ -707,8 +714,24 @@
   const nist_reload = () => {
     let webview_element = document.getElementById("nist_webview")
     webview_element.reload()
-    
+
   }
+
+  function checkInternet() {
+
+    return new Promise((resolve, reject)=>{
+      require('dns').lookup('google.com',function(err) {
+          if (err && err.code == "ENOTFOUND") {
+              reject("No Internet access available")
+          } else {
+              resolve("Internet Connected")
+          }
+      })
+    })
+  }
+
+  $: internet_connection = "No Internet access available"
+  $: internet_active = "is-danger"
 
 </script>
 
@@ -1038,6 +1061,10 @@
 
                 <div class="level-item">
                   <button class="button is-warning" on:click={nist_reload}>Reload</button>
+                </div>
+
+                <div class="level-item">
+                  <button class="button {internet_active}">{internet_connection}</button>
                 </div>
 
               </div>
