@@ -710,7 +710,9 @@
 
   const nist_reload = () => {
     let webview_element = document.getElementById("nist_webview")
-    webview_element.reload()
+
+    webview_element.goToIndex(0)
+    // webview_element.reload()
 
   }
 
@@ -726,10 +728,11 @@
       })
     })
   }
-
   $: internet_connection = "No Internet access available"
   $: internet_active = "is-danger"
 
+  $: search_string = ""
+  $: google_search = `http://www.google.com/search?q=${search_string}.`
 </script>
 
 <style>
@@ -785,7 +788,7 @@
   }
 
   #nist_webview {height:42em;}
-  
+  .webviewIcon {cursor: pointer;}
 </style>
 
 <section class="section" {id} {style}>
@@ -1057,10 +1060,6 @@
                 </div>
 
                 <div class="level-item">
-                  <button class="button is-warning" on:click={nist_reload}>Reload</button>
-                </div>
-
-                <div class="level-item">
                   <button class="button {internet_active}">{internet_connection}</button>
                 </div>
 
@@ -1235,9 +1234,40 @@
                 </div>
               </div>
             {:else if filetag==="mass"}
-              <div {id} style="padding-bottom:1em; margin-top:2em;" />
+              <div {id} style="padding-bottom:1em;" />
+              <hr>
               {#if show_nist}
-                 <webview src={nist_url} id="nist_webview"></webview>
+                <div class="row">
+                  <div class="level">
+                    <div class="level-left">
+
+                      <div class="level-item webviewIcon" on:click="{()=>nist_webview.goToIndex(0)}">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                      </div>
+
+                      <!-- <div class="level-item">
+                        <input class="input" type="text" placeholder="Google Search engine" 
+                        data-tippy="Google Search engine" bind:value={search_string} on:change="{()=>nist_url=google_search}"/>
+                      </div> -->
+
+                      <div class="level-item webviewIcon" on:click="{()=>{if(nist_webview.canGoBack()) {nist_webview.goBack()}}}">
+                        <span class="icon"><i class="fas fa-arrow-left"></i></span>
+                      </div>
+
+                      <div class="level-item webviewIcon" on:click="{()=>{if(nist_webview.canGoForward()) {nist_webview.goForward()}}}">
+                        <span class="icon"><i class="fas fa-arrow-right"></i></span>
+                      </div>
+
+                      <div class="level-item webviewIcon" on:click="{()=>nist_webview.reload()}">
+                        <span class="icon"><i class="fas fa-undo"></i></span>
+                      </div>
+
+                      
+
+                    </div>
+                  </div>
+                </div>
+                 <div class="row"><webview src={nist_url} id="nist_webview"></webview></div>
               {/if}
               
             {:else}

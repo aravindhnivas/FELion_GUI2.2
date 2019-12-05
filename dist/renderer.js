@@ -3002,7 +3002,7 @@ function get_each_context_10(ctx, list, i) {
 	return child_ctx;
 }
 
-// (857:12) {#each funcBtns as { id, name }}
+// (860:12) {#each funcBtns as { id, name }}
 function create_each_block_10(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -3010,7 +3010,7 @@ function create_each_block_10(ctx) {
 		c() {
 			div = element("div");
 			t = text(t_value);
-			attr(div, "class", "level-item button hvr-glow funcBtn is-link animated svelte-nnp4fz");
+			attr(div, "class", "level-item button hvr-glow funcBtn is-link animated svelte-ufn5el");
 			attr(div, "id", div_id_value = ctx.id);
 			dispose = listen(div, "click", ctx.functionRun);
 		},
@@ -3040,7 +3040,7 @@ function create_each_block_10(ctx) {
 	};
 }
 
-// (873:18) {:else}
+// (876:18) {:else}
 function create_else_block_2(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3050,7 +3050,7 @@ function create_else_block_2(ctx) {
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = ctx.id);
 			input.checked = input_checked_value = ctx.bind;
-			attr(input, "class", "svelte-nnp4fz");
+			attr(input, "class", "svelte-ufn5el");
 			dispose = listen(input, "click", ctx.click_handler_2);
 		},
 
@@ -3078,7 +3078,7 @@ function create_else_block_2(ctx) {
 	};
 }
 
-// (871:18) {#if name[0]==="Log"}
+// (874:18) {#if name[0]==="Log"}
 function create_if_block_16(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3088,7 +3088,7 @@ function create_if_block_16(ctx) {
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = ctx.id);
 			input.checked = input_checked_value = ctx.bind;
-			attr(input, "class", "svelte-nnp4fz");
+			attr(input, "class", "svelte-ufn5el");
 			dispose = listen(input, "click", ctx.linearlogCheck);
 		},
 
@@ -3116,7 +3116,7 @@ function create_if_block_16(ctx) {
 	};
 }
 
-// (866:12) {#each checkBtns as {id, name, bind, help}}
+// (869:12) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_9(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -3141,13 +3141,13 @@ function create_each_block_9(ctx) {
 			div1 = element("div");
 			label1 = element("label");
 			t3 = text(t3_value);
-			attr(label0, "class", "svelte-nnp4fz");
+			attr(label0, "class", "svelte-ufn5el");
 			attr(div0, "class", "state p-success p-on");
-			attr(label1, "class", "svelte-nnp4fz");
+			attr(label1, "class", "svelte-ufn5el");
 			attr(div1, "class", "state p-danger p-off");
 			attr(div2, "class", "pretty p-default p-curve p-toggle");
 			attr(div2, "data-tippy", div2_data_tippy_value = ctx.help);
-			attr(div3, "class", "level-item animated svelte-nnp4fz");
+			attr(div3, "class", "level-item animated svelte-ufn5el");
 			attr(div3, "id", div3_id_value = "" + ctx.id + "_Container");
 		},
 
@@ -3204,7 +3204,7 @@ function create_each_block_9(ctx) {
 	};
 }
 
-// (885:12) {#if filetag == 'felix'}
+// (888:12) {#if filetag == 'felix'}
 function create_if_block_15(ctx) {
 	var div3, div2, div0, span, select, t, div1, input, input_updating = false, dispose;
 
@@ -3241,7 +3241,7 @@ function create_if_block_15(ctx) {
 			attr(select, "data-tippy", "Normalisation method");
 			attr(span, "class", "select");
 			attr(div0, "class", "control");
-			attr(input, "class", "input svelte-nnp4fz");
+			attr(input, "class", "input svelte-ufn5el");
 			attr(input, "type", "number");
 			attr(input, "step", "0.5");
 			attr(input, "id", "delta_value");
@@ -3318,7 +3318,7 @@ function create_if_block_15(ctx) {
 	};
 }
 
-// (894:24) {#each normalisation_method as method}
+// (897:24) {#each normalisation_method as method}
 function create_each_block_8(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -3345,7 +3345,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (914:12) {#if filetag == 'thz'}
+// (917:12) {#if filetag == 'thz'}
 function create_if_block_14(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -3377,7 +3377,7 @@ function create_if_block_14(ctx) {
 			div7 = element("div");
 			input1 = element("input");
 			attr(div1, "class", "control");
-			attr(input0, "class", "input svelte-nnp4fz");
+			attr(input0, "class", "input svelte-ufn5el");
 			attr(input0, "type", "number");
 			attr(input0, "step", "0.5");
 			attr(input0, "id", "delta_value_thz");
@@ -3387,7 +3387,7 @@ function create_if_block_14(ctx) {
 			attr(div3, "class", "field has-addons");
 			attr(div4, "class", "level-item");
 			attr(div6, "class", "control");
-			attr(input1, "class", "input svelte-nnp4fz");
+			attr(input1, "class", "input svelte-ufn5el");
 			attr(input1, "type", "number");
 			attr(input1, "step", "0.01");
 			attr(input1, "id", "gamma_thz");
@@ -3445,7 +3445,7 @@ function create_if_block_14(ctx) {
 	};
 }
 
-// (966:6) {#if filetag=="felix"}
+// (969:6) {#if filetag=="felix"}
 function create_if_block_13(ctx) {
 	var div3, div2, div1, label, h1, t0, t1, div0, button0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, button1, t7, button2, dispose;
 
@@ -3483,27 +3483,27 @@ function create_if_block_13(ctx) {
 			button2.textContent = "Open in Matplotlib";
 			attr(h1, "class", "subtitle");
 			attr(h1, "id", "theoryfilename");
-			attr(label, "class", "label svelte-nnp4fz");
+			attr(label, "class", "label svelte-ufn5el");
 			attr(label, "id", "theorylabel");
 			attr(button0, "class", "button is-warning");
-			attr(input0, "class", "input svelte-nnp4fz");
+			attr(input0, "class", "input svelte-ufn5el");
 			attr(input0, "type", "number");
 			set_style(input0, "width", "150px");
 			attr(input0, "data-tippy", "Sigma (deviation) from central frequency");
-			attr(input1, "class", "input svelte-nnp4fz");
+			attr(input1, "class", "input svelte-ufn5el");
 			attr(input1, "type", "number");
 			attr(input1, "step", "0.001");
 			set_style(input1, "width", "150px");
 			attr(input1, "data-tippy", "Scaling factor (to shift in position)");
-			attr(button1, "class", "funcBtn button is-link animated svelte-nnp4fz");
+			attr(button1, "class", "funcBtn button is-link animated svelte-ufn5el");
 			attr(button1, "id", "appendTheory");
-			attr(button2, "class", "funcBtn button is-link animated svelte-nnp4fz");
+			attr(button2, "class", "funcBtn button is-link animated svelte-ufn5el");
 			attr(button2, "id", "theory_Matplotlib");
 			attr(div0, "class", "control");
 			attr(div1, "class", "field");
-			attr(div2, "class", "container is-marginless svelte-nnp4fz");
+			attr(div2, "class", "container is-marginless svelte-ufn5el");
 			attr(div2, "id", "theoryContainer");
-			attr(div3, "class", "row svelte-nnp4fz");
+			attr(div3, "class", "row svelte-ufn5el");
 			attr(div3, "id", "theoryRow");
 			set_style(div3, "display", "none");
 			set_style(div3, "padding-bottom", "1em");
@@ -3566,7 +3566,7 @@ function create_if_block_13(ctx) {
 	};
 }
 
-// (985:6) {#if filetag=="scan"}
+// (988:6) {#if filetag=="scan"}
 function create_if_block_7(ctx) {
 	var div3, div2, div1, t0, t1, div0, button, dispose;
 
@@ -3606,13 +3606,13 @@ function create_if_block_7(ctx) {
 			div0 = element("div");
 			button = element("button");
 			button.textContent = "Submit";
-			attr(button, "class", "funcBtn button animated is-link svelte-nnp4fz");
+			attr(button, "class", "funcBtn button animated is-link svelte-ufn5el");
 			attr(button, "id", "depletionSubmit");
 			attr(div0, "class", "level-item");
 			set_style(div0, "margin-top", "2em");
 			attr(div1, "class", "level-left");
 			attr(div2, "class", "level");
-			attr(div3, "class", "row svelte-nnp4fz");
+			attr(div3, "class", "row svelte-ufn5el");
 			attr(div3, "id", "depletionRow");
 			set_style(div3, "display", "none");
 			dispose = listen(button, "click", ctx.depletionPlot);
@@ -3697,7 +3697,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (998:28) {#if folderFile.files != undefined}
+// (1001:28) {#if folderFile.files != undefined}
 function create_if_block_12(ctx) {
 	var each_1_anchor;
 
@@ -3760,7 +3760,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (999:31) {#each folderFile.files as scanfile}
+// (1002:31) {#each folderFile.files as scanfile}
 function create_each_block_7(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3797,7 +3797,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (990:16) {#each ["ResON", "ResOFF"] as name}
+// (993:16) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_6(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3817,9 +3817,9 @@ function create_each_block_6(ctx) {
 			select = element("select");
 			if (if_block) if_block.c();
 			attr(h1, "class", "subtitle");
-			attr(label, "class", "label svelte-nnp4fz");
+			attr(label, "class", "label svelte-ufn5el");
 			attr(select, "id", ctx.name);
-			attr(select, "class", "svelte-nnp4fz");
+			attr(select, "class", "svelte-ufn5el");
 			attr(div0, "class", "select");
 			attr(div1, "class", "control");
 			attr(div2, "class", "field");
@@ -3865,7 +3865,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (1023:59) 
+// (1026:59) 
 function create_if_block_11(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3877,7 +3877,7 @@ function create_if_block_11(ctx) {
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-nnp4fz");
+			attr(input, "class", "input svelte-ufn5el");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
 			dispose = listen(input, "input", input_input_handler_4);
@@ -3904,7 +3904,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (1021:54) 
+// (1024:54) 
 function create_if_block_10(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3916,7 +3916,7 @@ function create_if_block_10(ctx) {
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-nnp4fz");
+			attr(input, "class", "input svelte-ufn5el");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
 			dispose = listen(input, "input", input_input_handler_3);
@@ -3943,7 +3943,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (1019:52) 
+// (1022:52) 
 function create_if_block_9(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3955,7 +3955,7 @@ function create_if_block_9(ctx) {
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-nnp4fz");
+			attr(input, "class", "input svelte-ufn5el");
 			attr(input, "type", "number");
 			attr(input, "id", ctx.id);
 			dispose = listen(input, "input", input_input_handler_2);
@@ -3982,14 +3982,14 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (1017:24) {#if name=="Power (ON, OFF)"}
+// (1020:24) {#if name=="Power (ON, OFF)"}
 function create_if_block_8(ctx) {
 	var input, dispose;
 
 	return {
 		c() {
 			input = element("input");
-			attr(input, "class", "input svelte-nnp4fz");
+			attr(input, "class", "input svelte-ufn5el");
 			attr(input, "type", "text");
 			attr(input, "id", ctx.id);
 			dispose = listen(input, "input", ctx.input_input_handler_1);
@@ -4015,7 +4015,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (1010:16) {#each depletionLabels as {name, id}}
+// (1013:16) {#each depletionLabels as {name, id}}
 function create_each_block_5(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0;
 
@@ -4040,7 +4040,7 @@ function create_each_block_5(ctx) {
 			div0 = element("div");
 			if (if_block) if_block.c();
 			attr(h1, "class", "subtitle");
-			attr(label, "class", "label svelte-nnp4fz");
+			attr(label, "class", "label svelte-ufn5el");
 			attr(div0, "class", "control");
 			attr(div1, "class", "field");
 			attr(div2, "class", "level-item");
@@ -4071,7 +4071,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (1043:6) {#if filetag === "mass"}
+// (1046:6) {#if filetag === "mass"}
 function create_if_block_5(ctx) {
 	var if_block_anchor;
 
@@ -4117,7 +4117,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (1070:10) {:else}
+// (1069:10) {:else}
 function create_else_block_1$1(ctx) {
 	var div11, div10, div9, div1, div0, select, t0, div2, input0, input0_updating = false, t1, div3, input1, input1_updating = false, t2, div4, input2, input2_updating = false, t3, div6, div5, t5, div8, div7, dispose;
 
@@ -4177,37 +4177,37 @@ function create_else_block_1$1(ctx) {
 			attr(select, "id", "massFiles");
 			attr(div0, "class", "select");
 			attr(div1, "class", "level-item");
-			attr(input0, "class", "input svelte-nnp4fz");
+			attr(input0, "class", "input svelte-ufn5el");
 			attr(input0, "type", "number");
 			attr(input0, "placeholder", "Peak prominance value");
 			attr(input0, "data-tippy", "Peak prominace value");
 			attr(input0, "min", "0");
 			attr(input0, "step", "0.5");
 			attr(div2, "class", "level-item");
-			attr(input1, "class", "input svelte-nnp4fz");
+			attr(input1, "class", "input svelte-ufn5el");
 			attr(input1, "type", "number");
 			attr(input1, "placeholder", "Peak width");
 			attr(input1, "data-tippy", "Optional: Peak width");
 			attr(input1, "min", "0");
 			attr(input1, "step", "0.5");
 			attr(div3, "class", "level-item");
-			attr(input2, "class", "input svelte-nnp4fz");
+			attr(input2, "class", "input svelte-ufn5el");
 			attr(input2, "type", "number");
 			attr(input2, "placeholder", "Peak Height");
 			attr(input2, "data-tippy", "Optional: Peak Height");
 			attr(input2, "min", "0");
 			attr(input2, "step", "0.5");
 			attr(div4, "class", "level-item");
-			attr(div5, "class", "level-item button is-link hvr-glow funcBtn animated svelte-nnp4fz");
+			attr(div5, "class", "level-item button is-link hvr-glow funcBtn animated svelte-ufn5el");
 			attr(div5, "id", "mass_get_peaks");
 			attr(div6, "class", "level-item");
-			attr(div7, "class", "level-item button is-warning hvr-glow funcBtn animated svelte-nnp4fz");
+			attr(div7, "class", "level-item button is-warning hvr-glow funcBtn animated svelte-ufn5el");
 			attr(div7, "id", "mass_clear_peaks");
 			attr(div7, "data-tippy", "Clear all peaks");
 			attr(div8, "class", "level-item");
 			attr(div9, "class", "level-left");
 			attr(div10, "class", "level");
-			attr(div11, "class", "row svelte-nnp4fz");
+			attr(div11, "class", "row svelte-ufn5el");
 			attr(div11, "id", "mass_peak_find_row");
 			set_style(div11, "display", "block");
 			set_style(div11, "padding-bottom", "1em");
@@ -4306,15 +4306,15 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (1044:8) {#if show_nist}
+// (1047:8) {#if show_nist}
 function create_if_block_6(ctx) {
-	var div6, div5, div4, div0, input0, t0, div1, input1, t1, div2, button0, t3, div3, button1, t4, button1_class_value, dispose;
+	var div5, div4, div3, div0, input0, t0, div1, input1, t1, div2, button, t2, button_class_value, dispose;
 
 	return {
 		c() {
-			div6 = element("div");
 			div5 = element("div");
 			div4 = element("div");
+			div3 = element("div");
 			div0 = element("div");
 			input0 = element("input");
 			t0 = space();
@@ -4322,12 +4322,8 @@ function create_if_block_6(ctx) {
 			input1 = element("input");
 			t1 = space();
 			div2 = element("div");
-			button0 = element("button");
-			button0.textContent = "Reload";
-			t3 = space();
-			div3 = element("div");
-			button1 = element("button");
-			t4 = text(ctx.internet_connection);
+			button = element("button");
+			t2 = text(ctx.internet_connection);
 			attr(input0, "class", "input");
 			attr(input0, "type", "text");
 			attr(input0, "placeholder", "Molecule name");
@@ -4338,46 +4334,40 @@ function create_if_block_6(ctx) {
 			attr(input1, "placeholder", "Molecule Formula");
 			attr(input1, "data-tippy", "Enter molecule formula");
 			attr(div1, "class", "level-item");
-			attr(button0, "class", "button is-warning");
+			attr(button, "class", button_class_value = "button " + ctx.internet_active + " svelte-ufn5el");
 			attr(div2, "class", "level-item");
-			attr(button1, "class", button1_class_value = "button " + ctx.internet_active + " svelte-nnp4fz");
-			attr(div3, "class", "level-item");
-			attr(div4, "class", "level-left");
-			attr(div5, "class", "level");
-			attr(div6, "class", "row svelte-nnp4fz");
-			attr(div6, "id", "nist_row");
+			attr(div3, "class", "level-left");
+			attr(div4, "class", "level");
+			attr(div5, "class", "row svelte-ufn5el");
+			attr(div5, "id", "nist_row");
 
 			dispose = [
 				listen(input0, "input", ctx.input0_input_handler_2),
 				listen(input0, "change", ctx.change_handler_5),
 				listen(input1, "input", ctx.input1_input_handler_2),
-				listen(input1, "change", ctx.change_handler_6),
-				listen(button0, "click", ctx.nist_reload)
+				listen(input1, "change", ctx.change_handler_6)
 			];
 		},
 
 		m(target, anchor) {
-			insert(target, div6, anchor);
-			append(div6, div5);
+			insert(target, div5, anchor);
 			append(div5, div4);
-			append(div4, div0);
+			append(div4, div3);
+			append(div3, div0);
 			append(div0, input0);
 
 			set_input_value(input0, ctx.nist_mname);
 
-			append(div4, t0);
-			append(div4, div1);
+			append(div3, t0);
+			append(div3, div1);
 			append(div1, input1);
 
 			set_input_value(input1, ctx.nist_mformula);
 
-			append(div4, t1);
-			append(div4, div2);
-			append(div2, button0);
-			append(div4, t3);
-			append(div4, div3);
-			append(div3, button1);
-			append(button1, t4);
+			append(div3, t1);
+			append(div3, div2);
+			append(div2, button);
+			append(button, t2);
 		},
 
 		p(changed, ctx) {
@@ -4385,17 +4375,17 @@ function create_if_block_6(ctx) {
 			if (changed.nist_mformula && (input1.value !== ctx.nist_mformula)) set_input_value(input1, ctx.nist_mformula);
 
 			if (changed.internet_connection) {
-				set_data(t4, ctx.internet_connection);
+				set_data(t2, ctx.internet_connection);
 			}
 
-			if ((changed.internet_active) && button1_class_value !== (button1_class_value = "button " + ctx.internet_active + " svelte-nnp4fz")) {
-				attr(button1, "class", button1_class_value);
+			if ((changed.internet_active) && button_class_value !== (button_class_value = "button " + ctx.internet_active + " svelte-ufn5el")) {
+				attr(button, "class", button_class_value);
 			}
 		},
 
 		d(detaching) {
 			if (detaching) {
-				detach(div6);
+				detach(div5);
 			}
 
 			run_all(dispose);
@@ -4403,7 +4393,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (1078:28) {#each fileChecked as file}
+// (1077:28) {#each fileChecked as file}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4440,7 +4430,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (1243:12) {:else}
+// (1273:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -4449,7 +4439,7 @@ function create_else_block$2(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-nnp4fz");
+			attr(div, "class", "svelte-ufn5el");
 		},
 
 		m(target, anchor) {
@@ -4473,27 +4463,30 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (1237:39) 
+// (1236:39) 
 function create_if_block_3(ctx) {
-	var div, div_id_value, t, if_block_anchor;
+	var div, div_id_value, t0, hr, t1, if_block_anchor;
 
 	var if_block = (ctx.show_nist) && create_if_block_4(ctx);
 
 	return {
 		c() {
 			div = element("div");
-			t = space();
+			t0 = space();
+			hr = element("hr");
+			t1 = space();
 			if (if_block) if_block.c();
 			if_block_anchor = empty();
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			set_style(div, "margin-top", "2em");
-			attr(div, "class", "svelte-nnp4fz");
+			attr(div, "class", "svelte-ufn5el");
 		},
 
 		m(target, anchor) {
 			insert(target, div, anchor);
-			insert(target, t, anchor);
+			insert(target, t0, anchor);
+			insert(target, hr, anchor);
+			insert(target, t1, anchor);
 			if (if_block) if_block.m(target, anchor);
 			insert(target, if_block_anchor, anchor);
 		},
@@ -4523,7 +4516,9 @@ function create_if_block_3(ctx) {
 		d(detaching) {
 			if (detaching) {
 				detach(div);
-				detach(t);
+				detach(t0);
+				detach(hr);
+				detach(t1);
 			}
 
 			if (if_block) if_block.d(detaching);
@@ -4535,7 +4530,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (1131:38) 
+// (1130:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select0, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div28, div27, div15, div14, select1, t11, div17, div16, t13, div20, t16, div22, div21, t17, div21_class_value, t18, div24, div23, t19, div23_class_value, t20, div26, div25, t22, t23, current, dispose;
 
@@ -4624,7 +4619,7 @@ function create_if_block_1$1(ctx) {
 			div16.textContent = "Exp. Fit";
 			t13 = space();
 			div20 = element("div");
-			div20.innerHTML = `<div class="pretty p-switch p-slim" style="margin-left:1em;" data-tippy="Overwrite existing expfit file with only new values ? or else will append to existing file"><input type="checkbox" id="overwrite_expfit"> <div class="state p-info p-on"><label class="svelte-nnp4fz">Overwrite</label></div></div>`;
+			div20.innerHTML = `<div class="pretty p-switch p-slim" style="margin-left:1em;" data-tippy="Overwrite existing expfit file with only new values ? or else will append to existing file"><input type="checkbox" id="overwrite_expfit"> <div class="state p-info p-on"><label class="svelte-ufn5el">Overwrite</label></div></div>`;
 			t16 = space();
 			div22 = element("div");
 			div21 = element("div");
@@ -4642,29 +4637,29 @@ function create_if_block_1$1(ctx) {
 			t23 = space();
 			attr(div0, "id", div0_id_value = ctx.id);
 			set_style(div0, "padding-bottom", "1em");
-			attr(div0, "class", "svelte-nnp4fz");
-			attr(input0, "class", "input svelte-nnp4fz");
+			attr(div0, "class", "svelte-ufn5el");
+			attr(input0, "class", "input svelte-ufn5el");
 			attr(input0, "type", "number");
 			attr(input0, "id", "peak_prominance");
 			attr(input0, "placeholder", "Peak prominance value");
 			attr(input0, "data-tippy", "Peak prominace value");
 			attr(input0, "min", "0");
 			attr(div1, "class", "level-item");
-			attr(input1, "class", "input svelte-nnp4fz");
+			attr(input1, "class", "input svelte-ufn5el");
 			attr(input1, "type", "number");
 			attr(input1, "id", "peak_width_fit");
 			attr(input1, "placeholder", "Peak width");
 			attr(input1, "data-tippy", "Optional: Peak width");
 			attr(input1, "min", "0");
 			attr(div2, "class", "level-item");
-			attr(input2, "class", "input svelte-nnp4fz");
+			attr(input2, "class", "input svelte-ufn5el");
 			attr(input2, "type", "number");
 			attr(input2, "id", "peak_height_fit");
 			attr(input2, "placeholder", "Peak height");
 			attr(input2, "data-tippy", "Optional: Peak height");
 			attr(input2, "min", "0");
 			attr(div3, "class", "level-item");
-			attr(div4, "class", div4_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-nnp4fz");
+			attr(div4, "class", div4_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-ufn5el");
 			attr(div4, "id", "find_expfit_peaks");
 			attr(div4, "data-tippy", "Find the peaks by adjusting the prominence value");
 			attr(div5, "class", "level-item");
@@ -4672,11 +4667,11 @@ function create_if_block_1$1(ctx) {
 			attr(select0, "id", "fitFiles");
 			attr(div6, "class", "select");
 			attr(div7, "class", "level-item");
-			attr(div8, "class", div8_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-nnp4fz");
+			attr(div8, "class", div8_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-ufn5el");
 			attr(div8, "id", "fitall_expfit_peaks");
 			attr(div8, "data-tippy", "Fit all the peaks positions found using gaussian");
 			attr(div9, "class", "level-item");
-			attr(div10, "class", div10_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitall_tkplot_Peak_btnCSS + " svelte-nnp4fz");
+			attr(div10, "class", div10_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitall_tkplot_Peak_btnCSS + " svelte-ufn5el");
 			attr(div10, "id", "fitall_tkplot_expfit_peaks");
 			attr(div10, "data-tippy", "Fit all the peaks positions found using gaussian");
 			attr(div11, "class", "level-item");
@@ -4687,20 +4682,20 @@ function create_if_block_1$1(ctx) {
 			attr(select1, "id", "expfitFiles");
 			attr(div14, "class", "select");
 			attr(div15, "class", "level-item");
-			attr(div16, "class", "level-item button hvr-glow funcBtn is-link animated svelte-nnp4fz");
+			attr(div16, "class", "level-item button hvr-glow funcBtn is-link animated svelte-ufn5el");
 			attr(div16, "id", "exp_fit");
 			attr(div16, "data-tippy", "Choose the file from the dropdown --> Fit");
 			attr(div17, "class", "level-item");
 			attr(div20, "class", "level-item");
-			attr(div21, "class", div21_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_last_Peak_btnCSS + " svelte-nnp4fz");
+			attr(div21, "class", div21_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_last_Peak_btnCSS + " svelte-ufn5el");
 			attr(div21, "id", "clearLast_plotted_peaks");
 			attr(div21, "data-tippy", "Clear last fitted lines");
 			attr(div22, "class", "level-item");
-			attr(div23, "class", div23_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_all_Peak_btnCSS + " svelte-nnp4fz");
+			attr(div23, "class", div23_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_all_Peak_btnCSS + " svelte-ufn5el");
 			attr(div23, "id", "clearAll_plotted_peaks");
 			attr(div23, "data-tippy", "Clear all fitted lines");
 			attr(div24, "class", "level-item");
-			attr(div25, "class", "level-item button hvr-glow funcBtn is-link animated svelte-nnp4fz");
+			attr(div25, "class", "level-item button hvr-glow funcBtn is-link animated svelte-ufn5el");
 			attr(div25, "id", "findall_expfit_toggle");
 			attr(div26, "class", "level-item");
 			attr(div27, "class", "level-left");
@@ -4818,7 +4813,7 @@ function create_if_block_1$1(ctx) {
 			if (!input2_updating && changed.peak_height) set_input_value(input2, ctx.peak_height);
 			input2_updating = false;
 
-			if ((!current || changed.findPeak_btnCSS) && div4_class_value !== (div4_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-nnp4fz")) {
+			if ((!current || changed.findPeak_btnCSS) && div4_class_value !== (div4_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-ufn5el")) {
 				attr(div4, "class", div4_class_value);
 			}
 
@@ -4846,11 +4841,11 @@ function create_if_block_1$1(ctx) {
 
 			if (changed.fit_files) select_option(select0, ctx.fit_files);
 
-			if ((!current || changed.fitallPeak_btnCSS) && div8_class_value !== (div8_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-nnp4fz")) {
+			if ((!current || changed.fitallPeak_btnCSS) && div8_class_value !== (div8_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-ufn5el")) {
 				attr(div8, "class", div8_class_value);
 			}
 
-			if ((!current || changed.fitall_tkplot_Peak_btnCSS) && div10_class_value !== (div10_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitall_tkplot_Peak_btnCSS + " svelte-nnp4fz")) {
+			if ((!current || changed.fitall_tkplot_Peak_btnCSS) && div10_class_value !== (div10_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitall_tkplot_Peak_btnCSS + " svelte-ufn5el")) {
 				attr(div10, "class", div10_class_value);
 			}
 
@@ -4882,11 +4877,11 @@ function create_if_block_1$1(ctx) {
 
 			if (changed.fit_files) select_option(select1, ctx.fit_files);
 
-			if ((!current || changed.clear_last_Peak_btnCSS) && div21_class_value !== (div21_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_last_Peak_btnCSS + " svelte-nnp4fz")) {
+			if ((!current || changed.clear_last_Peak_btnCSS) && div21_class_value !== (div21_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_last_Peak_btnCSS + " svelte-ufn5el")) {
 				attr(div21, "class", div21_class_value);
 			}
 
-			if ((!current || changed.clear_all_Peak_btnCSS) && div23_class_value !== (div23_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_all_Peak_btnCSS + " svelte-nnp4fz")) {
+			if ((!current || changed.clear_all_Peak_btnCSS) && div23_class_value !== (div23_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_all_Peak_btnCSS + " svelte-ufn5el")) {
 				attr(div23, "class", div23_class_value);
 			}
 
@@ -4946,7 +4941,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (1124:12) {#if filetag == 'scan'}
+// (1123:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -4969,7 +4964,7 @@ function create_if_block$2(ctx) {
 			t = space();
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-nnp4fz");
+			attr(div, "class", "svelte-ufn5el");
 		},
 
 		m(target, anchor) {
@@ -5025,18 +5020,61 @@ function create_if_block$2(ctx) {
 
 // (1239:14) {#if show_nist}
 function create_if_block_4(ctx) {
-	var webview;
+	var div6, div5, div4, div0, t0, div1, t1, div2, t2, div3, t3, div7, webview, dispose;
 
 	return {
 		c() {
+			div6 = element("div");
+			div5 = element("div");
+			div4 = element("div");
+			div0 = element("div");
+			div0.innerHTML = `<span class="icon"><i class="fas fa-home"></i></span>`;
+			t0 = space();
+			div1 = element("div");
+			div1.innerHTML = `<span class="icon"><i class="fas fa-arrow-left"></i></span>`;
+			t1 = space();
+			div2 = element("div");
+			div2.innerHTML = `<span class="icon"><i class="fas fa-arrow-right"></i></span>`;
+			t2 = space();
+			div3 = element("div");
+			div3.innerHTML = `<span class="icon"><i class="fas fa-undo"></i></span>`;
+			t3 = space();
+			div7 = element("div");
 			webview = element("webview");
+			attr(div0, "class", "level-item webviewIcon svelte-ufn5el");
+			attr(div1, "class", "level-item webviewIcon svelte-ufn5el");
+			attr(div2, "class", "level-item webviewIcon svelte-ufn5el");
+			attr(div3, "class", "level-item webviewIcon svelte-ufn5el");
+			attr(div4, "class", "level-left");
+			attr(div5, "class", "level");
+			attr(div6, "class", "row svelte-ufn5el");
 			attr(webview, "src", ctx.nist_url);
 			attr(webview, "id", "nist_webview");
-			attr(webview, "class", "svelte-nnp4fz");
+			attr(webview, "class", "svelte-ufn5el");
+			attr(div7, "class", "row svelte-ufn5el");
+
+			dispose = [
+				listen(div0, "click", ctx.click_handler_6),
+				listen(div1, "click", ctx.click_handler_7),
+				listen(div2, "click", ctx.click_handler_8),
+				listen(div3, "click", ctx.click_handler_9)
+			];
 		},
 
 		m(target, anchor) {
-			insert(target, webview, anchor);
+			insert(target, div6, anchor);
+			append(div6, div5);
+			append(div5, div4);
+			append(div4, div0);
+			append(div4, t0);
+			append(div4, div1);
+			append(div4, t1);
+			append(div4, div2);
+			append(div4, t2);
+			append(div4, div3);
+			insert(target, t3, anchor);
+			insert(target, div7, anchor);
+			append(div7, webview);
 		},
 
 		p(changed, ctx) {
@@ -5047,13 +5085,17 @@ function create_if_block_4(ctx) {
 
 		d(detaching) {
 			if (detaching) {
-				detach(webview);
+				detach(div6);
+				detach(t3);
+				detach(div7);
 			}
+
+			run_all(dispose);
 		}
 	};
 }
 
-// (1162:26) {#each fit_file_list as file}
+// (1161:26) {#each fit_file_list as file}
 function create_each_block_3(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -5090,7 +5132,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (1190:26) {#each fit_file_list as file}
+// (1189:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -5127,7 +5169,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (1230:18) {#if expfit_log_display}
+// (1229:18) {#if expfit_log_display}
 function create_if_block_2(ctx) {
 	var div, label, t, div_intro, div_outro, current;
 
@@ -5136,7 +5178,7 @@ function create_if_block_2(ctx) {
 			div = element("div");
 			label = element("label");
 			t = text(ctx.expfit_log);
-			attr(label, "class", "label svelte-nnp4fz");
+			attr(label, "class", "label svelte-ufn5el");
 			set_style(label, "font-weight", "400");
 			attr(div, "class", "level-item");
 			attr(div, "id", "expfit_log_id");
@@ -5183,7 +5225,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (1126:16) {#each fileChecked as scanfile}
+// (1125:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -5192,7 +5234,7 @@ function create_each_block_1$1(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = "" + ctx.scanfile + "_tplot");
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-nnp4fz");
+			attr(div, "class", "svelte-ufn5el");
 		},
 
 		m(target, anchor) {
@@ -5213,7 +5255,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (1122:10) {#each plotID as id}
+// (1121:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var current_block_type_index, if_block, if_block_anchor, current;
 
@@ -5410,11 +5452,11 @@ function create_fragment$5(ctx) {
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
-			attr(div0, "class", "column is-2 filebrowserColumn svelte-nnp4fz");
+			attr(div0, "class", "column is-2 filebrowserColumn svelte-ufn5el");
 			attr(div0, "id", div0_id_value = "" + ctx.filetag + "filebrowserColumn");
 			attr(div1, "class", "modal-background");
 			attr(p, "class", "modal-card-title");
-			attr(button0, "class", "delete svelte-nnp4fz");
+			attr(button0, "class", "delete svelte-ufn5el");
 			attr(button0, "aria-label", "close");
 			attr(header, "class", "modal-card-head");
 			attr(section0, "class", "modal-card-body");
@@ -5422,8 +5464,8 @@ function create_fragment$5(ctx) {
 			attr(button1, "class", "button");
 			attr(footer, "class", "modal-card-foot");
 			attr(div2, "class", "modal-card");
-			attr(div3, "class", div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-nnp4fz");
-			attr(input, "class", "input locationLabel svelte-nnp4fz");
+			attr(div3, "class", div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-ufn5el");
+			attr(input, "class", "input locationLabel svelte-ufn5el");
 			attr(input, "type", "text");
 			attr(input, "placeholder", "Location will be displayed");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "LocationLabel");
@@ -5434,19 +5476,19 @@ function create_fragment$5(ctx) {
 			attr(div5, "data-tippy", div5_data_tippy_value = "Browse " + ctx.filetag + " file");
 			attr(div6, "class", "control");
 			attr(div7, "class", "field has-addons");
-			attr(div8, "class", "row locationRow svelte-nnp4fz");
+			attr(div8, "class", "row locationRow svelte-ufn5el");
 			attr(div9, "class", "level-left animated fadeIn");
 			attr(div10, "class", "level");
-			attr(div11, "class", "row buttonsRow svelte-nnp4fz");
+			attr(div11, "class", "row buttonsRow svelte-ufn5el");
 			set_style(hr, "margin", "0.5em 0");
 			set_style(hr, "background-color", "#bdc3c7");
-			attr(div12, "class", "container is-fluid svelte-nnp4fz");
+			attr(div12, "class", "container is-fluid svelte-ufn5el");
 			attr(div12, "id", div12_id_value = "" + ctx.filetag + "plotContainer");
-			attr(div13, "class", "row box plotContainer svelte-nnp4fz");
+			attr(div13, "class", "row box plotContainer svelte-ufn5el");
 			attr(div13, "id", div13_id_value = "" + ctx.filetag + "plotMainContainer");
-			attr(div14, "class", "column svelte-nnp4fz");
+			attr(div14, "class", "column svelte-ufn5el");
 			attr(div15, "class", "columns");
-			attr(section1, "class", "section svelte-nnp4fz");
+			attr(section1, "class", "section svelte-ufn5el");
 			attr(section1, "id", ctx.id);
 			attr(section1, "style", style);
 
@@ -5542,7 +5584,7 @@ function create_fragment$5(ctx) {
 				set_data(t5, t5_value);
 			}
 
-			if ((!current || changed.modal || changed.filetag) && div3_class_value !== (div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-nnp4fz")) {
+			if ((!current || changed.modal || changed.filetag) && div3_class_value !== (div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-ufn5el")) {
 				attr(div3, "class", div3_class_value);
 			}
 
@@ -6402,12 +6444,6 @@ function instance$5($$self, $$props, $$invalidate) {
 
   };
 
-  const nist_reload = () => {
-    let webview_element = document.getElementById("nist_webview");
-    webview_element.reload();
-
-  };
-
 	const click_handler = () => $$invalidate('modal', modal[filetag]='', modal);
 
 	const click_handler_1 = () => $$invalidate('modal', modal[filetag]='', modal);
@@ -6545,6 +6581,14 @@ function instance$5($$self, $$props, $$invalidate) {
 
 	const click_handler_5 = () => $$invalidate('exp_fitall_div_status', exp_fitall_div_status = !exp_fitall_div_status);
 
+	const click_handler_6 = () => nist_webview.goToIndex(0);
+
+	const click_handler_7 = () => {if(nist_webview.canGoBack()) {nist_webview.goBack();}};
+
+	const click_handler_8 = () => {if(nist_webview.canGoForward()) {nist_webview.goForward();}};
+
+	const click_handler_9 = () => nist_webview.reload();
+
 	$$self.$set = $$props => {
 		if ('id' in $$props) $$invalidate('id', id = $$props.id);
 		if ('filetag' in $$props) $$invalidate('filetag', filetag = $$props.filetag);
@@ -6559,9 +6603,9 @@ function instance$5($$self, $$props, $$invalidate) {
 		if ('MenuItem' in $$props) $$invalidate('MenuItem', MenuItem = $$props.MenuItem);
 	};
 
-	let fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, clear_all_Peak_btnCSS, clear_last_Peak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div, fit_files, fit_file_list_temp, fit_file_list, fitall_tkplot_Peak_btnCSS, expfit_log_display, expfit_log, mass_peak_width, mass_prominence, mass_peak_height, show_nist, nist_mformula, nist_mname, nist_molecule_name, nist_molecule_formula, nist_url, internet_connection, internet_active;
+	let fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, clear_all_Peak_btnCSS, clear_last_Peak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div, fit_files, fit_file_list_temp, fit_file_list, fitall_tkplot_Peak_btnCSS, expfit_log_display, expfit_log, mass_peak_width, mass_prominence, mass_peak_height, show_nist, nist_mformula, nist_mname, nist_molecule_name, nist_molecule_formula, nist_url, internet_connection, internet_active, search_string;
 
-	$$self.$$.update = ($$dirty = { filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1, exp_fitall_div_status: 1, fit_file_list_temp: 1, nist_mname: 1, nist_mformula: 1 }) => {
+	$$self.$$.update = ($$dirty = { filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1, exp_fitall_div_status: 1, fit_file_list_temp: 1, nist_mname: 1, nist_mformula: 1, search_string: 1 }) => {
 		if ($$dirty.filetag) ;
 		if ($$dirty.filetag) { console.log(`Locally stored location: [${filetag}]: ${localStorage.getItem(`${filetag}_location`)}`); }
 		if ($$dirty.allFiles) { $$invalidate('fileChecked', fileChecked = allFiles.filter(file => file.checked).map(file => file.id).sort()); }
@@ -6573,6 +6617,7 @@ function instance$5($$self, $$props, $$invalidate) {
 		if ($$dirty.fit_file_list_temp) { $$invalidate('fit_file_list', fit_file_list = ["averaged", ...fit_file_list_temp]); }
 		if ($$dirty.nist_mname) { nist_molecule_name = `Name=${nist_mname}`; }
 		if ($$dirty.nist_mformula) { nist_molecule_formula = `Formula=${nist_mformula}`; }
+		if ($$dirty.search_string) ;
 	};
 
 	$$invalidate('delta_thz', delta_thz = 1);
@@ -6602,6 +6647,7 @@ function instance$5($$self, $$props, $$invalidate) {
 	$$invalidate('nist_url', nist_url = `https://webbook.nist.gov/cgi/cbook.cgi?Name=Allene&Units=SI&Mask=200#Mass-Spec`);
 	$$invalidate('internet_connection', internet_connection = "No Internet access available");
 	$$invalidate('internet_active', internet_active = "is-danger");
+	$$invalidate('search_string', search_string = "");
 
 	return {
 		id,
@@ -6643,7 +6689,6 @@ function instance$5($$self, $$props, $$invalidate) {
 		find_masspec_peaks,
 		clear_mass_peaks,
 		set_nist_url,
-		nist_reload,
 		fileChecked,
 		console,
 		undefined,
@@ -6709,7 +6754,11 @@ function instance$5($$self, $$props, $$invalidate) {
 		select0_change_handler,
 		click_handler_4,
 		select1_change_handler,
-		click_handler_5
+		click_handler_5,
+		click_handler_6,
+		click_handler_7,
+		click_handler_8,
+		click_handler_9
 	};
 }
 
