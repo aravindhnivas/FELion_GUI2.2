@@ -5041,10 +5041,10 @@ function create_if_block_4(ctx) {
 			t3 = space();
 			div7 = element("div");
 			webview = element("webview");
-			attr(div0, "class", "level-item webviewIcon svelte-ufn5el");
-			attr(div1, "class", "level-item webviewIcon svelte-ufn5el");
-			attr(div2, "class", "level-item webviewIcon svelte-ufn5el");
-			attr(div3, "class", "level-item webviewIcon svelte-ufn5el");
+			attr(div0, "class", "level-item webviewIcon hvr-glow svelte-ufn5el");
+			attr(div1, "class", "level-item webviewIcon hvr-glow svelte-ufn5el");
+			attr(div2, "class", "level-item webviewIcon hvr-glow svelte-ufn5el");
+			attr(div3, "class", "level-item webviewIcon hvr-glow svelte-ufn5el");
 			attr(div4, "class", "level-left");
 			attr(div5, "class", "level");
 			attr(div6, "class", "row svelte-ufn5el");

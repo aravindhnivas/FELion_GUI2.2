@@ -1241,7 +1241,7 @@
                   <div class="level">
                     <div class="level-left">
 
-                      <div class="level-item webviewIcon" on:click="{()=>nist_webview.goToIndex(0)}">
+                      <div class="level-item webviewIcon hvr-glow" on:click="{()=>nist_webview.goToIndex(0)}">
                         <span class="icon"><i class="fas fa-home"></i></span>
                       </div>
 
@@ -1250,15 +1250,15 @@
                         data-tippy="Google Search engine" bind:value={search_string} on:change="{()=>nist_url=google_search}"/>
                       </div> -->
 
-                      <div class="level-item webviewIcon" on:click="{()=>{if(nist_webview.canGoBack()) {nist_webview.goBack()}}}">
+                      <div class="level-item webviewIcon hvr-glow" on:click="{()=>{if(nist_webview.canGoBack()) {nist_webview.goBack()}}}">
                         <span class="icon"><i class="fas fa-arrow-left"></i></span>
                       </div>
 
-                      <div class="level-item webviewIcon" on:click="{()=>{if(nist_webview.canGoForward()) {nist_webview.goForward()}}}">
+                      <div class="level-item webviewIcon hvr-glow" on:click="{()=>{if(nist_webview.canGoForward()) {nist_webview.goForward()}}}">
                         <span class="icon"><i class="fas fa-arrow-right"></i></span>
                       </div>
 
-                      <div class="level-item webviewIcon" on:click="{()=>nist_webview.reload()}">
+                      <div class="level-item webviewIcon hvr-glow" on:click="{()=>nist_webview.reload()}">
                         <span class="icon"><i class="fas fa-undo"></i></span>
                       </div>
 
