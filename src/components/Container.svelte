@@ -346,6 +346,8 @@
       ////////////// Masspec PLOT //////////////////////
 
       case "massPlotBtn":
+          // show_nist = false
+
           runPlot({
             fullfiles: fullfiles,
             filetype: filetag,
@@ -361,11 +363,20 @@
             error_msg[filetag]=err; 
             modal[filetag]="is-active"
           })
+
       break;
 
       case "mass_find_peaks":
+
+        show_nist = false
         console.log("Finding mass peaks")
+
         jq("#mass_peak_find_row").toggle()
+
+      break;
+
+      case "nist_webbook":
+        show_nist = !show_nist
       break;
 
       ////////////// Timescan PLOT //////////////////////
@@ -677,7 +688,27 @@
   }
 
   const clear_mass_peaks = () => {Plotly.relayout("mplot", { annotations: [] })}
-  
+
+  $: show_nist = false
+  $: nist_mformula = ""
+  $: nist_mname = "allene"
+  $: nist_molecule_name = `Name=${nist_mname}`
+  $: nist_molecule_formula = `Formula=${nist_mformula}`
+  $: nist_url = `https://webbook.nist.gov/cgi/cbook.cgi?Name=Allene&Units=SI&Mask=200#Mass-Spec`
+
+  const set_nist_url = (format) => {
+    let fmt;
+
+    format == "by_name" ? fmt = nist_molecule_name : fmt = nist_molecule_formula
+    nist_url = `https://webbook.nist.gov/cgi/cbook.cgi?${fmt}&Units=SI&Mask=200#Mass-Spec`
+
+  }
+
+  const nist_reload = () => {
+    let webview_element = document.getElementById("nist_webview")
+    webview_element.reload()
+    
+  }
 
 </script>
 
@@ -730,10 +761,10 @@
   and (max-width: 1400px) {
 
     .filebrowserColumn {width: 20%!important}
-
+    #nist_webview {height:36em;}
   }
 
-
+  #nist_webview {height:42em;}
   
 </style>
 
@@ -990,49 +1021,73 @@
       {/if}
 
       {#if filetag === "mass"}
-        <div class="row" id="mass_peak_find_row" style="display:block; padding-bottom:1em; margin-left:0.7em">
-          <div class="level">
-            <div class="level-left">
+        {#if show_nist}
+          <div class="row" id="nist_row">
+            <div class="level">
+              <div class="level-left">
 
-              <div class="level-item">
-                <div class="select">
-                  <select id="massFiles">
-                      {#each fileChecked as file}
-                        <option>{file}</option>
-                      {/each}
-                    </select>
+                <div class="level-item">
+                  <input class="input" type="text" placeholder="Molecule name" 
+                  data-tippy="Enter molecule name" bind:value={nist_mname} on:change="{()=>set_nist_url("by_name")}"/>
                 </div>
+
+                <div class="level-item">
+                  <input class="input" type="text" placeholder="Molecule Formula" 
+                  data-tippy="Enter molecule formula" bind:value={nist_mformula} on:change="{()=>set_nist_url("by_formula")}"/>
+                </div>
+
+                <div class="level-item">
+                  <button class="button is-warning" on:click={nist_reload}>Reload</button>
+                </div>
+
               </div>
-
-                <div class="level-item">
-                    <input class="input" type="number" placeholder="Peak prominance value"
-                      data-tippy="Peak prominace value" bind:value={mass_prominence} on:change={find_masspec_peaks} min="0" step="0.5"/>
-                </div>
-
-                <div class="level-item">
-                    <input class="input" type="number" placeholder="Peak width"
-                      data-tippy="Optional: Peak width" bind:value={mass_peak_width} on:change={find_masspec_peaks} min="0" step="0.5"/>
-                </div>
-
-                <div class="level-item">
-                    <input class="input" type="number" placeholder="Peak Height"
-                      data-tippy="Optional: Peak Height" bind:value={mass_peak_height} on:change={find_masspec_peaks} min="0" step="0.5"/>
-                </div>
-
-                <div class="level-item">
-                    <div class="level-item button is-link hvr-glow funcBtn animated"
-                      id="mass_get_peaks" on:click={find_masspec_peaks} >Get Peaks
-                    </div>
-                </div>
-
-                <div class="level-item">
-                    <div class="level-item button is-warning hvr-glow funcBtn animated"
-                      id="mass_clear_peaks" on:click={clear_mass_peaks} data-tippy="Clear all peaks">Clear
-                    </div>
-                </div>
             </div>
           </div>
-        </div>
+          {:else}
+              <div class="row" id="mass_peak_find_row" style="display:block; padding-bottom:1em; margin-left:0.7em">
+                <div class="level">
+                  <div class="level-left">
+
+                    <div class="level-item">
+                      <div class="select">
+                        <select id="massFiles">
+                            {#each fileChecked as file}
+                              <option>{file}</option>
+                            {/each}
+                          </select>
+                      </div>
+                    </div>
+
+                      <div class="level-item">
+                          <input class="input" type="number" placeholder="Peak prominance value"
+                            data-tippy="Peak prominace value" bind:value={mass_prominence} on:change={find_masspec_peaks} min="0" step="0.5"/>
+                      </div>
+
+                      <div class="level-item">
+                          <input class="input" type="number" placeholder="Peak width"
+                            data-tippy="Optional: Peak width" bind:value={mass_peak_width} on:change={find_masspec_peaks} min="0" step="0.5"/>
+                      </div>
+
+                      <div class="level-item">
+                          <input class="input" type="number" placeholder="Peak Height"
+                            data-tippy="Optional: Peak Height" bind:value={mass_peak_height} on:change={find_masspec_peaks} min="0" step="0.5"/>
+                      </div>
+
+                      <div class="level-item">
+                          <div class="level-item button is-link hvr-glow funcBtn animated"
+                            id="mass_get_peaks" on:click={find_masspec_peaks} >Get Peaks
+                          </div>
+                      </div>
+
+                      <div class="level-item">
+                          <div class="level-item button is-warning hvr-glow funcBtn animated"
+                            id="mass_clear_peaks" on:click={clear_mass_peaks} data-tippy="Clear all peaks">Clear
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+        {/if}
       {/if}
 
       <hr style="margin: 0.5em 0; background-color:#bdc3c7" />
@@ -1155,6 +1210,11 @@
                   {/if}
                 </div>
               </div>
+            {:else if filetag==="mass"}
+              <div {id} style="padding-bottom:1em; margin-top:2em;" />
+              {#if show_nist}
+                 <webview src={nist_url} id="nist_webview"></webview>
+              {/if}
               
             {:else}
               <div {id} style="padding-bottom:1em" />

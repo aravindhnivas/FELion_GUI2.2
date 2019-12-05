@@ -1,5 +1,5 @@
+
 import App from "./components/App.svelte";
-// require('v8-compile-cache');
 
 let shell_help = "Open terminal while plotting in Matplotlib. Turn this ON to check for any error occured from python console."
 const mainPages = [
@@ -54,6 +54,10 @@ const mainPages = [
 			{
 				id: "mass_find_peaks",
 				name: "Find Peaks"
+			},
+			{
+				id: "nist_webbook",
+				name: "NIST Webbook"
 			},
 			{
 				id: "mass_Matplotlib",
