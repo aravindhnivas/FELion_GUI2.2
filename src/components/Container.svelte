@@ -690,31 +690,26 @@
       modal[filetag]="is-active"
     })
   }
-
   const clear_mass_peaks = () => {Plotly.relayout("mplot", { annotations: [] })}
 
   $: show_nist = false
-  $: nist_mformula = ""
-  $: nist_mname = "allene"
+  $: nist_mformula = localStorage["nist_mformula"] || ""
+  $: nist_mname = localStorage["nist_mname"] || ""
   $: nist_molecule_name = `Name=${nist_mname}`
   $: nist_molecule_formula = `Formula=${nist_mformula}`
-  $: nist_url = `https://webbook.nist.gov/cgi/cbook.cgi?Name=Allene&Units=SI&Mask=200#Mass-Spec`
+  $: nist_url = localStorage["nist_url"] || "https://webbook.nist.gov/cgi/cbook.cgi?Name=&Units=SI&Mask=200#Mass-Spec"
 
   const set_nist_url = (format) => {
     let fmt;
-
     format == "by_name" ? fmt = nist_molecule_name : fmt = nist_molecule_formula
     nist_url = `https://webbook.nist.gov/cgi/cbook.cgi?${fmt}&Units=SI&Mask=200#Mass-Spec`
 
-  }
-
-  const nist_reload = () => {
-    let webview_element = document.getElementById("nist_webview")
-
-    webview_element.goToIndex(0)
-    // webview_element.reload()
+    localStorage["nist_url"] = nist_url
+    localStorage["nist_mformula"] =  nist_mformula
+    localStorage["nist_mname"] = nist_mname
 
   }
+
 
   function checkInternet() {
 
