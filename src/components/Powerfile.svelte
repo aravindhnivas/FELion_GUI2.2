@@ -45,10 +45,8 @@
     };
 
     function powSave() { 
-
         if(currentLocation==undefined) {return btnAnimate("Browse folder first !!!", "is-link", "is-danger animated shake faster", 3000);}
         fs.writeFile(path.join(currentLocation, filename), fileContent, (err) => {
-
             btnAnimate("File saved", "is-link", "is-success animated bounce", 2000);
             if (err) throw err;
         }) };
@@ -61,10 +59,12 @@
     flex-direction: column;
     padding-bottom: 2em;
 }
+
 #powerfileLocationLabel, #powfilename {text-align: center}
 label {color: white}
-.container {height: 70vh;}
+.container {height: 90vh;}
 .columns {height: 100%;}
+
 #powfileContent_mainContainer {height: 70%;}
 #powfileContent_Container {height: 90%;}
 #powfileContents {height: 100%;}

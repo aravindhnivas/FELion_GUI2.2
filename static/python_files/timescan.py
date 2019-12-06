@@ -59,7 +59,7 @@ class timescanplot:
             mean = np.append(mean, mass_sort)
             error = np.append(error, error_sort)
 
-            label = f"{mass_value}u[{iteration}]; B0:{t_b0}ms; Res: {t_res}"
+            label = f"{mass_value}u[{iteration}]:{t_b0}ms[{t_res}V]"
 
             if tkplot: 
                 print(f"{mass_value}: error value:\n{error_sort}")

@@ -31,47 +31,18 @@
     });
   };
 
-  // const toggleRow = () => {
-
-  //   jq(".locationRow").toggle();
-  //   jq(".buttonsRow").toggle();
-  //   jq(".filebrowserColumn").toggle();
-
-  //   let display = jq(".buttonsRow").css("display");
-
-  //   if (display === "none"){
-
-  //     jq(".plotContainer").css("max-height", "75vh")
-  //     jq(".plotContainer").css("width", "97%")
-
-  //   } 
-  //   else {
-  //     jq(".plotContainer").css("max-height", "60vh");
-  //     jq(".plotContainer").css("width", "81%")
-
-  //   }
-    
-  //   let obj = { width: jq(".plotContainer").width() * 0.97 };
-  //   Plotly.relayout("saPlot", obj);
-  //   Plotly.relayout("bplot", obj);
-  //   Plotly.relayout("avgplot", obj);
-
-  //   Plotly.relayout("exp-theory-plot", obj);
-  //   Plotly.relayout("mplot", obj);
-  // };
-
 </script>
 
 <style>
 
   i:focus {outline-color: transparent;}
   #fullToggle {
-
     margin-left: 0.7em;
     margin-top: 0.7em;
     cursor:pointer;
   }
 
+  .section {padding: 0.3rem}
 </style>
 
 <!-- Navigation Bar -->

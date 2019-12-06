@@ -88,12 +88,12 @@
   }
 
   .filexplorer {
-    max-height: 40vh;
+    max-height: 60vh;
     overflow-y: auto;
   }
 
   .folderContainerPanelBlock {
-    height:50vh;
+    height:70vh;
     overflow: auto;
   }
 

@@ -31,8 +31,8 @@
     let plotHeight;
     let ScreenHeight = window.screen.height;
 
-    if (ScreenHeight >= 1000) plotHeight = 570
-    else plotHeight = 400
+    if (ScreenHeight >= 1000) plotHeight = 700
+    else plotHeight = 560
 
     jq(".plotContainer").css("max-height", plotHeight)
 
@@ -754,7 +754,7 @@
   .row {
     display: flex;
     flex-direction: column;
-    padding-bottom: 2em;
+    padding-bottom: 0.6em;
   }
 
   .funcBtn {
@@ -764,6 +764,7 @@
   .section {
     position: fixed;
     width: 100%;
+    padding: 0.3rem;
   }
 
   .plotContainer {
@@ -779,16 +780,17 @@
   .column {max-height: 90vh}
 
   .delete:hover {background-color:#ff3860}
-
+  .filebrowserColumn {width: 14%!important}
   @media only screen
   and (max-width: 1400px) {
-
     .filebrowserColumn {width: 20%!important}
-    #nist_webview {height:36em;}
   }
-
   #nist_webview {height:42em;}
   .webviewIcon {cursor: pointer;}
+  .level-item {margin-left: 0!important}
+
+  .locationRow {margin-right: 2em;}
+
 </style>
 
 <section class="section" {id} {style}>
@@ -1067,7 +1069,7 @@
             </div>
           </div>
           {:else}
-              <div class="row" id="mass_peak_find_row" style="display:block; padding-bottom:1em; margin-left:0.7em">
+              <div class="row" id="mass_peak_find_row" style="display:block; padding-bottom:1em;">
                 <div class="level">
                   <div class="level-left">
 
@@ -1113,7 +1115,7 @@
         {/if}
       {/if}
 
-      <hr style="margin: 0.5em 0; background-color:#bdc3c7" />
+      <!-- <hr style="margin: 0.5em 0; background-color:#bdc3c7" /> -->
 
       <div class="row box plotContainer" id="{filetag}plotMainContainer" >
         
@@ -1121,9 +1123,9 @@
           {#each plotID as id}
 
             {#if filetag == 'scan'}
-              <div {id} style="padding-bottom:1em">
+              <div class="columns is-multiline" {id} style="padding-bottom:1em">
                 {#each fileChecked as scanfile}
-                  <div id="{scanfile}_tplot" style="padding-bottom:1em" />
+                  <div class="column is-half" id="{scanfile}_tplot" style="padding-bottom:1em" />
                 {/each}
               </div>
 
@@ -1233,9 +1235,10 @@
                   {/if}
                 </div>
               </div>
+            
             {:else if filetag==="mass"}
               <div {id} style="padding-bottom:1em;" />
-              <hr>
+              <!-- <hr> -->
               {#if show_nist}
                 <div class="row">
                   <div class="level">
@@ -1261,9 +1264,7 @@
                       <div class="level-item webviewIcon hvr-glow" on:click="{()=>nist_webview.reload()}">
                         <span class="icon"><i class="fas fa-undo"></i></span>
                       </div>
-
                       
-
                     </div>
                   </div>
                 </div>
