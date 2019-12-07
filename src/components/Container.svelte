@@ -31,7 +31,7 @@
     let plotHeight;
     let ScreenHeight = window.screen.height;
 
-    if (ScreenHeight >= 1000) plotHeight = 700
+    if (ScreenHeight >= 1000) plotHeight = 650
     else plotHeight = 560
 
     jq(".plotContainer").css("max-height", plotHeight)
@@ -367,16 +367,16 @@
       break;
 
       case "mass_find_peaks":
-
-        show_nist = false
         console.log("Finding mass peaks")
-
         jq("#mass_peak_find_row").toggle()
 
       break;
 
       case "nist_webbook":
-        show_nist = !show_nist
+        
+        jq("#nist_row").toggle()
+        jq("#nistWebview_rows").toggle()
+
         checkInternet().then(result=>{
           internet_connection = result
           internet_active = "is-success"
@@ -438,9 +438,9 @@
       break;
 
       case "depletionscanBtn":
-        depletionPlot()
-
-        document.getElementById("depletionscanBtn").classList.add("bounce")
+        // depletionPlot()
+        jq("#depletionRow").toggle()
+        // document.getElementById("depletionscanBtn").classList.add("bounce")
 
       break;
 
@@ -463,7 +463,7 @@
       btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot]
     }).then((output)=>{console.log(output)})
     .catch((err)=>{
-        console.log('Error Occured', err); 
+        console.log('Error Occured', err);
 
         error_msg[filetag]=err; 
         modal[filetag]="is-active"
@@ -498,36 +498,46 @@
   ]
   const depletionPlot = async () => {
 
-    let port = 8501
-    let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py")
-    let pyDir = path.dirname(localStorage["pythonpath"])
-    let streamlit_path = path.resolve(pyDir, "Scripts", "streamlit")
+    // let port = 8501
+    // let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py")
+    // let pyDir = path.dirname(localStorage["pythonpath"])
+    // let streamlit_path = path.resolve(pyDir, "Scripts", "streamlit")
 
-    glob(path.resolve(pyDir, "Scripts", "streamlit*"), (error, file)=>{
-      if(file.length===0){
-        console.log("Error: Streamlit is not installed.\nInstalling now...")
-        let packageName = "streamlit-0.51.0-py2.py3-none-any.whl"
-        let streamlit_package = path.resolve(__dirname, "pipPackages", packageName)
-        exec(`${path.resolve(pyDir, "python")} -m pip install ${streamlit_package}`, (err, result)=>{
-          if (err) {console.log("Error occured: Streamlit package couldn't be installed to python")}
-          else {console.log("Streamlit package installed to python: \n", result)}
-        })
-      } else {console.log("Streamlit exists")}
+    // glob(path.resolve(pyDir, "Scripts", "streamlit*"), (error, file)=>{
+    //   if(file.length===0){
+    //     console.log("Error: Streamlit is not installed.\nInstalling now...")
+    //     let packageName = "streamlit-0.51.0-py2.py3-none-any.whl"
+    //     let streamlit_package = path.resolve(__dirname, "pipPackages", packageName)
+    //     exec(`${path.resolve(pyDir, "python")} -m pip install ${streamlit_package}`, (err, result)=>{
+    //       if (err) {console.log("Error occured: Streamlit package couldn't be installed to python")}
+    //       else {console.log("Streamlit package installed to python: \n", result)}
+    //     })
+    //   } else {console.log("Streamlit exists")}
+    // })
+
+    // let defaultArguments = ["run", pyFile, "--server.port", port, "--server.headless", "true"]
+    // let sendArguments = [currentLocation, ...folderFile.files]
+
+    // let st = spawn(streamlit_path, [...defaultArguments, ...sendArguments])
+    // st.stdout.on('data', data => {console.log(data.toString("utf8"))})
+    // st.stderr.on('data', err => {console.log("Error occured:", err.toString("utf8"))})
+    // st.on('close', ()=>{console.log("Completed")})
+
+    // let localhostDepletion = `http://localhost:${port}`
+    // setTimeout(()=>window.open(localhostDepletion), 1000)
+
+    runPlot({
+      fullfiles: [currentLocation], filetype: "depletion",
+      btname: "depletionSubmit", pyfile: "depletionscan.py", 
+      args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] 
     })
-
-    let defaultArguments = ["run", pyFile, "--server.port", port, "--server.headless", "true"]
-    let sendArguments = [currentLocation, ...folderFile.files]
-
-    let st = spawn(streamlit_path, [...defaultArguments, ...sendArguments])
-    st.stdout.on('data', data => {console.log(data.toString("utf8"))})
-    st.stderr.on('data', err => {console.log("Error occured:", err.toString("utf8"))})
-    st.on('close', ()=>{console.log("Completed")})
-
-    let localhostDepletion = `http://localhost:${port}`
-    setTimeout(()=>window.open(localhostDepletion), 1000)
-
+    .then((output)=>{console.log(output)})
+    .catch((err)=>{
+      console.log('Error Occured', err); 
+      error_msg["scan"]=err; 
+      modal["scan"]="is-active"
+    })
   }
-
 
   // Experimental fit (gaussian)
 
@@ -671,6 +681,7 @@
   $: mass_peak_height = 40
   
   const find_masspec_peaks = () => {
+
     console.log("Finding masspec peaks")
 
     let sendMassFile = path.join(currentLocation, massFiles.value)
@@ -690,16 +701,18 @@
       modal[filetag]="is-active"
     })
   }
+
   const clear_mass_peaks = () => {Plotly.relayout("mplot", { annotations: [] })}
 
-  $: show_nist = false
   $: nist_mformula = localStorage["nist_mformula"] || ""
   $: nist_mname = localStorage["nist_mname"] || ""
   $: nist_molecule_name = `Name=${nist_mname}`
   $: nist_molecule_formula = `Formula=${nist_mformula}`
   $: nist_url = localStorage["nist_url"] || "https://webbook.nist.gov/cgi/cbook.cgi?Name=&Units=SI&Mask=200#Mass-Spec"
 
+
   const set_nist_url = (format) => {
+
     let fmt;
     format == "by_name" ? fmt = nist_molecule_name : fmt = nist_molecule_formula
     nist_url = `https://webbook.nist.gov/cgi/cbook.cgi?${fmt}&Units=SI&Mask=200#Mass-Spec`
@@ -707,9 +720,7 @@
     localStorage["nist_url"] = nist_url
     localStorage["nist_mformula"] =  nist_mformula
     localStorage["nist_mname"] = nist_mname
-
   }
-
 
   function checkInternet() {
 
@@ -723,11 +734,12 @@
       })
     })
   }
+
   $: internet_connection = "No Internet access available"
   $: internet_active = "is-danger"
-
   $: search_string = ""
   $: google_search = `http://www.google.com/search?q=${search_string}.`
+
 </script>
 
 <style>
@@ -1057,73 +1069,75 @@
         {/if}
 
         {#if filetag === "mass"}
-          {#if show_nist}
-            <div class="row" id="nist_row">
-              <div class="level">
-                <div class="level-left">
 
-                  <div class="level-item">
-                    <input class="input" type="text" placeholder="Molecule name" 
-                    data-tippy="Enter molecule name" bind:value={nist_mname} on:change="{()=>set_nist_url("by_name")}"/>
-                  </div>
+          <!-- NIST find molecule row -->
+          <div class="row" id="nist_row" style="display:none">
+            <div class="level">
+              <div class="level-left">
 
-                  <div class="level-item">
-                    <input class="input" type="text" placeholder="Molecule Formula" 
-                    data-tippy="Enter molecule formula" bind:value={nist_mformula} on:change="{()=>set_nist_url("by_formula")}"/>
-                  </div>
-
-                  <div class="level-item">
-                    <button class="button {internet_active}">{internet_connection}</button>
-                  </div>
-
+                <div class="level-item">
+                  <input class="input" type="text" placeholder="Molecule name" 
+                  data-tippy="Enter molecule name" bind:value={nist_mname} on:change="{()=>set_nist_url("by_name")}"/>
                 </div>
+
+                <div class="level-item">
+                  <input class="input" type="text" placeholder="Molecule Formula" 
+                  data-tippy="Enter molecule formula" bind:value={nist_mformula} on:change="{()=>set_nist_url("by_formula")}"/>
+                </div>
+
+                <div class="level-item">
+                  <button class="button {internet_active}">{internet_connection}</button>
+                </div>
+
               </div>
             </div>
-            {:else}
-                <div class="row" id="mass_peak_find_row" style="display:block; padding-bottom:1em;">
-                  <div class="level">
-                    <div class="level-left">
+          </div>
 
-                      <div class="level-item">
-                        <div class="select">
-                          <select id="massFiles">
-                              {#each fileChecked as file}
-                                <option>{file}</option>
-                              {/each}
-                            </select>
-                        </div>
-                      </div>
+          <!-- Find mass peaks row -->
+          <div class="row" id="mass_peak_find_row" style="display:block; padding-bottom:1em;">
+            <div class="level">
+              <div class="level-left">
 
-                        <div class="level-item">
-                            <input class="input" type="number" placeholder="Peak prominance value"
-                              data-tippy="Peak prominace value" bind:value={mass_prominence} on:change={find_masspec_peaks} min="0" step="0.5"/>
-                        </div>
-
-                        <div class="level-item">
-                            <input class="input" type="number" placeholder="Peak width"
-                              data-tippy="Optional: Peak width" bind:value={mass_peak_width} on:change={find_masspec_peaks} min="0" step="0.5"/>
-                        </div>
-
-                        <div class="level-item">
-                            <input class="input" type="number" placeholder="Peak Height"
-                              data-tippy="Optional: Peak Height" bind:value={mass_peak_height} on:change={find_masspec_peaks} min="0" step="0.5"/>
-                        </div>
-
-                        <div class="level-item">
-                            <div class="level-item button is-link hvr-glow funcBtn animated"
-                              id="mass_get_peaks" on:click={find_masspec_peaks} >Get Peaks
-                            </div>
-                        </div>
-
-                        <div class="level-item">
-                            <div class="level-item button is-warning hvr-glow funcBtn animated"
-                              id="mass_clear_peaks" on:click={clear_mass_peaks} data-tippy="Clear all peaks">Clear
-                            </div>
-                        </div>
-                    </div>
+                <div class="level-item">
+                  <div class="select">
+                    <select id="massFiles">
+                        {#each fileChecked as file}
+                          <option>{file}</option>
+                        {/each}
+                      </select>
                   </div>
                 </div>
-          {/if}
+
+                  <div class="level-item">
+                      <input class="input" type="number" placeholder="Peak prominance value"
+                        data-tippy="Peak prominace value" bind:value={mass_prominence} on:change={find_masspec_peaks} min="0" step="0.5"/>
+                  </div>
+
+                  <div class="level-item">
+                      <input class="input" type="number" placeholder="Peak width"
+                        data-tippy="Optional: Peak width" bind:value={mass_peak_width} on:change={find_masspec_peaks} min="0" step="0.5"/>
+                  </div>
+
+                  <div class="level-item">
+                      <input class="input" type="number" placeholder="Peak Height"
+                        data-tippy="Optional: Peak Height" bind:value={mass_peak_height} on:change={find_masspec_peaks} min="0" step="0.5"/>
+                  </div>
+
+                  <div class="level-item">
+                      <div class="level-item button is-link hvr-glow funcBtn animated"
+                        id="mass_get_peaks" on:click={find_masspec_peaks} >Get Peaks
+                      </div>
+                  </div>
+
+                  <div class="level-item">
+                      <div class="level-item button is-warning hvr-glow funcBtn animated"
+                        id="mass_clear_peaks" on:click={clear_mass_peaks} data-tippy="Clear all peaks">Clear
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+
         {/if}
 
       </div>
@@ -1248,9 +1262,14 @@
               </div>
             
             {:else if filetag==="mass"}
+
+              <!-- mplot row -->
               <div {id} style="padding-bottom:1em;" />
-              <!-- <hr> -->
-              {#if show_nist}
+              
+              <!-- NIST webview -->
+              <div class="row" id="nistWebview_rows" style="display:none">
+
+                <!-- NIST webview navigator -->
                 <div class="row">
                   <div class="level">
                     <div class="level-left">
@@ -1279,9 +1298,12 @@
                     </div>
                   </div>
                 </div>
-                 <div class="row"><webview src={nist_url} id="nist_webview"></webview></div>
-              {/if}
-              
+                
+                <!-- NIST webview -->
+                <div class="row"><webview src={nist_url} id="nist_webview"></webview></div>
+
+              </div>
+            
             {:else}
               <div {id} style="padding-bottom:1em" />
             {/if}
