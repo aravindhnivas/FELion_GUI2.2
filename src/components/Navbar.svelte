@@ -60,7 +60,12 @@
   }
   .tabs.is-boxed a:hover {background-color: #6046a0fc;}
   
-  #Navbar {background-color: #4a3284;}
+  #Navbar {
+
+    background-color: #4a3284;
+    margin-bottom: 0;
+    
+  }
 
 
 </style>

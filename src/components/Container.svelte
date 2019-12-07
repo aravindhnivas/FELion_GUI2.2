@@ -785,7 +785,10 @@
   .level-item {margin-left: 0!important}
 
   .locationRow {margin-right: 2em;}
-
+  .row1 {
+    margin: 0 10rem;
+    background-color: #594194;
+  }
 </style>
 
 <section class="section" {id} {style}>
@@ -815,302 +818,303 @@
         </div>
       </div>
 
-      <div class="row locationRow">
+      <div class="row row1 box">
+        <div class="row locationRow">
 
-        <div class="field has-addons">
-          <div class="control is-expanded">
-            <input
-              class="input locationLabel"
-              type="text"
-              placeholder="Location will be displayed"
-              id="{filetag}LocationLabel"
-              value={currentLocation} 
-              on:keyup="{
-                (e)=>{
-                  if (e.key == "Enter") {
-                    let location = e.target.value
-                    console.log(`Setting location: ${location}`)
-                    currentLocation = location
+          <div class="field has-addons">
+            <div class="control is-expanded">
+              <input
+                class="input locationLabel"
+                type="text"
+                placeholder="Location will be displayed"
+                id="{filetag}LocationLabel"
+                value={currentLocation} 
+                on:keyup="{
+                  (e)=>{
+                    if (e.key == "Enter") {
+                      let location = e.target.value
+                      console.log(`Setting location: ${location}`)
+                      currentLocation = location
+                    }
                   }
-                }
-              }" 
-              data-tippy="Current Location"/>
-          </div>
-          <div class="control">
-            <div
-              class="button is-dark"
-              on:click={browseFile}
-              data-tippy="Browse {filetag} file">
-              Browse
+                }" 
+                data-tippy="Current Location"/>
             </div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="row buttonsRow">
-
-        <div class="level">
-
-          <div class="level-left animated fadeIn">
-
-            {#each funcBtns as { id, name }}
-              <div 
-                class="level-item button hvr-glow funcBtn is-link animated"
-                {id} on:click={functionRun}>
-                {name}
+            <div class="control">
+              <div
+                class="button is-dark"
+                on:click={browseFile}
+                data-tippy="Browse {filetag} file">
+                Browse
               </div>
-
-            {/each}
-
-            {#each checkBtns as {id, name, bind, help}}
-               <div class="level-item animated" id="{id}_Container" >
-
-                <div class="pretty p-default p-curve p-toggle" data-tippy={help}>
-
-                  {#if name[0]==="Log"}
-                    <input type="checkbox" {id} checked={bind} on:click={linearlogCheck} />
-                  {:else}
-                    <input type="checkbox" {id} checked={bind} on:click="{(e)=>{console.log(`Status (${e.target.id}):\n ${e.target.checked}`)}}"/>
-                  {/if}
-
-                  <div class="state p-success p-on"> <label>{name[0]}</label> </div>
-                  <div class="state p-danger p-off"> <label>{name[1]}</label> </div>
-
-                </div>
-                
-              </div>
-            {/each}
-
-            {#if filetag == 'felix'}
-              <div class="level-item">
-                <div class="field has-addons">
-                  <div class="control">
-                    <span class="select">
-                      <select
-                        id="felixmethod"
-                        bind:value={normMethod}
-                        data-tippy="Normalisation method">
-                        {#each normalisation_method as method}
-                           <option>{method}</option>
-                        {/each}
-                      </select>
-                    </span>
-                  </div>
-                  <div class="control">
-                    <input
-                      class="input"
-                      type="number" step="0.5"
-                      id="delta_value"
-                      placeholder="Delta value"
-                      data-tippy="Delta value for averaging FELIX spectrum"
-                      bind:value={delta}
-                      on:change="{(e)=>functionRun(e, "felixPlotBtn")}" />
-                  </div>
-                </div>
-              </div>
-            {/if}
-
-            {#if filetag == 'thz'}
-
-              <!-- Delta value -->
-              <div class="level-item" >
-
-                <div class="field has-addons">
-                  <div class="control"><div class="button is-static">&delta; (in Hz)</div></div>
-
-                  <div class="control">
-                    <input
-                      class="input"
-                      type="number" step="0.5"
-                      id="delta_value_thz"
-                      placeholder="Delta value"
-                      data-tippy="Delta value for spectrum (in KHz)"
-                      bind:value={delta_thz}
-                      on:change="{(e)=>functionRun(e, "thzBtn")}" />
-                  </div>
-                  
-                </div>
-
-              </div>
-
-              <!-- Gamma -->
-
-              <div class="level-item">
-
-                <div class="field has-addons">
-                  <div class="control"><div class="button is-static">&gamma;</div></div>
-
-                  <div class="control">
-                    <input
-                      class="input"
-                      type="number" step="0.01"
-                      id="gamma_thz"
-                      placeholder="Gamma value for lorentz part"
-                      data-tippy="Lorentz gamma for fitting (Voigt Profile)"
-                      bind:value={gamma_thz}
-                      on:change="{(e)=>functionRun(e, "thzBtn")}"/>
-                  </div>
-                  
-                </div>
-
-              </div>
-
-            {/if}
+            </div>
           </div>
 
         </div>
 
-      </div>
+        <div class="row buttonsRow">
 
-      {#if filetag=="felix"}
-         <div class="row" id="theoryRow" style="display:none; padding-bottom:1em">
-            <div class="container is-marginless" id="theoryContainer">
-              <div class="field">
-                <label class="label" id="theorylabel">
-                  <h1 class="subtitle" id="theoryfilename">{theoryfilenames}</h1>
-                </label>
-                <div class="control">
-                    <button class="button is-warning" on:click={opentheory}>Choose file</button>
-                    <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
-                    <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
-                    <button class="funcBtn button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
-                    <button class="funcBtn button is-link animated" on:click="{()=>runtheory({tkplot:"plot", filetype:"general"})}" id="theory_Matplotlib">Open in Matplotlib</button>
+          <div class="level">
+
+            <div class="level-left animated fadeIn">
+
+              {#each funcBtns as { id, name }}
+                <div 
+                  class="level-item button hvr-glow funcBtn is-link animated"
+                  {id} on:click={functionRun}>
+                  {name}
+                </div>
+
+              {/each}
+
+              {#each checkBtns as {id, name, bind, help}}
+                <div class="level-item animated" id="{id}_Container" >
+
+                  <div class="pretty p-default p-curve p-toggle" data-tippy={help}>
+
+                    {#if name[0]==="Log"}
+                      <input type="checkbox" {id} checked={bind} on:click={linearlogCheck} />
+                    {:else}
+                      <input type="checkbox" {id} checked={bind} on:click="{(e)=>{console.log(`Status (${e.target.id}):\n ${e.target.checked}`)}}"/>
+                    {/if}
+
+                    <div class="state p-success p-on"> <label>{name[0]}</label> </div>
+                    <div class="state p-danger p-off"> <label>{name[1]}</label> </div>
+
+                  </div>
+                  
+                </div>
+              {/each}
+
+              {#if filetag == 'felix'}
+                <div class="level-item">
+                  <div class="field has-addons">
+                    <div class="control">
+                      <span class="select">
+                        <select
+                          id="felixmethod"
+                          bind:value={normMethod}
+                          data-tippy="Normalisation method">
+                          {#each normalisation_method as method}
+                            <option>{method}</option>
+                          {/each}
+                        </select>
+                      </span>
+                    </div>
+                    <div class="control">
+                      <input
+                        class="input"
+                        type="number" step="0.5"
+                        id="delta_value"
+                        placeholder="Delta value"
+                        data-tippy="Delta value for averaging FELIX spectrum"
+                        bind:value={delta}
+                        on:change="{(e)=>functionRun(e, "felixPlotBtn")}" />
+                    </div>
+                  </div>
+                </div>
+              {/if}
+
+              {#if filetag == 'thz'}
+
+                <!-- Delta value -->
+                <div class="level-item" >
+
+                  <div class="field has-addons">
+                    <div class="control"><div class="button is-static">&delta; (in Hz)</div></div>
+
+                    <div class="control">
+                      <input
+                        class="input"
+                        type="number" step="0.5"
+                        id="delta_value_thz"
+                        placeholder="Delta value"
+                        data-tippy="Delta value for spectrum (in KHz)"
+                        bind:value={delta_thz}
+                        on:change="{(e)=>functionRun(e, "thzBtn")}" />
+                    </div>
+                    
+                  </div>
+
+                </div>
+
+                <!-- Gamma -->
+
+                <div class="level-item">
+
+                  <div class="field has-addons">
+                    <div class="control"><div class="button is-static">&gamma;</div></div>
+
+                    <div class="control">
+                      <input
+                        class="input"
+                        type="number" step="0.01"
+                        id="gamma_thz"
+                        placeholder="Gamma value for lorentz part"
+                        data-tippy="Lorentz gamma for fitting (Voigt Profile)"
+                        bind:value={gamma_thz}
+                        on:change="{(e)=>functionRun(e, "thzBtn")}"/>
+                    </div>
+                    
+                  </div>
+
+                </div>
+
+              {/if}
+            </div>
+
+          </div>
+
+        </div>
+
+        {#if filetag=="felix"}
+          <div class="row" id="theoryRow" style="display:none; padding-bottom:1em">
+              <div class="container is-marginless" id="theoryContainer">
+                <div class="field">
+                  <label class="label" id="theorylabel">
+                    <h1 class="subtitle" id="theoryfilename">{theoryfilenames}</h1>
+                  </label>
+                  <div class="control">
+                      <button class="button is-warning" on:click={opentheory}>Choose file</button>
+                      <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
+                      <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
+                      <button class="funcBtn button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
+                      <button class="funcBtn button is-link animated" on:click="{()=>runtheory({tkplot:"plot", filetype:"general"})}" id="theory_Matplotlib">Open in Matplotlib</button>
+                  </div>
                 </div>
               </div>
-            </div>
-         </div>
-      {/if}
+          </div>
+        {/if}
 
-      {#if filetag=="scan"}
-         <div class="row" id="depletionRow" style="display:none">
-            <div class="level">
-              <div class="level-left">
+        {#if filetag=="scan"}
+          <div class="row" id="depletionRow" style="display:none">
+              <div class="level">
+                <div class="level-left">
 
-                {#each ["ResON", "ResOFF"] as name}
+                  {#each ["ResON", "ResOFF"] as name}
 
-                  <div class="level-item">
-                    <div class="field">
-                      <label class="label"><h1 class="subtitle">{name} file</h1></label>
-                      <div class="control">
-                        <div class="select">
-                          <select id={name}>
-                            {#if folderFile.files != undefined}
-                               {#each folderFile.files as scanfile}
-                                  <option value={scanfile}>{scanfile}</option>
-                               {/each}
-                            {/if}
-                          </select>
+                    <div class="level-item">
+                      <div class="field">
+                        <label class="label"><h1 class="subtitle">{name} file</h1></label>
+                        <div class="control">
+                          <div class="select">
+                            <select id={name}>
+                              {#if folderFile.files != undefined}
+                                {#each folderFile.files as scanfile}
+                                    <option value={scanfile}>{scanfile}</option>
+                                {/each}
+                              {/if}
+                            </select>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                {/each}
+                  {/each}
 
-                {#each depletionLabels as {name, id}}
-
-                  <div class="level-item">
-
-                    <div class="field">
-                      <label class="label"><h1 class="subtitle">{name}</h1></label>
-                      <div class="control">
-                        {#if name=="Power (ON, OFF)"}
-                          <input class="input" type="text" bind:value={powerinfo} {id}>
-                        {:else if  name=="FELIX Hz"}
-                          <input class="input" type="number" bind:value={nshots} {id}>
-                        {:else if  name=="Mass Index"}
-                          <input class="input" type="number" bind:value={massIndex} {id}>
-                        {:else if  name=="TimeStart Index"}
-                          <input class="input" type="number" bind:value={timestartIndex} {id}>
-                        {/if}
-                      </div>
-                    </div>
-
-                  </div>
-                {/each}
-
-                <div class="level-item" style="margin-top:2em">
-                  <button class="funcBtn button animated is-link" id="depletionSubmit" on:click={depletionPlot}>Submit</button>
-                </div>
-
-              </div>
-            </div>
-
-            
-         </div>
-      {/if}
-
-      {#if filetag === "mass"}
-        {#if show_nist}
-          <div class="row" id="nist_row">
-            <div class="level">
-              <div class="level-left">
-
-                <div class="level-item">
-                  <input class="input" type="text" placeholder="Molecule name" 
-                  data-tippy="Enter molecule name" bind:value={nist_mname} on:change="{()=>set_nist_url("by_name")}"/>
-                </div>
-
-                <div class="level-item">
-                  <input class="input" type="text" placeholder="Molecule Formula" 
-                  data-tippy="Enter molecule formula" bind:value={nist_mformula} on:change="{()=>set_nist_url("by_formula")}"/>
-                </div>
-
-                <div class="level-item">
-                  <button class="button {internet_active}">{internet_connection}</button>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          {:else}
-              <div class="row" id="mass_peak_find_row" style="display:block; padding-bottom:1em;">
-                <div class="level">
-                  <div class="level-left">
+                  {#each depletionLabels as {name, id}}
 
                     <div class="level-item">
-                      <div class="select">
-                        <select id="massFiles">
-                            {#each fileChecked as file}
-                              <option>{file}</option>
-                            {/each}
-                          </select>
+
+                      <div class="field">
+                        <label class="label"><h1 class="subtitle">{name}</h1></label>
+                        <div class="control">
+                          {#if name=="Power (ON, OFF)"}
+                            <input class="input" type="text" bind:value={powerinfo} {id}>
+                          {:else if  name=="FELIX Hz"}
+                            <input class="input" type="number" bind:value={nshots} {id}>
+                          {:else if  name=="Mass Index"}
+                            <input class="input" type="number" bind:value={massIndex} {id}>
+                          {:else if  name=="TimeStart Index"}
+                            <input class="input" type="number" bind:value={timestartIndex} {id}>
+                          {/if}
+                        </div>
                       </div>
+
                     </div>
+                  {/each}
 
-                      <div class="level-item">
-                          <input class="input" type="number" placeholder="Peak prominance value"
-                            data-tippy="Peak prominace value" bind:value={mass_prominence} on:change={find_masspec_peaks} min="0" step="0.5"/>
-                      </div>
-
-                      <div class="level-item">
-                          <input class="input" type="number" placeholder="Peak width"
-                            data-tippy="Optional: Peak width" bind:value={mass_peak_width} on:change={find_masspec_peaks} min="0" step="0.5"/>
-                      </div>
-
-                      <div class="level-item">
-                          <input class="input" type="number" placeholder="Peak Height"
-                            data-tippy="Optional: Peak Height" bind:value={mass_peak_height} on:change={find_masspec_peaks} min="0" step="0.5"/>
-                      </div>
-
-                      <div class="level-item">
-                          <div class="level-item button is-link hvr-glow funcBtn animated"
-                            id="mass_get_peaks" on:click={find_masspec_peaks} >Get Peaks
-                          </div>
-                      </div>
-
-                      <div class="level-item">
-                          <div class="level-item button is-warning hvr-glow funcBtn animated"
-                            id="mass_clear_peaks" on:click={clear_mass_peaks} data-tippy="Clear all peaks">Clear
-                          </div>
-                      </div>
+                  <div class="level-item" style="margin-top:2em">
+                    <button class="funcBtn button animated is-link" id="depletionSubmit" on:click={depletionPlot}>Submit</button>
                   </div>
+
                 </div>
               </div>
-        {/if}
-      {/if}
 
-      <!-- <hr style="margin: 0.5em 0; background-color:#bdc3c7" /> -->
+              
+          </div>
+        {/if}
+
+        {#if filetag === "mass"}
+          {#if show_nist}
+            <div class="row" id="nist_row">
+              <div class="level">
+                <div class="level-left">
+
+                  <div class="level-item">
+                    <input class="input" type="text" placeholder="Molecule name" 
+                    data-tippy="Enter molecule name" bind:value={nist_mname} on:change="{()=>set_nist_url("by_name")}"/>
+                  </div>
+
+                  <div class="level-item">
+                    <input class="input" type="text" placeholder="Molecule Formula" 
+                    data-tippy="Enter molecule formula" bind:value={nist_mformula} on:change="{()=>set_nist_url("by_formula")}"/>
+                  </div>
+
+                  <div class="level-item">
+                    <button class="button {internet_active}">{internet_connection}</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            {:else}
+                <div class="row" id="mass_peak_find_row" style="display:block; padding-bottom:1em;">
+                  <div class="level">
+                    <div class="level-left">
+
+                      <div class="level-item">
+                        <div class="select">
+                          <select id="massFiles">
+                              {#each fileChecked as file}
+                                <option>{file}</option>
+                              {/each}
+                            </select>
+                        </div>
+                      </div>
+
+                        <div class="level-item">
+                            <input class="input" type="number" placeholder="Peak prominance value"
+                              data-tippy="Peak prominace value" bind:value={mass_prominence} on:change={find_masspec_peaks} min="0" step="0.5"/>
+                        </div>
+
+                        <div class="level-item">
+                            <input class="input" type="number" placeholder="Peak width"
+                              data-tippy="Optional: Peak width" bind:value={mass_peak_width} on:change={find_masspec_peaks} min="0" step="0.5"/>
+                        </div>
+
+                        <div class="level-item">
+                            <input class="input" type="number" placeholder="Peak Height"
+                              data-tippy="Optional: Peak Height" bind:value={mass_peak_height} on:change={find_masspec_peaks} min="0" step="0.5"/>
+                        </div>
+
+                        <div class="level-item">
+                            <div class="level-item button is-link hvr-glow funcBtn animated"
+                              id="mass_get_peaks" on:click={find_masspec_peaks} >Get Peaks
+                            </div>
+                        </div>
+
+                        <div class="level-item">
+                            <div class="level-item button is-warning hvr-glow funcBtn animated"
+                              id="mass_clear_peaks" on:click={clear_mass_peaks} data-tippy="Clear all peaks">Clear
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+          {/if}
+        {/if}
+
+      </div>
 
       <div class="row box plotContainer" id="{filetag}plotMainContainer" >
         
