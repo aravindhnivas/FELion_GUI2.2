@@ -767,13 +767,11 @@
   .funcBtn {
     margin: 0 0.5em;
   }
-
   .section {
     position: fixed;
     width: 100%;
     padding: 0.3rem;
   }
-
   .plotContainer {
     overflow-y: auto;
     width: 97%;
@@ -790,6 +788,24 @@
 
   .button.is-danger {border-color: #ff3860;}
   .button.is-danger:hover, .button.is-danger.is-hovered {background-color: #ff3860;}
+
+  .button.is-static {background: transparent; color: white;}
+
+  /*  */
+
+  /* Input hover, focused colors */
+  .input {
+    background: transparent;
+    color: white;
+  }
+
+  .locationLabel {border-radius: 20px;}
+
+  .input:hover {border-color: #fafafa;}
+  .input:focus {
+    border-color: #fafafa;
+    box-shadow: 0 0 0 0.05em #fafafa;
+  }
 
   .column {max-height: 90vh}
 
@@ -903,19 +919,21 @@
 
               {#if filetag == 'felix'}
                 <div class="level-item">
+                  <span class="select">
+                    <select
+                      id="felixmethod"
+                      bind:value={normMethod}
+                      data-tippy="Normalisation method">
+                      {#each normalisation_method as method}
+                        <option>{method}</option>
+                      {/each}
+                    </select>
+                  </span>
+                </div>
+                <div class="level-item">
                   <div class="field has-addons">
-                    <div class="control">
-                      <span class="select">
-                        <select
-                          id="felixmethod"
-                          bind:value={normMethod}
-                          data-tippy="Normalisation method">
-                          {#each normalisation_method as method}
-                            <option>{method}</option>
-                          {/each}
-                        </select>
-                      </span>
-                    </div>
+                    <div class="control"><div class="button is-static">&Delta (cm-1)</div></div>
+
                     <div class="control">
                       <input
                         class="input"
@@ -926,8 +944,10 @@
                         bind:value={delta}
                         on:change="{(e)=>functionRun(e, "felixPlotBtn")}" />
                     </div>
+                    
                   </div>
                 </div>
+                   
               {/if}
 
               {#if filetag == 'thz'}
