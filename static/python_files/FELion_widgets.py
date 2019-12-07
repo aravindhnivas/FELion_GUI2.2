@@ -7,13 +7,15 @@ from pathlib import Path as pt
 # import tkinter as tk
 
 from tkinter import Frame, IntVar, StringVar, BooleanVar, DoubleVar, Tk, filedialog, END, Text
-from tkinter.ttk import Button, Checkbutton, Label, Entry, Scale, Scrollbar
+from tkinter.ttk import Button, Checkbutton, Label, Entry, Scale, Scrollbar, OptionMenu
 from tkinter.messagebox import showerror, showinfo, showwarning, askokcancel
 
 # Matplotlib
 from matplotlib import style
 import matplotlib.pyplot as plt
-# import mplcursors
+# import matplotlib
+
+# matplotlib.use("TkAgg")
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.backend_bases import key_press_handler
@@ -53,7 +55,7 @@ class FELion_Tk(Tk):
     def __init__(self, title="FELion GUI2", location=".", background="light grey", *args, **kwargs):
         Tk.__init__(self, *args, **kwargs)
 
-        self.location = location
+        self.location = pt(location)
         os.chdir(self.location)
 
         Tk.wm_title(self, title)
@@ -177,7 +179,22 @@ class FELion_Tk(Tk):
         self.widget_frame.txt.place(relx=x, rely=y, anchor="e", relwidth=w, relheight=h)
         return self.widget_frame.txt
 
-    def Figure(self, connect=True, dpi=None, **kw):
+    def Dropdown(self, options, x, y, value=None, **kw):
+        kw = var_check(kw)
+
+        if value is not None: value1 = value
+        else: value1 = options[0]
+        if isinstance(value1, str): self.widget_frame.value1 = StringVar()
+        else: self.widget_frame.value1 = DoubleVar()
+        self.widget_frame.value1.set(value1)
+
+        self.widget_frame.dropdown_options = OptionMenu(self.widget_frame, self.widget_frame.value1, *options)
+        self.widget_frame.dropdown_options.place(relx=x, rely=y, anchor=kw['anchor'], relwidth=kw['relwidth'], relheight=kw['relheight'])
+
+        return self.widget_frame.value1
+
+    def Figure(self, connect=True, dpi=None, default_widget=True , **kw):
+        self.default_widget = default_widget
 
         self.make_figure_widgets()
         if dpi is not None: self.dpi_value.set(dpi)
@@ -212,31 +229,32 @@ class FELion_Tk(Tk):
         y += y_diff
         self.name = self.Entries("Entry", "Plotname", x0, y, bind_return=True, bind_func=self.save_fig, relwidth=0.7)
 
-        # Row 3
-        y += y_diff
-        self.plotTitle = self.Entries("Entry", "Title", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
-        self.titleSz = self.Entries("Entry", 12, x0+x_diff+0.1, y, bind_return=True, bind_func=self.set_figureLabel, relwidth=0.2)
+        if self.default_widget:
+            # Row 3
+            y += y_diff
+            self.plotTitle = self.Entries("Entry", "Title", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
+            self.titleSz = self.Entries("Entry", 12, x0+x_diff+0.1, y, bind_return=True, bind_func=self.set_figureLabel, relwidth=0.2)
 
-        # Row 4
-        y += y_diff
-        self.plotXlabel = self.Entries("Entry", "X-axis", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
-        self.xlabelSz = self.Entries("Entry", 10, x0+x_diff+0.1, y, bind_return=True, bind_func=self.set_figureLabel, relwidth=0.2)
+            # Row 4
+            y += y_diff
+            self.plotXlabel = self.Entries("Entry", "X-axis", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
+            self.xlabelSz = self.Entries("Entry", 10, x0+x_diff+0.1, y, bind_return=True, bind_func=self.set_figureLabel, relwidth=0.2)
 
-        # Row 5
-        y += y_diff
-        self.plotYlabel = self.Entries("Entry", "Y-axis", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
-        self.ylabelSz = self.Entries("Entry", 10, x0+x_diff+0.1, y, bind_return=True, bind_func=self.set_figureLabel, relwidth=0.2)
+            # Row 5
+            y += y_diff
+            self.plotYlabel = self.Entries("Entry", "Y-axis", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
+            self.ylabelSz = self.Entries("Entry", 10, x0+x_diff+0.1, y, bind_return=True, bind_func=self.set_figureLabel, relwidth=0.2)
 
-        # Row 6
-        y += y_diff
-        self.plotFigText = self.Entries("Entry", "Figure 1", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
-        self.figtextFont = self.Entries("Entry", 12, x0+x_diff+0.1, y, bind_return=True, bind_func=self.set_figureLabel, relwidth=0.2)
+            # Row 6
+            y += y_diff
+            self.plotFigText = self.Entries("Entry", "Figure 1", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
+            self.figtextFont = self.Entries("Entry", 12, x0+x_diff+0.1, y, bind_return=True, bind_func=self.set_figureLabel, relwidth=0.2)
 
-        # Row 7
-        y += y_diff
-        self.plotGrid = self.Entries("Check", "Grid", x0, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
-        self.plotLegend = self.Entries("Check", "Lg", x0+x_diff/2, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
-        self.plotYscale = self.Entries("Check", "Ylog", x0+x_diff, y, default=False, bind_btn=True, bind_func=self.set_figureLabel)
+            # Row 7
+            y += y_diff
+            self.plotGrid = self.Entries("Check", "Grid", x0, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
+            self.plotLegend = self.Entries("Check", "Lg", x0+x_diff/2, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
+            self.plotYscale = self.Entries("Check", "Ylog", x0+x_diff, y, default=False, bind_btn=True, bind_func=self.set_figureLabel)
 
         # Row 8
         y += y_diff
@@ -245,7 +263,7 @@ class FELion_Tk(Tk):
         self.save_btn = self.Buttons("Save", x0+0.4, y, self.save_fig)
 
         #  Row 9
-        y += 5*y_diff
+        y = 0.7
         txt = "Write valid any python expression"
         self.code = self.TextBox(txt, 0.8, y, w=0.7, h=0.1, bind_func=self.python_exp) 
 
@@ -278,15 +296,6 @@ class FELion_Tk(Tk):
                 self.codeResult.delete('1.0', END)
                 self.codeResult.insert(END, f"Error Occured:\n{error}")
                 print(f"Error occured while evaluating above code:\n{error}")
-
-    # def set_subplot_position(self, event=None):
-    #     self.fig.subplots_adjust(
-    #         top=self.subplot_top.get(), 
-    #         bottom=self.subplot_bottom.get(), 
-    #         left=self.subplot_left.get(), 
-    #         right=self.subplot_right.get())
-
-    #     self.canvas.draw()
 
     def set_figureLabel(self, event=None):
 
@@ -412,8 +421,12 @@ class FELion_Tk(Tk):
             return self.ax 
         
     def save_fig(self, event=None):
+
         save_fname = f"{self.name.get()}.{self.save_fmt.get()}"
+        print(f"Saving filename: {save_fname}")
+
         save_filename = self.location / save_fname
+        print(f"Saving file: {save_filename}")
 
         def savefig_latex():
             style_path = pt(__file__).parent / "matplolib_styles/styles/science.mplstyle"

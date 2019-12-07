@@ -1,55 +1,126 @@
-from timescan import timescanplot
+
+# Built-In modules
+import os, sys
+from pathlib import Path as pt
 
 # DATA analysis modules
 import numpy as np
 from scipy.optimize import curve_fit
-from uncertainties import ufloat as uf
-from uncertainties import unumpy as unp
+from uncertainties import ufloat as uf, unumpy as unp
 
-# Built-In modules
-import os
-import sys
-from pathlib import Path as pt
-
-# Matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button
 
+# FELion modules
+from FELion_widgets import FELion_Tk
+from timescan import timescanplot
+
 class depletionplot:
     
-    def __init__(self, resOnFile=None, resOffFile=None, power=None, nshots=10, massIndex=0, timeStart=1):
+    def __init__(self, location, resOnFile=None, resOffFile=None, power=None, nshots=10, massIndex=0, timeStart=1):
 
+        self.location = pt(location)
+        self.scanfiles = list(self.location.glob("*.scan"))
         self.resOnFile = resOnFile
         self.resOffFile = resOffFile
 
         self.power = {"resOn": power[0]/1000, "resOff": power[1]/1000} # mJ to J
+
         self.nshots = nshots
         self.massIndex = massIndex
         self.timeStart = timeStart
+        self.widget = FELion_Tk(title="Depletion Plot", location=self.location)
+        self.create_figure()
+        self.startPlotting()
 
-        self.fig, (self.ax0, self.ax1) = plt.subplots(nrows=1, ncols=2)
-        self.canvas = self.fig.canvas
-        self.fig.suptitle("Depletion scan")
+        self.widget.mainloop()
+        
+    def create_figure(self):
+        
+        self.fig, self.canvas = self.widget.Figure(default_widget=False)
+        self.depletion_widgets()
+        self.ax0 = self.fig.add_subplot(121)
+        self.ax1 = self.fig.add_subplot(122)
 
-        self.ax0.set(xlabel="n*t*E (mJ)", ylabel="Counts", title=f"resON[{power[0]}mJ]: {resOnFile.name}, resOFF[{power[1]}mJ]: {resOffFile.name}")
+    def depletion_widgets(self):
 
+        # Position
+        x0, x_diff = 0.1, 0.4
+        y, y_diff = 0.3, 0.05
+
+        # Row1
+
+        self.widget.Labels("ON", x0, y)
+        self.widget.Labels("OFF", x0+x_diff, y)
+
+        # Row2
+
+        y += y_diff
+        scanfiles_name = [name.name for name in self.scanfiles]
+
+        self.widget.resOnList = self.widget.Dropdown(scanfiles_name, x0, y, self.resOnFile.name)
+        self.widget.resOffList = self.widget.Dropdown(scanfiles_name, x0+x_diff, y, self.resOffFile.name)
+
+        # Row 3
+        y += y_diff
+
+        self.new_power = self.widget.Entries("Entry", "21, 21", x0, y)
+        self.new_nshots = self.widget.Entries("Entry", 10, x0+x_diff, y)
+
+        # Row 4
+        y += y_diff
+
+        self.widget.Labels("MassIndex", x0, y)
+        self.widget.Labels("TimeStartIndex", x0+x_diff, y)
+
+        # Row 5
+        y += y_diff
+
+        self.new_massIndex = self.widget.Entries("Entry", 0, x0, y)
+        self.new_timeStart = self.widget.Entries("Entry", 2, x0+x_diff, y)
+
+        # Row 6
+        y += y_diff
+
+        self.submit = self.widget.Buttons("Replot", x0, y, self.replot)
+
+    def replot(self):
+
+        self.ax0.clear()
+        self.ax1.clear()
+
+        self.resOnFile = self.location / self.widget.resOnList.get()
+        self.resOffFile = self.location / self.widget.resOffList.get()
+
+        power = np.asarray(self.new_power.get().split(","), dtype=np.float)
+        self.power = {"resOn": power[0]/1000, "resOff": power[1]/1000} # mJ to J
+
+        self.nshots = self.new_nshots.get()
+        self.massIndex = int(self.new_massIndex.get())
+        self.timeStart = int(self.new_timeStart.get())
+
+        print(f"ON: {self.resOnFile}\nOFF: {self.resOffFile}\nPower: {self.power}\nMassIndex: {self.massIndex}\nTimeStartIndex: {self.timeStart}")
+
+        self.startPlotting(make_slider_widget=False)
+        self.canvas.draw()
+    def startPlotting(self, make_slider_widget=True):
+
+        self.fig.suptitle(f"resON[{power[0]}mJ]: {resOnFile.name}, resOFF[{power[1]}mJ]: {resOffFile.name}")
+        self.ax0.set(xlabel="n*t*E (mJ)", ylabel="Counts", title="Res ON-OFF scan")
         self.ax1.set(xlabel="n*t*E (mJ)", ylabel="Relative abundace of active isomer", title="$D(t)=A*(1-e^{-K_{ON}*(ntE)})$")
+        for ax in (self.ax0, self.ax1): ax.grid()
+        self.fig.subplots_adjust(top=0.92, bottom=0.3)
 
+        # Get timescan details
         self.get_timescan_data()
 
+        # Fitt resOff and resOn
         Koff, N = self.resOff_fit()
         Na0, Nn0, Kon = self.resOn_fit(Koff, N)
-        self.make_slider(Koff, Kon, N, Na0, Nn0)
 
-        
+        if make_slider_widget: self.make_slider(Koff, Kon, N, Na0, Nn0)
+
         self.runFit(Koff, Kon, N, Na0, Nn0)
-
-        for ax in (self.ax0, self.ax1): ax.grid()
-
-        plt.subplots_adjust(top=0.92, bottom=0.2)
-
-        plt.show()
-        plt.close()
 
     def runFit(self, Koff, Kon, N, Na0, Nn0, plot=True):
         
@@ -71,37 +142,29 @@ class depletionplot:
     def make_slider(self, Koff, Kon, N, Na0, Nn0):
         axcolor = 'lightgoldenrodyellow'
 
-        l = 0.1
-        koff_g = self.fig.add_axes([l, 0.12, 0.2, 0.015], facecolor=axcolor) # [left, bottom, width, height]
-        n_g = self.fig.add_axes([l, 0.10, 0.2, 0.015], facecolor=axcolor)
-        kon_g = self.fig.add_axes([l, 0.08, 0.2, 0.015], facecolor=axcolor)
-        na_g = self.fig.add_axes([l, 0.06, 0.2, 0.015], facecolor=axcolor)
-        nn_g = self.fig.add_axes([l, 0.04, 0.2, 0.015], facecolor=axcolor)
+        left = 0.1
+        height = 0.015
+        width = 0.2
 
-        self.koff_slider = Slider(koff_g, '$K_{OFF}$', 0, Koff*10, valinit=Koff)
-        self.n_slider = Slider(n_g, 'N', 0, N*10, valinit=N)
-        self.kon_slider = Slider(kon_g, '$K_{ON}$', 0, Kon*10, valinit=Kon)
-        self.na_slider = Slider(na_g, '$Na_0$', 0, 10*Na0, valinit=Na0)
-        self.nn_slider = Slider(nn_g, '$Nn_0$', 0, 10*Nn0, valinit=Nn0)
+        bottom = 0.2
+        diff = 0.02
+        self.koff_g = self.fig.add_axes([left, bottom, width, height], facecolor=axcolor) # [left, bottom, width, height]
+        self.n_g = self.fig.add_axes([left, bottom-diff, width, height], facecolor=axcolor)
+        self.kon_g = self.fig.add_axes([left, bottom-2*diff, width, height], facecolor=axcolor)
+        self.na_g = self.fig.add_axes([left, bottom-3*diff, width, height], facecolor=axcolor)
+        self.nn_g = self.fig.add_axes([left, bottom-4*diff, width, height], facecolor=axcolor)
+
+        self.koff_slider = Slider(self.koff_g, '$K_{OFF}$', 0, Koff*10, valinit=Koff)
+        self.n_slider = Slider(self.n_g, 'N', 0, N*10, valinit=N)
+        self.kon_slider = Slider(self.kon_g, '$K_{ON}$', 0, Kon*10, valinit=Kon)
+        self.na_slider = Slider(self.na_g, '$Na_0$', 0, 10*Na0, valinit=Na0)
+        self.nn_slider = Slider(self.nn_g, '$Nn_0$', 0, 10*Nn0, valinit=Nn0)
 
         self.koff_slider.on_changed(self.update)
         self.n_slider.on_changed(self.update)
         self.kon_slider.on_changed(self.update)
         self.na_slider.on_changed(self.update)
         self.nn_slider.on_changed(self.update)
-
-        resetax = plt.axes([0.4, 0.01, 0.1, 0.04])
-        button = Button(resetax, 'Reset', color=axcolor, hovercolor='0.975')
-        button.on_clicked(self.reset)
-
-
-    def reset(self, event):
-        self.koff_slider.reset()
-        self.n_slider.reset()
-        self.kon_slider.reset()
-        self.na_slider.reset()
-        self.nn_slider.reset()
-    
 
     def update(self, event):
 
@@ -256,11 +319,9 @@ class depletionplot:
             self.fit_plot, = self.ax1.plot(self.fitX, self.depletion_fitted)
             self.relativeFit_plot, = self.ax1.plot(self.fitX, self.relative_abundance)
         
-        
 if __name__ == "__main__":
 
     args = sys.argv[1:][0].split(",")
-    # print(args)
 
     location = args[0]
 
@@ -275,4 +336,4 @@ if __name__ == "__main__":
     print(f'Location: {location}\nON: {resOnFile}\nOFF: {resOffFile}\npower: {power} {type(power)}\nshots: {nshots} {type(nshots)}')
     print(f"MassIndex: {massIndex}\nTimeIndex: {TimeIndex}")
 
-    depletionplot(resOnFile, resOffFile, power, nshots, massIndex, TimeIndex)
+    depletionplot(location, resOnFile, resOffFile, power, nshots, massIndex, TimeIndex)
