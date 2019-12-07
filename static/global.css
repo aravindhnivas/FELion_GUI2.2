@@ -19,10 +19,6 @@ body::-webkit-scrollbar {
 	color: #fafafa !important;
 }
 
-.subtitle {
-	color: #b5b5b5 !important;
-}
-
 /* Scrollbar */
 ::-webkit-scrollbar {
 	width: 10px;

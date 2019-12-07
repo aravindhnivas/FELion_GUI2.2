@@ -135,14 +135,13 @@ class program {
             } else { resolve(`Filecheck completed: ${this.filetype} files`) }
         })
     }
-
     run() {
 
         return new Promise((resolve, reject) => {
-
             if (this.filetype == "general") {
                 let shell_value = document.getElementById(this.obj.filetag + "_shell").checked
 
+                console.log("Sending general arguments: ", this.files.concat(this.args))
                 const py = spawn(
                     localStorage["pythonpath"],
                     ["-i", path.join(localStorage["pythonscript"], this.pyfile), this.files.concat(this.args)],
@@ -303,8 +302,8 @@ class program {
                             }
                             Plotly.relayout("thzplot_Container", layout_update)
                         }
-                        else if (this.filetype == "depletion") { console.log('Graph plotted') }
-                        else if (this.filetype == "norm_tkplot") { console.log('Graph plotted') }
+                        // else if (this.filetype == "depletion") { console.log('Graph plotted') }
+                        // else if (this.filetype == "norm_tkplot") { console.log('Graph plotted') }
                         else if (this.filetype == "exp_fit") {
 
                             // window.index = []

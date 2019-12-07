@@ -422,7 +422,6 @@
           .then((output)=>{
             console.log(output)
           })
-          
           .catch((err)=>{
             console.log('Error Occured', err); 
             error_msg[filetag]=err; 
@@ -430,18 +429,13 @@
           })
       break;
 
-
-      ////////////// Toggle buttons //////////////////////
-
       case "theoryBtn": 
         jq("#theoryRow").toggle()
+
       break;
 
       case "depletionscanBtn":
-        // depletionPlot()
         jq("#depletionRow").toggle()
-        // document.getElementById("depletionscanBtn").classList.add("bounce")
-
       break;
 
       ////////////////////////////////////////////////////
@@ -497,8 +491,20 @@
     }
   ]
   const depletionPlot = async () => {
+    runPlot({
+      fullfiles: [currentLocation], filetype: "general", filetag:"scan",
+      btname: "depletionSubmit", pyfile: "depletionscan.py", 
+      args: [jq(ResON).val(), jq(ResOFF).val(), ...powerinfo.split(",").map(pow=>parseFloat(pow)), nshots, massIndex, timestartIndex] 
+    })
+    .then((output)=>{console.log(output)})
+    .catch((err)=>{
+      console.log('Error Occured', err); 
+      error_msg["scan"]=err; 
+      modal["scan"]="is-active"
+    })
 
-    // let port = 8501
+  /* Streamlit depletion */
+  // let port = 8501
     // let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py")
     // let pyDir = path.dirname(localStorage["pythonpath"])
     // let streamlit_path = path.resolve(pyDir, "Scripts", "streamlit")
@@ -525,18 +531,6 @@
 
     // let localhostDepletion = `http://localhost:${port}`
     // setTimeout(()=>window.open(localhostDepletion), 1000)
-
-    runPlot({
-      fullfiles: [currentLocation], filetype: "depletion",
-      btname: "depletionSubmit", pyfile: "depletionscan.py", 
-      args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] 
-    })
-    .then((output)=>{console.log(output)})
-    .catch((err)=>{
-      console.log('Error Occured', err); 
-      error_msg["scan"]=err; 
-      modal["scan"]="is-active"
-    })
   }
 
   // Experimental fit (gaussian)
@@ -825,6 +819,9 @@
     margin: 0 10rem;
     background-color: #594194;
   }
+
+  .subtitle {color: #fafafa;}
+
 </style>
 
 <section class="section" {id} {style}>
