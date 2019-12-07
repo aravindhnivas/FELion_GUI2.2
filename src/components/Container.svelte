@@ -767,10 +767,10 @@
     width: 97%;
   }
 
-  #theoryContainer {
+  /* #theoryContainer {
     margin-left: 20%;
     margin-right:20%;
-  }
+  } */
 
   .column {max-height: 90vh}
 
@@ -969,19 +969,31 @@
 
         {#if filetag=="felix"}
           <div class="row" id="theoryRow" style="display:none; padding-bottom:1em">
-              <div class="container is-marginless" id="theoryContainer">
-                <div class="field">
-                  <label class="label" id="theorylabel">
-                    <h1 class="subtitle" id="theoryfilename">{theoryfilenames}</h1>
-                  </label>
-                  <div class="control">
-                      <button class="button is-warning" on:click={opentheory}>Choose file</button>
-                      <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
-                      <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
-                      <button class="funcBtn button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
-                      <button class="funcBtn button is-link animated" on:click="{()=>runtheory({tkplot:"plot", filetype:"general"})}" id="theory_Matplotlib">Open in Matplotlib</button>
+              <div class="level " id="theoryContainer">
+                  <div class="level-left">
+
+                    <div class="level-item">
+                      <div class="control">
+                        <div class="select">
+                          <select>
+                              {#each theoryfilenames as theoryfile}
+                                  <option value={theoryfile}>{theoryfile}</option>
+                              {/each}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="level-item">
+                      <div class="control">
+                          <button class="button is-warning" on:click={opentheory}>Choose file</button>
+                          <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
+                          <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
+                          <button class="funcBtn button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
+                          <button class="funcBtn button is-link animated" on:click="{()=>runtheory({tkplot:"plot", filetype:"general"})}" id="theory_Matplotlib">Open in Matplotlib</button>
+                      </div>
+                    </div>
                   </div>
-                </div>
               </div>
           </div>
         {/if}
