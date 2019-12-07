@@ -30,7 +30,7 @@
       }
     });
   };
-
+  
 </script>
 
 <style>
@@ -43,22 +43,33 @@
   }
 
   .section {padding: 0.3rem}
+
+  .tabs.is-medium {
+    font-weight: lighter;
+    font-size: 1.1rem;
+  }
+  .tabs {background: transparent}
+  .tabs.is-boxed a {border-radius: 20px;}
+
+  .tabs ul {
+    border-bottom-style: none;
+  }
+  .tabs.is-boxed li.is-active a {
+    border-color:transparent;
+    background-color: #6046a0fc;
+  }
+  .tabs.is-boxed a:hover {background-color: #6046a0fc;}
+  
+  #Navbar {background-color: #4a3284;}
+
+
 </style>
 
 <!-- Navigation Bar -->
 
-<section class="section animated fadeInDown" id="Navbar" style="display:none">
+<section class="section box animated fadeInDown" id="Navbar" style="display:none">
   <div class="container is-fluid">
     <div class="tabs is-centered is-boxed is-medium">
-      <!-- <span
-        class="icon is-pulled-left"
-        on:click={toggleRow} id="fullToggle"
-        >
-        <i
-          class="fas fa-bars fa-2x"
-          style="padding:0.5em;"
-          aria-hidden="true" data-tippy="Show/Hide layout" data-tippy-placement="right-start" data-tippy-arrow="true"/>
-      </span> -->
       
       <ul>
         {#each navItems as item}

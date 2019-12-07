@@ -857,7 +857,7 @@ function get_each_context(ctx, list, i) {
 	return child_ctx;
 }
 
-// (69:10) {:else}
+// (80:10) {:else}
 function create_else_block(ctx) {
 	var li, a, t0_value = ctx.item + "", t0, t1, li_id_value, dispose;
 
@@ -867,8 +867,9 @@ function create_else_block(ctx) {
 			a = element("a");
 			t0 = text(t0_value);
 			t1 = space();
+			attr(a, "class", "svelte-1en497i");
 			attr(li, "id", li_id_value = "" + ctx.item + "-nav");
-			attr(li, "class", "svelte-1pt005q");
+			attr(li, "class", "svelte-1en497i");
 			dispose = listen(a, "click", ctx.controlNav);
 		},
 
@@ -899,7 +900,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (65:10) {#if item == 'Welcome'}
+// (76:10) {#if item == 'Welcome'}
 function create_if_block(ctx) {
 	var li, a, t0_value = ctx.item + "", t0, t1, li_id_value, dispose;
 
@@ -909,7 +910,8 @@ function create_if_block(ctx) {
 			a = element("a");
 			t0 = text(t0_value);
 			t1 = space();
-			attr(li, "class", "is-active svelte-1pt005q");
+			attr(a, "class", "svelte-1en497i");
+			attr(li, "class", "is-active svelte-1en497i");
 			attr(li, "id", li_id_value = "" + ctx.item + "-nav");
 			dispose = listen(a, "click", ctx.controlNav);
 		},
@@ -941,7 +943,7 @@ function create_if_block(ctx) {
 	};
 }
 
-// (64:8) {#each navItems as item}
+// (75:8) {#each navItems as item}
 function create_each_block(ctx) {
 	var if_block_anchor;
 
@@ -1008,9 +1010,10 @@ function create_fragment$1(ctx) {
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
-			attr(div0, "class", "tabs is-centered is-boxed is-medium");
+			attr(ul, "class", "svelte-1en497i");
+			attr(div0, "class", "tabs is-centered is-boxed is-medium svelte-1en497i");
 			attr(div1, "class", "container is-fluid");
-			attr(section, "class", "section animated fadeInDown svelte-1pt005q");
+			attr(section, "class", "section box animated fadeInDown svelte-1en497i");
 			attr(section, "id", "Navbar");
 			set_style(section, "display", "none");
 		},
