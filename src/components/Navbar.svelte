@@ -58,7 +58,7 @@
     border-color:transparent;
     background-color: #6046a0fc;
   }
-  .tabs.is-boxed a:hover {background-color: #6046a0fc;}
+  .tabs.is-boxed a:hover {border: 1px solid white}
   
   #Navbar {
 

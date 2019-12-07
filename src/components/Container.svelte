@@ -779,15 +779,23 @@
     width: 97%;
   }
 
-  /* #theoryContainer {
-    margin-left: 20%;
-    margin-right:20%;
-  } */
+  /* Buttons:  border, background and hovering colors */
+  .button.is-link, .button.is-warning, .button.is-danger {background-color: rgba(0,0,0,0);}
+
+  .button.is-link {border-color: #dbdbdb;}
+  .button.is-link:hover, .button.is-link.is-hovered {background-color: #7a64b1;}
+
+  .button.is-warning {border-color: #ffc402; color: white;}
+  .button.is-warning:hover, .button.is-warning.is-hovered {background-color: #7a64b1;}
+
+  .button.is-danger {border-color: #ff3860;}
+  .button.is-danger:hover, .button.is-danger.is-hovered {background-color: #ff3860;}
 
   .column {max-height: 90vh}
 
   .delete:hover {background-color:#ff3860}
   .filebrowserColumn {width: 14%!important}
+
   @media only screen
   and (max-width: 1400px) {
     .filebrowserColumn {width: 20%!important}
@@ -853,12 +861,7 @@
                 data-tippy="Current Location"/>
             </div>
             <div class="control">
-              <div
-                class="button is-dark"
-                on:click={browseFile}
-                data-tippy="Browse {filetag} file">
-                Browse
-              </div>
+              <div class="button is-link" on:click={browseFile}>Browse</div>
             </div>
           </div>
 
@@ -998,7 +1001,7 @@
 
                     <div class="level-item">
                       <div class="control">
-                          <button class="button is-warning" on:click={opentheory}>Choose file</button>
+                          <button class="button is-link" on:click={opentheory}>Choose file</button>
                           <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
                           <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
                           <button class="funcBtn button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
@@ -1130,7 +1133,7 @@
                   </div>
 
                   <div class="level-item">
-                      <div class="level-item button is-warning hvr-glow funcBtn animated"
+                      <div class="level-item button is-danger hvr-glow funcBtn animated"
                         id="mass_clear_peaks" on:click={clear_mass_peaks} data-tippy="Clear all peaks">Clear
                       </div>
                   </div>
