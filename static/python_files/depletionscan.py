@@ -100,8 +100,8 @@ class depletionplot:
 
         # Row 7
         y += y_diff
-        self.new_massIndex = self.widget.Entries("Entry", self.massIndex, x0, y)
-        self.new_timeStart = self.widget.Entries("Entry", self.timeStart, x0+x_diff, y)
+        self.new_massIndex = self.widget.Entries("Entry", self.massIndex, x0, y, bind_return=True, bind_func=self.replot)
+        self.new_timeStart = self.widget.Entries("Entry", self.timeStart, x0+x_diff, y, bind_return=True, bind_func=self.replot)
 
         # Row 8
         y += y_diff
@@ -109,56 +109,58 @@ class depletionplot:
         self.submit = self.widget.Buttons("Replot", x0, y, self.replot)
 
         # Row 9
-
         y += y_diff
 
         self.latex = self.widget.Entries("Check", "Latex", x0, y)
         self.save_fig = self.widget.Buttons("Save", x0+x_diff, y, self.savefig)
 
-    def replot(self):
+    def replot(self, event=None):
 
         self.ax0.clear()
         self.ax1.clear()
 
         self.resOnFile = self.location / self.widget.resOnList.get()
         self.resOffFile = self.location / self.widget.resOffList.get()
-
+        
         power = np.asarray(self.new_power.get().split(","), dtype=np.float)
         self.power = {"resOn": power[0]/1000, "resOff": power[1]/1000} # mJ to J
 
         self.nshots = self.new_nshots.get()
         self.massIndex = int(self.new_massIndex.get())
         self.timeStart = int(self.new_timeStart.get())
-
+        
         print(f"ON: {self.resOnFile}\nOFF: {self.resOffFile}\nPower: {self.power}\nMassIndex: {self.massIndex}\nTimeStartIndex: {self.timeStart}")
-
+        
         self.startPlotting(make_slider_widget=False)
         self.canvas.draw()
 
     def startPlotting(self, make_slider_widget=True):
 
-        self.ax0.set(xlabel="n*t*E (mJ)", ylabel="Counts", title="Res ON-OFF scan")
-        self.ax1.set(xlabel="n*t*E (mJ)", ylabel="Relative abundace of active isomer", title="$D(t)=A*(1-e^{-K_{ON}*(ntE)})$")
-        for ax in (self.ax0, self.ax1): ax.grid()
+        try:
+            self.ax0.set(xlabel="n*t*E (mJ)", ylabel="Counts", title="Res ON-OFF scan")
+            self.ax1.set(xlabel="n*t*E (mJ)", ylabel="Relative abundace of active isomer", title="$D(t)=A*(1-e^{-K_{ON}*(ntE)})$")
+            for ax in (self.ax0, self.ax1): ax.grid()
+            
+            # Get timescan details
+            self.get_timescan_data()
+
+            # Fitt resOff and resOn
+            Koff, N = self.resOff_fit()
+            Na0, Nn0, Kon = self.resOn_fit(Koff, N)
+
+            # if make_slider_widget: self.make_slider(Koff, Kon, N, Na0, Nn0)
+            if make_slider_widget: self.depletion_widgets(Koff, Kon, N, Na0, Nn0)
+            else:
+                self.widget.koff_slider.set(Koff)
+                self.widget.n_slider.set(N)
+                self.widget.kon_slider.set(Kon)
+                self.widget.na_slider.set(Na0)
+                self.widget.nn_slider.set(Nn0)
+            
+            self.runFit(Koff, Kon, N, Na0, Nn0)
         
-        # Get timescan details
-        self.get_timescan_data()
-
-        # Fitt resOff and resOn
-        Koff, N = self.resOff_fit()
-        Na0, Nn0, Kon = self.resOn_fit(Koff, N)
-
-        # if make_slider_widget: self.make_slider(Koff, Kon, N, Na0, Nn0)
-        if make_slider_widget: self.depletion_widgets(Koff, Kon, N, Na0, Nn0)
-        else:
-            self.widget.koff_slider.set(Koff)
-            self.widget.n_slider.set(N)
-            self.widget.kon_slider.set(Kon)
-            self.widget.na_slider.set(Na0)
-            self.widget.nn_slider.set(Nn0)
-        
-        self.runFit(Koff, Kon, N, Na0, Nn0)
-
+        except Exception as error:
+            showerror("Error occured", error)
     def runFit(self, Koff, Kon, N, Na0, Nn0, plot=True):
         
         uKoff = uf(Koff, self.Koff_err)
@@ -176,7 +178,7 @@ class depletionplot:
 
         self.ax1.legend(["Fitted", f"A: {self.uA:.3uP}", "Experiment"])
     
-    def update(self, event):
+    def update(self, event=None):
 
         Koff = self.widget.koff_slider.get()
         Kon = self.widget.kon_slider.get()
@@ -194,6 +196,7 @@ class depletionplot:
         self.canvas.draw_idle()
 
     def savefig(self):
+
         try:
             if not self.latex.get():
                 save_name = f"{self.widget.name.get()}.png"
