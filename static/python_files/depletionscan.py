@@ -210,11 +210,13 @@ class depletionplot:
         style_path = pt(__file__).parent / "matplolib_styles/styles/science.mplstyle"
         with plt.style.context([f"{style_path}"]):
 
-            fig, (ax0, ax1) = plt.subplots(nrows=1, ncols=2)
+            fig, ax0 = plt.subplots()
+            fig2, ax1 = plt.subplots()
             ax0.set(xlabel="n*t*E (mJ)", ylabel="Counts", title="Res ON-OFF scan")
             ax1.set(xlabel="n*t*E (mJ)", ylabel="Relative abundace of active isomer", title="$D(t)=A*(1-e^{-K_{ON}*(ntE)})$")
 
-            for ax in (ax0, ax1): ax.grid()
+            ax0.grid()
+            ax1.grid()
 
             for index, fitY, i in zip(["resOn", "resOff"], [self.fitOn, self.fitOff], [0, 1]):
                 ax0.errorbar(self.power[index], self.counts[index], yerr=self.error[index], fmt=f"C{i}.")
@@ -223,17 +225,18 @@ class depletionplot:
             ax1.errorbar(self.power["resOn"], self.depletion_exp, yerr=self.depletion_exp_err, fmt="k.")
             ax1.plot(self.fitX, self.depletion_fitted)
             ax1.plot(self.fitX, self.relative_abundance)
+            ax0.legend(labels=["ResON", "ResOFF"], title=f"Mass: {self.mass[0]}u, Res: {self.t_res}V, B0: {self.t_b0}ms")
+            ax1.legend(["Fitted", f"A: {self.uA:.3f}", "Experiment"])
 
-
-            ax0.legend(labels=[self.lg1, self.lg2], title=f"Mass: {self.mass[0]}u, Res: {self.t_res}V, B0: {self.t_b0}ms")
-            ax1.legend(["Fitted", f"A: {self.uA:.3uP}", "Experiment"])
-
-            save_name = f"{self.widget.name.get()}.png"
+            save_name = f"{self.widget.name.get()}_timescan.png"
+            save_name2 = f"{self.widget.name.get()}_depletion.png"
             save_file = self.location / save_name
+            save_file2 = self.location / save_name2
 
             fig.savefig(save_file, dpi=self.widget.dpi_value.get()*3)
+            fig2.savefig(save_file2, dpi=self.widget.dpi_value.get()*3)
 
-            showinfo("Saved", f"File saved: {save_name} in {self.location}")
+            showinfo("Saved", f"File saved: {save_name} and {save_name2} \nin {self.location}")
 
     def get_timescan_data(self):
 
