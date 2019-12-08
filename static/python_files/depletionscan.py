@@ -41,19 +41,33 @@ class depletionplot:
         
     def create_figure(self):
         
-        self.fig, self.canvas = self.widget.Figure(default_widget=False)
+        self.fig, self.canvas = self.widget.Figure(default_widget=False, dpi=200)
         self.fig.suptitle("Depletion Scan")
-        self.fig.subplots_adjust(top=0.86, bottom=0.14)
+        self.fig.subplots_adjust(top=0.86, bottom=0.14, right=0.97, wspace=0.34)
         self.ax0 = self.fig.add_subplot(121)
         self.ax1 = self.fig.add_subplot(122)
 
-    def change_title(self, event): 
-        
+    def change_title(self, event=None): 
         self.fig.suptitle(self.widget.plotTitle.get())
         self.canvas.draw()
 
-    def depletion_widgets(self, Koff, Kon, N, Na0, Nn0):
+    def change_grid(self, event=None):
+        self.ax0.grid(not self.grid.get())
+        self.ax1.grid(not self.grid.get())
+        self.canvas.draw()
 
+    def change_legend(self, event=None):
+        self.ax0.legend().set_visible(not self.plotlegend.get())
+        self.ax1.legend().set_visible(not self.plotlegend.get())
+
+        if not self.plotlegend.get():
+
+            self.ax1.legend(["Fitted", f"A: {self.uA:.3uP}", "Experiment"], fontsize=5, title_fontsize=7)
+            self.ax0.legend(labels=[self.lg1, self.lg2], title=f"Mass: {self.mass[0]}u, Res: {self.t_res}V, B0: {self.t_b0}ms", fontsize=5, title_fontsize=7)
+
+        self.canvas.draw()
+
+    def depletion_widgets(self, Koff, Kon, N, Na0, Nn0):
         # Position
 
         x0, x_diff = 0.1, 0.4
@@ -111,6 +125,12 @@ class depletionplot:
         # Row 9
         y += y_diff
 
+        self.plotlegend = self.widget.Entries("Check", "Legend", x0, y, default=True, bind_btn=True, bind_func = self.change_legend)
+        self.grid = self.widget.Entries("Check", "Grid", x0+x_diff, y, default=True, bind_btn=True, bind_func = self.change_grid)
+        
+        # Row 10
+        
+        y += y_diff
         self.latex = self.widget.Entries("Check", "Latex", x0, y)
         self.save_fig = self.widget.Buttons("Save", x0+x_diff, y, self.savefig)
 
@@ -159,8 +179,8 @@ class depletionplot:
             
             self.runFit(Koff, Kon, N, Na0, Nn0)
         
-        except Exception as error:
-            showerror("Error occured", error)
+        except Exception as error: showerror("Error occured", error)
+    
     def runFit(self, Koff, Kon, N, Na0, Nn0, plot=True):
         
         uKoff = uf(Koff, self.Koff_err)
@@ -168,15 +188,14 @@ class depletionplot:
         uNa0 = uf(Na0, self.Na0_err)
         uNn0 = uf(Nn0, self.Nn0_err)
         uKon = uf(Kon, self.Kon_err)
-
         self.lg1 = f"Kon: {uKon:.2uP}, Na: {uNa0:.2uP}, Nn: {uNn0:.2uP}"
         self.lg2 = f"Koff: {uKoff:.2uP}, N: {uN:.2uP}"
-        self.ax0.legend(labels=[self.lg1, self.lg2], title=f"Mass: {self.mass[0]}u, Res: {self.t_res}V, B0: {self.t_b0}ms")
 
+        self.ax0.legend(labels=[self.lg1, self.lg2], title=f"Mass: {self.mass[0]}u, Res: {self.t_res}V, B0: {self.t_b0}ms", fontsize=5, title_fontsize=7)
         self.get_depletion_fit(Koff, N, uKoff, uN, Na0, Nn0, Kon, uNa0, uNn0, uKon, plot)
         self.get_relative_abundance_fit(plot)
 
-        self.ax1.legend(["Fitted", f"A: {self.uA:.3uP}", "Experiment"])
+        self.ax1.legend(["Fitted", f"A: {self.uA:.3uP}", "Experiment"], fontsize=5, title_fontsize=7)
     
     def update(self, event=None):
 
