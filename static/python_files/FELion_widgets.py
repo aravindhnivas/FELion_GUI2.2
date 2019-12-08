@@ -84,7 +84,7 @@ class FELion_Tk(Tk):
         self.widget_frame.value.set(value)
 
         self.widget_frame.scale = Scale(
-            self.widget_frame, variable=self.widget_frame.value, from_=0, to=1, orient=kw["slider_orient"])
+            self.widget_frame, variable=self.widget_frame.value, from_=0, to=value*10, orient=kw["slider_orient"])
 
         self.widget_frame.scale.bind("<ButtonRelease-1>", bind_func)
         self.widget_frame.scale.place(
@@ -230,6 +230,7 @@ class FELion_Tk(Tk):
         self.name = self.Entries("Entry", "Plotname", x0, y, bind_return=True, bind_func=self.save_fig, relwidth=0.7)
 
         if self.default_widget:
+
             # Row 3
             y += y_diff
             self.plotTitle = self.Entries("Entry", "Title", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
@@ -256,21 +257,21 @@ class FELion_Tk(Tk):
             self.plotLegend = self.Entries("Check", "Lg", x0+x_diff/2, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
             self.plotYscale = self.Entries("Check", "Ylog", x0+x_diff, y, default=False, bind_btn=True, bind_func=self.set_figureLabel)
 
-        # Row 8
-        y += y_diff
-        self.latex = self.Entries("Check", "LaTex", x0, y, default=False, relwidth=0.2)
-        self.save_fmt = self.Entries("Entry", "png", x0+0.2, y+0.02, relwidth=0.2)
-        self.save_btn = self.Buttons("Save", x0+0.4, y, self.save_fig)
+            # Row 8
+            y += y_diff
+            self.latex = self.Entries("Check", "LaTex", x0, y, default=False, relwidth=0.2)
+            self.save_fmt = self.Entries("Entry", "png", x0+0.2, y+0.02, relwidth=0.2)
+            self.save_btn = self.Buttons("Save", x0+0.4, y, self.save_fig)
 
-        #  Row 9
-        y = 0.7
-        txt = "Write valid any python expression"
-        self.code = self.TextBox(txt, 0.8, y, w=0.7, h=0.1, bind_func=self.python_exp) 
+            #  Row 9
+            y = 0.7
+            txt = "Write valid any python expression"
+            self.code = self.TextBox(txt, 0.8, y, w=0.7, h=0.1, bind_func=self.python_exp) 
 
-        #  Row 10
-        y += y_diff
-        self.runCode = self.Buttons("RunCode", x0, y, self.python_exp)
-        self.codeResult = self.TextBox("Result", 0.8, y+y_diff+0.04, w=0.7, h=0.09) 
+            #  Row 10
+            y += y_diff
+            self.runCode = self.Buttons("RunCode", x0, y, self.python_exp)
+            self.codeResult = self.TextBox("Result", 0.8, y+y_diff+0.04, w=0.7, h=0.09) 
 
     def python_exp(self, event=None):
 
