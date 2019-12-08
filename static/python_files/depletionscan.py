@@ -38,48 +38,71 @@ class depletionplot:
     def create_figure(self):
         
         self.fig, self.canvas = self.widget.Figure(default_widget=False)
-        self.depletion_widgets()
+        self.fig.suptitle("Depletion Scan")
+        self.fig.subplots_adjust(top=0.86, bottom=0.14)
         self.ax0 = self.fig.add_subplot(121)
         self.ax1 = self.fig.add_subplot(122)
 
-    def depletion_widgets(self):
+    def change_title(self, event): 
+        
+        self.fig.suptitle(self.widget.plotTitle.get())
+        self.canvas.draw()
+
+    def depletion_widgets(self, Koff, Kon, N, Na0, Nn0):
 
         # Position
-        x0, x_diff = 0.1, 0.4
-        y, y_diff = 0.3, 0.05
 
-        # Row1
+        x0, x_diff = 0.1, 0.4
+        y, y_diff = 0.16, 0.05
+
+        # Row 1
+        self.widget.plotTitle = self.widget.Entries("Entry", "Depletion Scan", x0, y, bind_key=True, bind_func=self.change_title, relwidth=0.7)
+
+        # Row 2
+        y += y_diff
+
+        self.widget.koff_slider = self.widget.Sliders("Koff", Koff, x0, y, self.update, relwidth=0.5)
+        self.widget.n_slider = self.widget.Sliders("N", N, x0, y+y_diff, self.update, relwidth=0.5)
+        self.widget.kon_slider = self.widget.Sliders("Kon", Kon, x0, y+2*y_diff, self.update, relwidth=0.5)
+        self.widget.na_slider = self.widget.Sliders("Na", Na0, x0, y+3*y_diff, self.update, relwidth=0.5)
+        self.widget.nn_slider = self.widget.Sliders("Nn", Nn0, x0, y+4*y_diff, self.update, relwidth=0.5)
+
+        # Row 3
+        y += 6*y_diff
 
         self.widget.Labels("ON", x0, y)
         self.widget.Labels("OFF", x0+x_diff, y)
 
-        # Row2
+        # Row 4
 
         y += y_diff
         scanfiles_name = [name.name for name in self.scanfiles]
 
-        self.widget.resOnList = self.widget.Dropdown(scanfiles_name, x0, y, self.resOnFile.name)
-        self.widget.resOffList = self.widget.Dropdown(scanfiles_name, x0+x_diff, y, self.resOffFile.name)
+        self.widget.resOnList = self.widget.Dropdown(scanfiles_name, x0, y)
+        self.widget.resOnList.set(self.resOnFile.name)
+        
+        self.widget.resOffList = self.widget.Dropdown(scanfiles_name, x0+x_diff, y)
+        self.widget.resOffList.set(self.resOffFile.name)
 
-        # Row 3
+        # Row 5
         y += y_diff
 
         self.new_power = self.widget.Entries("Entry", "21, 21", x0, y)
         self.new_nshots = self.widget.Entries("Entry", 10, x0+x_diff, y)
 
-        # Row 4
+        # Row 6
         y += y_diff
 
         self.widget.Labels("MassIndex", x0, y)
         self.widget.Labels("TimeStartIndex", x0+x_diff, y)
 
-        # Row 5
+        # Row 7
         y += y_diff
 
-        self.new_massIndex = self.widget.Entries("Entry", 0, x0, y)
-        self.new_timeStart = self.widget.Entries("Entry", 2, x0+x_diff, y)
+        self.new_massIndex = self.widget.Entries("Entry", self.massIndex, x0, y)
+        self.new_timeStart = self.widget.Entries("Entry", self.timeStart, x0+x_diff, y)
 
-        # Row 6
+        # Row 8
         y += y_diff
 
         self.submit = self.widget.Buttons("Replot", x0, y, self.replot)
@@ -103,13 +126,13 @@ class depletionplot:
 
         self.startPlotting(make_slider_widget=False)
         self.canvas.draw()
+
     def startPlotting(self, make_slider_widget=True):
 
-        self.fig.suptitle(f"resON[{power[0]}mJ]: {resOnFile.name}, resOFF[{power[1]}mJ]: {resOffFile.name}")
         self.ax0.set(xlabel="n*t*E (mJ)", ylabel="Counts", title="Res ON-OFF scan")
         self.ax1.set(xlabel="n*t*E (mJ)", ylabel="Relative abundace of active isomer", title="$D(t)=A*(1-e^{-K_{ON}*(ntE)})$")
         for ax in (self.ax0, self.ax1): ax.grid()
-        self.fig.subplots_adjust(top=0.92, bottom=0.3)
+        
 
         # Get timescan details
         self.get_timescan_data()
@@ -118,8 +141,15 @@ class depletionplot:
         Koff, N = self.resOff_fit()
         Na0, Nn0, Kon = self.resOn_fit(Koff, N)
 
-        if make_slider_widget: self.make_slider(Koff, Kon, N, Na0, Nn0)
-
+        # if make_slider_widget: self.make_slider(Koff, Kon, N, Na0, Nn0)
+        if make_slider_widget: self.depletion_widgets(Koff, Kon, N, Na0, Nn0)
+        else:
+            self.widget.koff_slider.set(Koff)
+            self.widget.n_slider.set(N)
+            self.widget.kon_slider.set(Kon)
+            self.widget.na_slider.set(Na0)
+            self.widget.nn_slider.set(Nn0)
+        
         self.runFit(Koff, Kon, N, Na0, Nn0)
 
     def runFit(self, Koff, Kon, N, Na0, Nn0, plot=True):
@@ -132,6 +162,7 @@ class depletionplot:
 
         lg1 = f"Kon: {uKon:.2uP}, Na: {uNa0:.2uP}, Nn: {uNn0:.2uP}"
         lg2 = f"Koff: {uKoff:.2uP}, N: {uN:.2uP}"
+
         self.ax0.legend(labels=[lg1, lg2], title=f"Mass: {self.mass[0]}u, Res: {self.t_res}V, B0: {self.t_b0}ms")
 
         self.get_depletion_fit(Koff, N, uKoff, uN, Na0, Nn0, Kon, uNa0, uNn0, uKon, plot)
@@ -139,40 +170,14 @@ class depletionplot:
 
         self.ax1.legend(["Fitted", f"A: {self.uA:.3uP}", "Experiment"])
 
-    def make_slider(self, Koff, Kon, N, Na0, Nn0):
-        axcolor = 'lightgoldenrodyellow'
-
-        left = 0.1
-        height = 0.015
-        width = 0.2
-
-        bottom = 0.2
-        diff = 0.02
-        self.koff_g = self.fig.add_axes([left, bottom, width, height], facecolor=axcolor) # [left, bottom, width, height]
-        self.n_g = self.fig.add_axes([left, bottom-diff, width, height], facecolor=axcolor)
-        self.kon_g = self.fig.add_axes([left, bottom-2*diff, width, height], facecolor=axcolor)
-        self.na_g = self.fig.add_axes([left, bottom-3*diff, width, height], facecolor=axcolor)
-        self.nn_g = self.fig.add_axes([left, bottom-4*diff, width, height], facecolor=axcolor)
-
-        self.koff_slider = Slider(self.koff_g, '$K_{OFF}$', 0, Koff*10, valinit=Koff)
-        self.n_slider = Slider(self.n_g, 'N', 0, N*10, valinit=N)
-        self.kon_slider = Slider(self.kon_g, '$K_{ON}$', 0, Kon*10, valinit=Kon)
-        self.na_slider = Slider(self.na_g, '$Na_0$', 0, 10*Na0, valinit=Na0)
-        self.nn_slider = Slider(self.nn_g, '$Nn_0$', 0, 10*Nn0, valinit=Nn0)
-
-        self.koff_slider.on_changed(self.update)
-        self.n_slider.on_changed(self.update)
-        self.kon_slider.on_changed(self.update)
-        self.na_slider.on_changed(self.update)
-        self.nn_slider.on_changed(self.update)
-
+    
     def update(self, event):
 
-        Koff = self.koff_slider.val
-        Kon = self.kon_slider.val
-        N = self.n_slider.val
-        Na0 = self.na_slider.val
-        Nn0 = self.nn_slider.val
+        Koff = self.widget.koff_slider.get()
+        Kon = self.widget.kon_slider.get()
+        N = self.widget.n_slider.get()
+        Na0 = self.widget.na_slider.get()
+        Nn0 = self.widget.nn_slider.get()
         
         self.runFit(Koff, Kon, N, Na0, Nn0, plot=False)
 
