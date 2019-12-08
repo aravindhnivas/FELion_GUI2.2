@@ -57,13 +57,22 @@ class depletionplot:
         self.canvas.draw()
 
     def change_legend(self, event=None):
+
         self.ax0.legend().set_visible(not self.plotlegend.get())
+
         self.ax1.legend().set_visible(not self.plotlegend.get())
 
         if not self.plotlegend.get():
+            fontSz = self.legend_slider.get()
 
-            self.ax1.legend(["Fitted", f"A: {self.uA:.3uP}", "Experiment"], fontsize=5, title_fontsize=7)
-            self.ax0.legend(labels=[self.lg1, self.lg2], title=f"Mass: {self.mass[0]}u, Res: {self.t_res}V, B0: {self.t_b0}ms", fontsize=5, title_fontsize=7)
+            self.ax1.legend(["Fitted", f"A: {self.uA:.3uP}", "Experiment"], fontsize=fontSz, title_fontsize=fontSz+2)
+            self.ax0.legend(labels=[self.lg1, self.lg2], title=f"Mass: {self.mass[0]}u, Res: {self.t_res}V, B0: {self.t_b0}ms", fontsize=fontSz, title_fontsize=fontSz+2)
+        self.canvas.draw()
+
+    def change_legend_size(self, event=None):
+        fontSz = self.legend_slider.get()
+        self.ax1.legend(["Fitted", f"A: {self.uA:.3uP}", "Experiment"], fontsize=fontSz, title_fontsize=fontSz+2)
+        self.ax0.legend(labels=[self.lg1, self.lg2], title=f"Mass: {self.mass[0]}u, Res: {self.t_res}V, B0: {self.t_b0}ms", fontsize=fontSz, title_fontsize=fontSz+2)
 
         self.canvas.draw()
 
@@ -71,7 +80,7 @@ class depletionplot:
         # Position
 
         x0, x_diff = 0.1, 0.4
-        y, y_diff = 0.16, 0.05
+        y, y_diff = 0.14, 0.05
 
         # Row 1
 
@@ -119,16 +128,18 @@ class depletionplot:
 
         # Row 8
         y += y_diff
-
         self.submit = self.widget.Buttons("Replot", x0, y, self.replot)
 
         # Row 9
         y += y_diff
+        self.plotlegend = self.widget.Entries("Check", "Legend", x0, y, relwidth=0.2, default=True, bind_btn=True, bind_func = self.change_legend)
+        self.legend_slider = self.widget.Sliders("", 5, x0+x_diff/2, y+0.02, self.change_legend_size, relwidth=0.3)
 
-        self.plotlegend = self.widget.Entries("Check", "Legend", x0, y, default=True, bind_btn=True, bind_func = self.change_legend)
-        self.grid = self.widget.Entries("Check", "Grid", x0+x_diff, y, default=True, bind_btn=True, bind_func = self.change_grid)
-        
         # Row 10
+        y += y_diff
+        self.grid = self.widget.Entries("Check", "Grid", x0, y, default=True, bind_btn=True, bind_func = self.change_grid)
+        
+        # Row 11
         
         y += y_diff
         self.latex = self.widget.Entries("Check", "Latex", x0, y)
