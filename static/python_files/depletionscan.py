@@ -96,7 +96,7 @@ class depletionplot:
         self.widget.nn_slider = self.widget.Sliders("Nn", Nn0, x0, y+4*y_diff, self.update, relwidth=0.5)
 
         # Row 3
-        y += 6*y_diff
+        y += 5*y_diff
 
         self.widget.Labels("ON", x0, y)
         self.widget.Labels("OFF", x0+x_diff, y)
