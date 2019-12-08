@@ -37,7 +37,6 @@ class depletionplot:
 
         self.startPlotting()
 
-        # self.latexPlot()
         self.widget.mainloop()
         
     def create_figure(self):
@@ -195,13 +194,16 @@ class depletionplot:
         self.canvas.draw_idle()
 
     def savefig(self):
-        if not self.latex.get():
-            save_name = f"{self.widget.name.get()}.png"
-            save_file = self.location / save_name
-            self.fig.savefig(save_file, dpi=self.widget.dpi_value.get())
-            print(f"File saved: {save_name} in {self.location}")
-            showinfo("Saved", f"File saved: {save_name} in {self.location}")
-        else: self.latexPlot()
+        try:
+            if not self.latex.get():
+                save_name = f"{self.widget.name.get()}.png"
+                save_file = self.location / save_name
+                self.fig.savefig(save_file, dpi=self.widget.dpi_value.get())
+                print(f"File saved: {save_name} in {self.location}")
+                showinfo("Saved", f"File saved: {save_name} in {self.location}")
+            else: self.latexPlot()
+
+        except Exception as error: showerror("Error occured", error)
     
     def latexPlot(self):
 
@@ -230,6 +232,8 @@ class depletionplot:
             save_file = self.location / save_name
 
             fig.savefig(save_file, dpi=self.widget.dpi_value.get()*3)
+
+            showinfo("Saved", f"File saved: {save_name} in {self.location}")
 
     def get_timescan_data(self):
 
