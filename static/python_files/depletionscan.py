@@ -15,6 +15,8 @@ from matplotlib.widgets import Slider, Button
 from FELion_widgets import FELion_Tk
 from timescan import timescanplot
 
+from tkinter.messagebox import showerror, showinfo, showwarning, askokcancel
+
 class depletionplot:
     
     def __init__(self, location, resOnFile=None, resOffFile=None, power=None, nshots=10, massIndex=0, timeStart=1):
@@ -29,10 +31,13 @@ class depletionplot:
         self.nshots = nshots
         self.massIndex = massIndex
         self.timeStart = timeStart
+
         self.widget = FELion_Tk(title="Depletion Plot", location=self.location)
         self.create_figure()
+
         self.startPlotting()
 
+        # self.latexPlot()
         self.widget.mainloop()
         
     def create_figure(self):
@@ -56,6 +61,7 @@ class depletionplot:
         y, y_diff = 0.16, 0.05
 
         # Row 1
+
         self.widget.plotTitle = self.widget.Entries("Entry", "Depletion Scan", x0, y, bind_key=True, bind_func=self.change_title, relwidth=0.7)
 
         # Row 2
@@ -74,31 +80,27 @@ class depletionplot:
         self.widget.Labels("OFF", x0+x_diff, y)
 
         # Row 4
-
         y += y_diff
+
         scanfiles_name = [name.name for name in self.scanfiles]
 
         self.widget.resOnList = self.widget.Dropdown(scanfiles_name, x0, y)
         self.widget.resOnList.set(self.resOnFile.name)
-        
         self.widget.resOffList = self.widget.Dropdown(scanfiles_name, x0+x_diff, y)
         self.widget.resOffList.set(self.resOffFile.name)
 
         # Row 5
         y += y_diff
-
         self.new_power = self.widget.Entries("Entry", "21, 21", x0, y)
         self.new_nshots = self.widget.Entries("Entry", 10, x0+x_diff, y)
 
         # Row 6
         y += y_diff
-
         self.widget.Labels("MassIndex", x0, y)
         self.widget.Labels("TimeStartIndex", x0+x_diff, y)
 
         # Row 7
         y += y_diff
-
         self.new_massIndex = self.widget.Entries("Entry", self.massIndex, x0, y)
         self.new_timeStart = self.widget.Entries("Entry", self.timeStart, x0+x_diff, y)
 
@@ -106,6 +108,13 @@ class depletionplot:
         y += y_diff
 
         self.submit = self.widget.Buttons("Replot", x0, y, self.replot)
+
+        # Row 9
+
+        y += y_diff
+
+        self.latex = self.widget.Entries("Check", "Latex", x0, y)
+        self.save_fig = self.widget.Buttons("Save", x0+x_diff, y, self.savefig)
 
     def replot(self):
 
@@ -133,7 +142,6 @@ class depletionplot:
         self.ax1.set(xlabel="n*t*E (mJ)", ylabel="Relative abundace of active isomer", title="$D(t)=A*(1-e^{-K_{ON}*(ntE)})$")
         for ax in (self.ax0, self.ax1): ax.grid()
         
-
         # Get timescan details
         self.get_timescan_data()
 
@@ -160,16 +168,14 @@ class depletionplot:
         uNn0 = uf(Nn0, self.Nn0_err)
         uKon = uf(Kon, self.Kon_err)
 
-        lg1 = f"Kon: {uKon:.2uP}, Na: {uNa0:.2uP}, Nn: {uNn0:.2uP}"
-        lg2 = f"Koff: {uKoff:.2uP}, N: {uN:.2uP}"
-
-        self.ax0.legend(labels=[lg1, lg2], title=f"Mass: {self.mass[0]}u, Res: {self.t_res}V, B0: {self.t_b0}ms")
+        self.lg1 = f"Kon: {uKon:.2uP}, Na: {uNa0:.2uP}, Nn: {uNn0:.2uP}"
+        self.lg2 = f"Koff: {uKoff:.2uP}, N: {uN:.2uP}"
+        self.ax0.legend(labels=[self.lg1, self.lg2], title=f"Mass: {self.mass[0]}u, Res: {self.t_res}V, B0: {self.t_b0}ms")
 
         self.get_depletion_fit(Koff, N, uKoff, uN, Na0, Nn0, Kon, uNa0, uNn0, uKon, plot)
         self.get_relative_abundance_fit(plot)
 
         self.ax1.legend(["Fitted", f"A: {self.uA:.3uP}", "Experiment"])
-
     
     def update(self, event):
 
@@ -187,6 +193,43 @@ class depletionplot:
         self.relativeFit_plot.set_ydata(self.relative_abundance)
 
         self.canvas.draw_idle()
+
+    def savefig(self):
+        if not self.latex.get():
+            save_name = f"{self.widget.name.get()}.png"
+            save_file = self.location / save_name
+            self.fig.savefig(save_file, dpi=self.widget.dpi_value.get())
+            print(f"File saved: {save_name} in {self.location}")
+            showinfo("Saved", f"File saved: {save_name} in {self.location}")
+        else: self.latexPlot()
+    
+    def latexPlot(self):
+
+        style_path = pt(__file__).parent / "matplolib_styles/styles/science.mplstyle"
+        with plt.style.context([f"{style_path}"]):
+
+            fig, (ax0, ax1) = plt.subplots(nrows=1, ncols=2)
+            ax0.set(xlabel="n*t*E (mJ)", ylabel="Counts", title="Res ON-OFF scan")
+            ax1.set(xlabel="n*t*E (mJ)", ylabel="Relative abundace of active isomer", title="$D(t)=A*(1-e^{-K_{ON}*(ntE)})$")
+
+            for ax in (ax0, ax1): ax.grid()
+
+            for index, fitY, i in zip(["resOn", "resOff"], [self.fitOn, self.fitOff], [0, 1]):
+                ax0.errorbar(self.power[index], self.counts[index], yerr=self.error[index], fmt=f"C{i}.")
+                ax0.plot(self.fitX, fitY, f"C{i}")
+
+            ax1.errorbar(self.power["resOn"], self.depletion_exp, yerr=self.depletion_exp_err, fmt="k.")
+            ax1.plot(self.fitX, self.depletion_fitted)
+            ax1.plot(self.fitX, self.relative_abundance)
+
+
+            ax0.legend(labels=[self.lg1, self.lg2], title=f"Mass: {self.mass[0]}u, Res: {self.t_res}V, B0: {self.t_b0}ms")
+            ax1.legend(["Fitted", f"A: {self.uA:.3uP}", "Experiment"])
+
+            save_name = f"{self.widget.name.get()}.png"
+            save_file = self.location / save_name
+
+            fig.savefig(save_file, dpi=self.widget.dpi_value.get()*3)
 
     def get_timescan_data(self):
 
@@ -311,17 +354,15 @@ class depletionplot:
 
         A = pop_depletion
         A_err = perr_depletion
-
         self.uA = uf(A, A_err)
         print(f"A: {self.uA:.3uP}")
 
         self.relative_abundance = self.Depletion(self.fitX, A)
 
-        
-
         if plot:
             self.ax1.errorbar(self.power["resOn"], self.depletion_exp, yerr=self.depletion_exp_err, fmt="k.")
             self.fit_plot, = self.ax1.plot(self.fitX, self.depletion_fitted)
+
             self.relativeFit_plot, = self.ax1.plot(self.fitX, self.relative_abundance)
         
 if __name__ == "__main__":
