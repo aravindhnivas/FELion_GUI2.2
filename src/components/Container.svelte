@@ -32,7 +32,7 @@
     let ScreenHeight = window.screen.height;
 
     if (ScreenHeight >= 1000) plotHeight = 650
-    else plotHeight = 560
+    else plotHeight = 540
 
     jq(".plotContainer").css("max-height", plotHeight)
 
@@ -800,16 +800,16 @@
     border-color: #fafafa;
     box-shadow: 0 0 0 0.05em #fafafa;
   }
-
   .column {max-height: 90vh}
-
   .delete:hover {background-color:#ff3860}
+
   .filebrowserColumn {width: 14%!important}
 
   @media only screen
   and (max-width: 1400px) {
-    .filebrowserColumn {width: 25%!important}
+    .filebrowserColumn {width: 20%!important}
   }
+
   #nist_webview {height:42em;}
   .webviewIcon {cursor: pointer;}
   .level-item {margin-left: 0!important}
