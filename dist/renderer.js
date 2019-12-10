@@ -4345,7 +4345,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (1372:12) {:else}
+// (1377:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -4378,7 +4378,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (1329:39) 
+// (1334:39) 
 function create_if_block_3(ctx) {
 	var div0, div0_id_value, t0, div9, div7, div6, div5, div1, t1, div2, t2, div3, t3, div4, t4, div8, webview, t5, dispose;
 
@@ -4610,7 +4610,7 @@ function create_if_block_1$1(ctx) {
 			input0.__value = "Relative";
 			input0.value = input0.__value;
 			attr(div0, "class", "state p-success");
-			attr(div1, "class", "pretty p-icon p-curve p-smooth");
+			attr(div1, "class", "pretty p-icon p-curve p-pulse");
 			attr(div2, "class", "level-item svelte-14k508y");
 			ctx.$$binding_groups[0].push(input1);
 			attr(input1, "type", "radio");
@@ -4618,7 +4618,7 @@ function create_if_block_1$1(ctx) {
 			input1.__value = "Log";
 			input1.value = input1.__value;
 			attr(div3, "class", "state p-success");
-			attr(div4, "class", "pretty p-icon p-curve p-smooth");
+			attr(div4, "class", "pretty p-icon p-curve p-pulse");
 			attr(div5, "class", "level-item svelte-14k508y");
 			ctx.$$binding_groups[0].push(input2);
 			attr(input2, "type", "radio");
@@ -4626,7 +4626,7 @@ function create_if_block_1$1(ctx) {
 			input2.__value = "IntensityPerPhoton";
 			input2.value = input2.__value;
 			attr(div6, "class", "state p-success");
-			attr(div7, "class", "pretty p-icon p-curve p-smooth");
+			attr(div7, "class", "pretty p-icon p-curve p-pulse");
 			attr(div8, "class", "level-item svelte-14k508y");
 			attr(div9, "class", "level-left");
 			attr(div10, "class", "level");
@@ -5061,7 +5061,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (1253:26) {#each fit_file_list as file}
+// (1258:26) {#each fit_file_list as file}
 function create_each_block_3(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -5098,7 +5098,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (1281:26) {#each fit_file_list as file}
+// (1286:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -5135,7 +5135,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (1321:18) {#if expfit_log_display}
+// (1326:18) {#if expfit_log_display}
 function create_if_block_2(ctx) {
 	var div, label, t, div_intro, div_outro, current;
 

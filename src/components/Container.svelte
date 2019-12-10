@@ -1184,12 +1184,13 @@
 
             {:else if id == 'avgplot'}
 
-
+              <!-- Normalisation Method -->
               <div class="level">
                 <div class="level-left">
-                    <!-- "Log", "Relative", "IntensityPerPhoton" -->
+
+                    <!-- Relative -->
                     <div class="level-item">
-                      <div class="pretty p-icon p-curve p-smooth">
+                      <div class="pretty p-icon p-curve p-pulse">
                           <input type="radio" name="normMethod" bind:group={normMethod} value="Relative" on:change={animatePlot}>
                           <div class="state p-success">
                               <i class="icon mdi mdi-check"></i>
@@ -1198,8 +1199,9 @@
                       </div>
                     </div>
 
+                    <!-- Log -->
                     <div class="level-item">
-                      <div class="pretty p-icon p-curve p-smooth">
+                      <div class="pretty p-icon p-curve p-pulse">
                           <input type="radio" name="normMethod" bind:group={normMethod} value="Log" on:change={animatePlot}>
                           <div class="state p-success">
                               <i class="icon mdi mdi-check"></i>
@@ -1208,8 +1210,9 @@
                       </div>
                     </div>
 
+                    <!-- Intensitity per photon -->
                     <div class="level-item">
-                      <div class="pretty p-icon p-curve p-smooth">
+                      <div class="pretty p-icon p-curve p-pulse">
                           <input type="radio" name="normMethod" bind:group={normMethod} value="IntensityPerPhoton" on:change={animatePlot}>
                           <div class="state p-success">
                               <i class="icon mdi mdi-check"></i>
@@ -1221,8 +1224,10 @@
                 </div>
               </div>
 
+              <!-- Avgplot -->
               <div {id} style="padding-bottom:1em" />
 
+              <!-- Experimental gaussian fitting -->
               <div class="level" style="display:{exp_fitall_div}">
                 <div class="level-left">
 
