@@ -747,7 +747,6 @@
 <style>
 
   input[type="number"] {width: 5vw;}
-
   label {color:white;}
 
   #theorylabel{
@@ -826,6 +825,7 @@
   .row1 {
     margin: 0;
     background-color: #594194;
+    margin-right: 2em;
   }
   .subtitle {color: #fafafa;}
 
