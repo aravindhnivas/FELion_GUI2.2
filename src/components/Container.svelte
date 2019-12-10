@@ -675,11 +675,8 @@
   $: mass_peak_height = 40
   
   const find_masspec_peaks = () => {
-
     console.log("Finding masspec peaks")
-
     let sendMassFile = path.join(currentLocation, massFiles.value)
-
     runPlot({
       fullfiles: [sendMassFile],
       filetype: "find_peaks",
@@ -704,13 +701,11 @@
   $: nist_molecule_formula = `Formula=${nist_mformula}`
   $: nist_url = localStorage["nist_url"] || "https://webbook.nist.gov/cgi/cbook.cgi?Name=&Units=SI&Mask=200#Mass-Spec"
 
-
   const set_nist_url = (format) => {
-
     let fmt;
     format == "by_name" ? fmt = nist_molecule_name : fmt = nist_molecule_formula
-    nist_url = `https://webbook.nist.gov/cgi/cbook.cgi?${fmt}&Units=SI&Mask=200#Mass-Spec`
 
+    nist_url = `https://webbook.nist.gov/cgi/cbook.cgi?${fmt}&Units=SI&Mask=200#Mass-Spec`
     localStorage["nist_url"] = nist_url
     localStorage["nist_mformula"] =  nist_mformula
     localStorage["nist_mname"] = nist_mname
@@ -734,11 +729,12 @@
   $: search_string = ""
   $: google_search = `http://www.google.com/search?q=${search_string}.`
 
-
   function animatePlot(){
+    
     try {
       let data = window.avg_data[normMethod]["data"]
       let layout = window.avg_data[normMethod]["layout"]
+
       Plotly.react("avgplot", data , layout )
     } catch (err) {console.log("Error occured while chaning felixplot method", err)}
   }
