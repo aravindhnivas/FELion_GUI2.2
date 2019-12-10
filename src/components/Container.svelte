@@ -4,7 +4,7 @@
   import { runPlot } from "./utils/js/felion_main.js";
   import * as dirTree from "directory-tree";
   import { fade, fly } from 'svelte/transition';
-  import { spawn, exec } from "child_process";
+  // import { spawn, exec } from "child_process";
 
   const glob = require("glob")
 
@@ -734,6 +734,14 @@
   $: search_string = ""
   $: google_search = `http://www.google.com/search?q=${search_string}.`
 
+
+  function animatePlot(){
+    try {
+      let data = window.avg_data[normMethod]["data"]
+      let layout = window.avg_data[normMethod]["layout"]
+      Plotly.react("avgplot", data , layout )
+    } catch (err) {console.log("First start plotting")}
+  }
 </script>
 
 <style>
@@ -919,7 +927,8 @@
                     <select
                       id="felixmethod"
                       bind:value={normMethod}
-                      data-tippy="Normalisation method">
+                      data-tippy="Normalisation method"
+                      on:change={animatePlot}>
                       {#each normalisation_method as method}
                         <option>{method}</option>
                       {/each}

@@ -7,7 +7,6 @@ var path$1__default = _interopDefault(path$1);
 var electron = require('electron');
 var fs$1 = require('fs');
 var fs$1__default = _interopDefault(fs$1);
-require('child_process');
 
 function noop() { }
 const identity = x => x;
@@ -2318,7 +2317,7 @@ class Filebrowser extends SvelteComponent {
 
 // Importing modules
 
-const { spawn, exec } = require("child_process");
+const { spawn } = require("child_process");
 const path = require('path');
 const fs = require("fs");
 
@@ -2399,14 +2398,13 @@ function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
     if (filetype == 'mass') { dataLayout.yaxis.type = "log"; }
     let dataPlot = [];
     for (let x in data) { dataPlot.push(data[x]); }
-
     try { Plotly.react(plotArea, dataPlot, dataLayout, { editable: true }); } catch (err) { console.log(err); }
 }
 class program {
 
     constructor(obj) {
-        this.obj = obj;
 
+        this.obj = obj;
         console.log(":: constructor -> this.obj", this.obj);
 
         console.log(`Received ${obj.filetype}files:`, obj.files);
@@ -2510,6 +2508,46 @@ class program {
                                 signal_formula = "Signal = -ln(C/B)/#Photons";
                                 ylabel = "Normalised Intensity per photon";
                             }
+
+
+                            const get_data = (data) => {
+                                let dataPlot = [];
+                                for (let x in data) { dataPlot.push(data[x]); }
+                                return dataPlot
+                            };
+                            let signal = {
+                                "rel": "Signal = (1-C/B)*100",
+                                "log": "Signal = -ln(C/B)/Power(in J)",
+                                "hv": "Signal = -ln(C/B)/#Photons"
+                            };
+                            const set_title = (method) => `Normalised and Averaged Spectrum (delta=${delta})<br>${signal[method]}; {C=Measured Count, B=Baseline Count}`;
+                            window.avg_data = {
+                                "Relative": {
+                                    "data": get_data(dataFromPython["average_rel"]),
+                                    "layout": {
+                                        "title": set_title("rel"),
+                                        "yaxis": { "title": "Relative Depletion (%)" },
+                                        "xaxis": { "title": "Calibrated Wavelength (cm-1)" }
+                                    }
+                                },
+                                "Log": {
+                                    "data": get_data(dataFromPython["average"]),
+                                    "layout": {
+                                        "title": set_title("log"),
+                                        "yaxis": { "title": "Normalised Intensity per J" },
+                                        "xaxis": { "title": "Calibrated Wavelength (cm-1)" }
+                                    }
+                                },
+                                "IntensityPerPhoton": {
+                                    "data": get_data(dataFromPython["average_per_photon"]),
+                                    "layout": {
+                                        "title": set_title("hv"),
+                                        "yaxis": { "title": "Normalised Intensity per photon" },
+                                        "xaxis": { "title": "Calibrated Wavelength (cm-1)" }
+                                    }
+                                },
+
+                            };
 
                             plot(
                                 "Baseline Corrected",
@@ -2954,7 +2992,7 @@ function get_each_context_11(ctx, list, i) {
 	return child_ctx;
 }
 
-// (888:14) {#each funcBtns as { id, name }}
+// (896:14) {#each funcBtns as { id, name }}
 function create_each_block_11(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -2992,7 +3030,7 @@ function create_each_block_11(ctx) {
 	};
 }
 
-// (904:20) {:else}
+// (912:20) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3030,7 +3068,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (902:20) {#if name[0]==="Log"}
+// (910:20) {#if name[0]==="Log"}
 function create_if_block_14(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3068,7 +3106,7 @@ function create_if_block_14(ctx) {
 	};
 }
 
-// (897:14) {#each checkBtns as {id, name, bind, help}}
+// (905:14) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_10(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -3156,7 +3194,7 @@ function create_each_block_10(ctx) {
 	};
 }
 
-// (916:14) {#if filetag == 'felix'}
+// (924:14) {#if filetag == 'felix'}
 function create_if_block_13(ctx) {
 	var div0, span, select, t0, div5, div4, div2, t2, div3, input, input_updating = false, dispose;
 
@@ -3209,6 +3247,7 @@ function create_if_block_13(ctx) {
 
 			dispose = [
 				listen(select, "change", ctx.select_change_handler),
+				listen(select, "change", ctx.animatePlot),
 				listen(input, "input", input_input_handler),
 				listen(input, "change", ctx.change_handler)
 			];
@@ -3281,7 +3320,7 @@ function create_if_block_13(ctx) {
 	};
 }
 
-// (923:22) {#each normalisation_method as method}
+// (932:22) {#each normalisation_method as method}
 function create_each_block_9(ctx) {
 	var option, t_value = ctx.method + "", t;
 
@@ -3308,7 +3347,7 @@ function create_each_block_9(ctx) {
 	};
 }
 
-// (949:14) {#if filetag == 'thz'}
+// (958:14) {#if filetag == 'thz'}
 function create_if_block_12(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -3408,7 +3447,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (1001:8) {#if filetag=="felix"}
+// (1010:8) {#if filetag=="felix"}
 function create_if_block_11(ctx) {
 	var div7, div6, div5, div2, div1, div0, select, t0, div4, div3, button0, t2, input0, input0_updating = false, t3, input1, input1_updating = false, t4, button1, t6, button2, dispose;
 
@@ -3571,7 +3610,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (1010:30) {#each theoryfilenames as theoryfile}
+// (1019:30) {#each theoryfilenames as theoryfile}
 function create_each_block_8(ctx) {
 	var option, t_value = ctx.theoryfile + "", t, option_value_value;
 
@@ -3608,7 +3647,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (1032:8) {#if filetag=="scan"}
+// (1041:8) {#if filetag=="scan"}
 function create_if_block_5(ctx) {
 	var div3, div2, div1, t0, t1, div0, button, dispose;
 
@@ -3739,7 +3778,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (1045:30) {#if folderFile.files != undefined}
+// (1054:30) {#if folderFile.files != undefined}
 function create_if_block_10(ctx) {
 	var each_1_anchor;
 
@@ -3802,7 +3841,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (1046:32) {#each folderFile.files as scanfile}
+// (1055:32) {#each folderFile.files as scanfile}
 function create_each_block_7(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3839,7 +3878,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (1037:18) {#each ["ResON", "ResOFF"] as name}
+// (1046:18) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_6(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3907,7 +3946,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (1070:61) 
+// (1079:61) 
 function create_if_block_9(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3946,7 +3985,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (1068:56) 
+// (1077:56) 
 function create_if_block_8(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3985,7 +4024,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (1066:54) 
+// (1075:54) 
 function create_if_block_7(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -4024,7 +4063,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (1064:26) {#if name=="Power (ON, OFF)"}
+// (1073:26) {#if name=="Power (ON, OFF)"}
 function create_if_block_6(ctx) {
 	var input, dispose;
 
@@ -4057,7 +4096,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (1057:18) {#each depletionLabels as {name, id}}
+// (1066:18) {#each depletionLabels as {name, id}}
 function create_each_block_5(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0;
 
@@ -4113,7 +4152,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (1090:8) {#if filetag === "mass"}
+// (1099:8) {#if filetag === "mass"}
 function create_if_block_4(ctx) {
 	var div5, div4, div3, div0, input0, t0, div1, input1, t1, div2, button, t2, button_class_value, t3, div17, div16, div15, div7, div6, select, t4, div8, input2, input2_updating = false, t5, div9, input3, input3_updating = false, t6, div10, input4, input4_updating = false, t7, div12, div11, t9, div14, div13, dispose;
 
@@ -4367,7 +4406,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (1123:24) {#each fileChecked as file}
+// (1132:24) {#each fileChecked as file}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4404,7 +4443,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (1326:12) {:else}
+// (1335:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -4437,7 +4476,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (1283:39) 
+// (1292:39) 
 function create_if_block_3(ctx) {
 	var div0, div0_id_value, t0, div9, div7, div6, div5, div1, t1, div2, t2, div3, t3, div4, t4, div8, webview, t5, dispose;
 
@@ -4535,7 +4574,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (1176:38) 
+// (1185:38) 
 function create_if_block_1$1(ctx) {
 	var div0, div0_id_value, t0, div13, div12, div1, input0, input0_updating = false, t1, div2, input1, input1_updating = false, t2, div3, input2, input2_updating = false, t3, div5, div4, t4, div4_class_value, t5, div7, div6, select0, t6, div9, div8, t7, div8_class_value, t8, div11, div10, t9, div10_class_value, t10, div28, div27, div15, div14, select1, t11, div17, div16, t13, div20, t16, div22, div21, t17, div21_class_value, t18, div24, div23, t19, div23_class_value, t20, div26, div25, t22, t23, current, dispose;
 
@@ -4946,7 +4985,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (1169:12) {#if filetag == 'scan'}
+// (1178:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -5023,7 +5062,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (1207:26) {#each fit_file_list as file}
+// (1216:26) {#each fit_file_list as file}
 function create_each_block_3(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -5060,7 +5099,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (1235:26) {#each fit_file_list as file}
+// (1244:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -5097,7 +5136,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (1275:18) {#if expfit_log_display}
+// (1284:18) {#if expfit_log_display}
 function create_if_block_2(ctx) {
 	var div, label, t, div_intro, div_outro, current;
 
@@ -5153,7 +5192,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (1171:16) {#each fileChecked as scanfile}
+// (1180:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_id_value;
 
@@ -5183,7 +5222,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (1167:10) {#each plotID as id}
+// (1176:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var current_block_type_index, if_block, if_block_anchor, current;
 
@@ -5729,6 +5768,7 @@ function checkInternet() {
 
 function instance$5($$self, $$props, $$invalidate) {
 	
+  // import { spawn, exec } from "child_process";
 
   const glob = require("glob");
 
@@ -6373,6 +6413,15 @@ function instance$5($$self, $$props, $$invalidate) {
     localStorage["nist_mname"] = nist_mname;
   };
 
+
+  function animatePlot(){
+    try {
+      let data = window.avg_data[normMethod]["data"];
+      let layout = window.avg_data[normMethod]["layout"];
+      Plotly.react("avgplot", data , layout );
+    } catch (err) {console.log("First start plotting");}
+  }
+
 	const click_handler = () => $$invalidate('modal', modal[filetag]='', modal);
 
 	const click_handler_1 = () => $$invalidate('modal', modal[filetag]='', modal);
@@ -6617,6 +6666,7 @@ function instance$5($$self, $$props, $$invalidate) {
 		find_masspec_peaks,
 		clear_mass_peaks,
 		set_nist_url,
+		animatePlot,
 		fileChecked,
 		console,
 		undefined,

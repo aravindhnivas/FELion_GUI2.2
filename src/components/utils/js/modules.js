@@ -2,7 +2,7 @@
 
 // Importing modules
 
-const { spawn, exec } = require("child_process");
+const { spawn } = require("child_process");
 const path = require('path');
 const fs = require("fs")
 
@@ -83,14 +83,13 @@ function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
     if (filetype == 'mass') { dataLayout.yaxis.type = "log" }
     let dataPlot = [];
     for (let x in data) { dataPlot.push(data[x]) }
-
     try { Plotly.react(plotArea, dataPlot, dataLayout, { editable: true }) } catch (err) { console.log(err) }
 }
 class program {
 
     constructor(obj) {
-        this.obj = obj
 
+        this.obj = obj
         console.log(":: constructor -> this.obj", this.obj);
 
         console.log(`Received ${obj.filetype}files:`, obj.files);
@@ -193,6 +192,46 @@ class program {
 
                                 signal_formula = "Signal = -ln(C/B)/#Photons"
                                 ylabel = "Normalised Intensity per photon"
+                            }
+
+
+                            const get_data = (data) => {
+                                let dataPlot = [];
+                                for (let x in data) { dataPlot.push(data[x]) }
+                                return dataPlot
+                            }
+                            let signal = {
+                                "rel": "Signal = (1-C/B)*100",
+                                "log": "Signal = -ln(C/B)/Power(in J)",
+                                "hv": "Signal = -ln(C/B)/#Photons"
+                            }
+                            const set_title = (method) => `Normalised and Averaged Spectrum (delta=${delta})<br>${signal[method]}; {C=Measured Count, B=Baseline Count}`
+                            window.avg_data = {
+                                "Relative": {
+                                    "data": get_data(dataFromPython["average_rel"]),
+                                    "layout": {
+                                        "title": set_title("rel"),
+                                        "yaxis": { "title": "Relative Depletion (%)" },
+                                        "xaxis": { "title": "Calibrated Wavelength (cm-1)" }
+                                    }
+                                },
+                                "Log": {
+                                    "data": get_data(dataFromPython["average"]),
+                                    "layout": {
+                                        "title": set_title("log"),
+                                        "yaxis": { "title": "Normalised Intensity per J" },
+                                        "xaxis": { "title": "Calibrated Wavelength (cm-1)" }
+                                    }
+                                },
+                                "IntensityPerPhoton": {
+                                    "data": get_data(dataFromPython["average_per_photon"]),
+                                    "layout": {
+                                        "title": set_title("hv"),
+                                        "yaxis": { "title": "Normalised Intensity per photon" },
+                                        "xaxis": { "title": "Calibrated Wavelength (cm-1)" }
+                                    }
+                                },
+
                             }
 
                             plot(
