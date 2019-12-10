@@ -1,16 +1,19 @@
 <script>
-	import AnimateBox from "./utils/AnimateBox.svelte"
+  import AnimateBox from "./utils/AnimateBox.svelte";
   export let jq;
-  console.log("Loading")
-  jq(document).ready(()=>jq("#Welcome").css("display", "block"))
+  console.log("Loading");
+  jq(document).ready(() => jq("#Welcome").css("display", "block"));
 </script>
-<style>
 
+<style>
   #Welcome {
     margin-top: 15% !important;
     display: none;
   }
-  
+
+  .subtitle {
+    color: #fafafa;
+  }
 </style>
 
 <section class="section animated fadeInDown" id="Welcome">

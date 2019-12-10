@@ -778,7 +778,7 @@
   .button.is-link:hover, .button.is-link.is-hovered {background-color: #7a64b1;}
 
   .button.is-warning {border-color: #ffc402; color: white;}
-  .button.is-warning:hover, .button.is-warning.is-hovered {background-color: #7a64b1;}
+  .button.is-warning:hover, .button.is-warning.is-hovered {background-color: #7a64b1; color: white;}
 
   .button.is-danger {border-color: #ff3860;}
   .button.is-danger:hover, .button.is-danger.is-hovered {background-color: #ff3860;}
@@ -808,7 +808,7 @@
 
   @media only screen
   and (max-width: 1400px) {
-    .filebrowserColumn {width: 20%!important}
+    .filebrowserColumn {width: 25%!important}
   }
   #nist_webview {height:42em;}
   .webviewIcon {cursor: pointer;}
@@ -816,10 +816,9 @@
 
   .locationRow {margin-right: 2em;}
   .row1 {
-    margin: 0 10rem;
+    margin: 0;
     background-color: #594194;
   }
-
   .subtitle {color: #fafafa;}
 
 </style>
