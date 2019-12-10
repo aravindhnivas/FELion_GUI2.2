@@ -482,11 +482,11 @@
       id: "nshots"
     },
     {
-      name: "Mass Index",
+      name: "MassIndex",
       id: "massIndex"
     },
     {
-      name: "TimeStart Index",
+      name: "TimeStart",
       id: "timeIndex"
     }
   ]
@@ -1074,9 +1074,9 @@
                             <input class="input" type="text" bind:value={powerinfo} {id}>
                           {:else if  name=="FELIX Hz"}
                             <input class="input" type="number" bind:value={nshots} {id}>
-                          {:else if  name=="Mass Index"}
+                          {:else if  name=="MassIndex"}
                             <input class="input" type="number" bind:value={massIndex} {id}>
-                          {:else if  name=="TimeStart Index"}
+                          {:else if  name=="TimeStart"}
                             <input class="input" type="number" bind:value={timestartIndex} {id}>
                           {/if}
                         </div>

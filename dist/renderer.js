@@ -3946,7 +3946,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (1079:61) 
+// (1079:55) 
 function create_if_block_9(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3985,7 +3985,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (1077:56) 
+// (1077:55) 
 function create_if_block_8(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -4103,8 +4103,8 @@ function create_each_block_5(ctx) {
 	function select_block_type_1(changed, ctx) {
 		if (ctx.name=="Power (ON, OFF)") return create_if_block_6;
 		if (ctx.name=="FELIX Hz") return create_if_block_7;
-		if (ctx.name=="Mass Index") return create_if_block_8;
-		if (ctx.name=="TimeStart Index") return create_if_block_9;
+		if (ctx.name=="MassIndex") return create_if_block_8;
+		if (ctx.name=="TimeStart") return create_if_block_9;
 	}
 
 	var current_block_type = select_block_type_1(null, ctx);
@@ -6220,11 +6220,11 @@ function instance$5($$self, $$props, $$invalidate) {
       id: "nshots"
     },
     {
-      name: "Mass Index",
+      name: "MassIndex",
       id: "massIndex"
     },
     {
-      name: "TimeStart Index",
+      name: "TimeStart",
       id: "timeIndex"
     }
   ];
