@@ -740,7 +740,7 @@
       let data = window.avg_data[normMethod]["data"]
       let layout = window.avg_data[normMethod]["layout"]
       Plotly.react("avgplot", data , layout )
-    } catch (err) {console.log("First start plotting")}
+    } catch (err) {console.log("Error occured while chaning felixplot method", err)}
   }
 </script>
 
@@ -922,7 +922,7 @@
               {/each}
 
               {#if filetag == 'felix'}
-                <div class="level-item">
+                <!-- <div class="level-item">
                   <span class="select">
                     <select
                       id="felixmethod"
@@ -934,7 +934,7 @@
                       {/each}
                     </select>
                   </span>
-                </div>
+                </div> -->
                 <div class="level-item">
                   <div class="field has-addons">
                     <div class="control"><div class="button is-static">&Delta (cm-1)</div></div>
@@ -1183,6 +1183,43 @@
               </div>
 
             {:else if id == 'avgplot'}
+
+
+              <div class="level">
+                <div class="level-left">
+                    <!-- "Log", "Relative", "IntensityPerPhoton" -->
+                    <div class="level-item">
+                      <div class="pretty p-icon p-curve p-smooth">
+                          <input type="radio" name="normMethod" bind:group={normMethod} value="Relative" on:change={animatePlot}>
+                          <div class="state p-success">
+                              <i class="icon mdi mdi-check"></i>
+                              <label>Relative</label>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="level-item">
+                      <div class="pretty p-icon p-curve p-smooth">
+                          <input type="radio" name="normMethod" bind:group={normMethod} value="Log" on:change={animatePlot}>
+                          <div class="state p-success">
+                              <i class="icon mdi mdi-check"></i>
+                              <label>Log</label>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="level-item">
+                      <div class="pretty p-icon p-curve p-smooth">
+                          <input type="radio" name="normMethod" bind:group={normMethod} value="IntensityPerPhoton" on:change={animatePlot}>
+                          <div class="state p-success">
+                              <i class="icon mdi mdi-check"></i>
+                              <label>Inten. per photon</label>
+                          </div>
+                      </div>
+                    </div>
+
+                </div>
+              </div>
 
               <div {id} style="padding-bottom:1em" />
 
