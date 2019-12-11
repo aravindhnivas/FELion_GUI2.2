@@ -37,6 +37,14 @@
         offset: "-=600"
       })
       .add({
+        targets: ".ml5 .letters-subtitle",
+        opacity: [0, 1],
+        translateX: ["-0.5em", 0],
+        easing: "easeOutExpo",
+        duration: 600,
+        offset: "-=600"
+      })
+      .add({
         targets: ".ml5",
         opacity: 1,
         duration: 1000,
@@ -48,14 +56,11 @@
 
 <style>
   #Welcome {
-    margin-top: 20% !important;
-    margin-left: 20% !important;
+    margin-top: 15% !important;
+    /* margin-left: 20% !important; */
     display: none;
   }
 
-  /* .subtitle {
-    color: #fafafa;
-  } */
   .ml5 {
     position: relative;
     font-weight: 300;
@@ -87,22 +92,24 @@
     display: inline-block;
     opacity: 0;
   }
+  .letters-subtitle {
+    font-size: 0.4em;
+  }
 </style>
 
 <section class="section" id="Welcome">
-
-  <!-- <AnimateBox>
-    <h1 class="title">FELion Spectrum Analyser</h1>
-    <h2 class="subtitle">To analyse FELIX data for FELion Instrument.</h2>
-  </AnimateBox> -->
-
-  <h1 class="ml5">
-    <span class="text-wrapper">
-      <span class="line line1" />
-      <span class="letters letters-left">FELion</span>
-      <span class="letters letters-right">Spectrum Analyser</span>
-      <span class="line line2" />
-    </span>
-  </h1>
-
+  <AnimateBox>
+    <h1 class="ml5">
+      <span class="text-wrapper">
+        <span class="line line1" />
+        <span class="letters letters-left">FELion</span>
+        <span class="letters letters-right">Spectrum Analyser</span>
+        <span class="line line2" />
+      </span>
+      <br />
+      <span class="letters letters-subtitle">
+        To analyse FELIX data for FELion Instrument
+      </span>
+    </h1>
+  </AnimateBox>
 </section>
