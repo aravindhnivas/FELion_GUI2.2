@@ -84,7 +84,7 @@
     let github_repo = "FELion_GUI2.2"
 
     $: gihub_branchname = "master"
-    $: console.log(gihub_branchname)
+    $: console.log(`Branch changed: ${gihub_branchname}`)
 
     $: urlPackageJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/package.json`
     $: urlzip = `https://codeload.github.com/${github_username}/${github_repo}/zip/${gihub_branchname}`
@@ -503,9 +503,8 @@
         position: absolute;
     }
 
-    .title {
-        font-weight: 400;
-    }
+    .title {font-weight: 400;}
+    .subtitle {color: white;}
 
 </style>
 
