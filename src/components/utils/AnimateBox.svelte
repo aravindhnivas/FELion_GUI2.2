@@ -81,14 +81,6 @@
   }
 </script>
 
-<style>
-  .container {
-    /* border: 5px solid #fafafaa6; */
-    padding: 2em;
-    /* box-shadow: 12px 12px 2px 1px #7a7a7a96; */
-  }
-</style>
-
 <div
   class="container"
   use:pannable
