@@ -56,7 +56,7 @@
 
 <style>
   #Welcome {
-    margin-top: 12% !important;
+    margin-top: 15% !important;
     display: none;
   }
 
