@@ -8462,7 +8462,7 @@ function get_each_context$4(ctx, list, i) {
 	return child_ctx;
 }
 
-// (85:10) {#each navigator as {name, target}}
+// (87:10) {#each navigator as {name, target}}
 function create_each_block$4(ctx) {
 	var div, button, t0_value = ctx.name + "", t0, t1, dispose;
 
@@ -8693,51 +8693,51 @@ function create_fragment$9(ctx) {
 			attr(div1, "class", "level");
 			attr(div2, "class", "column box is-11");
 			attr(h10, "class", "title");
-			attr(input0, "class", "input energy svelte-75l8qt");
+			attr(input0, "class", "input energy svelte-1goj73o");
 			attr(input0, "type", "number");
 			attr(input0, "target", "hz");
-			attr(input1, "class", "input energy svelte-75l8qt");
+			attr(input1, "class", "input energy svelte-1goj73o");
 			attr(input1, "type", "number");
 			attr(input1, "target", "um");
-			attr(input2, "class", "input energy svelte-75l8qt");
+			attr(input2, "class", "input energy svelte-1goj73o");
 			attr(input2, "type", "number");
 			attr(input2, "target", "cm_1");
-			attr(input3, "class", "input energy svelte-75l8qt");
+			attr(input3, "class", "input energy svelte-1goj73o");
 			attr(input3, "type", "number");
 			attr(input3, "target", "kelvin");
-			attr(input4, "class", "input energy svelte-75l8qt");
+			attr(input4, "class", "input energy svelte-1goj73o");
 			attr(input4, "type", "number");
 			attr(input4, "target", "eV");
-			attr(h11, "class", "subtitle is-pulled-left");
+			attr(h11, "class", "subtitle is-pulled-left svelte-1goj73o");
 			attr(input5, "type", "checkbox");
-			attr(input5, "class", "svelte-75l8qt");
+			attr(input5, "class", "svelte-1goj73o");
 			attr(div3, "class", "state p-info p-on");
 			attr(div4, "class", "pretty p-switch p-slim is-pulled-right");
-			attr(input6, "class", "input fun.constants energy svelte-75l8qt");
+			attr(input6, "class", "input fun.constants energy svelte-1goj73o");
 			attr(input6, "type", "number");
 			input6.disabled = input6_disabled_value = !ctx.edit_constants;
 			attr(input6, "data-tippy", "Speed of light in vaccum");
-			attr(input7, "class", "input fun.constants energy svelte-75l8qt");
+			attr(input7, "class", "input fun.constants energy svelte-1goj73o");
 			attr(input7, "type", "number");
 			input7.disabled = input7_disabled_value = !ctx.edit_constants;
 			attr(input7, "data-tippy", "Boltzman constant");
-			attr(input8, "class", "input fun.constants energy svelte-75l8qt");
+			attr(input8, "class", "input fun.constants energy svelte-1goj73o");
 			attr(input8, "type", "number");
 			input8.disabled = input8_disabled_value = !ctx.edit_constants;
 			attr(input8, "data-tippy", "Plank's constant");
-			attr(input9, "class", "input fun.constants energy svelte-75l8qt");
+			attr(input9, "class", "input fun.constants energy svelte-1goj73o");
 			attr(input9, "type", "number");
 			input9.disabled = input9_disabled_value = !ctx.edit_constants;
 			attr(input9, "data-tippy", "Electric charge");
-			attr(div5, "class", div5_class_value = "column " + ctx.table_sz + " svelte-75l8qt");
+			attr(div5, "class", div5_class_value = "column " + ctx.table_sz + " svelte-1goj73o");
 			attr(h12, "class", "title");
-			attr(label1, "class", "label svelte-75l8qt");
-			attr(input10, "class", "input ndensity svelte-75l8qt");
+			attr(label1, "class", "label svelte-1goj73o");
+			attr(input10, "class", "input ndensity svelte-1goj73o");
 			attr(input10, "type", "number");
 			attr(input10, "step", "0.000000001");
 			attr(input10, "placeholder", "Before");
 			attr(input10, "data-tippy", "Before letting in gas");
-			attr(input11, "class", "input ndensity svelte-75l8qt");
+			attr(input11, "class", "input ndensity svelte-1goj73o");
 			attr(input11, "type", "number");
 			attr(input11, "step", "0.000000001");
 			attr(input11, "placeholder", "After");
@@ -8745,34 +8745,34 @@ function create_fragment$9(ctx) {
 			attr(div6, "class", "control");
 			attr(div7, "class", "field");
 			attr(div8, "class", "column is-half");
-			attr(label2, "class", "label svelte-75l8qt");
-			attr(input12, "class", "input ndensity svelte-75l8qt");
+			attr(label2, "class", "label svelte-1goj73o");
+			attr(input12, "class", "input ndensity svelte-1goj73o");
 			attr(input12, "type", "number");
 			attr(input12, "placeholder", "Temeprature");
 			attr(div9, "class", "control");
 			attr(div10, "class", "field");
 			attr(div11, "class", "column is-half");
-			attr(label3, "class", "label svelte-75l8qt");
+			attr(label3, "class", "label svelte-1goj73o");
 			attr(button, "class", "button is-static");
 			attr(div12, "class", "control");
 			attr(div13, "class", "field");
 			attr(div14, "class", "column is-half");
 			attr(div15, "class", "columns is-multiline");
-			attr(h13, "class", "subtitle is-pulled-left");
+			attr(h13, "class", "subtitle is-pulled-left svelte-1goj73o");
 			attr(input13, "type", "checkbox");
-			attr(input13, "class", "svelte-75l8qt");
+			attr(input13, "class", "svelte-1goj73o");
 			attr(div16, "class", "state p-info p-on");
 			attr(div17, "class", "pretty p-switch p-slim is-pulled-right");
 			attr(div18, "class", "control");
-			attr(label5, "class", "label svelte-75l8qt");
-			attr(input14, "class", "input number_constants svelte-75l8qt");
+			attr(label5, "class", "label svelte-1goj73o");
+			attr(input14, "class", "input number_constants svelte-1goj73o");
 			attr(input14, "type", "number");
 			attr(input14, "placeholder", "Number density");
 			input14.disabled = input14_disabled_value = !ctx.edit_numberDensity_constants;
 			attr(div19, "class", "control");
 			attr(div20, "class", "field");
-			attr(label6, "class", "label svelte-75l8qt");
-			attr(input15, "class", "input number_constants svelte-75l8qt");
+			attr(label6, "class", "label svelte-1goj73o");
+			attr(input15, "class", "input number_constants svelte-1goj73o");
 			attr(input15, "type", "number");
 			attr(input15, "step", "0.1");
 			attr(input15, "placeholder", "Number density");
@@ -8780,10 +8780,10 @@ function create_fragment$9(ctx) {
 			attr(div21, "class", "control");
 			attr(div22, "class", "field");
 			attr(div23, "class", "control");
-			attr(div24, "class", div24_class_value = "column " + ctx.table_sz + " svelte-75l8qt");
+			attr(div24, "class", div24_class_value = "column " + ctx.table_sz + " svelte-1goj73o");
 			attr(div25, "class", "columns is-multiline");
 			attr(div25, "id", "unit_conversion_table");
-			attr(div26, "class", "column is-11 page animated fadeIn svelte-75l8qt");
+			attr(div26, "class", "column is-11 page animated fadeIn svelte-1goj73o");
 			attr(div26, "id", "Converter");
 			set_style(div26, "display", "block");
 			attr(div27, "class", "columns is-centered is-multiline animated fadeIn");
@@ -9025,7 +9025,7 @@ function create_fragment$9(ctx) {
 				input9.disabled = input9_disabled_value;
 			}
 
-			if ((changed.table_sz) && div5_class_value !== (div5_class_value = "column " + ctx.table_sz + " svelte-75l8qt")) {
+			if ((changed.table_sz) && div5_class_value !== (div5_class_value = "column " + ctx.table_sz + " svelte-1goj73o")) {
 				attr(div5, "class", div5_class_value);
 			}
 
@@ -9055,7 +9055,7 @@ function create_fragment$9(ctx) {
 				input15.disabled = input15_disabled_value;
 			}
 
-			if ((changed.table_sz) && div24_class_value !== (div24_class_value = "column " + ctx.table_sz + " svelte-75l8qt")) {
+			if ((changed.table_sz) && div24_class_value !== (div24_class_value = "column " + ctx.table_sz + " svelte-1goj73o")) {
 				attr(div24, "class", div24_class_value);
 			}
 		},
