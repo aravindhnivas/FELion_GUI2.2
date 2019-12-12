@@ -100,6 +100,8 @@
  .otherFolderList {
     margin-top: 1em;
   }
+
+  .subtitle {color: white;}
   
 </style>
 
