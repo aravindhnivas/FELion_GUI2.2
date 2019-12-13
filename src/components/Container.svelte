@@ -20,8 +20,8 @@
   export let menu;
   export let MenuItem;
 
+  $: tplot_width = ""
   jq(document).ready(() => {
-
     jq("#theoryBtn").addClass("fadeInUp").css("display", "none")
     jq("#norm_tkplot").addClass("fadeInUp").css("display", "none")
 
@@ -30,9 +30,8 @@
 
     let plotHeight;
     let ScreenHeight = window.screen.height;
-
-    if (ScreenHeight >= 1000) plotHeight = 650
-    else plotHeight = 540
+    if (ScreenHeight >= 1000) {plotHeight = 650; ; tplot_width="is-half"}
+    else {plotHeight = 540; tplot_width="is-full"}
 
     jq(".plotContainer").css("max-height", plotHeight)
 
@@ -884,9 +883,7 @@
         </div>
 
         <div class="row buttonsRow">
-
           <div class="level">
-
             <div class="level-left animated fadeIn">
 
               {#each funcBtns as { id, name }}
@@ -918,19 +915,6 @@
               {/each}
 
               {#if filetag == 'felix'}
-                <!-- <div class="level-item">
-                  <span class="select">
-                    <select
-                      id="felixmethod"
-                      bind:value={normMethod}
-                      data-tippy="Normalisation method"
-                      on:change={animatePlot}>
-                      {#each normalisation_method as method}
-                        <option>{method}</option>
-                      {/each}
-                    </select>
-                  </span>
-                </div> -->
                 <div class="level-item">
                   <div class="field has-addons">
                     <div class="control"><div class="button is-static">&Delta (cm-1)</div></div>
@@ -997,10 +981,9 @@
                 </div>
 
               {/if}
+
             </div>
-
           </div>
-
         </div>
 
         {#if filetag=="felix"}
@@ -1174,7 +1157,7 @@
             {#if filetag == 'scan'}
               <div class="columns is-multiline" {id} style="padding-bottom:1em">
                 {#each fileChecked as scanfile}
-                  <div class="column is-half" id="{scanfile}_tplot" style="padding-bottom:1em" />
+                  <div class="column {tplot_width}" id="{scanfile}_tplot" style="padding-bottom:1em" />
                 {/each}
               </div>
 
