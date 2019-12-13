@@ -238,7 +238,7 @@
   }
   $: modal = {mass:"", felix:"", scan:"", thz:""}
   $: error_msg = {mass:"", felix:"", scan:"", thz:""}
-  function functionRun(event, target_id=null) {
+  function functionRun(event=null, target_id=null) {
     let btname;
 
     target_id === null ? btname = event.target.id : btname = target_id
@@ -752,17 +752,7 @@
       })
     })
     .catch(err => console.log(err));
-    // runPlot({
-    //   fullfiles: [currentLocation], filetype: "general", filetag:"scan",
-    //   btname: "depletionSubmit", pyfile: "depletionscan.py", 
-    //   args: [jq(ResON).val(), jq(ResOFF).val(), ...powerinfo.split(",").map(pow=>parseFloat(pow)), nshots, massIndex, timestartIndex] 
-    // })
-    // .then((output)=>{console.log(output)})
-    // .catch((err)=>{
-    //   console.log('Error Occured', err); 
-    //   error_msg["scan"]=err; 
-    //   modal["scan"]="is-active"
-    // })
+    
   }
 </script>
 
@@ -814,13 +804,24 @@
 
   .button.is-static {background: transparent; color: white;}
 
-  /*  */
-
   /* Input hover, focused colors */
   .input {
     background: transparent;
     color: white;
+    text-align: center;
   }
+
+  /* Clearning default increamental syle */
+  /* input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  } */
 
   .locationLabel {border-radius: 20px;}
 
@@ -945,19 +946,19 @@
 
                 <div class="level-item">
                   <div class="field has-addons">
+
                     <div class="control"><div class="button is-static">&Delta (cm-1)</div></div>
 
                     <div class="control">
                       <input
-                        class="input"
+                        class="input inc_dec_input"
                         type="number" step="0.5"
                         id="delta_value"
                         placeholder="Delta value"
-                        data-tippy="Delta value for averaging FELIX spectrum"
                         bind:value={delta}
                         on:change="{(e)=>functionRun(e, "felixPlotBtn")}" />
                     </div>
-                    
+
                   </div>
                 </div>
 
