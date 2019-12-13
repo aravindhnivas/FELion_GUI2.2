@@ -376,13 +376,14 @@
         jq("#nist_row").toggle()
         jq("#nistWebview_rows").toggle()
 
-        checkInternet().then(result=>{
-          internet_connection = result
+        if (navigator.onLine) {
+          internet_connection = "Internet"
           internet_active = "is-success"
-        }).catch(err=>{
-          internet_connection = result
+        } else {
+          internet_connection = "No Internet"
           internet_active = "is-danger"
-        })
+        }
+        
       break;
 
       ////////////// Timescan PLOT //////////////////////
@@ -501,35 +502,6 @@
       error_msg["scan"]=err; 
       modal["scan"]="is-active"
     })
-
-  /* Streamlit depletion */
-  // let port = 8501
-    // let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py")
-    // let pyDir = path.dirname(localStorage["pythonpath"])
-    // let streamlit_path = path.resolve(pyDir, "Scripts", "streamlit")
-
-    // glob(path.resolve(pyDir, "Scripts", "streamlit*"), (error, file)=>{
-    //   if(file.length===0){
-    //     console.log("Error: Streamlit is not installed.\nInstalling now...")
-    //     let packageName = "streamlit-0.51.0-py2.py3-none-any.whl"
-    //     let streamlit_package = path.resolve(__dirname, "pipPackages", packageName)
-    //     exec(`${path.resolve(pyDir, "python")} -m pip install ${streamlit_package}`, (err, result)=>{
-    //       if (err) {console.log("Error occured: Streamlit package couldn't be installed to python")}
-    //       else {console.log("Streamlit package installed to python: \n", result)}
-    //     })
-    //   } else {console.log("Streamlit exists")}
-    // })
-
-    // let defaultArguments = ["run", pyFile, "--server.port", port, "--server.headless", "true"]
-    // let sendArguments = [currentLocation, ...folderFile.files]
-
-    // let st = spawn(streamlit_path, [...defaultArguments, ...sendArguments])
-    // st.stdout.on('data', data => {console.log(data.toString("utf8"))})
-    // st.stderr.on('data', err => {console.log("Error occured:", err.toString("utf8"))})
-    // st.on('close', ()=>{console.log("Completed")})
-
-    // let localhostDepletion = `http://localhost:${port}`
-    // setTimeout(()=>window.open(localhostDepletion), 1000)
   }
 
   // Experimental fit (gaussian)
@@ -709,19 +681,6 @@
     localStorage["nist_mname"] = nist_mname
   }
 
-  function checkInternet() {
-
-    return new Promise((resolve, reject)=>{
-      require('dns').lookup('google.com',function(err) {
-          if (err && err.code == "ENOTFOUND") {
-              reject("No Internet access available")
-          } else {
-              resolve("Internet Connected")
-          }
-      })
-    })
-  }
-
   $: internet_connection = "No Internet access available"
   $: internet_active = "is-danger"
   $: search_string = ""
@@ -791,7 +750,7 @@
   }
 
   /* Buttons:  border, background and hovering colors */
-  .button.is-link, .button.is-warning, .button.is-danger {background-color: rgba(0,0,0,0);}
+  .button.is-link, .button.is-warning, .button.is-danger, .button.is-success {background-color: rgba(0,0,0,0);}
 
   .button.is-link {border-color: #dbdbdb;}
   .button.is-link:hover, .button.is-link.is-hovered {background-color: #7a64b1;}
@@ -802,6 +761,10 @@
   .button.is-danger {border-color: #ff3860;}
   .button.is-danger:hover, .button.is-danger.is-hovered {background-color: #ff3860;}
 
+  .button.is-success {border-color: #09814a;}
+  .button.is-success:hover, .button.is-success.is-hovered {background-color: #09814a;}
+
+
   .button.is-static {background: transparent; color: white;}
 
   /* Input hover, focused colors */
@@ -810,6 +773,7 @@
     color: white;
     text-align: center;
   }
+  ::-webkit-input-placeholder {color: #bdc3c7!important}
 
   /* Clearning default increamental syle */
   /* input[type="number"] {

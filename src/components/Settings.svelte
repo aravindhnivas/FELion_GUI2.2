@@ -15,10 +15,14 @@
     const admZip = require('adm-zip');
     const copy = require('recursive-copy');
 
-    // When DOMContentent is loaded and ready
-    jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active")})
+    jq(document).ready(()=>{
 
-    // Reading local package.json file
+        jq("#ConfigurationContainer").addClass("is-active")
+        console.log(`Internet Status: ${navigator.onLine}`)
+        if (navigator.onLine) updateCheck()
+        else console.log("Internet is not connected.")
+    })
+
     
     let packageJSON = fs.readFileSync(path.join(__dirname, "../package.json"))
     packageJSON = JSON.parse(packageJSON.toString("utf-8"))
@@ -174,7 +178,6 @@
             console.log("Update check completed")
         })
     }
-
     // Download the update file
     const download = (downloadedFile) => {
 
@@ -226,7 +229,6 @@
         })
     }
 
-    // Update processing
     const update = () => {
         // archive()
         updateLoading = "is-loading"
@@ -272,23 +274,6 @@
         }
         
     }
-
-    // Checking for internet connection
-    function checkInternet(cb) {
-
-        require('dns').lookup('google.com',function(err) {
-            if (err && err.code == "ENOTFOUND") {
-                cb(false);
-            } else {
-                cb(true);
-            }
-        })
-    }
-
-    // Checking for update on startup
-    checkInternet(function(isConnected) {
-        isConnected ? updateCheck() : console.log("Internet is not connected")
-    })
 
     // Checking for update on regular time interval
     const hr_ms = (time) => time*60*60*10**3
