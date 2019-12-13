@@ -2649,6 +2649,8 @@ class program {
 
                                 }
                             });
+                        } else if (this.filetype == "opofile") {
+                            plot("OPO spectrum", "Wavenumber (cm-1)", "Counts", dataFromPython, "opoplot");
                         }
                         else if (this.filetype == "theory") {
 
@@ -3040,7 +3042,7 @@ function get_each_context_10(ctx, list, i) {
 	return child_ctx;
 }
 
-// (889:14) {#each funcBtns as { id, name }}
+// (916:14) {#each funcBtns as { id, name }}
 function create_each_block_10(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -3078,7 +3080,7 @@ function create_each_block_10(ctx) {
 	};
 }
 
-// (905:20) {:else}
+// (932:20) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3116,7 +3118,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (903:20) {#if name[0]==="Log"}
+// (930:20) {#if name[0]==="Log"}
 function create_if_block_14(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3154,7 +3156,7 @@ function create_if_block_14(ctx) {
 	};
 }
 
-// (898:14) {#each checkBtns as {id, name, bind, help}}
+// (925:14) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_9(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -3242,9 +3244,9 @@ function create_each_block_9(ctx) {
 	};
 }
 
-// (917:14) {#if filetag == 'felix'}
+// (944:14) {#if filetag == 'felix'}
 function create_if_block_13(ctx) {
-	var div4, div3, div1, t_1, div2, input, input_updating = false, dispose;
+	var div4, div3, div1, t1, div2, input, input_updating = false, t2, div6, div5, dispose;
 
 	function input_input_handler() {
 		input_updating = true;
@@ -3257,9 +3259,13 @@ function create_if_block_13(ctx) {
 			div3 = element("div");
 			div1 = element("div");
 			div1.innerHTML = `<div class="button is-static svelte-14k508y">Δ (cm-1)</div>`;
-			t_1 = space();
+			t1 = space();
 			div2 = element("div");
 			input = element("input");
+			t2 = space();
+			div6 = element("div");
+			div5 = element("div");
+			div5.textContent = "OPO";
 			attr(div1, "class", "control");
 			attr(input, "class", "input svelte-14k508y");
 			attr(input, "type", "number");
@@ -3270,10 +3276,14 @@ function create_if_block_13(ctx) {
 			attr(div2, "class", "control");
 			attr(div3, "class", "field has-addons");
 			attr(div4, "class", "level-item svelte-14k508y");
+			attr(div5, "class", "button hvr-glow funcBtn is-link animated svelte-14k508y");
+			attr(div5, "id", "opoButton");
+			attr(div6, "class", "level-item svelte-14k508y");
 
 			dispose = [
 				listen(input, "input", input_input_handler),
-				listen(input, "change", ctx.change_handler)
+				listen(input, "change", ctx.change_handler),
+				listen(div5, "click", ctx.plotOPO)
 			];
 		},
 
@@ -3281,11 +3291,15 @@ function create_if_block_13(ctx) {
 			insert(target, div4, anchor);
 			append(div4, div3);
 			append(div3, div1);
-			append(div3, t_1);
+			append(div3, t1);
 			append(div3, div2);
 			append(div2, input);
 
 			set_input_value(input, ctx.delta);
+
+			insert(target, t2, anchor);
+			insert(target, div6, anchor);
+			append(div6, div5);
 		},
 
 		p(changed, ctx) {
@@ -3296,6 +3310,8 @@ function create_if_block_13(ctx) {
 		d(detaching) {
 			if (detaching) {
 				detach(div4);
+				detach(t2);
+				detach(div6);
 			}
 
 			run_all(dispose);
@@ -3303,7 +3319,7 @@ function create_if_block_13(ctx) {
 	};
 }
 
-// (938:14) {#if filetag == 'thz'}
+// (970:14) {#if filetag == 'thz'}
 function create_if_block_12(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -3403,7 +3419,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (989:8) {#if filetag=="felix"}
+// (1021:8) {#if filetag=="felix"}
 function create_if_block_11(ctx) {
 	var div7, div6, div5, div2, div1, div0, select, t0, div4, div3, button0, t2, input0, input0_updating = false, t3, input1, input1_updating = false, t4, button1, t6, button2, dispose;
 
@@ -3566,7 +3582,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (998:30) {#each theoryfilenames as theoryfile}
+// (1030:30) {#each theoryfilenames as theoryfile}
 function create_each_block_8(ctx) {
 	var option, t_value = ctx.theoryfile + "", t, option_value_value;
 
@@ -3603,7 +3619,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (1020:8) {#if filetag=="scan"}
+// (1052:8) {#if filetag=="scan"}
 function create_if_block_5(ctx) {
 	var div3, div2, div1, t0, t1, div0, button, dispose;
 
@@ -3734,7 +3750,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (1033:30) {#if folderFile.files != undefined}
+// (1065:30) {#if folderFile.files != undefined}
 function create_if_block_10(ctx) {
 	var each_1_anchor;
 
@@ -3797,7 +3813,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (1034:32) {#each folderFile.files as scanfile}
+// (1066:32) {#each folderFile.files as scanfile}
 function create_each_block_7(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3834,7 +3850,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (1025:18) {#each ["ResON", "ResOFF"] as name}
+// (1057:18) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_6(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3902,7 +3918,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (1058:55) 
+// (1090:55) 
 function create_if_block_9(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3941,7 +3957,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (1056:55) 
+// (1088:55) 
 function create_if_block_8(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3980,7 +3996,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (1054:54) 
+// (1086:54) 
 function create_if_block_7(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -4019,7 +4035,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (1052:26) {#if name=="Power (ON, OFF)"}
+// (1084:26) {#if name=="Power (ON, OFF)"}
 function create_if_block_6(ctx) {
 	var input, dispose;
 
@@ -4052,7 +4068,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (1045:18) {#each depletionLabels as {name, id}}
+// (1077:18) {#each depletionLabels as {name, id}}
 function create_each_block_5(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0;
 
@@ -4108,7 +4124,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (1078:8) {#if filetag === "mass"}
+// (1110:8) {#if filetag === "mass"}
 function create_if_block_4(ctx) {
 	var div5, div4, div3, div0, input0, t0, div1, input1, t1, div2, button, t2, button_class_value, t3, div17, div16, div15, div7, div6, select, t4, div8, input2, input2_updating = false, t5, div9, input3, input3_updating = false, t6, div10, input4, input4_updating = false, t7, div12, div11, t9, div14, div13, dispose;
 
@@ -4362,7 +4378,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (1111:24) {#each fileChecked as file}
+// (1143:24) {#each fileChecked as file}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4399,7 +4415,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (1356:12) {:else}
+// (1388:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -4432,7 +4448,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (1313:39) 
+// (1345:39) 
 function create_if_block_3(ctx) {
 	var div0, div0_id_value, t0, div9, div7, div6, div5, div1, t1, div2, t2, div3, t3, div4, t4, div8, webview, t5, dispose;
 
@@ -4530,7 +4546,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (1164:38) 
+// (1196:38) 
 function create_if_block_1$1(ctx) {
 	var div10, div9, div2, div1, input0, t0, div0, t3, div5, div4, input1, t4, div3, t7, div8, div7, input2, t8, div6, t11, div11, div11_id_value, t12, div24, div23, div12, input3, input3_updating = false, t13, div13, input4, input4_updating = false, t14, div14, input5, input5_updating = false, t15, div16, div15, t16, div15_class_value, t17, div18, div17, select0, t18, div20, div19, t19, div19_class_value, t20, div22, div21, t21, div21_class_value, t22, div39, div38, div26, div25, select1, t23, div28, div27, t25, div31, t28, div33, div32, t29, div32_class_value, t30, div35, div34, t31, div34_class_value, t32, div37, div36, t34, t35, current, dispose;
 
@@ -5038,7 +5054,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (1157:12) {#if filetag == 'scan'}
+// (1189:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -5115,7 +5131,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (1237:26) {#each fit_file_list as file}
+// (1269:26) {#each fit_file_list as file}
 function create_each_block_3(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -5152,7 +5168,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (1265:26) {#each fit_file_list as file}
+// (1297:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -5189,7 +5205,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (1305:18) {#if expfit_log_display}
+// (1337:18) {#if expfit_log_display}
 function create_if_block_2(ctx) {
 	var div, label, t, div_intro, div_outro, current;
 
@@ -5245,7 +5261,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (1159:16) {#each fileChecked as scanfile}
+// (1191:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_class_value, div_id_value;
 
@@ -5279,7 +5295,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (1155:10) {#each plotID as id}
+// (1187:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var current_block_type_index, if_block, if_block_anchor, current;
 
@@ -6380,6 +6396,7 @@ function instance$5($$self, $$props, $$invalidate) {
       $$invalidate('modal', modal[filetag]="is-active", modal);
     });
   };
+
   const clearAllPeak = () => {
     console.log("Removing all found peak values");
     let lines_length = window.line.length;
@@ -6417,7 +6434,6 @@ function instance$5($$self, $$props, $$invalidate) {
     Plotly.relayout("avgplot", { annotations: window.annotations, shapes: window.line });
     if (window.line.length === 0) {ready_to_fit = false;}
   };
-
 
   const fitall = (tkplot=false, btname="fitall_expfit_peaks", filetype="expfit_all") => {
 
@@ -6469,6 +6485,32 @@ function instance$5($$self, $$props, $$invalidate) {
 
       Plotly.react("avgplot", data , layout );
     } catch (err) {console.log("Error occured while chaning felixplot method", err);}
+  }
+
+  function plotOPO(){
+
+    browseFile({theory:true})
+    .then(file =>  {
+
+       runPlot({
+        fullfiles: [file], filetype: "opofile", filetag:"felix",
+        btname: "opoButton", pyfile: "oposcan.py", 
+        args: "run"
+
+      });
+    })
+    .catch(err => console.log(err));
+    // runPlot({
+    //   fullfiles: [currentLocation], filetype: "general", filetag:"scan",
+    //   btname: "depletionSubmit", pyfile: "depletionscan.py", 
+    //   args: [jq(ResON).val(), jq(ResOFF).val(), ...powerinfo.split(",").map(pow=>parseFloat(pow)), nshots, massIndex, timestartIndex] 
+    // })
+    // .then((output)=>{console.log(output)})
+    // .catch((err)=>{
+    //   console.log('Error Occured', err); 
+    //   error_msg["scan"]=err; 
+    //   modal["scan"]="is-active"
+    // })
   }
 
 	const $$binding_groups = [[]];
@@ -6727,6 +6769,7 @@ function instance$5($$self, $$props, $$invalidate) {
 		clear_mass_peaks,
 		set_nist_url,
 		animatePlot,
+		plotOPO,
 		tplot_width,
 		fileChecked,
 		console,
@@ -24749,7 +24792,7 @@ const mainPages = [
                 name: "Open in matplotlib"
             }
         ],
-        plotID: ["exp-theory-plot", "bplot", "saPlot", "avgplot"],
+        plotID: ["exp-theory-plot", "bplot", "saPlot", "avgplot", "opoplot"],
         checkBtns: [
             {
                 id: "felix_shell",
