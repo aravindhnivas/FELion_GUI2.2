@@ -807,7 +807,7 @@
   .button.is-link:hover, .button.is-link.is-hovered {background-color: #7a64b1;}
 
   .button.is-warning {border-color: #ffc402; color: white;}
-  .button.is-warning:hover, .button.is-warning.is-hovered {background-color: #7a64b1; color: white;}
+  .button.is-warning:hover, .button.is-warning.is-hovered {background-color: #ffc402; color: black;}
 
   .button.is-danger {border-color: #ff3860;}
   .button.is-danger:hover, .button.is-danger.is-hovered {background-color: #ff3860;}
