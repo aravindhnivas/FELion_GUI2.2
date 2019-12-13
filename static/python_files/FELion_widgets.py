@@ -86,7 +86,7 @@ class FELion_Tk(Tk):
         self.widget_frame.scale = Scale(
             self.widget_frame, variable=self.widget_frame.value, from_=0, to=value*10, orient=kw["slider_orient"])
 
-        self.widget_frame.scale.bind("<ButtonRelease-1>", bind_func)
+        self.widget_frame.scale.bind("<B1-Motion>", bind_func)
         self.widget_frame.scale.place(
             relx=x+0.2, rely=y, anchor=kw['anchor'], relwidth=kw['relwidth'], relheight=kw['relheight'])
 
