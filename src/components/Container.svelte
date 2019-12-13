@@ -559,7 +559,6 @@
 
   $: fitall_tkplot_Peak_btnCSS = "is-link"
 
-  // expfit clear and clear all status
   $: expfit_log_display = false
   $: expfit_log = ""
   const expfit_log_it = (str) => {
@@ -619,6 +618,7 @@
       modal[filetag]="is-active"
     })
   }
+
   const clearAllPeak = () => {
     console.log("Removing all found peak values")
     let lines_length = window.line.length
@@ -656,7 +656,6 @@
     Plotly.relayout("avgplot", { annotations: window.annotations, shapes: window.line })
     if (window.line.length === 0) {ready_to_fit = false}
   }
-
 
   const fitall = (tkplot=false, btname="fitall_expfit_peaks", filetype="expfit_all") => {
 
@@ -736,6 +735,34 @@
 
       Plotly.react("avgplot", data , layout )
     } catch (err) {console.log("Error occured while chaning felixplot method", err)}
+  }
+
+  function plotOPO(){
+    let opofile;
+
+    browseFile({theory:true})
+    .then(file =>  {
+        opofile = file
+
+       runPlot({
+        fullfiles: [file], filetype: "opofile", filetag:"felix",
+        btname: "opoButton", pyfile: "oposcan.py", 
+        args: "run"
+
+      })
+    })
+    .catch(err => console.log(err));
+    // runPlot({
+    //   fullfiles: [currentLocation], filetype: "general", filetag:"scan",
+    //   btname: "depletionSubmit", pyfile: "depletionscan.py", 
+    //   args: [jq(ResON).val(), jq(ResOFF).val(), ...powerinfo.split(",").map(pow=>parseFloat(pow)), nshots, massIndex, timestartIndex] 
+    // })
+    // .then((output)=>{console.log(output)})
+    // .catch((err)=>{
+    //   console.log('Error Occured', err); 
+    //   error_msg["scan"]=err; 
+    //   modal["scan"]="is-active"
+    // })
   }
 </script>
 
@@ -915,6 +942,7 @@
               {/each}
 
               {#if filetag == 'felix'}
+
                 <div class="level-item">
                   <div class="field has-addons">
                     <div class="control"><div class="button is-static">&Delta (cm-1)</div></div>
@@ -931,6 +959,10 @@
                     </div>
                     
                   </div>
+                </div>
+
+                <div class="level-item">
+                  <div class="button hvr-glow funcBtn is-link animated" id="opoButton" on:click={plotOPO}>OPO</div>
                 </div>
                    
               {/if}

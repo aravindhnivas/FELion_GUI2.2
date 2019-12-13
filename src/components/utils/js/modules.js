@@ -280,6 +280,8 @@ class program {
 
                                 }
                             })
+                        } else if (this.filetype == "opofile") {
+                            plot("OPO spectrum", "Wavenumber (cm-1)", "Counts", dataFromPython, "opoplot");
                         }
                         else if (this.filetype == "theory") {
 
