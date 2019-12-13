@@ -1,10 +1,12 @@
 <script>
+
   import AnimateBox from "./utils/AnimateBox.svelte";
   export let jq;
+
   console.log("Loading");
   jq(document).ready(() => {
-    jq("#Welcome").css("display", "block");
 
+    jq("#Welcome").css("display", "block");
     anime
       .timeline({ loop: false })
       .add({
@@ -51,10 +53,13 @@
         easing: "easeOutExpo",
         delay: 1000
       });
+
   });
+
 </script>
 
 <style>
+
   #Welcome {
     margin-top: 15% !important;
     display: none;
