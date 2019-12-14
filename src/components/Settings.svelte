@@ -89,7 +89,7 @@
     $: gihub_branchname = "master"
     $: console.log(`Branch changed: ${gihub_branchname}`)
 
-    $: urlPackageJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/version.json`
+    $: versionJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/version.json`
     $: urlzip = `https://codeload.github.com/${github_username}/${github_repo}/zip/${gihub_branchname}`
 
 
@@ -106,11 +106,11 @@
 
         checkupdateLoading = "is-loading"
         let developer_version = false;
-        console.log(`URL_Package: ${urlPackageJson}`)
+        console.log(`URL_Package: ${versionJson}`)
 
         console.log(`URL_ZIP: ${urlzip}`)
 
-        let request = https.get(urlPackageJson, (res) => {
+        let request = https.get(versionJson, (res) => {
 
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);

@@ -7954,11 +7954,11 @@ function instance$7($$self, $$props, $$invalidate) {
 
         $$invalidate('checkupdateLoading', checkupdateLoading = "is-loading");
         let developer_version = false;
-        console.log(`URL_Package: ${urlPackageJson}`);
+        console.log(`URL_Package: ${versionJson}`);
 
         console.log(`URL_ZIP: ${urlzip}`);
 
-        let request = https.get(urlPackageJson, (res) => {
+        let request = https.get(versionJson, (res) => {
 
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);
@@ -8317,11 +8317,11 @@ function instance$7($$self, $$props, $$invalidate) {
 		if ('electron' in $$props) $$invalidate('electron', electron = $$props.electron);
 	};
 
-	let saveChanges, new_version, checkupdateLoading, updateLoading, updateStatus, gihub_branchname, urlPackageJson, urlzip, currentTime, auto_update_check, backupClass, backupName, back_restore_display, back_restore_log, restoreClass, developer_mode;
+	let saveChanges, new_version, checkupdateLoading, updateLoading, updateStatus, gihub_branchname, versionJson, urlzip, currentTime, auto_update_check, backupClass, backupName, back_restore_display, back_restore_log, restoreClass, developer_mode;
 
 	$$self.$$.update = ($$dirty = { gihub_branchname: 1, github_username: 1, github_repo: 1, auto_update_check: 1, timeInterval_hr: 1, check_update_continuously: 1, developer_mode: 1 }) => {
 		if ($$dirty.gihub_branchname) { console.log(`Branch changed: ${gihub_branchname}`); }
-		if ($$dirty.github_username || $$dirty.github_repo || $$dirty.gihub_branchname) { urlPackageJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/version.json`; }
+		if ($$dirty.github_username || $$dirty.github_repo || $$dirty.gihub_branchname) { versionJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/version.json`; }
 		if ($$dirty.github_username || $$dirty.github_repo || $$dirty.gihub_branchname) { urlzip = `https://codeload.github.com/${github_username}/${github_repo}/zip/${gihub_branchname}`; }
 		if ($$dirty.auto_update_check || $$dirty.timeInterval_hr || $$dirty.check_update_continuously) { if (auto_update_check){ 
             console.log("Auto update On");
