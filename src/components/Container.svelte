@@ -674,7 +674,6 @@
   const set_nist_url = (format) => {
     let fmt;
     format == "by_name" ? fmt = nist_molecule_name : fmt = nist_molecule_formula
-
     nist_url = `https://webbook.nist.gov/cgi/cbook.cgi?${fmt}&Units=SI&Mask=200#Mass-Spec`
     localStorage["nist_url"] = nist_url
     localStorage["nist_mformula"] =  nist_mformula
@@ -687,22 +686,18 @@
   $: google_search = `http://www.google.com/search?q=${search_string}.`
 
   function animatePlot(){
-    
     try {
       let data = window.avg_data[normMethod]["data"]
       let layout = window.avg_data[normMethod]["layout"]
-
       Plotly.react("avgplot", data , layout )
     } catch (err) {console.log("Error occured while chaning felixplot method", err)}
   }
 
   function plotOPO(){
     let opofile;
-
     browseFile({theory:true})
     .then(file =>  {
         opofile = file
-
        runPlot({
         fullfiles: [file], filetype: "opofile", filetag:"felix",
         btname: "opoButton", pyfile: "oposcan.py", 
@@ -711,14 +706,23 @@
       })
     })
     .catch(err => console.log(err));
-    
   }
 </script>
 
-<style>
+<style lang="scss">
+
+  $link-color: #dbdbdb;
+
+  $link-hovercolor: #7a64b1;
+  $success-color: #09814a;
+  $danger-color: #ff3860;
+  $warning-color: #ffc402;
+  $white: #fafafa;
+
+  $box1-color: #594194;
 
   input[type="number"] {width: 5vw;}
-  label {color:white;}
+  label {color:$white;}
 
   #theorylabel{
     color:white;
@@ -752,25 +756,25 @@
   /* Buttons:  border, background and hovering colors */
   .button.is-link, .button.is-warning, .button.is-danger, .button.is-success {background-color: rgba(0,0,0,0);}
 
-  .button.is-link {border-color: #dbdbdb;}
-  .button.is-link:hover, .button.is-link.is-hovered {background-color: #7a64b1;}
+  .button.is-link {border-color: $link-color;}
+  .button.is-link:hover, .button.is-link.is-hovered {background-color: $link-hovercolor;}
 
-  .button.is-warning {border-color: #ffc402; color: white;}
-  .button.is-warning:hover, .button.is-warning.is-hovered {background-color: #ffc402; color: black;}
+  .button.is-warning {border-color: $warning-color; color: $white;}
+  .button.is-warning:hover, .button.is-warning.is-hovered {background-color: $warning-color; color: black;}
 
-  .button.is-danger {border-color: #ff3860;}
-  .button.is-danger:hover, .button.is-danger.is-hovered {background-color: #ff3860;}
+  .button.is-danger {border-color: $danger-color;}
+  .button.is-danger:hover, .button.is-danger.is-hovered {background-color: $danger-color;}
 
-  .button.is-success {border-color: #09814a;}
-  .button.is-success:hover, .button.is-success.is-hovered {background-color: #09814a;}
+  .button.is-success {border-color: $success-color;}
+  .button.is-success:hover, .button.is-success.is-hovered {background-color: $success-color;}
 
 
-  .button.is-static {background: transparent; color: white;}
+  .button.is-static {background: transparent; color: $white;}
 
   /* Input hover, focused colors */
   .input {
     background: transparent;
-    color: white;
+    color: $white;
     text-align: center;
   }
   ::-webkit-input-placeholder {color: #bdc3c7!important}
@@ -789,13 +793,13 @@
 
   .locationLabel {border-radius: 20px;}
 
-  .input:hover {border-color: #fafafa;}
+  .input:hover {border-color: $white;}
   .input:focus {
-    border-color: #fafafa;
-    box-shadow: 0 0 0 0.05em #fafafa;
+    border-color: $white;
+    box-shadow: 0 0 0 0.05em $white;
   }
   .column {max-height: 90vh}
-  .delete:hover {background-color:#ff3860}
+  .delete:hover {background-color:$danger-color}
 
   .filebrowserColumn {width: 14%!important}
 
@@ -811,11 +815,10 @@
   .locationRow {margin-right: 2em;}
   .row1 {
     margin: 0;
-    background-color: #594194;
+    background-color: $box1-color;
     margin-right: 2em;
   }
-  .subtitle {color: #fafafa;}
-
+  .subtitle {color: $white;}
 </style>
 
 <section class="section" {id} {style}>
