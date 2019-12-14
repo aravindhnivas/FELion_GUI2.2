@@ -79,12 +79,6 @@
     $: updateLoading = ""
     $: updateStatus = ""
 
-    // Github details
-    // const github = {
-    //     username: "aravindhnivas",
-    //     repo: "FELion_GUI2.2",
-    //     branch: "master",
-    // }
 
     let github_username = "aravindhnivas"
     let github_repo = "FELion_GUI2.2"
@@ -92,8 +86,7 @@
     $: gihub_branchname = "master"
     $: console.log(gihub_branchname)
 
-    // URL for github files and folders
-    $: urlPackageJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/package.json`
+    $: versionJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/version.json`
     $: urlzip = `https://codeload.github.com/${github_username}/${github_repo}/zip/${gihub_branchname}`
 
     // Local update-downloaded files
@@ -106,10 +99,11 @@
 
         updatetoggle = "none"
         console.log("Checking for update")
-
         checkupdateLoading = "is-loading"
+
         let developer_version = false;
-        let request = https.get(urlPackageJson, (res) => {
+        
+        let request = https.get(versionJson, (res) => {
 
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);
