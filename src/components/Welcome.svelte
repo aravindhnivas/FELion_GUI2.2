@@ -2,12 +2,13 @@
 
   import AnimateBox from "./utils/AnimateBox.svelte";
   export let jq;
-
+  let animation_welcome;
   console.log("Loading");
   jq(document).ready(() => {
 
     jq("#Welcome").css("display", "block");
-    anime
+    
+    animation_welcome = anime
       .timeline({ loop: false })
       .add({
         targets: ".ml5 .line",
@@ -55,7 +56,6 @@
       });
 
   });
-
 </script>
 
 <style>

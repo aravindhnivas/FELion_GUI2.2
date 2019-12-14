@@ -716,9 +716,10 @@
   $link-hovercolor: #7a64b1;
   $success-color: #09814a;
   $danger-color: #ff3860;
-  $warning-color: #ffc402;
-  $white: #fafafa;
 
+  $warning-color: #ffc402;
+  
+  $white: #fafafa;
   $box1-color: #594194;
 
   input[type="number"] {width: 5vw;}

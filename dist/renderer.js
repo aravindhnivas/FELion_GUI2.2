@@ -1544,12 +1544,13 @@ function create_fragment$3(ctx) {
 
 function instance$3($$self, $$props, $$invalidate) {
 	let { jq } = $$props;
-
+  let animation_welcome;
   console.log("Loading");
   jq(document).ready(() => {
 
     jq("#Welcome").css("display", "block");
-    anime
+    
+    animation_welcome = anime
       .timeline({ loop: false })
       .add({
         targets: ".ml5 .line",
@@ -7053,7 +7054,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (509:20) {#each items as item}
+// (512:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -7085,7 +7086,7 @@ function create_each_block$3(ctx) {
 	};
 }
 
-// (547:28) {#if saveChanges}
+// (550:28) {#if saveChanges}
 function create_if_block_1$2(ctx) {
 	var h1, h1_transition, current, dispose;
 
@@ -7130,7 +7131,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (614:28) {#if back_restore_display}
+// (617:28) {#if back_restore_display}
 function create_if_block$3(ctx) {
 	var p, t, p_transition, current;
 
@@ -7938,7 +7939,6 @@ function instance$7($$self, $$props, $$invalidate) {
         });
     };
 
-    // Github details
 
     let github_username = "aravindhnivas";
     let github_repo = "FELion_GUI2.2";
@@ -7957,6 +7957,7 @@ function instance$7($$self, $$props, $$invalidate) {
         console.log(`URL_Package: ${urlPackageJson}`);
 
         console.log(`URL_ZIP: ${urlzip}`);
+
         let request = https.get(urlPackageJson, (res) => {
 
             console.log('statusCode:', res.statusCode);
@@ -7964,8 +7965,10 @@ function instance$7($$self, $$props, $$invalidate) {
 
             res.on('data', (data) => {
 
-               data = data.toString("utf8");
+                data = data.toString("utf8");
+                console.log(data);
                 data = JSON.parse(data);
+                console.log(data);
                 new_version = data.version;
                 developer_version = data.developer;
 
@@ -7991,12 +7994,11 @@ function instance$7($$self, $$props, $$invalidate) {
         });
 
         request.on("close", ()=>{
+
             if (currentVersion === new_version) {
                 if (developer_version) {
                     $$invalidate('updateStatus', updateStatus = `CAUTION! You are checking with developer branch which has experimental features. Take backup before updating.`);
-                } else {
-                    $$invalidate('updateStatus', updateStatus = `No stable update available.`);
-                }
+                } else {$$invalidate('updateStatus', updateStatus = `No stable update available.`);}
             }
             else if (currentVersion < new_version) {
 
@@ -8021,6 +8023,8 @@ function instance$7($$self, $$props, $$invalidate) {
                 }
             }
             console.log("Update check completed");
+
+            setTimeout(()=>$$invalidate('checkupdateLoading', checkupdateLoading = ""), 2000);
         });
     };
     // Download the update file
@@ -8317,7 +8321,7 @@ function instance$7($$self, $$props, $$invalidate) {
 
 	$$self.$$.update = ($$dirty = { gihub_branchname: 1, github_username: 1, github_repo: 1, auto_update_check: 1, timeInterval_hr: 1, check_update_continuously: 1, developer_mode: 1 }) => {
 		if ($$dirty.gihub_branchname) { console.log(`Branch changed: ${gihub_branchname}`); }
-		if ($$dirty.github_username || $$dirty.github_repo || $$dirty.gihub_branchname) { urlPackageJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/package.json`; }
+		if ($$dirty.github_username || $$dirty.github_repo || $$dirty.gihub_branchname) { urlPackageJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/version.json`; }
 		if ($$dirty.github_username || $$dirty.github_repo || $$dirty.gihub_branchname) { urlzip = `https://codeload.github.com/${github_username}/${github_repo}/zip/${gihub_branchname}`; }
 		if ($$dirty.auto_update_check || $$dirty.timeInterval_hr || $$dirty.check_update_continuously) { if (auto_update_check){ 
             console.log("Auto update On");
@@ -24369,7 +24373,7 @@ function get_each_context$5(ctx, list, i) {
 	return child_ctx;
 }
 
-// (73:0) {#each mainPages as page}
+// (74:0) {#each mainPages as page}
 function create_each_block$5(ctx) {
 	var current;
 

@@ -15,8 +15,9 @@
   const { exec } = require("child_process");
   window.developerMode = false
 
-  // Importing other modules
   import tippy from 'tippy.js'; //For tooltip
+
+  // tippy.setDefaults({animation:"shift-toward-extreme"})
   import * as jQuery from 'jquery';
   import * as electron from 'electron';
   import * as path from 'path';

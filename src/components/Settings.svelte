@@ -82,7 +82,6 @@
     $: updateLoading = ""
     $: updateStatus = ""
 
-    // Github details
 
     let github_username = "aravindhnivas"
     let github_repo = "FELion_GUI2.2"
@@ -90,7 +89,7 @@
     $: gihub_branchname = "master"
     $: console.log(`Branch changed: ${gihub_branchname}`)
 
-    $: urlPackageJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/package.json`
+    $: urlPackageJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/version.json`
     $: urlzip = `https://codeload.github.com/${github_username}/${github_repo}/zip/${gihub_branchname}`
 
 
@@ -110,6 +109,7 @@
         console.log(`URL_Package: ${urlPackageJson}`)
 
         console.log(`URL_ZIP: ${urlzip}`)
+
         let request = https.get(urlPackageJson, (res) => {
 
             console.log('statusCode:', res.statusCode);
@@ -117,8 +117,10 @@
 
             res.on('data', (data) => {
 
-               data = data.toString("utf8")
+                data = data.toString("utf8")
+                console.log(data)
                 data = JSON.parse(data)
+                console.log(data)
                 new_version = data.version
                 developer_version = data.developer
 
@@ -146,12 +148,11 @@
         });
 
         request.on("close", ()=>{
+
             if (currentVersion === new_version) {
                 if (developer_version) {
                     updateStatus = `CAUTION! You are checking with developer branch which has experimental features. Take backup before updating.`
-                } else {
-                    updateStatus = `No stable update available.`
-                }
+                } else {updateStatus = `No stable update available.`}
             }
             else if (currentVersion < new_version) {
 
@@ -176,6 +177,8 @@
                 }
             }
             console.log("Update check completed")
+
+            setTimeout(()=>checkupdateLoading = "", 2000)
         })
     }
     // Download the update file
