@@ -694,18 +694,12 @@
   }
 
   function plotOPO(){
-    let opofile;
-    browseFile({theory:true})
-    .then(file =>  {
-        opofile = file
-       runPlot({
-        fullfiles: [file], filetype: "opofile", filetag:"felix",
+    runPlot({
+        fullfiles: fullfiles, filetype: "opofile", filetag:"felix",
         btname: "opoButton", pyfile: "oposcan.py", 
         args: "run"
 
-      })
-    })
-    .catch(err => console.log(err));
+      }).catch(err => console.log(err));
   }
 </script>
 
