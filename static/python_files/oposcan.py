@@ -1,17 +1,39 @@
 # System modules
-import sys
-import json
-import os
+import sys, json, os, traceback
 from pathlib import Path as pt
-import traceback
 
 # Data analysis
 import numpy as np
+from scipy.interpolate import interp1d
 
 # FELion tkinter figure module
 from FELion_widgets import FELion_Tk
 
+def ReadBase(basefile):
+
+    data = np.genfromtxt(basefile)
+    xs, ys = data[:,0], data[:,1]
+    with open(basefile, 'r') as f: interpol = f.readlines()[1].strip().split('=')[-1]
+
+    return xs, ys, interpol
+
+class BaselineCalibrator(object):
+    def __init__(self, basefile, ms=None):
+        self.ms = ms
+        self.Bx, self.By, self.interpol = ReadBase(basefile)
+        self.f = interp1d(self.Bx, self.By, kind=self.interpol)
+
+    def val(self, x):
+        return self.f(x)
+
 def opoplot(opofiles, tkplot):
+
+    # location = opofiles[0].parent
+    # back_dir = pt(location.parent)
+    # folders = ["DATA", "EXPORT", "OUT"]
+    # if set(folders).issubset(os.listdir(back_dir)): location = pt(back_dir)
+    # else: location = pt(location)
+    # os.chdir(location)
 
     if tkplot:
         
@@ -23,19 +45,29 @@ def opoplot(opofiles, tkplot):
         else: savename = "combined_masspec"
         ax = widget.make_figure_layout(title="Mass Spectrum", xaxis="Mass [u]", yaxis="Counts", yscale="log", savename=savename)
 
-    else: data = {}
+    else: data = {"real":{}, "relative":{}}
     for opofile in opofiles:
-
+        basefile = opofile.parent / f"{opofile.stem}.obase"
         wn, counts = np.genfromtxt(opofile).T
+        baseCal = BaselineCalibrator(basefile)
+
+        baseCounts = baseCal.val(wn)
+        ratio = counts/baseCounts
+        relative_depletion =(1-ratio)*100
 
         # res, b0, trap = var_find(opofile)
-        label = f"{opofile.stem}"
+        label = f"{opofile.name}"
 
         if tkplot: ax.plot(wn, counts, label=label)
         
-        else: data[opofile.stem] = {
-            "x": list(wn), "y": list(counts), "name": label, "mode": "lines", "showlegend": True
-        }
+        else: 
+            data["real"][opofile.name] = {
+                "x": list(wn), "y": list(counts), "name": label, "mode": "lines", "showlegend": True
+            }
+
+            data["relative"][opofile.name] = {
+                "x": list(wn), "y": list(relative_depletion), "name": label, "mode": "lines", "showlegend": True
+            }
 
     if not tkplot:
         dataJson = json.dumps(data)

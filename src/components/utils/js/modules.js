@@ -281,7 +281,8 @@ class program {
                                 }
                             })
                         } else if (this.filetype == "opofile") {
-                            plot("OPO spectrum", "Wavenumber (cm-1)", "Counts", dataFromPython, "opoplot");
+                            plot("OPO spectrum", "Wavenumber (cm-1)", "Counts", dataFromPython["real"], "opoplot");
+                            plot("OPO spectrum: Depletion (%)", "Wavenumber (cm-1)", "Depletion (%)", dataFromPython["relative"], "opoRelPlot");
                         }
                         else if (this.filetype == "theory") {
 

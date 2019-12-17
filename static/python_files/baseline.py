@@ -54,13 +54,22 @@ class Create_Baseline():
             'removed_datas': np.array([[], [], []]), 'redo_datas': np.array([[], [], []]), 'removed_index': [], 'redo_index': [],
             'felix_corrected': False, "baseline_corrected": False, 'plotIt':plotIt, "verbose": verbose
         }
-        for keys, values in attributes.items():
-            setattr(self, keys, values)
 
-        self.basefile = f'{self.fname}.base'
+        for keys, values in attributes.items(): setattr(self, keys, values)
+        if felixfile.endswith("ofelix"):
+            self.opo = True
+            self.basefile = f'{self.fname}.obase'
+
+        else:
+            
+            self.opo = False
+            self.basefile = f'{self.fname}.base'
+        
         self.powerfile = f'{self.fname}.pow'
         self.cfelix = f'{self.fname}.cfelix'
         folders = ["DATA", "EXPORT", "OUT"]
+
+        
 
         if checkdir:
             back_dir = dirname(location)
@@ -130,6 +139,7 @@ class Create_Baseline():
         file = np.genfromtxt(f'./DATA/{self.felixfile}')
         if self.felixfile.endswith('.felix'): data = file[:,0], file[:,2], file[:, 3]
         elif self.felixfile.endswith('.cfelix'): data = file[:,0], file[:,1], file[:, 2]
+        elif self.felixfile.endswith('ofelix'): data = file[:,0], file[:,1], file[:,1]
         with open(f'./DATA/{self.felixfile}') as f: self.info = f.readlines()[-50:]
         self.data = np.take(data, data[0].argsort(), 1)
 
@@ -182,8 +192,10 @@ class Create_Baseline():
         self.canvas.mpl_connect('button_release_event', self.button_release_callback)
         self.canvas.mpl_connect('motion_notify_event', self.motion_notify_callback)
 
-        res, b0, trap = var_find(f"{self.location}/DATA/{self.felixfile}")
-        label = f"{self.felixfile}: Res:{res}; B0: {b0}ms; trap: {trap}ms"
+        if not self.opo:
+            res, b0, trap = var_find(f"{self.location}/DATA/{self.felixfile}")
+            label = f"{self.felixfile}: Res:{res}; B0: {b0}ms; trap: {trap}ms"
+        else: label = f"{self.felixfile}"
 
         self.baseline_data = widget.make_figure_layout(ax=self.ax, xdata=self.data[0], ydata=self.data[1], label=label, savename=self.felixfile,
             title=f"Create Baseline", xaxis="Wavenumber (cm-1)", yaxis="Counts", ls='', marker='o', ms=5, markeredgecolor='r', c='r')
@@ -273,7 +285,7 @@ class Create_Baseline():
                 self.redraw_baseline()
 
                 self.felix_corrected = True
-
+                if self.opo: self.cfelix = f'{self.fname}.cofelix'
                 print(f'\nRemoved Data: {self.removed_datas}\t{self.removed_datas.shape}\n')
                 print(f'\nRemoved Data Index: {self.removed_index}\n')
                 
@@ -410,17 +422,24 @@ class Create_Baseline():
         self.canvas.draw()
 
     def save_cfelix(self):
-
+        # if self.opo: self.data[2] = self.data[1]
         print(f"Saving corrected felix file as {self.cfelix}")
         try:
             cfelixfile = self.location / f"DATA/{self.cfelix}"
+
             with open(cfelixfile, 'w') as f:
+
                 f.write(f'#Noise/Signal corrected for {self.felixfile} data file!\n')
                 f.write(f'#Wavelength(cm-1)\t#Counts\tSA\n')
+                if not self.opo:
+                    for i in range(len(self.data[0])): f.write(f'{self.data[0][i]}\t{self.data[1][i]}\t{self.data[2][i]}\n')
 
-                for i in range(len(self.data[0])): f.write(f'{self.data[0][i]}\t{self.data[1][i]}\t{self.data[2][i]}\n')
+                else:
+                    for i in range(len(self.data[0])): f.write(f'{self.data[0][i]}\t{self.data[1][i]}\n')
                 f.write('\n')
-                for i in range(len(self.info)): f.write(self.info[i])
+
+                if not self.opo: 
+                    for i in range(len(self.info)): f.write(self.info[i])
 
             if isfile(cfelixfile): 
                 print(f'Corrected felix file: {self.cfelix}')

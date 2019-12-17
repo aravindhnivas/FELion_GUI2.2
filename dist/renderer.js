@@ -2651,7 +2651,8 @@ class program {
                                 }
                             });
                         } else if (this.filetype == "opofile") {
-                            plot("OPO spectrum", "Wavenumber (cm-1)", "Counts", dataFromPython, "opoplot");
+                            plot("OPO spectrum", "Wavenumber (cm-1)", "Counts", dataFromPython["real"], "opoplot");
+                            plot("OPO spectrum: Depletion (%)", "Wavenumber (cm-1)", "Depletion (%)", dataFromPython["relative"], "opoRelPlot");
                         }
                         else if (this.filetype == "theory") {
 
@@ -11845,6 +11846,7 @@ var Popper = function () {
 Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
 Popper.placements = placements;
 Popper.Defaults = Defaults;
+//# sourceMappingURL=popper.js.map
 
 /**!
 * tippy.js v4.3.5
@@ -13784,6 +13786,7 @@ function injectCSS(css) {
 }
 
 injectCSS(css);
+//# sourceMappingURL=index.all.js.map
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -24730,7 +24733,7 @@ const mainPages = [
                 name: "Open in matplotlib"
             }
         ],
-        plotID: ["exp-theory-plot", "bplot", "saPlot", "avgplot", "opoplot"],
+        plotID: ["exp-theory-plot", "bplot", "saPlot", "avgplot", "opoplot", "opoRelPlot"],
         checkBtns: [
             {
                 id: "felix_shell",
@@ -24844,6 +24847,7 @@ const app = new App({
     target: document.body,
     props: { mainPages }
 });
+//# sourceMappingURL=renderer.js.map
 
 module.exports = app;
 //# sourceMappingURL=renderer.js.map

@@ -67,7 +67,6 @@ class normplot:
 
         self.delta = delta
         received_files = [pt(files) for files in received_files]
-
         location = received_files[0].parent
 
         back_dir = dirname(location)
