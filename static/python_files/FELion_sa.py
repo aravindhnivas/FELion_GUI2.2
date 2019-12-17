@@ -19,8 +19,8 @@ class SpectrumAnalyserCalibrator(object):
         # Added 6.10.16:
         # Spectrum analyser is calibrated only above 540 cm-1, because for lower values SA gives bulshit values!
         # In case, someone does not follow the SA, value of SA < 100 will get also excluded from the fit!!!!
-        sa_x = np.copy(data[0][np.logical_and(data[0] > 400, data[2] > 100)])
-        sa_y = np.copy(data[2][np.logical_and(data[0] > 400, data[2] > 100)])
+        sa_x = np.copy(data[0][np.logical_and(data[0] > 100, data[2] > 100)])
+        sa_y = np.copy(data[2][np.logical_and(data[0] > 100, data[2] > 100)])
 
         if fit == 'linear':
             p0 = [1.0, 5.0]
