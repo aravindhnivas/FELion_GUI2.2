@@ -8,7 +8,7 @@ from scipy.interpolate import interp1d
 
 # FELion tkinter figure module
 from FELion_widgets import FELion_Tk
-
+from FELion_constants import colors
 def ReadBase(basefile):
 
     data = np.genfromtxt(basefile)
@@ -46,7 +46,9 @@ def opoplot(opofiles, tkplot):
         ax = widget.make_figure_layout(title="Mass Spectrum", xaxis="Mass [u]", yaxis="Counts", yscale="log", savename=savename)
 
     else: data = {"real":{}, "relative":{}}
-    for opofile in opofiles:
+    
+    c = 0
+    for i, opofile in enumerate(opofiles):
         basefile = opofile.parent / f"{opofile.stem}.obase"
         wn, counts = np.genfromtxt(opofile).T
         baseCal = BaselineCalibrator(basefile)
@@ -54,20 +56,26 @@ def opoplot(opofiles, tkplot):
         baseCounts = baseCal.val(wn)
         ratio = counts/baseCounts
         relative_depletion =(1-ratio)*100
-
-        # res, b0, trap = var_find(opofile)
         label = f"{opofile.name}"
-
         if tkplot: ax.plot(wn, counts, label=label)
-        
         else: 
+
+            
             data["real"][opofile.name] = {
-                "x": list(wn), "y": list(counts), "name": label, "mode": "lines", "showlegend": True
+                "x": list(wn), "y": list(counts), "name": label, "mode": "lines", "showlegend": True, "legendgroup": f'group{i}', "line": {"color": f"rgb{colors[c]}"},
+            }
+            
+            data["real"][f"{opofile.name}_line"] = {
+                "x": list(wn), "y": list(baseCounts), "mode": "lines", "name": f"{opofile.name}_line",
+                "marker": {"color": "black"}, "legendgroup": f'group{i}', "showlegend": False,
             }
 
             data["relative"][opofile.name] = {
-                "x": list(wn), "y": list(relative_depletion), "name": label, "mode": "lines", "showlegend": True
+                "x": list(wn), "y": list(relative_depletion), "name": label, "mode": "lines", "showlegend": True, "line": {"color": f"rgb{colors[c]}"}
             }
+
+            c += 2
+            if c >= len(colors): c = 1
 
     if not tkplot:
         dataJson = json.dumps(data)
