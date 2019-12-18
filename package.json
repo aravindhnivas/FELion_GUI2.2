@@ -17,11 +17,11 @@
         "postinstall": "electron-builder install-app-deps",
         "css-build": "node-sass --omit-source-map-url static/sass/mystyles.scss static/css/mystyles.css",
         "css-watch": "npm run css-build -- --watch",
-        "setup": "electron-installer-windows --src FELion_GUI2.2-win32-x64 --dest installer/"
     },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.10.2",
         "svelte-preprocess": "^3.2.6",
+        "autoprefixer": "^9.7.3",
         "bulma": "^0.7.5",
         "electron": "^5.0.1",
         "electron-builder": "^20.40.2",
