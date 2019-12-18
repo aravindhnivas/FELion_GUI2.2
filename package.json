@@ -50,6 +50,7 @@
         "jquery-ui": "^1.12.1",
         "pretty-checkbox": "^3.0.3",
         "python-shell": "^1.0.8",
-        
+        "tippy.js": "^4.3.5",
+        "recursive-copy": "^2.0.10"
     }
 }
