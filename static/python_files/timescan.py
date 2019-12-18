@@ -230,4 +230,3 @@ if __name__ == "__main__":
     tkplot = args[-1]
     if tkplot == "plot": timescanplot(filename, tkplot=True)
     else: timescanplot(filename)
-    # timescanplot(filename, tkplot)
