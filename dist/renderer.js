@@ -7055,7 +7055,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (512:20) {#each items as item}
+// (514:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -7087,7 +7087,7 @@ function create_each_block$3(ctx) {
 	};
 }
 
-// (550:28) {#if saveChanges}
+// (552:28) {#if saveChanges}
 function create_if_block_1$2(ctx) {
 	var h1, h1_transition, current, dispose;
 
@@ -7132,7 +7132,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (617:28) {#if back_restore_display}
+// (619:28) {#if back_restore_display}
 function create_if_block$3(ctx) {
 	var p, t, p_transition, current;
 
@@ -7894,8 +7894,10 @@ function instance$7($$self, $$props, $$invalidate) {
 
     
     let packageJSON = fs.readFileSync(path.join(__dirname, "../package.json"));
+
     $$invalidate('packageJSON', packageJSON = JSON.parse(packageJSON.toString("utf-8")));
-    let currentVersion = packageJSON.version;
+    let versionFile = fs.readFileSync(path.join(__dirname, "../version.json"));
+    let currentVersion = JSON.parse(versionFile.toString("utf-8")).version;
 
     // Pythonpath and pythonscript files location
     
