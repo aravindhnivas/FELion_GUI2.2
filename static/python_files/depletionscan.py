@@ -1,6 +1,6 @@
 
 # Built-In modules
-import os, sys
+import os, sys, traceback
 from pathlib import Path as pt
 
 # DATA analysis modules
@@ -190,7 +190,7 @@ class depletionplot:
             
             self.runFit(Koff, Kon, N, Na0, Nn0)
         
-        except Exception as error: showerror("Error occured", error)
+        except: showerror("Error occured", traceback.format_exc(5))
     
     def runFit(self, Koff, Kon, N, Na0, Nn0, plot=True):
         
@@ -236,7 +236,7 @@ class depletionplot:
                 showinfo("Saved", f"File saved: {save_name} in {self.location}")
             else: self.latexPlot()
 
-        except Exception as error: showerror("Error occured", error)
+        except: showerror("Error occured", traceback.format_exc(5))
     
     def latexPlot(self):
 

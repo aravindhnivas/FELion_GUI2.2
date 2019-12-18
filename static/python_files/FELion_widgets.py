@@ -1,6 +1,6 @@
 
 # Built-In modules
-import os, sys, time
+import os, sys, time, traceback
 from os.path import isdir, isfile
 from pathlib import Path as pt
 
@@ -504,7 +504,7 @@ class FELion_Tk(Tk):
             else: saved()
             print(f'Filename saved: {save_fname}\nLocation: {self.location}\n')
     
-        except Exception as error: showerror("Error", error)
+        except: showerror("Error", traceback.format_exc(5))
 
 def main():
 
