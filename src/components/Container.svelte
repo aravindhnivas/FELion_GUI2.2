@@ -4,7 +4,7 @@
   import { runPlot } from "./utils/js/felion_main.js";
   import * as dirTree from "directory-tree";
   import { fade, fly } from 'svelte/transition';
-  // import { spawn, exec } from "child_process";
+  import Loading from "./utils/Loading.svelte";
 
   const glob = require("glob")
 
@@ -690,7 +690,7 @@
       let data = window.avg_data[normMethod]["data"]
       let layout = window.avg_data[normMethod]["layout"]
       Plotly.react("avgplot", data , layout )
-    } catch (err) {console.log("Error occured while chaning felixplot method", err)}
+    } catch (err) {console.log("Error occured while changing felixplot method", err)}
   }
 
   function plotOPO(){
@@ -699,7 +699,12 @@
         btname: "opoButton", pyfile: "oposcan.py", 
         args: "run"
 
-      }).catch(err => console.log(err));
+      }).catch(err => {
+        console.log('Error Occured', err); 
+        error_msg[filetag]=err; 
+        modal[filetag]="is-active"
+
+      });
   }
 </script>
 
@@ -927,6 +932,8 @@
                 <div class="level-item">
                   <div class="button hvr-glow funcBtn is-link animated" id="opoButton" on:click={plotOPO}>OPO</div>
                 </div>
+
+                <!-- <div class="level-item"><Loading style="4"/></div> -->
                    
               {/if}
 
