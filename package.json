@@ -52,6 +52,5 @@
         "python-shell": "^1.0.8",
         "tippy.js": "^4.3.5",
         "recursive-copy": "^2.0.10"
-        
     }
 }
