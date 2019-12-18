@@ -254,21 +254,24 @@ class FELion_Tk(Tk):
             # Row 7
             y += y_diff
             self.plotGrid = self.Entries("Check", "Grid", x0, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
-            self.plotLegend = self.Entries("Check", "Lg", x0+x_diff/2, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
-            self.plotYscale = self.Entries("Check", "Ylog", x0+x_diff, y, default=False, bind_btn=True, bind_func=self.set_figureLabel)
+            self.plotLegend = self.Entries("Check", "Lg", x0+x_diff, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
 
             # Row 8
             y += y_diff
-            self.latex = self.Entries("Check", "LaTex", x0, y, default=False, relwidth=0.2)
-            self.save_fmt = self.Entries("Entry", "png", x0+0.2, y+0.02, relwidth=0.2)
-            self.save_btn = self.Buttons("Save", x0+0.4, y, self.save_fig)
+            self.plotYscale = self.Entries("Check", "Ylog", x0+x_diff, y, default=False, bind_btn=True, bind_func=self.set_figureLabel)
+            self.latex = self.Entries("Check", "LaTex", x0, y, default=False)
 
-            #  Row 9
+            # Row 9
+            y += y_diff
+            self.save_fmt = self.Entries("Entry", "png", x0, y+0.02)
+            self.save_btn = self.Buttons("Save", x0+x_diff, y, self.save_fig)
+
+            #  Row 10
             y = 0.7
             txt = "Write valid any python expression"
             self.code = self.TextBox(txt, 0.8, y, w=0.7, h=0.1, bind_func=self.python_exp) 
 
-            #  Row 10
+            #  Row 11
             y += y_diff
             self.runCode = self.Buttons("RunCode", x0, y, self.python_exp)
             self.codeResult = self.TextBox("Result", 0.8, y+y_diff+0.04, w=0.7, h=0.09) 
