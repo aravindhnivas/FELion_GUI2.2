@@ -30,64 +30,51 @@
       }
     });
   };
-
-  // const toggleRow = () => {
-
-  //   jq(".locationRow").toggle();
-  //   jq(".buttonsRow").toggle();
-  //   jq(".filebrowserColumn").toggle();
-
-  //   let display = jq(".buttonsRow").css("display");
-
-  //   if (display === "none"){
-
-  //     jq(".plotContainer").css("max-height", "75vh")
-  //     jq(".plotContainer").css("width", "97%")
-
-  //   } 
-  //   else {
-  //     jq(".plotContainer").css("max-height", "60vh");
-  //     jq(".plotContainer").css("width", "81%")
-
-  //   }
-    
-  //   let obj = { width: jq(".plotContainer").width() * 0.97 };
-  //   Plotly.relayout("saPlot", obj);
-  //   Plotly.relayout("bplot", obj);
-  //   Plotly.relayout("avgplot", obj);
-
-  //   Plotly.relayout("exp-theory-plot", obj);
-  //   Plotly.relayout("mplot", obj);
-  // };
-
+  
 </script>
 
 <style>
 
   i:focus {outline-color: transparent;}
   #fullToggle {
-
     margin-left: 0.7em;
     margin-top: 0.7em;
     cursor:pointer;
   }
 
+  .section {padding: 0.3rem}
+
+  .tabs.is-medium {
+    font-weight: lighter;
+    font-size: 1.1rem;
+  }
+  .tabs {background: transparent}
+  .tabs.is-boxed a {border-radius: 20px;}
+
+  .tabs ul {
+    border-bottom-style: none;
+  }
+  .tabs.is-boxed li.is-active a {
+    border-color:transparent;
+    background-color: #6046a0fc;
+  }
+  .tabs.is-boxed a:hover {border: 1px solid white}
+  
+  #Navbar {
+
+    background-color: #4a3284;
+    margin-bottom: 0;
+    
+  }
+
+
 </style>
 
 <!-- Navigation Bar -->
 
-<section class="section animated fadeInDown" id="Navbar" style="display:none">
+<section class="section box animated fadeInDown" id="Navbar" style="display:none">
   <div class="container is-fluid">
     <div class="tabs is-centered is-boxed is-medium">
-      <!-- <span
-        class="icon is-pulled-left"
-        on:click={toggleRow} id="fullToggle"
-        >
-        <i
-          class="fas fa-bars fa-2x"
-          style="padding:0.5em;"
-          aria-hidden="true" data-tippy="Show/Hide layout" data-tippy-placement="right-start" data-tippy-arrow="true"/>
-      </span> -->
       
       <ul>
         {#each navItems as item}

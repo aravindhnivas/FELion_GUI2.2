@@ -1,5 +1,3 @@
-# Importing modules
-
 # Data analysis
 import numpy as np
 from lmfit.models import VoigtModel
@@ -10,6 +8,8 @@ import sys, json, os
 
 # FELion tkinter figure module
 from FELion_widgets import FELion_Tk
+from FELion_definitions import gauss_fit
+####################################################
 
 def thz_plot(filename):
     # Opening file and reading its content
@@ -63,7 +63,6 @@ def thz_plot(filename):
     steps = int(round((freq[1]-freq[0])*1e6, 0))
 
     return freq, depletion_counts, f"{steps} KHz : {iteraton} cycles"
-
 
 def binning(xs, ys, delta=1e-6):
 
@@ -119,23 +118,25 @@ def main(filenames, delta, tkplot, gamma=None):
     if tkplot:
         widget = FELion_Tk(title="THz Scan", location=filenames[0].parent)
         fig, canvas = widget.Figure()
-
         if len(filenames) == 1: savename=filenames[0].stem
         else: savename = "averaged_thzScan"
-
         ax = widget.make_figure_layout(title="THz scan", xaxis="Frequency (GHz)", yaxis="Depletion (%)", savename=savename)
-
     else: data = {}
 
     xs, ys = [], []
-
-    for filename in filenames:
-
+    for i, filename in enumerate(filenames):
+        
         filename = pt(filename)
         freq, depletion_counts, iteraton = thz_plot(filename)
+        model = gauss_fit(freq, depletion_counts)
+        fit_data, uline_freq, usigma, uamplitude, ufwhm = model.get_data()
 
+        freq_fit = uline_freq.nominal_value
+        freq_fit_err = uline_freq.std_dev*1e7
+        
         if tkplot:
-            ax.plot(freq, depletion_counts, ".", label=f"{filename.name} [{iteraton}]")
+            ax.plot(freq, depletion_counts, f"C{i}.", label=f"{filename.name} [{iteraton}]")
+            ax.plot(freq, fit_data, f"C{i}-", label=f"Fit.: {freq_fit:.7f} ({freq_fit_err:.0f}) [{ufwhm.nominal_value*1e6:.1f} KHz]")
         else:
             data[filename.name] = {"x": list(freq), "y": list(depletion_counts),  
                                     "name": f"{filename.name} [{iteraton}]", "mode":'markers',
@@ -143,38 +144,19 @@ def main(filenames, delta, tkplot, gamma=None):
         xs = np.append(xs, freq)
         ys = np.append(ys, depletion_counts)
 
-    binx, biny = binning(xs, ys, delta)
-
-    
-    try:
-
-        model = VoigtModel()
-        guess = model.guess(biny, x=binx)
-        guess_values = guess.valuesdict()
-
-        if gamma is None: gamma = guess_values['gamma']
-        fit = model.fit(biny, x=binx, amplitude = guess_values['amplitude'], center = guess_values['center'],  sigma = guess_values['sigma'], gamma = gamma)
-
-    except Exception as error:
-        if tkplot: print(f"Error occured while fitting with given gamma: {error}. Hence using default fitting")
-        fit = model.fit(biny, x=binx, amplitude = guess_values['amplitude'], center = guess_values['center'], sigma = guess_values['sigma'],  gamma =  guess_values['gamma'])
-
-    # fit_data
-    fit_data = fit.best_fit
-    line_freq_fit = fit.best_values['center']
-
-    # FWHM
-    fwhm_gauss = lambda sigma: 2*sigma*np.sqrt(2*np.log(2))
-    fwhm_loren = lambda gamma: 2*gamma
-    FWHM = lambda sigma, gamma: 0.5346*fwhm_loren(gamma) + np.sqrt(0.2166*fwhm_loren(gamma)**2 + fwhm_gauss(sigma)**2) #voigt approximation with 0.02% accuracy
-    
-    sigma = fit.best_values['sigma']
-    gamma = fit.best_values['gamma']
-    fwhm = FWHM(sigma, gamma)
-    amplitude = fit.best_fit.max()
-    half_max = amplitude/2
-
     # Averaged
+    binx, biny = binning(xs, ys, delta)
+    
+    model = gauss_fit(binx, biny)
+    fit_data, uline_freq, usigma, uamplitude, ufwhm = model.get_data()
+
+    sigma = usigma.nominal_value
+    fwhm = ufwhm.nominal_value
+
+    amplitude = uamplitude.nominal_value
+    half_max = amplitude/2
+    line_freq_fit = uline_freq.nominal_value
+    freq_fit_err = uline_freq.std_dev*1e7
 
     with open(f"./averaged_thz.dat", "w") as f:
         f.write("#Frequency(in MHz)\t#Intensity\n")
@@ -189,10 +171,11 @@ def main(filenames, delta, tkplot, gamma=None):
         }
 
     if tkplot:
-        ax.plot(binx, fit_data, "k-", label=f"Fitted: {line_freq_fit:.7f} GHz ({fwhm*1e6:.1f} KHz)")
+        ax.plot(binx, fit_data, "k-", label=f"Fitted: {line_freq_fit:.7f} ({freq_fit_err:.0f}) [{fwhm*1e6:.1f} KHz]")
         ax.vlines(x=line_freq_fit, ymin=0, ymax=amplitude, zorder=10)
         ax.hlines(y=half_max, xmin=line_freq_fit-fwhm/2, xmax=line_freq_fit+fwhm/2, zorder=10)
-        widget.plot_legend = ax.legend(title=f"Intensity: {amplitude:.2f}%\nGau: {sigma:.3e}\nLorr: {gamma:.3e}")
+        widget.plot_legend = ax.legend()
+
         widget.mainloop()
 
     else:

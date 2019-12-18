@@ -1,17 +1,21 @@
 
 # Built-In modules
-import os, sys
+import os, sys, time, traceback
 from os.path import isdir, isfile
+from pathlib import Path as pt
 
-# Tkinter
 # import tkinter as tk
+
 from tkinter import Frame, IntVar, StringVar, BooleanVar, DoubleVar, Tk, filedialog, END, Text
-from tkinter.ttk import Button, Checkbutton, Label, Entry, Scale, Scrollbar
+from tkinter.ttk import Button, Checkbutton, Label, Entry, Scale, Scrollbar, OptionMenu
 from tkinter.messagebox import showerror, showinfo, showwarning, askokcancel
 
 # Matplotlib
-import matplotlib
-matplotlib.use('TkAgg')
+from matplotlib import style
+import matplotlib.pyplot as plt
+# import matplotlib
+
+# matplotlib.use("TkAgg")
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.backend_bases import key_press_handler
@@ -51,7 +55,7 @@ class FELion_Tk(Tk):
     def __init__(self, title="FELion GUI2", location=".", background="light grey", *args, **kwargs):
         Tk.__init__(self, *args, **kwargs)
 
-        self.location = location
+        self.location = pt(location)
         os.chdir(self.location)
 
         Tk.wm_title(self, title)
@@ -80,9 +84,9 @@ class FELion_Tk(Tk):
         self.widget_frame.value.set(value)
 
         self.widget_frame.scale = Scale(
-            self.widget_frame, variable=self.widget_frame.value, from_=0, to=1, orient=kw["slider_orient"])
+            self.widget_frame, variable=self.widget_frame.value, from_=0, to=value*10, orient=kw["slider_orient"])
 
-        self.widget_frame.scale.bind("<ButtonRelease-1>", bind_func)
+        self.widget_frame.scale.bind("<B1-Motion>", bind_func)
         self.widget_frame.scale.place(
             relx=x+0.2, rely=y, anchor=kw['anchor'], relwidth=kw['relwidth'], relheight=kw['relheight'])
 
@@ -173,32 +177,43 @@ class FELion_Tk(Tk):
 
         self.widget_frame.scrollbar.place(relx=x, rely=y, anchor="w", relheight=h)
         self.widget_frame.txt.place(relx=x, rely=y, anchor="e", relwidth=w, relheight=h)
-
         return self.widget_frame.txt
 
-    def Figure(self, connect=True, dpi=None, **kw):
+    def Dropdown(self, options, x, y, value=None, **kw):
+        kw = var_check(kw)
+
+        if value is not None: value1 = value
+        else: value1 = options[0]
+        if isinstance(value1, str): self.widget_frame.value1 = StringVar()
+        else: self.widget_frame.value1 = DoubleVar()
+        self.widget_frame.value1.set(value1)
+
+        self.widget_frame.dropdown_options = OptionMenu(self.widget_frame, self.widget_frame.value1, *options)
+        self.widget_frame.dropdown_options.place(relx=x, rely=y, anchor=kw['anchor'], relwidth=kw['relwidth'], relheight=kw['relheight'])
+
+        return self.widget_frame.value1
+
+    def Figure(self, connect=True, dpi=None, default_widget=True, default_save_widget=True , **kw):
+
+        self.default_widget = default_widget
+
+        self.default_save_widget = default_save_widget
 
         self.make_figure_widgets()
-
         if dpi is not None: self.dpi_value.set(dpi)
 
         self.fig = Figure(dpi=self.dpi_value.get())
-
         self.fig.subplots_adjust(top=0.95, bottom=0.2, left=0.1, right=0.9)
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.canvas_frame)
 
         self.fig_tkcanvas = self.canvas.get_tk_widget()
         self.fig_tkcanvas.place(relx=0, rely=0, relwidth=1, relheight=1)
-        # self.canvas.mpl_connect('pick_event', lambda event: print(event))
-
         self.toolbar = NavigationToolbar2Tk(self.canvas, self)
         self.toolbar.update()
 
         def on_key_press(event): key_press_handler(
             event, self.canvas, self.toolbar)
-
-        if connect:
-            self.canvas.mpl_connect("key_press_event", on_key_press)
+        if connect: self.canvas.mpl_connect("key_press_event", on_key_press)
 
         return self.fig, self.canvas
     
@@ -217,57 +232,53 @@ class FELion_Tk(Tk):
         y += y_diff
         self.name = self.Entries("Entry", "Plotname", x0, y, bind_return=True, bind_func=self.save_fig, relwidth=0.7)
 
-        # Row 3
-        y += y_diff
-        self.plotTitle = self.Entries("Entry", "Title", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
-        self.titleSz = self.Entries("Entry", 12, x0+0.5, y, bind_return=True, bind_func=self.set_figureLabel, relwidth=0.2)
+        if self.default_widget:
 
-        # Row 4
-        y += y_diff
-        self.plotXlabel = self.Entries("Entry", "X-axis", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
-        self.xlabelSz = self.Entries("Entry", 10, x0+0.5, y, bind_return=True, bind_func=self.set_figureLabel, relwidth=0.2)
+            # Row 3
+            y += y_diff
+            self.plotTitle = self.Entries("Entry", "Title", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
+            self.titleSz = self.Entries("Entry", 12, x0+x_diff+0.1, y, bind_return=True, bind_func=self.set_figureLabel, relwidth=0.2)
 
-        # Row 5
-        y += y_diff
-        self.plotYlabel = self.Entries("Entry", "Y-axis", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
-        self.ylabelSz = self.Entries("Entry", 10, x0+0.5, y, bind_return=True, bind_func=self.set_figureLabel, relwidth=0.2)
+            # Row 4
+            y += y_diff
+            self.plotXlabel = self.Entries("Entry", "X-axis", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
+            self.xlabelSz = self.Entries("Entry", 10, x0+x_diff+0.1, y, bind_return=True, bind_func=self.set_figureLabel, relwidth=0.2)
 
-        # Row 6
-        y += y_diff
-        self.plotFigText = self.Entries("Entry", "Figure 1", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
-        self.figtextFont = self.Entries("Entry", 12, x0+0.5, y, bind_return=True, bind_func=self.set_figureLabel, relwidth=0.2)
+            # Row 5
+            y += y_diff
+            self.plotYlabel = self.Entries("Entry", "Y-axis", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
+            self.ylabelSz = self.Entries("Entry", 10, x0+x_diff+0.1, y, bind_return=True, bind_func=self.set_figureLabel, relwidth=0.2)
 
-        # Row 7
-        y += y_diff
-        self.subplot_top = self.Sliders("TOP", 0.95, x0, y, self.set_subplot_position, relwidth=0.5)
-        self.subplot_bottom = self.Sliders("Bottom", 0.2, x0, y+y_diff, self.set_subplot_position, relwidth=0.5)
-        self.subplot_left = self.Sliders("Left", 0.1, x0, y+2*y_diff, self.set_subplot_position, relwidth=0.5)
-        self.subplot_right = self.Sliders("Right", 0.9, x0, y+3*y_diff, self.set_subplot_position, relwidth=0.5)
-        y += 3*y_diff
+            # Row 6
+            y += y_diff
+            self.plotFigText = self.Entries("Entry", "Figure 1", x0, y, bind_key=True, bind_func=self.set_figureLabel, relwidth=0.5)
+            self.figtextFont = self.Entries("Entry", 12, x0+x_diff+0.1, y, bind_return=True, bind_func=self.set_figureLabel, relwidth=0.2)
 
-        # Row 8
-        y += y_diff
-        self.plotGrid = self.Entries("Check", "grid", x0, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
-        self.plotLegend = self.Entries("Check", "Legend", x0+x_diff, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
+            # Row 7
+            y += y_diff
+            self.plotGrid = self.Entries("Check", "Grid", x0, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
+            self.plotLegend = self.Entries("Check", "Lg", x0+x_diff, y, default=True, bind_btn=True, bind_func=self.set_figureLabel)
 
-        # Row 9
-        y += y_diff
-        self.plotYscale = self.Entries("Check", "Yscale (log)", x0, y, default=False, bind_btn=True, bind_func=self.set_figureLabel)
+            # Row 8
+            y += y_diff
+            self.plotYscale = self.Entries("Check", "Ylog", x0+x_diff, y, default=False, bind_btn=True, bind_func=self.set_figureLabel)
+            self.latex = self.Entries("Check", "LaTex", x0, y, default=False)
 
-        #  Row 9
-        y += y_diff
-        self.browseDir = self.Buttons("Browse", x0, y, self.changeLocation)
-        self.save_btn = self.Buttons("Save", x0+x_diff, y, self.save_fig)
+            if self.default_save_widget:
+                # Row 9
+                y += y_diff
+                self.save_fmt = self.Entries("Entry", "png", x0, y+0.02)
+                self.save_btn = self.Buttons("Save", x0+x_diff, y, self.save_fig)
 
-        #  Row 10
-        y += 2*y_diff
-        txt = "Write valid any python expression"
-        self.code = self.TextBox(txt, 0.8, y, w=0.7, h=0.1, bind_func=self.python_exp) 
+            #  Row 10
+            y = 0.7
+            txt = "Write valid any python expression"
+            self.code = self.TextBox(txt, 0.8, y, w=0.7, h=0.1, bind_func=self.python_exp) 
 
-        #  Row 11
-        y += y_diff
-        self.runCode = self.Buttons("RunCode", x0, y, self.python_exp)
-        self.codeResult = self.TextBox("Result", 0.8, y+y_diff+0.04, w=0.7, h=0.09) 
+            #  Row 11
+            y += y_diff
+            self.runCode = self.Buttons("RunCode", x0, y, self.python_exp)
+            self.codeResult = self.TextBox("Result", 0.8, y+y_diff+0.04, w=0.7, h=0.09) 
 
     def python_exp(self, event=None):
 
@@ -293,21 +304,6 @@ class FELion_Tk(Tk):
                 self.codeResult.delete('1.0', END)
                 self.codeResult.insert(END, f"Error Occured:\n{error}")
                 print(f"Error occured while evaluating above code:\n{error}")
-
-    def changeLocation(self): 
-        newLocation = filedialog.askdirectory(initialdir = "./")
-        
-        if newLocation is not "": self.location=newLocation
-        else: print(f"No location changed\nCurrent Location: {self.location}")
-
-    def set_subplot_position(self, event=None):
-        self.fig.subplots_adjust(
-            top=self.subplot_top.get(), 
-            bottom=self.subplot_bottom.get(), 
-            left=self.subplot_left.get(), 
-            right=self.subplot_right.get())
-
-        self.canvas.draw()
 
     def set_figureLabel(self, event=None):
 
@@ -363,7 +359,7 @@ class FELion_Tk(Tk):
                 if self.plotYscale.get(): scale = "linear"
                 else: scale = "log"
                 self.ax.set(yscale=scale)
-
+            
         # self.focus_set()
         self.canvas.draw()
 
@@ -394,14 +390,20 @@ class FELion_Tk(Tk):
         self.ax.set_title(title, fontsize=self.titleSz.get())
 
         # Setting X and Y label
-        self.ax.set(
-            ylabel=yaxis, 
-            xlabel=xaxis
-        )
+        self.ax.set(ylabel=yaxis, xlabel=xaxis)
 
         # Xlabel and Ylabel fontsize
         self.ax.xaxis.label.set_size(self.xlabelSz.get())
         self.ax.yaxis.label.set_size(self.ylabelSz.get())
+        self.ax.tick_params(axis='x', which='major', labelsize=self.xlabelSz.get())
+        self.ax.tick_params(axis='y', which='major', labelsize=self.ylabelSz.get())
+
+        # Autominor locator
+        self.set_minor = lambda x: self.ax.xaxis.set_minor_locator(AutoMinorLocator(x))
+        self.set_minor(10)
+        
+        # self.ax.tick_params(which='minor', length=4, width=2, color='C1')
+        # self.ax.tick_params(which='major', length=10, width=2)
 
         # Making axis available for modification
         self.xaxis = self.ax.xaxis
@@ -411,16 +413,13 @@ class FELion_Tk(Tk):
 
         # Grid
         self.ax.grid(self.plotGrid.get())
+        # if self.cursors.get(): mplcursors.cursor(hover=True)
 
         # Figure caption
         self.figtext = self.fig.text(0.5, 0.07, self.plotFigText.get(), ha="center", wrap=True, fontsize=self.figtextFont.get())
 
         # Setting legend (later for toggling its visibility)
         if ax is not None: self.plot_legend = self.ax.legend()
-
-        # Autominor locator
-        self.set_minor = lambda x: self.ax.xaxis.set_minor_locator(AutoMinorLocator(x))
-        self.set_minor(10)
 
         if ax is not None: 
             print("Returning created plot for ax")
@@ -431,21 +430,88 @@ class FELion_Tk(Tk):
         
     def save_fig(self, event=None):
 
+        save_fname = f"{self.name.get()}.{self.save_fmt.get()}"
+        print(f"Saving filename: {save_fname}")
+
+        save_filename = self.location / save_fname
+        print(f"Saving file: {save_filename}")
+
+        def savefig_latex():
+            style_path = pt(__file__).parent / "matplolib_styles/styles/science.mplstyle"
+            with style.context([f"{style_path}"]):
+                self.fig2, self.ax2 = plt.subplots()
+                for i, line in enumerate(self.ax.lines):
+                    
+                    x = line.get_xdata()
+                    y = line.get_ydata()
+                    lg = line.get_label().replace("_", "\_")
+                    
+                    if lg.endswith("felix"): ls = f"C{i}."
+                    if lg.find(".thz")>0: 
+                        if i>0: ls = f"C{i-1}."
+                        else: ls = f"C{i}."
+                    elif lg.startswith("Binned"): ls="k."
+                    elif lg.startswith("Fitted"): 
+                        ls="k-"
+                        info = lg.split(" ")
+                        thz_line = float(info[1])
+                        self.ax2.vlines(x=thz_line, ymin=0, ymax=y.max(), zorder=100)
+                        xcord, ycord = thz_line, y.max()
+                        self.ax2.annotate(f'{thz_line:.7f}{info[2]}', xy=(xcord, ycord), xycoords='data',
+                                    xytext=(xcord, ycord+5), textcoords='data',
+                                    arrowprops=dict(arrowstyle="->", connectionstyle="arc3")
+                        )
+                        self.ax2.set(ylim=([-(y.max()/2), y.max()*1.5]))
+                    elif lg.startswith("Fit."): 
+                        if i==1: ls = f"C0-"
+                        else: ls = f"C{i-2}-"
+                    else: ls = f"C{i}-"
+
+                    if lg == "Averaged" or lg.startswith("Fitted"): self.ax2.plot(x, y, "k-", label=lg, zorder=100)
+                    else: self.ax2.plot(x, y, ls, ms=2, label=lg)
+                
+                self.ax2.grid()
+                # self.ax2.set(xlim=[0, 40])
+                legend = self.ax2.legend(bbox_to_anchor=[1, 1], fontsize=self.xlabelSz.get()/2)
+                legend.set_visible(self.plotLegend.get())
+
+                # Setting title
+                self.ax2.set_title(self.plotTitle.get().replace("_", "\_"), fontsize=self.titleSz.get())
+
+                # Setting X and Y label
+                if self.plotYscale.get(): scale = "log"
+                else: scale = "linear"
+                self.ax2.set(yscale=scale)
+                self.ax2.set(
+                    ylabel=self.plotYlabel.get().replace("%", "\%"), 
+                    xlabel=self.plotXlabel.get()
+                )
+
+                # Xlabel and Ylabel fontsize
+                self.ax2.xaxis.label.set_size(self.xlabelSz.get())
+                self.ax2.yaxis.label.set_size(self.ylabelSz.get())
+                self.ax2.tick_params(axis='x', which='major', labelsize=self.xlabelSz.get())
+                self.ax2.tick_params(axis='y', which='major', labelsize=self.ylabelSz.get())
+
+                self.fig2.savefig(save_filename, dpi=self.dpi_value.get()*2)
+
+        def saved():
+            if self.latex.get(): savefig_latex()
+            else: self.fig.savefig(save_filename)
+            time.sleep(0.01)
+            if askokcancel('Open savedfile?', f'File: {save_fname}\nsaved in directory: {self.location}'):
+                print("Opening file: ", save_filename)
+                os.system(f"{save_filename}")
+        
         try:
             print(f"Figure saving in {self.location}")
-
-            if isfile(f'{self.location}/{self.name.get()}.png'):
-                if askokcancel('Overwrite?', f'File: {self.name.get()}.png already present. \nDo you want to Overwrite the file?'):
-                    self.fig.savefig(f'{self.location}/{self.name.get()}.png')
-                    showinfo('SAVED', f'File: {self.name.get()}.png saved in directory: {self.location}')
-
-            else:
-                self.fig.savefig(f'{self.location}/{self.name.get()}.png')
-                showinfo('SAVED', f'File: {self.name.get()}.png saved in directory: {self.location}')
-
-            print(f'Filename saved: {self.name.get()}.png\nLocation: {self.location}\n')
-        
-        except Exception as error: showerror("Error", error)
+            if isfile(save_filename):
+                if askokcancel('Overwrite?', f'File: {save_fname} already present. \nDo you want to Overwrite the file?'):
+                    saved()
+            else: saved()
+            print(f'Filename saved: {save_fname}\nLocation: {self.location}\n')
+    
+        except: showerror("Error", traceback.format_exc(5))
 
 def main():
 

@@ -54,7 +54,6 @@
 </script>
 
 <style>
-
   .page {height: 70vh;}
   .conversion_table {
     margin-right: 0.5em;
@@ -65,11 +64,14 @@
     margin-bottom: 0.5em;
     width: 75%
   }
+
   .label {
     color: #fafafa;
     font-weight: 400;
   }
   input {margin-bottom: 0.5em;}
+
+  .subtitle {color: white;}
 
 </style>
 

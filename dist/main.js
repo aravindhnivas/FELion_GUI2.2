@@ -9,16 +9,16 @@ var electron = require('electron');
 
 // const find_process = require("find-process")
 // const { exec } = require("child_process");
-// function killPort(port) {
+// function killPort(port:number) {
 //     return new Promise((resolve, reject)=>{
-//         find_process("port", port).then(result=>{
+//         find_process("port", port).then((result:any)=>{
 //             if (result.length > 0) {
 //                 let pid = result[0].pid
 //                 let platform = process.platform
 //                 if (platform === "win32") exec(`taskkill /F /PID ${pid}`)
 //                 else if (platform === "darwin") exec(`kill ${pid}`)
 //                 else if (platform === "linux") exec(`killall ${pid}`)
-//                 resolve(`Port ${port} closed`)
+// 				resolve(`Port ${port} closed`)
 //             } else {reject(`Port ${port} already closed `)}
 //         })
 //     })
@@ -68,7 +68,6 @@ function createWindow() {
             console.log("Window closed");
             // killPort(8501).then((result:any)=>console.log(result)).catch((err:any)=>console.log(err))
         });
-        // console.log(newWindow)
     });
 }
 electron.app.on("ready", createWindow);

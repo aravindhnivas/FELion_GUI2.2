@@ -1,5 +1,6 @@
 @import url("../node_modules/@fortawesome/fontawesome-free/css/all.min.css");
 @import url("../node_modules/hover.css/css/hover-min.css");
+
 body,
 html {
 	background-image: url(css/intro.svg);
@@ -16,10 +17,6 @@ body::-webkit-scrollbar {
 
 .title {
 	color: #fafafa !important;
-}
-
-.subtitle {
-	color: #b5b5b5 !important;
 }
 
 /* Scrollbar */
@@ -42,9 +39,4 @@ body::-webkit-scrollbar {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
 	background: #f1f1f1;
-}
-
-input:focus{
-	box-shadow: 0 0 0 0.125em #7a7a7a!important;
-    border-color: 0 0 0 0.125em #7a7a7a!important;
 }

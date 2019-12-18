@@ -15,12 +15,14 @@
     const admZip = require('adm-zip');
     const copy = require('recursive-copy');
 
-    // const openDir = electron.remote
+    jq(document).ready(()=>{
 
-    // When DOMContentent is loaded and ready
-    jq(document).ready(()=>{jq("#ConfigurationContainer").addClass("is-active")})
+        jq("#ConfigurationContainer").addClass("is-active")
+        console.log(`Internet Status: ${navigator.onLine}`)
+        if (navigator.onLine) updateCheck()
+        else console.log("Internet is not connected.")
+    })
 
-    // Reading local package.json file
     
     let packageJSON = fs.readFileSync(path.join(__dirname, "../package.json"))
     packageJSON = JSON.parse(packageJSON.toString("utf-8"))
@@ -51,8 +53,8 @@
         saveChanges = true
     }
 
-    // Page toggle function
     const toggle = (event) => {
+
         let target = event.target.id
         items.forEach(item=>{
             let elementID = `${item}Container`
@@ -75,6 +77,7 @@
 
     $: new_version = ""
     $: updatetoggle = "none"
+
     $: checkupdateLoading = ""
     $: updateLoading = ""
     $: updateStatus = ""
@@ -84,10 +87,11 @@
     let github_repo = "FELion_GUI2.2"
 
     $: gihub_branchname = "master"
-    $: console.log(gihub_branchname)
+    $: console.log(`Branch changed: ${gihub_branchname}`)
 
     $: versionJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/version.json`
     $: urlzip = `https://codeload.github.com/${github_username}/${github_repo}/zip/${gihub_branchname}`
+
 
     // Local update-downloaded files
     const updateFolder = path.resolve(__dirname, "..", "update")
@@ -99,22 +103,27 @@
 
         updatetoggle = "none"
         console.log("Checking for update")
-        checkupdateLoading = "is-loading"
 
+        checkupdateLoading = "is-loading"
         let developer_version = false;
-        
+        console.log(`URL_Package: ${versionJson}`)
+
+        console.log(`URL_ZIP: ${urlzip}`)
+
         let request = https.get(versionJson, (res) => {
 
             console.log('statusCode:', res.statusCode);
             console.log('headers:', res.headers);
 
             res.on('data', (data) => {
+
                 data = data.toString("utf8")
-                // console.log(data, typeof(data), data.trim())
+                console.log(data)
                 data = JSON.parse(data)
-                // console.log(data)
+                console.log(data)
                 new_version = data.version
                 developer_version = data.developer
+
                 console.log(`Developer version: ${developer_version}`)
                 console.log(`Received package:`, data)
                 console.log(`Version available ${new_version}`)
@@ -139,12 +148,11 @@
         });
 
         request.on("close", ()=>{
+
             if (currentVersion === new_version) {
                 if (developer_version) {
                     updateStatus = `CAUTION! You are checking with developer branch which has experimental features. Take backup before updating.`
-                } else {
-                    updateStatus = `No stable update available.`
-                }
+                } else {updateStatus = `No stable update available.`}
             }
             else if (currentVersion < new_version) {
 
@@ -168,19 +176,18 @@
                     break;
                 }
             }
-
             console.log("Update check completed")
-            setTimeout(()=>checkupdateLoading = "is-link", 2000)
+
+            setTimeout(()=>checkupdateLoading = "", 2000)
         })
     }
-
     // Download the update file
     const download = (downloadedFile) => {
 
         return new Promise((resolve, reject)=>{
 
             let response = https.get(urlzip, (res) => {
-
+                console.log(`URL: ${urlzip}`)
                 console.log('statusCode:', res.statusCode);
                 console.log('headers:', res.headers);
 
@@ -225,7 +232,6 @@
         })
     }
 
-    // Update processing
     const update = () => {
         // archive()
         updateLoading = "is-loading"
@@ -271,23 +277,6 @@
         }
         
     }
-
-    // Checking for internet connection
-    function checkInternet(cb) {
-
-        require('dns').lookup('google.com',function(err) {
-            if (err && err.code == "ENOTFOUND") {
-                cb(false);
-            } else {
-                cb(true);
-            }
-        })
-    }
-
-    // Checking for update on startup
-    checkInternet(function(isConnected) {
-        isConnected ? updateCheck() : console.log("Internet is not connected")
-    })
 
     // Checking for update on regular time interval
     const hr_ms = (time) => time*60*60*10**3
@@ -502,9 +491,8 @@
         position: absolute;
     }
 
-    .title {
-        font-weight: 400;
-    }
+    .title {font-weight: 400;}
+    .subtitle {color: white;}
 
 </style>
 

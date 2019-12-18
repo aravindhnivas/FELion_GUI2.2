@@ -2,32 +2,9 @@
 
 // Importing modules
 
-// const { spawn, exec } = require("child_process");
 const { spawn } = require("child_process");
 const path = require('path');
 const fs = require("fs")
-
-// const find_process = require("find-process")
-
-// function killPort(port) {
-//     return new Promise((resolve, reject)=>{
-
-//         find_process("port", port).then(result=>{
-
-//             if (result.length > 0) {
-
-//                 let pid = result[0].pid
-//                 let platform = process.platform
-
-//                 if (platform === "win32") exec(`taskkill /F /PID ${pid}`)
-//                 else if (platform === "darwin") exec(`kill ${pid}`)
-//                 else if (platform === "linux") exec(`killall ${pid}`)
-//                 resolve(`Port ${port} closed`)
-//             } else {reject(`Port ${port} already closed `)}
-
-//         })
-//     })
-// }
 
 let screenWidth = window.screen.width
 let plot_height = screenWidth * .22
@@ -106,14 +83,13 @@ function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
     if (filetype == 'mass') { dataLayout.yaxis.type = "log" }
     let dataPlot = [];
     for (let x in data) { dataPlot.push(data[x]) }
-
     try { Plotly.react(plotArea, dataPlot, dataLayout, { editable: true }) } catch (err) { console.log(err) }
 }
 class program {
 
     constructor(obj) {
-        this.obj = obj
 
+        this.obj = obj
         console.log(":: constructor -> this.obj", this.obj);
 
         console.log(`Received ${obj.filetype}files:`, obj.files);
@@ -131,14 +107,13 @@ class program {
             } else { resolve(`Filecheck completed: ${this.filetype} files`) }
         })
     }
-
     run() {
 
         return new Promise((resolve, reject) => {
-
             if (this.filetype == "general") {
                 let shell_value = document.getElementById(this.obj.filetag + "_shell").checked
 
+                console.log("Sending general arguments: ", this.files.concat(this.args))
                 const py = spawn(
                     localStorage["pythonpath"],
                     ["-i", path.join(localStorage["pythonscript"], this.pyfile), this.files.concat(this.args)],
@@ -219,6 +194,46 @@ class program {
                                 ylabel = "Normalised Intensity per photon"
                             }
 
+
+                            const get_data = (data) => {
+                                let dataPlot = [];
+                                for (let x in data) { dataPlot.push(data[x]) }
+                                return dataPlot
+                            }
+                            let signal = {
+                                "rel": "Signal = (1-C/B)*100",
+                                "log": "Signal = -ln(C/B)/Power(in J)",
+                                "hv": "Signal = -ln(C/B)/#Photons"
+                            }
+                            const set_title = (method) => `Normalised and Averaged Spectrum (delta=${delta})<br>${signal[method]}; {C=Measured Count, B=Baseline Count}`
+                            window.avg_data = {
+                                "Relative": {
+                                    "data": get_data(dataFromPython["average_rel"]),
+                                    "layout": {
+                                        "title": set_title("rel"),
+                                        "yaxis": { "title": "Relative Depletion (%)" },
+                                        "xaxis": { "title": "Calibrated Wavelength (cm-1)" }
+                                    }
+                                },
+                                "Log": {
+                                    "data": get_data(dataFromPython["average"]),
+                                    "layout": {
+                                        "title": set_title("log"),
+                                        "yaxis": { "title": "Normalised Intensity per J" },
+                                        "xaxis": { "title": "Calibrated Wavelength (cm-1)" }
+                                    }
+                                },
+                                "IntensityPerPhoton": {
+                                    "data": get_data(dataFromPython["average_per_photon"]),
+                                    "layout": {
+                                        "title": set_title("hv"),
+                                        "yaxis": { "title": "Normalised Intensity per photon" },
+                                        "xaxis": { "title": "Calibrated Wavelength (cm-1)" }
+                                    }
+                                },
+
+                            }
+
                             plot(
                                 "Baseline Corrected",
                                 "Wavelength (cm-1)",
@@ -265,6 +280,9 @@ class program {
 
                                 }
                             })
+                        } else if (this.filetype == "opofile") {
+                            plot("OPO spectrum", "Wavenumber (cm-1)", "Counts", dataFromPython["real"], "opoplot");
+                            plot("OPO spectrum: Depletion (%)", "Wavenumber (cm-1)", "Depletion (%)", dataFromPython["relative"], "opoRelPlot");
                         }
                         else if (this.filetype == "theory") {
 
@@ -299,8 +317,8 @@ class program {
                             }
                             Plotly.relayout("thzplot_Container", layout_update)
                         }
-                        else if (this.filetype == "depletion") { console.log('Graph plotted') }
-                        else if (this.filetype == "norm_tkplot") { console.log('Graph plotted') }
+                        // else if (this.filetype == "depletion") { console.log('Graph plotted') }
+                        // else if (this.filetype == "norm_tkplot") { console.log('Graph plotted') }
                         else if (this.filetype == "exp_fit") {
 
                             // window.index = []
@@ -368,5 +386,4 @@ class program {
     }
 }
 
-// export { program, killPort }
 export { program }

@@ -1,32 +1,27 @@
 <script>
-  // Importing Svelte modules
 
   import Filebrowser from "./utils/Filebrowser.svelte";
   import { runPlot } from "./utils/js/felion_main.js";
-  // import { killPort } from "./utils/js/modules.js";
   import * as dirTree from "directory-tree";
-
   import { fade, fly } from 'svelte/transition';
-  import { spawn } from "child_process";
+  import Loading from "./utils/Loading.svelte";
+
+  const glob = require("glob")
 
   export let id;
   export let filetag;
   export let filetype;
   export let funcBtns;
   export let plotID;
-
   export let checkBtns;
   export let jq;
   export let electron;
-
   export let path;
   export let menu;
   export let MenuItem;
 
-  // const ipc = require('electron').ipcRenderer;
-  
+  $: tplot_width = ""
   jq(document).ready(() => {
-
     jq("#theoryBtn").addClass("fadeInUp").css("display", "none")
     jq("#norm_tkplot").addClass("fadeInUp").css("display", "none")
 
@@ -35,9 +30,8 @@
 
     let plotHeight;
     let ScreenHeight = window.screen.height;
-
-    if (ScreenHeight >= 1000) plotHeight = 570
-    else plotHeight = 400
+    if (ScreenHeight >= 1000) {plotHeight = 650; ; tplot_width="is-half"}
+    else {plotHeight = 540; tplot_width="is-full"}
 
     jq(".plotContainer").css("max-height", plotHeight)
 
@@ -157,7 +151,6 @@
     }
 
     jq(`#${filetag}refreshIcon`).removeClass("fa-spin");
-
     return folderFile;
 
   };
@@ -166,7 +159,6 @@
 
   if (localStorage.getItem("theoryfiles") != undefined) {theoryfiles = localStorage.getItem("theoryfiles").split(",")}
   $: theoryfilenames = theoryfiles.map(file=>path.basename(file))
-
   function browseFile({theory=false}) {
     if (theory == true) {
       return new Promise((resolve, reject) => {
@@ -207,7 +199,6 @@
         console.log(`[${filetag}]: location is stored locally\n${currentLocation}`)
       });
     }
-
   }
   
   $: delta_thz = 1
@@ -247,8 +238,7 @@
   }
   $: modal = {mass:"", felix:"", scan:"", thz:""}
   $: error_msg = {mass:"", felix:"", scan:"", thz:""}
-
-  function functionRun(event, target_id=null) {
+  function functionRun(event=null, target_id=null) {
     let btname;
 
     target_id === null ? btname = event.target.id : btname = target_id
@@ -355,6 +345,8 @@
       ////////////// Masspec PLOT //////////////////////
 
       case "massPlotBtn":
+          // show_nist = false
+
           runPlot({
             fullfiles: fullfiles,
             filetype: filetag,
@@ -370,11 +362,28 @@
             error_msg[filetag]=err; 
             modal[filetag]="is-active"
           })
+
       break;
 
       case "mass_find_peaks":
         console.log("Finding mass peaks")
         jq("#mass_peak_find_row").toggle()
+
+      break;
+
+      case "nist_webbook":
+        
+        jq("#nist_row").toggle()
+        jq("#nistWebview_rows").toggle()
+
+        if (navigator.onLine) {
+          internet_connection = "Internet"
+          internet_active = "is-success"
+        } else {
+          internet_connection = "No Internet"
+          internet_active = "is-danger"
+        }
+        
       break;
 
       ////////////// Timescan PLOT //////////////////////
@@ -413,7 +422,6 @@
           .then((output)=>{
             console.log(output)
           })
-          
           .catch((err)=>{
             console.log('Error Occured', err); 
             error_msg[filetag]=err; 
@@ -421,21 +429,13 @@
           })
       break;
 
-
-      ////////////// Toggle buttons //////////////////////
-
       case "theoryBtn": 
         jq("#theoryRow").toggle()
-        // if (document.getElementById("theoryRow").style.display === "none") {plotContainerHeight = "60vh"} 
-        // else {plotContainerHeight = "50vh"}
+
       break;
 
       case "depletionscanBtn":
         jq("#depletionRow").toggle()
-        // depletionPlot()
-
-        // if (document.getElementById("depletionRow").style.display === "none") {plotContainerHeight = "60vh"} 
-        // else {plotContainerHeight = "50vh"}
       break;
 
       ////////////////////////////////////////////////////
@@ -457,7 +457,7 @@
       btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot]
     }).then((output)=>{console.log(output)})
     .catch((err)=>{
-        console.log('Error Occured', err); 
+        console.log('Error Occured', err);
 
         error_msg[filetag]=err; 
         modal[filetag]="is-active"
@@ -482,94 +482,27 @@
       id: "nshots"
     },
     {
-      name: "Mass Index",
+      name: "MassIndex",
       id: "massIndex"
     },
     {
-      name: "TimeStart Index",
+      name: "TimeStart",
       id: "timeIndex"
     }
   ]
-
-  // let port = 8501
-  // let localhostDepletion = `http://localhost:${port}`
-  // let localhost_running = true
-  // const closePort = async () => {
-
-  //   await killPort(port)
-  //   .then(result=>console.log(result))
-  //   .catch(err=>{
-  //     // localhost_running =false
-  //     console.log(err)
-  //   })
-  //   // setTimeout(webviewReload, 2000)
-  // }
-
-
-  // const webviewReload = async () => {
-  //   depletionAnimate = "is-link is-loading"
-  //   console.log("Reloading...")
-  //   await document.getElementById("depletionWebview").reload()
-
-  //   depletionAnimate = "is-success bounce"
-  //   setTimeout(()=>{depletionAnimate = "is-link"}, 2000)
-  // }
-
-  
-  $: depletionAnimate = "is-link"
   const depletionPlot = async () => {
-
-    // let pyFile = path.resolve(__dirname, "python_files", "depletion_streamlit.py")
-    // let streamlit_path = path.resolve(path.dirname(localStorage["pythonpath"]), "Scripts", "streamlit")
-    
-    // let command = `${streamlit_path} run ${pyFile} `
-    // depletionAnimate = "is-link is-loading"
-
-    // // await webviewClick()
-
-    // let defaultArguments = ["run", pyFile, "--server.port", port, "--server.headless", "true"]
-    // let sendArguments = [currentLocation, ...folderFile.files]
-
-    // console.log(fullfiles)
-
-    // let st = spawn(streamlit_path, [...defaultArguments, ...sendArguments])
-    
-    // st.stdout.on('data', data => {
-    //   console.log("Standard output")
-    //   console.log(data.toString("utf8"))
-
-    //   depletionAnimate = "is-success bounce"
-      
-    // })
-
-    // st.stderr.on('data', err => {
-    //   console.log("Error occured:", err.toString("utf8"))
-    //   depletionAnimate = "is-danger shake faster"
-    // })
-
-    // st.on('close', ()=>{
-    //   console.log("Completed")
-
-    //   closePort()
-    //   setTimeout(()=>{depletionAnimate = "is-link"}, 2000)
-    // })
-
-    // window.open(localhostDepletion)
-
-    runPlot({fullfiles: [currentLocation], filetype: "depletion",
+    runPlot({
+      fullfiles: [currentLocation], filetype: "general", filetag:"scan",
       btname: "depletionSubmit", pyfile: "depletionscan.py", 
-      args: [jq(ResON).val(), jq(ResOFF).val(), powerinfo, nshots, massIndex, timestartIndex] })
-      .then((output)=>{
-        console.log(output)
-      })
-      .catch((err)=>{
-        console.log('Error Occured', err); 
-        error_msg["scan"]=err; 
-        modal["scan"]="is-active"
-      })
-
+      args: [jq(ResON).val(), jq(ResOFF).val(), ...powerinfo.split(",").map(pow=>parseFloat(pow)), nshots, massIndex, timestartIndex] 
+    })
+    .then((output)=>{console.log(output)})
+    .catch((err)=>{
+      console.log('Error Occured', err); 
+      error_msg["scan"]=err; 
+      modal["scan"]="is-active"
+    })
   }
-  
 
   // Experimental fit (gaussian)
 
@@ -598,7 +531,6 @@
 
   $: fitall_tkplot_Peak_btnCSS = "is-link"
 
-  // expfit clear and clear all status
   $: expfit_log_display = false
   $: expfit_log = ""
   const expfit_log_it = (str) => {
@@ -658,6 +590,7 @@
       modal[filetag]="is-active"
     })
   }
+
   const clearAllPeak = () => {
     console.log("Removing all found peak values")
     let lines_length = window.line.length
@@ -696,7 +629,6 @@
     if (window.line.length === 0) {ready_to_fit = false}
   }
 
-
   const fitall = (tkplot=false, btname="fitall_expfit_peaks", filetype="expfit_all") => {
 
     console.log("Fitting all found peaks")
@@ -714,9 +646,7 @@
   
   const find_masspec_peaks = () => {
     console.log("Finding masspec peaks")
-
     let sendMassFile = path.join(currentLocation, massFiles.value)
-
     runPlot({
       fullfiles: [sendMassFile],
       filetype: "find_peaks",
@@ -734,15 +664,65 @@
   }
 
   const clear_mass_peaks = () => {Plotly.relayout("mplot", { annotations: [] })}
-  
 
+  $: nist_mformula = localStorage["nist_mformula"] || ""
+  $: nist_mname = localStorage["nist_mname"] || ""
+  $: nist_molecule_name = `Name=${nist_mname}`
+  $: nist_molecule_formula = `Formula=${nist_mformula}`
+  $: nist_url = localStorage["nist_url"] || "https://webbook.nist.gov/cgi/cbook.cgi?Name=&Units=SI&Mask=200#Mass-Spec"
+
+  const set_nist_url = (format) => {
+    let fmt;
+    format == "by_name" ? fmt = nist_molecule_name : fmt = nist_molecule_formula
+    nist_url = `https://webbook.nist.gov/cgi/cbook.cgi?${fmt}&Units=SI&Mask=200#Mass-Spec`
+    localStorage["nist_url"] = nist_url
+    localStorage["nist_mformula"] =  nist_mformula
+    localStorage["nist_mname"] = nist_mname
+  }
+
+  $: internet_connection = "No Internet access available"
+  $: internet_active = "is-danger"
+  $: search_string = ""
+  $: google_search = `http://www.google.com/search?q=${search_string}.`
+
+  function animatePlot(){
+    try {
+      let data = window.avg_data[normMethod]["data"]
+      let layout = window.avg_data[normMethod]["layout"]
+      Plotly.react("avgplot", data , layout )
+    } catch (err) {console.log("Error occured while changing felixplot method", err)}
+  }
+
+  function plotOPO(){
+    runPlot({
+        fullfiles: fullfiles, filetype: "opofile", filetag:"felix",
+        btname: "opoButton", pyfile: "oposcan.py", 
+        args: "run"
+
+      }).catch(err => {
+        console.log('Error Occured', err); 
+        error_msg[filetag]=err; 
+        modal[filetag]="is-active"
+
+      });
+  }
 </script>
 
-<style>
+<style lang="scss">
+
+  $link-color: #dbdbdb;
+
+  $link-hovercolor: #7a64b1;
+  $success-color: #09814a;
+  $danger-color: #ff3860;
+
+  $warning-color: #ffc402;
+  
+  $white: #fafafa;
+  $box1-color: #594194;
 
   input[type="number"] {width: 5vw;}
-
-  label {color:white;}
+  label {color:$white;}
 
   #theorylabel{
     color:white;
@@ -757,41 +737,88 @@
   .row {
     display: flex;
     flex-direction: column;
-    padding-bottom: 2em;
+    padding-bottom: 0.6em;
   }
 
   .funcBtn {
     margin: 0 0.5em;
   }
-
   .section {
     position: fixed;
     width: 100%;
+    padding: 0.3rem;
   }
-
   .plotContainer {
     overflow-y: auto;
     width: 97%;
   }
 
-  #theoryContainer {
-    margin-left: 20%;
-    margin-right:20%;
+  /* Buttons:  border, background and hovering colors */
+  .button.is-link, .button.is-warning, .button.is-danger, .button.is-success {background-color: rgba(0,0,0,0);}
+
+  .button.is-link {border-color: $link-color;}
+  .button.is-link:hover, .button.is-link.is-hovered {background-color: $link-hovercolor;}
+
+  .button.is-warning {border-color: $warning-color; color: $white;}
+  .button.is-warning:hover, .button.is-warning.is-hovered {background-color: $warning-color; color: black;}
+
+  .button.is-danger {border-color: $danger-color;}
+  .button.is-danger:hover, .button.is-danger.is-hovered {background-color: $danger-color;}
+
+  .button.is-success {border-color: $success-color;}
+  .button.is-success:hover, .button.is-success.is-hovered {background-color: $success-color;}
+
+
+  .button.is-static {background: transparent; color: $white;}
+
+  /* Input hover, focused colors */
+  .input {
+    background: transparent;
+    color: $white;
+    text-align: center;
+  }
+  ::-webkit-input-placeholder {color: #bdc3c7!important}
+
+  /* Clearning default increamental syle */
+  /* input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
   }
 
-  .column {max-height: 90vh}
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  } */
 
-  .delete:hover {background-color:#ff3860}
+  .locationLabel {border-radius: 20px;}
+
+  .input:hover {border-color: $white;}
+  .input:focus {
+    border-color: $white;
+    box-shadow: 0 0 0 0.05em $white;
+  }
+  .column {max-height: 90vh}
+  .delete:hover {background-color:$danger-color}
+
+  .filebrowserColumn {width: 14%!important}
 
   @media only screen
   and (max-width: 1400px) {
-
     .filebrowserColumn {width: 20%!important}
-
   }
 
+  #nist_webview {height:42em;}
+  .webviewIcon {cursor: pointer;}
+  .level-item {margin-left: 0!important}
 
-  
+  .locationRow {margin-right: 2em;}
+  .row1 {
+    margin: 0;
+    background-color: $box1-color;
+    margin-right: 2em;
+  }
+  .subtitle {color: $white;}
 </style>
 
 <section class="section" {id} {style}>
@@ -821,290 +848,308 @@
         </div>
       </div>
 
-      <div class="row locationRow">
+      <div class="row row1 box">
+        <div class="row locationRow">
 
-        <div class="field has-addons">
-          <div class="control is-expanded">
-            <input
-              class="input locationLabel"
-              type="text"
-              placeholder="Location will be displayed"
-              id="{filetag}LocationLabel"
-              value={currentLocation} 
-              on:keyup="{
-                (e)=>{
-                  if (e.key == "Enter") {
-                    let location = e.target.value
-                    console.log(`Setting location: ${location}`)
-                    currentLocation = location
+          <div class="field has-addons">
+            <div class="control is-expanded">
+              <input
+                class="input locationLabel"
+                type="text"
+                placeholder="Location will be displayed"
+                id="{filetag}LocationLabel"
+                value={currentLocation} 
+                on:keyup="{
+                  (e)=>{
+                    if (e.key == "Enter") {
+                      let location = e.target.value
+                      console.log(`Setting location: ${location}`)
+                      currentLocation = location
+                    }
                   }
-                }
-              }" 
-              data-tippy="Current Location"/>
-          </div>
-          <div class="control">
-            <div
-              class="button is-dark"
-              on:click={browseFile}
-              data-tippy="Browse {filetag} file">
-              Browse
+                }" 
+                data-tippy="Current Location"/>
             </div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="row buttonsRow">
-
-        <div class="level">
-
-          <div class="level-left animated fadeIn">
-
-            {#each funcBtns as { id, name }}
-              <div 
-                class="level-item button hvr-glow funcBtn is-link animated"
-                {id} on:click={functionRun}>
-                {name}
-              </div>
-
-            {/each}
-
-            {#each checkBtns as {id, name, bind, help}}
-               <div class="level-item animated" id="{id}_Container" >
-
-                <div class="pretty p-default p-curve p-toggle" data-tippy={help}>
-
-                  {#if name[0]==="Log"}
-                    <input type="checkbox" {id} checked={bind} on:click={linearlogCheck} />
-                  {:else}
-                    <input type="checkbox" {id} checked={bind} on:click="{(e)=>{console.log(`Status (${e.target.id}):\n ${e.target.checked}`)}}"/>
-                  {/if}
-
-                  <div class="state p-success p-on"> <label>{name[0]}</label> </div>
-                  <div class="state p-danger p-off"> <label>{name[1]}</label> </div>
-
-                </div>
-                
-              </div>
-            {/each}
-
-            {#if filetag == 'felix'}
-              <div class="level-item">
-                <div class="field has-addons">
-                  <div class="control">
-                    <span class="select">
-                      <select
-                        id="felixmethod"
-                        bind:value={normMethod}
-                        data-tippy="Normalisation method">
-                        {#each normalisation_method as method}
-                           <option>{method}</option>
-                        {/each}
-                      </select>
-                    </span>
-                  </div>
-                  <div class="control">
-                    <input
-                      class="input"
-                      type="number" step="0.5"
-                      id="delta_value"
-                      placeholder="Delta value"
-                      data-tippy="Delta value for averaging FELIX spectrum"
-                      bind:value={delta}
-                      on:change="{(e)=>functionRun(e, "felixPlotBtn")}" />
-                  </div>
-                </div>
-              </div>
-            {/if}
-
-            {#if filetag == 'thz'}
-
-              <!-- Delta value -->
-              <div class="level-item" >
-
-                <div class="field has-addons">
-                  <div class="control"><div class="button is-static">&delta; (in Hz)</div></div>
-
-                  <div class="control">
-                    <input
-                      class="input"
-                      type="number" step="0.5"
-                      id="delta_value_thz"
-                      placeholder="Delta value"
-                      data-tippy="Delta value for spectrum (in KHz)"
-                      bind:value={delta_thz}
-                      on:change="{(e)=>functionRun(e, "thzBtn")}" />
-                  </div>
-                  
-                </div>
-
-              </div>
-
-              <!-- Gamma -->
-
-              <div class="level-item">
-
-                <div class="field has-addons">
-                  <div class="control"><div class="button is-static">&gamma;</div></div>
-
-                  <div class="control">
-                    <input
-                      class="input"
-                      type="number" step="0.01"
-                      id="gamma_thz"
-                      placeholder="Gamma value for lorentz part"
-                      data-tippy="Lorentz gamma for fitting (Voigt Profile)"
-                      bind:value={gamma_thz}
-                      on:change="{(e)=>functionRun(e, "thzBtn")}"/>
-                  </div>
-                  
-                </div>
-
-              </div>
-
-            {/if}
+            <div class="control">
+              <div class="button is-link" on:click={browseFile}>Browse</div>
+            </div>
           </div>
 
         </div>
 
-      </div>
+        <div class="row buttonsRow">
+          <div class="level">
+            <div class="level-left animated fadeIn">
 
-      {#if filetag=="felix"}
-         <div class="row" id="theoryRow" style="display:none; padding-bottom:1em">
-            <div class="container is-marginless" id="theoryContainer">
-              <div class="field">
-                <label class="label" id="theorylabel">
-                  <h1 class="subtitle" id="theoryfilename">{theoryfilenames}</h1>
-                </label>
-                <div class="control">
-                    <button class="button is-warning" on:click={opentheory}>Choose file</button>
-                    <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
-                    <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
-                    <button class="funcBtn button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
-                    <button class="funcBtn button is-link animated" on:click="{()=>runtheory({tkplot:"plot", filetype:"general"})}" id="theory_Matplotlib">Open in Matplotlib</button>
+              {#each funcBtns as { id, name }}
+                <div 
+                  class="level-item button hvr-glow funcBtn is-link animated"
+                  {id} on:click={functionRun}>
+                  {name}
                 </div>
-              </div>
+
+              {/each}
+
+              {#each checkBtns as {id, name, bind, help}}
+                <div class="level-item animated" id="{id}_Container" >
+
+                  <div class="pretty p-default p-curve p-toggle" data-tippy={help}>
+
+                    {#if name[0]==="Log"}
+                      <input type="checkbox" {id} checked={bind} on:click={linearlogCheck} />
+                    {:else}
+                      <input type="checkbox" {id} checked={bind} on:click="{(e)=>{console.log(`Status (${e.target.id}):\n ${e.target.checked}`)}}"/>
+                    {/if}
+
+                    <div class="state p-success p-on"> <label>{name[0]}</label> </div>
+                    <div class="state p-danger p-off"> <label>{name[1]}</label> </div>
+
+                  </div>
+                  
+                </div>
+              {/each}
+
+              {#if filetag == 'felix'}
+
+                <div class="level-item">
+                  <div class="field has-addons">
+
+                    <div class="control"><div class="button is-static">&Delta (cm-1)</div></div>
+
+                    <div class="control">
+                      <input
+                        class="input inc_dec_input"
+                        type="number" step="0.5"
+                        id="delta_value"
+                        placeholder="Delta value"
+                        bind:value={delta}
+                        on:change="{(e)=>functionRun(e, "felixPlotBtn")}" />
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="level-item">
+                  <div class="button hvr-glow funcBtn is-link animated" id="opoButton" on:click={plotOPO}>OPO</div>
+                </div>
+
+                <!-- <div class="level-item"><Loading style="4"/></div> -->
+                   
+              {/if}
+
+              {#if filetag == 'thz'}
+
+                <!-- Delta value -->
+                <div class="level-item" >
+
+                  <div class="field has-addons">
+                    <div class="control"><div class="button is-static">&delta; (in Hz)</div></div>
+
+                    <div class="control">
+                      <input
+                        class="input"
+                        type="number" step="0.5"
+                        id="delta_value_thz"
+                        placeholder="Delta value"
+                        data-tippy="Delta value for spectrum (in KHz)"
+                        bind:value={delta_thz}
+                        on:change="{(e)=>functionRun(e, "thzBtn")}" />
+                    </div>
+                    
+                  </div>
+
+                </div>
+
+                <!-- Gamma -->
+
+                <div class="level-item">
+
+                  <div class="field has-addons">
+                    <div class="control"><div class="button is-static">&gamma;</div></div>
+
+                    <div class="control">
+                      <input
+                        class="input"
+                        type="number" step="0.01"
+                        id="gamma_thz"
+                        placeholder="Gamma value for lorentz part"
+                        data-tippy="Lorentz gamma for fitting (Voigt Profile)"
+                        bind:value={gamma_thz}
+                        on:change="{(e)=>functionRun(e, "thzBtn")}"/>
+                    </div>
+                    
+                  </div>
+
+                </div>
+
+              {/if}
+
             </div>
-         </div>
-      {/if}
+          </div>
+        </div>
 
-      {#if filetag=="scan"}
-         <div class="row" id="depletionRow" style="display:none">
-            <div class="level">
-              <div class="level-left">
+        {#if filetag=="felix"}
+          <div class="row" id="theoryRow" style="display:none; padding-bottom:1em">
+              <div class="level " id="theoryContainer">
+                  <div class="level-left">
 
-                {#each ["ResON", "ResOFF"] as name}
-
-                  <div class="level-item">
-                    <div class="field">
-                      <label class="label"><h1 class="subtitle">{name} file</h1></label>
+                    <div class="level-item">
                       <div class="control">
                         <div class="select">
-                          <select id={name}>
-                            {#if folderFile.files != undefined}
-                               {#each folderFile.files as scanfile}
-                                  <option value={scanfile}>{scanfile}</option>
-                               {/each}
-                            {/if}
+                          <select>
+                              {#each theoryfilenames as theoryfile}
+                                  <option value={theoryfile}>{theoryfile}</option>
+                              {/each}
                           </select>
                         </div>
                       </div>
                     </div>
-                  </div>
-                {/each}
 
-                {#each depletionLabels as {name, id}}
-
-                  <div class="level-item">
-
-                    <div class="field">
-                      <label class="label"><h1 class="subtitle">{name}</h1></label>
+                    <div class="level-item">
                       <div class="control">
-                        {#if name=="Power (ON, OFF)"}
-                          <input class="input" type="text" bind:value={powerinfo} {id}>
-                        {:else if  name=="FELIX Hz"}
-                          <input class="input" type="number" bind:value={nshots} {id}>
-                        {:else if  name=="Mass Index"}
-                          <input class="input" type="number" bind:value={massIndex} {id}>
-                        {:else if  name=="TimeStart Index"}
-                          <input class="input" type="number" bind:value={timestartIndex} {id}>
-                        {/if}
+                          <button class="button is-link" on:click={opentheory}>Choose file</button>
+                          <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
+                          <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
+                          <button class="funcBtn button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
+                          <button class="funcBtn button is-link animated" on:click="{()=>runtheory({tkplot:"plot", filetype:"general"})}" id="theory_Matplotlib">Open in Matplotlib</button>
                       </div>
                     </div>
-
                   </div>
-                {/each}
+              </div>
+          </div>
+        {/if}
 
-                <div class="level-item" style="margin-top:2em">
-                  <button class="funcBtn button animated {depletionAnimate}" id="depletionSubmit" on:click={depletionPlot}>Submit</button>
+        {#if filetag=="scan"}
+          <div class="row" id="depletionRow" style="display:none">
+              <div class="level">
+                <div class="level-left">
+
+                  {#each ["ResON", "ResOFF"] as name}
+
+                    <div class="level-item">
+                      <div class="field">
+                        <label class="label"><h1 class="subtitle">{name} file</h1></label>
+                        <div class="control">
+                          <div class="select">
+                            <select id={name}>
+                              {#if folderFile.files != undefined}
+                                {#each folderFile.files as scanfile}
+                                    <option value={scanfile}>{scanfile}</option>
+                                {/each}
+                              {/if}
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {/each}
+
+                  {#each depletionLabels as {name, id}}
+
+                    <div class="level-item">
+
+                      <div class="field">
+                        <label class="label"><h1 class="subtitle">{name}</h1></label>
+                        <div class="control">
+                          {#if name=="Power (ON, OFF)"}
+                            <input class="input" type="text" bind:value={powerinfo} {id}>
+                          {:else if  name=="FELIX Hz"}
+                            <input class="input" type="number" bind:value={nshots} {id}>
+                          {:else if  name=="MassIndex"}
+                            <input class="input" type="number" bind:value={massIndex} {id}>
+                          {:else if  name=="TimeStart"}
+                            <input class="input" type="number" bind:value={timestartIndex} {id}>
+                          {/if}
+                        </div>
+                      </div>
+
+                    </div>
+                  {/each}
+
+                  <div class="level-item" style="margin-top:2em">
+                    <button class="funcBtn button animated is-link" id="depletionSubmit" on:click={depletionPlot}>Submit</button>
+                  </div>
+
+                </div>
+              </div>
+
+              
+          </div>
+        {/if}
+
+        {#if filetag === "mass"}
+
+          <!-- NIST find molecule row -->
+          <div class="row" id="nist_row" style="display:none">
+            <div class="level">
+              <div class="level-left">
+
+                <div class="level-item">
+                  <input class="input" type="text" placeholder="Molecule name" 
+                  data-tippy="Enter molecule name" bind:value={nist_mname} on:change="{()=>set_nist_url("by_name")}"/>
+                </div>
+
+                <div class="level-item">
+                  <input class="input" type="text" placeholder="Molecule Formula" 
+                  data-tippy="Enter molecule formula" bind:value={nist_mformula} on:change="{()=>set_nist_url("by_formula")}"/>
+                </div>
+
+                <div class="level-item">
+                  <button class="button {internet_active}">{internet_connection}</button>
                 </div>
 
               </div>
-            </div>
-
-            
-         </div>
-      {/if}
-
-      {#if filetag === "mass"}
-        <div class="row" id="mass_peak_find_row" style="display:block; padding-bottom:1em; margin-left:0.7em">
-          <div class="level">
-            <div class="level-left">
-
-              <div class="level-item">
-                <div class="select">
-                  <select id="massFiles">
-                      {#each fileChecked as file}
-                        <option>{file}</option>
-                      {/each}
-                    </select>
-                </div>
-              </div>
-
-                <div class="level-item">
-                    <input class="input" type="number" placeholder="Peak prominance value"
-                      data-tippy="Peak prominace value" bind:value={mass_prominence} on:change={find_masspec_peaks} min="0" step="0.5"/>
-                </div>
-
-                <div class="level-item">
-                    <input class="input" type="number" placeholder="Peak width"
-                      data-tippy="Optional: Peak width" bind:value={mass_peak_width} on:change={find_masspec_peaks} min="0" step="0.5"/>
-                </div>
-
-                <div class="level-item">
-                    <input class="input" type="number" placeholder="Peak Height"
-                      data-tippy="Optional: Peak Height" bind:value={mass_peak_height} on:change={find_masspec_peaks} min="0" step="0.5"/>
-                </div>
-
-                <div class="level-item">
-                    <div class="level-item button is-link hvr-glow funcBtn animated"
-                      id="mass_get_peaks" on:click={find_masspec_peaks} >Get Peaks
-                    </div>
-                </div>
-
-                <div class="level-item">
-                    <div class="level-item button is-warning hvr-glow funcBtn animated"
-                      id="mass_clear_peaks" on:click={clear_mass_peaks} data-tippy="Clear all peaks">Clear
-                    </div>
-                </div>
             </div>
           </div>
-        </div>
-      {/if}
 
-      <hr style="margin: 0.5em 0; background-color:#bdc3c7" />
+          <!-- Find mass peaks row -->
+          <div class="row" id="mass_peak_find_row" style="display:block; padding-bottom:1em;">
+            <div class="level">
+              <div class="level-left">
 
-      <!-- {#if filetag==="scan"}
-        <div class="row">
-            <div class="block is-pulled-right">
-              <span class="icon">
-                <i class="fas fa-sync" aria-hidden="true" style="margin-right:1em; cursor:pointer;" on:click={webviewReload}/>
-                <button class="delete is-large" on:click={webviewClick}></button>
-              </span>
+                <div class="level-item">
+                  <div class="select">
+                    <select id="massFiles">
+                        {#each fileChecked as file}
+                          <option>{file}</option>
+                        {/each}
+                      </select>
+                  </div>
+                </div>
+
+                  <div class="level-item">
+                      <input class="input" type="number" placeholder="Peak prominance value"
+                        data-tippy="Peak prominace value" bind:value={mass_prominence} on:change={find_masspec_peaks} min="0" step="0.5"/>
+                  </div>
+
+                  <div class="level-item">
+                      <input class="input" type="number" placeholder="Peak width"
+                        data-tippy="Optional: Peak width" bind:value={mass_peak_width} on:change={find_masspec_peaks} min="0" step="0.5"/>
+                  </div>
+
+                  <div class="level-item">
+                      <input class="input" type="number" placeholder="Peak Height"
+                        data-tippy="Optional: Peak Height" bind:value={mass_peak_height} on:change={find_masspec_peaks} min="0" step="0.5"/>
+                  </div>
+
+                  <div class="level-item">
+                      <div class="level-item button is-link hvr-glow funcBtn animated"
+                        id="mass_get_peaks" on:click={find_masspec_peaks} >Get Peaks
+                      </div>
+                  </div>
+
+                  <div class="level-item">
+                      <div class="level-item button is-danger hvr-glow funcBtn animated"
+                        id="mass_clear_peaks" on:click={clear_mass_peaks} data-tippy="Clear all peaks">Clear
+                      </div>
+                  </div>
+              </div>
             </div>
-            <webview src={localhostDepletion} style="height: 650px; width:100%" id="depletionWebview"></webview>
-        </div>
-      {/if} -->
+          </div>
+
+        {/if}
+
+      </div>
 
       <div class="row box plotContainer" id="{filetag}plotMainContainer" >
         
@@ -1112,16 +1157,58 @@
           {#each plotID as id}
 
             {#if filetag == 'scan'}
-              <div {id} style="padding-bottom:1em">
+              <div class="columns is-multiline" {id} style="padding-bottom:1em">
                 {#each fileChecked as scanfile}
-                  <div id="{scanfile}_tplot" style="padding-bottom:1em" />
+                  <div class="column {tplot_width}" id="{scanfile}_tplot" style="padding-bottom:1em" />
                 {/each}
               </div>
 
             {:else if id == 'avgplot'}
 
+              <!-- Normalisation Method -->
+              <div class="level">
+                <div class="level-left">
+
+                    <!-- Relative -->
+                    <div class="level-item">
+                      <div class="pretty p-icon p-curve p-pulse">
+                          <input type="radio" name="normMethod" bind:group={normMethod} value="Relative" on:change={animatePlot}>
+                          <div class="state p-success">
+                              <i class="icon mdi mdi-check"></i>
+                              <label>Relative</label>
+                          </div>
+                      </div>
+                    </div>
+
+                    <!-- Log -->
+                    <div class="level-item">
+                      <div class="pretty p-icon p-curve p-pulse">
+                          <input type="radio" name="normMethod" bind:group={normMethod} value="Log" on:change={animatePlot}>
+                          <div class="state p-success">
+                              <i class="icon mdi mdi-check"></i>
+                              <label>Log</label>
+                          </div>
+                      </div>
+                    </div>
+
+                    <!-- Intensitity per photon -->
+                    <div class="level-item">
+                      <div class="pretty p-icon p-curve p-pulse">
+                          <input type="radio" name="normMethod" bind:group={normMethod} value="IntensityPerPhoton" on:change={animatePlot}>
+                          <div class="state p-success">
+                              <i class="icon mdi mdi-check"></i>
+                              <label>Inten. per photon</label>
+                          </div>
+                      </div>
+                    </div>
+
+                </div>
+              </div>
+
+              <!-- Avgplot -->
               <div {id} style="padding-bottom:1em" />
 
+              <!-- Experimental gaussian fitting -->
               <div class="level" style="display:{exp_fitall_div}">
                 <div class="level-left">
 
@@ -1224,7 +1311,50 @@
                   {/if}
                 </div>
               </div>
+            
+            {:else if filetag==="mass"}
+
+              <!-- mplot row -->
+              <div {id} style="padding-bottom:1em;" />
               
+              <!-- NIST webview -->
+              <div class="row" id="nistWebview_rows" style="display:none">
+
+                <!-- NIST webview navigator -->
+                <div class="row">
+                  <div class="level">
+                    <div class="level-left">
+
+                      <div class="level-item webviewIcon hvr-glow" on:click="{()=>nist_webview.goToIndex(0)}">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                      </div>
+
+                      <!-- <div class="level-item">
+                        <input class="input" type="text" placeholder="Google Search engine" 
+                        data-tippy="Google Search engine" bind:value={search_string} on:change="{()=>nist_url=google_search}"/>
+                      </div> -->
+
+                      <div class="level-item webviewIcon hvr-glow" on:click="{()=>{if(nist_webview.canGoBack()) {nist_webview.goBack()}}}">
+                        <span class="icon"><i class="fas fa-arrow-left"></i></span>
+                      </div>
+
+                      <div class="level-item webviewIcon hvr-glow" on:click="{()=>{if(nist_webview.canGoForward()) {nist_webview.goForward()}}}">
+                        <span class="icon"><i class="fas fa-arrow-right"></i></span>
+                      </div>
+
+                      <div class="level-item webviewIcon hvr-glow" on:click="{()=>nist_webview.reload()}">
+                        <span class="icon"><i class="fas fa-undo"></i></span>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- NIST webview -->
+                <div class="row"><webview src={nist_url} id="nist_webview"></webview></div>
+
+              </div>
+            
             {:else}
               <div {id} style="padding-bottom:1em" />
             {/if}

@@ -12,9 +12,9 @@ from FELion_definitions import read_dat_file
 import numpy as np
 
 def main(felixfiles, location, norm_method, output_filename="averaged"):
-
     dat_location = location / "EXPORT"
     widget = FELion_Tk(title="Felix Averaged plot", location=location/"OUT")
+    
     fig, canvas = widget.Figure()
 
     if norm_method=="Relative": ylabel = "Relative Depletion (%)"
