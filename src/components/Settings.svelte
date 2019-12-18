@@ -25,8 +25,10 @@
 
     
     let packageJSON = fs.readFileSync(path.join(__dirname, "../package.json"))
+
     packageJSON = JSON.parse(packageJSON.toString("utf-8"))
-    let currentVersion = packageJSON.version
+    let versionFile = fs.readFileSync(path.join(__dirname, "../version.json"))
+    let currentVersion = JSON.parse(versionFile.toString("utf-8")).version
 
     // Pythonpath and pythonscript files location
     
