@@ -193,8 +193,11 @@ class FELion_Tk(Tk):
 
         return self.widget_frame.value1
 
-    def Figure(self, connect=True, dpi=None, default_widget=True , **kw):
+    def Figure(self, connect=True, dpi=None, default_widget=True, default_save_widget=True , **kw):
+
         self.default_widget = default_widget
+
+        self.default_save_widget = default_save_widget
 
         self.make_figure_widgets()
         if dpi is not None: self.dpi_value.set(dpi)
@@ -261,10 +264,11 @@ class FELion_Tk(Tk):
             self.plotYscale = self.Entries("Check", "Ylog", x0+x_diff, y, default=False, bind_btn=True, bind_func=self.set_figureLabel)
             self.latex = self.Entries("Check", "LaTex", x0, y, default=False)
 
-            # Row 9
-            y += y_diff
-            self.save_fmt = self.Entries("Entry", "png", x0, y+0.02)
-            self.save_btn = self.Buttons("Save", x0+x_diff, y, self.save_fig)
+            if self.default_save_widget:
+                # Row 9
+                y += y_diff
+                self.save_fmt = self.Entries("Entry", "png", x0, y+0.02)
+                self.save_btn = self.Buttons("Save", x0+x_diff, y, self.save_fig)
 
             #  Row 10
             y = 0.7
