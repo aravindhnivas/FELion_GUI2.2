@@ -16,7 +16,7 @@
         "build": "rollup -c",
         "postinstall": "electron-builder install-app-deps",
         "css-build": "node-sass --omit-source-map-url static/sass/mystyles.scss static/css/mystyles.css",
-        "css-watch": "npm run css-build -- --watch",
+        "css-watch": "npm run css-build -- --watch"
     },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.10.2",
