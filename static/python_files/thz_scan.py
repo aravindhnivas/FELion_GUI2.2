@@ -1,6 +1,6 @@
 # Data analysis
 import numpy as np
-from lmfit.models import VoigtModel
+# from lmfit.models import VoigtModel
 
 # Built-In modules
 from pathlib import Path as pt
@@ -9,18 +9,14 @@ import sys, json, os
 # FELion tkinter figure module
 from FELion_widgets import FELion_Tk
 from FELion_definitions import gauss_fit
-####################################################
+from FELion_constants import colors
+
+# #########################################################
 
 def thz_plot(filename):
-    # Opening file and reading its content
-    with open(filename, "r") as fileContents:
-        file = fileContents.readlines()
-
+    with open(filename, "r") as fileContents: file = fileContents.readlines()
     file = file[1:]
 
-    #############################################
-
-    # Resonce ON counts value
     resOn = []
 
     for line in file:
@@ -29,9 +25,6 @@ def thz_plot(filename):
         resOn.append(line)
     resOn = resOn[1:]
 
-    #############################################
-
-    # Resonce OFF counts value
     resOff = []
     start = False
 
@@ -108,7 +101,6 @@ def binning(xs, ys, delta=1e-6):
     # print("after binning", binsx, data_binned)
     binsx = np.array(binsx, dtype=np.float)
     data_binned = np.array(data_binned, dtype=np.float)
-
     return binsx, data_binned
 
 def main(filenames, delta, tkplot, gamma=None):
@@ -120,17 +112,17 @@ def main(filenames, delta, tkplot, gamma=None):
         fig, canvas = widget.Figure()
         if len(filenames) == 1: savename=filenames[0].stem
         else: savename = "averaged_thzScan"
+
         ax = widget.make_figure_layout(title="THz scan", xaxis="Frequency (GHz)", yaxis="Depletion (%)", savename=savename)
     else: data = {}
 
     xs, ys = [], []
+
     for i, filename in enumerate(filenames):
-        
         filename = pt(filename)
         freq, depletion_counts, iteraton = thz_plot(filename)
         model = gauss_fit(freq, depletion_counts)
         fit_data, uline_freq, usigma, uamplitude, ufwhm = model.get_data()
-
         freq_fit = uline_freq.nominal_value
         freq_fit_err = uline_freq.std_dev*1e7
         
@@ -138,9 +130,18 @@ def main(filenames, delta, tkplot, gamma=None):
             ax.plot(freq, depletion_counts, f"C{i}.", label=f"{filename.name} [{iteraton}]")
             ax.plot(freq, fit_data, f"C{i}-", label=f"Fit.: {freq_fit:.7f} ({freq_fit_err:.0f}) [{ufwhm.nominal_value*1e6:.1f} KHz]")
         else:
-            data[filename.name] = {"x": list(freq), "y": list(depletion_counts),  
-                                    "name": f"{filename.name} [{iteraton}]", "mode":'markers',
-                                    }
+
+
+            label = f"{filename.name}"
+            data[label] = {"x": list(freq), "y": list(depletion_counts), "name": f"{label} [{iteraton}]", 
+                "mode":'markers', "line":{"color":f"rgb{colors[i*2]}"}
+            }
+
+            label_fit = f"Fit: {freq_fit:.7f} ({freq_fit_err:.0f}) [{ufwhm.nominal_value*1e6:.1f} KHz]"
+            data[f"{label}_fit"] = {"x": list(freq), "y": list(fit_data), "name": label_fit, 
+                "mode": "lines", "line":{"color":f"rgb{colors[i*2]}"}
+            }
+
         xs = np.append(xs, freq)
         ys = np.append(ys, depletion_counts)
 
@@ -181,7 +182,7 @@ def main(filenames, delta, tkplot, gamma=None):
     else:
 
         data["Averaged_fit"] = {
-            "x": list(binx), "y": list(fit_data),  "name": f"Gau (sig.): [{sigma:.2e}]; Lor (gam.): [{gamma:.2e}]", "mode": "lines", "line":{"color":"black"}
+            "x": list(binx), "y": list(fit_data),  "name": f"Fitted: {line_freq_fit:.7f} ({freq_fit_err:.0f}) [{fwhm*1e6:.1f} KHz]", "mode": "lines", "line":{"color":"black"}
         }
 
         data["text"] = {
