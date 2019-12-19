@@ -22,8 +22,6 @@
         if (navigator.onLine) updateCheck()
         else console.log("Internet is not connected.")
     })
-
-    
     let packageJSON = fs.readFileSync(path.join(__dirname, "../package.json"))
 
     packageJSON = JSON.parse(packageJSON.toString("utf-8"))
@@ -48,22 +46,24 @@
 
     $: saveChanges = false
     const configSave = () => {
-
         localStorage["pythonpath"] = pythonpath
         localStorage["pythonscript"] = pythonscript
         console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`)
         saveChanges = true
     }
+    const set_defaultConfig = () => {
 
+        pythonpath = localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python")
+        pythonscript = localStorage["pythonscript"] = path.resolve(__dirname, "python_files")
+        saveChanges = true
+    }
     const toggle = (event) => {
 
         let target = event.target.id
         items.forEach(item=>{
             let elementID = `${item}Container`
             let $element = jq(`#${elementID}`)
-
             let targetElement = document.getElementById(item)
-
             if (elementID != target) {
                 if($element.hasClass("is-active")) {
                     $element.removeClass("is-active")
@@ -79,11 +79,9 @@
 
     $: new_version = ""
     $: updatetoggle = "none"
-
     $: checkupdateLoading = ""
     $: updateLoading = ""
     $: updateStatus = ""
-
 
     let github_username = "aravindhnivas"
     let github_repo = "FELion_GUI2.2"
@@ -94,15 +92,13 @@
     $: versionJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/version.json`
     $: urlzip = `https://codeload.github.com/${github_username}/${github_repo}/zip/${gihub_branchname}`
 
-
     // Local update-downloaded files
     const updateFolder = path.resolve(__dirname, "..", "update")
     const updatefilename = "update.zip"
     const zipFile = path.resolve(updateFolder, updatefilename)
 
-    // Update checking
-    const updateCheck = () => {
 
+    const updateCheck = () => {
         updatetoggle = "none"
         console.log("Checking for update")
 
@@ -451,6 +447,8 @@
     $: developer_mode = false
     $: developer_mode ? window.developerMode = true : window.developerMode = false
 
+    $: console.log("Developer mode: ", developer_mode)
+    
 </script>
 
 <style>
@@ -543,16 +541,21 @@
                         </div>
 
                         <!-- Save changes button -->
-                        <div class="control" >
-                            <button class="button is-link is-pulled-right" on:click={configSave}>Save</button>
-                            {#if saveChanges}
-                                <h1 class="subtitle" transition:fade on:introend="{()=>setTimeout(() => saveChanges=false, 2000)}">Changes saved!</h1>
-                            {/if}
+                        <div class="level">
+                            <div class="level-left">
+                                <button class="level-item button is-warning" on:click={set_defaultConfig}>Set Defaults</button>
+                                <button class="level-item button is-link" on:click={configSave}>Save</button>
+                            </div>
+                            <div class="level-right">
+                                {#if saveChanges}
+                                    <h1 class="level-item subtitle" transition:fade on:introend="{()=>setTimeout(() => saveChanges=false, 2000)}">Changes saved!</h1>
+                                {/if}
+                            </div>
                         </div>
                     
                         <div class="control">
-                            <div class="pretty p-switch p-slim" style="margin-bottom:1em;" >
-                                <input type="checkbox" checked id="developerMode" bind:checked={developer_mode}/>
+                            <div class="pretty p-switch p-slim" style="margin:1em;" >
+                                <input type="checkbox" bind:checked={developer_mode}/>
                                 <div class="state p-info p-on">
                                     <label>Developer mode</label>
                                 </div>
