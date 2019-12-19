@@ -667,6 +667,7 @@
 
   $: nist_mformula = localStorage["nist_mformula"] || ""
   $: nist_mname = localStorage["nist_mname"] || ""
+
   $: nist_molecule_name = `Name=${nist_mname}`
   $: nist_molecule_formula = `Formula=${nist_mformula}`
   $: nist_url = localStorage["nist_url"] || "https://webbook.nist.gov/cgi/cbook.cgi?Name=&Units=SI&Mask=200#Mass-Spec"
@@ -843,7 +844,7 @@
           <section class="modal-card-body" style="color:black"> {error_msg[filetag]} </section>
 
           <footer class="modal-card-foot">
-            <button class="button" on:click="{()=>modal[filetag]=''}">Close</button>
+            <button class="button is-link" on:click="{()=>modal[filetag]=''}">Close</button>
           </footer>
         </div>
       </div>
