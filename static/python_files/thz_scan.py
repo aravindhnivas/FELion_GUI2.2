@@ -112,8 +112,8 @@ def main(filenames, delta, tkplot, gamma=None):
         fig, canvas = widget.Figure()
         if len(filenames) == 1: savename=filenames[0].stem
         else: savename = "averaged_thzScan"
-
         ax = widget.make_figure_layout(title="THz scan", xaxis="Frequency (GHz)", yaxis="Depletion (%)", savename=savename)
+        
     else: data = {}
 
     xs, ys = [], []

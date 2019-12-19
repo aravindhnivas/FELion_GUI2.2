@@ -83,7 +83,7 @@ function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
     if (filetype == 'mass') { dataLayout.yaxis.type = "log" }
     let dataPlot = [];
     for (let x in data) { dataPlot.push(data[x]) }
-    try { Plotly.react(plotArea, dataPlot, dataLayout, { editable: true }) } catch (err) { console.log(err) }
+    try { Plotly.react(plotArea, dataPlot, dataLayout, { editable: true }) } catch (err) { console.log("Error occured while plotting\n", err) }
 }
 class program {
 
@@ -304,9 +304,6 @@ class program {
                         }
                         else if (this.filetype == "thz") {
 
-
-                            let delta_thz = this.args
-
                             plot(`THz Scan`, "Frequency (GHz)", "Depletion (%)", dataFromPython, "thzplot_Container");
 
                             let lines = [];
@@ -317,7 +314,9 @@ class program {
                             }
                             Plotly.relayout("thzplot_Container", layout_update)
                         }
-                        // else if (this.filetype == "depletion") { console.log('Graph plotted') }
+                        else if (this.filetype == "boltzman") {
+                            plot(`Boltzman Distribution`, "Rotational levels (J)", "Probability (%)", dataFromPython, "boltzman_plot");
+                        }
                         // else if (this.filetype == "norm_tkplot") { console.log('Graph plotted') }
                         else if (this.filetype == "exp_fit") {
 

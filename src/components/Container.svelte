@@ -21,10 +21,12 @@
   export let MenuItem;
 
   $: tplot_width = ""
-  jq(document).ready(() => {
-    jq("#theoryBtn").addClass("fadeInUp").css("display", "none")
-    jq("#norm_tkplot").addClass("fadeInUp").css("display", "none")
 
+  jq(document).ready(() => {
+
+    jq("#theoryBtn").addClass("fadeInUp").css("display", "none")
+
+    jq("#norm_tkplot").addClass("fadeInUp").css("display", "none")
     jq("#exp_fit").addClass("fadeInUp").css("display", "none")
     jq("#felix_shell_Container").addClass("fadeInUp").css("display", "block")
 
@@ -34,7 +36,6 @@
     else {plotHeight = 540; tplot_width="is-full"}
 
     jq(".plotContainer").css("max-height", plotHeight)
-
   });
   
   const join = file => {
@@ -58,10 +59,9 @@
         type: target.checked ? "log" : null
       }
     }
-
-    if (filetag == "mass") {
-      Plotly.relayout("mplot", layout);
-    } else {
+    if (filetag == "mass") {Plotly.relayout("mplot", layout)}
+    
+    else {
       fileChecked.forEach(file => {
         let tplot = file + "_tplot";
         Plotly.relayout(tplot, layout);
@@ -88,13 +88,12 @@
   };
 
   const locationUpdateStatus = (status) => {
+
     jq(document).ready(()=>{
-      
       let locationUpdateDiv = document.getElementById(`${filetag}locationUpdate`)
 
       locationUpdateDiv.innerHTML = status
       locationUpdateDiv.style.display = "block"
-      
       setTimeout(()=>{
         locationUpdateDiv.innerHTML=""
         locationUpdateDiv.style.display = "none"
@@ -121,7 +120,6 @@
     console.log(`[${filetag}]: location is stored locally\n${currentLocation}`)
 
     try {
-
       let folder = [];
       let file = [];
 
@@ -228,13 +226,7 @@
     },
 
     // THz scan matplotlib
-
-    thz:{
-
-      pyfile:"thz_scan.py",
-      // args:[delta_thz, "plot", gamma_thz] // Doesn't take the binded delta_thz value
-      
-    }
+    thz:{pyfile:"thz_scan.py"}
   }
   $: modal = {mass:"", felix:"", scan:"", thz:""}
   $: error_msg = {mass:"", felix:"", scan:"", thz:""}
@@ -249,9 +241,7 @@
     switch (btname) {
 
       ////////////// FELIX PLOT //////////////////////
-
       case "felixPlotBtn":
-
         jq("#theoryRow").css("display", "none")
         // plotContainerHeight = "60vh"
         Plotly.purge("exp-theory-plot");
@@ -272,9 +262,7 @@
       
       break;
 
-
       case "exp_fit":
-
         let expfit_overwrite = document.getElementById("overwrite_expfit").checked
         let fitfile = document.getElementById("expfitFiles").value
 
@@ -438,12 +426,8 @@
         jq("#depletionRow").toggle()
       break;
 
-      ////////////////////////////////////////////////////
-    
       default:
         break;
-
-      //////////////////////////////////////////////////// 
     }
   };
 
@@ -463,10 +447,8 @@
         modal[filetag]="is-active"
       })
   }
-
   let sigma=20; //Sigma value for felixplot thoery gaussian profile
   let scale=1;
-
   let powerinfo = "21, 21";
   let nshots = 10;
   let massIndex = 0;
@@ -530,7 +512,6 @@
   $: fit_file_list = ["averaged", ...fit_file_list_temp]
 
   $: fitall_tkplot_Peak_btnCSS = "is-link"
-
   $: expfit_log_display = false
   $: expfit_log = ""
   const expfit_log_it = (str) => {
@@ -542,14 +523,11 @@
       expfit_log_display = false
     }, 4000)
   }
-
   let ready_to_fit = false
 
   function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all"} = {}) {
-
     let expfit_overwrite = document.getElementById("overwrite_expfit").checked
     let fitfile = document.getElementById("fitFiles").value
-
     runPlot({
       fullfiles: [fitfile],
       filetype: filetype,
@@ -567,8 +545,8 @@
   }
 
   const findPeak = () => {
-
     console.log("Finding preak with prominence value: ", prominence)
+
     ready_to_fit = true
     expfit_func()
   }
@@ -605,7 +583,6 @@
     console.log(`Total files plotted: ${plottedFiles_length}`)
     for (let i=0; i<plottedFiles_length; i++) {Plotly.deleteTraces("avgplot", [-1])}
     window.line = []
-
     ready_to_fit = false
   }
 
@@ -614,10 +591,8 @@
     if (window.line.length > 0) {
       delete_file_line()
       Plotly.deleteTraces("avgplot", [-1])
-
       console.log("Last fitted peak removed")
     } else {
-      
       if (window.annotations.length === 0) {expfit_log_it("No fitted lines found")}
       console.log("No line fit is found to remove")
     }
@@ -628,12 +603,10 @@
     Plotly.relayout("avgplot", { annotations: window.annotations, shapes: window.line })
     if (window.line.length === 0) {ready_to_fit = false}
   }
-
   const fitall = (tkplot=false, btname="fitall_expfit_peaks", filetype="expfit_all") => {
-
     console.log("Fitting all found peaks")
-    if (ready_to_fit) {expfit_func({runfit:true, btname:btname, tkplot:tkplot, filetype:filetype})}
 
+    if (ready_to_fit) {expfit_func({runfit:true, btname:btname, tkplot:tkplot, filetype:filetype})}
     else {
       findPeak_btnCSS = "is-link shake"
       setTimeout(()=>findPeak_btnCSS = "is-link", 1000)
@@ -680,7 +653,6 @@
     localStorage["nist_mformula"] =  nist_mformula
     localStorage["nist_mname"] = nist_mname
   }
-
   $: internet_connection = "No Internet access available"
   $: internet_active = "is-danger"
   $: search_string = ""
@@ -707,12 +679,51 @@
 
       });
   }
+
+  // Boltzman population and Rotational line strength
+  let thz_row = [
+    { name:"B (MHz)", id: "rotational_B", value: 226785.36 },
+    { name:"D (MHz)", id: "rotational_D", value: 0 },
+    { name:"H (MHz)", id: "rotational_H", value: 0 },
+    { name:"Energy (MHz)", id: "boltzman_energy", value: 0 },
+    { name:"Temp. (K)", id: "boltzman_temp", value: 300 },
+    { name:"Total #J", id: "boltzman_totalJ", value: 20 },
+  ]
+
+  const plotBoltzman = (tkplot="run") => {
+    let targetID = "boltzman_plot_btn"
+    let filetype = "boltzman"
+
+    if (tkplot === "plot") {
+      targetID = "boltzman_plot_mbtn"
+      filetype = "general"
+    }
+
+    let B0 = document.getElementById("rotational_B").value
+    let D0 = document.getElementById("rotational_D").value
+    let H0 = document.getElementById("rotational_H").value
+    let temp = document.getElementById("boltzman_temp").value
+    
+    let totalJ = document.getElementById("boltzman_totalJ").value
+
+    runPlot({
+        fullfiles: [currentLocation], filetype: filetype, filetag:"thz",
+        btname: targetID, pyfile: "boltzman.py", 
+        args: [B0, D0, H0, temp, totalJ, tkplot]
+
+      }).catch(err => {
+        console.log('Error Occured', err); 
+        error_msg[filetag]=err; 
+        modal[filetag]="is-active"
+
+      });
+  }
+
 </script>
 
 <style lang="scss">
 
   $link-color: #dbdbdb;
-
   $link-hovercolor: #7a64b1;
   $success-color: #09814a;
   $danger-color: #ff3860;
@@ -780,8 +791,10 @@
   }
   ::-webkit-input-placeholder {color: #bdc3c7!important}
 
+  .boltzman_input_style {width: 7vw!important;}
+
   /* Clearning default increamental syle */
-  /* input[type="number"] {
+  input[type="number"] {
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
     appearance: textfield;
@@ -790,7 +803,7 @@
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
-  } */
+  }
 
   .locationLabel {border-radius: 20px;}
 
@@ -835,17 +848,21 @@
     <div class="column">
 
       <div class="modal {modal[filetag]} is-clipped">
+      
         <div class="modal-background"></div>
         <div class="modal-card">
+
           <header class="modal-card-head">
             <p class="modal-card-title">Error Occured while processing the data</p>
             <button class="delete" aria-label="close" on:click="{()=>modal[filetag]=''}"></button>
           </header>
+
           <section class="modal-card-body" style="color:black"> {error_msg[filetag]} </section>
 
           <footer class="modal-card-foot">
             <button class="button is-link" on:click="{()=>modal[filetag]=''}">Close</button>
           </footer>
+
         </div>
       </div>
 
@@ -962,7 +979,6 @@
                 </div>
 
                 <!-- Gamma -->
-
                 <div class="level-item">
 
                   <div class="field has-addons">
@@ -981,6 +997,11 @@
                     
                   </div>
 
+                </div>
+
+                <!-- boltzman distribution -->
+                <div class="level-item">
+                  <div class="button hvr-glow is-link" id="boltzman" on:click="{()=>jq("#boltzman_row").toggle()}">Boltzman</div>
                 </div>
 
               {/if}
@@ -1018,9 +1039,8 @@
                   </div>
               </div>
           </div>
-        {/if}
 
-        {#if filetag=="scan"}
+        {:else if filetag=="scan"}
           <div class="row" id="depletionRow" style="display:none">
               <div class="level">
                 <div class="level-left">
@@ -1076,10 +1096,8 @@
 
               
           </div>
-        {/if}
 
-        {#if filetag === "mass"}
-
+        {:else if filetag === "mass"}
           <!-- NIST find molecule row -->
           <div class="row" id="nist_row" style="display:none">
             <div class="level">
@@ -1147,8 +1165,31 @@
               </div>
             </div>
           </div>
+        {:else if filetag === "thz"}
 
+          <div class="row" id="boltzman_row" style="display:none">
+            <div class="level">
+              <div class="level-left">
+
+                {#each thz_row as {name, id, value}}
+                  <div class="level-item">
+                    <div class="field">
+                      <label class="label" style="font-weight:400">{name}</label>
+                      <div class="control"><input type="number" class="input boltzman_input_style" {id} {value} min="0" on:change={plotBoltzman}></div>
+                    </div>
+                  </div>
+                {/each}
+
+                <div class="level-item button hvr-glow funcBtn is-link animated" id="boltzman_plot_btn" style="margin-top:auto;" on:click={plotBoltzman}>Submit</div>
+                <div class="level-item button hvr-glow funcBtn is-link animated" id="boltzman_plot_mbtn" style="margin-top:auto;" on:click="{()=>plotBoltzman('plot')}">Open in Matplotlib</div>
+
+              </div>
+            </div>
+          </div>
+
+        {:else}
         {/if}
+
 
       </div>
 
