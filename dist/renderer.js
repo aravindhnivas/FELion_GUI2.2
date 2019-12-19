@@ -3044,7 +3044,7 @@ function get_each_context_10(ctx, list, i) {
 	return child_ctx;
 }
 
-// (903:14) {#each funcBtns as { id, name }}
+// (904:14) {#each funcBtns as { id, name }}
 function create_each_block_10(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
@@ -3082,7 +3082,7 @@ function create_each_block_10(ctx) {
 	};
 }
 
-// (919:20) {:else}
+// (920:20) {:else}
 function create_else_block_1$1(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3120,7 +3120,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (917:20) {#if name[0]==="Log"}
+// (918:20) {#if name[0]==="Log"}
 function create_if_block_14(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
@@ -3158,7 +3158,7 @@ function create_if_block_14(ctx) {
 	};
 }
 
-// (912:14) {#each checkBtns as {id, name, bind, help}}
+// (913:14) {#each checkBtns as {id, name, bind, help}}
 function create_each_block_9(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
@@ -3246,7 +3246,7 @@ function create_each_block_9(ctx) {
 	};
 }
 
-// (931:14) {#if filetag == 'felix'}
+// (932:14) {#if filetag == 'felix'}
 function create_if_block_13(ctx) {
 	var div4, div3, div1, t1, div2, input, input_updating = false, t2, div6, div5, dispose;
 
@@ -3320,7 +3320,7 @@ function create_if_block_13(ctx) {
 	};
 }
 
-// (959:14) {#if filetag == 'thz'}
+// (960:14) {#if filetag == 'thz'}
 function create_if_block_12(ctx) {
 	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
 
@@ -3420,7 +3420,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (1010:8) {#if filetag=="felix"}
+// (1011:8) {#if filetag=="felix"}
 function create_if_block_11(ctx) {
 	var div7, div6, div5, div2, div1, div0, select, t0, div4, div3, button0, t2, input0, input0_updating = false, t3, input1, input1_updating = false, t4, button1, t6, button2, dispose;
 
@@ -3584,7 +3584,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (1019:30) {#each theoryfilenames as theoryfile}
+// (1020:30) {#each theoryfilenames as theoryfile}
 function create_each_block_8(ctx) {
 	var option, t_value = ctx.theoryfile + "", t, option_value_value;
 
@@ -3622,7 +3622,7 @@ function create_each_block_8(ctx) {
 	};
 }
 
-// (1041:8) {#if filetag=="scan"}
+// (1042:8) {#if filetag=="scan"}
 function create_if_block_5(ctx) {
 	var div3, div2, div1, t0, t1, div0, button, dispose;
 
@@ -3753,7 +3753,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (1054:30) {#if folderFile.files != undefined}
+// (1055:30) {#if folderFile.files != undefined}
 function create_if_block_10(ctx) {
 	var each_1_anchor;
 
@@ -3816,7 +3816,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (1055:32) {#each folderFile.files as scanfile}
+// (1056:32) {#each folderFile.files as scanfile}
 function create_each_block_7(ctx) {
 	var option, t_value = ctx.scanfile + "", t, option_value_value;
 
@@ -3854,7 +3854,7 @@ function create_each_block_7(ctx) {
 	};
 }
 
-// (1046:18) {#each ["ResON", "ResOFF"] as name}
+// (1047:18) {#each ["ResON", "ResOFF"] as name}
 function create_each_block_6(ctx) {
 	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
 
@@ -3922,7 +3922,7 @@ function create_each_block_6(ctx) {
 	};
 }
 
-// (1079:55) 
+// (1080:55) 
 function create_if_block_9(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -3961,7 +3961,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (1077:55) 
+// (1078:55) 
 function create_if_block_8(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -4000,7 +4000,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (1075:54) 
+// (1076:54) 
 function create_if_block_7(ctx) {
 	var input, input_updating = false, dispose;
 
@@ -4039,7 +4039,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (1073:26) {#if name=="Power (ON, OFF)"}
+// (1074:26) {#if name=="Power (ON, OFF)"}
 function create_if_block_6(ctx) {
 	var input, dispose;
 
@@ -4072,7 +4072,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (1066:18) {#each depletionLabels as {name, id}}
+// (1067:18) {#each depletionLabels as {name, id}}
 function create_each_block_5(ctx) {
 	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0;
 
@@ -4128,7 +4128,7 @@ function create_each_block_5(ctx) {
 	};
 }
 
-// (1099:8) {#if filetag === "mass"}
+// (1100:8) {#if filetag === "mass"}
 function create_if_block_4(ctx) {
 	var div5, div4, div3, div0, input0, t0, div1, input1, t1, div2, button, t2, button_class_value, t3, div17, div16, div15, div7, div6, select, t4, div8, input2, input2_updating = false, t5, div9, input3, input3_updating = false, t6, div10, input4, input4_updating = false, t7, div12, div11, t9, div14, div13, dispose;
 
@@ -4383,7 +4383,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (1132:24) {#each fileChecked as file}
+// (1133:24) {#each fileChecked as file}
 function create_each_block_4(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -4421,7 +4421,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (1377:12) {:else}
+// (1378:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -4454,7 +4454,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (1334:39) 
+// (1335:39) 
 function create_if_block_3(ctx) {
 	var div0, div0_id_value, t0, div9, div7, div6, div5, div1, t1, div2, t2, div3, t3, div4, t4, div8, webview, t5, dispose;
 
@@ -4552,7 +4552,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (1185:38) 
+// (1186:38) 
 function create_if_block_1$1(ctx) {
 	var div10, div9, div2, div1, input0, t0, div0, t3, div5, div4, input1, t4, div3, t7, div8, div7, input2, t8, div6, t11, div11, div11_id_value, t12, div24, div23, div12, input3, input3_updating = false, t13, div13, input4, input4_updating = false, t14, div14, input5, input5_updating = false, t15, div16, div15, t16, div15_class_value, t17, div18, div17, select0, t18, div20, div19, t19, div19_class_value, t20, div22, div21, t21, div21_class_value, t22, div39, div38, div26, div25, select1, t23, div28, div27, t25, div31, t28, div33, div32, t29, div32_class_value, t30, div35, div34, t31, div34_class_value, t32, div37, div36, t34, t35, current, dispose;
 
@@ -5065,7 +5065,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (1178:12) {#if filetag == 'scan'}
+// (1179:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -5142,7 +5142,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (1258:26) {#each fit_file_list as file}
+// (1259:26) {#each fit_file_list as file}
 function create_each_block_3(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -5180,7 +5180,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (1286:26) {#each fit_file_list as file}
+// (1287:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -5218,7 +5218,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (1326:18) {#if expfit_log_display}
+// (1327:18) {#if expfit_log_display}
 function create_if_block_2(ctx) {
 	var div, label, t, div_intro, div_outro, current;
 
@@ -5274,7 +5274,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (1180:16) {#each fileChecked as scanfile}
+// (1181:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_class_value, div_id_value;
 
@@ -5308,7 +5308,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (1176:10) {#each plotID as id}
+// (1177:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var current_block_type_index, if_block, if_block_anchor, current;
 
@@ -5513,7 +5513,7 @@ function create_fragment$5(ctx) {
 			attr(header, "class", "modal-card-head svelte-l6p2k2");
 			attr(section0, "class", "modal-card-body svelte-l6p2k2");
 			set_style(section0, "color", "black");
-			attr(button1, "class", "button svelte-l6p2k2");
+			attr(button1, "class", "button is-link svelte-l6p2k2");
 			attr(footer, "class", "modal-card-foot svelte-l6p2k2");
 			attr(div2, "class", "modal-card svelte-l6p2k2");
 			attr(div3, "class", div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-l6p2k2");
@@ -7055,7 +7055,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (514:20) {#each items as item}
+// (512:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -7087,7 +7087,7 @@ function create_each_block$3(ctx) {
 	};
 }
 
-// (552:28) {#if saveChanges}
+// (554:32) {#if saveChanges}
 function create_if_block_1$2(ctx) {
 	var h1, h1_transition, current, dispose;
 
@@ -7095,7 +7095,7 @@ function create_if_block_1$2(ctx) {
 		c() {
 			h1 = element("h1");
 			h1.textContent = "Changes saved!";
-			attr(h1, "class", "subtitle svelte-yq7g0m");
+			attr(h1, "class", "level-item subtitle svelte-yq7g0m");
 			dispose = listen(h1, "introend", ctx.introend_handler);
 		},
 
@@ -7132,7 +7132,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (619:28) {#if back_restore_display}
+// (622:28) {#if back_restore_display}
 function create_if_block$3(ctx) {
 	var p, t, p_transition, current;
 
@@ -7182,7 +7182,7 @@ function create_if_block$3(ctx) {
 }
 
 function create_fragment$7(ctx) {
-	var section, div32, div1, aside, div0, t1, ul, t2, div31, div30, div29, div2, t3, t4, div11, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div7, button0, t16, t17, div10, div9, input2, t18, div8, t20, div26, h10, t21, t22, t23, hr0, t24, div17, div16, div12, input3, t25, div13, input4, t26, div15, div14, select, option0, option1, t29, hr1, t30, div18, p2, button1, t31, button1_class_value, t32, p3, button2, t33, button2_class_value, t34, h11, t35, t36, hr2, t37, div20, input5, t38, div19, t40, div24, div22, t42, div23, input6, t43, hr3, t44, div25, p4, input7, t45, p5, button3, t46, button3_class_value, t47, p6, button4, t48, button4_class_value, t49, t50, div28, div27, h12, t52, h13, t53, t54_value = process.versions.electron + "", t54, t55, h14, t56, t57_value = process.versions.node + "", t57, t58, h15, t59, t60_value = process.versions.chrome + "", t60, t61, h16, t62, t63, hr4, t64, h17, t66, h18, t67, t68_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t68, t69, h19, t70, t71_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t71, t72, h110, t73, t74_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t74, t75, h111, t76, t77_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t77, t78, hr5, t79, h112, t81, h113, t82, t83_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t83, t84, h114, t85, t86_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t86, t87, h115, t88, t89_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t89, t90, h116, t91, t92_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t92, current, dispose;
+	var section, div34, div1, aside, div0, t1, ul, t2, div33, div32, div31, div2, t3, t4, div13, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div9, div7, button0, t16, button1, t18, div8, t19, div12, div11, input2, t20, div10, t22, div28, h10, t23, t24, t25, hr0, t26, div19, div18, div14, input3, t27, div15, input4, t28, div17, div16, select, option0, option1, t31, hr1, t32, div20, p2, button2, t33, button2_class_value, t34, p3, button3, t35, button3_class_value, t36, h11, t37, t38, hr2, t39, div22, input5, t40, div21, t42, div26, div24, t44, div25, input6, t45, hr3, t46, div27, p4, input7, t47, p5, button4, t48, button4_class_value, t49, p6, button5, t50, button5_class_value, t51, t52, div30, div29, h12, t54, h13, t55, t56_value = process.versions.electron + "", t56, t57, h14, t58, t59_value = process.versions.node + "", t59, t60, h15, t61, t62_value = process.versions.chrome + "", t62, t63, h16, t64, t65, hr4, t66, h17, t68, h18, t69, t70_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t70, t71, h19, t72, t73_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t73, t74, h110, t75, t76_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t76, t77, h111, t78, t79_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t79, t80, hr5, t81, h112, t83, h113, t84, t85_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t85, t86, h114, t87, t88_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t88, t89, h115, t90, t91_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t91, t92, h116, t93, t94_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t94, current, dispose;
 
 	let each_value = ctx.items;
 
@@ -7199,7 +7199,7 @@ function create_fragment$7(ctx) {
 	return {
 		c() {
 			section = element("section");
-			div32 = element("div");
+			div34 = element("div");
 			div1 = element("div");
 			aside = element("aside");
 			div0 = element("div");
@@ -7212,13 +7212,13 @@ function create_fragment$7(ctx) {
 			}
 
 			t2 = space();
+			div33 = element("div");
+			div32 = element("div");
 			div31 = element("div");
-			div30 = element("div");
-			div29 = element("div");
 			div2 = element("div");
 			t3 = text(ctx.currentTime);
 			t4 = space();
-			div11 = element("div");
+			div13 = element("div");
 			div4 = element("div");
 			label0 = element("label");
 			label0.textContent = "PythonPath";
@@ -7239,148 +7239,153 @@ function create_fragment$7(ctx) {
 			p1 = element("p");
 			p1.textContent = "location of python script files";
 			t14 = space();
+			div9 = element("div");
 			div7 = element("div");
 			button0 = element("button");
-			button0.textContent = "Save";
+			button0.textContent = "Set Defaults";
 			t16 = space();
-			if (if_block0) if_block0.c();
-			t17 = space();
-			div10 = element("div");
-			div9 = element("div");
-			input2 = element("input");
+			button1 = element("button");
+			button1.textContent = "Save";
 			t18 = space();
 			div8 = element("div");
-			div8.innerHTML = `<label class="svelte-yq7g0m">Developer mode</label>`;
+			if (if_block0) if_block0.c();
+			t19 = space();
+			div12 = element("div");
+			div11 = element("div");
+			input2 = element("input");
 			t20 = space();
-			div26 = element("div");
+			div10 = element("div");
+			div10.innerHTML = `<label class="svelte-yq7g0m">Developer mode</label>`;
+			t22 = space();
+			div28 = element("div");
 			h10 = element("h1");
-			t21 = text("FELion GUI (Current version): ");
-			t22 = text(ctx.currentVersion);
-			t23 = space();
+			t23 = text("FELion GUI (Current version): ");
+			t24 = text(ctx.currentVersion);
+			t25 = space();
 			hr0 = element("hr");
-			t24 = space();
+			t26 = space();
+			div19 = element("div");
+			div18 = element("div");
+			div14 = element("div");
+			input3 = element("input");
+			t27 = space();
+			div15 = element("div");
+			input4 = element("input");
+			t28 = space();
 			div17 = element("div");
 			div16 = element("div");
-			div12 = element("div");
-			input3 = element("input");
-			t25 = space();
-			div13 = element("div");
-			input4 = element("input");
-			t26 = space();
-			div15 = element("div");
-			div14 = element("div");
 			select = element("select");
 			option0 = element("option");
 			option0.textContent = "master";
 			option1 = element("option");
 			option1.textContent = "developer";
-			t29 = space();
+			t31 = space();
 			hr1 = element("hr");
-			t30 = space();
-			div18 = element("div");
-			p2 = element("p");
-			button1 = element("button");
-			t31 = text("Check Update");
 			t32 = space();
-			p3 = element("p");
-			button2 = element("button");
-			t33 = text("Update");
-			t34 = space();
-			h11 = element("h1");
-			t35 = text(ctx.updateStatus);
-			t36 = space();
-			hr2 = element("hr");
-			t37 = space();
 			div20 = element("div");
-			input5 = element("input");
+			p2 = element("p");
+			button2 = element("button");
+			t33 = text("Check Update");
+			t34 = space();
+			p3 = element("p");
+			button3 = element("button");
+			t35 = text("Update");
+			t36 = space();
+			h11 = element("h1");
+			t37 = text(ctx.updateStatus);
 			t38 = space();
-			div19 = element("div");
-			div19.innerHTML = `<label class="svelte-yq7g0m">Auto update</label>`;
-			t40 = space();
-			div24 = element("div");
+			hr2 = element("hr");
+			t39 = space();
 			div22 = element("div");
-			div22.innerHTML = `<div class="button is-static">Time Interval (in hours)</div>`;
+			input5 = element("input");
+			t40 = space();
+			div21 = element("div");
+			div21.innerHTML = `<label class="svelte-yq7g0m">Auto update</label>`;
 			t42 = space();
-			div23 = element("div");
-			input6 = element("input");
-			t43 = space();
-			hr3 = element("hr");
+			div26 = element("div");
+			div24 = element("div");
+			div24.innerHTML = `<div class="button is-static">Time Interval (in hours)</div>`;
 			t44 = space();
 			div25 = element("div");
+			input6 = element("input");
+			t45 = space();
+			hr3 = element("hr");
+			t46 = space();
+			div27 = element("div");
 			p4 = element("p");
 			input7 = element("input");
-			t45 = space();
-			p5 = element("p");
-			button3 = element("button");
-			t46 = text("Backup");
 			t47 = space();
-			p6 = element("p");
+			p5 = element("p");
 			button4 = element("button");
-			t48 = text("Restore");
+			t48 = text("Backup");
 			t49 = space();
+			p6 = element("p");
+			button5 = element("button");
+			t50 = text("Restore");
+			t51 = space();
 			if (if_block1) if_block1.c();
-			t50 = space();
-			div28 = element("div");
-			div27 = element("div");
+			t52 = space();
+			div30 = element("div");
+			div29 = element("div");
 			h12 = element("h1");
 			h12.textContent = "Software details (version)";
-			t52 = space();
+			t54 = space();
 			h13 = element("h1");
-			t53 = text("Electron.js: ");
-			t54 = text(t54_value);
-			t55 = space();
+			t55 = text("Electron.js: ");
+			t56 = text(t56_value);
+			t57 = space();
 			h14 = element("h1");
-			t56 = text("Node.js: ");
-			t57 = text(t57_value);
-			t58 = space();
+			t58 = text("Node.js: ");
+			t59 = text(t59_value);
+			t60 = space();
 			h15 = element("h1");
-			t59 = text("Chrome: ");
-			t60 = text(t60_value);
-			t61 = space();
-			h16 = element("h1");
-			t62 = text(ctx.pythonv);
+			t61 = text("Chrome: ");
+			t62 = text(t62_value);
 			t63 = space();
+			h16 = element("h1");
+			t64 = text(ctx.pythonv);
+			t65 = space();
 			hr4 = element("hr");
-			t64 = space();
+			t66 = space();
 			h17 = element("h1");
 			h17.textContent = "Javascript Frameworks and libraries";
-			t66 = space();
+			t68 = space();
 			h18 = element("h1");
-			t67 = text("Svelte.js: ");
-			t68 = text(t68_value);
-			t69 = space();
+			t69 = text("Svelte.js: ");
+			t70 = text(t70_value);
+			t71 = space();
 			h19 = element("h1");
-			t70 = text("jQuery: ");
-			t71 = text(t71_value);
-			t72 = space();
+			t72 = text("jQuery: ");
+			t73 = text(t73_value);
+			t74 = space();
 			h110 = element("h1");
-			t73 = text("Typescript: ");
-			t74 = text(t74_value);
-			t75 = space();
+			t75 = text("Typescript: ");
+			t76 = text(t76_value);
+			t77 = space();
 			h111 = element("h1");
-			t76 = text("Tippy.js: ");
-			t77 = text(t77_value);
-			t78 = space();
+			t78 = text("Tippy.js: ");
+			t79 = text(t79_value);
+			t80 = space();
 			hr5 = element("hr");
-			t79 = space();
+			t81 = space();
 			h112 = element("h1");
 			h112.textContent = "CSS Frameworks and libraries";
-			t81 = space();
+			t83 = space();
 			h113 = element("h1");
-			t82 = text("Bulma: ");
-			t83 = text(t83_value);
-			t84 = space();
+			t84 = text("Bulma: ");
+			t85 = text(t85_value);
+			t86 = space();
 			h114 = element("h1");
-			t85 = text("Fontawesome: ");
-			t86 = text(t86_value);
-			t87 = space();
+			t87 = text("Fontawesome: ");
+			t88 = text(t88_value);
+			t89 = space();
 			h115 = element("h1");
-			t88 = text("pretty-checkbox: ");
-			t89 = text(t89_value);
-			t90 = space();
+			t90 = text("pretty-checkbox: ");
+			t91 = text(t91_value);
+			t92 = space();
 			h116 = element("h1");
-			t91 = text("hover.css: ");
-			t92 = text(t92_value);
+			t93 = text("hover.css: ");
+			t94 = text(t94_value);
 			attr(div0, "class", "menu-label svelte-yq7g0m");
 			attr(ul, "class", "menu-list svelte-yq7g0m");
 			attr(aside, "class", "menu box svelte-yq7g0m");
@@ -7401,67 +7406,68 @@ function create_fragment$7(ctx) {
 			attr(div5, "class", "control");
 			attr(p1, "class", "help");
 			attr(div6, "class", "field");
-			attr(button0, "class", "button is-link is-pulled-right");
-			attr(div7, "class", "control");
+			attr(button0, "class", "level-item button is-warning");
+			attr(button1, "class", "level-item button is-link");
+			attr(div7, "class", "level-left");
+			attr(div8, "class", "level-right");
+			attr(div9, "class", "level");
 			attr(input2, "type", "checkbox");
-			input2.checked = true;
-			attr(input2, "id", "developerMode");
-			attr(div8, "class", "state p-info p-on");
-			attr(div9, "class", "pretty p-switch p-slim");
-			set_style(div9, "margin-bottom", "1em");
-			attr(div10, "class", "control");
-			attr(div11, "class", "container");
-			attr(div11, "id", "Configuration");
+			attr(div10, "class", "state p-info p-on");
+			attr(div11, "class", "pretty p-switch p-slim");
+			set_style(div11, "margin", "1em");
+			attr(div12, "class", "control");
+			attr(div13, "class", "container");
+			attr(div13, "id", "Configuration");
 			attr(h10, "class", "title svelte-yq7g0m");
 			attr(input3, "type", "text");
 			attr(input3, "class", "input");
 			attr(input3, "data-tippy", "Github Username");
-			attr(div12, "class", "level-item");
+			attr(div14, "class", "level-item");
 			attr(input4, "type", "text");
 			attr(input4, "class", "input");
 			attr(input4, "data-tippy", "Github repo");
-			attr(div13, "class", "level-item");
+			attr(div15, "class", "level-item");
 			option0.__value = "master";
 			option0.value = option0.__value;
 			option1.__value = "developer";
 			option1.value = option1.__value;
 			if (ctx.gihub_branchname === void 0) add_render_callback(() => ctx.select_change_handler.call(select));
-			attr(div14, "class", "select");
-			attr(div15, "class", "level-item");
-			attr(div16, "class", "level-left");
-			attr(div17, "class", "level");
-			attr(button1, "class", button1_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-yq7g0m");
+			attr(div16, "class", "select");
+			attr(div17, "class", "level-item");
+			attr(div18, "class", "level-left");
+			attr(div19, "class", "level");
+			attr(button2, "class", button2_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-yq7g0m");
 			attr(p2, "class", "control");
-			attr(button2, "class", button2_class_value = "button is-warning " + ctx.updateLoading + " svelte-yq7g0m");
+			attr(button3, "class", button3_class_value = "button is-warning " + ctx.updateLoading + " svelte-yq7g0m");
 			attr(p3, "class", "control");
-			attr(div18, "class", "field is-grouped");
+			attr(div20, "class", "field is-grouped");
 			attr(h11, "class", "subtitle svelte-yq7g0m");
 			set_style(h11, "display", "block");
 			attr(input5, "type", "checkbox");
 			attr(input5, "id", "autoupdate");
-			attr(div19, "class", "state p-info p-on");
-			attr(div20, "class", "pretty p-switch p-slim");
-			set_style(div20, "margin-bottom", "1em");
-			attr(div22, "class", "control");
+			attr(div21, "class", "state p-info p-on");
+			attr(div22, "class", "pretty p-switch p-slim");
+			set_style(div22, "margin-bottom", "1em");
+			attr(div24, "class", "control");
 			attr(input6, "type", "number");
 			attr(input6, "class", "input");
 			attr(input6, "placeholder", "Enter update check for every (time in hrs) interval");
 			input6.value = "1";
 			attr(input6, "data-tippy", "Check for update every hour");
-			attr(div23, "class", "control");
-			attr(div24, "class", "field has-addons");
+			attr(div25, "class", "control");
+			attr(div26, "class", "field has-addons");
 			attr(input7, "type", "text");
 			attr(input7, "class", "input");
 			attr(input7, "data-tippy", "Backup folder name");
 			attr(p4, "class", "control");
-			attr(button3, "class", button3_class_value = "button animated " + ctx.backupClass + " svelte-yq7g0m");
+			attr(button4, "class", button4_class_value = "button animated " + ctx.backupClass + " svelte-yq7g0m");
 			attr(p5, "class", "control");
-			attr(button4, "class", button4_class_value = "button animated " + ctx.restoreClass + " svelte-yq7g0m");
+			attr(button5, "class", button5_class_value = "button animated " + ctx.restoreClass + " svelte-yq7g0m");
 			attr(p6, "class", "control");
-			attr(div25, "class", "field is-grouped");
-			attr(div26, "class", "container");
-			set_style(div26, "display", "none");
-			attr(div26, "id", "Update");
+			attr(div27, "class", "field is-grouped");
+			attr(div28, "class", "container");
+			set_style(div28, "display", "none");
+			attr(div28, "id", "Update");
 			attr(h12, "class", "title svelte-yq7g0m");
 			attr(h13, "class", "subtitle svelte-yq7g0m");
 			set_style(h13, "margin-bottom", "0");
@@ -7489,15 +7495,15 @@ function create_fragment$7(ctx) {
 			set_style(h115, "margin-bottom", "0");
 			attr(h116, "class", "subtitle svelte-yq7g0m");
 			set_style(h116, "margin-bottom", "0");
-			attr(div27, "class", "control");
-			attr(div28, "class", "container");
-			set_style(div28, "display", "none");
-			attr(div28, "id", "About");
-			attr(div29, "class", "container is-fluid");
-			attr(div30, "class", "row box box2 svelte-yq7g0m");
-			set_style(div30, "height", "100%");
-			attr(div31, "class", "column");
-			attr(div32, "class", "columns");
+			attr(div29, "class", "control");
+			attr(div30, "class", "container");
+			set_style(div30, "display", "none");
+			attr(div30, "id", "About");
+			attr(div31, "class", "container is-fluid");
+			attr(div32, "class", "row box box2 svelte-yq7g0m");
+			set_style(div32, "height", "100%");
+			attr(div33, "class", "column");
+			attr(div34, "class", "columns");
 			attr(section, "class", "section animated fadeIn");
 			set_style(section, "display", "none");
 			attr(section, "id", "Settings");
@@ -7505,25 +7511,26 @@ function create_fragment$7(ctx) {
 			dispose = [
 				listen(input0, "input", ctx.input0_input_handler),
 				listen(input1, "input", ctx.input1_input_handler),
-				listen(button0, "click", ctx.configSave),
+				listen(button0, "click", ctx.set_defaultConfig),
+				listen(button1, "click", ctx.configSave),
 				listen(input2, "change", ctx.input2_change_handler),
 				listen(input3, "input", ctx.input3_input_handler),
 				listen(input4, "input", ctx.input4_input_handler),
 				listen(select, "change", ctx.select_change_handler),
-				listen(button1, "click", ctx.updateCheck),
-				listen(button2, "click", ctx.update),
+				listen(button2, "click", ctx.updateCheck),
+				listen(button3, "click", ctx.update),
 				listen(input5, "change", ctx.input5_change_handler),
 				listen(input6, "change", ctx.change_handler),
 				listen(input7, "input", ctx.input7_input_handler),
-				listen(button3, "click", ctx.archive),
-				listen(button4, "click", ctx.restore)
+				listen(button4, "click", ctx.archive),
+				listen(button5, "click", ctx.restore)
 			];
 		},
 
 		m(target, anchor) {
 			insert(target, section, anchor);
-			append(section, div32);
-			append(div32, div1);
+			append(section, div34);
+			append(div34, div1);
 			append(div1, aside);
 			append(aside, div0);
 			append(aside, t1);
@@ -7533,15 +7540,15 @@ function create_fragment$7(ctx) {
 				each_blocks[i].m(ul, null);
 			}
 
-			append(div32, t2);
+			append(div34, t2);
+			append(div34, div33);
+			append(div33, div32);
 			append(div32, div31);
-			append(div31, div30);
-			append(div30, div29);
-			append(div29, div2);
+			append(div31, div2);
 			append(div2, t3);
-			append(div29, t4);
-			append(div29, div11);
-			append(div11, div4);
+			append(div31, t4);
+			append(div31, div13);
+			append(div13, div4);
 			append(div4, label0);
 			append(div4, t6);
 			append(div4, div3);
@@ -7551,8 +7558,8 @@ function create_fragment$7(ctx) {
 
 			append(div4, t7);
 			append(div4, p0);
-			append(div11, t9);
-			append(div11, div6);
+			append(div13, t9);
+			append(div13, div6);
 			append(div6, label1);
 			append(div6, t11);
 			append(div6, div5);
@@ -7562,158 +7569,162 @@ function create_fragment$7(ctx) {
 
 			append(div6, t12);
 			append(div6, p1);
-			append(div11, t14);
-			append(div11, div7);
+			append(div13, t14);
+			append(div13, div9);
+			append(div9, div7);
 			append(div7, button0);
 			append(div7, t16);
-			if (if_block0) if_block0.m(div7, null);
-			append(div11, t17);
-			append(div11, div10);
-			append(div10, div9);
-			append(div9, input2);
+			append(div7, button1);
+			append(div9, t18);
+			append(div9, div8);
+			if (if_block0) if_block0.m(div8, null);
+			append(div13, t19);
+			append(div13, div12);
+			append(div12, div11);
+			append(div11, input2);
 
 			input2.checked = ctx.developer_mode;
 
-			append(div9, t18);
-			append(div9, div8);
-			append(div29, t20);
-			append(div29, div26);
-			append(div26, h10);
-			append(h10, t21);
-			append(h10, t22);
-			append(div26, t23);
-			append(div26, hr0);
-			append(div26, t24);
-			append(div26, div17);
-			append(div17, div16);
-			append(div16, div12);
-			append(div12, input3);
+			append(div11, t20);
+			append(div11, div10);
+			append(div31, t22);
+			append(div31, div28);
+			append(div28, h10);
+			append(h10, t23);
+			append(h10, t24);
+			append(div28, t25);
+			append(div28, hr0);
+			append(div28, t26);
+			append(div28, div19);
+			append(div19, div18);
+			append(div18, div14);
+			append(div14, input3);
 
 			set_input_value(input3, ctx.github_username);
 
-			append(div16, t25);
-			append(div16, div13);
-			append(div13, input4);
+			append(div18, t27);
+			append(div18, div15);
+			append(div15, input4);
 
 			set_input_value(input4, ctx.github_repo);
 
-			append(div16, t26);
-			append(div16, div15);
-			append(div15, div14);
-			append(div14, select);
+			append(div18, t28);
+			append(div18, div17);
+			append(div17, div16);
+			append(div16, select);
 			append(select, option0);
 			append(select, option1);
 
 			select_option(select, ctx.gihub_branchname);
 
-			append(div26, t29);
-			append(div26, hr1);
-			append(div26, t30);
-			append(div26, div18);
-			append(div18, p2);
-			append(p2, button1);
-			append(button1, t31);
-			append(div18, t32);
-			append(div18, p3);
-			append(p3, button2);
+			append(div28, t31);
+			append(div28, hr1);
+			append(div28, t32);
+			append(div28, div20);
+			append(div20, p2);
+			append(p2, button2);
 			append(button2, t33);
-			append(div26, t34);
-			append(div26, h11);
-			append(h11, t35);
-			append(div26, t36);
-			append(div26, hr2);
-			append(div26, t37);
-			append(div26, div20);
-			append(div20, input5);
+			append(div20, t34);
+			append(div20, p3);
+			append(p3, button3);
+			append(button3, t35);
+			append(div28, t36);
+			append(div28, h11);
+			append(h11, t37);
+			append(div28, t38);
+			append(div28, hr2);
+			append(div28, t39);
+			append(div28, div22);
+			append(div22, input5);
 
 			input5.checked = ctx.auto_update_check;
 
-			append(div20, t38);
-			append(div20, div19);
-			append(div26, t40);
+			append(div22, t40);
+			append(div22, div21);
+			append(div28, t42);
+			append(div28, div26);
 			append(div26, div24);
-			append(div24, div22);
-			append(div24, t42);
-			append(div24, div23);
-			append(div23, input6);
-			append(div26, t43);
-			append(div26, hr3);
 			append(div26, t44);
 			append(div26, div25);
-			append(div25, p4);
+			append(div25, input6);
+			append(div28, t45);
+			append(div28, hr3);
+			append(div28, t46);
+			append(div28, div27);
+			append(div27, p4);
 			append(p4, input7);
 
 			set_input_value(input7, ctx.backupName);
 
-			append(div25, t45);
-			append(div25, p5);
-			append(p5, button3);
-			append(button3, t46);
-			append(div25, t47);
-			append(div25, p6);
-			append(p6, button4);
+			append(div27, t47);
+			append(div27, p5);
+			append(p5, button4);
 			append(button4, t48);
-			append(div25, t49);
-			if (if_block1) if_block1.m(div25, null);
-			append(div29, t50);
-			append(div29, div28);
-			append(div28, div27);
-			append(div27, h12);
-			append(div27, t52);
-			append(div27, h13);
-			append(h13, t53);
-			append(h13, t54);
-			append(div27, t55);
-			append(div27, h14);
-			append(h14, t56);
-			append(h14, t57);
-			append(div27, t58);
-			append(div27, h15);
-			append(h15, t59);
-			append(h15, t60);
-			append(div27, t61);
-			append(div27, h16);
-			append(h16, t62);
-			append(div27, t63);
-			append(div27, hr4);
-			append(div27, t64);
-			append(div27, h17);
-			append(div27, t66);
-			append(div27, h18);
-			append(h18, t67);
-			append(h18, t68);
-			append(div27, t69);
-			append(div27, h19);
-			append(h19, t70);
-			append(h19, t71);
-			append(div27, t72);
-			append(div27, h110);
-			append(h110, t73);
-			append(h110, t74);
-			append(div27, t75);
-			append(div27, h111);
-			append(h111, t76);
-			append(h111, t77);
-			append(div27, t78);
-			append(div27, hr5);
-			append(div27, t79);
-			append(div27, h112);
-			append(div27, t81);
-			append(div27, h113);
-			append(h113, t82);
-			append(h113, t83);
-			append(div27, t84);
-			append(div27, h114);
-			append(h114, t85);
-			append(h114, t86);
-			append(div27, t87);
-			append(div27, h115);
-			append(h115, t88);
-			append(h115, t89);
-			append(div27, t90);
-			append(div27, h116);
-			append(h116, t91);
-			append(h116, t92);
+			append(div27, t49);
+			append(div27, p6);
+			append(p6, button5);
+			append(button5, t50);
+			append(div27, t51);
+			if (if_block1) if_block1.m(div27, null);
+			append(div31, t52);
+			append(div31, div30);
+			append(div30, div29);
+			append(div29, h12);
+			append(div29, t54);
+			append(div29, h13);
+			append(h13, t55);
+			append(h13, t56);
+			append(div29, t57);
+			append(div29, h14);
+			append(h14, t58);
+			append(h14, t59);
+			append(div29, t60);
+			append(div29, h15);
+			append(h15, t61);
+			append(h15, t62);
+			append(div29, t63);
+			append(div29, h16);
+			append(h16, t64);
+			append(div29, t65);
+			append(div29, hr4);
+			append(div29, t66);
+			append(div29, h17);
+			append(div29, t68);
+			append(div29, h18);
+			append(h18, t69);
+			append(h18, t70);
+			append(div29, t71);
+			append(div29, h19);
+			append(h19, t72);
+			append(h19, t73);
+			append(div29, t74);
+			append(div29, h110);
+			append(h110, t75);
+			append(h110, t76);
+			append(div29, t77);
+			append(div29, h111);
+			append(h111, t78);
+			append(h111, t79);
+			append(div29, t80);
+			append(div29, hr5);
+			append(div29, t81);
+			append(div29, h112);
+			append(div29, t83);
+			append(div29, h113);
+			append(h113, t84);
+			append(h113, t85);
+			append(div29, t86);
+			append(div29, h114);
+			append(h114, t87);
+			append(h114, t88);
+			append(div29, t89);
+			append(div29, h115);
+			append(h115, t90);
+			append(h115, t91);
+			append(div29, t92);
+			append(div29, h116);
+			append(h116, t93);
+			append(h116, t94);
 			current = true;
 		},
 
@@ -7752,7 +7763,7 @@ function create_fragment$7(ctx) {
 					if_block0 = create_if_block_1$2(ctx);
 					if_block0.c();
 					transition_in(if_block0, 1);
-					if_block0.m(div7, null);
+					if_block0.m(div8, null);
 				} else transition_in(if_block0, 1);
 			} else if (if_block0) {
 				group_outros();
@@ -7767,27 +7778,27 @@ function create_fragment$7(ctx) {
 			if (changed.github_repo && (input4.value !== ctx.github_repo)) set_input_value(input4, ctx.github_repo);
 			if (changed.gihub_branchname) select_option(select, ctx.gihub_branchname);
 
-			if ((!current || changed.checkupdateLoading) && button1_class_value !== (button1_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-yq7g0m")) {
-				attr(button1, "class", button1_class_value);
-			}
-
-			if ((!current || changed.updateLoading) && button2_class_value !== (button2_class_value = "button is-warning " + ctx.updateLoading + " svelte-yq7g0m")) {
+			if ((!current || changed.checkupdateLoading) && button2_class_value !== (button2_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-yq7g0m")) {
 				attr(button2, "class", button2_class_value);
 			}
 
+			if ((!current || changed.updateLoading) && button3_class_value !== (button3_class_value = "button is-warning " + ctx.updateLoading + " svelte-yq7g0m")) {
+				attr(button3, "class", button3_class_value);
+			}
+
 			if (!current || changed.updateStatus) {
-				set_data(t35, ctx.updateStatus);
+				set_data(t37, ctx.updateStatus);
 			}
 
 			if (changed.auto_update_check) input5.checked = ctx.auto_update_check;
 			if (changed.backupName && (input7.value !== ctx.backupName)) set_input_value(input7, ctx.backupName);
 
-			if ((!current || changed.backupClass) && button3_class_value !== (button3_class_value = "button animated " + ctx.backupClass + " svelte-yq7g0m")) {
-				attr(button3, "class", button3_class_value);
+			if ((!current || changed.backupClass) && button4_class_value !== (button4_class_value = "button animated " + ctx.backupClass + " svelte-yq7g0m")) {
+				attr(button4, "class", button4_class_value);
 			}
 
-			if ((!current || changed.restoreClass) && button4_class_value !== (button4_class_value = "button animated " + ctx.restoreClass + " svelte-yq7g0m")) {
-				attr(button4, "class", button4_class_value);
+			if ((!current || changed.restoreClass) && button5_class_value !== (button5_class_value = "button animated " + ctx.restoreClass + " svelte-yq7g0m")) {
+				attr(button5, "class", button5_class_value);
 			}
 
 			if (ctx.back_restore_display) {
@@ -7798,7 +7809,7 @@ function create_fragment$7(ctx) {
 					if_block1 = create_if_block$3(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
-					if_block1.m(div25, null);
+					if_block1.m(div27, null);
 				}
 			} else if (if_block1) {
 				group_outros();
@@ -7809,39 +7820,39 @@ function create_fragment$7(ctx) {
 			}
 
 			if (!current || changed.pythonv) {
-				set_data(t62, ctx.pythonv);
+				set_data(t64, ctx.pythonv);
 			}
 
-			if ((!current || changed.packageJSON) && t68_value !== (t68_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "")) {
-				set_data(t68, t68_value);
+			if ((!current || changed.packageJSON) && t70_value !== (t70_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "")) {
+				set_data(t70, t70_value);
 			}
 
-			if ((!current || changed.packageJSON) && t71_value !== (t71_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
-				set_data(t71, t71_value);
+			if ((!current || changed.packageJSON) && t73_value !== (t73_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
+				set_data(t73, t73_value);
 			}
 
-			if ((!current || changed.packageJSON) && t74_value !== (t74_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
-				set_data(t74, t74_value);
+			if ((!current || changed.packageJSON) && t76_value !== (t76_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
+				set_data(t76, t76_value);
 			}
 
-			if ((!current || changed.packageJSON) && t77_value !== (t77_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
-				set_data(t77, t77_value);
+			if ((!current || changed.packageJSON) && t79_value !== (t79_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
+				set_data(t79, t79_value);
 			}
 
-			if ((!current || changed.packageJSON) && t83_value !== (t83_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
-				set_data(t83, t83_value);
+			if ((!current || changed.packageJSON) && t85_value !== (t85_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
+				set_data(t85, t85_value);
 			}
 
-			if ((!current || changed.packageJSON) && t86_value !== (t86_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
-				set_data(t86, t86_value);
+			if ((!current || changed.packageJSON) && t88_value !== (t88_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
+				set_data(t88, t88_value);
 			}
 
-			if ((!current || changed.packageJSON) && t89_value !== (t89_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
-				set_data(t89, t89_value);
+			if ((!current || changed.packageJSON) && t91_value !== (t91_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
+				set_data(t91, t91_value);
 			}
 
-			if ((!current || changed.packageJSON) && t92_value !== (t92_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
-				set_data(t92, t92_value);
+			if ((!current || changed.packageJSON) && t94_value !== (t94_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
+				set_data(t94, t94_value);
 			}
 		},
 
@@ -7891,8 +7902,6 @@ function instance$7($$self, $$props, $$invalidate) {
         if (navigator.onLine) updateCheck();
         else console.log("Internet is not connected.");
     });
-
-    
     let packageJSON = fs.readFileSync(path.join(__dirname, "../package.json"));
 
     $$invalidate('packageJSON', packageJSON = JSON.parse(packageJSON.toString("utf-8")));
@@ -7913,22 +7922,24 @@ function instance$7($$self, $$props, $$invalidate) {
     // Pages in Settings
     let items = ["Configuration", "Update", "About"];
     const configSave = () => {
-
         localStorage["pythonpath"] = pythonpath;
         localStorage["pythonscript"] = pythonscript;
         console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`);
         $$invalidate('saveChanges', saveChanges = true);
     };
+    const set_defaultConfig = () => {
 
+        $$invalidate('pythonpath', pythonpath = localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python"));
+        $$invalidate('pythonscript', pythonscript = localStorage["pythonscript"] = path.resolve(__dirname, "python_files"));
+        $$invalidate('saveChanges', saveChanges = true);
+    };
     const toggle = (event) => {
 
         let target = event.target.id;
         items.forEach(item=>{
             let elementID = `${item}Container`;
             let $element = jq(`#${elementID}`);
-
             let targetElement = document.getElementById(item);
-
             if (elementID != target) {
                 if($element.hasClass("is-active")) {
                     $element.removeClass("is-active");
@@ -7942,16 +7953,14 @@ function instance$7($$self, $$props, $$invalidate) {
         });
     };
 
-
     let github_username = "aravindhnivas";
     let github_repo = "FELion_GUI2.2";
-
 
     // Local update-downloaded files
     const updateFolder = path.resolve(__dirname, "..", "update");
     const zipFile = path.resolve(updateFolder, updatefilename);
 
-    // Update checking
+
     const updateCheck = () => {
         console.log("Checking for update");
 
@@ -8340,6 +8349,7 @@ function instance$7($$self, $$props, $$invalidate) {
             clearInterval(check_update_continuously);
         } }
 		if ($$dirty.developer_mode) { developer_mode ? window.developerMode = true : window.developerMode = false; }
+		if ($$dirty.developer_mode) { console.log("Developer mode: ", developer_mode); }
 	};
 
 	$$invalidate('saveChanges', saveChanges = false);
@@ -8370,6 +8380,7 @@ function instance$7($$self, $$props, $$invalidate) {
 		pythonv,
 		items,
 		configSave,
+		set_defaultConfig,
 		toggle,
 		github_username,
 		github_repo,
