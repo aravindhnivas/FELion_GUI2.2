@@ -24,9 +24,9 @@ def calculate_population(B, D=0, H=0, temp=5, totalJ=20, tkplot=False, location=
     Z = np.array([intenJ(j) for j in totalJ], dtype=np.float).sum()
     distribution = np.array([pJ(j, Z) for j in totalJ])
 
-    maxIntenJ = abs(float(np.sqrt((k*temp)/(2*B*1e6*h)) - 0.5))
+    maxIntenJ = np.argmax(distribution)
     
-    lg = f"Max J: {maxIntenJ:.0f} -> {maxIntenJ+1:.0f}"
+    lg = f"Max J: {maxIntenJ:.0f}"
     if tkplot:
         widget = FELion_Tk(title="Boltzman distribution", location=location)
         fig, canvas = widget.Figure()
