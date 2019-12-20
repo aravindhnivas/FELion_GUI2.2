@@ -122,7 +122,7 @@ def plot_thz(ax=None, data={}, tkplot=False, save_dat=True, latex=False):
         freq_fit_err = uline_freq.std_dev*1e7
         
         lg = f"{filename.name} [{iteraton}]"
-        lg_fit = f"Fit.: {freq_fit:.7f} ({freq_fit_err:.0f}) [{ufwhm.nominal_value*1e6:.1f} KHz]"
+        lg_fit = f"Fit: {freq_fit:.7f}({freq_fit_err:.0f}) [{ufwhm.nominal_value*1e6:.1f} KHz]"
 
         if latex:
             lg = lg.replace("_", "\_")
@@ -165,7 +165,7 @@ def plot_thz(ax=None, data={}, tkplot=False, save_dat=True, latex=False):
     if tkplot:
 
         ax.plot(binx, biny, "k.", label=label)
-        ax.plot(binx, fit_data, "k-", label=f"Fitted: {line_freq_fit:.7f} ({freq_fit_err:.0f}) [{fwhm*1e6:.1f} KHz]", zorder=100)
+        ax.plot(binx, fit_data, "k-", label=f"Fitted: {line_freq_fit:.7f}({freq_fit_err:.0f}) [{fwhm*1e6:.1f} KHz]", zorder=100)
         ax.vlines(x=line_freq_fit, ymin=0, ymax=amplitude, zorder=10)
         ax.hlines(y=half_max, xmin=line_freq_fit-fwhm/2, xmax=line_freq_fit+fwhm/2, zorder=10)
         xcord, ycord = line_freq_fit, fit_data.max()
