@@ -83,4 +83,3 @@ electron.app.on("activate", function () {
     }
 });
 //# sourceMappingURL=main.js.map
-//# sourceMappingURL=main.js.map
