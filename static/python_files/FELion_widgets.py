@@ -447,24 +447,7 @@ class FELion_Tk(Tk):
                     lg = line.get_label().replace("_", "\_")
                     
                     if lg.endswith("felix"): ls = f"C{i}."
-                    if lg.find(".thz")>0: 
-                        if i>0: ls = f"C{i-1}."
-                        else: ls = f"C{i}."
                     elif lg.startswith("Binned"): ls="k."
-                    elif lg.startswith("Fitted"): 
-                        ls="k-"
-                        info = lg.split(" ")
-                        thz_line = float(info[1])
-                        self.ax2.vlines(x=thz_line, ymin=0, ymax=y.max(), zorder=100)
-                        xcord, ycord = thz_line, y.max()
-                        self.ax2.annotate(f'{thz_line:.7f}{info[2]}', xy=(xcord, ycord), xycoords='data',
-                                    xytext=(xcord, ycord+5), textcoords='data',
-                                    arrowprops=dict(arrowstyle="->", connectionstyle="arc3")
-                        )
-                        self.ax2.set(ylim=([-(y.max()/2), y.max()*1.5]))
-                    elif lg.startswith("Fit."): 
-                        if i==1: ls = f"C0-"
-                        else: ls = f"C{i-2}-"
                     else: ls = f"C{i}-"
 
                     if lg == "Averaged" or lg.startswith("Fitted"): self.ax2.plot(x, y, "k-", label=lg, zorder=100)
