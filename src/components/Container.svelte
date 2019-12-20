@@ -685,7 +685,7 @@
     { name:"B (MHz)", id: "rotational_B", value: 226785.36 },
     { name:"D (MHz)", id: "rotational_D", value: 0 },
     { name:"H (MHz)", id: "rotational_H", value: 0 },
-    { name:"Energy (MHz)", id: "boltzman_energy", value: 0 },
+    // { name:"Energy (MHz)", id: "boltzman_energy", value: 0 },
     { name:"Temp. (K)", id: "boltzman_temp", value: 300 },
     { name:"Total #J", id: "boltzman_totalJ", value: 20 },
   ]

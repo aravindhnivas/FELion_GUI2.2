@@ -6591,7 +6591,7 @@ function instance$5($$self, $$props, $$invalidate) {
     { name:"B (MHz)", id: "rotational_B", value: 226785.36 },
     { name:"D (MHz)", id: "rotational_D", value: 0 },
     { name:"H (MHz)", id: "rotational_H", value: 0 },
-    { name:"Energy (MHz)", id: "boltzman_energy", value: 0 },
+    // { name:"Energy (MHz)", id: "boltzman_energy", value: 0 },
     { name:"Temp. (K)", id: "boltzman_temp", value: 300 },
     { name:"Total #J", id: "boltzman_totalJ", value: 20 },
   ];
@@ -12110,6 +12110,7 @@ var Popper = function () {
 Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
 Popper.placements = placements;
 Popper.Defaults = Defaults;
+//# sourceMappingURL=popper.js.map
 
 /**!
 * tippy.js v4.3.5
@@ -14049,6 +14050,7 @@ function injectCSS(css) {
 }
 
 injectCSS(css);
+//# sourceMappingURL=index.all.js.map
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -25109,6 +25111,7 @@ const app = new App({
     target: document.body,
     props: { mainPages }
 });
+//# sourceMappingURL=renderer.js.map
 
 module.exports = app;
 //# sourceMappingURL=renderer.js.map
