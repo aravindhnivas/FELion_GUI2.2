@@ -26,18 +26,19 @@ def calculate_population(B, D=0, H=0, temp=5, totalJ=20, tkplot=False, location=
 
     maxIntenJ = abs(float(np.sqrt((k*temp)/(2*B*1e6*h)) - 0.5))
     
+    lg = f"Max J: {maxIntenJ:.0f} -> {maxIntenJ+1:.0f}"
     if tkplot:
         widget = FELion_Tk(title="Boltzman distribution", location=location)
         fig, canvas = widget.Figure()
-        ax = widget.make_figure_layout(title="Boltzman distribution", xaxis="Rotation levels (J)", yaxis="Population (%)", savename="boltzman_distribution")
-        ax.plot(totalJ, distribution, label=f"Max J: {maxIntenJ:.0f}; Z: {Z:.2f}")
+        ax = widget.make_figure_layout(title=f"Boltzman distribution at T:{temp:.1f}K; Z: {Z:.2f}", xaxis="Rotation levels (J)", yaxis="Population (%)", savename="boltzman_distribution")
+        ax.plot(totalJ, distribution, label=lg)
         widget.plot_legend = ax.legend()
 
         widget.mainloop()
     
     else: 
         
-        data = {"distribution": {"x": totalJ.tolist(), "y": distribution.tolist(), "name": f"Max J: {maxIntenJ:.0f}; Z: {Z:.2f}", "mode": "lines+markers"}}
+        data = {"distribution": {"x": totalJ.tolist(), "y": distribution.tolist(), "name": f"{lg} at {temp:.1f}K; Z: {Z:.2f}", "mode": "lines+markers", "showlegend":True}}
         dataToSend = json.dumps(data)
         print(dataToSend)
 
