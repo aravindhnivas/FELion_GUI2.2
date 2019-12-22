@@ -126,10 +126,11 @@ def plot_thz(ax=None, data={}, tkplot=False, save_dat=True, latex=False):
 
         if latex:
             lg = lg.replace("_", "\_")
-            lg_fit = lg_fit.replace("_", "\_")
+            ms = 2
+        else: ms = 7
 
         if tkplot:
-            ax.plot(freq, depletion_counts, f"C{i}.", label=lg)
+            ax.plot(freq, depletion_counts, f"C{i}.", label=lg, ms=ms)
             ax.plot(freq, fit_data, f"C{i}-", label=lg_fit, zorder=100)
         else:
             data[f"{filename.name}"] = {"x": list(freq), "y": list(depletion_counts), "name": lg, 
@@ -164,7 +165,7 @@ def plot_thz(ax=None, data={}, tkplot=False, save_dat=True, latex=False):
 
     if tkplot:
 
-        ax.plot(binx, biny, "k.", label=label)
+        ax.plot(binx, biny, "k.", label=label, ms=ms)
         ax.plot(binx, fit_data, "k-", label=f"Fitted: {line_freq_fit:.7f}({freq_fit_err:.0f}) [{fwhm*1e6:.1f} KHz]", zorder=100)
         ax.vlines(x=line_freq_fit, ymin=0, ymax=amplitude, zorder=10)
         ax.hlines(y=half_max, xmin=line_freq_fit-fwhm/2, xmax=line_freq_fit+fwhm/2, zorder=10)
