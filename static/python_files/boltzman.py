@@ -30,7 +30,8 @@ def calculate_population(B, D=0, H=0, temp=5, totalJ=20, tkplot=False, location=
     if tkplot:
         widget = FELion_Tk(title="Boltzman distribution", location=location)
         fig, canvas = widget.Figure()
-        ax = widget.make_figure_layout(title=f"Boltzman distribution({distribution.sum():.2f}%) at T:{temp:.1f}K; Z: {Z:.2f}", xaxis="Rotation levels (J)", yaxis="Population (%)", savename="boltzman_distribution")
+        ax = widget.make_figure_layout(title=f"Boltzman distribution at T:{temp:.1f}K; Z: {Z:.2f}",
+            xaxis="Rotation levels (J)", yaxis="Population (%)", savename=f"boltzman_distribution_{temp:.0f}K")
         ax.plot(totalJ, distribution, ".-" ,label=lg)
 
         ax.set_xticks(totalJ)
