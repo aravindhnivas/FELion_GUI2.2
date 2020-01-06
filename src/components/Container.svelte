@@ -434,11 +434,15 @@
   function opentheory() {
     browseFile({theory:true}).then(file =>  theoryfiles = file).catch(err => console.log(err));
   }
-
   function runtheory({tkplot="run", filetype="theory"}) {
+
+    let btname;
+
+    tkplot === "run" ?  btname= "appendTheory" :  btname= "theory_Matplotlib"
     runPlot({
       fullfiles: theoryfiles, filetype: filetype, filetag:filetag,
-      btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot]
+      btname: btname, pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot]
+      
     }).then((output)=>{console.log(output)})
     .catch((err)=>{
         console.log('Error Occured', err);
@@ -767,7 +771,7 @@
 
   /* Buttons:  border, background and hovering colors */
   .button.is-link, .button.is-warning, .button.is-danger, .button.is-success {background-color: rgba(0,0,0,0);}
-
+  .button.is-link:focus:not(:active), .button.is-link.is-focused:not(:active) {box-shadow: 0 0 0 0.05em #fafafa;}
   .button.is-link {border-color: $link-color;}
   .button.is-link:hover, .button.is-link.is-hovered {background-color: $link-hovercolor;}
 

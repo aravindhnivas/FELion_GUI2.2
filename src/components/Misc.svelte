@@ -55,8 +55,16 @@
 
 </script>
 
-<style>
+<style lang="scss">
+
+  $link-color: #dbdbdb;
+  $link-hovercolor: #7a64b1;
+
+  .button.is-link {border-color: $link-color; background-color: rgba(0,0,0,0);}
+  .button.is-link:hover, .button.is-link.is-hovered {background-color: $link-hovercolor;}
+  .button.is-link:focus:not(:active), .button.is-link.is-focused:not(:active) {box-shadow: 0 0 0 0.05em #fafafa;}
   .page {height: 70vh;}
+
   .conversion_table {
     margin-right: 0.5em;
     height: 70vh;

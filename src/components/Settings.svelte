@@ -40,8 +40,8 @@
     exec(`${pythonpath} -V`, (err, stdout, stderr)=>{
         pythonv = stdout
         console.log(`Python version: ${pythonv}`)
-        if (pythonv === "") {
 
+        if (pythonv === "") {
             let options = {
                 title: "Incorrect Python path",
                 message: "Python is not configured (or wrong python path is given)\nGo to 'Setting->Configuration->PythonPath'",
@@ -224,9 +224,9 @@
             setTimeout(()=>checkupdateLoading = "", 2000)
         })
     }
+
     // Download the update file
     const download = (downloadedFile) => {
-
         return new Promise((resolve, reject)=>{
 
             let response = https.get(urlzip, (res) => {
