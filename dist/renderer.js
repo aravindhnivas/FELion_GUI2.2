@@ -7219,7 +7219,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (512:20) {#each items as item}
+// (557:20) {#each items as item}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -7251,7 +7251,7 @@ function create_each_block$3(ctx) {
 	};
 }
 
-// (554:32) {#if saveChanges}
+// (599:32) {#if saveChanges}
 function create_if_block_1$2(ctx) {
 	var h1, h1_transition, current, dispose;
 
@@ -7296,7 +7296,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (622:28) {#if back_restore_display}
+// (667:28) {#if back_restore_display}
 function create_if_block$3(ctx) {
 	var p, t, p_transition, current;
 
@@ -7346,7 +7346,7 @@ function create_if_block$3(ctx) {
 }
 
 function create_fragment$7(ctx) {
-	var section, div34, div1, aside, div0, t1, ul, t2, div33, div32, div31, div2, t3, t4, div13, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div9, div7, button0, t16, button1, t18, div8, t19, div12, div11, input2, t20, div10, t22, div28, h10, t23, t24, t25, hr0, t26, div19, div18, div14, input3, t27, div15, input4, t28, div17, div16, select, option0, option1, t31, hr1, t32, div20, p2, button2, t33, button2_class_value, t34, p3, button3, t35, button3_class_value, t36, h11, t37, t38, hr2, t39, div22, input5, t40, div21, t42, div26, div24, t44, div25, input6, t45, hr3, t46, div27, p4, input7, t47, p5, button4, t48, button4_class_value, t49, p6, button5, t50, button5_class_value, t51, t52, div30, div29, h12, t54, h13, t55, t56_value = process.versions.electron + "", t56, t57, h14, t58, t59_value = process.versions.node + "", t59, t60, h15, t61, t62_value = process.versions.chrome + "", t62, t63, h16, t64, t65, hr4, t66, h17, t68, h18, t69, t70_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t70, t71, h19, t72, t73_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t73, t74, h110, t75, t76_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t76, t77, h111, t78, t79_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t79, t80, hr5, t81, h112, t83, h113, t84, t85_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t85, t86, h114, t87, t88_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t88, t89, h115, t90, t91_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t91, t92, h116, t93, t94_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t94, current, dispose;
+	var section, div34, div1, aside, div0, t1, ul, t2, div33, div32, div31, div2, t3, t4, div13, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div9, div7, button0, t16, button1, t18, div8, t19, div12, div11, input2, t20, div10, t22, div28, h10, t23, t24, t25, hr0, t26, div19, div18, div14, input3, t27, div15, input4, t28, div17, div16, select, option0, option1, t31, hr1, t32, div20, p2, button2, t33, button2_class_value, t34, p3, button3, t35, button3_class_value, t36, h11, t37, t38, hr2, t39, div22, input5, t40, div21, t42, div26, div24, t44, div25, input6, t45, hr3, t46, div27, p4, input7, t47, p5, button4, t48, button4_class_value, t49, p6, button5, t50, button5_class_value, t51, t52, div30, div29, h12, t54, h13, t55, t56_value = process.versions.electron + "", t56, t57, h14, t58, t59_value = process.versions.node + "", t59, t60, h15, t61, t62_value = process.versions.chrome + "", t62, t63, h16, t64, t65, hr4, t66, h17, t68, h18, t69, t70_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t70, t71, h19, t72, t73_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t73, t74, h110, t75, t76_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t76, t77, h111, t78, t79_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t79, t80, hr5, t81, h112, t83, h113, t84, t85_value = ctx.packageJSON.dependencies["bulma"].split("^")[1] + "", t85, t86, h114, t87, t88_value = ctx.packageJSON.dependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t88, t89, h115, t90, t91_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t91, t92, h116, t93, t94_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t94, current, dispose;
 
 	let each_value = ctx.items;
 
@@ -7674,7 +7674,9 @@ function create_fragment$7(ctx) {
 
 			dispose = [
 				listen(input0, "input", ctx.input0_input_handler),
+				listen(input0, "change", ctx.configSave),
 				listen(input1, "input", ctx.input1_input_handler),
+				listen(input1, "change", ctx.configSave),
 				listen(button0, "click", ctx.set_defaultConfig),
 				listen(button1, "click", ctx.configSave),
 				listen(input2, "change", ctx.input2_change_handler),
@@ -8003,11 +8005,11 @@ function create_fragment$7(ctx) {
 				set_data(t79, t79_value);
 			}
 
-			if ((!current || changed.packageJSON) && t85_value !== (t85_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
+			if ((!current || changed.packageJSON) && t85_value !== (t85_value = ctx.packageJSON.dependencies["bulma"].split("^")[1] + "")) {
 				set_data(t85, t85_value);
 			}
 
-			if ((!current || changed.packageJSON) && t88_value !== (t88_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
+			if ((!current || changed.packageJSON) && t88_value !== (t88_value = ctx.packageJSON.dependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
 				set_data(t88, t88_value);
 			}
 
@@ -8081,21 +8083,67 @@ function instance$7($$self, $$props, $$invalidate) {
 
     // Getting python version
     let pythonv;
-    exec(`${pythonpath} -V`, (err, stdout, stderr)=>{$$invalidate('pythonv', pythonv = stdout);});
+    exec(`${pythonpath} -V`, (err, stdout, stderr)=>{
+        $$invalidate('pythonv', pythonv = stdout);
+        console.log(`Python version: ${pythonv}`);
+        if (pythonv === "") {
 
+            let options = {
+                title: "Incorrect Python path",
+                message: "Python is not configured (or wrong python path is given)\nGo to 'Setting->Configuration->PythonPath'",
+                type:"warning",
+                buttons: ["Okay, I will change"],
+            };
+            showinfo(mainWindow, options);
+            jq("#Welcome").css("display", "none");
+            jq("#Welcome-nav").removeClass("is-active");
+            jq("#Settings-nav").addClass("is-active");
+            jq("#Settings").css("display", "block");
+        }
+    });
+
+    function checkPython(){
+        console.log("Python path: ", pythonpath);
+        return new Promise((resolve, reject)=>{
+
+            exec(`${pythonpath} -V`, (err, stdout, stderr)=>{
+            let options = {
+                title: "Incorrect Python path", message: `Python directory is not valid\n${pythonpath}`, type:"warning",
+            };
+            
+            if(stdout==="") {
+                showinfo(mainWindow, options);
+                reject("Invalid pythonpath: ", pythonpath);
+            } else { resolve("Valid pythonpath: ", pythonpath); }
+            });
+        })
+    }
     // Pages in Settings
+
     let items = ["Configuration", "Update", "About"];
+
     const configSave = () => {
-        localStorage["pythonpath"] = pythonpath;
-        localStorage["pythonscript"] = pythonscript;
-        console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`);
-        $$invalidate('saveChanges', saveChanges = true);
+        checkPython().then(res=>{
+            console.log(res);
+
+            localStorage["pythonpath"] = pythonpath;
+            localStorage["pythonscript"] = pythonscript;
+            console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`);
+            $$invalidate('saveChanges', saveChanges = true);
+        }).catch(err=>{console.log(err); $$invalidate('pythonpath', pythonpath = localStorage["pythonpath"]);});
+        
     };
     const set_defaultConfig = () => {
 
-        $$invalidate('pythonpath', pythonpath = localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python"));
-        $$invalidate('pythonscript', pythonscript = localStorage["pythonscript"] = path.resolve(__dirname, "python_files"));
-        $$invalidate('saveChanges', saveChanges = true);
+        $$invalidate('pythonpath', pythonpath = path.resolve(__dirname, "..", "python3.7", "python"));
+
+        checkPython().then(res=>{
+            console.log(res);
+            $$invalidate('pythonpath', pythonpath = localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python"));
+            $$invalidate('pythonscript', pythonscript = localStorage["pythonscript"] = path.resolve(__dirname, "python_files"));
+            $$invalidate('saveChanges', saveChanges = true);
+        }).catch(err=>{ console.log(err); $$invalidate('pythonpath', pythonpath = localStorage["pythonpath"]); });
+        
     };
     const toggle = (event) => {
 

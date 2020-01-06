@@ -32,30 +32,75 @@
     
     if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python")
     if (!localStorage["pythonscript"]) localStorage["pythonscript"] = path.resolve(__dirname, "python_files")
-    let pythonpath = localStorage["pythonpath"];
-    let pythonscript = localStorage["pythonscript"];
+    let pythonpath = localStorage["pythonpath"]
+    let pythonscript = localStorage["pythonscript"]
 
     // Getting python version
     let pythonv;
-    exec(`${pythonpath} -V`, (err, stdout, stderr)=>{pythonv = stdout})
+    exec(`${pythonpath} -V`, (err, stdout, stderr)=>{
+        pythonv = stdout
+        console.log(`Python version: ${pythonv}`)
+        if (pythonv === "") {
 
+            let options = {
+                title: "Incorrect Python path",
+                message: "Python is not configured (or wrong python path is given)\nGo to 'Setting->Configuration->PythonPath'",
+                type:"warning",
+                buttons: ["Okay, I will change"],
+            }
+            showinfo(mainWindow, options)
+            jq("#Welcome").css("display", "none")
+            jq("#Welcome-nav").removeClass("is-active")
+            jq("#Settings-nav").addClass("is-active")
+            jq("#Settings").css("display", "block")
+        }
+    })
+
+    function checkPython(){
+        console.log("Python path: ", pythonpath)
+        return new Promise((resolve, reject)=>{
+
+            exec(`${pythonpath} -V`, (err, stdout, stderr)=>{
+            let options = {
+                title: "Incorrect Python path", message: `Python directory is not valid\n${pythonpath}`, type:"warning",
+            }
+            
+            if(stdout==="") {
+                showinfo(mainWindow, options)
+                reject("Invalid pythonpath: ", pythonpath)
+            } else { resolve("Valid pythonpath: ", pythonpath) }
+            })
+        })
+    }
     // Pages in Settings
+
     let items = ["Configuration", "Update", "About"]
 
     //////////////////////////////////////////////////// FUNCTIONS ////////////////////////////////////////////////////
-
     $: saveChanges = false
+
     const configSave = () => {
-        localStorage["pythonpath"] = pythonpath
-        localStorage["pythonscript"] = pythonscript
-        console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`)
-        saveChanges = true
+        checkPython().then(res=>{
+            console.log(res)
+
+            localStorage["pythonpath"] = pythonpath
+            localStorage["pythonscript"] = pythonscript
+            console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`)
+            saveChanges = true
+        }).catch(err=>{console.log(err); pythonpath = localStorage["pythonpath"]})
+        
     }
     const set_defaultConfig = () => {
 
-        pythonpath = localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python")
-        pythonscript = localStorage["pythonscript"] = path.resolve(__dirname, "python_files")
-        saveChanges = true
+        pythonpath = path.resolve(__dirname, "..", "python3.7", "python")
+
+        checkPython().then(res=>{
+            console.log(res)
+            pythonpath = localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python")
+            pythonscript = localStorage["pythonscript"] = path.resolve(__dirname, "python_files")
+            saveChanges = true
+        }).catch(err=>{ console.log(err); pythonpath = localStorage["pythonpath"] })
+        
     }
     const toggle = (event) => {
 
@@ -526,7 +571,7 @@
                         <div class="field">
                             <label class="label">PythonPath </label>
                             <div class="control">
-                                <input class="input" type="text" placeholder="Enter the default python.exe file path" bind:value={pythonpath}>
+                                <input class="input" type="text" placeholder="Enter the default python.exe file path" bind:value={pythonpath} on:change={configSave}>
                             </div>
                             <p class="help">location of python.exe file: to run python scripts</p>
                         </div>
@@ -535,7 +580,7 @@
                         <div class="field">
                             <label class="label">Python Scripts </label>
                             <div class="control">
-                                <input class="input" type="text" placeholder="Enter the default python.exe file path" bind:value={pythonscript}>
+                                <input class="input" type="text" placeholder="Enter the default python.exe file path" bind:value={pythonscript} on:change={configSave}>
                             </div>
                             <p class="help">location of python script files</p>
                         </div>
@@ -641,8 +686,8 @@
                             <h1 class="subtitle" style="margin-bottom:0">Tippy.js: {packageJSON.dependencies["tippy.js"].split("^")[1]}</h1>
                             <hr>
                             <h1 class="title">CSS Frameworks and libraries</h1>
-                            <h1 class="subtitle" style="margin-bottom:0">Bulma: {packageJSON.devDependencies["bulma"].split("^")[1]}</h1>
-                            <h1 class="subtitle" style="margin-bottom:0">Fontawesome: {packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1]}</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">Bulma: {packageJSON.dependencies["bulma"].split("^")[1]}</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">Fontawesome: {packageJSON.dependencies["@fortawesome/fontawesome-free"].split("^")[1]}</h1>
                             <h1 class="subtitle" style="margin-bottom:0">pretty-checkbox: {packageJSON.dependencies["pretty-checkbox"].split("^")[1]}</h1>
                             <h1 class="subtitle" style="margin-bottom:0">hover.css: {packageJSON.dependencies["hover.css"].split("^")[1]}</h1>
                             
