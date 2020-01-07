@@ -8,6 +8,9 @@
 
     import { fade, fly } from 'svelte/transition';
 
+    import NewNav from "./utils/NewNav.svelte";
+
+
     // Importing modules
     const {exec} = require("child_process")
     const https = require('https');
@@ -74,7 +77,7 @@
     }
     // Pages in Settings
 
-    let items = ["Configuration", "Update", "About"]
+    let items = ["Pages", "Configuration", "Update", "About"]
 
     //////////////////////////////////////////////////// FUNCTIONS ////////////////////////////////////////////////////
     $: saveChanges = false
@@ -493,7 +496,10 @@
     $: developer_mode ? window.developerMode = true : window.developerMode = false
 
     $: console.log("Developer mode: ", developer_mode)
-    
+    $: numberOfPages = 5
+    $: pageName = _.range(numberOfPages).map(num=>`Page ${num}`)
+    $: console.log(pageName)
+
 </script>
 
 <style>
@@ -531,6 +537,7 @@
 
     .box {
         overflow-y: auto;
+        overflow-x: hidden;
         max-height: 70vh;
         min-width: 20%;
         position: absolute;
@@ -563,8 +570,26 @@
                 <div class="container is-fluid">
                     
                     <div class="is-pulled-right">{currentTime}</div>
-                    <!-- Configuration Settings -->
 
+                    <!-- Pages -->
+
+                    <div class="container-fluid" id="Pages">
+                        <NewNav {pageName} />
+                        <div class="container" id="Page 0" style="display:block">
+                            <div class="level">
+                                <div class="level-left">
+                                    <div class="level-item">
+                                        <input type="number" class="input" bind:value={numberOfPages}>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {#each pageName as id}
+                            <div class="container" {id} style="display:none">{id}</div>
+                        {/each}
+                    </div>
+                    <!-- Configuration Settings -->
                     <div class="container" id="Configuration">
 
                         <!-- Python path -->
@@ -609,7 +634,6 @@
                     </div>
 
                     <!-- Update -->
-
                     <div class="container" style="display:none" id="Update">
                         
                         <h1 class="title">FELion GUI (Current version): {currentVersion}</h1>
@@ -667,10 +691,7 @@
                         
                     </div>
 
-                    
-
                     <!-- About -->
-
                     <div class="container" style="display:none" id="About">
                         <div class="control">
                             <h1 class="title">Software details (version)</h1>
