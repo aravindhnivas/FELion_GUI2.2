@@ -116,13 +116,29 @@
     let backgroundDefaultColor = defaultColors.body;
     let settingDefaultColor = false;
 
+    const changeStyleByClass = (className, color, amt=12, lightStyle=true) => {
+      let element = Array.from(document.getElementsByClassName(className))
+      let func;
+      lightStyle ? func = lighten : func = darken
+      element.forEach(file=>file.style.backgroundColor = func(color, amt))
+    }
+
     const setBackgroundColor = (color) => {
       document.documentElement.style.backgroundColor = color
       document.body.style.backgroundColor = color
-      let header_footer = Array.from(document.getElementsByClassName("navbar is-dark"))
-      header_footer.forEach(file=>file.style.backgroundColor = darken(color, 12))
+      changeStyleByClass("navbar is-dark", color, 12, false)
+      changeStyleByClass("box", color)
+      changeStyleByClass("panel-heading", color)
+      changeStyleByClass("row1", color)
       document.getElementById("Navbar").style.backgroundColor = lighten(color, 12)
-      
+
+      // let navItem = Array.from(document.querySelectorAll(".tabs a"))
+
+      // navItem.forEach(nav=>{
+      //   nav.onmouseover = ()=> this.style.backgroundColor = lighten(color, 12)
+      //   nav.onmouseout = ()=> this.style.backgroundColor = "transparent"
+      // })
+
     }
 
     pickr.on('hide', instance => {
