@@ -497,9 +497,9 @@
     $: developer_mode ? window.developerMode = true : window.developerMode = false
 
     $: console.log("Developer mode: ", developer_mode)
-    $: numberOfPages = 5
+    $: numberOfPages = parseInt(localStorage["totalPages"]) || 5
     $: pageName = _.range(numberOfPages+1).map(num=>`Page ${num}`)
-    $: console.log(pageName)
+    $: console.log(pageName, localStorage["totalPages"])
 
 </script>
 
@@ -598,7 +598,7 @@
                                 </div>
                                 <label class="label">Page Name</label>
                                 <div class="control">
-                                    <input type="text" class="input" value={id} id="{id}-name" style="width:20%">
+                                    <input type="text" class="input" value={localStorage[id]} id="{id}-name" style="width:20%">
                                 </div>
                             </div>
                         {/each}
