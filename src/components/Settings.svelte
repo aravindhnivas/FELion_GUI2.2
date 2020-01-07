@@ -497,7 +497,7 @@
 
     $: console.log("Developer mode: ", developer_mode)
     $: numberOfPages = 5
-    $: pageName = _.range(numberOfPages).map(num=>`Page ${num}`)
+    $: pageName = _.range(numberOfPages+1).map(num=>`Page ${num}`)
     $: console.log(pageName)
 
 </script>
@@ -576,21 +576,22 @@
                     <div class="container-fluid" id="Pages">
                         <NewNav {pageName} />
                         <div class="container" id="Page 0" style="display:block">
-                            <div class="level">
-                                <div class="level-left">
-                                    <div class="level-item">
-                                        <input type="number" class="input" bind:value={numberOfPages}>
-                                    </div>
+                            <h1 class="title">Page Configuration</h1>
+
+                            <div class="field">
+                                <label class="label">Number of Pages</label>
+                                <div class="control">
+                                    <input type="number" class="input" bind:value={numberOfPages} min="1" id="numberOfPage" style="width:20%">
                                 </div>
                             </div>
                         </div>
                         
                         {#each pageName as id}
-                            <div class="container" {id} style="display:none">{id}</div>
+                            <div class="container" {id} style="display:none"><h1 class="title">{id}</h1></div>
                         {/each}
                     </div>
                     <!-- Configuration Settings -->
-                    <div class="container" id="Configuration">
+                    <div class="container" id="Configuration" style="display:none">
 
                         <!-- Python path -->
                         <div class="field">
