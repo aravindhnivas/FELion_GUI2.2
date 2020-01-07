@@ -7,14 +7,18 @@
         let newID;
 
         forward ? index += 1 : index -= 1
-        if (index >= pageName.length) newID = _.last(pageName)
-        else if (index < 0) newID = _.head(pageName)
+        if (index >= pageName.length) return console.log("Page END")
+        else if (index < 0) return console.log("Page 0")
         else {newID = pageName[index]}
 
         console.log("Moving to ", newID)
         pageName.forEach(page=>{
             page === newID ? showpage(page) : hidepage(page)
         })
+        console.log(pageName)
+
+        localStorage[newID] = document.getElementById(newID+"-name").value
+        localStorage["totalPages"] = document.getElementById("numberOfPage").value
     }
 
 </script>
