@@ -7390,14 +7390,18 @@ function instance$7($$self, $$props, $$invalidate) {
         let newID;
 
         forward ? index += 1 : index -= 1;
-        if (index >= pageName.length) newID = _.last(pageName);
-        else if (index < 0) newID = _.head(pageName);
+        if (index >= pageName.length) return console.log("Page END")
+        else if (index < 0) return console.log("Page 0")
         else {newID = pageName[index];}
 
         console.log("Moving to ", newID);
         pageName.forEach(page=>{
             page === newID ? showpage(page) : hidepage(page);
         });
+        console.log(pageName);
+
+        localStorage[newID] = document.getElementById(newID+"-name").value;
+        localStorage["totalPages"] = document.getElementById("numberOfPage").value;
     }
 
 	const click_handler = () => getpage(false);
@@ -7499,7 +7503,7 @@ function create_each_block$3(key_1, ctx) {
 			attr(label, "class", "label svelte-vksi18");
 			attr(input, "type", "text");
 			attr(input, "class", "input");
-			input.value = input_value_value = ctx.id;
+			input.value = input_value_value = ctx.localStorage[ctx.id];
 			attr(input, "id", input_id_value = "" + ctx.id + "-name");
 			set_style(input, "width", "20%");
 			attr(div1, "class", "control");
@@ -7535,7 +7539,7 @@ function create_each_block$3(key_1, ctx) {
 			if (changed.pageName) frontbacknav_changes.pageName = ctx.pageName;
 			frontbacknav.$set(frontbacknav_changes);
 
-			if ((!current || changed.pageName) && input_value_value !== (input_value_value = ctx.id)) {
+			if ((!current || changed.pageName) && input_value_value !== (input_value_value = ctx.localStorage[ctx.id])) {
 				input.value = input_value_value;
 			}
 
@@ -9002,7 +9006,7 @@ function instance$8($$self, $$props, $$invalidate) {
 		if ($$dirty.developer_mode) { developer_mode ? window.developerMode = true : window.developerMode = false; }
 		if ($$dirty.developer_mode) { console.log("Developer mode: ", developer_mode); }
 		if ($$dirty.numberOfPages) { $$invalidate('pageName', pageName = _.range(numberOfPages+1).map(num=>`Page ${num}`)); }
-		if ($$dirty.pageName) { console.log(pageName); }
+		if ($$dirty.pageName) { console.log(pageName, localStorage["totalPages"]); }
 	};
 
 	$$invalidate('saveChanges', saveChanges = false);
@@ -9019,7 +9023,7 @@ function instance$8($$self, $$props, $$invalidate) {
 	$$invalidate('back_restore_log', back_restore_log = "");
 	$$invalidate('restoreClass', restoreClass = "is-warning");
 	$$invalidate('developer_mode', developer_mode = false);
-	$$invalidate('numberOfPages', numberOfPages = 5);
+	$$invalidate('numberOfPages', numberOfPages = parseInt(localStorage["totalPages"]) || 5);
 
 	return {
 		jq,
@@ -9043,6 +9047,7 @@ function instance$8($$self, $$props, $$invalidate) {
 		timeInterval_hr,
 		archive,
 		restore,
+		localStorage,
 		saveChanges,
 		checkupdateLoading,
 		updateLoading,
