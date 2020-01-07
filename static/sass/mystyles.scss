@@ -7,12 +7,7 @@ $text: $white;
 $text-strong: $white;
 $success: #09814a;
 // Background Colors
-$backgroundGrey: #363636;
-$background1: #46307d;
-$background1_dark: #2a1a52;
-$dark: $background1_dark;
-// Background and hover-background color
-$background: $background1;
+$background:  #46307d;
 $hoverBackground: lighten($background, 50%);
 // Input focus
 $skyBlue:#6db1df;
@@ -36,11 +31,9 @@ $panel-heading-background-color: darken($background, 10%);
 $panel-block-active-icon-color: $white;
 $panel-block-active-color: $white;
 $panel-block-hover-background-color: $hoverBackground;
-// Navbar color:
-body,
-html {
-    background-color: $background !important;
-}
+
+@import "./node_modules/bulma/bulma.sass";
+@import "./node_modules/pretty-checkbox/src/pretty-checkbox.scss";
 
 .tabs {
     background: lighten($background, 5%);
@@ -52,6 +45,8 @@ html {
     background: lighten($background, 10%);
 }
 
-// Importing bulma
-@import "./node_modules/bulma/bulma.sass";
-@import "./node_modules/pretty-checkbox/src/pretty-checkbox.scss";
+body,
+html {
+    background-color: $background;
+}
+.navbar.is-dark {background-color: #38236b;}

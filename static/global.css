@@ -5,6 +5,7 @@ body,
 html {
 	background-image: url(css/intro.svg);
 	user-select: none;
+
 }
 
 body::-webkit-scrollbar {
