@@ -573,7 +573,6 @@
                     <div class="is-pulled-right">{currentTime}</div>
 
                     <!-- Pages -->
-
                     <div class="container-fluid" id="Pages" style="display:block">
                         <!-- <NewNav {pageName} /> -->
                         <div class="container" id="Page 0" style="display:block">
@@ -604,6 +603,7 @@
                             </div>
                         {/each}
                     </div>
+
                     <!-- Configuration Settings -->
                     <div class="container" id="Configuration" style="display:none">
 
