@@ -9,6 +9,7 @@
     import { fade, fly } from 'svelte/transition';
 
     import NewNav from "./utils/NewNav.svelte";
+    import FrontBackNav from "./utils/FrontBackNav.svelte";
 
 
     // Importing modules
@@ -576,7 +577,10 @@
                     <div class="container-fluid" id="Pages">
                         <NewNav {pageName} />
                         <div class="container" id="Page 0" style="display:block">
-                            <h1 class="title">Page Configuration</h1>
+                            <div class="control">
+                                <h1 class="title">Page Configuration</h1>
+                                <FrontBackNav id={"Page 0"} {pageName}/>
+                            </div>
 
                             <div class="field">
                                 <label class="label">Number of Pages</label>
@@ -584,10 +588,20 @@
                                     <input type="number" class="input" bind:value={numberOfPages} min="1" id="numberOfPage" style="width:20%">
                                 </div>
                             </div>
+                            
                         </div>
                         
-                        {#each pageName as id}
-                            <div class="container" {id} style="display:none"><h1 class="title">{id}</h1></div>
+                        {#each pageName as id (id)}
+                            <div class="container" {id} style="display:none">
+                                <div class="control">
+                                    <h1 class="title">{id}</h1>
+                                    <FrontBackNav {id} {pageName}/>
+                                </div>
+                                <label class="label">Page Name</label>
+                                <div class="control">
+                                    <input type="text" class="input" value={id} id="{id}-name" style="width:20%">
+                                </div>
+                            </div>
                         {/each}
                     </div>
                     <!-- Configuration Settings -->

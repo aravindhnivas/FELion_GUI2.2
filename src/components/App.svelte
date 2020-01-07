@@ -22,6 +22,9 @@
   import * as electron from 'electron';
   import * as path from 'path';
 
+  window.hidepage = (id) => document.getElementById(id).style.display = "none"
+  window.showpage = (id) => document.getElementById(id).style.display = "block"
+
   const fs = require("fs")
   const https = require('https');
 

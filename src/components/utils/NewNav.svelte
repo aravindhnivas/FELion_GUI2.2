@@ -1,8 +1,5 @@
 <script>
     export let pageName
-    const hidepage = (id) => document.getElementById(id).style.display = "none"
-    const showpage = (id) => document.getElementById(id).style.display = "block"
-
     function getpage(event) {
         let id = event.target.innerHTML
         pageName.forEach(page=>{
