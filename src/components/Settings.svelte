@@ -21,7 +21,7 @@
 
     jq(document).ready(()=>{
 
-        jq("#ConfigurationContainer").addClass("is-active")
+        jq("#PagesContainer").addClass("is-active")
         console.log(`Internet Status: ${navigator.onLine}`)
         if (navigator.onLine) updateCheck()
         else console.log("Internet is not connected.")
@@ -558,7 +558,7 @@
                 
                 <div class="menu-label">Settings</div>
                 <ul class="menu-list">
-                    {#each items as item}
+                    {#each items as item, index}
                         <li><a class="menulist" on:click={toggle} id="{item}Container">{item}</a></li>
                     {/each}
                 </ul>
@@ -574,8 +574,8 @@
 
                     <!-- Pages -->
 
-                    <div class="container-fluid" id="Pages">
-                        <NewNav {pageName} />
+                    <div class="container-fluid" id="Pages" style="display:block">
+                        <!-- <NewNav {pageName} /> -->
                         <div class="container" id="Page 0" style="display:block">
                             <div class="control">
                                 <h1 class="title">Page Configuration</h1>
