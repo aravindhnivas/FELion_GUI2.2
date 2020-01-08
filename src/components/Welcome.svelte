@@ -116,7 +116,7 @@
     let backgroundDefaultColor = defaultColors.body;
     let settingDefaultColor = false;
 
-    const changeStyleByClass = (className, color, amt=12, lightStyle=true) => {
+    const changeStyleByClass = (className, color, amt=6, lightStyle=true) => {
       let element = Array.from(document.getElementsByClassName(className))
       let func;
       lightStyle ? func = lighten : func = darken
@@ -126,18 +126,11 @@
     const setBackgroundColor = (color) => {
       document.documentElement.style.backgroundColor = color
       document.body.style.backgroundColor = color
-      changeStyleByClass("navbar is-dark", color, 12, false)
+      changeStyleByClass("navbar is-dark", color, 6, false)
       changeStyleByClass("box", color)
-      changeStyleByClass("panel-heading", color)
+      changeStyleByClass("panel-heading", color, 6, false)
       changeStyleByClass("row1", color)
-      document.getElementById("Navbar").style.backgroundColor = lighten(color, 12)
-
-      // let navItem = Array.from(document.querySelectorAll(".tabs a"))
-
-      // navItem.forEach(nav=>{
-      //   nav.onmouseover = ()=> this.style.backgroundColor = lighten(color, 12)
-      //   nav.onmouseout = ()=> this.style.backgroundColor = "transparent"
-      // })
+      document.getElementById("Navbar").style.backgroundColor = lighten(color, 2)
 
     }
 
