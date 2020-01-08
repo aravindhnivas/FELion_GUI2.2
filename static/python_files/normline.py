@@ -6,7 +6,7 @@ import json
 import os
 import shutil
 from os.path import isdir, isfile, dirname
-from pathlib import Path as pt
+from pathlib import Path as pt, PurePosixPath as pt2
 from itertools import cycle
 
 # Data analysis
@@ -296,8 +296,11 @@ class normplot:
         self.export_file(f"averaged", binns, intens, intens_r, energyJ_norm)
         
         # print(f"Before JSON DATA: {dataToSend}")
-        dataJson = json.dumps(dataToSend)
-        print(dataJson)
+        # dataJson = json.dumps(dataToSend)
+        # print(dataJson)
+        with open("./EXPORT/normline.json", 'w+') as f:
+            data = json.dumps(dataToSend, sort_keys=True, indent=4, separators=(',', ': '))
+            f.write(data)
         # print("DONE")
 
 

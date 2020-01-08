@@ -30,7 +30,7 @@ def var_find(massfile):
     return res, b0, trap
 
 def massplot(massfiles, tkplot):
-
+    os.chdir(massfiles[0].parent)
     if tkplot:
         
         widget = FELion_Tk(title="Mass spectrum", location=massfiles[0].parent)
@@ -60,6 +60,9 @@ def massplot(massfiles, tkplot):
         dataJson = json.dumps(data)
         print(dataJson)
 
+        with open("./masspec.json", 'w+') as f:
+            data = json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
+            f.write(data)
     else:
         
         widget.plot_legend = ax.legend()
@@ -75,5 +78,4 @@ if __name__ == "__main__":
     if tkplot == "plot": tkplot = True
     else: tkplot = False
     # print(args)
-
     massplot(massfiles, tkplot)

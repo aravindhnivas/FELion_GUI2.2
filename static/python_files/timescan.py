@@ -47,8 +47,10 @@ class timescanplot:
                             "name": f"SUM", "mode": 'lines+markers', "line":{"color":"black"},
                             "error_y":{"type": "data","array": list(error.sum(axis=0)),"visible": True}}
             dataJson = json.dumps(m)
-
             print(dataJson)
+            with open("./timescan.json", 'w+') as f:
+                data = json.dumps(m, sort_keys=True, indent=4, separators=(',', ': '))
+                f.write(data)
 
         self.time, self.mean, self.error = time, mean, error
 
