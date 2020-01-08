@@ -6,6 +6,11 @@
   export let getCheckedFiles;
   export let path;
 
+  $: panelHeight = 0;
+  jq(document).ready(()=>{
+    window.screen.height <= 860 ? panelHeight = 65 : panelHeight = 70
+  })
+
   let folderFile;
   $: if (!currentLocation) {
     console.log(`Currentlocation: [${filetag}]: is undefined`);
@@ -93,7 +98,6 @@
   }
 
   .folderContainerPanelBlock {
-    height:70vh;
     overflow: auto;
   }
 
@@ -165,7 +169,7 @@
       <div class="animated fadeIn" id="{filetag}locationUpdate" style="display:none">Location Update</div>
     </div>
     
-    <div class="panel-block folderContainerPanelBlock">
+    <div class="panel-block folderContainerPanelBlock" style="height:{panelHeight}vh">
 
       <ul>
 
