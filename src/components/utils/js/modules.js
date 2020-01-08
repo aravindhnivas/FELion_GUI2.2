@@ -138,19 +138,13 @@ class program {
                         [path.join(localStorage["pythonscript"], this.pyfile), this.files.concat(this.args)]
                     );
                 } catch (err) { reject(`Check python location (Settings-->Configuration-->Pythonpath)\n${err}`) }
-                let dataFromPython;
+
+                // let dataFromPython;
+
                 py.stdout.on("data", data => {
 
                     let dataReceived = data.toString("utf8");
                     console.log(dataReceived)
-                    // let dataFromPython;
-                    dataFromPython = data.toString("utf8");
-
-                    if (!this.obj.checking) {
-                        console.log("Running python code")
-                        dataFromPython = JSON.parse(dataFromPython);
-                        console.log("After JSON parse :", dataFromPython);
-                    } else { console.log("Before JSON parse :" + dataFromPython) }
 
                 });
                 let error_occured_py = false;
@@ -166,21 +160,19 @@ class program {
 
                     if (!error_occured_py) {
                         try {
+                            let dataFromPython = fs.readFileSync(path.join(localStorage["pythonscript"], "data.json"))
+                            dataFromPython = JSON.parse(dataFromPython.toString("utf-8"))
+                            console.log(dataFromPython)
 
                             if (this.filetype == "mass") {
-                                let dataFromPython = fs.readFileSync(path.resolve(localStorage["mass_location"], "masspec.json"))
-                                dataFromPython = JSON.parse(dataFromPython.toString("utf-8"))
+                                
                                 plot("Mass spectrum", "Mass [u]", "Counts", dataFromPython, "mplot", "mass");
     
                             } else if (this.filetype == "scan") {
-                                let dataFromPython = fs.readFileSync(path.resolve(localStorage["scan_location"], "timescan.json"))
-                                dataFromPython = JSON.parse(dataFromPython.toString("utf-8"))
+                                
                                 let filename = this.obj.plotArea.split("_t")[0]
                                 plot(`Timescan Plot: ${filename}`, "Time (in ms)", "Counts", dataFromPython, this.obj.plotArea);
                             } else if (this.filetype == "felix") {
-
-                                let dataFromPython = fs.readFileSync(path.resolve(localStorage["felix_location"], "../EXPORT/normline.json"))
-                                dataFromPython = JSON.parse(dataFromPython.toString("utf-8"))
 
                                 window.line = []
                                 window.index = []
@@ -188,7 +180,6 @@ class program {
                                 let normMethod = this.obj.normethod;
                                 let delta = this.args[0];
     
-                                let felixdataToPlot;
                                 let avgdataToPlot;
     
                                 let signal_formula;

@@ -11,7 +11,8 @@ from FELion_widgets import FELion_Tk
 from FELion_definitions import gauss_fit
 from FELion_constants import colors
 
-# Tkinter
+from FELion_definitions import sendData
+
 from tkinter.messagebox import askokcancel, showerror
 
 
@@ -279,8 +280,7 @@ def main(filenames, delta, tkplot, gamma=None):
     else: 
         
         data = plot_thz()
-        dataToSend = json.dumps(data)
-        print(dataToSend)
+        sendData(data)
 
 if __name__ == "__main__":
     global filenames

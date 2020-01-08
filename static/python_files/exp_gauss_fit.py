@@ -11,6 +11,7 @@ import numpy as np
 from FELion_definitions import gauss_fit, read_dat_file
 from FELion_constants import colors 
 
+from FELion_definitions import sendData
 
 def exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite=False, fullfiles=None, tkplot=False, getvalue=False):
 
@@ -75,8 +76,7 @@ def exp_fit(location, norm_method, start_wn, end_wn, output_filename, overwrite=
         with open(expfile, "a") as f:
             f.write(f"{line_freq_fit:.4f}\t{uline_freq.std_dev:.4f}\t{sigma:.4f}\t{usigma.std_dev:.4f}\t{fwhm:.4f}\t{ufwhm.std_dev:.4f}\t{amplitude:.4f}\t{uamplitude.std_dev:.4f}\n")
     
-    data_tosend = json.dumps(data)
-    print(data_tosend)
+    sendData(data)
 
 if __name__ == "__main__":
 

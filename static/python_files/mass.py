@@ -11,6 +11,7 @@ import numpy as np
 # FELion tkinter figure module
 from FELion_widgets import FELion_Tk
 
+from FELion_definitions import sendData
 
 def var_find(massfile):
 
@@ -56,15 +57,11 @@ def massplot(massfiles, tkplot):
         }
 
     if not tkplot:
-
         dataJson = json.dumps(data)
         print(dataJson)
+        sendData(data)
 
-        with open("./masspec.json", 'w+') as f:
-            data = json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
-            f.write(data)
     else:
-        
         widget.plot_legend = ax.legend()
         widget.mainloop()
 

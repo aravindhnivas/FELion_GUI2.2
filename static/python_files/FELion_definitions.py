@@ -1,9 +1,9 @@
 #################################################################
 
 # Modules
-import shutil, os
+import shutil, os, json
 from os.path import join 
-# from tkinter import ttk, messagebox, Tk
+from pathlib import Path as pt
 
 # DATA Analysis
 from lmfit.models import GaussianModel
@@ -96,3 +96,10 @@ def read_dat_file(filename, norm_method):
     elif norm_method == "Relative": ys = read_data[2]
     else: ys = read_data[3]
     return xs, ys
+
+def sendData(dataToSend):
+
+    with open(pt(__file__).parent / "data.json", 'w+') as f:
+
+        data = json.dumps(dataToSend, sort_keys=True, indent=4, separators=(',', ': '))
+        f.write(data)

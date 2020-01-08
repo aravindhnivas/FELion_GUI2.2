@@ -1,6 +1,7 @@
 
 # FELion tkinter figure module
 from FELion_widgets import FELion_Tk
+from FELion_definitions import sendData
 from tkinter.messagebox import askokcancel, showerror
 # System modules
 import sys, json, os, traceback
@@ -46,11 +47,8 @@ class timescanplot:
             m["SUM"] = {"x":list(time), "y":list(mean.sum(axis=0)), 
                             "name": f"SUM", "mode": 'lines+markers', "line":{"color":"black"},
                             "error_y":{"type": "data","array": list(error.sum(axis=0)),"visible": True}}
-            dataJson = json.dumps(m)
-            print(dataJson)
-            with open("./timescan.json", 'w+') as f:
-                data = json.dumps(m, sort_keys=True, indent=4, separators=(',', ': '))
-                f.write(data)
+            
+            sendData(m)
 
         self.time, self.mean, self.error = time, mean, error
 

@@ -9,6 +9,8 @@ from scipy.interpolate import interp1d
 # FELion tkinter figure module
 from FELion_widgets import FELion_Tk
 from FELion_constants import colors
+from FELion_definitions import sendData
+
 def ReadBase(basefile):
 
     data = np.genfromtxt(basefile)
@@ -27,13 +29,6 @@ class BaselineCalibrator(object):
         return self.f(x)
 
 def opoplot(opofiles, tkplot):
-
-    # location = opofiles[0].parent
-    # back_dir = pt(location.parent)
-    # folders = ["DATA", "EXPORT", "OUT"]
-    # if set(folders).issubset(os.listdir(back_dir)): location = pt(back_dir)
-    # else: location = pt(location)
-    # os.chdir(location)
 
     if tkplot:
         
@@ -78,9 +73,8 @@ def opoplot(opofiles, tkplot):
             if c >= len(colors): c = 1
 
     if not tkplot:
-        dataJson = json.dumps(data)
-        print(dataJson)
-
+        
+        sendData(data)
     else:
         widget.plot_legend = ax.legend()
 

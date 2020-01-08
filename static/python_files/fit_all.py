@@ -9,6 +9,8 @@ import json, sys
 from FELion_definitions import read_dat_file
 from FELion_widgets import FELion_Tk
 from FELion_constants import colors 
+from FELion_definitions import sendData
+
 from exp_gauss_fit import exp_fit
 
 def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=None, fitall=False, overwrite=False, tkplot=False, fullfiles=None):
@@ -65,10 +67,7 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
     ]
     dataToSend = [{"data": data["data"]}, {"extras":data["extras"]}, {"annotations":data["annotations"]}]
 
-    if not fitall:
-        dataJson = json.dumps(dataToSend)
-        print(dataJson)
-
+    if not fitall: sendData(dataToSend)
     else:
 
         location = filename.parent.parent
@@ -120,8 +119,8 @@ def fit_all_peaks(filename, norm_method, prominence=None, width=None, height=Non
 
             fit_data.append({"annotations":annotations})
             fit_data.append(get_data)
-            dataJson = json.dumps(fit_data)
-            print(dataJson)
+            
+            sendData(fit_data)
         
 if __name__ == "__main__":
     args = sys.argv[1:][0].split(",")

@@ -18,7 +18,7 @@ from FELion_baseline_old import felix_read_file, BaselineCalibrator
 from FELion_power import PowerCalibrator
 from FELion_sa import SpectrumAnalyserCalibrator
 from baseline import Create_Baseline
-
+from FELion_definitions import sendData
 ######################################################################################
 
 colors = [
@@ -298,9 +298,7 @@ class normplot:
         # print(f"Before JSON DATA: {dataToSend}")
         # dataJson = json.dumps(dataToSend)
         # print(dataJson)
-        with open("./EXPORT/normline.json", 'w+') as f:
-            data = json.dumps(dataToSend, sort_keys=True, indent=4, separators=(',', ': '))
-            f.write(data)
+        sendData(dataToSend)
         # print("DONE")
 
 
