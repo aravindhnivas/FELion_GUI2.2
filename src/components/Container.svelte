@@ -6,7 +6,7 @@
   import { fade, fly } from 'svelte/transition';
   import Loading from "./utils/Loading.svelte";
 
-  const glob = require("glob")
+  // import {onMount} from "./svelte"
 
   export let id;
   export let filetag;

@@ -5,6 +5,7 @@
 
     jQuery(document).ready(()=>{
         const pickr = Pickr.create({
+
             el: '.color-picker',
             theme: 'classic', // or 'monolith', or 'nano'
 
@@ -57,27 +58,21 @@
         }
 
         const defaultColors = {body:"#46307d", header:"#38236b", navbar:"#4a3284", box:"#5b3ea2"}
-        
         let colorChanged = false;
         let newColor;
         let backgroundDefaultColor = defaultColors.body;
         let settingDefaultColor = false;
 
-        const changeStyleByClass = (className, color, amt=6, lightStyle=true) => {
-            let element = Array.from(document.getElementsByClassName(className))
-            let func;
-            lightStyle ? func = lighten : func = darken
-            element.forEach(file=>file.style.backgroundColor = func(color, amt))
-        }
-
         const setBackgroundColor = (color) => {
+
             document.documentElement.style.backgroundColor = color
             document.body.style.backgroundColor = color
-            changeStyleByClass("navbar is-dark", color, 6, false)
-            changeStyleByClass("box", color)
-            changeStyleByClass("panel-heading", color, 6, false)
-            changeStyleByClass("row1", color)
-            document.getElementById("Navbar").style.backgroundColor = lighten(color, 2)
+            jQuery(".navbar.is-dark, .panel-heading").css("background-color", darken(color, 6))
+
+            window.navbarBgColor = darken(color, 4)
+            jQuery("li.is-active a").css("background-color", window.navbarBgColor)
+            jQuery(".box, .row1").css("background-color", lighten(color, 6))
+            jQuery("#Navbar").css("background-color", lighten(color, 2))
 
         }
 

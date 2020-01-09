@@ -17,9 +17,9 @@ $input-focus-box-shadow-color: rgba($skyBlue, 0.7);
 // Navbar
 $navbar-height: 2rem;
 // Tabs-boxed
-$tabs-boxed-link-hover-background-color: $background;
+// $tabs-boxed-link-hover-background-color: $background;
 $tabs-boxed-link-hover-border-bottom-color: lighten($background, 10%);
-$tabs-boxed-link-active-background-color: $background;
+$tabs-boxed-link-active-background-color: lighten($background, 10%);
 $tabs-link-active-color: $text;
 $tabs-link-hover-color: $text;
 // Section

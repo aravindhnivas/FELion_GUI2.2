@@ -5206,7 +5206,7 @@ label.panel-block {
       background-color: #46307d;
       border-bottom-color: #5b3ea2; }
   .tabs.is-boxed li.is-active a {
-    background-color: #46307d;
+    background-color: #5b3ea2;
     border-color: #dbdbdb;
     border-bottom-color: transparent !important; }
   .tabs.is-fullwidth li {
