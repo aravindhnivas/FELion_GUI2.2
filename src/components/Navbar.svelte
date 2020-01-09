@@ -12,13 +12,13 @@
     console.log(target + " is-active");
 
     navItems.forEach(item => { 
-
+      let bgColor = window.navbarBgColor || "#5b3ea2"
       let $item = jq(`#${item}`), $itemParent = jq(`#${item}-nav`)
       
       if(item == target) {
         $item.css("display", "block")
         $itemParent.addClass("is-active").removeClass("non-active")
-        jq(`#${item}-nav a`).css("background-color", window.navbarBgColor)
+        jq(`#${item}-nav a`).css("background-color", bgColor)
       } else {
         $item.css("display", "none")
         $itemParent.addClass("non-active").removeClass("is-active")
