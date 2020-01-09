@@ -18,6 +18,7 @@
   export let menu;
   export let MenuItem;
   $: btnhoverColor = window.btnHoverBgColor || "#7a64b1"
+  
   $: tplot_width = ""
 
   jq(document).ready(() => {
@@ -889,7 +890,7 @@
                 data-tippy="Current Location"/>
             </div>
             <div class="control">
-              <div class="button is-link hvr-glow --btnhoverColor:{btnhoverColor}" on:click={browseFile}>Browse</div>
+              <div class="button is-link hvr-glow " on:click={browseFile}>Browse</div>
             </div>
           </div>
 
@@ -1029,11 +1030,11 @@
 
                     <div class="level-item">
                       <div class="control">
-                          <button class="button is-link hvr-glow --btnhoverColor:{btnhoverColor}" on:click={opentheory}>Choose file</button>
+                          <button class="button is-link hvr-glow " on:click={opentheory}>Choose file</button>
                           <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
                           <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
-                          <button class="funcBtn button is-link hvr-glow --btnhoverColor:{btnhoverColor} animated" on:click={runtheory} id="appendTheory">Submit</button>
-                          <button class="funcBtn button is-link hvr-glow --btnhoverColor:{btnhoverColor} animated" on:click="{()=>runtheory({tkplot:"plot", filetype:"general"})}" id="theory_Matplotlib">Open in Matplotlib</button>
+                          <button class="funcBtn button is-link hvr-glow  animated" on:click={runtheory} id="appendTheory">Submit</button>
+                          <button class="funcBtn button is-link hvr-glow  animated" on:click="{()=>runtheory({tkplot:"plot", filetype:"general"})}" id="theory_Matplotlib">Open in Matplotlib</button>
                       </div>
                     </div>
                   </div>
@@ -1152,7 +1153,7 @@
                   </div>
 
                   <div class="level-item">
-                      <div class="level-item button is-link hvr-glow --btnhoverColor:{btnhoverColor} hvr-glow funcBtn animated"
+                      <div class="level-item button is-link hvr-glow  hvr-glow funcBtn animated"
                         id="mass_get_peaks" on:click={find_masspec_peaks} >Get Peaks
                       </div>
                   </div>

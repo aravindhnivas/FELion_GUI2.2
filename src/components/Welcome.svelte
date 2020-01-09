@@ -1,7 +1,6 @@
 <script>
 
   import AnimateBox from "./utils/AnimateBox.svelte";
-  import ColorPicker from "./utils/ColorPicker.svelte";
   export let jq;
   let animation_welcome;
   console.log("Loading");
@@ -102,8 +101,6 @@
 
 
 <section class="section" id="Welcome">
-
-  <ColorPicker />
 
   <AnimateBox>
     <h1 class="ml5">
