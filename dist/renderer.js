@@ -7443,7 +7443,7 @@ function get_each_context_1$2(ctx, list, i) {
 	return child_ctx;
 }
 
-// (565:20) {#each items as item, index}
+// (562:20) {#each items as item, index}
 function create_each_block_1$2(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -7475,7 +7475,7 @@ function create_each_block_1$2(ctx) {
 	};
 }
 
-// (597:24) {#each pageName as id (id)}
+// (594:24) {#each pageName as id (id)}
 function create_each_block$3(key_1, ctx) {
 	var div2, div0, h1, t0_value = ctx.id + "", t0, t1, t2, label, t4, div1, input, input_value_value, input_id_value, t5, div2_id_value, current;
 
@@ -7581,7 +7581,7 @@ function create_each_block$3(key_1, ctx) {
 	};
 }
 
-// (639:32) {#if saveChanges}
+// (636:32) {#if saveChanges}
 function create_if_block_1$2(ctx) {
 	var h1, h1_transition, current, dispose;
 
@@ -7626,7 +7626,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (706:28) {#if back_restore_display}
+// (703:28) {#if back_restore_display}
 function create_if_block$3(ctx) {
 	var p, t, p_transition, current;
 
@@ -8520,11 +8520,8 @@ function instance$8($$self, $$props, $$invalidate) {
     let currentVersion = JSON.parse(versionFile.toString("utf-8")).version;
 
     // Pythonpath and pythonscript files location
-    
-    if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python");
-    if (!localStorage["pythonscript"]) localStorage["pythonscript"] = path.resolve(__dirname, "python_files");
     let pythonpath = localStorage["pythonpath"];
-    let pythonscript = localStorage["pythonscript"];
+    let pythonscript = localStorage["pythonscript"] || path.resolve(__dirname, "python_files");
 
     // Getting python version
     let pythonv;
@@ -25452,7 +25449,7 @@ function get_each_context$5(ctx, list, i) {
 	return child_ctx;
 }
 
-// (70:0) {#each mainPages as page}
+// (73:0) {#each mainPages as page}
 function create_each_block$5(ctx) {
 	var current;
 
@@ -25759,7 +25756,10 @@ function instance$c($$self, $$props, $$invalidate) {
   current_version = JSON.parse(current_version.toString("utf-8")).version;
   localStorage["version"] = current_version;
 
-  if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path$1.resolve(__dirname, "..", "python3.7", "python");
+  if (!localStorage["pythonpath"]) {
+    if (process.platform == "win32") {localStorage["pythonpath"] = path$1.resolve(__dirname, "..", "python3.7", "python");}
+    else if (process.platform == "darwin") {localStorage["pythonpath"] = path$1.join("usr", "local", "bin", "python3");}
+  }
 
   let { mainPages } = $$props;
   const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile", "Misc", "Settings"];

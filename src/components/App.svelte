@@ -37,7 +37,10 @@
   current_version = JSON.parse(current_version.toString("utf-8")).version
   localStorage["version"] = current_version
 
-  if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python")
+  if (!localStorage["pythonpath"]) {
+    if (process.platform == "win32") {localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python")}
+    else if (process.platform == "darwin") {localStorage["pythonpath"] = path.join("usr", "local", "bin", "python3")}
+  }
 
   export let mainPages;
   const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile", "Misc", "Settings"];

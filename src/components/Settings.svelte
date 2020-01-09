@@ -33,11 +33,8 @@
     let currentVersion = JSON.parse(versionFile.toString("utf-8")).version
 
     // Pythonpath and pythonscript files location
-    
-    if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python")
-    if (!localStorage["pythonscript"]) localStorage["pythonscript"] = path.resolve(__dirname, "python_files")
     let pythonpath = localStorage["pythonpath"]
-    let pythonscript = localStorage["pythonscript"]
+    let pythonscript = localStorage["pythonscript"] || path.resolve(__dirname, "python_files")
 
     // Getting python version
     let pythonv;
