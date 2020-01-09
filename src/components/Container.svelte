@@ -782,23 +782,19 @@
 
   input[type="number"] {width: 5vw;}
   label {color:$white;}
-
   #theorylabel{
     color:white;
     border:solid 3px #bdc3c7; 
     padding:0.4em;
   }
-
   .locationLabel {
     text-align: center;
   }
-
   .row {
     display: flex;
     flex-direction: column;
     padding-bottom: 0.6em;
   }
-
   .funcBtn {
     margin: 0 0.5em;
   }
@@ -811,6 +807,8 @@
     overflow-y: auto;
     width: 97%;
     margin-top: 2em;
+    margin-left: 1em!important;
+    margin-right: 0!important;
   }
 
   .plotMainContainer {margin-right: 2em;}
@@ -1259,7 +1257,6 @@
         </div>
 
         <div class="container is-fluid plotContainer" id="{filetag}plotContainer">
-
           
           {#each plotID as id}
 
