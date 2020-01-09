@@ -6,8 +6,6 @@
   import { fade, fly } from 'svelte/transition';
   import Loading from "./utils/Loading.svelte";
 
-  // import {onMount} from "./svelte"
-
   export let id;
   export let filetag;
   export let filetype;
@@ -19,13 +17,11 @@
   export let path;
   export let menu;
   export let MenuItem;
-
+  $: btnhoverColor = window.btnHoverBgColor || "#7a64b1"
   $: tplot_width = ""
 
   jq(document).ready(() => {
-
     jq("#theoryBtn").addClass("fadeInUp").css("display", "none")
-
     jq("#norm_tkplot").addClass("fadeInUp").css("display", "none")
     jq("#exp_fit").addClass("fadeInUp").css("display", "none")
     jq("#felix_shell_Container").addClass("fadeInUp").css("display", "block")
@@ -34,7 +30,6 @@
     let ScreenHeight = window.screen.height;
     if (ScreenHeight >= 1000) {plotHeight = 650; ; tplot_width="is-half"}
     else {plotHeight = 540; tplot_width="is-full"}
-
     jq(".plotContainer").css("max-height", plotHeight)
   });
   
@@ -69,8 +64,8 @@
     }
   };
 
-  let folderFile = { folders: [], files: [] };
 
+  let folderFile = { folders: [], files: [] };
   let tree = dirTree.default;
   const style = "display:none;";
   let currentLocation;
@@ -722,13 +717,13 @@
 
       });
   }
-
 </script>
 
 <style lang="scss">
 
+  // $:variable: {currentLocation};
   $link-color: #dbdbdb;
-  $link-hovercolor: #7a64b1;
+  // $link-hovercolor: #7a64b1;
   $success-color: #09814a;
   $danger-color: #ff3860;
 
@@ -773,7 +768,7 @@
   .button.is-link, .button.is-warning, .button.is-danger, .button.is-success {background-color: rgba(0,0,0,0);}
   .button.is-link:focus:not(:active), .button.is-link.is-focused:not(:active) {box-shadow: 0 0 0 0.05em #fafafa;}
   .button.is-link {border-color: $link-color;}
-  .button.is-link:hover, .button.is-link.is-hovered {background-color: $link-hovercolor;}
+  .button.is-link:hover, .button.is-link.is-hovered {background-color: var(--btnhoverColor);}
 
   .button.is-warning {border-color: $warning-color; color: $white;}
   .button.is-warning:hover, .button.is-warning.is-hovered {background-color: $warning-color; color: black;}
@@ -865,7 +860,7 @@
           <section class="modal-card-body" style="color:black"> {error_msg[filetag]} </section>
 
           <footer class="modal-card-foot">
-            <button class="button is-link" on:click="{()=>modal[filetag]=''}">Close</button>
+            <button class="button is-link hvr-glow --btnhoverColor:{btnhoverColor}" on:click="{()=>modal[filetag]=''}">Close</button>
           </footer>
 
         </div>
@@ -894,7 +889,7 @@
                 data-tippy="Current Location"/>
             </div>
             <div class="control">
-              <div class="button is-link" on:click={browseFile}>Browse</div>
+              <div class="button is-link hvr-glow --btnhoverColor:{btnhoverColor}" on:click={browseFile}>Browse</div>
             </div>
           </div>
 
@@ -1034,11 +1029,11 @@
 
                     <div class="level-item">
                       <div class="control">
-                          <button class="button is-link" on:click={opentheory}>Choose file</button>
+                          <button class="button is-link hvr-glow --btnhoverColor:{btnhoverColor}" on:click={opentheory}>Choose file</button>
                           <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
                           <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
-                          <button class="funcBtn button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
-                          <button class="funcBtn button is-link animated" on:click="{()=>runtheory({tkplot:"plot", filetype:"general"})}" id="theory_Matplotlib">Open in Matplotlib</button>
+                          <button class="funcBtn button is-link hvr-glow --btnhoverColor:{btnhoverColor} animated" on:click={runtheory} id="appendTheory">Submit</button>
+                          <button class="funcBtn button is-link hvr-glow --btnhoverColor:{btnhoverColor} animated" on:click="{()=>runtheory({tkplot:"plot", filetype:"general"})}" id="theory_Matplotlib">Open in Matplotlib</button>
                       </div>
                     </div>
                   </div>
@@ -1157,7 +1152,7 @@
                   </div>
 
                   <div class="level-item">
-                      <div class="level-item button is-link hvr-glow funcBtn animated"
+                      <div class="level-item button is-link hvr-glow --btnhoverColor:{btnhoverColor} hvr-glow funcBtn animated"
                         id="mass_get_peaks" on:click={find_masspec_peaks} >Get Peaks
                       </div>
                   </div>

@@ -70,9 +70,13 @@
             jQuery(".navbar.is-dark, .panel-heading").css("background-color", darken(color, 6))
 
             window.navbarBgColor = darken(color, 4)
+            
             jQuery("li.is-active a").css("background-color", window.navbarBgColor)
             jQuery(".box, .row1").css("background-color", lighten(color, 6))
+
             jQuery("#Navbar").css("background-color", lighten(color, 2))
+            
+            window.btnHoverBgColor = loghten(color, 4)
 
         }
 
