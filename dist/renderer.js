@@ -939,7 +939,7 @@ function get_each_context(ctx, list, i) {
 	return child_ctx;
 }
 
-// (80:10) {:else}
+// (79:10) {:else}
 function create_else_block(ctx) {
 	var li, a, t0_value = ctx.item + "", t0, t1, li_id_value, dispose;
 
@@ -982,7 +982,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (76:10) {#if item == 'Welcome'}
+// (75:10) {#if item == 'Welcome'}
 function create_if_block(ctx) {
 	var li, a, t0_value = ctx.item + "", t0, t1, li_id_value, dispose;
 
@@ -1025,7 +1025,7 @@ function create_if_block(ctx) {
 	};
 }
 
-// (75:8) {#each navItems as item}
+// (74:8) {#each navItems as item}
 function create_each_block(ctx) {
 	var if_block_anchor;
 
@@ -1819,7 +1819,7 @@ function instance$4($$self, $$props, $$invalidate) {
 
             jQuery("#Navbar").css("background-color", lighten(color, 2));
             
-            window.btnHoverBgColor = loghten(color, 4);
+            window.btnHoverBgColor = lighten(color, 4);
 
         };
 

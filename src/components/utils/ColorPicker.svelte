@@ -76,7 +76,7 @@
 
             jQuery("#Navbar").css("background-color", lighten(color, 2))
             
-            window.btnHoverBgColor = loghten(color, 4)
+            window.btnHoverBgColor = lighten(color, 4)
 
         }
 

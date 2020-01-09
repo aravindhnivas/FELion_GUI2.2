@@ -63,7 +63,6 @@
     
   }
 </style>
-
 <!-- Navigation Bar -->
 
 <section class="section box animated fadeInDown" id="Navbar" style="display:none">
