@@ -7548,7 +7548,7 @@ function get_each_context_1$2(ctx, list, i) {
 	return child_ctx;
 }
 
-// (562:20) {#each items as item, index}
+// (566:20) {#each items as item, index}
 function create_each_block_1$2(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -7580,7 +7580,7 @@ function create_each_block_1$2(ctx) {
 	};
 }
 
-// (594:24) {#each pageName as id (id)}
+// (597:24) {#each pageName as id (id)}
 function create_each_block$3(key_1, ctx) {
 	var div2, div0, h1, t0_value = ctx.id + "", t0, t1, t2, label, t4, div1, input, input_value_value, input_id_value, t5, div2_id_value, current;
 
@@ -7686,7 +7686,7 @@ function create_each_block$3(key_1, ctx) {
 	};
 }
 
-// (636:32) {#if saveChanges}
+// (639:32) {#if saveChanges}
 function create_if_block_1$2(ctx) {
 	var h1, h1_transition, current, dispose;
 
@@ -7731,7 +7731,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (703:28) {#if back_restore_display}
+// (706:28) {#if back_restore_display}
 function create_if_block$3(ctx) {
 	var p, t, p_transition, current;
 
@@ -8689,7 +8689,12 @@ function instance$8($$self, $$props, $$invalidate) {
             $$invalidate('pythonpath', pythonpath = localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python"));
             $$invalidate('pythonscript', pythonscript = localStorage["pythonscript"] = path.resolve(__dirname, "python_files"));
             $$invalidate('saveChanges', saveChanges = true);
-        }).catch(err=>{ console.log(err); $$invalidate('pythonpath', pythonpath = localStorage["pythonpath"]); });
+
+        }).catch(err=>{ 
+            $$invalidate('pythonpath', pythonpath = localStorage["pythonpath"]);
+            $$invalidate('pythonscript', pythonscript = localStorage["pythonscript"] = path.resolve(__dirname, "python_files"));
+            
+         });
         
     };
     const toggle = (event) => {

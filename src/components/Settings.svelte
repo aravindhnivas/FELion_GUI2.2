@@ -100,7 +100,12 @@
             pythonpath = localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python")
             pythonscript = localStorage["pythonscript"] = path.resolve(__dirname, "python_files")
             saveChanges = true
-        }).catch(err=>{ console.log(err); pythonpath = localStorage["pythonpath"] })
+
+        }).catch(err=>{ 
+            pythonpath = localStorage["pythonpath"]
+            pythonscript = localStorage["pythonscript"] = path.resolve(__dirname, "python_files")
+            
+         })
         
     }
     const toggle = (event) => {
@@ -497,7 +502,6 @@
     $: numberOfPages = parseInt(localStorage["totalPages"]) || 5
     $: pageName = _.range(numberOfPages+1).map(num=>`Page ${num}`)
     $: console.log(pageName, localStorage["totalPages"])
-
 </script>
 
 <style>
@@ -571,7 +575,6 @@
 
                     <!-- Pages -->
                     <div class="container-fluid" id="Pages" style="display:block">
-                        <!-- <NewNav {pageName} /> -->
                         <div class="container" id="Page 0" style="display:block">
                             <div class="control">
                                 <h1 class="title">Page Configuration</h1>
