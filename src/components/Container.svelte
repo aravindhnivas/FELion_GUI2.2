@@ -777,6 +777,7 @@
 
   .button.is-warning {border-color: $warning-color; color: $white;}
   .button.is-warning:hover, .button.is-warning.is-hovered {background-color: $warning-color; color: black;}
+  .button.is-warning:focus, .button.is-warning.is-focused { border-color: #ffdd57; color: #fafafa;}
 
   .button.is-danger {border-color: $danger-color;}
   .button.is-danger:hover, .button.is-danger.is-hovered {background-color: $danger-color;}
