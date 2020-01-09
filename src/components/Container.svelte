@@ -20,18 +20,21 @@
   $: btnhoverColor = window.btnHoverBgColor || "#7a64b1"
   
   $: tplot_width = ""
-
+  let plorContainerHeight = localStorage["plotContainerHeight"] || 650
+  let panelHeight = localStorage["panelHeight"] || 70;
   jq(document).ready(() => {
+
     jq("#theoryBtn").addClass("fadeInUp").css("display", "none")
+    
     jq("#norm_tkplot").addClass("fadeInUp").css("display", "none")
     jq("#exp_fit").addClass("fadeInUp").css("display", "none")
     jq("#felix_shell_Container").addClass("fadeInUp").css("display", "block")
-
-    let plotHeight;
     let ScreenHeight = window.screen.height;
-    if (ScreenHeight >= 1000) {plotHeight = 650; ; tplot_width="is-half"}
-    else {plotHeight = 540; tplot_width="is-full"}
-    jq(".plotContainer").css("max-height", plotHeight)
+    if (ScreenHeight >= 1000) { tplot_width="is-half"}
+    else {tplot_width="is-full"}
+    jq('.plotContainer').css("max-height", `${plorContainerHeight}px`)
+    jq(".folderContainerPanelBlock").css("height", `${panelHeight}vh`)
+    
   });
   
   const join = file => {
@@ -227,8 +230,8 @@
   $: modal = {mass:"", felix:"", scan:"", thz:""}
   $: error_msg = {mass:"", felix:"", scan:"", thz:""}
   function functionRun(event=null, target_id=null) {
-    let btname;
 
+    let btname;
     target_id === null ? btname = event.target.id : btname = target_id
 
     console.log(`Button clicked (id): ${btname}`)
@@ -514,6 +517,7 @@
   $: fitall_tkplot_Peak_btnCSS = "is-link"
   $: expfit_log_display = false
   $: expfit_log = ""
+  
   const expfit_log_it = (str) => {
     
     expfit_log_display = true
@@ -523,6 +527,7 @@
       expfit_log_display = false
     }, 4000)
   }
+
   let ready_to_fit = false
 
   function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all"} = {}) {
@@ -546,7 +551,6 @@
 
   const findPeak = () => {
     console.log("Finding preak with prominence value: ", prominence)
-
     ready_to_fit = true
     expfit_func()
   }
@@ -653,6 +657,7 @@
     localStorage["nist_mformula"] =  nist_mformula
     localStorage["nist_mname"] = nist_mname
   }
+
   $: internet_connection = "No Internet access available"
   $: internet_active = "is-danger"
   $: search_string = ""
@@ -664,6 +669,7 @@
       let layout = window.avg_data[normMethod]["layout"]
       Plotly.react("avgplot", data , layout )
     } catch (err) {console.log("Error occured while changing felixplot method", err)}
+
   }
 
   function plotOPO(){
@@ -671,16 +677,13 @@
         fullfiles: fullfiles, filetype: "opofile", filetag:"felix",
         btname: "opoButton", pyfile: "oposcan.py", 
         args: "run"
-
       }).catch(err => {
         console.log('Error Occured', err); 
         error_msg[filetag]=err; 
         modal[filetag]="is-active"
-
       });
   }
 
-  // Boltzman population and Rotational line strength
   let thz_row = [
     { name:"B (MHz)", id: "rotational_B", value: 226785.36 },
     { name:"D (MHz)", id: "rotational_D", value: 0 },
@@ -715,21 +718,65 @@
         console.log('Error Occured', err); 
         error_msg[filetag]=err; 
         modal[filetag]="is-active"
-
       });
   }
+
+  let plotlyWidth = localStorage["plotly_width"] || 1500
+  let plotlyHeight = localStorage["plotly_height"] || 450
+
+  const configPlotly = (start=true, e=null) => {
+
+    localStorage["plotly_width"] = plotlyWidth
+    localStorage["plotly_height"] = plotlyHeight
+    if (start) {
+
+      switch (filetag) {
+        case "felix":
+          functionRun(e, "felixPlotBtn")
+          break;
+
+        case "mass":
+          Plotly.relayout("mplot", {width: plotlyWidth, height: plotlyHeight})
+          break;
+
+        case "scan":
+          functionRun(e, "timescanBtn")
+          break;
+
+        case "thz":
+          Plotly.relayout("thzplot_Container", {width: plotlyWidth, height: plotlyHeight})
+          break;
+
+        default:
+          break;
+
+      }
+    }
+
+  }
+
+  configPlotly(false)
+  
+  const configPlotContainer = () => {
+    localStorage["plotContainerHeight"] = plorContainerHeight
+    jq('.plotContainer').css("max-height", plorContainerHeight)
+  }
+
+  
+  const configFileExplorer = () => {
+    localStorage["panelHeight"] = panelHeight
+    jq(".folderContainerPanelBlock").css("height", `${panelHeight}vh`)
+  }
+  configFileExplorer()
+
 </script>
 
 <style lang="scss">
 
-  // $:variable: {currentLocation};
   $link-color: #dbdbdb;
-  // $link-hovercolor: #7a64b1;
   $success-color: #09814a;
   $danger-color: #ff3860;
-
   $warning-color: #ffc402;
-  
   $white: #fafafa;
   $box1-color: #594194;
 
@@ -763,7 +810,10 @@
   .plotContainer {
     overflow-y: auto;
     width: 97%;
+    margin-top: 2em;
   }
+
+  .plotMainContainer {margin-right: 2em;}
 
   /* Buttons:  border, background and hovering colors */
   .button.is-link, .button.is-warning, .button.is-danger, .button.is-success {background-color: rgba(0,0,0,0);}
@@ -834,6 +884,7 @@
     margin-right: 2em;
   }
   .subtitle {color: $white;}
+  .plotSzControl {width: 5em;}
 </style>
 
 <section class="section" {id} {style}>
@@ -1194,9 +1245,22 @@
 
       </div>
 
-      <div class="row box plotContainer" id="{filetag}plotMainContainer" >
+      <div class="row box plotMainContainer" id="{filetag}plotMainContainer">
         
-        <div class="container is-fluid" id="{filetag}plotContainer">
+        <div class="control plotSzControlContainer">
+          <input type="number" class="input plotSzControl" 
+            bind:value={plotlyWidth} on:change={configPlotly} data-tippy="Plot Width">
+          <input type="number" class="input plotSzControl" 
+            bind:value={plotlyHeight} on:change={configPlotly} data-tippy="Plot Height">
+          <input type="number" class="input plotSzControl" 
+            bind:value={plorContainerHeight} on:change={configPlotContainer} data-tippy="PlotContainer Height">
+          <input type="number" 
+            class="input plotSzControl" bind:value={panelHeight} on:change={configFileExplorer} data-tippy="File Explorer height">
+        </div>
+
+        <div class="container is-fluid plotContainer" id="{filetag}plotContainer">
+
+          
           {#each plotID as id}
 
             {#if filetag == 'scan'}

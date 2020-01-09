@@ -1,7 +1,3 @@
-
-
-// Importing modules
-
 const { spawn } = require("child_process");
 const path = require('path');
 const fs = require("fs")
@@ -9,56 +5,25 @@ const fs = require("fs")
 let screenWidth = window.screen.width
 let plot_height = screenWidth * .22
 
+
 function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
 
     let dataLayout = {
-
         title: mainTitle,
-
-        xaxis: {
-            domain: [0, 0.4],
-            title: xtitle
-        },
-
-        yaxis: {
-            title: ytitle
-        },
-
-        xaxis2: {
-            domain: [0.5, 1],
-            title: x2
-        },
-
-        yaxis2: {
-            anchor: "x2",
-            title: y2,
-            overlaying: 'y',
-        },
-
-        yaxis3: {
-
-            anchor: 'free',
-            overlaying: 'y',
-            side: 'right',
-
-            title: "Measured (mJ)",
-            position: 0.97
-        },
-
+        xaxis: { domain: [0, 0.4], title: xtitle },
+        yaxis: { title: ytitle },
+        xaxis2: { domain: [0.5, 1], title: x2 },
+        yaxis2: { anchor: "x2", title: y2, overlaying: 'y', },
+        yaxis3: { anchor: 'free', overlaying: 'y', side: 'right', title: "Measured (mJ)", position: 0.97 },
         autosize: true,
-        height: plot_height,
+        height: localStorage["plotly_height"],
+        width: localStorage["plotly_width"]
     }
 
     let dataPlot1 = [];
-    for (let x in data) {
-        dataPlot1.push(data[x]);
-    }
-
+    for (let x in data) { dataPlot1.push(data[x]) }
     let dataPlot2 = [];
-    for (let x in data2) {
-        dataPlot2.push(data2[x]);
-    }
-
+    for (let x in data2) { dataPlot2.push(data2[x]) }
     Plotly.react(plotArea, dataPlot1.concat(dataPlot2), dataLayout, { editable: true })
 
 }
@@ -67,38 +32,33 @@ function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
 
     let dataLayout = {
         title: mainTitle,
-        xaxis: {
-            title: xtitle
-        },
-        yaxis: {
-            title: ytitle
-        },
-
+        xaxis: { title: xtitle},
+        yaxis: {title: ytitle},
         hovermode: 'closest',
         autosize: true,
-        height: plot_height,
-
-    };
-
+        height: localStorage["plotly_height"],
+        width: localStorage["plotly_width"]
+    }
     if (filetype == 'mass') { dataLayout.yaxis.type = "log" }
+    else if (filetype == 'scan') { dataLayout.width = localStorage["plotly_width"] / 2 }
+
     let dataPlot = [];
     for (let x in data) { dataPlot.push(data[x]) }
     try { Plotly.react(plotArea, dataPlot, dataLayout, { editable: true }) } catch (err) { console.log("Error occured while plotting\n", err) }
 }
+
 class program {
 
     constructor(obj) {
-
         this.obj = obj
         console.log(":: constructor -> this.obj", this.obj);
-
         console.log(`Received ${obj.filetype}files:`, obj.files);
         this.filetype = obj.filetype
         this.mainbtn = obj.mainbtn;
         this.pyfile = obj.pyfile;
         this.files = obj.files
         this.args = obj.args
-    };
+    }
 
     filecheck() {
         return new Promise((resolve, reject) => {
@@ -107,6 +67,7 @@ class program {
             } else { resolve(`Filecheck completed: ${this.filetype} files`) }
         })
     }
+
     run() {
 
         return new Promise((resolve, reject) => {
@@ -123,11 +84,8 @@ class program {
                         shell: shell_value
                     }
                 );
-
                 py.unref()
-
                 resolve("Done");
-
             }
             else {
 
@@ -139,14 +97,13 @@ class program {
                     );
                 } catch (err) { reject(`Check python location (Settings-->Configuration-->Pythonpath)\n${err}`) }
 
-                // let dataFromPython;
-
                 py.stdout.on("data", data => {
 
-                    let dataReceived = data.toString("utf8");
+                    console.log("Ouput from python")
+                    let dataReceived = data.toString("utf8")
                     console.log(dataReceived)
-
                 });
+
                 let error_occured_py = false;
 
                 let error_result;
@@ -171,7 +128,7 @@ class program {
                             } else if (this.filetype == "scan") {
                                 
                                 let filename = this.obj.plotArea.split("_t")[0]
-                                plot(`Timescan Plot: ${filename}`, "Time (in ms)", "Counts", dataFromPython, this.obj.plotArea);
+                                plot(`Timescan Plot: ${filename}`, "Time (in ms)", "Counts", dataFromPython, this.obj.plotArea, "scan");
                             } else if (this.filetype == "felix") {
 
                                 window.line = []
