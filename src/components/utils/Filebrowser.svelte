@@ -93,7 +93,6 @@
   }
 
   .folderContainerPanelBlock {
-    height:70vh;
     overflow: auto;
   }
 

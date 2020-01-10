@@ -856,7 +856,7 @@ function get_each_context(ctx, list, i) {
 	return child_ctx;
 }
 
-// (86:10) {:else}
+// (79:10) {:else}
 function create_else_block(ctx) {
 	var li, a, t0_value = ctx.item + "", t0, t1, li_id_value, dispose;
 
@@ -866,9 +866,9 @@ function create_else_block(ctx) {
 			a = element("a");
 			t0 = text(t0_value);
 			t1 = space();
-			attr(a, "class", "svelte-1n9x2nq");
+			attr(a, "class", "svelte-15w11va");
 			attr(li, "id", li_id_value = "" + ctx.item + "-nav");
-			attr(li, "class", "svelte-1n9x2nq");
+			attr(li, "class", "non-active svelte-15w11va");
 			dispose = listen(a, "click", ctx.controlNav);
 		},
 
@@ -899,7 +899,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (82:10) {#if item == 'Welcome'}
+// (75:10) {#if item == 'Welcome'}
 function create_if_block(ctx) {
 	var li, a, t0_value = ctx.item + "", t0, t1, li_id_value, dispose;
 
@@ -909,8 +909,8 @@ function create_if_block(ctx) {
 			a = element("a");
 			t0 = text(t0_value);
 			t1 = space();
-			attr(a, "class", "svelte-1n9x2nq");
-			attr(li, "class", "is-active svelte-1n9x2nq");
+			attr(a, "class", " svelte-15w11va");
+			attr(li, "class", "is-active svelte-15w11va");
 			attr(li, "id", li_id_value = "" + ctx.item + "-nav");
 			dispose = listen(a, "click", ctx.controlNav);
 		},
@@ -942,7 +942,7 @@ function create_if_block(ctx) {
 	};
 }
 
-// (81:8) {#each navItems as item}
+// (74:8) {#each navItems as item}
 function create_each_block(ctx) {
 	var if_block_anchor;
 
@@ -1009,10 +1009,10 @@ function create_fragment$1(ctx) {
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
-			attr(ul, "class", "svelte-1n9x2nq");
-			attr(div0, "class", "tabs is-centered is-boxed is-medium svelte-1n9x2nq");
+			attr(ul, "class", "svelte-15w11va");
+			attr(div0, "class", "tabs is-centered is-boxed is-medium svelte-15w11va");
 			attr(div1, "class", "container is-fluid");
-			attr(section, "class", "section box animated fadeInDown svelte-1n9x2nq");
+			attr(section, "class", "section box animated fadeInDown svelte-15w11va");
 			attr(section, "id", "Navbar");
 			set_style(section, "display", "none");
 		},
@@ -1072,29 +1072,26 @@ function instance$1($$self, $$props, $$invalidate) {
     jq("#Navbar").css("display", "block");
   });
 
-  const displayToggle = (element, value, classname) => {
-
-    let parent = (document.getElementById(element + "-nav").classList = classname);
-    try {
-
-      let targetElement = (document.getElementById(element).style.display = value);
-    } catch (err) {
-      console.log(element + " Not yet created or Error loading the page.");
-    }
-  };
-
   const controlNav = event => {
 
     let target = event.target.innerHTML;
     console.log(target + " is-active");
 
-    navItems.forEach(item => {
-      if (item == target) {
-        displayToggle(item, "block", "is-active");
+    navItems.forEach(item => { 
+      let bgColor = window.navbarBgColor || "#5b3ea2";
+      let $item = jq(`#${item}`), $itemParent = jq(`#${item}-nav`);
+      
+      if(item == target) {
+        $item.css("display", "block");
+        $itemParent.addClass("is-active").removeClass("non-active");
+        jq(`#${item}-nav a`).css("background-color", bgColor);
       } else {
-        displayToggle(item, "none", "");
+        $item.css("display", "none");
+        $itemParent.addClass("non-active").removeClass("is-active");
+        jq(`#${item}-nav a`).css("background-color", "transparent");
       }
     });
+
   };
 
 	$$self.$set = $$props => {
@@ -1472,10 +1469,10 @@ function create_default_slot(ctx) {
 	return {
 		c() {
 			h1 = element("h1");
-			h1.innerHTML = `<span class="text-wrapper svelte-1h3fugz"><span class="line line1 svelte-1h3fugz"></span> <span class="letters letters-left svelte-1h3fugz">FELion</span> <span class="letters letters-right svelte-1h3fugz">Spectrum Analyser</span> <span class="line line2 svelte-1h3fugz"></span></span> <br> <span class="letters letters-subtitle svelte-1h3fugz">
+			h1.innerHTML = `<span class="text-wrapper svelte-17rzmzp"><span class="line line1 svelte-17rzmzp"></span> <span class="letters letters-left svelte-17rzmzp">FELion</span> <span class="letters letters-right svelte-17rzmzp">Spectrum Analyser</span> <span class="line line2 svelte-17rzmzp"></span></span> <br> <span class="letters letters-subtitle svelte-17rzmzp">
 			        To analyse FELIX data for FELion Instrument
 			      </span>`;
-			attr(h1, "class", "ml5 svelte-1h3fugz");
+			attr(h1, "class", "ml5 svelte-17rzmzp");
 		},
 
 		m(target, anchor) {
@@ -1504,7 +1501,7 @@ function create_fragment$3(ctx) {
 		c() {
 			section = element("section");
 			animatebox.$$.fragment.c();
-			attr(section, "class", "section svelte-1h3fugz");
+			attr(section, "class", "section svelte-17rzmzp");
 			attr(section, "id", "Welcome");
 		},
 
@@ -1596,7 +1593,6 @@ function instance$3($$self, $$props, $$invalidate) {
         easing: "easeOutExpo",
         delay: 1000
       });
-
   });
 
 	$$self.$set = $$props => {
@@ -1627,15 +1623,15 @@ function get_each_context_1(ctx, list, i) {
 	return child_ctx;
 }
 
-// (241:8) {:else}
+// (240:8) {:else}
 function create_else_block_1(ctx) {
 	var li;
 
 	return {
 		c() {
 			li = element("li");
-			li.innerHTML = `<h1 class="subtitle svelte-1uw1w20">Browse to load files</h1>`;
-			attr(li, "class", "svelte-1uw1w20");
+			li.innerHTML = `<h1 class="subtitle svelte-11ri7z2">Browse to load files</h1>`;
+			attr(li, "class", "svelte-11ri7z2");
 		},
 
 		m(target, anchor) {
@@ -1652,7 +1648,7 @@ function create_else_block_1(ctx) {
 	};
 }
 
-// (173:8) {#if folderFile != undefined}
+// (172:8) {#if folderFile != undefined}
 function create_if_block$1(ctx) {
 	var li0, aside, div, span0, t0, span1, t1_value = ctx.folderFile.parentFolder + "", t1, div_id_value, t2, ul0, t3, ul0_id_value, aside_id_value, t4, li1, ul1, dispose;
 
@@ -1686,7 +1682,7 @@ function create_if_block$1(ctx) {
 			aside = element("aside");
 			div = element("div");
 			span0 = element("span");
-			span0.innerHTML = `<i class="fas fa-angle-right fa-rotate-90 svelte-1uw1w20" aria-hidden="true"></i>`;
+			span0.innerHTML = `<i class="fas fa-angle-right fa-rotate-90 svelte-11ri7z2" aria-hidden="true"></i>`;
 			t0 = space();
 			span1 = element("span");
 			t1 = text(t1_value);
@@ -1706,17 +1702,17 @@ function create_if_block$1(ctx) {
 			for (let i_1 = 0; i_1 < each_blocks.length; i_1 += 1) {
 				each_blocks[i_1].c();
 			}
-			attr(span0, "class", "icon svelte-1uw1w20");
-			attr(span1, "class", "svelte-1uw1w20");
-			attr(div, "class", "menu-label has-text-white svelte-1uw1w20");
+			attr(span0, "class", "icon svelte-11ri7z2");
+			attr(span1, "class", "svelte-11ri7z2");
+			attr(div, "class", "menu-label has-text-white svelte-11ri7z2");
 			attr(div, "id", div_id_value = "" + ctx.filetag + "FolderContainer");
-			attr(ul0, "class", "menu-list filexplorer svelte-1uw1w20");
+			attr(ul0, "class", "menu-list filexplorer svelte-11ri7z2");
 			attr(ul0, "id", ul0_id_value = "" + ctx.filetag + "FileContainer");
-			attr(aside, "class", "menu svelte-1uw1w20");
+			attr(aside, "class", "menu svelte-11ri7z2");
 			attr(aside, "id", aside_id_value = "" + ctx.filetag + "FileBrowser");
-			attr(li0, "class", "svelte-1uw1w20");
-			attr(ul1, "class", "svelte-1uw1w20");
-			attr(li1, "class", "otherFolderList svelte-1uw1w20");
+			attr(li0, "class", "svelte-11ri7z2");
+			attr(ul1, "class", "svelte-11ri7z2");
+			attr(li1, "class", "otherFolderList svelte-11ri7z2");
 			dispose = listen(span0, "click", ctx.folderToggle);
 		},
 
@@ -1840,7 +1836,7 @@ function create_if_block$1(ctx) {
 	};
 }
 
-// (199:16) {:else}
+// (198:16) {:else}
 function create_else_block$1(ctx) {
 	var li, div, t0, t1, t2;
 
@@ -1851,8 +1847,8 @@ function create_else_block$1(ctx) {
 			t0 = text("No ");
 			t1 = text(ctx.filetag);
 			t2 = text(" files here");
-			attr(div, "class", "svelte-1uw1w20");
-			attr(li, "class", "svelte-1uw1w20");
+			attr(div, "class", "svelte-11ri7z2");
+			attr(li, "class", "svelte-11ri7z2");
 		},
 
 		m(target, anchor) {
@@ -1877,7 +1873,7 @@ function create_else_block$1(ctx) {
 	};
 }
 
-// (186:16) {#if folderFile.files.length > 0}
+// (185:16) {#if folderFile.files.length > 0}
 function create_if_block_1(ctx) {
 	var li, div1, input, input_id_value, t, div0, dispose;
 
@@ -1888,13 +1884,13 @@ function create_if_block_1(ctx) {
 			input = element("input");
 			t = space();
 			div0 = element("div");
-			div0.innerHTML = `<i class="icon mdi mdi-check svelte-1uw1w20"></i> <label class="svelte-1uw1w20">Select All</label>`;
+			div0.innerHTML = `<i class="icon mdi mdi-check svelte-11ri7z2"></i> <label class="svelte-11ri7z2">Select All</label>`;
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "selectall");
-			attr(input, "class", "svelte-1uw1w20");
-			attr(div0, "class", "state p-primary svelte-1uw1w20");
-			attr(div1, "class", "pretty p-icon p-round p-pulse svelte-1uw1w20");
-			attr(li, "class", "svelte-1uw1w20");
+			attr(input, "class", "svelte-11ri7z2");
+			attr(div0, "class", "state p-primary svelte-11ri7z2");
+			attr(div1, "class", "pretty p-icon p-round p-pulse svelte-11ri7z2");
+			attr(li, "class", "svelte-11ri7z2");
 			dispose = listen(input, "click", ctx.selectAllToggle);
 		},
 
@@ -1922,7 +1918,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (203:16) {#each folderFile.files.sort() as filename}
+// (202:16) {#each folderFile.files.sort() as filename}
 function create_each_block_1(ctx) {
 	var li, div1, input, input_id_value, input_class_value, t0, div0, i, t1, label, t2_value = ctx.filename + "", t2, label_for_value, t3, li_class_value, dispose;
 
@@ -1940,13 +1936,13 @@ function create_each_block_1(ctx) {
 			t3 = space();
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = ctx.filename);
-			attr(input, "class", input_class_value = "" + ctx.filetag + "-files" + " svelte-1uw1w20");
-			attr(i, "class", "icon mdi mdi-check svelte-1uw1w20");
+			attr(input, "class", input_class_value = "" + ctx.filetag + "-files" + " svelte-11ri7z2");
+			attr(i, "class", "icon mdi mdi-check svelte-11ri7z2");
 			attr(label, "for", label_for_value = ctx.filename);
-			attr(label, "class", "svelte-1uw1w20");
-			attr(div0, "class", "state p-success svelte-1uw1w20");
-			attr(div1, "class", "pretty p-icon p-round p-smooth svelte-1uw1w20");
-			attr(li, "class", li_class_value = "" + null_to_empty(ctx.filename) + " svelte-1uw1w20");
+			attr(label, "class", "svelte-11ri7z2");
+			attr(div0, "class", "state p-success svelte-11ri7z2");
+			attr(div1, "class", "pretty p-icon p-round p-smooth svelte-11ri7z2");
+			attr(li, "class", li_class_value = "" + null_to_empty(ctx.filename) + " svelte-11ri7z2");
 			set_style(li, "display", "block");
 			dispose = listen(input, "click", ctx.getCheckedFiles);
 		},
@@ -1969,7 +1965,7 @@ function create_each_block_1(ctx) {
 				attr(input, "id", input_id_value);
 			}
 
-			if ((changed.filetag) && input_class_value !== (input_class_value = "" + ctx.filetag + "-files" + " svelte-1uw1w20")) {
+			if ((changed.filetag) && input_class_value !== (input_class_value = "" + ctx.filetag + "-files" + " svelte-11ri7z2")) {
 				attr(input, "class", input_class_value);
 			}
 
@@ -1981,7 +1977,7 @@ function create_each_block_1(ctx) {
 				attr(label, "for", label_for_value);
 			}
 
-			if ((changed.folderFile) && li_class_value !== (li_class_value = "" + null_to_empty(ctx.filename) + " svelte-1uw1w20")) {
+			if ((changed.folderFile) && li_class_value !== (li_class_value = "" + null_to_empty(ctx.filename) + " svelte-11ri7z2")) {
 				attr(li, "class", li_class_value);
 			}
 		},
@@ -1996,7 +1992,7 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (225:14) {#each folderFile.folders as foldername}
+// (224:14) {#each folderFile.folders as foldername}
 function create_each_block$1(ctx) {
 	var li, aside, div, span0, t0, span1, t1_value = ctx.foldername + "", t1, span1_id_value, t2, dispose;
 
@@ -2010,17 +2006,17 @@ function create_each_block$1(ctx) {
 			aside = element("aside");
 			div = element("div");
 			span0 = element("span");
-			span0.innerHTML = `<i class="fas fa-angle-right svelte-1uw1w20" aria-hidden="true"></i>`;
+			span0.innerHTML = `<i class="fas fa-angle-right svelte-11ri7z2" aria-hidden="true"></i>`;
 			t0 = space();
 			span1 = element("span");
 			t1 = text(t1_value);
 			t2 = space();
-			attr(span0, "class", "icon svelte-1uw1w20");
+			attr(span0, "class", "icon svelte-11ri7z2");
 			attr(span1, "id", span1_id_value = ctx.foldername);
-			attr(span1, "class", "svelte-1uw1w20");
-			attr(div, "class", "menu-label has-text-white svelte-1uw1w20");
-			attr(aside, "class", "menu svelte-1uw1w20");
-			attr(li, "class", "svelte-1uw1w20");
+			attr(span1, "class", "svelte-11ri7z2");
+			attr(div, "class", "menu-label has-text-white svelte-11ri7z2");
+			attr(aside, "class", "menu svelte-11ri7z2");
+			attr(li, "class", "svelte-11ri7z2");
 			dispose = listen(span1, "click", click_handler_1);
 		},
 
@@ -2092,7 +2088,7 @@ function create_fragment$4(ctx) {
 			input = element("input");
 			t4 = space();
 			span3 = element("span");
-			span3.innerHTML = `<i class="fas fa-search svelte-1uw1w20" aria-hidden="true"></i>`;
+			span3.innerHTML = `<i class="fas fa-search svelte-11ri7z2" aria-hidden="true"></i>`;
 			t5 = space();
 			div9 = element("div");
 			div8 = element("div");
@@ -2101,44 +2097,44 @@ function create_fragment$4(ctx) {
 			div10 = element("div");
 			ul = element("ul");
 			if_block.c();
-			attr(span0, "class", "" + animation + " svelte-1uw1w20");
+			attr(span0, "class", "" + animation + " svelte-11ri7z2");
 			set_style(span0, "display", ctx.display);
-			attr(div0, "class", "level-item svelte-1uw1w20");
-			attr(div1, "class", "level-left svelte-1uw1w20");
-			attr(i0, "class", "fas fa-sync refreshIcon hvr-icon svelte-1uw1w20");
+			attr(div0, "class", "level-item svelte-11ri7z2");
+			attr(div1, "class", "level-left svelte-11ri7z2");
+			attr(i0, "class", "fas fa-sync refreshIcon hvr-icon svelte-11ri7z2");
 			attr(i0, "id", i0_id_value = "" + ctx.filetag + "refreshIcon");
 			attr(i0, "aria-hidden", "true");
-			attr(span1, "class", "icon refresh hvr-icon-spin svelte-1uw1w20");
+			attr(span1, "class", "icon refresh hvr-icon-spin svelte-11ri7z2");
 			attr(span1, "id", span1_id_value = "" + ctx.filetag + "refresh");
-			attr(div2, "class", "level-item " + animation + " svelte-1uw1w20");
+			attr(div2, "class", "level-item " + animation + " svelte-11ri7z2");
 			set_style(div2, "display", ctx.display);
-			attr(i1, "class", "fas fa-angle-left hvr-icon svelte-1uw1w20");
+			attr(i1, "class", "fas fa-angle-left hvr-icon svelte-11ri7z2");
 			attr(i1, "aria-hidden", "true");
-			attr(span2, "class", "icon backbtn hvr-icon-back svelte-1uw1w20");
+			attr(span2, "class", "icon backbtn hvr-icon-back svelte-11ri7z2");
 			attr(span2, "id", span2_id_value = "" + ctx.filetag + "BackButton");
-			attr(div3, "class", "level-item " + animation + " svelte-1uw1w20");
+			attr(div3, "class", "level-item " + animation + " svelte-11ri7z2");
 			set_style(div3, "display", ctx.display);
-			attr(div4, "class", "level-right svelte-1uw1w20");
-			attr(div5, "class", "level svelte-1uw1w20");
-			attr(div6, "class", "panel-heading svelte-1uw1w20");
-			attr(input, "class", "input is-small  svelte-1uw1w20");
+			attr(div4, "class", "level-right svelte-11ri7z2");
+			attr(div5, "class", "level svelte-11ri7z2");
+			attr(div6, "class", "panel-heading svelte-11ri7z2");
+			attr(input, "class", "input is-small  svelte-11ri7z2");
 			attr(input, "type", "text");
 			attr(input, "placeholder", input_placeholder_value = "Search " + ctx.filetag + " files");
 			attr(input, "id", input_id_value = "" + ctx.filetag + "-searchFiles");
-			attr(span3, "class", "icon is-small is-left svelte-1uw1w20");
-			attr(p, "class", "control has-icons-left svelte-1uw1w20");
-			attr(div7, "class", "panel-block svelte-1uw1w20");
-			attr(div8, "class", "animated fadeIn svelte-1uw1w20");
+			attr(span3, "class", "icon is-small is-left svelte-11ri7z2");
+			attr(p, "class", "control has-icons-left svelte-11ri7z2");
+			attr(div7, "class", "panel-block svelte-11ri7z2");
+			attr(div8, "class", "animated fadeIn svelte-11ri7z2");
 			attr(div8, "id", div8_id_value = "" + ctx.filetag + "locationUpdate");
 			set_style(div8, "display", "none");
-			attr(div9, "class", "panel-block svelte-1uw1w20");
+			attr(div9, "class", "panel-block svelte-11ri7z2");
 			set_style(div9, "height", "2em");
-			attr(ul, "class", "svelte-1uw1w20");
-			attr(div10, "class", "panel-block folderContainerPanelBlock svelte-1uw1w20");
+			attr(ul, "class", "svelte-11ri7z2");
+			attr(div10, "class", "panel-block folderContainerPanelBlock svelte-11ri7z2");
 			attr(div11, "id", div11_id_value = "" + ctx.filetag + "panel-block");
-			attr(div11, "class", "" + animation + " svelte-1uw1w20");
+			attr(div11, "class", "" + animation + " svelte-11ri7z2");
 			set_style(div11, "display", ctx.display);
-			attr(nav, "class", "panel svelte-1uw1w20");
+			attr(nav, "class", "panel svelte-11ri7z2");
 
 			dispose = [
 				listen(span1, "click", ctx.refreshFolder),
@@ -2370,65 +2366,31 @@ class Filebrowser extends SvelteComponent {
 	}
 }
 
-// Importing modules
-
 const { spawn } = require("child_process");
 const path = require('path');
 const fs = require("fs");
 
 let screenWidth = window.screen.width;
-let plot_height = screenWidth * .22;
+
 
 function subplot(mainTitle, xtitle, ytitle, data, plotArea, x2, y2, data2) {
 
     let dataLayout = {
-
         title: mainTitle,
-
-        xaxis: {
-            domain: [0, 0.4],
-            title: xtitle
-        },
-
-        yaxis: {
-            title: ytitle
-        },
-
-        xaxis2: {
-            domain: [0.5, 1],
-            title: x2
-        },
-
-        yaxis2: {
-            anchor: "x2",
-            title: y2,
-            overlaying: 'y',
-        },
-
-        yaxis3: {
-
-            anchor: 'free',
-            overlaying: 'y',
-            side: 'right',
-
-            title: "Measured (mJ)",
-            position: 0.97
-        },
-
+        xaxis: { domain: [0, 0.4], title: xtitle },
+        yaxis: { title: ytitle },
+        xaxis2: { domain: [0.5, 1], title: x2 },
+        yaxis2: { anchor: "x2", title: y2, overlaying: 'y', },
+        yaxis3: { anchor: 'free', overlaying: 'y', side: 'right', title: "Measured (mJ)", position: 0.97 },
         autosize: true,
-        height: plot_height,
+        height: localStorage["plotly_height"],
+        width: localStorage["plotly_width"]
     };
 
     let dataPlot1 = [];
-    for (let x in data) {
-        dataPlot1.push(data[x]);
-    }
-
+    for (let x in data) { dataPlot1.push(data[x]); }
     let dataPlot2 = [];
-    for (let x in data2) {
-        dataPlot2.push(data2[x]);
-    }
-
+    for (let x in data2) { dataPlot2.push(data2[x]); }
     Plotly.react(plotArea, dataPlot1.concat(dataPlot2), dataLayout, { editable: true });
 
 }
@@ -2437,38 +2399,33 @@ function plot(mainTitle, xtitle, ytitle, data, plotArea, filetype = null) {
 
     let dataLayout = {
         title: mainTitle,
-        xaxis: {
-            title: xtitle
-        },
-        yaxis: {
-            title: ytitle
-        },
-
+        xaxis: { title: xtitle},
+        yaxis: {title: ytitle},
         hovermode: 'closest',
         autosize: true,
-        height: plot_height,
-
+        height: localStorage["plotly_height"],
+        width: localStorage["plotly_width"]
     };
-
     if (filetype == 'mass') { dataLayout.yaxis.type = "log"; }
+    else if (filetype == 'scan') { dataLayout.width = localStorage["plotly_width"] / 2; }
+
     let dataPlot = [];
     for (let x in data) { dataPlot.push(data[x]); }
-    try { Plotly.react(plotArea, dataPlot, dataLayout, { editable: true }); } catch (err) { console.log(err); }
+    try { Plotly.react(plotArea, dataPlot, dataLayout, { editable: true }); } catch (err) { console.log("Error occured while plotting\n", err); }
 }
+
 class program {
 
     constructor(obj) {
-
         this.obj = obj;
         console.log(":: constructor -> this.obj", this.obj);
-
         console.log(`Received ${obj.filetype}files:`, obj.files);
         this.filetype = obj.filetype;
         this.mainbtn = obj.mainbtn;
         this.pyfile = obj.pyfile;
         this.files = obj.files;
         this.args = obj.args;
-    };
+    }
 
     filecheck() {
         return new Promise((resolve, reject) => {
@@ -2477,6 +2434,7 @@ class program {
             } else { resolve(`Filecheck completed: ${this.filetype} files`); }
         })
     }
+
     run() {
 
         return new Promise((resolve, reject) => {
@@ -2493,17 +2451,13 @@ class program {
                         shell: shell_value
                     }
                 );
-
                 py.unref();
-
                 resolve("Done");
-
             }
             else {
 
                 let py;
                 try {
-                    fs.readFileSync(`${localStorage["pythonpath"]}.exe`);
                     py = spawn(
                         localStorage["pythonpath"],
                         [path.join(localStorage["pythonscript"], this.pyfile), this.files.concat(this.args)]
@@ -2512,238 +2466,233 @@ class program {
 
                 py.stdout.on("data", data => {
 
-                    let dataFromPython;
-                    dataFromPython = data.toString("utf8");
-
-                    if (!this.obj.checking) {
-                        console.log("Running python code");
-                        dataFromPython = JSON.parse(dataFromPython);
-                        console.log("After JSON parse :", dataFromPython);
-                    } else { console.log("Before JSON parse :" + dataFromPython); }
-
-                    try {
-
-                        if (this.filetype == "mass") {
-                            plot("Mass spectrum", "Mass [u]", "Counts", dataFromPython, "mplot", "mass");
-
-                        } else if (this.filetype == "scan") {
-                            let filename = this.obj.plotArea.split("_t")[0];
-                            plot(`Timescan Plot: ${filename}`, "Time (in ms)", "Counts", dataFromPython, this.obj.plotArea);
-                        } else if (this.filetype == "felix") {
-                            window.line = [];
-                            window.index = [];
-                            window.annotations = [];
-                            let normMethod = this.obj.normethod;
-                            let delta = this.args[0];
-
-                            let felixdataToPlot;
-                            let avgdataToPlot;
-
-                            let signal_formula;
-                            let ylabel;
-
-                            if (normMethod === "Log") {
-
-                                avgdataToPlot = dataFromPython["average"];
-
-                                signal_formula = "Signal = -ln(C/B)/Power(in J)";
-                                ylabel = "Normalised Intensity per J";
-
-                            } else if (normMethod == "Relative") {
-
-                                avgdataToPlot = dataFromPython["average_rel"];
-
-                                signal_formula = "Signal = (1-C/B)*100";
-                                ylabel = "Relative Depletion (%)";
-
-                            } else if (normMethod == "IntensityPerPhoton") {
-
-                                avgdataToPlot = dataFromPython["average_per_photon"];
-
-                                signal_formula = "Signal = -ln(C/B)/#Photons";
-                                ylabel = "Normalised Intensity per photon";
-                            }
-
-
-                            const get_data = (data) => {
-                                let dataPlot = [];
-                                for (let x in data) { dataPlot.push(data[x]); }
-                                return dataPlot
-                            };
-                            let signal = {
-                                "rel": "Signal = (1-C/B)*100",
-                                "log": "Signal = -ln(C/B)/Power(in J)",
-                                "hv": "Signal = -ln(C/B)/#Photons"
-                            };
-                            const set_title = (method) => `Normalised and Averaged Spectrum (delta=${delta})<br>${signal[method]}; {C=Measured Count, B=Baseline Count}`;
-                            window.avg_data = {
-                                "Relative": {
-                                    "data": get_data(dataFromPython["average_rel"]),
-                                    "layout": {
-                                        "title": set_title("rel"),
-                                        "yaxis": { "title": "Relative Depletion (%)" },
-                                        "xaxis": { "title": "Calibrated Wavelength (cm-1)" }
-                                    }
-                                },
-                                "Log": {
-                                    "data": get_data(dataFromPython["average"]),
-                                    "layout": {
-                                        "title": set_title("log"),
-                                        "yaxis": { "title": "Normalised Intensity per J" },
-                                        "xaxis": { "title": "Calibrated Wavelength (cm-1)" }
-                                    }
-                                },
-                                "IntensityPerPhoton": {
-                                    "data": get_data(dataFromPython["average_per_photon"]),
-                                    "layout": {
-                                        "title": set_title("hv"),
-                                        "yaxis": { "title": "Normalised Intensity per photon" },
-                                        "xaxis": { "title": "Calibrated Wavelength (cm-1)" }
-                                    }
-                                },
-
-                            };
-
-                            plot(
-                                "Baseline Corrected",
-                                "Wavelength (cm-1)",
-                                "Counts",
-                                dataFromPython["base"],
-                                "bplot"
-                            );
-
-                            plot(
-                                `Normalised and Averaged Spectrum (delta=${delta})<br>${signal_formula}; {C=Measured Count, B=Baseline Count}`,
-                                "Calibrated Wavelength (cm-1)",
-                                ylabel,
-                                avgdataToPlot,
-                                "avgplot"
-                            );
-
-                            //Spectrum and Power Analyer
-                            subplot(
-                                "Spectrum and Power Analyser",
-                                "Wavelength set (cm-1)",
-                                "SA (cm-1)",
-                                dataFromPython["SA"],
-                                "saPlot",
-                                "Wavelength (cm-1)",
-                                `Total Power (mJ)`,
-                                dataFromPython["pow"]
-                            );
-
-                            let avgplot = document.getElementById("avgplot");
-                            avgplot.on("plotly_selected", (data) => {
-                                if (!data) console.log("No data available to fit");
-                                else {
-                                    console.log(data);
-
-                                    let { range } = data;
-                                    let filename = data.points[0].data.name.split(".")[0];
-                                    window.index = range.x;
-                                    window.filename = filename;
-
-                                    console.log(`Selected file: ${window.filename}`);
-                                    console.log(`Index selected: ${window.index}`);
-                                    document.getElementById("fitFiles").value = filename;
-                                    document.getElementById("expfitFiles").value = filename;
-
-                                }
-                            });
-                        } else if (this.filetype == "opofile") {
-                            plot("OPO spectrum", "Wavenumber (cm-1)", "Counts", dataFromPython["real"], "opoplot");
-                            plot("OPO spectrum: Depletion (%)", "Wavenumber (cm-1)", "Depletion (%)", dataFromPython["relative"], "opoRelPlot");
-                        }
-                        else if (this.filetype == "theory") {
-
-                            let normethod = this.args[0];
-                            let ylabel;
-                            if (normethod === "Log") { ylabel = "Normalised Intensity per J"; }
-                            else if (normethod === "Relative") { ylabel = "Relative Depletion (%)"; }
-                            else { ylabel = "Normalised Intensity per Photon"; }
-
-                            let theoryData = [];
-                            for (let x in dataFromPython["line_simulation"]) { theoryData.push(dataFromPython["line_simulation"][x]); }
-
-                            plot(
-                                "Experimental vs Theory",
-                                "Calibrated Wavelength (cm-1)",
-                                ylabel, [dataFromPython["averaged"], ...theoryData],
-                                "exp-theory-plot"
-                            );
-                        }
-                        else if (this.filetype == "thz") {
-
-
-                            let delta_thz = this.args;
-
-                            plot(`THz Scan`, "Frequency (GHz)", "Depletion (%)", dataFromPython, "thzplot_Container");
-
-                            let lines = [];
-
-                            for (let x in dataFromPython["shapes"]) { lines.push(dataFromPython["shapes"][x]); }
-                            let layout_update = {
-                                shapes: lines
-                            };
-                            Plotly.relayout("thzplot_Container", layout_update);
-                        }
-                        // else if (this.filetype == "depletion") { console.log('Graph plotted') }
-                        // else if (this.filetype == "norm_tkplot") { console.log('Graph plotted') }
-                        else if (this.filetype == "exp_fit") {
-
-                            // window.index = []
-
-                            Plotly.addTraces("avgplot", dataFromPython["fit"]);
-
-                            window.line = [...window.line, ...dataFromPython["line"]];
-                            Plotly.relayout("avgplot", { shapes: window.line });
-
-                            window.annotations = [...window.annotations, dataFromPython["annotations"]];
-                            Plotly.relayout("avgplot", { annotations: window.annotations });
-
-                        } else if (this.filetype == "expfit_all") {
-                            Plotly.relayout("avgplot", { annotations: [] });
-                            Plotly.relayout("avgplot", { annotations: dataFromPython[2]["annotations"] });
-                            window.annotations = dataFromPython[2]["annotations"];
-
-                            if (dataFromPython[3] != undefined) {
-                                let fit = dataFromPython[3];
-                                fit.forEach(data => {
-                                    Plotly.addTraces("avgplot", data["fit"]);
-                                    window.line = [...window.line, ...data["line"]];
-                                    Plotly.relayout("avgplot", { shapes: window.line });
-
-                                });
-                            }
-                        } else if (this.filetype == "find_peaks") {
-                            Plotly.relayout("mplot", { yaxis: { title: "Counts", type: "" } });
-                            Plotly.relayout("mplot", { annotations: [] });
-                            Plotly.relayout("mplot", { annotations: dataFromPython["annotations"] });
-                            Plotly.relayout("mplot", { yaxis: { title: "Counts", type: "log" } });
-                        }
-
-                        console.log("Graph Plotted");
-
-                    } catch (err) {
-                        console.error("Error Occured in javascript code: " + err);
-                    }
-
+                    console.log("Ouput from python");
+                    let dataReceived = data.toString("utf8");
+                    console.log(dataReceived);
                 });
 
                 let error_occured_py = false;
+
                 let error_result;
-
                 py.stderr.on("data", data => {
-
                     error_result = data;
                     error_occured_py = true;
-                    // console.error(`Error from python: ${data}`);
                 });
 
                 py.on("close", () => {
                     console.log("Returned to javascript");
 
                     if (!error_occured_py) {
+                        try {
+                            let dataFromPython = fs.readFileSync(path.join(localStorage["pythonscript"], "data.json"));
+                            dataFromPython = JSON.parse(dataFromPython.toString("utf-8"));
+                            console.log(dataFromPython);
+
+                            if (this.filetype == "mass") {
+                                
+                                plot("Mass spectrum", "Mass [u]", "Counts", dataFromPython, "mplot", "mass");
+    
+                            } else if (this.filetype == "scan") {
+                                
+                                let filename = this.obj.plotArea.split("_t")[0];
+                                plot(`Timescan Plot: ${filename}`, "Time (in ms)", "Counts", dataFromPython, this.obj.plotArea, "scan");
+                            } else if (this.filetype == "felix") {
+
+                                window.line = [];
+                                window.index = [];
+                                window.annotations = [];
+                                let normMethod = this.obj.normethod;
+                                let delta = this.args[0];
+    
+                                let avgdataToPlot;
+    
+                                let signal_formula;
+                                let ylabel;
+    
+                                if (normMethod === "Log") {
+    
+                                    avgdataToPlot = dataFromPython["average"];
+    
+                                    signal_formula = "Signal = -ln(C/B)/Power(in J)";
+                                    ylabel = "Normalised Intensity per J";
+    
+                                } else if (normMethod == "Relative") {
+    
+                                    avgdataToPlot = dataFromPython["average_rel"];
+    
+                                    signal_formula = "Signal = (1-C/B)*100";
+                                    ylabel = "Relative Depletion (%)";
+    
+                                } else if (normMethod == "IntensityPerPhoton") {
+    
+                                    avgdataToPlot = dataFromPython["average_per_photon"];
+    
+                                    signal_formula = "Signal = -ln(C/B)/#Photons";
+                                    ylabel = "Normalised Intensity per photon";
+                                }
+    
+    
+                                const get_data = (data) => {
+                                    let dataPlot = [];
+                                    for (let x in data) { dataPlot.push(data[x]); }
+                                    return dataPlot
+                                };
+                                let signal = {
+                                    "rel": "Signal = (1-C/B)*100",
+                                    "log": "Signal = -ln(C/B)/Power(in J)",
+                                    "hv": "Signal = -ln(C/B)/#Photons"
+                                };
+                                const set_title = (method) => `Normalised and Averaged Spectrum (delta=${delta})<br>${signal[method]}; {C=Measured Count, B=Baseline Count}`;
+                                window.avg_data = {
+                                    "Relative": {
+                                        "data": get_data(dataFromPython["average_rel"]),
+                                        "layout": {
+                                            "title": set_title("rel"),
+                                            "yaxis": { "title": "Relative Depletion (%)" },
+                                            "xaxis": { "title": "Calibrated Wavelength (cm-1)" }
+                                        }
+                                    },
+                                    "Log": {
+                                        "data": get_data(dataFromPython["average"]),
+                                        "layout": {
+                                            "title": set_title("log"),
+                                            "yaxis": { "title": "Normalised Intensity per J" },
+                                            "xaxis": { "title": "Calibrated Wavelength (cm-1)" }
+                                        }
+                                    },
+                                    "IntensityPerPhoton": {
+                                        "data": get_data(dataFromPython["average_per_photon"]),
+                                        "layout": {
+                                            "title": set_title("hv"),
+                                            "yaxis": { "title": "Normalised Intensity per photon" },
+                                            "xaxis": { "title": "Calibrated Wavelength (cm-1)" }
+                                        }
+                                    },
+    
+                                };
+    
+                                plot(
+                                    "Baseline Corrected",
+                                    "Wavelength (cm-1)",
+                                    "Counts",
+                                    dataFromPython["base"],
+                                    "bplot"
+                                );
+    
+                                plot(
+                                    `Normalised and Averaged Spectrum (delta=${delta})<br>${signal_formula}; {C=Measured Count, B=Baseline Count}`,
+                                    "Calibrated Wavelength (cm-1)",
+                                    ylabel,
+                                    avgdataToPlot,
+                                    "avgplot"
+                                );
+    
+                                //Spectrum and Power Analyer
+                                subplot(
+                                    "Spectrum and Power Analyser",
+                                    "Wavelength set (cm-1)",
+                                    "SA (cm-1)",
+                                    dataFromPython["SA"],
+                                    "saPlot",
+                                    "Wavelength (cm-1)",
+                                    `Total Power (mJ)`,
+                                    dataFromPython["pow"]
+                                );
+    
+                                let avgplot = document.getElementById("avgplot");
+                                avgplot.on("plotly_selected", (data) => {
+                                    if (!data) console.log("No data available to fit");
+                                    else {
+                                        console.log(data);
+    
+                                        let { range } = data;
+                                        let filename = data.points[0].data.name.split(".")[0];
+                                        window.index = range.x;
+                                        window.filename = filename;
+    
+                                        console.log(`Selected file: ${window.filename}`);
+                                        console.log(`Index selected: ${window.index}`);
+                                        document.getElementById("fitFiles").value = filename;
+                                        document.getElementById("expfitFiles").value = filename;
+    
+                                    }
+                                });
+                            } else if (this.filetype == "opofile") {
+                                plot("OPO spectrum", "Wavenumber (cm-1)", "Counts", dataFromPython["real"], "opoplot");
+                                plot("OPO spectrum: Depletion (%)", "Wavenumber (cm-1)", "Depletion (%)", dataFromPython["relative"], "opoRelPlot");
+                            }
+                            else if (this.filetype == "theory") {
+    
+                                let normethod = this.args[0];
+                                let ylabel;
+                                if (normethod === "Log") { ylabel = "Normalised Intensity per J"; }
+                                else if (normethod === "Relative") { ylabel = "Relative Depletion (%)"; }
+                                else { ylabel = "Normalised Intensity per Photon"; }
+    
+                                let theoryData = [];
+                                for (let x in dataFromPython["line_simulation"]) { theoryData.push(dataFromPython["line_simulation"][x]); }
+    
+                                plot(
+                                    "Experimental vs Theory",
+                                    "Calibrated Wavelength (cm-1)",
+                                    ylabel, [dataFromPython["averaged"], ...theoryData],
+                                    "exp-theory-plot"
+                                );
+                            }
+                            else if (this.filetype == "thz") {
+    
+                                plot(`THz Scan`, "Frequency (GHz)", "Depletion (%)", dataFromPython, "thzplot_Container");
+    
+                                let lines = [];
+    
+                                for (let x in dataFromPython["shapes"]) { lines.push(dataFromPython["shapes"][x]); }
+                                let layout_update = {
+                                    shapes: lines
+                                };
+                                Plotly.relayout("thzplot_Container", layout_update);
+                            }
+                            else if (this.filetype == "boltzman") {
+                                plot(`Boltzman Distribution`, "Rotational levels (J)", "Probability (%)", dataFromPython, "boltzman_plot");
+                            }
+                            // else if (this.filetype == "norm_tkplot") { console.log('Graph plotted') }
+                            else if (this.filetype == "exp_fit") {
+    
+                                // window.index = []
+    
+                                Plotly.addTraces("avgplot", dataFromPython["fit"]);
+    
+                                window.line = [...window.line, ...dataFromPython["line"]];
+                                Plotly.relayout("avgplot", { shapes: window.line });
+    
+                                window.annotations = [...window.annotations, dataFromPython["annotations"]];
+                                Plotly.relayout("avgplot", { annotations: window.annotations });
+    
+                            } else if (this.filetype == "expfit_all") {
+                                Plotly.relayout("avgplot", { annotations: [] });
+                                Plotly.relayout("avgplot", { annotations: dataFromPython[2]["annotations"] });
+                                window.annotations = dataFromPython[2]["annotations"];
+    
+                                if (dataFromPython[3] != undefined) {
+                                    let fit = dataFromPython[3];
+                                    fit.forEach(data => {
+                                        Plotly.addTraces("avgplot", data["fit"]);
+                                        window.line = [...window.line, ...data["line"]];
+                                        Plotly.relayout("avgplot", { shapes: window.line });
+    
+                                    });
+                                }
+                            } else if (this.filetype == "find_peaks") {
+                                Plotly.relayout("mplot", { yaxis: { title: "Counts", type: "" } });
+                                Plotly.relayout("mplot", { annotations: [] });
+                                Plotly.relayout("mplot", { annotations: dataFromPython["annotations"] });
+                                Plotly.relayout("mplot", { yaxis: { title: "Counts", type: "log" } });
+                            }
+    
+                            console.log("Graph Plotted");
+    
+                        } catch (err) {
+                            console.error("Error Occured in javascript code: " + err);
+                        }
                         resolve(`Plotted for ${this.filetype} file`);
 
                     } else {
@@ -2997,7 +2946,15 @@ function get_each_context$2(ctx, list, i) {
 	return child_ctx;
 }
 
-function get_each_context_4(ctx, list, i) {
+function get_each_context_9(ctx, list, i) {
+	const child_ctx = Object.create(ctx);
+	child_ctx.name = list[i].name;
+	child_ctx.id = list[i].id;
+	child_ctx.value = list[i].value;
+	return child_ctx;
+}
+
+function get_each_context_8(ctx, list, i) {
 	const child_ctx = Object.create(ctx);
 	child_ctx.file = list[i];
 	return child_ctx;
@@ -3022,13 +2979,13 @@ function get_each_context_6(ctx, list, i) {
 	return child_ctx;
 }
 
-function get_each_context_8(ctx, list, i) {
+function get_each_context_4(ctx, list, i) {
 	const child_ctx = Object.create(ctx);
 	child_ctx.theoryfile = list[i];
 	return child_ctx;
 }
 
-function get_each_context_9(ctx, list, i) {
+function get_each_context_10(ctx, list, i) {
 	const child_ctx = Object.create(ctx);
 	child_ctx.id = list[i].id;
 	child_ctx.name = list[i].name;
@@ -3037,22 +2994,22 @@ function get_each_context_9(ctx, list, i) {
 	return child_ctx;
 }
 
-function get_each_context_10(ctx, list, i) {
+function get_each_context_11(ctx, list, i) {
 	const child_ctx = Object.create(ctx);
 	child_ctx.id = list[i].id;
 	child_ctx.name = list[i].name;
 	return child_ctx;
 }
 
-// (903:14) {#each funcBtns as { id, name }}
-function create_each_block_10(ctx) {
+// (988:14) {#each funcBtns as { id, name }}
+function create_each_block_11(ctx) {
 	var div, t_value = ctx.name + "", t, div_id_value, dispose;
 
 	return {
 		c() {
 			div = element("div");
 			t = text(t_value);
-			attr(div, "class", "level-item button hvr-glow funcBtn is-link animated svelte-l6p2k2");
+			attr(div, "class", "level-item button hvr-glow funcBtn is-link animated svelte-f8myie");
 			attr(div, "id", div_id_value = ctx.id);
 			dispose = listen(div, "click", ctx.functionRun);
 		},
@@ -3082,8 +3039,8 @@ function create_each_block_10(ctx) {
 	};
 }
 
-// (919:20) {:else}
-function create_else_block_1$1(ctx) {
+// (1004:20) {:else}
+function create_else_block_2(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
 	return {
@@ -3092,7 +3049,7 @@ function create_else_block_1$1(ctx) {
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = ctx.id);
 			input.checked = input_checked_value = ctx.bind;
-			attr(input, "class", "svelte-l6p2k2");
+			attr(input, "class", "svelte-f8myie");
 			dispose = listen(input, "click", ctx.click_handler_2);
 		},
 
@@ -3120,8 +3077,8 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (917:20) {#if name[0]==="Log"}
-function create_if_block_14(ctx) {
+// (1002:20) {#if name[0]==="Log"}
+function create_if_block_15(ctx) {
 	var input, input_id_value, input_checked_value, dispose;
 
 	return {
@@ -3130,7 +3087,7 @@ function create_if_block_14(ctx) {
 			attr(input, "type", "checkbox");
 			attr(input, "id", input_id_value = ctx.id);
 			input.checked = input_checked_value = ctx.bind;
-			attr(input, "class", "svelte-l6p2k2");
+			attr(input, "class", "svelte-f8myie");
 			dispose = listen(input, "click", ctx.linearlogCheck);
 		},
 
@@ -3158,13 +3115,13 @@ function create_if_block_14(ctx) {
 	};
 }
 
-// (912:14) {#each checkBtns as {id, name, bind, help}}
-function create_each_block_9(ctx) {
+// (997:14) {#each checkBtns as {id, name, bind, help}}
+function create_each_block_10(ctx) {
 	var div3, div2, t0, div0, label0, t1_value = ctx.name[0] + "", t1, t2, div1, label1, t3_value = ctx.name[1] + "", t3, div2_data_tippy_value, div3_id_value;
 
 	function select_block_type(changed, ctx) {
-		if (ctx.name[0]==="Log") return create_if_block_14;
-		return create_else_block_1$1;
+		if (ctx.name[0]==="Log") return create_if_block_15;
+		return create_else_block_2;
 	}
 
 	var current_block_type = select_block_type(null, ctx);
@@ -3183,13 +3140,13 @@ function create_each_block_9(ctx) {
 			div1 = element("div");
 			label1 = element("label");
 			t3 = text(t3_value);
-			attr(label0, "class", "svelte-l6p2k2");
-			attr(div0, "class", "state p-success p-on svelte-l6p2k2");
-			attr(label1, "class", "svelte-l6p2k2");
-			attr(div1, "class", "state p-danger p-off svelte-l6p2k2");
-			attr(div2, "class", "pretty p-default p-curve p-toggle svelte-l6p2k2");
+			attr(label0, "class", "svelte-f8myie");
+			attr(div0, "class", "state p-success p-on svelte-f8myie");
+			attr(label1, "class", "svelte-f8myie");
+			attr(div1, "class", "state p-danger p-off svelte-f8myie");
+			attr(div2, "class", "pretty p-default p-curve p-toggle svelte-f8myie");
 			attr(div2, "data-tippy", div2_data_tippy_value = ctx.help);
-			attr(div3, "class", "level-item animated svelte-l6p2k2");
+			attr(div3, "class", "level-item animated svelte-f8myie");
 			attr(div3, "id", div3_id_value = "" + ctx.id + "_Container");
 		},
 
@@ -3246,8 +3203,8 @@ function create_each_block_9(ctx) {
 	};
 }
 
-// (931:14) {#if filetag == 'felix'}
-function create_if_block_13(ctx) {
+// (1016:14) {#if filetag == 'felix'}
+function create_if_block_14(ctx) {
 	var div4, div3, div1, t1, div2, input, input_updating = false, t2, div6, div5, dispose;
 
 	function input_input_handler() {
@@ -3260,7 +3217,7 @@ function create_if_block_13(ctx) {
 			div4 = element("div");
 			div3 = element("div");
 			div1 = element("div");
-			div1.innerHTML = `<div class="button is-static svelte-l6p2k2">Δ (cm-1)</div>`;
+			div1.innerHTML = `<div class="button is-static svelte-f8myie">Δ (cm-1)</div>`;
 			t1 = space();
 			div2 = element("div");
 			input = element("input");
@@ -3268,18 +3225,18 @@ function create_if_block_13(ctx) {
 			div6 = element("div");
 			div5 = element("div");
 			div5.textContent = "OPO";
-			attr(div1, "class", "control svelte-l6p2k2");
-			attr(input, "class", "input inc_dec_input svelte-l6p2k2");
+			attr(div1, "class", "control svelte-f8myie");
+			attr(input, "class", "input inc_dec_input svelte-f8myie");
 			attr(input, "type", "number");
 			attr(input, "step", "0.5");
 			attr(input, "id", "delta_value");
 			attr(input, "placeholder", "Delta value");
-			attr(div2, "class", "control svelte-l6p2k2");
-			attr(div3, "class", "field has-addons svelte-l6p2k2");
-			attr(div4, "class", "level-item svelte-l6p2k2");
-			attr(div5, "class", "button hvr-glow funcBtn is-link animated svelte-l6p2k2");
+			attr(div2, "class", "control svelte-f8myie");
+			attr(div3, "class", "field has-addons svelte-f8myie");
+			attr(div4, "class", "level-item svelte-f8myie");
+			attr(div5, "class", "button hvr-glow funcBtn is-link animated svelte-f8myie");
 			attr(div5, "id", "opoButton");
-			attr(div6, "class", "level-item svelte-l6p2k2");
+			attr(div6, "class", "level-item svelte-f8myie");
 
 			dispose = [
 				listen(input, "input", input_input_handler),
@@ -3320,9 +3277,9 @@ function create_if_block_13(ctx) {
 	};
 }
 
-// (959:14) {#if filetag == 'thz'}
-function create_if_block_12(ctx) {
-	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, dispose;
+// (1044:14) {#if filetag == 'thz'}
+function create_if_block_13(ctx) {
+	var div4, div3, div1, t1, div2, input0, input0_updating = false, t2, div9, div8, div6, t4, div7, input1, input1_updating = false, t5, div11, div10, dispose;
 
 	function input0_input_handler() {
 		input0_updating = true;
@@ -3339,7 +3296,7 @@ function create_if_block_12(ctx) {
 			div4 = element("div");
 			div3 = element("div");
 			div1 = element("div");
-			div1.innerHTML = `<div class="button is-static svelte-l6p2k2">δ (in Hz)</div>`;
+			div1.innerHTML = `<div class="button is-static svelte-f8myie">δ (in Hz)</div>`;
 			t1 = space();
 			div2 = element("div");
 			input0 = element("input");
@@ -3347,36 +3304,44 @@ function create_if_block_12(ctx) {
 			div9 = element("div");
 			div8 = element("div");
 			div6 = element("div");
-			div6.innerHTML = `<div class="button is-static svelte-l6p2k2">γ</div>`;
+			div6.innerHTML = `<div class="button is-static svelte-f8myie">γ</div>`;
 			t4 = space();
 			div7 = element("div");
 			input1 = element("input");
-			attr(div1, "class", "control svelte-l6p2k2");
-			attr(input0, "class", "input svelte-l6p2k2");
+			t5 = space();
+			div11 = element("div");
+			div10 = element("div");
+			div10.textContent = "Boltzman";
+			attr(div1, "class", "control svelte-f8myie");
+			attr(input0, "class", "input svelte-f8myie");
 			attr(input0, "type", "number");
 			attr(input0, "step", "0.5");
 			attr(input0, "id", "delta_value_thz");
 			attr(input0, "placeholder", "Delta value");
 			attr(input0, "data-tippy", "Delta value for spectrum (in KHz)");
-			attr(div2, "class", "control svelte-l6p2k2");
-			attr(div3, "class", "field has-addons svelte-l6p2k2");
-			attr(div4, "class", "level-item svelte-l6p2k2");
-			attr(div6, "class", "control svelte-l6p2k2");
-			attr(input1, "class", "input svelte-l6p2k2");
+			attr(div2, "class", "control svelte-f8myie");
+			attr(div3, "class", "field has-addons svelte-f8myie");
+			attr(div4, "class", "level-item svelte-f8myie");
+			attr(div6, "class", "control svelte-f8myie");
+			attr(input1, "class", "input svelte-f8myie");
 			attr(input1, "type", "number");
 			attr(input1, "step", "0.01");
 			attr(input1, "id", "gamma_thz");
 			attr(input1, "placeholder", "Gamma value for lorentz part");
 			attr(input1, "data-tippy", "Lorentz gamma for fitting (Voigt Profile)");
-			attr(div7, "class", "control svelte-l6p2k2");
-			attr(div8, "class", "field has-addons svelte-l6p2k2");
-			attr(div9, "class", "level-item svelte-l6p2k2");
+			attr(div7, "class", "control svelte-f8myie");
+			attr(div8, "class", "field has-addons svelte-f8myie");
+			attr(div9, "class", "level-item svelte-f8myie");
+			attr(div10, "class", "button hvr-glow is-link svelte-f8myie");
+			attr(div10, "id", "boltzman");
+			attr(div11, "class", "level-item svelte-f8myie");
 
 			dispose = [
 				listen(input0, "input", input0_input_handler),
 				listen(input0, "change", ctx.change_handler_1),
 				listen(input1, "input", input1_input_handler),
-				listen(input1, "change", ctx.change_handler_2)
+				listen(input1, "change", ctx.change_handler_2),
+				listen(div10, "click", ctx.click_handler_3)
 			];
 		},
 
@@ -3399,6 +3364,10 @@ function create_if_block_12(ctx) {
 			append(div7, input1);
 
 			set_input_value(input1, ctx.gamma_thz);
+
+			insert(target, t5, anchor);
+			insert(target, div11, anchor);
+			append(div11, div10);
 		},
 
 		p(changed, ctx) {
@@ -3413,6 +3382,8 @@ function create_if_block_12(ctx) {
 				detach(div4);
 				detach(t2);
 				detach(div9);
+				detach(t5);
+				detach(div11);
 			}
 
 			run_all(dispose);
@@ -3420,724 +3391,123 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (1010:8) {#if filetag=="felix"}
-function create_if_block_11(ctx) {
-	var div7, div6, div5, div2, div1, div0, select, t0, div4, div3, button0, t2, input0, input0_updating = false, t3, input1, input1_updating = false, t4, button1, t6, button2, dispose;
+// (1276:8) {:else}
+function create_else_block_1$1(ctx) {
+	return {
+		c: noop,
+		m: noop,
+		p: noop,
+		d: noop
+	};
+}
 
-	let each_value_8 = ctx.theoryfilenames;
+// (1254:36) 
+function create_if_block_12(ctx) {
+	var div4, div3, div2, t0, div0, t2, div1, dispose;
+
+	let each_value_9 = ctx.thz_row;
+
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value_9.length; i += 1) {
+		each_blocks[i] = create_each_block_9(get_each_context_9(ctx, each_value_9, i));
+	}
+
+	return {
+		c() {
+			div4 = element("div");
+			div3 = element("div");
+			div2 = element("div");
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			t0 = space();
+			div0 = element("div");
+			div0.textContent = "Submit";
+			t2 = space();
+			div1 = element("div");
+			div1.textContent = "Open in Matplotlib";
+			attr(div0, "class", "level-item button hvr-glow funcBtn is-link animated svelte-f8myie");
+			attr(div0, "id", "boltzman_plot_btn");
+			set_style(div0, "margin-top", "auto");
+			attr(div1, "class", "level-item button hvr-glow funcBtn is-link animated svelte-f8myie");
+			attr(div1, "id", "boltzman_plot_mbtn");
+			set_style(div1, "margin-top", "auto");
+			attr(div2, "class", "level-left svelte-f8myie");
+			attr(div3, "class", "level svelte-f8myie");
+			attr(div4, "class", "row svelte-f8myie");
+			attr(div4, "id", "boltzman_row");
+			set_style(div4, "display", "none");
+
+			dispose = [
+				listen(div0, "click", ctx.plotBoltzman),
+				listen(div1, "click", ctx.click_handler_5)
+			];
+		},
+
+		m(target, anchor) {
+			insert(target, div4, anchor);
+			append(div4, div3);
+			append(div3, div2);
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(div2, null);
+			}
+
+			append(div2, t0);
+			append(div2, div0);
+			append(div2, t2);
+			append(div2, div1);
+		},
+
+		p(changed, ctx) {
+			if (changed.thz_row) {
+				each_value_9 = ctx.thz_row;
+
+				let i;
+				for (i = 0; i < each_value_9.length; i += 1) {
+					const child_ctx = get_each_context_9(ctx, each_value_9, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(changed, child_ctx);
+					} else {
+						each_blocks[i] = create_each_block_9(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(div2, t0);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+				each_blocks.length = each_value_9.length;
+			}
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(div4);
+			}
+
+			destroy_each(each_blocks, detaching);
+
+			run_all(dispose);
+		}
+	};
+}
+
+// (1186:37) 
+function create_if_block_11(ctx) {
+	var div5, div4, div3, div0, input0, t0, div1, input1, t1, div2, button, t2, button_class_value, t3, div17, div16, div15, div7, div6, select, t4, div8, input2, input2_updating = false, t5, div9, input3, input3_updating = false, t6, div10, input4, input4_updating = false, t7, div12, div11, t9, div14, div13, dispose;
+
+	let each_value_8 = ctx.fileChecked;
 
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value_8.length; i += 1) {
 		each_blocks[i] = create_each_block_8(get_each_context_8(ctx, each_value_8, i));
-	}
-
-	function input0_input_handler_1() {
-		input0_updating = true;
-		ctx.input0_input_handler_1.call(input0);
-	}
-
-	function input1_input_handler_1() {
-		input1_updating = true;
-		ctx.input1_input_handler_1.call(input1);
-	}
-
-	return {
-		c() {
-			div7 = element("div");
-			div6 = element("div");
-			div5 = element("div");
-			div2 = element("div");
-			div1 = element("div");
-			div0 = element("div");
-			select = element("select");
-
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].c();
-			}
-
-			t0 = space();
-			div4 = element("div");
-			div3 = element("div");
-			button0 = element("button");
-			button0.textContent = "Choose file";
-			t2 = space();
-			input0 = element("input");
-			t3 = space();
-			input1 = element("input");
-			t4 = space();
-			button1 = element("button");
-			button1.textContent = "Submit";
-			t6 = space();
-			button2 = element("button");
-			button2.textContent = "Open in Matplotlib";
-			attr(select, "class", "svelte-l6p2k2");
-			attr(div0, "class", "select svelte-l6p2k2");
-			attr(div1, "class", "control svelte-l6p2k2");
-			attr(div2, "class", "level-item svelte-l6p2k2");
-			attr(button0, "class", "button is-link svelte-l6p2k2");
-			attr(input0, "class", "input svelte-l6p2k2");
-			attr(input0, "type", "number");
-			set_style(input0, "width", "150px");
-			attr(input0, "data-tippy", "Sigma (deviation) from central frequency");
-			attr(input1, "class", "input svelte-l6p2k2");
-			attr(input1, "type", "number");
-			attr(input1, "step", "0.001");
-			set_style(input1, "width", "150px");
-			attr(input1, "data-tippy", "Scaling factor (to shift in position)");
-			attr(button1, "class", "funcBtn button is-link animated svelte-l6p2k2");
-			attr(button1, "id", "appendTheory");
-			attr(button2, "class", "funcBtn button is-link animated svelte-l6p2k2");
-			attr(button2, "id", "theory_Matplotlib");
-			attr(div3, "class", "control svelte-l6p2k2");
-			attr(div4, "class", "level-item svelte-l6p2k2");
-			attr(div5, "class", "level-left svelte-l6p2k2");
-			attr(div6, "class", "level  svelte-l6p2k2");
-			attr(div6, "id", "theoryContainer");
-			attr(div7, "class", "row svelte-l6p2k2");
-			attr(div7, "id", "theoryRow");
-			set_style(div7, "display", "none");
-			set_style(div7, "padding-bottom", "1em");
-
-			dispose = [
-				listen(button0, "click", ctx.opentheory),
-				listen(input0, "input", input0_input_handler_1),
-				listen(input0, "change", ctx.change_handler_3),
-				listen(input1, "input", input1_input_handler_1),
-				listen(input1, "change", ctx.change_handler_4),
-				listen(button1, "click", ctx.runtheory),
-				listen(button2, "click", ctx.click_handler_3)
-			];
-		},
-
-		m(target, anchor) {
-			insert(target, div7, anchor);
-			append(div7, div6);
-			append(div6, div5);
-			append(div5, div2);
-			append(div2, div1);
-			append(div1, div0);
-			append(div0, select);
-
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(select, null);
-			}
-
-			append(div5, t0);
-			append(div5, div4);
-			append(div4, div3);
-			append(div3, button0);
-			append(div3, t2);
-			append(div3, input0);
-
-			set_input_value(input0, ctx.sigma);
-
-			append(div3, t3);
-			append(div3, input1);
-
-			set_input_value(input1, ctx.scale);
-
-			append(div3, t4);
-			append(div3, button1);
-			append(div3, t6);
-			append(div3, button2);
-		},
-
-		p(changed, ctx) {
-			if (changed.theoryfilenames) {
-				each_value_8 = ctx.theoryfilenames;
-
-				let i;
-				for (i = 0; i < each_value_8.length; i += 1) {
-					const child_ctx = get_each_context_8(ctx, each_value_8, i);
-
-					if (each_blocks[i]) {
-						each_blocks[i].p(changed, child_ctx);
-					} else {
-						each_blocks[i] = create_each_block_8(child_ctx);
-						each_blocks[i].c();
-						each_blocks[i].m(select, null);
-					}
-				}
-
-				for (; i < each_blocks.length; i += 1) {
-					each_blocks[i].d(1);
-				}
-				each_blocks.length = each_value_8.length;
-			}
-
-			if (!input0_updating && changed.sigma) set_input_value(input0, ctx.sigma);
-			input0_updating = false;
-			if (!input1_updating && changed.scale) set_input_value(input1, ctx.scale);
-			input1_updating = false;
-		},
-
-		d(detaching) {
-			if (detaching) {
-				detach(div7);
-			}
-
-			destroy_each(each_blocks, detaching);
-
-			run_all(dispose);
-		}
-	};
-}
-
-// (1019:30) {#each theoryfilenames as theoryfile}
-function create_each_block_8(ctx) {
-	var option, t_value = ctx.theoryfile + "", t, option_value_value;
-
-	return {
-		c() {
-			option = element("option");
-			t = text(t_value);
-			option.__value = option_value_value = ctx.theoryfile;
-			option.value = option.__value;
-			attr(option, "class", "svelte-l6p2k2");
-		},
-
-		m(target, anchor) {
-			insert(target, option, anchor);
-			append(option, t);
-		},
-
-		p(changed, ctx) {
-			if ((changed.theoryfilenames) && t_value !== (t_value = ctx.theoryfile + "")) {
-				set_data(t, t_value);
-			}
-
-			if ((changed.theoryfilenames) && option_value_value !== (option_value_value = ctx.theoryfile)) {
-				option.__value = option_value_value;
-			}
-
-			option.value = option.__value;
-		},
-
-		d(detaching) {
-			if (detaching) {
-				detach(option);
-			}
-		}
-	};
-}
-
-// (1041:8) {#if filetag=="scan"}
-function create_if_block_5(ctx) {
-	var div3, div2, div1, t0, t1, div0, button, dispose;
-
-	let each_value_6 = ["ResON", "ResOFF"];
-
-	let each_blocks_1 = [];
-
-	for (let i = 0; i < 2; i += 1) {
-		each_blocks_1[i] = create_each_block_6(get_each_context_6(ctx, each_value_6, i));
-	}
-
-	let each_value_5 = ctx.depletionLabels;
-
-	let each_blocks = [];
-
-	for (let i = 0; i < each_value_5.length; i += 1) {
-		each_blocks[i] = create_each_block_5(get_each_context_5(ctx, each_value_5, i));
-	}
-
-	return {
-		c() {
-			div3 = element("div");
-			div2 = element("div");
-			div1 = element("div");
-
-			for (let i = 0; i < 2; i += 1) {
-				each_blocks_1[i].c();
-			}
-
-			t0 = space();
-
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].c();
-			}
-
-			t1 = space();
-			div0 = element("div");
-			button = element("button");
-			button.textContent = "Submit";
-			attr(button, "class", "funcBtn button animated is-link svelte-l6p2k2");
-			attr(button, "id", "depletionSubmit");
-			attr(div0, "class", "level-item svelte-l6p2k2");
-			set_style(div0, "margin-top", "2em");
-			attr(div1, "class", "level-left svelte-l6p2k2");
-			attr(div2, "class", "level svelte-l6p2k2");
-			attr(div3, "class", "row svelte-l6p2k2");
-			attr(div3, "id", "depletionRow");
-			set_style(div3, "display", "none");
-			dispose = listen(button, "click", ctx.depletionPlot);
-		},
-
-		m(target, anchor) {
-			insert(target, div3, anchor);
-			append(div3, div2);
-			append(div2, div1);
-
-			for (let i = 0; i < 2; i += 1) {
-				each_blocks_1[i].m(div1, null);
-			}
-
-			append(div1, t0);
-
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(div1, null);
-			}
-
-			append(div1, t1);
-			append(div1, div0);
-			append(div0, button);
-		},
-
-		p(changed, ctx) {
-			if (changed.folderFile || changed.undefined) {
-				each_value_6 = ["ResON", "ResOFF"];
-
-				let i;
-				for (i = 0; i < each_value_6.length; i += 1) {
-					const child_ctx = get_each_context_6(ctx, each_value_6, i);
-
-					if (each_blocks_1[i]) {
-						each_blocks_1[i].p(changed, child_ctx);
-					} else {
-						each_blocks_1[i] = create_each_block_6(child_ctx);
-						each_blocks_1[i].c();
-						each_blocks_1[i].m(div1, t0);
-					}
-				}
-
-				for (; i < 2; i += 1) {
-					each_blocks_1[i].d(1);
-				}
-			}
-
-			if (changed.depletionLabels || changed.powerinfo || changed.nshots || changed.massIndex || changed.timestartIndex) {
-				each_value_5 = ctx.depletionLabels;
-
-				let i;
-				for (i = 0; i < each_value_5.length; i += 1) {
-					const child_ctx = get_each_context_5(ctx, each_value_5, i);
-
-					if (each_blocks[i]) {
-						each_blocks[i].p(changed, child_ctx);
-					} else {
-						each_blocks[i] = create_each_block_5(child_ctx);
-						each_blocks[i].c();
-						each_blocks[i].m(div1, t1);
-					}
-				}
-
-				for (; i < each_blocks.length; i += 1) {
-					each_blocks[i].d(1);
-				}
-				each_blocks.length = each_value_5.length;
-			}
-		},
-
-		d(detaching) {
-			if (detaching) {
-				detach(div3);
-			}
-
-			destroy_each(each_blocks_1, detaching);
-
-			destroy_each(each_blocks, detaching);
-
-			dispose();
-		}
-	};
-}
-
-// (1054:30) {#if folderFile.files != undefined}
-function create_if_block_10(ctx) {
-	var each_1_anchor;
-
-	let each_value_7 = ctx.folderFile.files;
-
-	let each_blocks = [];
-
-	for (let i = 0; i < each_value_7.length; i += 1) {
-		each_blocks[i] = create_each_block_7(get_each_context_7(ctx, each_value_7, i));
-	}
-
-	return {
-		c() {
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].c();
-			}
-
-			each_1_anchor = empty();
-		},
-
-		m(target, anchor) {
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(target, anchor);
-			}
-
-			insert(target, each_1_anchor, anchor);
-		},
-
-		p(changed, ctx) {
-			if (changed.folderFile) {
-				each_value_7 = ctx.folderFile.files;
-
-				let i;
-				for (i = 0; i < each_value_7.length; i += 1) {
-					const child_ctx = get_each_context_7(ctx, each_value_7, i);
-
-					if (each_blocks[i]) {
-						each_blocks[i].p(changed, child_ctx);
-					} else {
-						each_blocks[i] = create_each_block_7(child_ctx);
-						each_blocks[i].c();
-						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
-					}
-				}
-
-				for (; i < each_blocks.length; i += 1) {
-					each_blocks[i].d(1);
-				}
-				each_blocks.length = each_value_7.length;
-			}
-		},
-
-		d(detaching) {
-			destroy_each(each_blocks, detaching);
-
-			if (detaching) {
-				detach(each_1_anchor);
-			}
-		}
-	};
-}
-
-// (1055:32) {#each folderFile.files as scanfile}
-function create_each_block_7(ctx) {
-	var option, t_value = ctx.scanfile + "", t, option_value_value;
-
-	return {
-		c() {
-			option = element("option");
-			t = text(t_value);
-			option.__value = option_value_value = ctx.scanfile;
-			option.value = option.__value;
-			attr(option, "class", "svelte-l6p2k2");
-		},
-
-		m(target, anchor) {
-			insert(target, option, anchor);
-			append(option, t);
-		},
-
-		p(changed, ctx) {
-			if ((changed.folderFile) && t_value !== (t_value = ctx.scanfile + "")) {
-				set_data(t, t_value);
-			}
-
-			if ((changed.folderFile) && option_value_value !== (option_value_value = ctx.scanfile)) {
-				option.__value = option_value_value;
-			}
-
-			option.value = option.__value;
-		},
-
-		d(detaching) {
-			if (detaching) {
-				detach(option);
-			}
-		}
-	};
-}
-
-// (1046:18) {#each ["ResON", "ResOFF"] as name}
-function create_each_block_6(ctx) {
-	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
-
-	var if_block = (ctx.folderFile.files != ctx.undefined) && create_if_block_10(ctx);
-
-	return {
-		c() {
-			div3 = element("div");
-			div2 = element("div");
-			label = element("label");
-			h1 = element("h1");
-			t0 = text(ctx.name);
-			t1 = text(" file");
-			t2 = space();
-			div1 = element("div");
-			div0 = element("div");
-			select = element("select");
-			if (if_block) if_block.c();
-			attr(h1, "class", "subtitle svelte-l6p2k2");
-			attr(label, "class", "label svelte-l6p2k2");
-			attr(select, "id", ctx.name);
-			attr(select, "class", "svelte-l6p2k2");
-			attr(div0, "class", "select svelte-l6p2k2");
-			attr(div1, "class", "control svelte-l6p2k2");
-			attr(div2, "class", "field svelte-l6p2k2");
-			attr(div3, "class", "level-item svelte-l6p2k2");
-		},
-
-		m(target, anchor) {
-			insert(target, div3, anchor);
-			append(div3, div2);
-			append(div2, label);
-			append(label, h1);
-			append(h1, t0);
-			append(h1, t1);
-			append(div2, t2);
-			append(div2, div1);
-			append(div1, div0);
-			append(div0, select);
-			if (if_block) if_block.m(select, null);
-		},
-
-		p(changed, ctx) {
-			if (ctx.folderFile.files != ctx.undefined) {
-				if (if_block) {
-					if_block.p(changed, ctx);
-				} else {
-					if_block = create_if_block_10(ctx);
-					if_block.c();
-					if_block.m(select, null);
-				}
-			} else if (if_block) {
-				if_block.d(1);
-				if_block = null;
-			}
-		},
-
-		d(detaching) {
-			if (detaching) {
-				detach(div3);
-			}
-
-			if (if_block) if_block.d();
-		}
-	};
-}
-
-// (1079:55) 
-function create_if_block_9(ctx) {
-	var input, input_updating = false, dispose;
-
-	function input_input_handler_4() {
-		input_updating = true;
-		ctx.input_input_handler_4.call(input);
-	}
-
-	return {
-		c() {
-			input = element("input");
-			attr(input, "class", "input svelte-l6p2k2");
-			attr(input, "type", "number");
-			attr(input, "id", ctx.id);
-			dispose = listen(input, "input", input_input_handler_4);
-		},
-
-		m(target, anchor) {
-			insert(target, input, anchor);
-
-			set_input_value(input, ctx.timestartIndex);
-		},
-
-		p(changed, ctx) {
-			if (!input_updating && changed.timestartIndex) set_input_value(input, ctx.timestartIndex);
-			input_updating = false;
-		},
-
-		d(detaching) {
-			if (detaching) {
-				detach(input);
-			}
-
-			dispose();
-		}
-	};
-}
-
-// (1077:55) 
-function create_if_block_8(ctx) {
-	var input, input_updating = false, dispose;
-
-	function input_input_handler_3() {
-		input_updating = true;
-		ctx.input_input_handler_3.call(input);
-	}
-
-	return {
-		c() {
-			input = element("input");
-			attr(input, "class", "input svelte-l6p2k2");
-			attr(input, "type", "number");
-			attr(input, "id", ctx.id);
-			dispose = listen(input, "input", input_input_handler_3);
-		},
-
-		m(target, anchor) {
-			insert(target, input, anchor);
-
-			set_input_value(input, ctx.massIndex);
-		},
-
-		p(changed, ctx) {
-			if (!input_updating && changed.massIndex) set_input_value(input, ctx.massIndex);
-			input_updating = false;
-		},
-
-		d(detaching) {
-			if (detaching) {
-				detach(input);
-			}
-
-			dispose();
-		}
-	};
-}
-
-// (1075:54) 
-function create_if_block_7(ctx) {
-	var input, input_updating = false, dispose;
-
-	function input_input_handler_2() {
-		input_updating = true;
-		ctx.input_input_handler_2.call(input);
-	}
-
-	return {
-		c() {
-			input = element("input");
-			attr(input, "class", "input svelte-l6p2k2");
-			attr(input, "type", "number");
-			attr(input, "id", ctx.id);
-			dispose = listen(input, "input", input_input_handler_2);
-		},
-
-		m(target, anchor) {
-			insert(target, input, anchor);
-
-			set_input_value(input, ctx.nshots);
-		},
-
-		p(changed, ctx) {
-			if (!input_updating && changed.nshots) set_input_value(input, ctx.nshots);
-			input_updating = false;
-		},
-
-		d(detaching) {
-			if (detaching) {
-				detach(input);
-			}
-
-			dispose();
-		}
-	};
-}
-
-// (1073:26) {#if name=="Power (ON, OFF)"}
-function create_if_block_6(ctx) {
-	var input, dispose;
-
-	return {
-		c() {
-			input = element("input");
-			attr(input, "class", "input svelte-l6p2k2");
-			attr(input, "type", "text");
-			attr(input, "id", ctx.id);
-			dispose = listen(input, "input", ctx.input_input_handler_1);
-		},
-
-		m(target, anchor) {
-			insert(target, input, anchor);
-
-			set_input_value(input, ctx.powerinfo);
-		},
-
-		p(changed, ctx) {
-			if (changed.powerinfo && (input.value !== ctx.powerinfo)) set_input_value(input, ctx.powerinfo);
-		},
-
-		d(detaching) {
-			if (detaching) {
-				detach(input);
-			}
-
-			dispose();
-		}
-	};
-}
-
-// (1066:18) {#each depletionLabels as {name, id}}
-function create_each_block_5(ctx) {
-	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0;
-
-	function select_block_type_1(changed, ctx) {
-		if (ctx.name=="Power (ON, OFF)") return create_if_block_6;
-		if (ctx.name=="FELIX Hz") return create_if_block_7;
-		if (ctx.name=="MassIndex") return create_if_block_8;
-		if (ctx.name=="TimeStart") return create_if_block_9;
-	}
-
-	var current_block_type = select_block_type_1(null, ctx);
-	var if_block = current_block_type && current_block_type(ctx);
-
-	return {
-		c() {
-			div2 = element("div");
-			div1 = element("div");
-			label = element("label");
-			h1 = element("h1");
-			t0 = text(t0_value);
-			t1 = space();
-			div0 = element("div");
-			if (if_block) if_block.c();
-			attr(h1, "class", "subtitle svelte-l6p2k2");
-			attr(label, "class", "label svelte-l6p2k2");
-			attr(div0, "class", "control svelte-l6p2k2");
-			attr(div1, "class", "field svelte-l6p2k2");
-			attr(div2, "class", "level-item svelte-l6p2k2");
-		},
-
-		m(target, anchor) {
-			insert(target, div2, anchor);
-			append(div2, div1);
-			append(div1, label);
-			append(label, h1);
-			append(h1, t0);
-			append(div1, t1);
-			append(div1, div0);
-			if (if_block) if_block.m(div0, null);
-		},
-
-		p(changed, ctx) {
-			if_block.p(changed, ctx);
-		},
-
-		d(detaching) {
-			if (detaching) {
-				detach(div2);
-			}
-
-			if (if_block) if_block.d();
-		}
-	};
-}
-
-// (1099:8) {#if filetag === "mass"}
-function create_if_block_4(ctx) {
-	var div5, div4, div3, div0, input0, t0, div1, input1, t1, div2, button, t2, button_class_value, t3, div17, div16, div15, div7, div6, select, t4, div8, input2, input2_updating = false, t5, div9, input3, input3_updating = false, t6, div10, input4, input4_updating = false, t7, div12, div11, t9, div14, div13, dispose;
-
-	let each_value_4 = ctx.fileChecked;
-
-	let each_blocks = [];
-
-	for (let i = 0; i < each_value_4.length; i += 1) {
-		each_blocks[i] = create_each_block_4(get_each_context_4(ctx, each_value_4, i));
 	}
 
 	function input2_input_handler() {
@@ -4198,58 +3568,58 @@ function create_if_block_4(ctx) {
 			div14 = element("div");
 			div13 = element("div");
 			div13.textContent = "Clear";
-			attr(input0, "class", "input svelte-l6p2k2");
+			attr(input0, "class", "input svelte-f8myie");
 			attr(input0, "type", "text");
 			attr(input0, "placeholder", "Molecule name");
 			attr(input0, "data-tippy", "Enter molecule name");
-			attr(div0, "class", "level-item svelte-l6p2k2");
-			attr(input1, "class", "input svelte-l6p2k2");
+			attr(div0, "class", "level-item svelte-f8myie");
+			attr(input1, "class", "input svelte-f8myie");
 			attr(input1, "type", "text");
 			attr(input1, "placeholder", "Molecule Formula");
 			attr(input1, "data-tippy", "Enter molecule formula");
-			attr(div1, "class", "level-item svelte-l6p2k2");
-			attr(button, "class", button_class_value = "button " + ctx.internet_active + " svelte-l6p2k2");
-			attr(div2, "class", "level-item svelte-l6p2k2");
-			attr(div3, "class", "level-left svelte-l6p2k2");
-			attr(div4, "class", "level svelte-l6p2k2");
-			attr(div5, "class", "row svelte-l6p2k2");
+			attr(div1, "class", "level-item svelte-f8myie");
+			attr(button, "class", button_class_value = "button " + ctx.internet_active + " svelte-f8myie");
+			attr(div2, "class", "level-item svelte-f8myie");
+			attr(div3, "class", "level-left svelte-f8myie");
+			attr(div4, "class", "level svelte-f8myie");
+			attr(div5, "class", "row svelte-f8myie");
 			attr(div5, "id", "nist_row");
 			set_style(div5, "display", "none");
 			attr(select, "id", "massFiles");
-			attr(select, "class", "svelte-l6p2k2");
-			attr(div6, "class", "select svelte-l6p2k2");
-			attr(div7, "class", "level-item svelte-l6p2k2");
-			attr(input2, "class", "input svelte-l6p2k2");
+			attr(select, "class", "svelte-f8myie");
+			attr(div6, "class", "select svelte-f8myie");
+			attr(div7, "class", "level-item svelte-f8myie");
+			attr(input2, "class", "input svelte-f8myie");
 			attr(input2, "type", "number");
 			attr(input2, "placeholder", "Peak prominance value");
 			attr(input2, "data-tippy", "Peak prominace value");
 			attr(input2, "min", "0");
 			attr(input2, "step", "0.5");
-			attr(div8, "class", "level-item svelte-l6p2k2");
-			attr(input3, "class", "input svelte-l6p2k2");
+			attr(div8, "class", "level-item svelte-f8myie");
+			attr(input3, "class", "input svelte-f8myie");
 			attr(input3, "type", "number");
 			attr(input3, "placeholder", "Peak width");
 			attr(input3, "data-tippy", "Optional: Peak width");
 			attr(input3, "min", "0");
 			attr(input3, "step", "0.5");
-			attr(div9, "class", "level-item svelte-l6p2k2");
-			attr(input4, "class", "input svelte-l6p2k2");
+			attr(div9, "class", "level-item svelte-f8myie");
+			attr(input4, "class", "input svelte-f8myie");
 			attr(input4, "type", "number");
 			attr(input4, "placeholder", "Peak Height");
 			attr(input4, "data-tippy", "Optional: Peak Height");
 			attr(input4, "min", "0");
 			attr(input4, "step", "0.5");
-			attr(div10, "class", "level-item svelte-l6p2k2");
-			attr(div11, "class", "level-item button is-link hvr-glow funcBtn animated svelte-l6p2k2");
+			attr(div10, "class", "level-item svelte-f8myie");
+			attr(div11, "class", "level-item button is-link hvr-glow  hvr-glow funcBtn animated svelte-f8myie");
 			attr(div11, "id", "mass_get_peaks");
-			attr(div12, "class", "level-item svelte-l6p2k2");
-			attr(div13, "class", "level-item button is-danger hvr-glow funcBtn animated svelte-l6p2k2");
+			attr(div12, "class", "level-item svelte-f8myie");
+			attr(div13, "class", "level-item button is-danger hvr-glow funcBtn animated svelte-f8myie");
 			attr(div13, "id", "mass_clear_peaks");
 			attr(div13, "data-tippy", "Clear all peaks");
-			attr(div14, "class", "level-item svelte-l6p2k2");
-			attr(div15, "class", "level-left svelte-l6p2k2");
-			attr(div16, "class", "level svelte-l6p2k2");
-			attr(div17, "class", "row svelte-l6p2k2");
+			attr(div14, "class", "level-item svelte-f8myie");
+			attr(div15, "class", "level-left svelte-f8myie");
+			attr(div16, "class", "level svelte-f8myie");
+			attr(div17, "class", "row svelte-f8myie");
 			attr(div17, "id", "mass_peak_find_row");
 			set_style(div17, "display", "block");
 			set_style(div17, "padding-bottom", "1em");
@@ -4335,21 +3705,21 @@ function create_if_block_4(ctx) {
 				set_data(t2, ctx.internet_connection);
 			}
 
-			if ((changed.internet_active) && button_class_value !== (button_class_value = "button " + ctx.internet_active + " svelte-l6p2k2")) {
+			if ((changed.internet_active) && button_class_value !== (button_class_value = "button " + ctx.internet_active + " svelte-f8myie")) {
 				attr(button, "class", button_class_value);
 			}
 
 			if (changed.fileChecked) {
-				each_value_4 = ctx.fileChecked;
+				each_value_8 = ctx.fileChecked;
 
 				let i;
-				for (i = 0; i < each_value_4.length; i += 1) {
-					const child_ctx = get_each_context_4(ctx, each_value_4, i);
+				for (i = 0; i < each_value_8.length; i += 1) {
+					const child_ctx = get_each_context_8(ctx, each_value_8, i);
 
 					if (each_blocks[i]) {
 						each_blocks[i].p(changed, child_ctx);
 					} else {
-						each_blocks[i] = create_each_block_4(child_ctx);
+						each_blocks[i] = create_each_block_8(child_ctx);
 						each_blocks[i].c();
 						each_blocks[i].m(select, null);
 					}
@@ -4358,7 +3728,7 @@ function create_if_block_4(ctx) {
 				for (; i < each_blocks.length; i += 1) {
 					each_blocks[i].d(1);
 				}
-				each_blocks.length = each_value_4.length;
+				each_blocks.length = each_value_8.length;
 			}
 
 			if (!input2_updating && changed.mass_prominence) set_input_value(input2, ctx.mass_prominence);
@@ -4383,8 +3753,351 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (1132:24) {#each fileChecked as file}
-function create_each_block_4(ctx) {
+// (1129:34) 
+function create_if_block_5(ctx) {
+	var div3, div2, div1, t0, t1, div0, button, dispose;
+
+	let each_value_6 = ["ResON", "ResOFF"];
+
+	let each_blocks_1 = [];
+
+	for (let i = 0; i < 2; i += 1) {
+		each_blocks_1[i] = create_each_block_6(get_each_context_6(ctx, each_value_6, i));
+	}
+
+	let each_value_5 = ctx.depletionLabels;
+
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value_5.length; i += 1) {
+		each_blocks[i] = create_each_block_5(get_each_context_5(ctx, each_value_5, i));
+	}
+
+	return {
+		c() {
+			div3 = element("div");
+			div2 = element("div");
+			div1 = element("div");
+
+			for (let i = 0; i < 2; i += 1) {
+				each_blocks_1[i].c();
+			}
+
+			t0 = space();
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			t1 = space();
+			div0 = element("div");
+			button = element("button");
+			button.textContent = "Submit";
+			attr(button, "class", "funcBtn button animated is-link svelte-f8myie");
+			attr(button, "id", "depletionSubmit");
+			attr(div0, "class", "level-item svelte-f8myie");
+			set_style(div0, "margin-top", "2em");
+			attr(div1, "class", "level-left svelte-f8myie");
+			attr(div2, "class", "level svelte-f8myie");
+			attr(div3, "class", "row svelte-f8myie");
+			attr(div3, "id", "depletionRow");
+			set_style(div3, "display", "none");
+			dispose = listen(button, "click", ctx.depletionPlot);
+		},
+
+		m(target, anchor) {
+			insert(target, div3, anchor);
+			append(div3, div2);
+			append(div2, div1);
+
+			for (let i = 0; i < 2; i += 1) {
+				each_blocks_1[i].m(div1, null);
+			}
+
+			append(div1, t0);
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(div1, null);
+			}
+
+			append(div1, t1);
+			append(div1, div0);
+			append(div0, button);
+		},
+
+		p(changed, ctx) {
+			if (changed.folderFile || changed.undefined) {
+				each_value_6 = ["ResON", "ResOFF"];
+
+				let i;
+				for (i = 0; i < each_value_6.length; i += 1) {
+					const child_ctx = get_each_context_6(ctx, each_value_6, i);
+
+					if (each_blocks_1[i]) {
+						each_blocks_1[i].p(changed, child_ctx);
+					} else {
+						each_blocks_1[i] = create_each_block_6(child_ctx);
+						each_blocks_1[i].c();
+						each_blocks_1[i].m(div1, t0);
+					}
+				}
+
+				for (; i < 2; i += 1) {
+					each_blocks_1[i].d(1);
+				}
+			}
+
+			if (changed.depletionLabels || changed.powerinfo || changed.nshots || changed.massIndex || changed.timestartIndex) {
+				each_value_5 = ctx.depletionLabels;
+
+				let i;
+				for (i = 0; i < each_value_5.length; i += 1) {
+					const child_ctx = get_each_context_5(ctx, each_value_5, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(changed, child_ctx);
+					} else {
+						each_blocks[i] = create_each_block_5(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(div1, t1);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+				each_blocks.length = each_value_5.length;
+			}
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(div3);
+			}
+
+			destroy_each(each_blocks_1, detaching);
+
+			destroy_each(each_blocks, detaching);
+
+			dispose();
+		}
+	};
+}
+
+// (1099:8) {#if filetag=="felix"}
+function create_if_block_4(ctx) {
+	var div7, div6, div5, div2, div1, div0, select, t0, div4, div3, button0, t2, input0, input0_updating = false, t3, input1, input1_updating = false, t4, button1, t6, button2, dispose;
+
+	let each_value_4 = ctx.theoryfilenames;
+
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value_4.length; i += 1) {
+		each_blocks[i] = create_each_block_4(get_each_context_4(ctx, each_value_4, i));
+	}
+
+	function input0_input_handler_1() {
+		input0_updating = true;
+		ctx.input0_input_handler_1.call(input0);
+	}
+
+	function input1_input_handler_1() {
+		input1_updating = true;
+		ctx.input1_input_handler_1.call(input1);
+	}
+
+	return {
+		c() {
+			div7 = element("div");
+			div6 = element("div");
+			div5 = element("div");
+			div2 = element("div");
+			div1 = element("div");
+			div0 = element("div");
+			select = element("select");
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			t0 = space();
+			div4 = element("div");
+			div3 = element("div");
+			button0 = element("button");
+			button0.textContent = "Choose file";
+			t2 = space();
+			input0 = element("input");
+			t3 = space();
+			input1 = element("input");
+			t4 = space();
+			button1 = element("button");
+			button1.textContent = "Submit";
+			t6 = space();
+			button2 = element("button");
+			button2.textContent = "Open in Matplotlib";
+			attr(select, "class", "svelte-f8myie");
+			attr(div0, "class", "select svelte-f8myie");
+			attr(div1, "class", "control svelte-f8myie");
+			attr(div2, "class", "level-item svelte-f8myie");
+			attr(button0, "class", "button is-link hvr-glow  svelte-f8myie");
+			attr(input0, "class", "input svelte-f8myie");
+			attr(input0, "type", "number");
+			set_style(input0, "width", "150px");
+			attr(input0, "data-tippy", "Sigma (deviation) from central frequency");
+			attr(input1, "class", "input svelte-f8myie");
+			attr(input1, "type", "number");
+			attr(input1, "step", "0.001");
+			set_style(input1, "width", "150px");
+			attr(input1, "data-tippy", "Scaling factor (to shift in position)");
+			attr(button1, "class", "funcBtn button is-link hvr-glow  animated svelte-f8myie");
+			attr(button1, "id", "appendTheory");
+			attr(button2, "class", "funcBtn button is-link hvr-glow  animated svelte-f8myie");
+			attr(button2, "id", "theory_Matplotlib");
+			attr(div3, "class", "control svelte-f8myie");
+			attr(div4, "class", "level-item svelte-f8myie");
+			attr(div5, "class", "level-left svelte-f8myie");
+			attr(div6, "class", "level  svelte-f8myie");
+			attr(div6, "id", "theoryContainer");
+			attr(div7, "class", "row svelte-f8myie");
+			attr(div7, "id", "theoryRow");
+			set_style(div7, "display", "none");
+			set_style(div7, "padding-bottom", "1em");
+
+			dispose = [
+				listen(button0, "click", ctx.opentheory),
+				listen(input0, "input", input0_input_handler_1),
+				listen(input0, "change", ctx.change_handler_3),
+				listen(input1, "input", input1_input_handler_1),
+				listen(input1, "change", ctx.change_handler_4),
+				listen(button1, "click", ctx.runtheory),
+				listen(button2, "click", ctx.click_handler_4)
+			];
+		},
+
+		m(target, anchor) {
+			insert(target, div7, anchor);
+			append(div7, div6);
+			append(div6, div5);
+			append(div5, div2);
+			append(div2, div1);
+			append(div1, div0);
+			append(div0, select);
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(select, null);
+			}
+
+			append(div5, t0);
+			append(div5, div4);
+			append(div4, div3);
+			append(div3, button0);
+			append(div3, t2);
+			append(div3, input0);
+
+			set_input_value(input0, ctx.sigma);
+
+			append(div3, t3);
+			append(div3, input1);
+
+			set_input_value(input1, ctx.scale);
+
+			append(div3, t4);
+			append(div3, button1);
+			append(div3, t6);
+			append(div3, button2);
+		},
+
+		p(changed, ctx) {
+			if (changed.theoryfilenames) {
+				each_value_4 = ctx.theoryfilenames;
+
+				let i;
+				for (i = 0; i < each_value_4.length; i += 1) {
+					const child_ctx = get_each_context_4(ctx, each_value_4, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(changed, child_ctx);
+					} else {
+						each_blocks[i] = create_each_block_4(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(select, null);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+				each_blocks.length = each_value_4.length;
+			}
+
+			if (!input0_updating && changed.sigma) set_input_value(input0, ctx.sigma);
+			input0_updating = false;
+			if (!input1_updating && changed.scale) set_input_value(input1, ctx.scale);
+			input1_updating = false;
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(div7);
+			}
+
+			destroy_each(each_blocks, detaching);
+
+			run_all(dispose);
+		}
+	};
+}
+
+// (1260:16) {#each thz_row as {name, id, value}}
+function create_each_block_9(ctx) {
+	var div2, div1, label, t0_value = ctx.name + "", t0, t1, div0, input, dispose;
+
+	return {
+		c() {
+			div2 = element("div");
+			div1 = element("div");
+			label = element("label");
+			t0 = text(t0_value);
+			t1 = space();
+			div0 = element("div");
+			input = element("input");
+			attr(label, "class", "label svelte-f8myie");
+			set_style(label, "font-weight", "400");
+			attr(input, "type", "number");
+			attr(input, "class", "input boltzman_input_style svelte-f8myie");
+			attr(input, "id", ctx.id);
+			input.value = ctx.value;
+			attr(input, "min", "0");
+			attr(div0, "class", "control svelte-f8myie");
+			attr(div1, "class", "field svelte-f8myie");
+			attr(div2, "class", "level-item svelte-f8myie");
+			dispose = listen(input, "change", ctx.plotBoltzman);
+		},
+
+		m(target, anchor) {
+			insert(target, div2, anchor);
+			append(div2, div1);
+			append(div1, label);
+			append(label, t0);
+			append(div1, t1);
+			append(div1, div0);
+			append(div0, input);
+		},
+
+		p: noop,
+
+		d(detaching) {
+			if (detaching) {
+				detach(div2);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (1218:24) {#each fileChecked as file}
+function create_each_block_8(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
 	return {
@@ -4393,7 +4106,7 @@ function create_each_block_4(ctx) {
 			t = text(t_value);
 			option.__value = option_value_value = ctx.file;
 			option.value = option.__value;
-			attr(option, "class", "svelte-l6p2k2");
+			attr(option, "class", "svelte-f8myie");
 		},
 
 		m(target, anchor) {
@@ -4421,7 +4134,420 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (1377:12) {:else}
+// (1142:30) {#if folderFile.files != undefined}
+function create_if_block_10(ctx) {
+	var each_1_anchor;
+
+	let each_value_7 = ctx.folderFile.files;
+
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value_7.length; i += 1) {
+		each_blocks[i] = create_each_block_7(get_each_context_7(ctx, each_value_7, i));
+	}
+
+	return {
+		c() {
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			each_1_anchor = empty();
+		},
+
+		m(target, anchor) {
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(target, anchor);
+			}
+
+			insert(target, each_1_anchor, anchor);
+		},
+
+		p(changed, ctx) {
+			if (changed.folderFile) {
+				each_value_7 = ctx.folderFile.files;
+
+				let i;
+				for (i = 0; i < each_value_7.length; i += 1) {
+					const child_ctx = get_each_context_7(ctx, each_value_7, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(changed, child_ctx);
+					} else {
+						each_blocks[i] = create_each_block_7(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+				each_blocks.length = each_value_7.length;
+			}
+		},
+
+		d(detaching) {
+			destroy_each(each_blocks, detaching);
+
+			if (detaching) {
+				detach(each_1_anchor);
+			}
+		}
+	};
+}
+
+// (1143:32) {#each folderFile.files as scanfile}
+function create_each_block_7(ctx) {
+	var option, t_value = ctx.scanfile + "", t, option_value_value;
+
+	return {
+		c() {
+			option = element("option");
+			t = text(t_value);
+			option.__value = option_value_value = ctx.scanfile;
+			option.value = option.__value;
+			attr(option, "class", "svelte-f8myie");
+		},
+
+		m(target, anchor) {
+			insert(target, option, anchor);
+			append(option, t);
+		},
+
+		p(changed, ctx) {
+			if ((changed.folderFile) && t_value !== (t_value = ctx.scanfile + "")) {
+				set_data(t, t_value);
+			}
+
+			if ((changed.folderFile) && option_value_value !== (option_value_value = ctx.scanfile)) {
+				option.__value = option_value_value;
+			}
+
+			option.value = option.__value;
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(option);
+			}
+		}
+	};
+}
+
+// (1134:18) {#each ["ResON", "ResOFF"] as name}
+function create_each_block_6(ctx) {
+	var div3, div2, label, h1, t0, t1, t2, div1, div0, select;
+
+	var if_block = (ctx.folderFile.files != ctx.undefined) && create_if_block_10(ctx);
+
+	return {
+		c() {
+			div3 = element("div");
+			div2 = element("div");
+			label = element("label");
+			h1 = element("h1");
+			t0 = text(ctx.name);
+			t1 = text(" file");
+			t2 = space();
+			div1 = element("div");
+			div0 = element("div");
+			select = element("select");
+			if (if_block) if_block.c();
+			attr(h1, "class", "subtitle svelte-f8myie");
+			attr(label, "class", "label svelte-f8myie");
+			attr(select, "id", ctx.name);
+			attr(select, "class", "svelte-f8myie");
+			attr(div0, "class", "select svelte-f8myie");
+			attr(div1, "class", "control svelte-f8myie");
+			attr(div2, "class", "field svelte-f8myie");
+			attr(div3, "class", "level-item svelte-f8myie");
+		},
+
+		m(target, anchor) {
+			insert(target, div3, anchor);
+			append(div3, div2);
+			append(div2, label);
+			append(label, h1);
+			append(h1, t0);
+			append(h1, t1);
+			append(div2, t2);
+			append(div2, div1);
+			append(div1, div0);
+			append(div0, select);
+			if (if_block) if_block.m(select, null);
+		},
+
+		p(changed, ctx) {
+			if (ctx.folderFile.files != ctx.undefined) {
+				if (if_block) {
+					if_block.p(changed, ctx);
+				} else {
+					if_block = create_if_block_10(ctx);
+					if_block.c();
+					if_block.m(select, null);
+				}
+			} else if (if_block) {
+				if_block.d(1);
+				if_block = null;
+			}
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(div3);
+			}
+
+			if (if_block) if_block.d();
+		}
+	};
+}
+
+// (1167:55) 
+function create_if_block_9(ctx) {
+	var input, input_updating = false, dispose;
+
+	function input_input_handler_4() {
+		input_updating = true;
+		ctx.input_input_handler_4.call(input);
+	}
+
+	return {
+		c() {
+			input = element("input");
+			attr(input, "class", "input svelte-f8myie");
+			attr(input, "type", "number");
+			attr(input, "id", ctx.id);
+			dispose = listen(input, "input", input_input_handler_4);
+		},
+
+		m(target, anchor) {
+			insert(target, input, anchor);
+
+			set_input_value(input, ctx.timestartIndex);
+		},
+
+		p(changed, ctx) {
+			if (!input_updating && changed.timestartIndex) set_input_value(input, ctx.timestartIndex);
+			input_updating = false;
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(input);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (1165:55) 
+function create_if_block_8(ctx) {
+	var input, input_updating = false, dispose;
+
+	function input_input_handler_3() {
+		input_updating = true;
+		ctx.input_input_handler_3.call(input);
+	}
+
+	return {
+		c() {
+			input = element("input");
+			attr(input, "class", "input svelte-f8myie");
+			attr(input, "type", "number");
+			attr(input, "id", ctx.id);
+			dispose = listen(input, "input", input_input_handler_3);
+		},
+
+		m(target, anchor) {
+			insert(target, input, anchor);
+
+			set_input_value(input, ctx.massIndex);
+		},
+
+		p(changed, ctx) {
+			if (!input_updating && changed.massIndex) set_input_value(input, ctx.massIndex);
+			input_updating = false;
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(input);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (1163:54) 
+function create_if_block_7(ctx) {
+	var input, input_updating = false, dispose;
+
+	function input_input_handler_2() {
+		input_updating = true;
+		ctx.input_input_handler_2.call(input);
+	}
+
+	return {
+		c() {
+			input = element("input");
+			attr(input, "class", "input svelte-f8myie");
+			attr(input, "type", "number");
+			attr(input, "id", ctx.id);
+			dispose = listen(input, "input", input_input_handler_2);
+		},
+
+		m(target, anchor) {
+			insert(target, input, anchor);
+
+			set_input_value(input, ctx.nshots);
+		},
+
+		p(changed, ctx) {
+			if (!input_updating && changed.nshots) set_input_value(input, ctx.nshots);
+			input_updating = false;
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(input);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (1161:26) {#if name=="Power (ON, OFF)"}
+function create_if_block_6(ctx) {
+	var input, dispose;
+
+	return {
+		c() {
+			input = element("input");
+			attr(input, "class", "input svelte-f8myie");
+			attr(input, "type", "text");
+			attr(input, "id", ctx.id);
+			dispose = listen(input, "input", ctx.input_input_handler_1);
+		},
+
+		m(target, anchor) {
+			insert(target, input, anchor);
+
+			set_input_value(input, ctx.powerinfo);
+		},
+
+		p(changed, ctx) {
+			if (changed.powerinfo && (input.value !== ctx.powerinfo)) set_input_value(input, ctx.powerinfo);
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(input);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (1154:18) {#each depletionLabels as {name, id}}
+function create_each_block_5(ctx) {
+	var div2, div1, label, h1, t0_value = ctx.name + "", t0, t1, div0;
+
+	function select_block_type_2(changed, ctx) {
+		if (ctx.name=="Power (ON, OFF)") return create_if_block_6;
+		if (ctx.name=="FELIX Hz") return create_if_block_7;
+		if (ctx.name=="MassIndex") return create_if_block_8;
+		if (ctx.name=="TimeStart") return create_if_block_9;
+	}
+
+	var current_block_type = select_block_type_2(null, ctx);
+	var if_block = current_block_type && current_block_type(ctx);
+
+	return {
+		c() {
+			div2 = element("div");
+			div1 = element("div");
+			label = element("label");
+			h1 = element("h1");
+			t0 = text(t0_value);
+			t1 = space();
+			div0 = element("div");
+			if (if_block) if_block.c();
+			attr(h1, "class", "subtitle svelte-f8myie");
+			attr(label, "class", "label svelte-f8myie");
+			attr(div0, "class", "control svelte-f8myie");
+			attr(div1, "class", "field svelte-f8myie");
+			attr(div2, "class", "level-item svelte-f8myie");
+		},
+
+		m(target, anchor) {
+			insert(target, div2, anchor);
+			append(div2, div1);
+			append(div1, label);
+			append(label, h1);
+			append(h1, t0);
+			append(div1, t1);
+			append(div1, div0);
+			if (if_block) if_block.m(div0, null);
+		},
+
+		p(changed, ctx) {
+			if_block.p(changed, ctx);
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(div2);
+			}
+
+			if (if_block) if_block.d();
+		}
+	};
+}
+
+// (1108:30) {#each theoryfilenames as theoryfile}
+function create_each_block_4(ctx) {
+	var option, t_value = ctx.theoryfile + "", t, option_value_value;
+
+	return {
+		c() {
+			option = element("option");
+			t = text(t_value);
+			option.__value = option_value_value = ctx.theoryfile;
+			option.value = option.__value;
+			attr(option, "class", "svelte-f8myie");
+		},
+
+		m(target, anchor) {
+			insert(target, option, anchor);
+			append(option, t);
+		},
+
+		p(changed, ctx) {
+			if ((changed.theoryfilenames) && t_value !== (t_value = ctx.theoryfile + "")) {
+				set_data(t, t_value);
+			}
+
+			if ((changed.theoryfilenames) && option_value_value !== (option_value_value = ctx.theoryfile)) {
+				option.__value = option_value_value;
+			}
+
+			option.value = option.__value;
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(option);
+			}
+		}
+	};
+}
+
+// (1498:12) {:else}
 function create_else_block$2(ctx) {
 	var div, div_id_value;
 
@@ -4430,7 +4556,7 @@ function create_else_block$2(ctx) {
 			div = element("div");
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
-			attr(div, "class", "svelte-l6p2k2");
+			attr(div, "class", "svelte-f8myie");
 		},
 
 		m(target, anchor) {
@@ -4454,7 +4580,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (1334:39) 
+// (1455:39) 
 function create_if_block_3(ctx) {
 	var div0, div0_id_value, t0, div9, div7, div6, div5, div1, t1, div2, t2, div3, t3, div4, t4, div8, webview, t5, dispose;
 
@@ -4467,43 +4593,43 @@ function create_if_block_3(ctx) {
 			div6 = element("div");
 			div5 = element("div");
 			div1 = element("div");
-			div1.innerHTML = `<span class="icon svelte-l6p2k2"><i class="fas fa-home svelte-l6p2k2"></i></span>`;
+			div1.innerHTML = `<span class="icon svelte-f8myie"><i class="fas fa-home svelte-f8myie"></i></span>`;
 			t1 = space();
 			div2 = element("div");
-			div2.innerHTML = `<span class="icon svelte-l6p2k2"><i class="fas fa-arrow-left svelte-l6p2k2"></i></span>`;
+			div2.innerHTML = `<span class="icon svelte-f8myie"><i class="fas fa-arrow-left svelte-f8myie"></i></span>`;
 			t2 = space();
 			div3 = element("div");
-			div3.innerHTML = `<span class="icon svelte-l6p2k2"><i class="fas fa-arrow-right svelte-l6p2k2"></i></span>`;
+			div3.innerHTML = `<span class="icon svelte-f8myie"><i class="fas fa-arrow-right svelte-f8myie"></i></span>`;
 			t3 = space();
 			div4 = element("div");
-			div4.innerHTML = `<span class="icon svelte-l6p2k2"><i class="fas fa-undo svelte-l6p2k2"></i></span>`;
+			div4.innerHTML = `<span class="icon svelte-f8myie"><i class="fas fa-undo svelte-f8myie"></i></span>`;
 			t4 = space();
 			div8 = element("div");
 			webview = element("webview");
 			t5 = space();
 			attr(div0, "id", div0_id_value = ctx.id);
 			set_style(div0, "padding-bottom", "1em");
-			attr(div0, "class", "svelte-l6p2k2");
-			attr(div1, "class", "level-item webviewIcon hvr-glow svelte-l6p2k2");
-			attr(div2, "class", "level-item webviewIcon hvr-glow svelte-l6p2k2");
-			attr(div3, "class", "level-item webviewIcon hvr-glow svelte-l6p2k2");
-			attr(div4, "class", "level-item webviewIcon hvr-glow svelte-l6p2k2");
-			attr(div5, "class", "level-left svelte-l6p2k2");
-			attr(div6, "class", "level svelte-l6p2k2");
-			attr(div7, "class", "row svelte-l6p2k2");
+			attr(div0, "class", "svelte-f8myie");
+			attr(div1, "class", "level-item webviewIcon hvr-glow svelte-f8myie");
+			attr(div2, "class", "level-item webviewIcon hvr-glow svelte-f8myie");
+			attr(div3, "class", "level-item webviewIcon hvr-glow svelte-f8myie");
+			attr(div4, "class", "level-item webviewIcon hvr-glow svelte-f8myie");
+			attr(div5, "class", "level-left svelte-f8myie");
+			attr(div6, "class", "level svelte-f8myie");
+			attr(div7, "class", "row svelte-f8myie");
 			attr(webview, "src", ctx.nist_url);
 			attr(webview, "id", "nist_webview");
-			attr(webview, "class", "svelte-l6p2k2");
-			attr(div8, "class", "row svelte-l6p2k2");
-			attr(div9, "class", "row svelte-l6p2k2");
+			attr(webview, "class", "svelte-f8myie");
+			attr(div8, "class", "row svelte-f8myie");
+			attr(div9, "class", "row svelte-f8myie");
 			attr(div9, "id", "nistWebview_rows");
 			set_style(div9, "display", "none");
 
 			dispose = [
-				listen(div1, "click", ctx.click_handler_6),
-				listen(div2, "click", ctx.click_handler_7),
-				listen(div3, "click", ctx.click_handler_8),
-				listen(div4, "click", ctx.click_handler_9)
+				listen(div1, "click", ctx.click_handler_8),
+				listen(div2, "click", ctx.click_handler_9),
+				listen(div3, "click", ctx.click_handler_10),
+				listen(div4, "click", ctx.click_handler_11)
 			];
 		},
 
@@ -4552,18 +4678,18 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (1185:38) 
+// (1306:38) 
 function create_if_block_1$1(ctx) {
 	var div10, div9, div2, div1, input0, t0, div0, t3, div5, div4, input1, t4, div3, t7, div8, div7, input2, t8, div6, t11, div11, div11_id_value, t12, div24, div23, div12, input3, input3_updating = false, t13, div13, input4, input4_updating = false, t14, div14, input5, input5_updating = false, t15, div16, div15, t16, div15_class_value, t17, div18, div17, select0, t18, div20, div19, t19, div19_class_value, t20, div22, div21, t21, div21_class_value, t22, div39, div38, div26, div25, select1, t23, div28, div27, t25, div31, t28, div33, div32, t29, div32_class_value, t30, div35, div34, t31, div34_class_value, t32, div37, div36, t34, t35, current, dispose;
 
-	function input3_input_handler_1() {
+	function input3_input_handler_2() {
 		input3_updating = true;
-		ctx.input3_input_handler_1.call(input3);
+		ctx.input3_input_handler_2.call(input3);
 	}
 
-	function input4_input_handler_1() {
+	function input4_input_handler_2() {
 		input4_updating = true;
-		ctx.input4_input_handler_1.call(input4);
+		ctx.input4_input_handler_2.call(input4);
 	}
 
 	function input5_input_handler() {
@@ -4598,21 +4724,21 @@ function create_if_block_1$1(ctx) {
 			input0 = element("input");
 			t0 = space();
 			div0 = element("div");
-			div0.innerHTML = `<i class="icon mdi mdi-check svelte-l6p2k2"></i> <label class="svelte-l6p2k2">Relative</label>`;
+			div0.innerHTML = `<i class="icon mdi mdi-check svelte-f8myie"></i> <label class="svelte-f8myie">Relative</label>`;
 			t3 = space();
 			div5 = element("div");
 			div4 = element("div");
 			input1 = element("input");
 			t4 = space();
 			div3 = element("div");
-			div3.innerHTML = `<i class="icon mdi mdi-check svelte-l6p2k2"></i> <label class="svelte-l6p2k2">Log</label>`;
+			div3.innerHTML = `<i class="icon mdi mdi-check svelte-f8myie"></i> <label class="svelte-f8myie">Log</label>`;
 			t7 = space();
 			div8 = element("div");
 			div7 = element("div");
 			input2 = element("input");
 			t8 = space();
 			div6 = element("div");
-			div6.innerHTML = `<i class="icon mdi mdi-check svelte-l6p2k2"></i> <label class="svelte-l6p2k2">Inten. per photon</label>`;
+			div6.innerHTML = `<i class="icon mdi mdi-check svelte-f8myie"></i> <label class="svelte-f8myie">Inten. per photon</label>`;
 			t11 = space();
 			div11 = element("div");
 			t12 = space();
@@ -4664,7 +4790,7 @@ function create_if_block_1$1(ctx) {
 			div27.textContent = "Exp. Fit";
 			t25 = space();
 			div31 = element("div");
-			div31.innerHTML = `<div class="pretty p-switch p-slim svelte-l6p2k2" style="margin-left:1em;" data-tippy="Overwrite existing expfit file with only new values ? or else will append to existing file"><input type="checkbox" id="overwrite_expfit" class="svelte-l6p2k2"> <div class="state p-info p-on svelte-l6p2k2"><label class="svelte-l6p2k2">Overwrite</label></div></div>`;
+			div31.innerHTML = `<div class="pretty p-switch p-slim svelte-f8myie" style="margin-left:1em;" data-tippy="Overwrite existing expfit file with only new values ? or else will append to existing file"><input type="checkbox" id="overwrite_expfit" class="svelte-f8myie"> <div class="state p-info p-on svelte-f8myie"><label class="svelte-f8myie">Overwrite</label></div></div>`;
 			t28 = space();
 			div33 = element("div");
 			div32 = element("div");
@@ -4685,97 +4811,97 @@ function create_if_block_1$1(ctx) {
 			attr(input0, "name", "normMethod");
 			input0.__value = "Relative";
 			input0.value = input0.__value;
-			attr(input0, "class", "svelte-l6p2k2");
-			attr(div0, "class", "state p-success svelte-l6p2k2");
-			attr(div1, "class", "pretty p-icon p-curve p-pulse svelte-l6p2k2");
-			attr(div2, "class", "level-item svelte-l6p2k2");
+			attr(input0, "class", "svelte-f8myie");
+			attr(div0, "class", "state p-success svelte-f8myie");
+			attr(div1, "class", "pretty p-icon p-curve p-pulse svelte-f8myie");
+			attr(div2, "class", "level-item svelte-f8myie");
 			ctx.$$binding_groups[0].push(input1);
 			attr(input1, "type", "radio");
 			attr(input1, "name", "normMethod");
 			input1.__value = "Log";
 			input1.value = input1.__value;
-			attr(input1, "class", "svelte-l6p2k2");
-			attr(div3, "class", "state p-success svelte-l6p2k2");
-			attr(div4, "class", "pretty p-icon p-curve p-pulse svelte-l6p2k2");
-			attr(div5, "class", "level-item svelte-l6p2k2");
+			attr(input1, "class", "svelte-f8myie");
+			attr(div3, "class", "state p-success svelte-f8myie");
+			attr(div4, "class", "pretty p-icon p-curve p-pulse svelte-f8myie");
+			attr(div5, "class", "level-item svelte-f8myie");
 			ctx.$$binding_groups[0].push(input2);
 			attr(input2, "type", "radio");
 			attr(input2, "name", "normMethod");
 			input2.__value = "IntensityPerPhoton";
 			input2.value = input2.__value;
-			attr(input2, "class", "svelte-l6p2k2");
-			attr(div6, "class", "state p-success svelte-l6p2k2");
-			attr(div7, "class", "pretty p-icon p-curve p-pulse svelte-l6p2k2");
-			attr(div8, "class", "level-item svelte-l6p2k2");
-			attr(div9, "class", "level-left svelte-l6p2k2");
-			attr(div10, "class", "level svelte-l6p2k2");
+			attr(input2, "class", "svelte-f8myie");
+			attr(div6, "class", "state p-success svelte-f8myie");
+			attr(div7, "class", "pretty p-icon p-curve p-pulse svelte-f8myie");
+			attr(div8, "class", "level-item svelte-f8myie");
+			attr(div9, "class", "level-left svelte-f8myie");
+			attr(div10, "class", "level svelte-f8myie");
 			attr(div11, "id", div11_id_value = ctx.id);
 			set_style(div11, "padding-bottom", "1em");
-			attr(div11, "class", "svelte-l6p2k2");
-			attr(input3, "class", "input svelte-l6p2k2");
+			attr(div11, "class", "svelte-f8myie");
+			attr(input3, "class", "input svelte-f8myie");
 			attr(input3, "type", "number");
 			attr(input3, "id", "peak_prominance");
 			attr(input3, "placeholder", "Peak prominance value");
 			attr(input3, "data-tippy", "Peak prominace value");
 			attr(input3, "min", "0");
-			attr(div12, "class", "level-item svelte-l6p2k2");
-			attr(input4, "class", "input svelte-l6p2k2");
+			attr(div12, "class", "level-item svelte-f8myie");
+			attr(input4, "class", "input svelte-f8myie");
 			attr(input4, "type", "number");
 			attr(input4, "id", "peak_width_fit");
 			attr(input4, "placeholder", "Peak width");
 			attr(input4, "data-tippy", "Optional: Peak width");
 			attr(input4, "min", "0");
-			attr(div13, "class", "level-item svelte-l6p2k2");
-			attr(input5, "class", "input svelte-l6p2k2");
+			attr(div13, "class", "level-item svelte-f8myie");
+			attr(input5, "class", "input svelte-f8myie");
 			attr(input5, "type", "number");
 			attr(input5, "id", "peak_height_fit");
 			attr(input5, "placeholder", "Peak height");
 			attr(input5, "data-tippy", "Optional: Peak height");
 			attr(input5, "min", "0");
-			attr(div14, "class", "level-item svelte-l6p2k2");
-			attr(div15, "class", div15_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-l6p2k2");
+			attr(div14, "class", "level-item svelte-f8myie");
+			attr(div15, "class", div15_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-f8myie");
 			attr(div15, "id", "find_expfit_peaks");
 			attr(div15, "data-tippy", "Find the peaks by adjusting the prominence value");
-			attr(div16, "class", "level-item svelte-l6p2k2");
+			attr(div16, "class", "level-item svelte-f8myie");
 			if (ctx.fit_files === void 0) add_render_callback(() => ctx.select0_change_handler.call(select0));
 			attr(select0, "id", "fitFiles");
-			attr(select0, "class", "svelte-l6p2k2");
-			attr(div17, "class", "select svelte-l6p2k2");
-			attr(div18, "class", "level-item svelte-l6p2k2");
-			attr(div19, "class", div19_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-l6p2k2");
+			attr(select0, "class", "svelte-f8myie");
+			attr(div17, "class", "select svelte-f8myie");
+			attr(div18, "class", "level-item svelte-f8myie");
+			attr(div19, "class", div19_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-f8myie");
 			attr(div19, "id", "fitall_expfit_peaks");
 			attr(div19, "data-tippy", "Fit all the peaks positions found using gaussian");
-			attr(div20, "class", "level-item svelte-l6p2k2");
-			attr(div21, "class", div21_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitall_tkplot_Peak_btnCSS + " svelte-l6p2k2");
+			attr(div20, "class", "level-item svelte-f8myie");
+			attr(div21, "class", div21_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitall_tkplot_Peak_btnCSS + " svelte-f8myie");
 			attr(div21, "id", "fitall_tkplot_expfit_peaks");
 			attr(div21, "data-tippy", "Fit all the peaks positions found using gaussian");
-			attr(div22, "class", "level-item svelte-l6p2k2");
-			attr(div23, "class", "level-left svelte-l6p2k2");
-			attr(div24, "class", "level svelte-l6p2k2");
+			attr(div22, "class", "level-item svelte-f8myie");
+			attr(div23, "class", "level-left svelte-f8myie");
+			attr(div24, "class", "level svelte-f8myie");
 			set_style(div24, "display", ctx.exp_fitall_div);
 			if (ctx.fit_files === void 0) add_render_callback(() => ctx.select1_change_handler.call(select1));
 			attr(select1, "id", "expfitFiles");
-			attr(select1, "class", "svelte-l6p2k2");
-			attr(div25, "class", "select svelte-l6p2k2");
-			attr(div26, "class", "level-item svelte-l6p2k2");
-			attr(div27, "class", "level-item button hvr-glow funcBtn is-link animated svelte-l6p2k2");
+			attr(select1, "class", "svelte-f8myie");
+			attr(div25, "class", "select svelte-f8myie");
+			attr(div26, "class", "level-item svelte-f8myie");
+			attr(div27, "class", "level-item button hvr-glow funcBtn is-link animated svelte-f8myie");
 			attr(div27, "id", "exp_fit");
 			attr(div27, "data-tippy", "Choose the file from the dropdown --> Fit");
-			attr(div28, "class", "level-item svelte-l6p2k2");
-			attr(div31, "class", "level-item svelte-l6p2k2");
-			attr(div32, "class", div32_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_last_Peak_btnCSS + " svelte-l6p2k2");
+			attr(div28, "class", "level-item svelte-f8myie");
+			attr(div31, "class", "level-item svelte-f8myie");
+			attr(div32, "class", div32_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_last_Peak_btnCSS + " svelte-f8myie");
 			attr(div32, "id", "clearLast_plotted_peaks");
 			attr(div32, "data-tippy", "Clear last fitted lines");
-			attr(div33, "class", "level-item svelte-l6p2k2");
-			attr(div34, "class", div34_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_all_Peak_btnCSS + " svelte-l6p2k2");
+			attr(div33, "class", "level-item svelte-f8myie");
+			attr(div34, "class", div34_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_all_Peak_btnCSS + " svelte-f8myie");
 			attr(div34, "id", "clearAll_plotted_peaks");
 			attr(div34, "data-tippy", "Clear all fitted lines");
-			attr(div35, "class", "level-item svelte-l6p2k2");
-			attr(div36, "class", "level-item button hvr-glow funcBtn is-link animated svelte-l6p2k2");
+			attr(div35, "class", "level-item svelte-f8myie");
+			attr(div36, "class", "level-item button hvr-glow funcBtn is-link animated svelte-f8myie");
 			attr(div36, "id", "findall_expfit_toggle");
-			attr(div37, "class", "level-item svelte-l6p2k2");
-			attr(div38, "class", "level-left svelte-l6p2k2");
-			attr(div39, "class", "level svelte-l6p2k2");
+			attr(div37, "class", "level-item svelte-f8myie");
+			attr(div38, "class", "level-left svelte-f8myie");
+			attr(div39, "class", "level svelte-f8myie");
 			set_style(div39, "display", ctx.expfitDiv);
 
 			dispose = [
@@ -4785,21 +4911,21 @@ function create_if_block_1$1(ctx) {
 				listen(input1, "change", ctx.animatePlot),
 				listen(input2, "change", ctx.input2_change_handler),
 				listen(input2, "change", ctx.animatePlot),
-				listen(input3, "input", input3_input_handler_1),
+				listen(input3, "input", input3_input_handler_2),
 				listen(input3, "change", ctx.expfit_func),
-				listen(input4, "input", input4_input_handler_1),
+				listen(input4, "input", input4_input_handler_2),
 				listen(input4, "change", ctx.expfit_func),
 				listen(input5, "input", input5_input_handler),
 				listen(input5, "change", ctx.expfit_func),
 				listen(div15, "click", ctx.findPeak),
 				listen(select0, "change", ctx.select0_change_handler),
 				listen(div19, "click", ctx.fitall),
-				listen(div21, "click", ctx.click_handler_4),
+				listen(div21, "click", ctx.click_handler_6),
 				listen(select1, "change", ctx.select1_change_handler),
 				listen(div27, "click", ctx.functionRun),
 				listen(div32, "click", ctx.clearLastPeak),
 				listen(div34, "click", ctx.clearAllPeak),
-				listen(div36, "click", ctx.click_handler_5)
+				listen(div36, "click", ctx.click_handler_7)
 			];
 		},
 
@@ -4928,7 +5054,7 @@ function create_if_block_1$1(ctx) {
 			if (!input5_updating && changed.peak_height) set_input_value(input5, ctx.peak_height);
 			input5_updating = false;
 
-			if ((!current || changed.findPeak_btnCSS) && div15_class_value !== (div15_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-l6p2k2")) {
+			if ((!current || changed.findPeak_btnCSS) && div15_class_value !== (div15_class_value = "level-item button hvr-glow funcBtn animated " + ctx.findPeak_btnCSS + " svelte-f8myie")) {
 				attr(div15, "class", div15_class_value);
 			}
 
@@ -4956,11 +5082,11 @@ function create_if_block_1$1(ctx) {
 
 			if (changed.fit_files) select_option(select0, ctx.fit_files);
 
-			if ((!current || changed.fitallPeak_btnCSS) && div19_class_value !== (div19_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-l6p2k2")) {
+			if ((!current || changed.fitallPeak_btnCSS) && div19_class_value !== (div19_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitallPeak_btnCSS + " svelte-f8myie")) {
 				attr(div19, "class", div19_class_value);
 			}
 
-			if ((!current || changed.fitall_tkplot_Peak_btnCSS) && div21_class_value !== (div21_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitall_tkplot_Peak_btnCSS + " svelte-l6p2k2")) {
+			if ((!current || changed.fitall_tkplot_Peak_btnCSS) && div21_class_value !== (div21_class_value = "level-item button hvr-glow funcBtn animated " + ctx.fitall_tkplot_Peak_btnCSS + " svelte-f8myie")) {
 				attr(div21, "class", div21_class_value);
 			}
 
@@ -4992,11 +5118,11 @@ function create_if_block_1$1(ctx) {
 
 			if (changed.fit_files) select_option(select1, ctx.fit_files);
 
-			if ((!current || changed.clear_last_Peak_btnCSS) && div32_class_value !== (div32_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_last_Peak_btnCSS + " svelte-l6p2k2")) {
+			if ((!current || changed.clear_last_Peak_btnCSS) && div32_class_value !== (div32_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_last_Peak_btnCSS + " svelte-f8myie")) {
 				attr(div32, "class", div32_class_value);
 			}
 
-			if ((!current || changed.clear_all_Peak_btnCSS) && div34_class_value !== (div34_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_all_Peak_btnCSS + " svelte-l6p2k2")) {
+			if ((!current || changed.clear_all_Peak_btnCSS) && div34_class_value !== (div34_class_value = "level-item button hvr-glow funcBtn animated " + ctx.clear_all_Peak_btnCSS + " svelte-f8myie")) {
 				attr(div34, "class", div34_class_value);
 			}
 
@@ -5065,7 +5191,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (1178:12) {#if filetag == 'scan'}
+// (1299:12) {#if filetag == 'scan'}
 function create_if_block$2(ctx) {
 	var div, t, div_id_value;
 
@@ -5086,7 +5212,7 @@ function create_if_block$2(ctx) {
 			}
 
 			t = space();
-			attr(div, "class", "columns is-multiline svelte-l6p2k2");
+			attr(div, "class", "columns is-multiline svelte-f8myie");
 			attr(div, "id", div_id_value = ctx.id);
 			set_style(div, "padding-bottom", "1em");
 		},
@@ -5142,7 +5268,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (1258:26) {#each fit_file_list as file}
+// (1379:26) {#each fit_file_list as file}
 function create_each_block_3(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -5152,7 +5278,7 @@ function create_each_block_3(ctx) {
 			t = text(t_value);
 			option.__value = option_value_value = ctx.file;
 			option.value = option.__value;
-			attr(option, "class", "svelte-l6p2k2");
+			attr(option, "class", "svelte-f8myie");
 		},
 
 		m(target, anchor) {
@@ -5180,7 +5306,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (1286:26) {#each fit_file_list as file}
+// (1407:26) {#each fit_file_list as file}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.file + "", t, option_value_value;
 
@@ -5190,7 +5316,7 @@ function create_each_block_2(ctx) {
 			t = text(t_value);
 			option.__value = option_value_value = ctx.file;
 			option.value = option.__value;
-			attr(option, "class", "svelte-l6p2k2");
+			attr(option, "class", "svelte-f8myie");
 		},
 
 		m(target, anchor) {
@@ -5218,7 +5344,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (1326:18) {#if expfit_log_display}
+// (1447:18) {#if expfit_log_display}
 function create_if_block_2(ctx) {
 	var div, label, t, div_intro, div_outro, current;
 
@@ -5227,9 +5353,9 @@ function create_if_block_2(ctx) {
 			div = element("div");
 			label = element("label");
 			t = text(ctx.expfit_log);
-			attr(label, "class", "label svelte-l6p2k2");
+			attr(label, "class", "label svelte-f8myie");
 			set_style(label, "font-weight", "400");
-			attr(div, "class", "level-item svelte-l6p2k2");
+			attr(div, "class", "level-item svelte-f8myie");
 			attr(div, "id", "expfit_log_id");
 		},
 
@@ -5274,14 +5400,14 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (1180:16) {#each fileChecked as scanfile}
+// (1301:16) {#each fileChecked as scanfile}
 function create_each_block_1$1(ctx) {
 	var div, div_class_value, div_id_value;
 
 	return {
 		c() {
 			div = element("div");
-			attr(div, "class", div_class_value = "column " + ctx.tplot_width + " svelte-l6p2k2");
+			attr(div, "class", div_class_value = "column " + ctx.tplot_width + " svelte-f8myie");
 			attr(div, "id", div_id_value = "" + ctx.scanfile + "_tplot");
 			set_style(div, "padding-bottom", "1em");
 		},
@@ -5291,7 +5417,7 @@ function create_each_block_1$1(ctx) {
 		},
 
 		p(changed, ctx) {
-			if ((changed.tplot_width) && div_class_value !== (div_class_value = "column " + ctx.tplot_width + " svelte-l6p2k2")) {
+			if ((changed.tplot_width) && div_class_value !== (div_class_value = "column " + ctx.tplot_width + " svelte-f8myie")) {
 				attr(div, "class", div_class_value);
 			}
 
@@ -5308,7 +5434,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (1176:10) {#each plotID as id}
+// (1297:10) {#each plotID as id}
 function create_each_block$2(ctx) {
 	var current_block_type_index, if_block, if_block_anchor, current;
 
@@ -5321,14 +5447,14 @@ function create_each_block$2(ctx) {
 
 	var if_blocks = [];
 
-	function select_block_type_2(changed, ctx) {
+	function select_block_type_3(changed, ctx) {
 		if (ctx.filetag == 'scan') return 0;
 		if (ctx.id == 'avgplot') return 1;
 		if (ctx.filetag==="mass") return 2;
 		return 3;
 	}
 
-	current_block_type_index = select_block_type_2(null, ctx);
+	current_block_type_index = select_block_type_3(null, ctx);
 	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
 
 	return {
@@ -5345,7 +5471,7 @@ function create_each_block$2(ctx) {
 
 		p(changed, ctx) {
 			var previous_block_index = current_block_type_index;
-			current_block_type_index = select_block_type_2(changed, ctx);
+			current_block_type_index = select_block_type_3(changed, ctx);
 			if (current_block_type_index === previous_block_index) {
 				if_blocks[current_block_type_index].p(changed, ctx);
 			} else {
@@ -5387,7 +5513,7 @@ function create_each_block$2(ctx) {
 }
 
 function create_fragment$5(ctx) {
-	var section1, div16, div0, div0_id_value, t0, div15, div3, div1, t1, div2, header, p, t3, button0, t4, section0, t5_value = ctx.error_msg[ctx.filetag] + "", t5, t6, footer, button1, div3_class_value, t8, div12, div8, div7, div4, input, input_id_value, t9, div6, div5, t11, div11, div10, div9, t12, t13, t14, t15, t16, t17, t18, div14, div13, div13_id_value, div14_id_value, current, dispose;
+	var section1, div17, div0, div0_id_value, t0, div16, div3, div1, t1, div2, header, p, t3, button0, t4, section0, t5_value = ctx.error_msg[ctx.filetag] + "", t5, t6, footer, button1, t7, button1_class_value, div3_class_value, t8, div12, div8, div7, div4, input0, input0_id_value, t9, div6, div5, t11, div11, div10, div9, t12, t13, t14, t15, t16, div15, div13, input1, input1_updating = false, t17, input2, input2_updating = false, t18, input3, input3_updating = false, t19, input4, input4_updating = false, t20, div14, div14_id_value, div15_id_value, current, dispose;
 
 	var filebrowser = new Filebrowser({
 		props: {
@@ -5400,31 +5526,56 @@ function create_fragment$5(ctx) {
 	}
 	});
 
-	let each_value_10 = ctx.funcBtns;
+	let each_value_11 = ctx.funcBtns;
 
 	let each_blocks_2 = [];
 
-	for (let i = 0; i < each_value_10.length; i += 1) {
-		each_blocks_2[i] = create_each_block_10(get_each_context_10(ctx, each_value_10, i));
+	for (let i = 0; i < each_value_11.length; i += 1) {
+		each_blocks_2[i] = create_each_block_11(get_each_context_11(ctx, each_value_11, i));
 	}
 
-	let each_value_9 = ctx.checkBtns;
+	let each_value_10 = ctx.checkBtns;
 
 	let each_blocks_1 = [];
 
-	for (let i = 0; i < each_value_9.length; i += 1) {
-		each_blocks_1[i] = create_each_block_9(get_each_context_9(ctx, each_value_9, i));
+	for (let i = 0; i < each_value_10.length; i += 1) {
+		each_blocks_1[i] = create_each_block_10(get_each_context_10(ctx, each_value_10, i));
 	}
 
-	var if_block0 = (ctx.filetag == 'felix') && create_if_block_13(ctx);
+	var if_block0 = (ctx.filetag == 'felix') && create_if_block_14(ctx);
 
-	var if_block1 = (ctx.filetag == 'thz') && create_if_block_12(ctx);
+	var if_block1 = (ctx.filetag == 'thz') && create_if_block_13(ctx);
 
-	var if_block2 = (ctx.filetag=="felix") && create_if_block_11(ctx);
+	function select_block_type_1(changed, ctx) {
+		if (ctx.filetag=="felix") return create_if_block_4;
+		if (ctx.filetag=="scan") return create_if_block_5;
+		if (ctx.filetag === "mass") return create_if_block_11;
+		if (ctx.filetag === "thz") return create_if_block_12;
+		return create_else_block_1$1;
+	}
 
-	var if_block3 = (ctx.filetag=="scan") && create_if_block_5(ctx);
+	var current_block_type = select_block_type_1(null, ctx);
+	var if_block2 = current_block_type(ctx);
 
-	var if_block4 = (ctx.filetag === "mass") && create_if_block_4(ctx);
+	function input1_input_handler_3() {
+		input1_updating = true;
+		ctx.input1_input_handler_3.call(input1);
+	}
+
+	function input2_input_handler_1() {
+		input2_updating = true;
+		ctx.input2_input_handler_1.call(input2);
+	}
+
+	function input3_input_handler_1() {
+		input3_updating = true;
+		ctx.input3_input_handler_1.call(input3);
+	}
+
+	function input4_input_handler_1() {
+		input4_updating = true;
+		ctx.input4_input_handler_1.call(input4);
+	}
 
 	let each_value = ctx.plotID;
 
@@ -5441,11 +5592,11 @@ function create_fragment$5(ctx) {
 	return {
 		c() {
 			section1 = element("section");
-			div16 = element("div");
+			div17 = element("div");
 			div0 = element("div");
 			filebrowser.$$.fragment.c();
 			t0 = space();
-			div15 = element("div");
+			div16 = element("div");
 			div3 = element("div");
 			div1 = element("div");
 			t1 = space();
@@ -5461,13 +5612,13 @@ function create_fragment$5(ctx) {
 			t6 = space();
 			footer = element("footer");
 			button1 = element("button");
-			button1.textContent = "Close";
+			t7 = text("Close");
 			t8 = space();
 			div12 = element("div");
 			div8 = element("div");
 			div7 = element("div");
 			div4 = element("div");
-			input = element("input");
+			input0 = element("input");
 			t9 = space();
 			div6 = element("div");
 			div5 = element("div");
@@ -5492,72 +5643,98 @@ function create_fragment$5(ctx) {
 			t14 = space();
 			if (if_block1) if_block1.c();
 			t15 = space();
-			if (if_block2) if_block2.c();
+			if_block2.c();
 			t16 = space();
-			if (if_block3) if_block3.c();
-			t17 = space();
-			if (if_block4) if_block4.c();
-			t18 = space();
-			div14 = element("div");
+			div15 = element("div");
 			div13 = element("div");
+			input1 = element("input");
+			t17 = space();
+			input2 = element("input");
+			t18 = space();
+			input3 = element("input");
+			t19 = space();
+			input4 = element("input");
+			t20 = space();
+			div14 = element("div");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
-			attr(div0, "class", "column is-2 filebrowserColumn svelte-l6p2k2");
+			attr(div0, "class", "column is-2 filebrowserColumn svelte-f8myie");
 			attr(div0, "id", div0_id_value = "" + ctx.filetag + "filebrowserColumn");
-			attr(div1, "class", "modal-background svelte-l6p2k2");
-			attr(p, "class", "modal-card-title svelte-l6p2k2");
-			attr(button0, "class", "delete svelte-l6p2k2");
+			attr(div1, "class", "modal-background svelte-f8myie");
+			attr(p, "class", "modal-card-title svelte-f8myie");
+			attr(button0, "class", "delete svelte-f8myie");
 			attr(button0, "aria-label", "close");
-			attr(header, "class", "modal-card-head svelte-l6p2k2");
-			attr(section0, "class", "modal-card-body svelte-l6p2k2");
+			attr(header, "class", "modal-card-head svelte-f8myie");
+			attr(section0, "class", "modal-card-body svelte-f8myie");
 			set_style(section0, "color", "black");
-			attr(button1, "class", "button svelte-l6p2k2");
-			attr(footer, "class", "modal-card-foot svelte-l6p2k2");
-			attr(div2, "class", "modal-card svelte-l6p2k2");
-			attr(div3, "class", div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-l6p2k2");
-			attr(input, "class", "input locationLabel svelte-l6p2k2");
-			attr(input, "type", "text");
-			attr(input, "placeholder", "Location will be displayed");
-			attr(input, "id", input_id_value = "" + ctx.filetag + "LocationLabel");
-			input.value = ctx.currentLocation;
-			attr(input, "data-tippy", "Current Location");
-			attr(div4, "class", "control is-expanded svelte-l6p2k2");
-			attr(div5, "class", "button is-link svelte-l6p2k2");
-			attr(div6, "class", "control svelte-l6p2k2");
-			attr(div7, "class", "field has-addons svelte-l6p2k2");
-			attr(div8, "class", "row locationRow svelte-l6p2k2");
-			attr(div9, "class", "level-left animated fadeIn svelte-l6p2k2");
-			attr(div10, "class", "level svelte-l6p2k2");
-			attr(div11, "class", "row buttonsRow svelte-l6p2k2");
-			attr(div12, "class", "row row1 box svelte-l6p2k2");
-			attr(div13, "class", "container is-fluid svelte-l6p2k2");
-			attr(div13, "id", div13_id_value = "" + ctx.filetag + "plotContainer");
-			attr(div14, "class", "row box plotContainer svelte-l6p2k2");
-			attr(div14, "id", div14_id_value = "" + ctx.filetag + "plotMainContainer");
-			attr(div15, "class", "column svelte-l6p2k2");
-			attr(div16, "class", "columns svelte-l6p2k2");
-			attr(section1, "class", "section svelte-l6p2k2");
+			attr(button1, "class", button1_class_value = "button is-link hvr-glow --btnhoverColor:" + ctx.btnhoverColor + " svelte-f8myie");
+			attr(footer, "class", "modal-card-foot svelte-f8myie");
+			attr(div2, "class", "modal-card svelte-f8myie");
+			attr(div3, "class", div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-f8myie");
+			attr(input0, "class", "input locationLabel svelte-f8myie");
+			attr(input0, "type", "text");
+			attr(input0, "placeholder", "Location will be displayed");
+			attr(input0, "id", input0_id_value = "" + ctx.filetag + "LocationLabel");
+			input0.value = ctx.currentLocation;
+			attr(input0, "data-tippy", "Current Location");
+			attr(div4, "class", "control is-expanded svelte-f8myie");
+			attr(div5, "class", "button is-link hvr-glow  svelte-f8myie");
+			attr(div6, "class", "control svelte-f8myie");
+			attr(div7, "class", "field has-addons svelte-f8myie");
+			attr(div8, "class", "row locationRow svelte-f8myie");
+			attr(div9, "class", "level-left animated fadeIn svelte-f8myie");
+			attr(div10, "class", "level svelte-f8myie");
+			attr(div11, "class", "row buttonsRow svelte-f8myie");
+			attr(div12, "class", "row row1 box svelte-f8myie");
+			attr(input1, "type", "number");
+			attr(input1, "class", "input plotSzControl svelte-f8myie");
+			attr(input1, "data-tippy", "Plot Width");
+			attr(input2, "type", "number");
+			attr(input2, "class", "input plotSzControl svelte-f8myie");
+			attr(input2, "data-tippy", "Plot Height");
+			attr(input3, "type", "number");
+			attr(input3, "class", "input plotSzControl svelte-f8myie");
+			attr(input3, "data-tippy", "PlotContainer Height");
+			attr(input4, "type", "number");
+			attr(input4, "class", "input plotSzControl svelte-f8myie");
+			attr(input4, "data-tippy", "File Explorer height");
+			attr(div13, "class", "control plotSzControlContainer svelte-f8myie");
+			attr(div14, "class", "container is-fluid plotContainer svelte-f8myie");
+			attr(div14, "id", div14_id_value = "" + ctx.filetag + "plotContainer");
+			attr(div15, "class", "row box plotMainContainer svelte-f8myie");
+			attr(div15, "id", div15_id_value = "" + ctx.filetag + "plotMainContainer");
+			attr(div16, "class", "column svelte-f8myie");
+			attr(div17, "class", "columns svelte-f8myie");
+			attr(section1, "class", "section svelte-f8myie");
 			attr(section1, "id", ctx.id);
 			attr(section1, "style", style);
 
 			dispose = [
 				listen(button0, "click", ctx.click_handler),
 				listen(button1, "click", ctx.click_handler_1),
-				listen(input, "keyup", ctx.keyup_handler),
-				listen(div5, "click", ctx.browseFile)
+				listen(input0, "keyup", ctx.keyup_handler),
+				listen(div5, "click", ctx.browseFile),
+				listen(input1, "input", input1_input_handler_3),
+				listen(input1, "change", ctx.configPlotly),
+				listen(input2, "input", input2_input_handler_1),
+				listen(input2, "change", ctx.configPlotly),
+				listen(input3, "input", input3_input_handler_1),
+				listen(input3, "change", ctx.configPlotContainer),
+				listen(input4, "input", input4_input_handler_1),
+				listen(input4, "change", ctx.configFileExplorer)
 			];
 		},
 
 		m(target, anchor) {
 			insert(target, section1, anchor);
-			append(section1, div16);
-			append(div16, div0);
+			append(section1, div17);
+			append(div17, div0);
 			mount_component(filebrowser, div0, null);
-			append(div16, t0);
-			append(div16, div15);
-			append(div15, div3);
+			append(div17, t0);
+			append(div17, div16);
+			append(div16, div3);
 			append(div3, div1);
 			append(div3, t1);
 			append(div3, div2);
@@ -5571,12 +5748,13 @@ function create_fragment$5(ctx) {
 			append(div2, t6);
 			append(div2, footer);
 			append(footer, button1);
-			append(div15, t8);
-			append(div15, div12);
+			append(button1, t7);
+			append(div16, t8);
+			append(div16, div12);
 			append(div12, div8);
 			append(div8, div7);
 			append(div7, div4);
-			append(div4, input);
+			append(div4, input0);
 			append(div7, t9);
 			append(div7, div6);
 			append(div6, div5);
@@ -5600,17 +5778,34 @@ function create_fragment$5(ctx) {
 			append(div9, t14);
 			if (if_block1) if_block1.m(div9, null);
 			append(div12, t15);
-			if (if_block2) if_block2.m(div12, null);
-			append(div12, t16);
-			if (if_block3) if_block3.m(div12, null);
-			append(div12, t17);
-			if (if_block4) if_block4.m(div12, null);
-			append(div15, t18);
+			if_block2.m(div12, null);
+			append(div16, t16);
+			append(div16, div15);
+			append(div15, div13);
+			append(div13, input1);
+
+			set_input_value(input1, ctx.plotlyWidth);
+
+			append(div13, t17);
+			append(div13, input2);
+
+			set_input_value(input2, ctx.plotlyHeight);
+
+			append(div13, t18);
+			append(div13, input3);
+
+			set_input_value(input3, ctx.plorContainerHeight);
+
+			append(div13, t19);
+			append(div13, input4);
+
+			set_input_value(input4, ctx.panelHeight);
+
+			append(div15, t20);
 			append(div15, div14);
-			append(div14, div13);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(div13, null);
+				each_blocks[i].m(div14, null);
 			}
 
 			current = true;
@@ -5632,29 +5827,33 @@ function create_fragment$5(ctx) {
 				set_data(t5, t5_value);
 			}
 
-			if ((!current || changed.modal || changed.filetag) && div3_class_value !== (div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-l6p2k2")) {
+			if ((!current || changed.btnhoverColor) && button1_class_value !== (button1_class_value = "button is-link hvr-glow --btnhoverColor:" + ctx.btnhoverColor + " svelte-f8myie")) {
+				attr(button1, "class", button1_class_value);
+			}
+
+			if ((!current || changed.modal || changed.filetag) && div3_class_value !== (div3_class_value = "modal " + ctx.modal[ctx.filetag] + " is-clipped" + " svelte-f8myie")) {
 				attr(div3, "class", div3_class_value);
 			}
 
-			if ((!current || changed.filetag) && input_id_value !== (input_id_value = "" + ctx.filetag + "LocationLabel")) {
-				attr(input, "id", input_id_value);
+			if ((!current || changed.filetag) && input0_id_value !== (input0_id_value = "" + ctx.filetag + "LocationLabel")) {
+				attr(input0, "id", input0_id_value);
 			}
 
 			if (!current || changed.currentLocation) {
-				input.value = ctx.currentLocation;
+				input0.value = ctx.currentLocation;
 			}
 
 			if (changed.funcBtns) {
-				each_value_10 = ctx.funcBtns;
+				each_value_11 = ctx.funcBtns;
 
 				let i;
-				for (i = 0; i < each_value_10.length; i += 1) {
-					const child_ctx = get_each_context_10(ctx, each_value_10, i);
+				for (i = 0; i < each_value_11.length; i += 1) {
+					const child_ctx = get_each_context_11(ctx, each_value_11, i);
 
 					if (each_blocks_2[i]) {
 						each_blocks_2[i].p(changed, child_ctx);
 					} else {
-						each_blocks_2[i] = create_each_block_10(child_ctx);
+						each_blocks_2[i] = create_each_block_11(child_ctx);
 						each_blocks_2[i].c();
 						each_blocks_2[i].m(div9, t12);
 					}
@@ -5663,20 +5862,20 @@ function create_fragment$5(ctx) {
 				for (; i < each_blocks_2.length; i += 1) {
 					each_blocks_2[i].d(1);
 				}
-				each_blocks_2.length = each_value_10.length;
+				each_blocks_2.length = each_value_11.length;
 			}
 
 			if (changed.checkBtns) {
-				each_value_9 = ctx.checkBtns;
+				each_value_10 = ctx.checkBtns;
 
 				let i;
-				for (i = 0; i < each_value_9.length; i += 1) {
-					const child_ctx = get_each_context_9(ctx, each_value_9, i);
+				for (i = 0; i < each_value_10.length; i += 1) {
+					const child_ctx = get_each_context_10(ctx, each_value_10, i);
 
 					if (each_blocks_1[i]) {
 						each_blocks_1[i].p(changed, child_ctx);
 					} else {
-						each_blocks_1[i] = create_each_block_9(child_ctx);
+						each_blocks_1[i] = create_each_block_10(child_ctx);
 						each_blocks_1[i].c();
 						each_blocks_1[i].m(div9, t13);
 					}
@@ -5685,14 +5884,14 @@ function create_fragment$5(ctx) {
 				for (; i < each_blocks_1.length; i += 1) {
 					each_blocks_1[i].d(1);
 				}
-				each_blocks_1.length = each_value_9.length;
+				each_blocks_1.length = each_value_10.length;
 			}
 
 			if (ctx.filetag == 'felix') {
 				if (if_block0) {
 					if_block0.p(changed, ctx);
 				} else {
-					if_block0 = create_if_block_13(ctx);
+					if_block0 = create_if_block_14(ctx);
 					if_block0.c();
 					if_block0.m(div9, t14);
 				}
@@ -5705,7 +5904,7 @@ function create_fragment$5(ctx) {
 				if (if_block1) {
 					if_block1.p(changed, ctx);
 				} else {
-					if_block1 = create_if_block_12(ctx);
+					if_block1 = create_if_block_13(ctx);
 					if_block1.c();
 					if_block1.m(div9, null);
 				}
@@ -5714,44 +5913,25 @@ function create_fragment$5(ctx) {
 				if_block1 = null;
 			}
 
-			if (ctx.filetag=="felix") {
-				if (if_block2) {
-					if_block2.p(changed, ctx);
-				} else {
-					if_block2 = create_if_block_11(ctx);
-					if_block2.c();
-					if_block2.m(div12, t16);
-				}
-			} else if (if_block2) {
+			if (current_block_type === (current_block_type = select_block_type_1(changed, ctx)) && if_block2) {
+				if_block2.p(changed, ctx);
+			} else {
 				if_block2.d(1);
-				if_block2 = null;
+				if_block2 = current_block_type(ctx);
+				if (if_block2) {
+					if_block2.c();
+					if_block2.m(div12, null);
+				}
 			}
 
-			if (ctx.filetag=="scan") {
-				if (if_block3) {
-					if_block3.p(changed, ctx);
-				} else {
-					if_block3 = create_if_block_5(ctx);
-					if_block3.c();
-					if_block3.m(div12, t17);
-				}
-			} else if (if_block3) {
-				if_block3.d(1);
-				if_block3 = null;
-			}
-
-			if (ctx.filetag === "mass") {
-				if (if_block4) {
-					if_block4.p(changed, ctx);
-				} else {
-					if_block4 = create_if_block_4(ctx);
-					if_block4.c();
-					if_block4.m(div12, null);
-				}
-			} else if (if_block4) {
-				if_block4.d(1);
-				if_block4 = null;
-			}
+			if (!input1_updating && changed.plotlyWidth) set_input_value(input1, ctx.plotlyWidth);
+			input1_updating = false;
+			if (!input2_updating && changed.plotlyHeight) set_input_value(input2, ctx.plotlyHeight);
+			input2_updating = false;
+			if (!input3_updating && changed.plorContainerHeight) set_input_value(input3, ctx.plorContainerHeight);
+			input3_updating = false;
+			if (!input4_updating && changed.panelHeight) set_input_value(input4, ctx.panelHeight);
+			input4_updating = false;
 
 			if (changed.filetag || changed.plotID || changed.fileChecked || changed.tplot_width || changed.expfitDiv || changed.expfit_log_display || changed.expfit_log || changed.clear_all_Peak_btnCSS || changed.clear_last_Peak_btnCSS || changed.fit_files || changed.fit_file_list || changed.exp_fitall_div || changed.fitall_tkplot_Peak_btnCSS || changed.fitallPeak_btnCSS || changed.findPeak_btnCSS || changed.peak_height || changed.peak_width || changed.prominence || changed.normMethod || changed.nist_url) {
 				each_value = ctx.plotID;
@@ -5767,7 +5947,7 @@ function create_fragment$5(ctx) {
 						each_blocks[i] = create_each_block$2(child_ctx);
 						each_blocks[i].c();
 						transition_in(each_blocks[i], 1);
-						each_blocks[i].m(div13, null);
+						each_blocks[i].m(div14, null);
 					}
 				}
 
@@ -5778,12 +5958,12 @@ function create_fragment$5(ctx) {
 				check_outros();
 			}
 
-			if ((!current || changed.filetag) && div13_id_value !== (div13_id_value = "" + ctx.filetag + "plotContainer")) {
-				attr(div13, "id", div13_id_value);
+			if ((!current || changed.filetag) && div14_id_value !== (div14_id_value = "" + ctx.filetag + "plotContainer")) {
+				attr(div14, "id", div14_id_value);
 			}
 
-			if ((!current || changed.filetag) && div14_id_value !== (div14_id_value = "" + ctx.filetag + "plotMainContainer")) {
-				attr(div14, "id", div14_id_value);
+			if ((!current || changed.filetag) && div15_id_value !== (div15_id_value = "" + ctx.filetag + "plotMainContainer")) {
+				attr(div15, "id", div15_id_value);
 			}
 
 			if (!current || changed.id) {
@@ -5826,9 +6006,7 @@ function create_fragment$5(ctx) {
 
 			if (if_block0) if_block0.d();
 			if (if_block1) if_block1.d();
-			if (if_block2) if_block2.d();
-			if (if_block3) if_block3.d();
-			if (if_block4) if_block4.d();
+			if_block2.d();
 
 			destroy_each(each_blocks, detaching);
 
@@ -5842,23 +6020,22 @@ const style = "display:none;";
 function instance$5($$self, $$props, $$invalidate) {
 	
 
-  const glob = require("glob");
-
   let { id, filetag, filetype, funcBtns, plotID, checkBtns, jq, electron, path, menu, MenuItem } = $$props;
+  let plorContainerHeight = localStorage["plotContainerHeight"] || 650;
+  let panelHeight = localStorage["panelHeight"] || 70;
   jq(document).ready(() => {
-    jq("#theoryBtn").addClass("fadeInUp").css("display", "none");
-    jq("#norm_tkplot").addClass("fadeInUp").css("display", "none");
 
+    jq("#theoryBtn").addClass("fadeInUp").css("display", "none");
+    
+    jq("#norm_tkplot").addClass("fadeInUp").css("display", "none");
     jq("#exp_fit").addClass("fadeInUp").css("display", "none");
     jq("#felix_shell_Container").addClass("fadeInUp").css("display", "block");
-
-    let plotHeight;
     let ScreenHeight = window.screen.height;
-    if (ScreenHeight >= 1000) {plotHeight = 650; $$invalidate('tplot_width', tplot_width="is-half");}
-    else {plotHeight = 540; $$invalidate('tplot_width', tplot_width="is-full");}
-
-    jq(".plotContainer").css("max-height", plotHeight);
-
+    if (ScreenHeight >= 1000) { $$invalidate('tplot_width', tplot_width="is-half");}
+    else {$$invalidate('tplot_width', tplot_width="is-full");}
+    jq('.plotContainer').css("max-height", `${plorContainerHeight}px`);
+    jq(".folderContainerPanelBlock").css("height", `${panelHeight}vh`);
+    
   });
   
   const join = file => {
@@ -5878,10 +6055,9 @@ function instance$5($$self, $$props, $$invalidate) {
         type: target.checked ? "log" : null
       }
     };
-
-    if (filetag == "mass") {
-      Plotly.relayout("mplot", layout);
-    } else {
+    if (filetag == "mass") {Plotly.relayout("mplot", layout);}
+    
+    else {
       fileChecked.forEach(file => {
         let tplot = file + "_tplot";
         Plotly.relayout(tplot, layout);
@@ -5889,8 +6065,8 @@ function instance$5($$self, $$props, $$invalidate) {
     }
   };
 
-  let folderFile = { folders: [], files: [] };
 
+  let folderFile = { folders: [], files: [] };
   let tree = directoryTree_1;
   let currentLocation;
   if (localStorage.getItem(`${filetag}_location`) != undefined) {$$invalidate('currentLocation', currentLocation = localStorage.getItem(`${filetag}_location`));}
@@ -5903,13 +6079,12 @@ function instance$5($$self, $$props, $$invalidate) {
   };
 
   const locationUpdateStatus = (status) => {
+
     jq(document).ready(()=>{
-      
       let locationUpdateDiv = document.getElementById(`${filetag}locationUpdate`);
 
       locationUpdateDiv.innerHTML = status;
       locationUpdateDiv.style.display = "block";
-      
       setTimeout(()=>{
         locationUpdateDiv.innerHTML="";
         locationUpdateDiv.style.display = "none";
@@ -5936,7 +6111,6 @@ function instance$5($$self, $$props, $$invalidate) {
     console.log(`[${filetag}]: location is stored locally\n${currentLocation}`);
 
     try {
-
       let folder = [];
       let file = [];
 
@@ -6038,17 +6212,11 @@ function instance$5($$self, $$props, $$invalidate) {
     },
 
     // THz scan matplotlib
-
-    thz:{
-
-      pyfile:"thz_scan.py",
-      // args:[delta_thz, "plot", gamma_thz] // Doesn't take the binded delta_thz value
-      
-    }
+    thz:{pyfile:"thz_scan.py"}
   };
   function functionRun(event=null, target_id=null) {
-    let btname;
 
+    let btname;
     target_id === null ? btname = event.target.id : btname = target_id;
 
     console.log(`Button clicked (id): ${btname}`);
@@ -6057,9 +6225,7 @@ function instance$5($$self, $$props, $$invalidate) {
     switch (btname) {
 
       ////////////// FELIX PLOT //////////////////////
-
       case "felixPlotBtn":
-
         jq("#theoryRow").css("display", "none");
         // plotContainerHeight = "60vh"
         Plotly.purge("exp-theory-plot");
@@ -6080,9 +6246,7 @@ function instance$5($$self, $$props, $$invalidate) {
       
       break;
 
-
       case "exp_fit":
-
         let expfit_overwrite = document.getElementById("overwrite_expfit").checked;
         let fitfile = document.getElementById("expfitFiles").value;
 
@@ -6246,22 +6410,22 @@ function instance$5($$self, $$props, $$invalidate) {
         jq("#depletionRow").toggle();
       break;
 
-      ////////////////////////////////////////////////////
-    
       default:
         break;
-
-      //////////////////////////////////////////////////// 
     }
   }
   function opentheory() {
     browseFile({theory:true}).then(file =>  $$invalidate('theoryfiles', theoryfiles = file)).catch(err => console.log(err));
   }
-
   function runtheory({tkplot="run", filetype="theory"}) {
+
+    let btname;
+
+    tkplot === "run" ?  btname= "appendTheory" :  btname= "theory_Matplotlib";
     runPlot({
       fullfiles: theoryfiles, filetype: filetype, filetag:filetag,
-      btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot]
+      btname: btname, pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot]
+      
     }).then((output)=>{console.log(output);})
     .catch((err)=>{
         console.log('Error Occured', err);
@@ -6270,10 +6434,8 @@ function instance$5($$self, $$props, $$invalidate) {
         $$invalidate('modal', modal[filetag]="is-active", modal);
       });
   }
-
   let sigma=20; //Sigma value for felixplot thoery gaussian profile
   let scale=1;
-
   let powerinfo = "21, 21";
   let nshots = 10;
   let massIndex = 0;
@@ -6310,6 +6472,7 @@ function instance$5($$self, $$props, $$invalidate) {
       $$invalidate('modal', modal["scan"]="is-active", modal);
     });
   };
+  
   const expfit_log_it = (str) => {
     
     $$invalidate('expfit_log_display', expfit_log_display = true);
@@ -6323,10 +6486,8 @@ function instance$5($$self, $$props, $$invalidate) {
   let ready_to_fit = false;
 
   function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all"} = {}) {
-
     let expfit_overwrite = document.getElementById("overwrite_expfit").checked;
     let fitfile = document.getElementById("fitFiles").value;
-
     runPlot({
       fullfiles: [fitfile],
       filetype: filetype,
@@ -6344,7 +6505,6 @@ function instance$5($$self, $$props, $$invalidate) {
   }
 
   const findPeak = () => {
-
     console.log("Finding preak with prominence value: ", prominence);
     ready_to_fit = true;
     expfit_func();
@@ -6382,7 +6542,6 @@ function instance$5($$self, $$props, $$invalidate) {
     console.log(`Total files plotted: ${plottedFiles_length}`);
     for (let i=0; i<plottedFiles_length; i++) {Plotly.deleteTraces("avgplot", [-1]);}
     window.line = [];
-
     ready_to_fit = false;
   };
 
@@ -6391,10 +6550,8 @@ function instance$5($$self, $$props, $$invalidate) {
     if (window.line.length > 0) {
       delete_file_line();
       Plotly.deleteTraces("avgplot", [-1]);
-
       console.log("Last fitted peak removed");
     } else {
-      
       if (window.annotations.length === 0) {expfit_log_it("No fitted lines found");}
       console.log("No line fit is found to remove");
     }
@@ -6405,12 +6562,10 @@ function instance$5($$self, $$props, $$invalidate) {
     Plotly.relayout("avgplot", { annotations: window.annotations, shapes: window.line });
     if (window.line.length === 0) {ready_to_fit = false;}
   };
-
   const fitall = (tkplot=false, btname="fitall_expfit_peaks", filetype="expfit_all") => {
-
     console.log("Fitting all found peaks");
-    if (ready_to_fit) {expfit_func({runfit:true, btname:btname, tkplot:tkplot, filetype:filetype});}
 
+    if (ready_to_fit) {expfit_func({runfit:true, btname:btname, tkplot:tkplot, filetype:filetype});}
     else {
       $$invalidate('findPeak_btnCSS', findPeak_btnCSS = "is-link shake");
       setTimeout(()=>$$invalidate('findPeak_btnCSS', findPeak_btnCSS = "is-link"), 1000);
@@ -6453,6 +6608,7 @@ function instance$5($$self, $$props, $$invalidate) {
       let layout = window.avg_data[normMethod]["layout"];
       Plotly.react("avgplot", data , layout );
     } catch (err) {console.log("Error occured while changing felixplot method", err);}
+
   }
 
   function plotOPO(){
@@ -6460,14 +6616,97 @@ function instance$5($$self, $$props, $$invalidate) {
         fullfiles: fullfiles, filetype: "opofile", filetag:"felix",
         btname: "opoButton", pyfile: "oposcan.py", 
         args: "run"
+      }).catch(err => {
+        console.log('Error Occured', err); 
+        $$invalidate('error_msg', error_msg[filetag]=err, error_msg); 
+        $$invalidate('modal', modal[filetag]="is-active", modal);
+      });
+  }
+
+  let thz_row = [
+    { name:"B (MHz)", id: "rotational_B", value: 226785.36 },
+    { name:"D (MHz)", id: "rotational_D", value: 0 },
+    { name:"H (MHz)", id: "rotational_H", value: 0 },
+    // { name:"Energy (MHz)", id: "boltzman_energy", value: 0 },
+    { name:"Temp. (K)", id: "boltzman_temp", value: 300 },
+    { name:"Total #J", id: "boltzman_totalJ", value: 20 },
+  ];
+
+  const plotBoltzman = (tkplot="run") => {
+    let targetID = "boltzman_plot_btn";
+    let filetype = "boltzman";
+
+    if (tkplot === "plot") {
+      targetID = "boltzman_plot_mbtn";
+      filetype = "general";
+    }
+
+    let B0 = document.getElementById("rotational_B").value;
+    let D0 = document.getElementById("rotational_D").value;
+    let H0 = document.getElementById("rotational_H").value;
+    let temp = document.getElementById("boltzman_temp").value;
+    
+    let totalJ = document.getElementById("boltzman_totalJ").value;
+
+    runPlot({
+        fullfiles: [currentLocation], filetype: filetype, filetag:"thz",
+        btname: targetID, pyfile: "boltzman.py", 
+        args: [B0, D0, H0, temp, totalJ, tkplot]
 
       }).catch(err => {
         console.log('Error Occured', err); 
         $$invalidate('error_msg', error_msg[filetag]=err, error_msg); 
         $$invalidate('modal', modal[filetag]="is-active", modal);
-
       });
-  }
+  };
+
+  let plotlyWidth = localStorage["plotly_width"] || 1500;
+  let plotlyHeight = localStorage["plotly_height"] || 450;
+
+  const configPlotly = (start=true, e=null) => {
+
+    localStorage["plotly_width"] = plotlyWidth;
+    localStorage["plotly_height"] = plotlyHeight;
+    if (start) {
+
+      switch (filetag) {
+        case "felix":
+          functionRun(e, "felixPlotBtn");
+          break;
+
+        case "mass":
+          Plotly.relayout("mplot", {width: plotlyWidth, height: plotlyHeight});
+          break;
+
+        case "scan":
+          functionRun(e, "timescanBtn");
+          break;
+
+        case "thz":
+          Plotly.relayout("thzplot_Container", {width: plotlyWidth, height: plotlyHeight});
+          break;
+
+        default:
+          break;
+
+      }
+    }
+
+  };
+
+  configPlotly(false);
+  
+  const configPlotContainer = () => {
+    localStorage["plotContainerHeight"] = plorContainerHeight;
+    jq('.plotContainer').css("max-height", plorContainerHeight);
+  };
+
+  
+  const configFileExplorer = () => {
+    localStorage["panelHeight"] = panelHeight;
+    jq(".folderContainerPanelBlock").css("height", `${panelHeight}vh`);
+  };
+  configFileExplorer();
 
 	const $$binding_groups = [[]];
 
@@ -6506,6 +6745,8 @@ function instance$5($$self, $$props, $$invalidate) {
 
 	const change_handler_2 = (e) => functionRun(e, "thzBtn");
 
+	const click_handler_3 = () => jq("#boltzman_row").toggle();
+
 	function input0_input_handler_1() {
 		sigma = to_number(this.value);
 		$$invalidate('sigma', sigma);
@@ -6520,7 +6761,7 @@ function instance$5($$self, $$props, $$invalidate) {
 
 	const change_handler_4 = () => runtheory({tkplot:"run"});
 
-	const click_handler_3 = () => runtheory({tkplot:"plot", filetype:"general"});
+	const click_handler_4 = () => runtheory({tkplot:"plot", filetype:"general"});
 
 	function input_input_handler_1() {
 		powerinfo = this.value;
@@ -6571,6 +6812,28 @@ function instance$5($$self, $$props, $$invalidate) {
 		$$invalidate('mass_peak_height', mass_peak_height);
 	}
 
+	const click_handler_5 = () => plotBoltzman('plot');
+
+	function input1_input_handler_3() {
+		plotlyWidth = to_number(this.value);
+		$$invalidate('plotlyWidth', plotlyWidth);
+	}
+
+	function input2_input_handler_1() {
+		plotlyHeight = to_number(this.value);
+		$$invalidate('plotlyHeight', plotlyHeight);
+	}
+
+	function input3_input_handler_1() {
+		plorContainerHeight = to_number(this.value);
+		$$invalidate('plorContainerHeight', plorContainerHeight);
+	}
+
+	function input4_input_handler_1() {
+		panelHeight = to_number(this.value);
+		$$invalidate('panelHeight', panelHeight);
+	}
+
 	function input0_change_handler() {
 		normMethod = this.__value;
 		$$invalidate('normMethod', normMethod);
@@ -6586,12 +6849,12 @@ function instance$5($$self, $$props, $$invalidate) {
 		$$invalidate('normMethod', normMethod);
 	}
 
-	function input3_input_handler_1() {
+	function input3_input_handler_2() {
 		prominence = to_number(this.value);
 		$$invalidate('prominence', prominence);
 	}
 
-	function input4_input_handler_1() {
+	function input4_input_handler_2() {
 		peak_width = to_number(this.value);
 		$$invalidate('peak_width', peak_width);
 	}
@@ -6607,7 +6870,7 @@ function instance$5($$self, $$props, $$invalidate) {
 		$$invalidate('fit_file_list', fit_file_list), $$invalidate('fit_file_list_temp', fit_file_list_temp), $$invalidate('fileChecked', fileChecked), $$invalidate('allFiles', allFiles);
 	}
 
-	const click_handler_4 = () => fitall(true, 'fitall_tkplot_expfit_peaks', 'general');
+	const click_handler_6 = () => fitall(true, 'fitall_tkplot_expfit_peaks', 'general');
 
 	function select1_change_handler() {
 		fit_files = select_value(this);
@@ -6615,15 +6878,15 @@ function instance$5($$self, $$props, $$invalidate) {
 		$$invalidate('fit_file_list', fit_file_list), $$invalidate('fit_file_list_temp', fit_file_list_temp), $$invalidate('fileChecked', fileChecked), $$invalidate('allFiles', allFiles);
 	}
 
-	const click_handler_5 = () => $$invalidate('exp_fitall_div_status', exp_fitall_div_status = !exp_fitall_div_status);
+	const click_handler_7 = () => $$invalidate('exp_fitall_div_status', exp_fitall_div_status = !exp_fitall_div_status);
 
-	const click_handler_6 = () => nist_webview.goToIndex(0);
+	const click_handler_8 = () => nist_webview.goToIndex(0);
 
-	const click_handler_7 = () => {if(nist_webview.canGoBack()) {nist_webview.goBack();}};
+	const click_handler_9 = () => {if(nist_webview.canGoBack()) {nist_webview.goBack();}};
 
-	const click_handler_8 = () => {if(nist_webview.canGoForward()) {nist_webview.goForward();}};
+	const click_handler_10 = () => {if(nist_webview.canGoForward()) {nist_webview.goForward();}};
 
-	const click_handler_9 = () => nist_webview.reload();
+	const click_handler_11 = () => nist_webview.reload();
 
 	$$self.$set = $$props => {
 		if ('id' in $$props) $$invalidate('id', id = $$props.id);
@@ -6639,7 +6902,7 @@ function instance$5($$self, $$props, $$invalidate) {
 		if ('MenuItem' in $$props) $$invalidate('MenuItem', MenuItem = $$props.MenuItem);
 	};
 
-	let tplot_width, fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, clear_all_Peak_btnCSS, clear_last_Peak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div, fit_files, fit_file_list_temp, fit_file_list, fitall_tkplot_Peak_btnCSS, expfit_log_display, expfit_log, mass_peak_width, mass_prominence, mass_peak_height, nist_mformula, nist_mname, nist_molecule_name, nist_molecule_formula, nist_url, internet_connection, internet_active, search_string;
+	let btnhoverColor, tplot_width, fileChecked, fullfiles, theoryfilenames, delta_thz, gamma_thz, modal, error_msg, expfitDiv, prominence, peak_width, peak_height, findPeak_btnCSS, clear_all_Peak_btnCSS, clear_last_Peak_btnCSS, fitallPeak_btnCSS, exp_fitall_div_status, exp_fitall_div, fit_files, fit_file_list_temp, fit_file_list, fitall_tkplot_Peak_btnCSS, expfit_log_display, expfit_log, mass_peak_width, mass_prominence, mass_peak_height, nist_mformula, nist_mname, nist_molecule_name, nist_molecule_formula, nist_url, internet_connection, internet_active, search_string;
 
 	$$self.$$.update = ($$dirty = { filetag: 1, allFiles: 1, fileChecked: 1, path: 1, currentLocation: 1, theoryfiles: 1, exp_fitall_div_status: 1, fit_file_list_temp: 1, nist_mname: 1, nist_mformula: 1, search_string: 1 }) => {
 		if ($$dirty.filetag) ;
@@ -6656,6 +6919,7 @@ function instance$5($$self, $$props, $$invalidate) {
 		if ($$dirty.search_string) ;
 	};
 
+	$$invalidate('btnhoverColor', btnhoverColor = window.btnHoverBgColor || "#7a64b1");
 	$$invalidate('tplot_width', tplot_width = "");
 	$$invalidate('delta_thz', delta_thz = 1);
 	$$invalidate('gamma_thz', gamma_thz = 0);
@@ -6697,6 +6961,8 @@ function instance$5($$self, $$props, $$invalidate) {
 		path,
 		menu,
 		MenuItem,
+		plorContainerHeight,
+		panelHeight,
 		delta,
 		normMethod,
 		linearlogCheck,
@@ -6726,6 +6992,14 @@ function instance$5($$self, $$props, $$invalidate) {
 		set_nist_url,
 		animatePlot,
 		plotOPO,
+		thz_row,
+		plotBoltzman,
+		plotlyWidth,
+		plotlyHeight,
+		configPlotly,
+		configPlotContainer,
+		configFileExplorer,
+		btnhoverColor,
 		tplot_width,
 		fileChecked,
 		console,
@@ -6768,11 +7042,12 @@ function instance$5($$self, $$props, $$invalidate) {
 		change_handler_1,
 		input1_input_handler,
 		change_handler_2,
+		click_handler_3,
 		input0_input_handler_1,
 		change_handler_3,
 		input1_input_handler_1,
 		change_handler_4,
-		click_handler_3,
+		click_handler_4,
 		input_input_handler_1,
 		input_input_handler_2,
 		input_input_handler_3,
@@ -6784,20 +7059,25 @@ function instance$5($$self, $$props, $$invalidate) {
 		input2_input_handler,
 		input3_input_handler,
 		input4_input_handler,
+		click_handler_5,
+		input1_input_handler_3,
+		input2_input_handler_1,
+		input3_input_handler_1,
+		input4_input_handler_1,
 		input0_change_handler,
 		input1_change_handler,
 		input2_change_handler,
-		input3_input_handler_1,
-		input4_input_handler_1,
+		input3_input_handler_2,
+		input4_input_handler_2,
 		input5_input_handler,
 		select0_change_handler,
-		click_handler_4,
-		select1_change_handler,
-		click_handler_5,
 		click_handler_6,
+		select1_change_handler,
 		click_handler_7,
 		click_handler_8,
 		click_handler_9,
+		click_handler_10,
+		click_handler_11,
 		$$binding_groups
 	};
 }
@@ -7052,10 +7332,11 @@ class Powerfile extends SvelteComponent {
 function get_each_context$3(ctx, list, i) {
 	const child_ctx = Object.create(ctx);
 	child_ctx.item = list[i];
+	child_ctx.index = i;
 	return child_ctx;
 }
 
-// (514:20) {#each items as item}
+// (569:20) {#each items as item, index}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -7064,7 +7345,7 @@ function create_each_block$3(ctx) {
 			li = element("li");
 			a = element("a");
 			t = text(t_value);
-			attr(a, "class", "menulist svelte-yq7g0m");
+			attr(a, "class", "menulist svelte-1o5b4at");
 			attr(a, "id", "" + ctx.item + "Container");
 			dispose = listen(a, "click", ctx.toggle);
 		},
@@ -7087,7 +7368,7 @@ function create_each_block$3(ctx) {
 	};
 }
 
-// (552:28) {#if saveChanges}
+// (642:32) {#if saveChanges}
 function create_if_block_1$2(ctx) {
 	var h1, h1_transition, current, dispose;
 
@@ -7095,7 +7376,7 @@ function create_if_block_1$2(ctx) {
 		c() {
 			h1 = element("h1");
 			h1.textContent = "Changes saved!";
-			attr(h1, "class", "subtitle svelte-yq7g0m");
+			attr(h1, "class", "level-item subtitle svelte-1o5b4at");
 			dispose = listen(h1, "introend", ctx.introend_handler);
 		},
 
@@ -7132,7 +7413,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (619:28) {#if back_restore_display}
+// (709:28) {#if back_restore_display}
 function create_if_block$3(ctx) {
 	var p, t, p_transition, current;
 
@@ -7182,7 +7463,7 @@ function create_if_block$3(ctx) {
 }
 
 function create_fragment$7(ctx) {
-	var section, div32, div1, aside, div0, t1, ul, t2, div31, div30, div29, div2, t3, t4, div11, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div7, button0, t16, t17, div10, div9, input2, t18, div8, t20, div26, h10, t21, t22, t23, hr0, t24, div17, div16, div12, input3, t25, div13, input4, t26, div15, div14, select, option0, option1, t29, hr1, t30, div18, p2, button1, t31, button1_class_value, t32, p3, button2, t33, button2_class_value, t34, h11, t35, t36, hr2, t37, div20, input5, t38, div19, t40, div24, div22, t42, div23, input6, t43, hr3, t44, div25, p4, input7, t45, p5, button3, t46, button3_class_value, t47, p6, button4, t48, button4_class_value, t49, t50, div28, div27, h12, t52, h13, t53, t54_value = process.versions.electron + "", t54, t55, h14, t56, t57_value = process.versions.node + "", t57, t58, h15, t59, t60_value = process.versions.chrome + "", t60, t61, h16, t62, t63, hr4, t64, h17, t66, h18, t67, t68_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t68, t69, h19, t70, t71_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t71, t72, h110, t73, t74_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t74, t75, h111, t76, t77_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t77, t78, hr5, t79, h112, t81, h113, t82, t83_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "", t83, t84, h114, t85, t86_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t86, t87, h115, t88, t89_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t89, t90, h116, t91, t92_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t92, current, dispose;
+	var section, div34, div1, aside, div0, t1, ul, t2, div33, div32, div31, div2, t3, t4, div13, div4, label0, t6, div3, input0, t7, p0, t9, div6, label1, t11, div5, input1, t12, p1, t14, div9, div7, button0, t16, button1, t18, div8, t19, div12, div11, input2, t20, div10, t22, div28, h10, t23, t24, t25, hr0, t26, div19, div18, div14, input3, t27, div15, input4, t28, div17, div16, select, option0, option1, t31, hr1, t32, div20, p2, button2, t33, button2_class_value, t34, p3, button3, t35, button3_class_value, t36, h11, t37, t38, hr2, t39, div22, input5, t40, div21, t42, div26, div24, t44, div25, input6, t45, hr3, t46, div27, p4, input7, t47, p5, button4, t48, button4_class_value, t49, p6, button5, t50, button5_class_value, t51, t52, div30, div29, h12, t54, h13, t55, t56_value = process.versions.electron + "", t56, t57, h14, t58, t59_value = process.versions.node + "", t59, t60, h15, t61, t62_value = process.versions.chrome + "", t62, t63, h16, t64, t65, hr4, t66, h17, t68, h18, t69, t70_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "", t70, t71, h19, t72, t73_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "", t73, t74, h110, t75, t76_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "", t76, t77, h111, t78, t79_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "", t79, t80, hr5, t81, h112, t83, h113, t84, t85_value = ctx.packageJSON.dependencies["bulma"].split("^")[1] + "", t85, t86, h114, t87, t88_value = ctx.packageJSON.dependencies["@fortawesome/fontawesome-free"].split("^")[1] + "", t88, t89, h115, t90, t91_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "", t91, t92, h116, t93, t94_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "", t94, current, dispose;
 
 	let each_value = ctx.items;
 
@@ -7199,7 +7480,7 @@ function create_fragment$7(ctx) {
 	return {
 		c() {
 			section = element("section");
-			div32 = element("div");
+			div34 = element("div");
 			div1 = element("div");
 			aside = element("aside");
 			div0 = element("div");
@@ -7212,13 +7493,13 @@ function create_fragment$7(ctx) {
 			}
 
 			t2 = space();
+			div33 = element("div");
+			div32 = element("div");
 			div31 = element("div");
-			div30 = element("div");
-			div29 = element("div");
 			div2 = element("div");
 			t3 = text(ctx.currentTime);
 			t4 = space();
-			div11 = element("div");
+			div13 = element("div");
 			div4 = element("div");
 			label0 = element("label");
 			label0.textContent = "PythonPath";
@@ -7239,291 +7520,301 @@ function create_fragment$7(ctx) {
 			p1 = element("p");
 			p1.textContent = "location of python script files";
 			t14 = space();
+			div9 = element("div");
 			div7 = element("div");
 			button0 = element("button");
-			button0.textContent = "Save";
+			button0.textContent = "Set Defaults";
 			t16 = space();
-			if (if_block0) if_block0.c();
-			t17 = space();
-			div10 = element("div");
-			div9 = element("div");
-			input2 = element("input");
+			button1 = element("button");
+			button1.textContent = "Save";
 			t18 = space();
 			div8 = element("div");
-			div8.innerHTML = `<label class="svelte-yq7g0m">Developer mode</label>`;
+			if (if_block0) if_block0.c();
+			t19 = space();
+			div12 = element("div");
+			div11 = element("div");
+			input2 = element("input");
 			t20 = space();
-			div26 = element("div");
+			div10 = element("div");
+			div10.innerHTML = `<label class="svelte-1o5b4at">Developer mode</label>`;
+			t22 = space();
+			div28 = element("div");
 			h10 = element("h1");
-			t21 = text("FELion GUI (Current version): ");
-			t22 = text(ctx.currentVersion);
-			t23 = space();
+			t23 = text("FELion GUI (Current version): ");
+			t24 = text(ctx.currentVersion);
+			t25 = space();
 			hr0 = element("hr");
-			t24 = space();
+			t26 = space();
+			div19 = element("div");
+			div18 = element("div");
+			div14 = element("div");
+			input3 = element("input");
+			t27 = space();
+			div15 = element("div");
+			input4 = element("input");
+			t28 = space();
 			div17 = element("div");
 			div16 = element("div");
-			div12 = element("div");
-			input3 = element("input");
-			t25 = space();
-			div13 = element("div");
-			input4 = element("input");
-			t26 = space();
-			div15 = element("div");
-			div14 = element("div");
 			select = element("select");
 			option0 = element("option");
 			option0.textContent = "master";
 			option1 = element("option");
 			option1.textContent = "developer";
-			t29 = space();
+			t31 = space();
 			hr1 = element("hr");
-			t30 = space();
-			div18 = element("div");
-			p2 = element("p");
-			button1 = element("button");
-			t31 = text("Check Update");
 			t32 = space();
-			p3 = element("p");
-			button2 = element("button");
-			t33 = text("Update");
-			t34 = space();
-			h11 = element("h1");
-			t35 = text(ctx.updateStatus);
-			t36 = space();
-			hr2 = element("hr");
-			t37 = space();
 			div20 = element("div");
-			input5 = element("input");
+			p2 = element("p");
+			button2 = element("button");
+			t33 = text("Check Update");
+			t34 = space();
+			p3 = element("p");
+			button3 = element("button");
+			t35 = text("Update");
+			t36 = space();
+			h11 = element("h1");
+			t37 = text(ctx.updateStatus);
 			t38 = space();
-			div19 = element("div");
-			div19.innerHTML = `<label class="svelte-yq7g0m">Auto update</label>`;
-			t40 = space();
-			div24 = element("div");
+			hr2 = element("hr");
+			t39 = space();
 			div22 = element("div");
-			div22.innerHTML = `<div class="button is-static">Time Interval (in hours)</div>`;
+			input5 = element("input");
+			t40 = space();
+			div21 = element("div");
+			div21.innerHTML = `<label class="svelte-1o5b4at">Auto update</label>`;
 			t42 = space();
-			div23 = element("div");
-			input6 = element("input");
-			t43 = space();
-			hr3 = element("hr");
+			div26 = element("div");
+			div24 = element("div");
+			div24.innerHTML = `<div class="button is-static">Time Interval (in hours)</div>`;
 			t44 = space();
 			div25 = element("div");
+			input6 = element("input");
+			t45 = space();
+			hr3 = element("hr");
+			t46 = space();
+			div27 = element("div");
 			p4 = element("p");
 			input7 = element("input");
-			t45 = space();
-			p5 = element("p");
-			button3 = element("button");
-			t46 = text("Backup");
 			t47 = space();
-			p6 = element("p");
+			p5 = element("p");
 			button4 = element("button");
-			t48 = text("Restore");
+			t48 = text("Backup");
 			t49 = space();
+			p6 = element("p");
+			button5 = element("button");
+			t50 = text("Restore");
+			t51 = space();
 			if (if_block1) if_block1.c();
-			t50 = space();
-			div28 = element("div");
-			div27 = element("div");
+			t52 = space();
+			div30 = element("div");
+			div29 = element("div");
 			h12 = element("h1");
 			h12.textContent = "Software details (version)";
-			t52 = space();
+			t54 = space();
 			h13 = element("h1");
-			t53 = text("Electron.js: ");
-			t54 = text(t54_value);
-			t55 = space();
+			t55 = text("Electron.js: ");
+			t56 = text(t56_value);
+			t57 = space();
 			h14 = element("h1");
-			t56 = text("Node.js: ");
-			t57 = text(t57_value);
-			t58 = space();
+			t58 = text("Node.js: ");
+			t59 = text(t59_value);
+			t60 = space();
 			h15 = element("h1");
-			t59 = text("Chrome: ");
-			t60 = text(t60_value);
-			t61 = space();
-			h16 = element("h1");
-			t62 = text(ctx.pythonv);
+			t61 = text("Chrome: ");
+			t62 = text(t62_value);
 			t63 = space();
+			h16 = element("h1");
+			t64 = text(ctx.pythonv);
+			t65 = space();
 			hr4 = element("hr");
-			t64 = space();
+			t66 = space();
 			h17 = element("h1");
 			h17.textContent = "Javascript Frameworks and libraries";
-			t66 = space();
+			t68 = space();
 			h18 = element("h1");
-			t67 = text("Svelte.js: ");
-			t68 = text(t68_value);
-			t69 = space();
+			t69 = text("Svelte.js: ");
+			t70 = text(t70_value);
+			t71 = space();
 			h19 = element("h1");
-			t70 = text("jQuery: ");
-			t71 = text(t71_value);
-			t72 = space();
+			t72 = text("jQuery: ");
+			t73 = text(t73_value);
+			t74 = space();
 			h110 = element("h1");
-			t73 = text("Typescript: ");
-			t74 = text(t74_value);
-			t75 = space();
+			t75 = text("Typescript: ");
+			t76 = text(t76_value);
+			t77 = space();
 			h111 = element("h1");
-			t76 = text("Tippy.js: ");
-			t77 = text(t77_value);
-			t78 = space();
+			t78 = text("Tippy.js: ");
+			t79 = text(t79_value);
+			t80 = space();
 			hr5 = element("hr");
-			t79 = space();
+			t81 = space();
 			h112 = element("h1");
 			h112.textContent = "CSS Frameworks and libraries";
-			t81 = space();
+			t83 = space();
 			h113 = element("h1");
-			t82 = text("Bulma: ");
-			t83 = text(t83_value);
-			t84 = space();
+			t84 = text("Bulma: ");
+			t85 = text(t85_value);
+			t86 = space();
 			h114 = element("h1");
-			t85 = text("Fontawesome: ");
-			t86 = text(t86_value);
-			t87 = space();
+			t87 = text("Fontawesome: ");
+			t88 = text(t88_value);
+			t89 = space();
 			h115 = element("h1");
-			t88 = text("pretty-checkbox: ");
-			t89 = text(t89_value);
-			t90 = space();
+			t90 = text("pretty-checkbox: ");
+			t91 = text(t91_value);
+			t92 = space();
 			h116 = element("h1");
-			t91 = text("hover.css: ");
-			t92 = text(t92_value);
-			attr(div0, "class", "menu-label svelte-yq7g0m");
-			attr(ul, "class", "menu-list svelte-yq7g0m");
-			attr(aside, "class", "menu box svelte-yq7g0m");
+			t93 = text("hover.css: ");
+			t94 = text(t94_value);
+			attr(div0, "class", "menu-label svelte-1o5b4at");
+			attr(ul, "class", "menu-list svelte-1o5b4at");
+			attr(aside, "class", "menu box svelte-1o5b4at");
 			set_style(aside, "height", "100%");
 			attr(div1, "class", "column is-3");
 			attr(div2, "class", "is-pulled-right");
-			attr(label0, "class", "label svelte-yq7g0m");
+			attr(label0, "class", "label svelte-1o5b4at");
 			attr(input0, "class", "input");
 			attr(input0, "type", "text");
 			attr(input0, "placeholder", "Enter the default python.exe file path");
 			attr(div3, "class", "control");
 			attr(p0, "class", "help");
 			attr(div4, "class", "field");
-			attr(label1, "class", "label svelte-yq7g0m");
+			attr(label1, "class", "label svelte-1o5b4at");
 			attr(input1, "class", "input");
 			attr(input1, "type", "text");
 			attr(input1, "placeholder", "Enter the default python.exe file path");
 			attr(div5, "class", "control");
 			attr(p1, "class", "help");
 			attr(div6, "class", "field");
-			attr(button0, "class", "button is-link is-pulled-right");
-			attr(div7, "class", "control");
+			attr(button0, "class", "level-item button is-warning");
+			attr(button1, "class", "level-item button is-link");
+			attr(div7, "class", "level-left");
+			attr(div8, "class", "level-right");
+			attr(div9, "class", "level");
 			attr(input2, "type", "checkbox");
-			input2.checked = true;
-			attr(input2, "id", "developerMode");
-			attr(div8, "class", "state p-info p-on");
-			attr(div9, "class", "pretty p-switch p-slim");
-			set_style(div9, "margin-bottom", "1em");
-			attr(div10, "class", "control");
-			attr(div11, "class", "container");
-			attr(div11, "id", "Configuration");
-			attr(h10, "class", "title svelte-yq7g0m");
+			attr(div10, "class", "state p-info p-on");
+			attr(div11, "class", "pretty p-switch p-slim");
+			set_style(div11, "margin", "1em");
+			attr(div12, "class", "control");
+			attr(div13, "class", "container");
+			attr(div13, "id", "Configuration");
+			set_style(div13, "display", "block");
+			attr(h10, "class", "title svelte-1o5b4at");
 			attr(input3, "type", "text");
 			attr(input3, "class", "input");
 			attr(input3, "data-tippy", "Github Username");
-			attr(div12, "class", "level-item");
+			attr(div14, "class", "level-item");
 			attr(input4, "type", "text");
 			attr(input4, "class", "input");
 			attr(input4, "data-tippy", "Github repo");
-			attr(div13, "class", "level-item");
+			attr(div15, "class", "level-item");
 			option0.__value = "master";
 			option0.value = option0.__value;
 			option1.__value = "developer";
 			option1.value = option1.__value;
 			if (ctx.gihub_branchname === void 0) add_render_callback(() => ctx.select_change_handler.call(select));
-			attr(div14, "class", "select");
-			attr(div15, "class", "level-item");
-			attr(div16, "class", "level-left");
-			attr(div17, "class", "level");
-			attr(button1, "class", button1_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-yq7g0m");
+			attr(div16, "class", "select");
+			attr(div17, "class", "level-item");
+			attr(div18, "class", "level-left");
+			attr(div19, "class", "level");
+			attr(button2, "class", button2_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-1o5b4at");
 			attr(p2, "class", "control");
-			attr(button2, "class", button2_class_value = "button is-warning " + ctx.updateLoading + " svelte-yq7g0m");
+			attr(button3, "class", button3_class_value = "button is-warning " + ctx.updateLoading + " svelte-1o5b4at");
 			attr(p3, "class", "control");
-			attr(div18, "class", "field is-grouped");
-			attr(h11, "class", "subtitle svelte-yq7g0m");
+			attr(div20, "class", "field is-grouped");
+			attr(h11, "class", "subtitle svelte-1o5b4at");
 			set_style(h11, "display", "block");
 			attr(input5, "type", "checkbox");
 			attr(input5, "id", "autoupdate");
-			attr(div19, "class", "state p-info p-on");
-			attr(div20, "class", "pretty p-switch p-slim");
-			set_style(div20, "margin-bottom", "1em");
-			attr(div22, "class", "control");
+			attr(div21, "class", "state p-info p-on");
+			attr(div22, "class", "pretty p-switch p-slim");
+			set_style(div22, "margin-bottom", "1em");
+			attr(div24, "class", "control");
 			attr(input6, "type", "number");
 			attr(input6, "class", "input");
 			attr(input6, "placeholder", "Enter update check for every (time in hrs) interval");
 			input6.value = "1";
 			attr(input6, "data-tippy", "Check for update every hour");
-			attr(div23, "class", "control");
-			attr(div24, "class", "field has-addons");
+			attr(div25, "class", "control");
+			attr(div26, "class", "field has-addons");
 			attr(input7, "type", "text");
 			attr(input7, "class", "input");
 			attr(input7, "data-tippy", "Backup folder name");
 			attr(p4, "class", "control");
-			attr(button3, "class", button3_class_value = "button animated " + ctx.backupClass + " svelte-yq7g0m");
+			attr(button4, "class", button4_class_value = "button animated " + ctx.backupClass + " svelte-1o5b4at");
 			attr(p5, "class", "control");
-			attr(button4, "class", button4_class_value = "button animated " + ctx.restoreClass + " svelte-yq7g0m");
+			attr(button5, "class", button5_class_value = "button animated " + ctx.restoreClass + " svelte-1o5b4at");
 			attr(p6, "class", "control");
-			attr(div25, "class", "field is-grouped");
-			attr(div26, "class", "container");
-			set_style(div26, "display", "none");
-			attr(div26, "id", "Update");
-			attr(h12, "class", "title svelte-yq7g0m");
-			attr(h13, "class", "subtitle svelte-yq7g0m");
-			set_style(h13, "margin-bottom", "0");
-			attr(h14, "class", "subtitle svelte-yq7g0m");
-			set_style(h14, "margin-bottom", "0");
-			attr(h15, "class", "subtitle svelte-yq7g0m");
-			set_style(h15, "margin-bottom", "0");
-			attr(h16, "class", "subtitle svelte-yq7g0m");
-			set_style(h16, "margin-bottom", "0");
-			attr(h17, "class", "title svelte-yq7g0m");
-			attr(h18, "class", "subtitle svelte-yq7g0m");
-			set_style(h18, "margin-bottom", "0");
-			attr(h19, "class", "subtitle svelte-yq7g0m");
-			set_style(h19, "margin-bottom", "0");
-			attr(h110, "class", "subtitle svelte-yq7g0m");
-			set_style(h110, "margin-bottom", "0");
-			attr(h111, "class", "subtitle svelte-yq7g0m");
-			set_style(h111, "margin-bottom", "0");
-			attr(h112, "class", "title svelte-yq7g0m");
-			attr(h113, "class", "subtitle svelte-yq7g0m");
-			set_style(h113, "margin-bottom", "0");
-			attr(h114, "class", "subtitle svelte-yq7g0m");
-			set_style(h114, "margin-bottom", "0");
-			attr(h115, "class", "subtitle svelte-yq7g0m");
-			set_style(h115, "margin-bottom", "0");
-			attr(h116, "class", "subtitle svelte-yq7g0m");
-			set_style(h116, "margin-bottom", "0");
-			attr(div27, "class", "control");
+			attr(div27, "class", "field is-grouped");
 			attr(div28, "class", "container");
 			set_style(div28, "display", "none");
-			attr(div28, "id", "About");
-			attr(div29, "class", "container is-fluid");
-			attr(div30, "class", "row box box2 svelte-yq7g0m");
-			set_style(div30, "height", "100%");
-			attr(div31, "class", "column");
-			attr(div32, "class", "columns");
+			attr(div28, "id", "Update");
+			attr(h12, "class", "title svelte-1o5b4at");
+			attr(h13, "class", "subtitle svelte-1o5b4at");
+			set_style(h13, "margin-bottom", "0");
+			attr(h14, "class", "subtitle svelte-1o5b4at");
+			set_style(h14, "margin-bottom", "0");
+			attr(h15, "class", "subtitle svelte-1o5b4at");
+			set_style(h15, "margin-bottom", "0");
+			attr(h16, "class", "subtitle svelte-1o5b4at");
+			set_style(h16, "margin-bottom", "0");
+			attr(h17, "class", "title svelte-1o5b4at");
+			attr(h18, "class", "subtitle svelte-1o5b4at");
+			set_style(h18, "margin-bottom", "0");
+			attr(h19, "class", "subtitle svelte-1o5b4at");
+			set_style(h19, "margin-bottom", "0");
+			attr(h110, "class", "subtitle svelte-1o5b4at");
+			set_style(h110, "margin-bottom", "0");
+			attr(h111, "class", "subtitle svelte-1o5b4at");
+			set_style(h111, "margin-bottom", "0");
+			attr(h112, "class", "title svelte-1o5b4at");
+			attr(h113, "class", "subtitle svelte-1o5b4at");
+			set_style(h113, "margin-bottom", "0");
+			attr(h114, "class", "subtitle svelte-1o5b4at");
+			set_style(h114, "margin-bottom", "0");
+			attr(h115, "class", "subtitle svelte-1o5b4at");
+			set_style(h115, "margin-bottom", "0");
+			attr(h116, "class", "subtitle svelte-1o5b4at");
+			set_style(h116, "margin-bottom", "0");
+			attr(div29, "class", "control");
+			attr(div30, "class", "container");
+			set_style(div30, "display", "none");
+			attr(div30, "id", "About");
+			attr(div31, "class", "container is-fluid");
+			attr(div32, "class", "row box box2 svelte-1o5b4at");
+			set_style(div32, "height", "100%");
+			attr(div33, "class", "column");
+			attr(div34, "class", "columns");
 			attr(section, "class", "section animated fadeIn");
 			set_style(section, "display", "none");
 			attr(section, "id", "Settings");
 
 			dispose = [
 				listen(input0, "input", ctx.input0_input_handler),
+				listen(input0, "change", ctx.configSave),
 				listen(input1, "input", ctx.input1_input_handler),
-				listen(button0, "click", ctx.configSave),
+				listen(input1, "change", ctx.configSave),
+				listen(button0, "click", ctx.set_defaultConfig),
+				listen(button1, "click", ctx.configSave),
 				listen(input2, "change", ctx.input2_change_handler),
 				listen(input3, "input", ctx.input3_input_handler),
 				listen(input4, "input", ctx.input4_input_handler),
 				listen(select, "change", ctx.select_change_handler),
-				listen(button1, "click", ctx.updateCheck),
-				listen(button2, "click", ctx.update),
+				listen(button2, "click", ctx.updateCheck),
+				listen(button3, "click", ctx.update),
 				listen(input5, "change", ctx.input5_change_handler),
 				listen(input6, "change", ctx.change_handler),
 				listen(input7, "input", ctx.input7_input_handler),
-				listen(button3, "click", ctx.archive),
-				listen(button4, "click", ctx.restore)
+				listen(button4, "click", ctx.archive),
+				listen(button5, "click", ctx.restore)
 			];
 		},
 
 		m(target, anchor) {
 			insert(target, section, anchor);
-			append(section, div32);
-			append(div32, div1);
+			append(section, div34);
+			append(div34, div1);
 			append(div1, aside);
 			append(aside, div0);
 			append(aside, t1);
@@ -7533,15 +7824,15 @@ function create_fragment$7(ctx) {
 				each_blocks[i].m(ul, null);
 			}
 
-			append(div32, t2);
+			append(div34, t2);
+			append(div34, div33);
+			append(div33, div32);
 			append(div32, div31);
-			append(div31, div30);
-			append(div30, div29);
-			append(div29, div2);
+			append(div31, div2);
 			append(div2, t3);
-			append(div29, t4);
-			append(div29, div11);
-			append(div11, div4);
+			append(div31, t4);
+			append(div31, div13);
+			append(div13, div4);
 			append(div4, label0);
 			append(div4, t6);
 			append(div4, div3);
@@ -7551,8 +7842,8 @@ function create_fragment$7(ctx) {
 
 			append(div4, t7);
 			append(div4, p0);
-			append(div11, t9);
-			append(div11, div6);
+			append(div13, t9);
+			append(div13, div6);
 			append(div6, label1);
 			append(div6, t11);
 			append(div6, div5);
@@ -7562,158 +7853,162 @@ function create_fragment$7(ctx) {
 
 			append(div6, t12);
 			append(div6, p1);
-			append(div11, t14);
-			append(div11, div7);
+			append(div13, t14);
+			append(div13, div9);
+			append(div9, div7);
 			append(div7, button0);
 			append(div7, t16);
-			if (if_block0) if_block0.m(div7, null);
-			append(div11, t17);
-			append(div11, div10);
-			append(div10, div9);
-			append(div9, input2);
+			append(div7, button1);
+			append(div9, t18);
+			append(div9, div8);
+			if (if_block0) if_block0.m(div8, null);
+			append(div13, t19);
+			append(div13, div12);
+			append(div12, div11);
+			append(div11, input2);
 
 			input2.checked = ctx.developer_mode;
 
-			append(div9, t18);
-			append(div9, div8);
-			append(div29, t20);
-			append(div29, div26);
-			append(div26, h10);
-			append(h10, t21);
-			append(h10, t22);
-			append(div26, t23);
-			append(div26, hr0);
-			append(div26, t24);
-			append(div26, div17);
-			append(div17, div16);
-			append(div16, div12);
-			append(div12, input3);
+			append(div11, t20);
+			append(div11, div10);
+			append(div31, t22);
+			append(div31, div28);
+			append(div28, h10);
+			append(h10, t23);
+			append(h10, t24);
+			append(div28, t25);
+			append(div28, hr0);
+			append(div28, t26);
+			append(div28, div19);
+			append(div19, div18);
+			append(div18, div14);
+			append(div14, input3);
 
 			set_input_value(input3, ctx.github_username);
 
-			append(div16, t25);
-			append(div16, div13);
-			append(div13, input4);
+			append(div18, t27);
+			append(div18, div15);
+			append(div15, input4);
 
 			set_input_value(input4, ctx.github_repo);
 
-			append(div16, t26);
-			append(div16, div15);
-			append(div15, div14);
-			append(div14, select);
+			append(div18, t28);
+			append(div18, div17);
+			append(div17, div16);
+			append(div16, select);
 			append(select, option0);
 			append(select, option1);
 
 			select_option(select, ctx.gihub_branchname);
 
-			append(div26, t29);
-			append(div26, hr1);
-			append(div26, t30);
-			append(div26, div18);
-			append(div18, p2);
-			append(p2, button1);
-			append(button1, t31);
-			append(div18, t32);
-			append(div18, p3);
-			append(p3, button2);
+			append(div28, t31);
+			append(div28, hr1);
+			append(div28, t32);
+			append(div28, div20);
+			append(div20, p2);
+			append(p2, button2);
 			append(button2, t33);
-			append(div26, t34);
-			append(div26, h11);
-			append(h11, t35);
-			append(div26, t36);
-			append(div26, hr2);
-			append(div26, t37);
-			append(div26, div20);
-			append(div20, input5);
+			append(div20, t34);
+			append(div20, p3);
+			append(p3, button3);
+			append(button3, t35);
+			append(div28, t36);
+			append(div28, h11);
+			append(h11, t37);
+			append(div28, t38);
+			append(div28, hr2);
+			append(div28, t39);
+			append(div28, div22);
+			append(div22, input5);
 
 			input5.checked = ctx.auto_update_check;
 
-			append(div20, t38);
-			append(div20, div19);
-			append(div26, t40);
+			append(div22, t40);
+			append(div22, div21);
+			append(div28, t42);
+			append(div28, div26);
 			append(div26, div24);
-			append(div24, div22);
-			append(div24, t42);
-			append(div24, div23);
-			append(div23, input6);
-			append(div26, t43);
-			append(div26, hr3);
 			append(div26, t44);
 			append(div26, div25);
-			append(div25, p4);
+			append(div25, input6);
+			append(div28, t45);
+			append(div28, hr3);
+			append(div28, t46);
+			append(div28, div27);
+			append(div27, p4);
 			append(p4, input7);
 
 			set_input_value(input7, ctx.backupName);
 
-			append(div25, t45);
-			append(div25, p5);
-			append(p5, button3);
-			append(button3, t46);
-			append(div25, t47);
-			append(div25, p6);
-			append(p6, button4);
+			append(div27, t47);
+			append(div27, p5);
+			append(p5, button4);
 			append(button4, t48);
-			append(div25, t49);
-			if (if_block1) if_block1.m(div25, null);
-			append(div29, t50);
-			append(div29, div28);
-			append(div28, div27);
-			append(div27, h12);
-			append(div27, t52);
-			append(div27, h13);
-			append(h13, t53);
-			append(h13, t54);
-			append(div27, t55);
-			append(div27, h14);
-			append(h14, t56);
-			append(h14, t57);
-			append(div27, t58);
-			append(div27, h15);
-			append(h15, t59);
-			append(h15, t60);
-			append(div27, t61);
-			append(div27, h16);
-			append(h16, t62);
-			append(div27, t63);
-			append(div27, hr4);
-			append(div27, t64);
-			append(div27, h17);
-			append(div27, t66);
-			append(div27, h18);
-			append(h18, t67);
-			append(h18, t68);
-			append(div27, t69);
-			append(div27, h19);
-			append(h19, t70);
-			append(h19, t71);
-			append(div27, t72);
-			append(div27, h110);
-			append(h110, t73);
-			append(h110, t74);
-			append(div27, t75);
-			append(div27, h111);
-			append(h111, t76);
-			append(h111, t77);
-			append(div27, t78);
-			append(div27, hr5);
-			append(div27, t79);
-			append(div27, h112);
-			append(div27, t81);
-			append(div27, h113);
-			append(h113, t82);
-			append(h113, t83);
-			append(div27, t84);
-			append(div27, h114);
-			append(h114, t85);
-			append(h114, t86);
-			append(div27, t87);
-			append(div27, h115);
-			append(h115, t88);
-			append(h115, t89);
-			append(div27, t90);
-			append(div27, h116);
-			append(h116, t91);
-			append(h116, t92);
+			append(div27, t49);
+			append(div27, p6);
+			append(p6, button5);
+			append(button5, t50);
+			append(div27, t51);
+			if (if_block1) if_block1.m(div27, null);
+			append(div31, t52);
+			append(div31, div30);
+			append(div30, div29);
+			append(div29, h12);
+			append(div29, t54);
+			append(div29, h13);
+			append(h13, t55);
+			append(h13, t56);
+			append(div29, t57);
+			append(div29, h14);
+			append(h14, t58);
+			append(h14, t59);
+			append(div29, t60);
+			append(div29, h15);
+			append(h15, t61);
+			append(h15, t62);
+			append(div29, t63);
+			append(div29, h16);
+			append(h16, t64);
+			append(div29, t65);
+			append(div29, hr4);
+			append(div29, t66);
+			append(div29, h17);
+			append(div29, t68);
+			append(div29, h18);
+			append(h18, t69);
+			append(h18, t70);
+			append(div29, t71);
+			append(div29, h19);
+			append(h19, t72);
+			append(h19, t73);
+			append(div29, t74);
+			append(div29, h110);
+			append(h110, t75);
+			append(h110, t76);
+			append(div29, t77);
+			append(div29, h111);
+			append(h111, t78);
+			append(h111, t79);
+			append(div29, t80);
+			append(div29, hr5);
+			append(div29, t81);
+			append(div29, h112);
+			append(div29, t83);
+			append(div29, h113);
+			append(h113, t84);
+			append(h113, t85);
+			append(div29, t86);
+			append(div29, h114);
+			append(h114, t87);
+			append(h114, t88);
+			append(div29, t89);
+			append(div29, h115);
+			append(h115, t90);
+			append(h115, t91);
+			append(div29, t92);
+			append(div29, h116);
+			append(h116, t93);
+			append(h116, t94);
 			current = true;
 		},
 
@@ -7752,7 +8047,7 @@ function create_fragment$7(ctx) {
 					if_block0 = create_if_block_1$2(ctx);
 					if_block0.c();
 					transition_in(if_block0, 1);
-					if_block0.m(div7, null);
+					if_block0.m(div8, null);
 				} else transition_in(if_block0, 1);
 			} else if (if_block0) {
 				group_outros();
@@ -7767,27 +8062,27 @@ function create_fragment$7(ctx) {
 			if (changed.github_repo && (input4.value !== ctx.github_repo)) set_input_value(input4, ctx.github_repo);
 			if (changed.gihub_branchname) select_option(select, ctx.gihub_branchname);
 
-			if ((!current || changed.checkupdateLoading) && button1_class_value !== (button1_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-yq7g0m")) {
-				attr(button1, "class", button1_class_value);
-			}
-
-			if ((!current || changed.updateLoading) && button2_class_value !== (button2_class_value = "button is-warning " + ctx.updateLoading + " svelte-yq7g0m")) {
+			if ((!current || changed.checkupdateLoading) && button2_class_value !== (button2_class_value = "button is-link " + ctx.checkupdateLoading + " svelte-1o5b4at")) {
 				attr(button2, "class", button2_class_value);
 			}
 
+			if ((!current || changed.updateLoading) && button3_class_value !== (button3_class_value = "button is-warning " + ctx.updateLoading + " svelte-1o5b4at")) {
+				attr(button3, "class", button3_class_value);
+			}
+
 			if (!current || changed.updateStatus) {
-				set_data(t35, ctx.updateStatus);
+				set_data(t37, ctx.updateStatus);
 			}
 
 			if (changed.auto_update_check) input5.checked = ctx.auto_update_check;
 			if (changed.backupName && (input7.value !== ctx.backupName)) set_input_value(input7, ctx.backupName);
 
-			if ((!current || changed.backupClass) && button3_class_value !== (button3_class_value = "button animated " + ctx.backupClass + " svelte-yq7g0m")) {
-				attr(button3, "class", button3_class_value);
+			if ((!current || changed.backupClass) && button4_class_value !== (button4_class_value = "button animated " + ctx.backupClass + " svelte-1o5b4at")) {
+				attr(button4, "class", button4_class_value);
 			}
 
-			if ((!current || changed.restoreClass) && button4_class_value !== (button4_class_value = "button animated " + ctx.restoreClass + " svelte-yq7g0m")) {
-				attr(button4, "class", button4_class_value);
+			if ((!current || changed.restoreClass) && button5_class_value !== (button5_class_value = "button animated " + ctx.restoreClass + " svelte-1o5b4at")) {
+				attr(button5, "class", button5_class_value);
 			}
 
 			if (ctx.back_restore_display) {
@@ -7798,7 +8093,7 @@ function create_fragment$7(ctx) {
 					if_block1 = create_if_block$3(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
-					if_block1.m(div25, null);
+					if_block1.m(div27, null);
 				}
 			} else if (if_block1) {
 				group_outros();
@@ -7809,39 +8104,39 @@ function create_fragment$7(ctx) {
 			}
 
 			if (!current || changed.pythonv) {
-				set_data(t62, ctx.pythonv);
+				set_data(t64, ctx.pythonv);
 			}
 
-			if ((!current || changed.packageJSON) && t68_value !== (t68_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "")) {
-				set_data(t68, t68_value);
+			if ((!current || changed.packageJSON) && t70_value !== (t70_value = ctx.packageJSON.devDependencies.svelte.split("^")[1] + "")) {
+				set_data(t70, t70_value);
 			}
 
-			if ((!current || changed.packageJSON) && t71_value !== (t71_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
-				set_data(t71, t71_value);
+			if ((!current || changed.packageJSON) && t73_value !== (t73_value = ctx.packageJSON.dependencies["jquery"].split("^")[1] + "")) {
+				set_data(t73, t73_value);
 			}
 
-			if ((!current || changed.packageJSON) && t74_value !== (t74_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
-				set_data(t74, t74_value);
+			if ((!current || changed.packageJSON) && t76_value !== (t76_value = ctx.packageJSON.devDependencies.typescript.split("^")[1] + "")) {
+				set_data(t76, t76_value);
 			}
 
-			if ((!current || changed.packageJSON) && t77_value !== (t77_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
-				set_data(t77, t77_value);
+			if ((!current || changed.packageJSON) && t79_value !== (t79_value = ctx.packageJSON.dependencies["tippy.js"].split("^")[1] + "")) {
+				set_data(t79, t79_value);
 			}
 
-			if ((!current || changed.packageJSON) && t83_value !== (t83_value = ctx.packageJSON.devDependencies["bulma"].split("^")[1] + "")) {
-				set_data(t83, t83_value);
+			if ((!current || changed.packageJSON) && t85_value !== (t85_value = ctx.packageJSON.dependencies["bulma"].split("^")[1] + "")) {
+				set_data(t85, t85_value);
 			}
 
-			if ((!current || changed.packageJSON) && t86_value !== (t86_value = ctx.packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
-				set_data(t86, t86_value);
+			if ((!current || changed.packageJSON) && t88_value !== (t88_value = ctx.packageJSON.dependencies["@fortawesome/fontawesome-free"].split("^")[1] + "")) {
+				set_data(t88, t88_value);
 			}
 
-			if ((!current || changed.packageJSON) && t89_value !== (t89_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
-				set_data(t89, t89_value);
+			if ((!current || changed.packageJSON) && t91_value !== (t91_value = ctx.packageJSON.dependencies["pretty-checkbox"].split("^")[1] + "")) {
+				set_data(t91, t91_value);
 			}
 
-			if ((!current || changed.packageJSON) && t92_value !== (t92_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
-				set_data(t92, t92_value);
+			if ((!current || changed.packageJSON) && t94_value !== (t94_value = ctx.packageJSON.dependencies["hover.css"].split("^")[1] + "")) {
+				set_data(t94, t94_value);
 			}
 		},
 
@@ -7877,6 +8172,7 @@ const updatefilename = "update.zip";
 function instance$7($$self, $$props, $$invalidate) {
 	let { jq, path, mainWindow, showinfo, electron } = $$props;
 
+
     // Importing modules
     const {exec} = require("child_process");
     const https = require('https');
@@ -7886,13 +8182,11 @@ function instance$7($$self, $$props, $$invalidate) {
 
     jq(document).ready(()=>{
 
-        jq("#ConfigurationContainer").addClass("is-active");
+        jq("#PagesContainer").addClass("is-active");
         console.log(`Internet Status: ${navigator.onLine}`);
         if (navigator.onLine) updateCheck();
         else console.log("Internet is not connected.");
     });
-
-    
     let packageJSON = fs.readFileSync(path.join(__dirname, "../package.json"));
 
     $$invalidate('packageJSON', packageJSON = JSON.parse(packageJSON.toString("utf-8")));
@@ -7900,58 +8194,109 @@ function instance$7($$self, $$props, $$invalidate) {
     let currentVersion = JSON.parse(versionFile.toString("utf-8")).version;
 
     // Pythonpath and pythonscript files location
-    
-    if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python");
-    if (!localStorage["pythonscript"]) localStorage["pythonscript"] = path.resolve(__dirname, "python_files");
     let pythonpath = localStorage["pythonpath"];
-    let pythonscript = localStorage["pythonscript"];
+    let pythonscript = localStorage["pythonscript"] || path.resolve(__dirname, "python_files");
 
     // Getting python version
     let pythonv;
-    exec(`${pythonpath} -V`, (err, stdout, stderr)=>{$$invalidate('pythonv', pythonv = stdout);});
+    exec(`${pythonpath} -V`, (err, stdout, stderr)=>{
+        $$invalidate('pythonv', pythonv = stdout);
+        console.log(`Python version: ${pythonv}`);
+
+        if (pythonv === "") {
+            let options = {
+                title: "Incorrect Python path",
+                message: "Python is not configured (or wrong python path is given)\nGo to 'Setting->Configuration->PythonPath'",
+                type:"warning",
+                buttons: ["Okay, I will change"],
+            };
+            showinfo(mainWindow, options);
+            jq("#Welcome").css("display", "none");
+            jq("#Welcome-nav").removeClass("is-active");
+            jq("#Settings-nav").addClass("is-active");
+            jq("#Settings").css("display", "block");
+        }
+    });
+
+    function checkPython(){
+        console.log("Python path: ", pythonpath);
+        return new Promise((resolve, reject)=>{
+
+            exec(`${pythonpath} -V`, (err, stdout, stderr)=>{
+            let options = {
+                title: "Incorrect Python path", message: `Python directory is not valid\n${pythonpath}`, type:"warning",
+            };
+            
+            if(stdout==="") {
+                showinfo(mainWindow, options);
+                reject("Invalid pythonpath: ", pythonpath);
+            } else { resolve("Valid pythonpath: ", pythonpath); }
+            });
+        })
+    }
 
     // Pages in Settings
+
     let items = ["Configuration", "Update", "About"];
     const configSave = () => {
 
-        localStorage["pythonpath"] = pythonpath;
-        localStorage["pythonscript"] = pythonscript;
-        console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`);
-        $$invalidate('saveChanges', saveChanges = true);
+        checkPython().then(res=>{
+            console.log(res);
+
+            localStorage["pythonpath"] = pythonpath;
+            localStorage["pythonscript"] = pythonscript;
+            console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`);
+            $$invalidate('saveChanges', saveChanges = true);
+        }).catch(err=>{console.log(err); $$invalidate('pythonpath', pythonpath = localStorage["pythonpath"]);});
+        
     };
+    const set_defaultConfig = () => {
 
+        $$invalidate('pythonpath', pythonpath = path.resolve(__dirname, "..", "python3.7", "python"));
+
+        checkPython().then(res=>{
+            console.log(res);
+            $$invalidate('pythonpath', pythonpath = localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python"));
+            $$invalidate('pythonscript', pythonscript = localStorage["pythonscript"] = path.resolve(__dirname, "python_files"));
+            $$invalidate('saveChanges', saveChanges = true);
+
+        }).catch(err=>{ 
+            $$invalidate('pythonpath', pythonpath = localStorage["pythonpath"]);
+            $$invalidate('pythonscript', pythonscript = localStorage["pythonscript"] = path.resolve(__dirname, "python_files"));
+            
+         });
+        
+    };
     const toggle = (event) => {
-
+        
         let target = event.target.id;
         items.forEach(item=>{
             let elementID = `${item}Container`;
             let $element = jq(`#${elementID}`);
-
             let targetElement = document.getElementById(item);
 
             if (elementID != target) {
                 if($element.hasClass("is-active")) {
+                    $element.css("background-color", "transparent");
                     $element.removeClass("is-active");
                     targetElement.style.display = "none";
                 }
             } else {
-
                 $element.addClass("is-active");
                 targetElement.style.display = "block";
+                $element.css("background-color", window.navbarBgColor);
             }
         });
     };
 
-
     let github_username = "aravindhnivas";
     let github_repo = "FELion_GUI2.2";
-
 
     // Local update-downloaded files
     const updateFolder = path.resolve(__dirname, "..", "update");
     const zipFile = path.resolve(updateFolder, updatefilename);
 
-    // Update checking
+
     const updateCheck = () => {
         console.log("Checking for update");
 
@@ -8030,9 +8375,9 @@ function instance$7($$self, $$props, $$invalidate) {
             setTimeout(()=>$$invalidate('checkupdateLoading', checkupdateLoading = ""), 2000);
         });
     };
+
     // Download the update file
     const download = (downloadedFile) => {
-
         return new Promise((resolve, reject)=>{
 
             let response = https.get(urlzip, (res) => {
@@ -8320,9 +8665,9 @@ function instance$7($$self, $$props, $$invalidate) {
 		if ('electron' in $$props) $$invalidate('electron', electron = $$props.electron);
 	};
 
-	let saveChanges, new_version, checkupdateLoading, updateLoading, updateStatus, gihub_branchname, versionJson, urlzip, currentTime, auto_update_check, backupClass, backupName, back_restore_display, back_restore_log, restoreClass, developer_mode;
+	let saveChanges, new_version, checkupdateLoading, updateLoading, updateStatus, gihub_branchname, versionJson, urlzip, currentTime, auto_update_check, backupClass, backupName, back_restore_display, back_restore_log, restoreClass, developer_mode, numberOfPages, pageName;
 
-	$$self.$$.update = ($$dirty = { gihub_branchname: 1, github_username: 1, github_repo: 1, auto_update_check: 1, timeInterval_hr: 1, check_update_continuously: 1, developer_mode: 1 }) => {
+	$$self.$$.update = ($$dirty = { gihub_branchname: 1, github_username: 1, github_repo: 1, auto_update_check: 1, timeInterval_hr: 1, check_update_continuously: 1, developer_mode: 1, numberOfPages: 1, pageName: 1 }) => {
 		if ($$dirty.gihub_branchname) { console.log(`Branch changed: ${gihub_branchname}`); }
 		if ($$dirty.github_username || $$dirty.github_repo || $$dirty.gihub_branchname) { versionJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/version.json`; }
 		if ($$dirty.github_username || $$dirty.github_repo || $$dirty.gihub_branchname) { urlzip = `https://codeload.github.com/${github_username}/${github_repo}/zip/${gihub_branchname}`; }
@@ -8340,6 +8685,9 @@ function instance$7($$self, $$props, $$invalidate) {
             clearInterval(check_update_continuously);
         } }
 		if ($$dirty.developer_mode) { developer_mode ? window.developerMode = true : window.developerMode = false; }
+		if ($$dirty.developer_mode) { console.log("Developer mode: ", developer_mode); }
+		if ($$dirty.numberOfPages) { $$invalidate('pageName', pageName = _.range(numberOfPages+1).map(num=>`Page ${num}`)); }
+		if ($$dirty.pageName) { console.log(pageName, localStorage["totalPages"]); }
 	};
 
 	$$invalidate('saveChanges', saveChanges = false);
@@ -8356,6 +8704,7 @@ function instance$7($$self, $$props, $$invalidate) {
 	$$invalidate('back_restore_log', back_restore_log = "");
 	$$invalidate('restoreClass', restoreClass = "is-warning");
 	$$invalidate('developer_mode', developer_mode = false);
+	$$invalidate('numberOfPages', numberOfPages = parseInt(localStorage["totalPages"]) || 5);
 
 	return {
 		jq,
@@ -8370,6 +8719,7 @@ function instance$7($$self, $$props, $$invalidate) {
 		pythonv,
 		items,
 		configSave,
+		set_defaultConfig,
 		toggle,
 		github_username,
 		github_repo,
@@ -8457,7 +8807,7 @@ function get_each_context$4(ctx, list, i) {
 	return child_ctx;
 }
 
-// (88:10) {#each navigator as {name, target}}
+// (107:10) {#each navigator as {name, target}}
 function create_each_block$4(ctx) {
 	var div, button, t0_value = ctx.name + "", t0, t1, dispose;
 
@@ -8467,7 +8817,7 @@ function create_each_block$4(ctx) {
 			button = element("button");
 			t0 = text(t0_value);
 			t1 = space();
-			attr(button, "class", "button is-link misc_btn");
+			attr(button, "class", "button is-link misc_btn svelte-v66b40");
 			attr(button, "target", ctx.target);
 			attr(div, "class", "level-item");
 			dispose = listen(button, "click", ctx.toggler);
@@ -8493,7 +8843,7 @@ function create_each_block$4(ctx) {
 }
 
 function create_fragment$9(ctx) {
-	var section, div27, div2, div1, div0, t0, div26, div25, div5, h10, t2, hr0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, input2, input2_updating = false, t6, input3, input3_updating = false, t7, input4, input4_updating = false, t8, hr1, t9, h11, t11, div4, input5, t12, div3, t14, input6, input6_updating = false, input6_disabled_value, t15, input7, input7_updating = false, input7_disabled_value, t16, input8, input8_updating = false, input8_disabled_value, t17, input9, input9_updating = false, input9_disabled_value, t18, div5_class_value, t19, div24, h12, t21, hr2, t22, div15, div8, div7, label1, t24, div6, input10, input10_updating = false, t25, input11, input11_updating = false, t26, div11, div10, label2, t28, div9, input12, input12_updating = false, t29, div14, div13, label3, t31, div12, button, t32, t33, hr3, t34, div18, h13, t36, div17, input13, t37, div16, t39, div23, div20, label5, t41, div19, input14, input14_updating = false, input14_disabled_value, t42, div22, label6, t44, div21, input15, input15_updating = false, input15_disabled_value, div24_class_value, dispose;
+	var section, div27, div2, div1, div0, t0, div26, div25, div5, h10, t2, hr0, t3, input0, input0_updating = false, t4, input1, input1_updating = false, t5, input2, input2_updating = false, t6, input3, input3_updating = false, t7, input4, input4_updating = false, t8, input5, input5_updating = false, t9, input6, input6_updating = false, t10, input7, input7_updating = false, t11, hr1, t12, h11, t14, div4, input8, t15, div3, t17, input9, input9_updating = false, input9_disabled_value, t18, input10, input10_updating = false, input10_disabled_value, t19, input11, input11_updating = false, input11_disabled_value, t20, input12, input12_updating = false, input12_disabled_value, t21, div5_class_value, t22, div24, h12, t24, hr2, t25, div15, div8, div7, label1, t27, div6, input13, input13_updating = false, t28, input14, input14_updating = false, t29, div11, div10, label2, t31, div9, input15, input15_updating = false, t32, div14, div13, label3, t34, div12, button, t35, t36, hr3, t37, div18, h13, t39, div17, input16, t40, div16, t42, div23, div20, label5, t44, div19, input17, input17_updating = false, input17_disabled_value, t45, div22, label6, t47, div21, input18, input18_updating = false, input18_disabled_value, div24_class_value, dispose;
 
 	let each_value = ctx.navigator;
 
@@ -8528,6 +8878,11 @@ function create_fragment$9(ctx) {
 		ctx.input4_input_handler.call(input4);
 	}
 
+	function input5_input_handler() {
+		input5_updating = true;
+		ctx.input5_input_handler.call(input5);
+	}
+
 	function input6_input_handler() {
 		input6_updating = true;
 		ctx.input6_input_handler.call(input6);
@@ -8536,11 +8891,6 @@ function create_fragment$9(ctx) {
 	function input7_input_handler() {
 		input7_updating = true;
 		ctx.input7_input_handler.call(input7);
-	}
-
-	function input8_input_handler() {
-		input8_updating = true;
-		ctx.input8_input_handler.call(input8);
 	}
 
 	function input9_input_handler() {
@@ -8563,6 +8913,11 @@ function create_fragment$9(ctx) {
 		ctx.input12_input_handler.call(input12);
 	}
 
+	function input13_input_handler() {
+		input13_updating = true;
+		ctx.input13_input_handler.call(input13);
+	}
+
 	function input14_input_handler() {
 		input14_updating = true;
 		ctx.input14_input_handler.call(input14);
@@ -8571,6 +8926,16 @@ function create_fragment$9(ctx) {
 	function input15_input_handler() {
 		input15_updating = true;
 		ctx.input15_input_handler.call(input15);
+	}
+
+	function input17_input_handler() {
+		input17_updating = true;
+		ctx.input17_input_handler.call(input17);
+	}
+
+	function input18_input_handler() {
+		input18_updating = true;
+		ctx.input18_input_handler.call(input18);
 	}
 
 	return {
@@ -8597,188 +8962,196 @@ function create_fragment$9(ctx) {
 			input0 = element("input");
 			t4 = text("Hz\r\n          ");
 			input1 = element("input");
-			t5 = text("μm\r\n          ");
+			t5 = text("GHz\r\n          ");
 			input2 = element("input");
-			t6 = text("cm-1\r\n          ");
+			t6 = text("μm\r\n          ");
 			input3 = element("input");
-			t7 = text("K\r\n          ");
+			t7 = text("cm-1\r\n          ");
 			input4 = element("input");
-			t8 = text("eV\r\n\r\n          ");
+			t8 = text("K\r\n          ");
+			input5 = element("input");
+			t9 = text("eV\r\n          ");
+			input6 = element("input");
+			t10 = text("J\r\n          ");
+			input7 = element("input");
+			t11 = text("nm\r\n\r\n          ");
 			hr1 = element("hr");
-			t9 = space();
+			t12 = space();
 			h11 = element("h1");
 			h11.textContent = "Fundamental constants";
-			t11 = space();
+			t14 = space();
 			div4 = element("div");
-			input5 = element("input");
-			t12 = space();
+			input8 = element("input");
+			t15 = space();
 			div3 = element("div");
 			div3.innerHTML = `<label>Edit</label>`;
-			t14 = space();
-			input6 = element("input");
-			t15 = text("m/s\r\n          ");
-			input7 = element("input");
-			t16 = text("J/K\r\n          ");
-			input8 = element("input");
-			t17 = text("J.s\r\n          ");
+			t17 = space();
 			input9 = element("input");
-			t18 = text("Columb");
-			t19 = space();
+			t18 = text("m/s\r\n          ");
+			input10 = element("input");
+			t19 = text("J/K\r\n          ");
+			input11 = element("input");
+			t20 = text("J.s\r\n          ");
+			input12 = element("input");
+			t21 = text("Columb");
+			t22 = space();
 			div24 = element("div");
 			h12 = element("h1");
 			h12.textContent = "Number Density Calculation";
-			t21 = space();
+			t24 = space();
 			hr2 = element("hr");
-			t22 = space();
+			t25 = space();
 			div15 = element("div");
 			div8 = element("div");
 			div7 = element("div");
 			label1 = element("label");
 			label1.textContent = "Main Chamber Press.";
-			t24 = space();
+			t27 = space();
 			div6 = element("div");
-			input10 = element("input");
-			t25 = space();
-			input11 = element("input");
-			t26 = space();
+			input13 = element("input");
+			t28 = space();
+			input14 = element("input");
+			t29 = space();
 			div11 = element("div");
 			div10 = element("div");
 			label2 = element("label");
 			label2.textContent = "Temperature";
-			t28 = space();
+			t31 = space();
 			div9 = element("div");
-			input12 = element("input");
-			t29 = space();
+			input15 = element("input");
+			t32 = space();
 			div14 = element("div");
 			div13 = element("div");
 			label3 = element("label");
 			label3.textContent = "Number density";
-			t31 = space();
+			t34 = space();
 			div12 = element("div");
 			button = element("button");
-			t32 = text(ctx.ndensity);
-			t33 = space();
+			t35 = text(ctx.ndensity);
+			t36 = space();
 			hr3 = element("hr");
-			t34 = space();
+			t37 = space();
 			div18 = element("div");
 			h13 = element("h1");
 			h13.textContent = "Constants";
-			t36 = space();
+			t39 = space();
 			div17 = element("div");
-			input13 = element("input");
-			t37 = space();
+			input16 = element("input");
+			t40 = space();
 			div16 = element("div");
 			div16.innerHTML = `<label>Edit</label>`;
-			t39 = space();
+			t42 = space();
 			div23 = element("div");
 			div20 = element("div");
 			label5 = element("label");
 			label5.textContent = "Calibration Factor";
-			t41 = space();
+			t44 = space();
 			div19 = element("div");
-			input14 = element("input");
-			t42 = space();
+			input17 = element("input");
+			t45 = space();
 			div22 = element("div");
 			label6 = element("label");
 			label6.textContent = "Chamber Temperature (RT)";
-			t44 = space();
+			t47 = space();
 			div21 = element("div");
-			input15 = element("input");
+			input18 = element("input");
 			attr(div0, "class", "level-left");
 			attr(div1, "class", "level");
 			attr(div2, "class", "column box is-11");
 			attr(h10, "class", "title");
-			attr(input0, "class", "input energy svelte-yxqgcl");
+			attr(input0, "class", "input energy svelte-v66b40");
 			attr(input0, "type", "number");
-			attr(input0, "target", "hz");
-			attr(input1, "class", "input energy svelte-yxqgcl");
+			attr(input1, "class", "input energy svelte-v66b40");
 			attr(input1, "type", "number");
-			attr(input1, "target", "um");
-			attr(input2, "class", "input energy svelte-yxqgcl");
+			attr(input1, "target", "hz");
+			attr(input2, "class", "input energy svelte-v66b40");
 			attr(input2, "type", "number");
-			attr(input2, "target", "cm_1");
-			attr(input3, "class", "input energy svelte-yxqgcl");
+			attr(input3, "class", "input energy svelte-v66b40");
 			attr(input3, "type", "number");
-			attr(input3, "target", "kelvin");
-			attr(input4, "class", "input energy svelte-yxqgcl");
+			attr(input4, "class", "input energy svelte-v66b40");
 			attr(input4, "type", "number");
-			attr(input4, "target", "eV");
-			attr(h11, "class", "subtitle is-pulled-left svelte-yxqgcl");
-			attr(input5, "type", "checkbox");
-			attr(input5, "class", "svelte-yxqgcl");
+			attr(input5, "class", "input energy svelte-v66b40");
+			attr(input5, "type", "number");
+			attr(input6, "class", "input energy svelte-v66b40");
+			attr(input6, "type", "number");
+			attr(input7, "class", "input energy svelte-v66b40");
+			attr(input7, "type", "number");
+			attr(h11, "class", "subtitle is-pulled-left svelte-v66b40");
+			attr(input8, "type", "checkbox");
+			attr(input8, "class", "svelte-v66b40");
 			attr(div3, "class", "state p-info p-on");
 			attr(div4, "class", "pretty p-switch p-slim is-pulled-right");
-			attr(input6, "class", "input fun.constants energy svelte-yxqgcl");
-			attr(input6, "type", "number");
-			input6.disabled = input6_disabled_value = !ctx.edit_constants;
-			attr(input6, "data-tippy", "Speed of light in vaccum");
-			attr(input7, "class", "input fun.constants energy svelte-yxqgcl");
-			attr(input7, "type", "number");
-			input7.disabled = input7_disabled_value = !ctx.edit_constants;
-			attr(input7, "data-tippy", "Boltzman constant");
-			attr(input8, "class", "input fun.constants energy svelte-yxqgcl");
-			attr(input8, "type", "number");
-			input8.disabled = input8_disabled_value = !ctx.edit_constants;
-			attr(input8, "data-tippy", "Plank's constant");
-			attr(input9, "class", "input fun.constants energy svelte-yxqgcl");
+			attr(input9, "class", "input fun.constants energy svelte-v66b40");
 			attr(input9, "type", "number");
 			input9.disabled = input9_disabled_value = !ctx.edit_constants;
-			attr(input9, "data-tippy", "Electric charge");
-			attr(div5, "class", div5_class_value = "column " + ctx.table_sz + " svelte-yxqgcl");
-			attr(h12, "class", "title");
-			attr(label1, "class", "label svelte-yxqgcl");
-			attr(input10, "class", "input ndensity svelte-yxqgcl");
+			attr(input9, "data-tippy", "Speed of light in vaccum");
+			attr(input10, "class", "input fun.constants energy svelte-v66b40");
 			attr(input10, "type", "number");
-			attr(input10, "step", "0.000000001");
-			attr(input10, "placeholder", "Before");
-			attr(input10, "data-tippy", "Before letting in gas");
-			attr(input11, "class", "input ndensity svelte-yxqgcl");
+			input10.disabled = input10_disabled_value = !ctx.edit_constants;
+			attr(input10, "data-tippy", "Boltzman constant");
+			attr(input11, "class", "input fun.constants energy svelte-v66b40");
 			attr(input11, "type", "number");
-			attr(input11, "step", "0.000000001");
-			attr(input11, "placeholder", "After");
-			attr(input11, "data-tippy", "After letting in gas");
+			input11.disabled = input11_disabled_value = !ctx.edit_constants;
+			attr(input11, "data-tippy", "Plank's constant");
+			attr(input12, "class", "input fun.constants energy svelte-v66b40");
+			attr(input12, "type", "number");
+			input12.disabled = input12_disabled_value = !ctx.edit_constants;
+			attr(input12, "data-tippy", "Electric charge");
+			attr(div5, "class", div5_class_value = "column " + ctx.table_sz + " unit_converter_column" + " svelte-v66b40");
+			attr(h12, "class", "title");
+			attr(label1, "class", "label svelte-v66b40");
+			attr(input13, "class", "input ndensity svelte-v66b40");
+			attr(input13, "type", "number");
+			attr(input13, "step", "0.000000001");
+			attr(input13, "placeholder", "Before");
+			attr(input13, "data-tippy", "Before letting in gas");
+			attr(input14, "class", "input ndensity svelte-v66b40");
+			attr(input14, "type", "number");
+			attr(input14, "step", "0.000000001");
+			attr(input14, "placeholder", "After");
+			attr(input14, "data-tippy", "After letting in gas");
 			attr(div6, "class", "control");
 			attr(div7, "class", "field");
 			attr(div8, "class", "column is-half");
-			attr(label2, "class", "label svelte-yxqgcl");
-			attr(input12, "class", "input ndensity svelte-yxqgcl");
-			attr(input12, "type", "number");
-			attr(input12, "placeholder", "Temeprature");
+			attr(label2, "class", "label svelte-v66b40");
+			attr(input15, "class", "input ndensity svelte-v66b40");
+			attr(input15, "type", "number");
+			attr(input15, "placeholder", "Temeprature");
 			attr(div9, "class", "control");
 			attr(div10, "class", "field");
 			attr(div11, "class", "column is-half");
-			attr(label3, "class", "label svelte-yxqgcl");
+			attr(label3, "class", "label svelte-v66b40");
 			attr(button, "class", "button is-static");
 			attr(div12, "class", "control");
 			attr(div13, "class", "field");
 			attr(div14, "class", "column is-half");
 			attr(div15, "class", "columns is-multiline");
-			attr(h13, "class", "subtitle is-pulled-left svelte-yxqgcl");
-			attr(input13, "type", "checkbox");
-			attr(input13, "class", "svelte-yxqgcl");
+			attr(h13, "class", "subtitle is-pulled-left svelte-v66b40");
+			attr(input16, "type", "checkbox");
+			attr(input16, "class", "svelte-v66b40");
 			attr(div16, "class", "state p-info p-on");
 			attr(div17, "class", "pretty p-switch p-slim is-pulled-right");
 			attr(div18, "class", "control");
-			attr(label5, "class", "label svelte-yxqgcl");
-			attr(input14, "class", "input number_constants svelte-yxqgcl");
-			attr(input14, "type", "number");
-			attr(input14, "placeholder", "Number density");
-			input14.disabled = input14_disabled_value = !ctx.edit_numberDensity_constants;
+			attr(label5, "class", "label svelte-v66b40");
+			attr(input17, "class", "input number_constants svelte-v66b40");
+			attr(input17, "type", "number");
+			attr(input17, "placeholder", "Number density");
+			input17.disabled = input17_disabled_value = !ctx.edit_numberDensity_constants;
 			attr(div19, "class", "control");
 			attr(div20, "class", "field");
-			attr(label6, "class", "label svelte-yxqgcl");
-			attr(input15, "class", "input number_constants svelte-yxqgcl");
-			attr(input15, "type", "number");
-			attr(input15, "step", "0.1");
-			attr(input15, "placeholder", "Number density");
-			input15.disabled = input15_disabled_value = !ctx.edit_numberDensity_constants;
+			attr(label6, "class", "label svelte-v66b40");
+			attr(input18, "class", "input number_constants svelte-v66b40");
+			attr(input18, "type", "number");
+			attr(input18, "step", "0.1");
+			attr(input18, "placeholder", "Number density");
+			input18.disabled = input18_disabled_value = !ctx.edit_numberDensity_constants;
 			attr(div21, "class", "control");
 			attr(div22, "class", "field");
 			attr(div23, "class", "control");
-			attr(div24, "class", div24_class_value = "column " + ctx.table_sz + " svelte-yxqgcl");
+			attr(div24, "class", div24_class_value = "column " + ctx.table_sz + " unit_converter_column" + " svelte-v66b40");
 			attr(div25, "class", "columns is-multiline");
 			attr(div25, "id", "unit_conversion_table");
-			attr(div26, "class", "column is-11 page animated fadeIn svelte-yxqgcl");
+			attr(div26, "class", "column is-11 page animated fadeIn svelte-v66b40");
 			attr(div26, "id", "Converter");
 			set_style(div26, "display", "block");
 			attr(div27, "class", "columns is-centered is-multiline animated fadeIn");
@@ -8796,17 +9169,23 @@ function create_fragment$9(ctx) {
 				listen(input3, "change", ctx.change_handler_2),
 				listen(input4, "input", input4_input_handler),
 				listen(input4, "change", ctx.change_handler_3),
-				listen(input5, "change", ctx.input5_change_handler),
+				listen(input5, "input", input5_input_handler),
+				listen(input5, "change", ctx.change_handler_4),
 				listen(input6, "input", input6_input_handler),
+				listen(input6, "change", ctx.change_handler_5),
 				listen(input7, "input", input7_input_handler),
-				listen(input8, "input", input8_input_handler),
+				listen(input7, "change", ctx.change_handler_6),
+				listen(input8, "change", ctx.input8_change_handler),
 				listen(input9, "input", input9_input_handler),
 				listen(input10, "input", input10_input_handler),
 				listen(input11, "input", input11_input_handler),
 				listen(input12, "input", input12_input_handler),
-				listen(input13, "change", ctx.input13_change_handler),
+				listen(input13, "input", input13_input_handler),
 				listen(input14, "input", input14_input_handler),
-				listen(input15, "input", input15_input_handler)
+				listen(input15, "input", input15_input_handler),
+				listen(input16, "change", ctx.input16_change_handler),
+				listen(input17, "input", input17_input_handler),
+				listen(input18, "input", input18_input_handler)
 			];
 		},
 
@@ -8836,126 +9215,141 @@ function create_fragment$9(ctx) {
 			append(div5, t4);
 			append(div5, input1);
 
-			set_input_value(input1, ctx.um);
+			set_input_value(input1, ctx.ghz);
 
 			append(div5, t5);
 			append(div5, input2);
 
-			set_input_value(input2, ctx.cm_1);
+			set_input_value(input2, ctx.um);
 
 			append(div5, t6);
 			append(div5, input3);
 
-			set_input_value(input3, ctx.kelvin);
+			set_input_value(input3, ctx.cm_1);
 
 			append(div5, t7);
 			append(div5, input4);
 
-			set_input_value(input4, ctx.eV);
+			set_input_value(input4, ctx.kelvin);
 
 			append(div5, t8);
-			append(div5, hr1);
+			append(div5, input5);
+
+			set_input_value(input5, ctx.eV);
+
 			append(div5, t9);
-			append(div5, h11);
-			append(div5, t11);
-			append(div5, div4);
-			append(div4, input5);
-
-			input5.checked = ctx.edit_constants;
-
-			append(div4, t12);
-			append(div4, div3);
-			append(div5, t14);
 			append(div5, input6);
 
-			set_input_value(input6, ctx.c);
+			set_input_value(input6, ctx.J);
 
-			append(div5, t15);
+			append(div5, t10);
 			append(div5, input7);
 
-			set_input_value(input7, ctx.boltzman_constant);
+			set_input_value(input7, ctx.nm);
 
-			append(div5, t16);
-			append(div5, input8);
+			append(div5, t11);
+			append(div5, hr1);
+			append(div5, t12);
+			append(div5, h11);
+			append(div5, t14);
+			append(div5, div4);
+			append(div4, input8);
 
-			set_input_value(input8, ctx.plank_constant);
+			input8.checked = ctx.edit_constants;
 
+			append(div4, t15);
+			append(div4, div3);
 			append(div5, t17);
 			append(div5, input9);
 
-			set_input_value(input9, ctx.electron_charge);
+			set_input_value(input9, ctx.c);
 
 			append(div5, t18);
-			append(div25, t19);
+			append(div5, input10);
+
+			set_input_value(input10, ctx.boltzman_constant);
+
+			append(div5, t19);
+			append(div5, input11);
+
+			set_input_value(input11, ctx.plank_constant);
+
+			append(div5, t20);
+			append(div5, input12);
+
+			set_input_value(input12, ctx.electron_charge);
+
+			append(div5, t21);
+			append(div25, t22);
 			append(div25, div24);
 			append(div24, h12);
-			append(div24, t21);
+			append(div24, t24);
 			append(div24, hr2);
-			append(div24, t22);
+			append(div24, t25);
 			append(div24, div15);
 			append(div15, div8);
 			append(div8, div7);
 			append(div7, label1);
-			append(div7, t24);
+			append(div7, t27);
 			append(div7, div6);
-			append(div6, input10);
+			append(div6, input13);
 
-			set_input_value(input10, ctx.pq1_before);
+			set_input_value(input13, ctx.pq1_before);
 
-			append(div6, t25);
-			append(div6, input11);
+			append(div6, t28);
+			append(div6, input14);
 
-			set_input_value(input11, ctx.pq1_after);
+			set_input_value(input14, ctx.pq1_after);
 
-			append(div15, t26);
+			append(div15, t29);
 			append(div15, div11);
 			append(div11, div10);
 			append(div10, label2);
-			append(div10, t28);
+			append(div10, t31);
 			append(div10, div9);
-			append(div9, input12);
+			append(div9, input15);
 
-			set_input_value(input12, ctx.temperature);
+			set_input_value(input15, ctx.temperature);
 
-			append(div15, t29);
+			append(div15, t32);
 			append(div15, div14);
 			append(div14, div13);
 			append(div13, label3);
-			append(div13, t31);
+			append(div13, t34);
 			append(div13, div12);
 			append(div12, button);
-			append(button, t32);
-			append(div24, t33);
+			append(button, t35);
+			append(div24, t36);
 			append(div24, hr3);
-			append(div24, t34);
+			append(div24, t37);
 			append(div24, div18);
 			append(div18, h13);
-			append(div18, t36);
+			append(div18, t39);
 			append(div18, div17);
-			append(div17, input13);
+			append(div17, input16);
 
-			input13.checked = ctx.edit_numberDensity_constants;
+			input16.checked = ctx.edit_numberDensity_constants;
 
-			append(div17, t37);
+			append(div17, t40);
 			append(div17, div16);
-			append(div24, t39);
+			append(div24, t42);
 			append(div24, div23);
 			append(div23, div20);
 			append(div20, label5);
-			append(div20, t41);
+			append(div20, t44);
 			append(div20, div19);
-			append(div19, input14);
+			append(div19, input17);
 
-			set_input_value(input14, ctx.calibration_factor);
+			set_input_value(input17, ctx.calibration_factor);
 
-			append(div23, t42);
+			append(div23, t45);
 			append(div23, div22);
 			append(div22, label6);
-			append(div22, t44);
+			append(div22, t47);
 			append(div22, div21);
-			append(div21, input15);
+			append(div21, input18);
 
-			set_input_value(input15, ctx.rt);
+			set_input_value(input18, ctx.rt);
 		},
 
 		p(changed, ctx) {
@@ -8983,74 +9377,80 @@ function create_fragment$9(ctx) {
 
 			if (!input0_updating && changed.hz) set_input_value(input0, ctx.hz);
 			input0_updating = false;
-			if (!input1_updating && changed.um) set_input_value(input1, ctx.um);
+			if (!input1_updating && changed.ghz) set_input_value(input1, ctx.ghz);
 			input1_updating = false;
-			if (!input2_updating && changed.cm_1) set_input_value(input2, ctx.cm_1);
+			if (!input2_updating && changed.um) set_input_value(input2, ctx.um);
 			input2_updating = false;
-			if (!input3_updating && changed.kelvin) set_input_value(input3, ctx.kelvin);
+			if (!input3_updating && changed.cm_1) set_input_value(input3, ctx.cm_1);
 			input3_updating = false;
-			if (!input4_updating && changed.eV) set_input_value(input4, ctx.eV);
+			if (!input4_updating && changed.kelvin) set_input_value(input4, ctx.kelvin);
 			input4_updating = false;
-			if (changed.edit_constants) input5.checked = ctx.edit_constants;
-			if (!input6_updating && changed.c) set_input_value(input6, ctx.c);
+			if (!input5_updating && changed.eV) set_input_value(input5, ctx.eV);
+			input5_updating = false;
+			if (!input6_updating && changed.J) set_input_value(input6, ctx.J);
 			input6_updating = false;
-
-			if ((changed.edit_constants) && input6_disabled_value !== (input6_disabled_value = !ctx.edit_constants)) {
-				input6.disabled = input6_disabled_value;
-			}
-
-			if (!input7_updating && changed.boltzman_constant) set_input_value(input7, ctx.boltzman_constant);
+			if (!input7_updating && changed.nm) set_input_value(input7, ctx.nm);
 			input7_updating = false;
-
-			if ((changed.edit_constants) && input7_disabled_value !== (input7_disabled_value = !ctx.edit_constants)) {
-				input7.disabled = input7_disabled_value;
-			}
-
-			if (!input8_updating && changed.plank_constant) set_input_value(input8, ctx.plank_constant);
-			input8_updating = false;
-
-			if ((changed.edit_constants) && input8_disabled_value !== (input8_disabled_value = !ctx.edit_constants)) {
-				input8.disabled = input8_disabled_value;
-			}
-
-			if (!input9_updating && changed.electron_charge) set_input_value(input9, ctx.electron_charge);
+			if (changed.edit_constants) input8.checked = ctx.edit_constants;
+			if (!input9_updating && changed.c) set_input_value(input9, ctx.c);
 			input9_updating = false;
 
 			if ((changed.edit_constants) && input9_disabled_value !== (input9_disabled_value = !ctx.edit_constants)) {
 				input9.disabled = input9_disabled_value;
 			}
 
-			if ((changed.table_sz) && div5_class_value !== (div5_class_value = "column " + ctx.table_sz + " svelte-yxqgcl")) {
+			if (!input10_updating && changed.boltzman_constant) set_input_value(input10, ctx.boltzman_constant);
+			input10_updating = false;
+
+			if ((changed.edit_constants) && input10_disabled_value !== (input10_disabled_value = !ctx.edit_constants)) {
+				input10.disabled = input10_disabled_value;
+			}
+
+			if (!input11_updating && changed.plank_constant) set_input_value(input11, ctx.plank_constant);
+			input11_updating = false;
+
+			if ((changed.edit_constants) && input11_disabled_value !== (input11_disabled_value = !ctx.edit_constants)) {
+				input11.disabled = input11_disabled_value;
+			}
+
+			if (!input12_updating && changed.electron_charge) set_input_value(input12, ctx.electron_charge);
+			input12_updating = false;
+
+			if ((changed.edit_constants) && input12_disabled_value !== (input12_disabled_value = !ctx.edit_constants)) {
+				input12.disabled = input12_disabled_value;
+			}
+
+			if ((changed.table_sz) && div5_class_value !== (div5_class_value = "column " + ctx.table_sz + " unit_converter_column" + " svelte-v66b40")) {
 				attr(div5, "class", div5_class_value);
 			}
 
-			if (!input10_updating && changed.pq1_before) set_input_value(input10, ctx.pq1_before);
-			input10_updating = false;
-			if (!input11_updating && changed.pq1_after) set_input_value(input11, ctx.pq1_after);
-			input11_updating = false;
-			if (!input12_updating && changed.temperature) set_input_value(input12, ctx.temperature);
-			input12_updating = false;
-
-			if (changed.ndensity) {
-				set_data(t32, ctx.ndensity);
-			}
-
-			if (changed.edit_numberDensity_constants) input13.checked = ctx.edit_numberDensity_constants;
-			if (!input14_updating && changed.calibration_factor) set_input_value(input14, ctx.calibration_factor);
+			if (!input13_updating && changed.pq1_before) set_input_value(input13, ctx.pq1_before);
+			input13_updating = false;
+			if (!input14_updating && changed.pq1_after) set_input_value(input14, ctx.pq1_after);
 			input14_updating = false;
-
-			if ((changed.edit_numberDensity_constants) && input14_disabled_value !== (input14_disabled_value = !ctx.edit_numberDensity_constants)) {
-				input14.disabled = input14_disabled_value;
-			}
-
-			if (!input15_updating && changed.rt) set_input_value(input15, ctx.rt);
+			if (!input15_updating && changed.temperature) set_input_value(input15, ctx.temperature);
 			input15_updating = false;
 
-			if ((changed.edit_numberDensity_constants) && input15_disabled_value !== (input15_disabled_value = !ctx.edit_numberDensity_constants)) {
-				input15.disabled = input15_disabled_value;
+			if (changed.ndensity) {
+				set_data(t35, ctx.ndensity);
 			}
 
-			if ((changed.table_sz) && div24_class_value !== (div24_class_value = "column " + ctx.table_sz + " svelte-yxqgcl")) {
+			if (changed.edit_numberDensity_constants) input16.checked = ctx.edit_numberDensity_constants;
+			if (!input17_updating && changed.calibration_factor) set_input_value(input17, ctx.calibration_factor);
+			input17_updating = false;
+
+			if ((changed.edit_numberDensity_constants) && input17_disabled_value !== (input17_disabled_value = !ctx.edit_numberDensity_constants)) {
+				input17.disabled = input17_disabled_value;
+			}
+
+			if (!input18_updating && changed.rt) set_input_value(input18, ctx.rt);
+			input18_updating = false;
+
+			if ((changed.edit_numberDensity_constants) && input18_disabled_value !== (input18_disabled_value = !ctx.edit_numberDensity_constants)) {
+				input18.disabled = input18_disabled_value;
+			}
+
+			if ((changed.table_sz) && div24_class_value !== (div24_class_value = "column " + ctx.table_sz + " unit_converter_column" + " svelte-v66b40")) {
 				attr(div24, "class", div24_class_value);
 			}
 		},
@@ -9093,95 +9493,119 @@ function instance$8($$self, $$props, $$invalidate) {
 	}
 
 	function input1_input_handler() {
+		ghz = to_number(this.value);
+		$$invalidate('ghz', ghz), $$invalidate('hz', hz);
+	}
+
+	const change_handler = () => $$invalidate('hz', hz=(ghz)*1e+9);
+
+	function input2_input_handler() {
 		um = to_number(this.value);
 		$$invalidate('um', um), $$invalidate('c', c), $$invalidate('hz', hz);
 	}
 
-	const change_handler = () => $$invalidate('hz', hz=(c/um)*1e6);
+	const change_handler_1 = () => $$invalidate('hz', hz=(c/um)*1e6);
 
-	function input2_input_handler() {
+	function input3_input_handler() {
 		cm_1 = to_number(this.value);
 		$$invalidate('cm_1', cm_1), $$invalidate('hz', hz), $$invalidate('c', c);
 	}
 
-	const change_handler_1 = () => $$invalidate('hz', hz=cm_1*c*1e2);
+	const change_handler_2 = () => $$invalidate('hz', hz=cm_1*c*1e2);
 
-	function input3_input_handler() {
+	function input4_input_handler() {
 		kelvin = to_number(this.value);
 		$$invalidate('kelvin', kelvin), $$invalidate('plank_constant', plank_constant), $$invalidate('boltzman_constant', boltzman_constant), $$invalidate('hz', hz);
 	}
 
-	const change_handler_2 = () => $$invalidate('hz', hz=(boltzman_constant/plank_constant)*kelvin);
+	const change_handler_3 = () => $$invalidate('hz', hz=(boltzman_constant/plank_constant)*kelvin);
 
-	function input4_input_handler() {
+	function input5_input_handler() {
 		eV = to_number(this.value);
 		$$invalidate('eV', eV), $$invalidate('plank_constant', plank_constant), $$invalidate('electron_charge', electron_charge), $$invalidate('hz', hz);
 	}
 
-	const change_handler_3 = () => $$invalidate('hz', hz=(electron_charge/plank_constant)*eV);
+	const change_handler_4 = () => $$invalidate('hz', hz=(electron_charge/plank_constant)*eV);
 
-	function input5_change_handler() {
+	function input6_input_handler() {
+		J = to_number(this.value);
+		$$invalidate('J', J), $$invalidate('plank_constant', plank_constant), $$invalidate('hz', hz);
+	}
+
+	const change_handler_5 = () => $$invalidate('hz', hz=(J/plank_constant));
+
+	function input7_input_handler() {
+		nm = to_number(this.value);
+		$$invalidate('nm', nm), $$invalidate('c', c), $$invalidate('hz', hz);
+	}
+
+	const change_handler_6 = () => $$invalidate('hz', hz=(c/nm)*1e9);
+
+	function input8_change_handler() {
 		edit_constants = this.checked;
 		$$invalidate('edit_constants', edit_constants);
 	}
 
-	function input6_input_handler() {
+	function input9_input_handler() {
 		c = to_number(this.value);
 		$$invalidate('c', c);
 	}
 
-	function input7_input_handler() {
+	function input10_input_handler() {
 		boltzman_constant = to_number(this.value);
 		$$invalidate('boltzman_constant', boltzman_constant);
 	}
 
-	function input8_input_handler() {
+	function input11_input_handler() {
 		plank_constant = to_number(this.value);
 		$$invalidate('plank_constant', plank_constant);
 	}
 
-	function input9_input_handler() {
+	function input12_input_handler() {
 		electron_charge = to_number(this.value);
 		$$invalidate('electron_charge', electron_charge);
 	}
 
-	function input10_input_handler() {
+	function input13_input_handler() {
 		pq1_before = to_number(this.value);
 		$$invalidate('pq1_before', pq1_before);
 	}
 
-	function input11_input_handler() {
+	function input14_input_handler() {
 		pq1_after = to_number(this.value);
 		$$invalidate('pq1_after', pq1_after);
 	}
 
-	function input12_input_handler() {
+	function input15_input_handler() {
 		temperature = to_number(this.value);
 		$$invalidate('temperature', temperature);
 	}
 
-	function input13_change_handler() {
+	function input16_change_handler() {
 		edit_numberDensity_constants = this.checked;
 		$$invalidate('edit_numberDensity_constants', edit_numberDensity_constants);
 	}
 
-	function input14_input_handler() {
+	function input17_input_handler() {
 		calibration_factor = to_number(this.value);
 		$$invalidate('calibration_factor', calibration_factor);
 	}
 
-	function input15_input_handler() {
+	function input18_input_handler() {
 		rt = to_number(this.value);
 		$$invalidate('rt', rt);
 	}
 
-	let table_sz, c, plank_constant, boltzman_constant, electron_charge, hz, eV, kelvin, cm_1, um, edit_constants, edit_numberDensity_constants, pq1_before, pq1_after, temperature, calibration_factor, rt, ndensity_temp, ndensity;
+	let table_sz, c, plank_constant, boltzman_constant, electron_charge, hz, eV, kelvin, cm_1, um, ghz, nm, J, edit_constants, edit_numberDensity_constants, pq1_before, pq1_after, temperature, calibration_factor, rt, ndensity_temp, ndensity;
 
 	$$self.$$.update = ($$dirty = { plank_constant: 1, electron_charge: 1, hz: 1, boltzman_constant: 1, c: 1, calibration_factor: 1, rt: 1, pq1_after: 1, pq1_before: 1, temperature: 1, ndensity_temp: 1 }) => {
 		if ($$dirty.plank_constant || $$dirty.electron_charge || $$dirty.hz) { $$invalidate('eV', eV = (plank_constant/electron_charge) * hz); }
 		if ($$dirty.plank_constant || $$dirty.boltzman_constant || $$dirty.hz) { $$invalidate('kelvin', kelvin = (plank_constant/boltzman_constant) * hz); }
 		if ($$dirty.hz || $$dirty.c) { $$invalidate('cm_1', cm_1 = hz/(c*1e2)); }
 		if ($$dirty.c || $$dirty.hz) { $$invalidate('um', um = (c/hz)*1e+6); }
+		if ($$dirty.hz) { $$invalidate('ghz', ghz = hz*1e-9); }
+		if ($$dirty.c || $$dirty.hz) { $$invalidate('nm', nm = (c/hz)*1e+9); }
+		if ($$dirty.plank_constant || $$dirty.hz) { $$invalidate('J', J = plank_constant * hz); }
 		if ($$dirty.calibration_factor || $$dirty.boltzman_constant || $$dirty.rt || $$dirty.pq1_after || $$dirty.pq1_before || $$dirty.temperature) { $$invalidate('ndensity_temp', ndensity_temp = calibration_factor/(boltzman_constant*1e4*rt**0.5) * ((pq1_after - pq1_before) / temperature**0.5)); }
 		if ($$dirty.ndensity_temp) { $$invalidate('ndensity', ndensity = ndensity_temp.toExponential(4)); }
 	};
@@ -9213,6 +9637,9 @@ function instance$8($$self, $$props, $$invalidate) {
 		kelvin,
 		cm_1,
 		um,
+		ghz,
+		nm,
+		J,
 		edit_constants,
 		edit_numberDensity_constants,
 		pq1_before,
@@ -9230,17 +9657,23 @@ function instance$8($$self, $$props, $$invalidate) {
 		change_handler_2,
 		input4_input_handler,
 		change_handler_3,
-		input5_change_handler,
+		input5_input_handler,
+		change_handler_4,
 		input6_input_handler,
+		change_handler_5,
 		input7_input_handler,
-		input8_input_handler,
+		change_handler_6,
+		input8_change_handler,
 		input9_input_handler,
 		input10_input_handler,
 		input11_input_handler,
 		input12_input_handler,
-		input13_change_handler,
+		input13_input_handler,
 		input14_input_handler,
-		input15_input_handler
+		input15_input_handler,
+		input16_change_handler,
+		input17_input_handler,
+		input18_input_handler
 	};
 }
 
@@ -9248,6 +9681,323 @@ class Misc extends SvelteComponent {
 	constructor(options) {
 		super();
 		init(this, options, instance$8, create_fragment$9, safe_not_equal, []);
+	}
+}
+
+/* src\components\utils\DraggableDiv.svelte generated by Svelte v3.12.0 */
+
+function create_fragment$a(ctx) {
+	var div, current;
+
+	const default_slot_template = ctx.$$slots.default;
+	const default_slot = create_slot(default_slot_template, ctx, null);
+
+	return {
+		c() {
+			div = element("div");
+
+			if (default_slot) default_slot.c();
+
+			attr(div, "id", ctx.id);
+			attr(div, "class", "draggableDiv svelte-1pzrcyb");
+		},
+
+		l(nodes) {
+			if (default_slot) default_slot.l(div_nodes);
+		},
+
+		m(target, anchor) {
+			insert(target, div, anchor);
+
+			if (default_slot) {
+				default_slot.m(div, null);
+			}
+
+			current = true;
+		},
+
+		p(changed, ctx) {
+			if (default_slot && default_slot.p && changed.$$scope) {
+				default_slot.p(
+					get_slot_changes(default_slot_template, ctx, changed, null),
+					get_slot_context(default_slot_template, ctx, null)
+				);
+			}
+
+			if (!current || changed.id) {
+				attr(div, "id", ctx.id);
+			}
+		},
+
+		i(local) {
+			if (current) return;
+			transition_in(default_slot, local);
+			current = true;
+		},
+
+		o(local) {
+			transition_out(default_slot, local);
+			current = false;
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(div);
+			}
+
+			if (default_slot) default_slot.d(detaching);
+		}
+	};
+}
+
+function instance$9($$self, $$props, $$invalidate) {
+	let { id } = $$props;
+
+    jQuery(document).ready(()=>{
+
+        function dragElement(elmnt) {
+
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            elmnt.onmousedown = dragMouseDown;
+            function dragMouseDown(e) {
+
+                e = e || window.event;
+                e.preventDefault();
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                // stop moving when mouse button is released:
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+            }
+            dragElement(document.getElementById(id));
+    });
+
+	let { $$slots = {}, $$scope } = $$props;
+
+	$$self.$set = $$props => {
+		if ('id' in $$props) $$invalidate('id', id = $$props.id);
+		if ('$$scope' in $$props) $$invalidate('$$scope', $$scope = $$props.$$scope);
+	};
+
+	return { id, $$slots, $$scope };
+}
+
+class DraggableDiv extends SvelteComponent {
+	constructor(options) {
+		super();
+		init(this, options, instance$9, create_fragment$a, safe_not_equal, ["id"]);
+	}
+}
+
+/* src\components\utils\ColorPicker.svelte generated by Svelte v3.12.0 */
+
+// (107:0) <DraggableDiv id={"color-picker"}>
+function create_default_slot$1(ctx) {
+	var div;
+
+	return {
+		c() {
+			div = element("div");
+			attr(div, "class", ctx.name);
+		},
+
+		m(target, anchor) {
+			insert(target, div, anchor);
+		},
+
+		p(changed, ctx) {
+			if (changed.name) {
+				attr(div, "class", ctx.name);
+			}
+		},
+
+		d(detaching) {
+			if (detaching) {
+				detach(div);
+			}
+		}
+	};
+}
+
+function create_fragment$b(ctx) {
+	var current;
+
+	var draggablediv = new DraggableDiv({
+		props: {
+		id: "color-picker",
+		$$slots: { default: [create_default_slot$1] },
+		$$scope: { ctx }
+	}
+	});
+
+	return {
+		c() {
+			draggablediv.$$.fragment.c();
+		},
+
+		m(target, anchor) {
+			mount_component(draggablediv, target, anchor);
+			current = true;
+		},
+
+		p(changed, ctx) {
+			var draggablediv_changes = {};
+			if (changed.$$scope || changed.name) draggablediv_changes.$$scope = { changed, ctx };
+			draggablediv.$set(draggablediv_changes);
+		},
+
+		i(local) {
+			if (current) return;
+			transition_in(draggablediv.$$.fragment, local);
+
+			current = true;
+		},
+
+		o(local) {
+			transition_out(draggablediv.$$.fragment, local);
+			current = false;
+		},
+
+		d(detaching) {
+			destroy_component(draggablediv, detaching);
+		}
+	};
+}
+
+function instance$a($$self, $$props, $$invalidate) {
+	let { name="color-picker" } = $$props;
+
+    jQuery(document).ready(()=>{
+        const pickr = Pickr.create({
+
+            el: '.color-picker',
+            theme: 'classic', // or 'monolith', or 'nano'
+
+            swatches: ["#46307d", "#38236b", "#4a3284", "#5b3ea2"],
+
+            components: {
+                preview: true,
+
+                opacity: true,
+                hue: true,
+                interaction: {
+
+                    hex: true,
+                    rgba: true,
+                    hsla: true,
+                    hsva: true,
+                    cmyk: true,
+                    input: true,
+                    clear: false,
+                    save: true
+                }
+            }
+
+        });
+        
+        const addLight = (color, amount)=>{
+            let cc = parseInt(color,16) + amount;
+            let c = (cc > 255) ? 255 : (cc);
+            c = (c.toString(16).length > 1 ) ? c.toString(16) : `0${c.toString(16)}`;
+            return c;
+        };
+
+        const lighten = (color, amount)=> {
+            color = (color.indexOf("#")>=0) ? color.substring(1,color.length) : color;
+            amount = parseInt((255*amount)/100);
+            return color = `#${addLight(color.substring(0,2), amount)}${addLight(color.substring(2,4), amount)}${addLight(color.substring(4,6), amount)}`;
+        };
+
+        const subtractLight = (color, amount)=>{
+            let cc = parseInt(color,16) - amount;
+            let c = (cc < 0) ? 0 : (cc);
+            c = (c.toString(16).length > 1 ) ? c.toString(16) : `0${c.toString(16)}`;
+            return c;
+        };
+
+        const darken = (color, amount) =>{
+            color = (color.indexOf("#")>=0) ? color.substring(1,color.length) : color;
+            amount = parseInt((255*amount)/100);
+            return color = `#${subtractLight(color.substring(0,2), amount)}${subtractLight(color.substring(2,4), amount)}${subtractLight(color.substring(4,6), amount)}`;
+        };
+
+        const defaultColors = {body:"#46307d", header:"#38236b", navbar:"#4a3284", box:"#5b3ea2"};
+        let colorChanged = false;
+        let newColor;
+        let backgroundDefaultColor = defaultColors.body;
+
+        const setBackgroundColor = (color) => {
+
+            document.documentElement.style.backgroundColor = color;
+            document.body.style.backgroundColor = color;
+            jQuery(".navbar.is-dark, .panel-heading").css("background-color", darken(color, 6));
+
+            window.navbarBgColor = darken(color, 4);
+            
+            jQuery("li.is-active a").css("background-color", window.navbarBgColor);
+            jQuery(".box, .row1").css("background-color", lighten(color, 6));
+
+            jQuery("#Navbar").css("background-color", lighten(color, 2));
+            jQuery(".menu-list a.is-active").css("background-color", window.navbarBgColor);
+            jQuery("hr").css("background-color", window.navbarBgColor);
+
+            // jQuery(".input[disabled]").css("background-color", "white").css("border-color", window.navbarBgColor)
+
+            window.btnHoverBgColor = lighten(color, 4);
+
+        };
+
+        pickr.on('hide', instance => {
+            colorChanged ? setBackgroundColor(newColor) : setBackgroundColor(backgroundDefaultColor);
+
+        }).on('save', (color, instance) => {
+
+            console.log("Saving new color");
+            colorChanged = true;
+            backgroundDefaultColor = color.toHEXA().toString();
+
+        }).on('change', (color, instance) => {
+
+            colorChanged = false;
+            newColor = color.toHEXA().toString();
+
+            setBackgroundColor(newColor);
+
+        });
+    });
+
+	$$self.$set = $$props => {
+		if ('name' in $$props) $$invalidate('name', name = $$props.name);
+	};
+
+	return { name };
+}
+
+class ColorPicker extends SvelteComponent {
+	constructor(options) {
+		super();
+		init(this, options, instance$a, create_fragment$b, safe_not_equal, ["name"]);
 	}
 }
 
@@ -24376,7 +25126,7 @@ function get_each_context$5(ctx, list, i) {
 	return child_ctx;
 }
 
-// (74:0) {#each mainPages as page}
+// (73:0) {#each mainPages as page}
 function create_each_block$5(ctx) {
 	var current;
 
@@ -24435,8 +25185,10 @@ function create_each_block$5(ctx) {
 	};
 }
 
-function create_fragment$a(ctx) {
-	var t0, t1, t2, t3, t4, t5, t6, current;
+function create_fragment$c(ctx) {
+	var t0, t1, t2, t3, t4, t5, t6, t7, current;
+
+	var colorpicker = new ColorPicker({});
 
 	var header = new Header({ props: { jq: ctx.jq } });
 
@@ -24485,46 +25237,50 @@ function create_fragment$a(ctx) {
 
 	return {
 		c() {
-			header.$$.fragment.c();
+			colorpicker.$$.fragment.c();
 			t0 = space();
-			navbar.$$.fragment.c();
+			header.$$.fragment.c();
 			t1 = space();
-			welcome.$$.fragment.c();
+			navbar.$$.fragment.c();
 			t2 = space();
+			welcome.$$.fragment.c();
+			t3 = space();
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
-			t3 = space();
-			powerfile.$$.fragment.c();
 			t4 = space();
-			settings.$$.fragment.c();
+			powerfile.$$.fragment.c();
 			t5 = space();
-			misc.$$.fragment.c();
+			settings.$$.fragment.c();
 			t6 = space();
+			misc.$$.fragment.c();
+			t7 = space();
 			footer.$$.fragment.c();
 		},
 
 		m(target, anchor) {
-			mount_component(header, target, anchor);
+			mount_component(colorpicker, target, anchor);
 			insert(target, t0, anchor);
-			mount_component(navbar, target, anchor);
+			mount_component(header, target, anchor);
 			insert(target, t1, anchor);
-			mount_component(welcome, target, anchor);
+			mount_component(navbar, target, anchor);
 			insert(target, t2, anchor);
+			mount_component(welcome, target, anchor);
+			insert(target, t3, anchor);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].m(target, anchor);
 			}
 
-			insert(target, t3, anchor);
-			mount_component(powerfile, target, anchor);
 			insert(target, t4, anchor);
-			mount_component(settings, target, anchor);
+			mount_component(powerfile, target, anchor);
 			insert(target, t5, anchor);
-			mount_component(misc, target, anchor);
+			mount_component(settings, target, anchor);
 			insert(target, t6, anchor);
+			mount_component(misc, target, anchor);
+			insert(target, t7, anchor);
 			mount_component(footer, target, anchor);
 			current = true;
 		},
@@ -24544,7 +25300,7 @@ function create_fragment$a(ctx) {
 						each_blocks[i] = create_each_block$5(child_ctx);
 						each_blocks[i].c();
 						transition_in(each_blocks[i], 1);
-						each_blocks[i].m(t3.parentNode, t3);
+						each_blocks[i].m(t4.parentNode, t4);
 					}
 				}
 
@@ -24558,6 +25314,8 @@ function create_fragment$a(ctx) {
 
 		i(local) {
 			if (current) return;
+			transition_in(colorpicker.$$.fragment, local);
+
 			transition_in(header.$$.fragment, local);
 
 			transition_in(navbar.$$.fragment, local);
@@ -24580,6 +25338,7 @@ function create_fragment$a(ctx) {
 		},
 
 		o(local) {
+			transition_out(colorpicker.$$.fragment, local);
 			transition_out(header.$$.fragment, local);
 			transition_out(navbar.$$.fragment, local);
 			transition_out(welcome.$$.fragment, local);
@@ -24597,46 +25356,52 @@ function create_fragment$a(ctx) {
 		},
 
 		d(detaching) {
-			destroy_component(header, detaching);
+			destroy_component(colorpicker, detaching);
 
 			if (detaching) {
 				detach(t0);
 			}
 
-			destroy_component(navbar, detaching);
+			destroy_component(header, detaching);
 
 			if (detaching) {
 				detach(t1);
 			}
 
-			destroy_component(welcome, detaching);
+			destroy_component(navbar, detaching);
 
 			if (detaching) {
 				detach(t2);
 			}
 
-			destroy_each(each_blocks, detaching);
+			destroy_component(welcome, detaching);
 
 			if (detaching) {
 				detach(t3);
 			}
 
-			destroy_component(powerfile, detaching);
+			destroy_each(each_blocks, detaching);
 
 			if (detaching) {
 				detach(t4);
 			}
 
-			destroy_component(settings, detaching);
+			destroy_component(powerfile, detaching);
 
 			if (detaching) {
 				detach(t5);
 			}
 
-			destroy_component(misc, detaching);
+			destroy_component(settings, detaching);
 
 			if (detaching) {
 				detach(t6);
+			}
+
+			destroy_component(misc, detaching);
+
+			if (detaching) {
+				detach(t7);
 			}
 
 			destroy_component(footer, detaching);
@@ -24644,12 +25409,15 @@ function create_fragment$a(ctx) {
 	};
 }
 
-function instance$9($$self, $$props, $$invalidate) {
+function instance$b($$self, $$props, $$invalidate) {
 	
-
+  
   const copy = require('recursive-copy');
   const { exec } = require("child_process");
   window.developerMode = false;
+
+  window.hidepage = (id) => document.getElementById(id).style.display = "none";
+  window.showpage = (id) => document.getElementById(id).style.display = "block";
 
   const fs = require("fs");
   const https = require('https');
@@ -24665,21 +25433,20 @@ function instance$9($$self, $$props, $$invalidate) {
   current_version = JSON.parse(current_version.toString("utf-8")).version;
   localStorage["version"] = current_version;
 
-  if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path$1.resolve(__dirname, "..", "python3.7", "python");
+  if (!localStorage["pythonpath"]) {
+    if (process.platform == "win32") {localStorage["pythonpath"] = path$1.resolve(__dirname, "..", "python3.7", "python");}
+    else if (process.platform == "darwin") {localStorage["pythonpath"] = path$1.join("usr", "local", "bin", "python3");}
+  }
 
-  // Getting variables
   let { mainPages } = $$props;
   const navItems = ["Welcome", "Normline", "Masspec", "Timescan", "THz", "Powerfile", "Misc", "Settings"];
- 
   let rightClickPosition = null;
   const menu = new Menu();
 
   menu.append(new MenuItem({ label: 'cut', role:"cut" }));
   menu.append(new MenuItem({ label: 'copy', role:"copy" }));
   menu.append(new MenuItem({ label: 'paste', role:"paste" }));
-
   menu.append(new MenuItem({ type: 'separator' }));
-
   menu.append(new MenuItem({ label: 'Reload', role:"reload" }));
   menu.append(new MenuItem({ label: 'DevTools', role: 'toggledevtools' }));
   menu.append(new MenuItem({ label: "Inspect Element", click() { remote.getCurrentWindow().inspectElement(rightClickPosition.x, rightClickPosition.y); } }));
@@ -24689,7 +25456,6 @@ function instance$9($$self, $$props, $$invalidate) {
       e.preventDefault();
       rightClickPosition = {x: e.x, y: e.y};
       menu.popup(remote.getCurrentWindow());
-
     }, false);
 
 	$$self.$set = $$props => {
@@ -24710,7 +25476,7 @@ function instance$9($$self, $$props, $$invalidate) {
 class App extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$9, create_fragment$a, safe_not_equal, ["mainPages"]);
+		init(this, options, instance$b, create_fragment$c, safe_not_equal, ["mainPages"]);
 	}
 }
 
@@ -24838,7 +25604,7 @@ const mainPages = [
                 name: "Open in matplotlib"
             }
         ],
-        plotID: ["thzplot_Container"],
+        plotID: ["thzplot_Container", "boltzman_plot"],
         checkBtns: [
             {
                 id: "thz_shell",

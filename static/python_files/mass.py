@@ -11,6 +11,7 @@ import numpy as np
 # FELion tkinter figure module
 from FELion_widgets import FELion_Tk
 
+from FELion_definitions import sendData
 
 def var_find(massfile):
 
@@ -30,7 +31,7 @@ def var_find(massfile):
     return res, b0, trap
 
 def massplot(massfiles, tkplot):
-
+    os.chdir(massfiles[0].parent)
     if tkplot:
         
         widget = FELion_Tk(title="Mass spectrum", location=massfiles[0].parent)
@@ -56,12 +57,11 @@ def massplot(massfiles, tkplot):
         }
 
     if not tkplot:
-
         dataJson = json.dumps(data)
         print(dataJson)
+        sendData(data)
 
     else:
-        
         widget.plot_legend = ax.legend()
         widget.mainloop()
 
@@ -75,5 +75,4 @@ if __name__ == "__main__":
     if tkplot == "plot": tkplot = True
     else: tkplot = False
     # print(args)
-
     massplot(massfiles, tkplot)

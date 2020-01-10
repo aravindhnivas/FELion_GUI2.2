@@ -6,13 +6,12 @@ from pathlib import Path as pt
 # FELion Modules
 from FELion_widgets import FELion_Tk
 from FELion_definitions import read_dat_file
+from FELion_definitions import sendData
 
 # Data analysis
 import numpy as np
 
-
-def gaussian(x, A, sig, center):
-    return A*np.exp(-0.5*((x-center)/sig)**2)
+def gaussian(x, A, sig, center): return A*np.exp(-0.5*((x-center)/sig)**2)
 
 def exp_theory(theoryfiles, location, norm_method, sigma, scale, tkplot, output_filename="averaged"):
 
@@ -70,11 +69,7 @@ def exp_theory(theoryfiles, location, norm_method, sigma, scale, tkplot, output_
                     "x":list(theory_x), "y":list(theory_y),  "name":f"{theoryfile.stem}", "fill":"tozerox"
                 }
 
-    if not tkplot:
-
-        dataJson = json.dumps(data)
-        print(dataJson)
-
+    if not tkplot: sendData(data)
     else:
         widget.plot_legend = ax.legend()
         widget.mainloop()

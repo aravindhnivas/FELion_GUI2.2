@@ -3,9 +3,10 @@
 import os, sys, time, traceback
 from os.path import isdir, isfile
 from pathlib import Path as pt
+from io import StringIO
+import contextlib
 
-# import tkinter as tk
-
+# Tkinter
 from tkinter import Frame, IntVar, StringVar, BooleanVar, DoubleVar, Tk, filedialog, END, Text
 from tkinter.ttk import Button, Checkbutton, Label, Entry, Scale, Scrollbar, OptionMenu
 from tkinter.messagebox import showerror, showinfo, showwarning, askokcancel
@@ -13,16 +14,10 @@ from tkinter.messagebox import showerror, showinfo, showwarning, askokcancel
 # Matplotlib
 from matplotlib import style
 import matplotlib.pyplot as plt
-# import matplotlib
-
-# matplotlib.use("TkAgg")
-
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
 from matplotlib.ticker import AutoMinorLocator
-from io import StringIO
-import contextlib
 
 @contextlib.contextmanager
 def stdoutIO(stdout=None):
@@ -33,10 +28,6 @@ def stdoutIO(stdout=None):
     yield stdout
     sys.stdout = old
 
-def clog(*args): print(args)
-def getchild(artist): return artist.get_children()
-############################################################################################################
-
 constants = {
     'relwidth': 0.3,
     'relheight': 0.04,
@@ -45,14 +36,16 @@ constants = {
 }
 
 def var_check(kw):
+    
     for i in constants:
-        if not i in kw:
-            kw[i] = constants[i]
+        if not i in kw: kw[i] = constants[i]
     return kw
+
 
 class FELion_Tk(Tk):
 
     def __init__(self, title="FELion GUI2", location=".", background="light grey", *args, **kwargs):
+
         Tk.__init__(self, *args, **kwargs)
 
         self.location = pt(location)
@@ -60,17 +53,18 @@ class FELion_Tk(Tk):
 
         Tk.wm_title(self, title)
         Tk.wm_geometry(self, "1000x600")
-
+        
         self.canvas_frame = Frame(self, bg='white')
         self.canvas_frame.place(relx=0, rely=0, relwidth=0.8, relheight=1)
 
         self.widget_frame = Frame(self, bg=background)
         self.widget_frame.bind("<Button-1>", lambda event: self.focus())
+
         self.widget_frame.place(relx=0.8, rely=0, relwidth=0.2, relheight=1)
 
     def Labels(self, txt, x, y, **kw):
-
         kw = var_check(kw)
+        
         self.widget_frame.txt = Label(self.widget_frame, text=txt)
         self.widget_frame.txt.place(
             relx=x, rely=y, anchor=kw['anchor'], relwidth=kw['relwidth'], relheight=kw['relheight'])
@@ -447,24 +441,7 @@ class FELion_Tk(Tk):
                     lg = line.get_label().replace("_", "\_")
                     
                     if lg.endswith("felix"): ls = f"C{i}."
-                    if lg.find(".thz")>0: 
-                        if i>0: ls = f"C{i-1}."
-                        else: ls = f"C{i}."
                     elif lg.startswith("Binned"): ls="k."
-                    elif lg.startswith("Fitted"): 
-                        ls="k-"
-                        info = lg.split(" ")
-                        thz_line = float(info[1])
-                        self.ax2.vlines(x=thz_line, ymin=0, ymax=y.max(), zorder=100)
-                        xcord, ycord = thz_line, y.max()
-                        self.ax2.annotate(f'{thz_line:.7f}{info[2]}', xy=(xcord, ycord), xycoords='data',
-                                    xytext=(xcord, ycord+5), textcoords='data',
-                                    arrowprops=dict(arrowstyle="->", connectionstyle="arc3")
-                        )
-                        self.ax2.set(ylim=([-(y.max()/2), y.max()*1.5]))
-                    elif lg.startswith("Fit."): 
-                        if i==1: ls = f"C0-"
-                        else: ls = f"C{i-2}-"
                     else: ls = f"C{i}-"
 
                     if lg == "Averaged" or lg.startswith("Fitted"): self.ax2.plot(x, y, "k-", label=lg, zorder=100)

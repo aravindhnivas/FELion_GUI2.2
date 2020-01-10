@@ -6,8 +6,6 @@
   import { fade, fly } from 'svelte/transition';
   import Loading from "./utils/Loading.svelte";
 
-  const glob = require("glob")
-
   export let id;
   export let filetag;
   export let filetype;
@@ -19,22 +17,24 @@
   export let path;
   export let menu;
   export let MenuItem;
-
+  $: btnhoverColor = window.btnHoverBgColor || "#7a64b1"
+  
   $: tplot_width = ""
+  let plorContainerHeight = localStorage["plotContainerHeight"] || 650
+  let panelHeight = localStorage["panelHeight"] || 70;
   jq(document).ready(() => {
-    jq("#theoryBtn").addClass("fadeInUp").css("display", "none")
-    jq("#norm_tkplot").addClass("fadeInUp").css("display", "none")
 
+    jq("#theoryBtn").addClass("fadeInUp").css("display", "none")
+    
+    jq("#norm_tkplot").addClass("fadeInUp").css("display", "none")
     jq("#exp_fit").addClass("fadeInUp").css("display", "none")
     jq("#felix_shell_Container").addClass("fadeInUp").css("display", "block")
-
-    let plotHeight;
     let ScreenHeight = window.screen.height;
-    if (ScreenHeight >= 1000) {plotHeight = 650; ; tplot_width="is-half"}
-    else {plotHeight = 540; tplot_width="is-full"}
-
-    jq(".plotContainer").css("max-height", plotHeight)
-
+    if (ScreenHeight >= 1000) { tplot_width="is-half"}
+    else {tplot_width="is-full"}
+    jq('.plotContainer').css("max-height", `${plorContainerHeight}px`)
+    jq(".folderContainerPanelBlock").css("height", `${panelHeight}vh`)
+    
   });
   
   const join = file => {
@@ -58,10 +58,9 @@
         type: target.checked ? "log" : null
       }
     }
-
-    if (filetag == "mass") {
-      Plotly.relayout("mplot", layout);
-    } else {
+    if (filetag == "mass") {Plotly.relayout("mplot", layout)}
+    
+    else {
       fileChecked.forEach(file => {
         let tplot = file + "_tplot";
         Plotly.relayout(tplot, layout);
@@ -69,8 +68,8 @@
     }
   };
 
-  let folderFile = { folders: [], files: [] };
 
+  let folderFile = { folders: [], files: [] };
   let tree = dirTree.default;
   const style = "display:none;";
   let currentLocation;
@@ -88,13 +87,12 @@
   };
 
   const locationUpdateStatus = (status) => {
+
     jq(document).ready(()=>{
-      
       let locationUpdateDiv = document.getElementById(`${filetag}locationUpdate`)
 
       locationUpdateDiv.innerHTML = status
       locationUpdateDiv.style.display = "block"
-      
       setTimeout(()=>{
         locationUpdateDiv.innerHTML=""
         locationUpdateDiv.style.display = "none"
@@ -121,7 +119,6 @@
     console.log(`[${filetag}]: location is stored locally\n${currentLocation}`)
 
     try {
-
       let folder = [];
       let file = [];
 
@@ -228,19 +225,13 @@
     },
 
     // THz scan matplotlib
-
-    thz:{
-
-      pyfile:"thz_scan.py",
-      // args:[delta_thz, "plot", gamma_thz] // Doesn't take the binded delta_thz value
-      
-    }
+    thz:{pyfile:"thz_scan.py"}
   }
   $: modal = {mass:"", felix:"", scan:"", thz:""}
   $: error_msg = {mass:"", felix:"", scan:"", thz:""}
   function functionRun(event=null, target_id=null) {
-    let btname;
 
+    let btname;
     target_id === null ? btname = event.target.id : btname = target_id
 
     console.log(`Button clicked (id): ${btname}`)
@@ -249,9 +240,7 @@
     switch (btname) {
 
       ////////////// FELIX PLOT //////////////////////
-
       case "felixPlotBtn":
-
         jq("#theoryRow").css("display", "none")
         // plotContainerHeight = "60vh"
         Plotly.purge("exp-theory-plot");
@@ -272,9 +261,7 @@
       
       break;
 
-
       case "exp_fit":
-
         let expfit_overwrite = document.getElementById("overwrite_expfit").checked
         let fitfile = document.getElementById("expfitFiles").value
 
@@ -438,23 +425,23 @@
         jq("#depletionRow").toggle()
       break;
 
-      ////////////////////////////////////////////////////
-    
       default:
         break;
-
-      //////////////////////////////////////////////////// 
     }
   };
 
   function opentheory() {
     browseFile({theory:true}).then(file =>  theoryfiles = file).catch(err => console.log(err));
   }
-
   function runtheory({tkplot="run", filetype="theory"}) {
+
+    let btname;
+
+    tkplot === "run" ?  btname= "appendTheory" :  btname= "theory_Matplotlib"
     runPlot({
       fullfiles: theoryfiles, filetype: filetype, filetag:filetag,
-      btname: "appendTheory", pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot]
+      btname: btname, pyfile: "theory.py", args: [normMethod, sigma, scale, currentLocation, tkplot]
+      
     }).then((output)=>{console.log(output)})
     .catch((err)=>{
         console.log('Error Occured', err);
@@ -463,10 +450,8 @@
         modal[filetag]="is-active"
       })
   }
-
   let sigma=20; //Sigma value for felixplot thoery gaussian profile
   let scale=1;
-
   let powerinfo = "21, 21";
   let nshots = 10;
   let massIndex = 0;
@@ -530,9 +515,9 @@
   $: fit_file_list = ["averaged", ...fit_file_list_temp]
 
   $: fitall_tkplot_Peak_btnCSS = "is-link"
-
   $: expfit_log_display = false
   $: expfit_log = ""
+  
   const expfit_log_it = (str) => {
     
     expfit_log_display = true
@@ -546,10 +531,8 @@
   let ready_to_fit = false
 
   function expfit_func({runfit = false, btname = "find_expfit_peaks", tkplot=false, filetype="expfit_all"} = {}) {
-
     let expfit_overwrite = document.getElementById("overwrite_expfit").checked
     let fitfile = document.getElementById("fitFiles").value
-
     runPlot({
       fullfiles: [fitfile],
       filetype: filetype,
@@ -567,7 +550,6 @@
   }
 
   const findPeak = () => {
-
     console.log("Finding preak with prominence value: ", prominence)
     ready_to_fit = true
     expfit_func()
@@ -605,7 +587,6 @@
     console.log(`Total files plotted: ${plottedFiles_length}`)
     for (let i=0; i<plottedFiles_length; i++) {Plotly.deleteTraces("avgplot", [-1])}
     window.line = []
-
     ready_to_fit = false
   }
 
@@ -614,10 +595,8 @@
     if (window.line.length > 0) {
       delete_file_line()
       Plotly.deleteTraces("avgplot", [-1])
-
       console.log("Last fitted peak removed")
     } else {
-      
       if (window.annotations.length === 0) {expfit_log_it("No fitted lines found")}
       console.log("No line fit is found to remove")
     }
@@ -628,12 +607,10 @@
     Plotly.relayout("avgplot", { annotations: window.annotations, shapes: window.line })
     if (window.line.length === 0) {ready_to_fit = false}
   }
-
   const fitall = (tkplot=false, btname="fitall_expfit_peaks", filetype="expfit_all") => {
-
     console.log("Fitting all found peaks")
-    if (ready_to_fit) {expfit_func({runfit:true, btname:btname, tkplot:tkplot, filetype:filetype})}
 
+    if (ready_to_fit) {expfit_func({runfit:true, btname:btname, tkplot:tkplot, filetype:filetype})}
     else {
       findPeak_btnCSS = "is-link shake"
       setTimeout(()=>findPeak_btnCSS = "is-link", 1000)
@@ -667,6 +644,7 @@
 
   $: nist_mformula = localStorage["nist_mformula"] || ""
   $: nist_mname = localStorage["nist_mname"] || ""
+
   $: nist_molecule_name = `Name=${nist_mname}`
   $: nist_molecule_formula = `Formula=${nist_mformula}`
   $: nist_url = localStorage["nist_url"] || "https://webbook.nist.gov/cgi/cbook.cgi?Name=&Units=SI&Mask=200#Mass-Spec"
@@ -691,6 +669,7 @@
       let layout = window.avg_data[normMethod]["layout"]
       Plotly.react("avgplot", data , layout )
     } catch (err) {console.log("Error occured while changing felixplot method", err)}
+
   }
 
   function plotOPO(){
@@ -698,48 +677,124 @@
         fullfiles: fullfiles, filetype: "opofile", filetag:"felix",
         btname: "opoButton", pyfile: "oposcan.py", 
         args: "run"
+      }).catch(err => {
+        console.log('Error Occured', err); 
+        error_msg[filetag]=err; 
+        modal[filetag]="is-active"
+      });
+  }
+
+  let thz_row = [
+    { name:"B (MHz)", id: "rotational_B", value: 226785.36 },
+    { name:"D (MHz)", id: "rotational_D", value: 0 },
+    { name:"H (MHz)", id: "rotational_H", value: 0 },
+    // { name:"Energy (MHz)", id: "boltzman_energy", value: 0 },
+    { name:"Temp. (K)", id: "boltzman_temp", value: 300 },
+    { name:"Total #J", id: "boltzman_totalJ", value: 20 },
+  ]
+
+  const plotBoltzman = (tkplot="run") => {
+    let targetID = "boltzman_plot_btn"
+    let filetype = "boltzman"
+
+    if (tkplot === "plot") {
+      targetID = "boltzman_plot_mbtn"
+      filetype = "general"
+    }
+
+    let B0 = document.getElementById("rotational_B").value
+    let D0 = document.getElementById("rotational_D").value
+    let H0 = document.getElementById("rotational_H").value
+    let temp = document.getElementById("boltzman_temp").value
+    
+    let totalJ = document.getElementById("boltzman_totalJ").value
+
+    runPlot({
+        fullfiles: [currentLocation], filetype: filetype, filetag:"thz",
+        btname: targetID, pyfile: "boltzman.py", 
+        args: [B0, D0, H0, temp, totalJ, tkplot]
 
       }).catch(err => {
         console.log('Error Occured', err); 
         error_msg[filetag]=err; 
         modal[filetag]="is-active"
-
       });
   }
+
+  let plotlyWidth = localStorage["plotly_width"] || 1500
+  let plotlyHeight = localStorage["plotly_height"] || 450
+
+  const configPlotly = (start=true, e=null) => {
+
+    localStorage["plotly_width"] = plotlyWidth
+    localStorage["plotly_height"] = plotlyHeight
+    if (start) {
+
+      switch (filetag) {
+        case "felix":
+          functionRun(e, "felixPlotBtn")
+          break;
+
+        case "mass":
+          Plotly.relayout("mplot", {width: plotlyWidth, height: plotlyHeight})
+          break;
+
+        case "scan":
+          functionRun(e, "timescanBtn")
+          break;
+
+        case "thz":
+          Plotly.relayout("thzplot_Container", {width: plotlyWidth, height: plotlyHeight})
+          break;
+
+        default:
+          break;
+
+      }
+    }
+
+  }
+
+  configPlotly(false)
+  
+  const configPlotContainer = () => {
+    localStorage["plotContainerHeight"] = plorContainerHeight
+    jq('.plotContainer').css("max-height", plorContainerHeight)
+  }
+
+  
+  const configFileExplorer = () => {
+    localStorage["panelHeight"] = panelHeight
+    jq(".folderContainerPanelBlock").css("height", `${panelHeight}vh`)
+  }
+  configFileExplorer()
+
 </script>
 
 <style lang="scss">
 
   $link-color: #dbdbdb;
-
-  $link-hovercolor: #7a64b1;
   $success-color: #09814a;
   $danger-color: #ff3860;
-
   $warning-color: #ffc402;
-  
   $white: #fafafa;
   $box1-color: #594194;
 
   input[type="number"] {width: 5vw;}
   label {color:$white;}
-
   #theorylabel{
     color:white;
     border:solid 3px #bdc3c7; 
     padding:0.4em;
   }
-
   .locationLabel {
     text-align: center;
   }
-
   .row {
     display: flex;
     flex-direction: column;
     padding-bottom: 0.6em;
   }
-
   .funcBtn {
     margin: 0 0.5em;
   }
@@ -751,16 +806,22 @@
   .plotContainer {
     overflow-y: auto;
     width: 97%;
+    margin-top: 2em;
+    margin-left: 1em!important;
+    margin-right: 0!important;
   }
+
+  .plotMainContainer {margin-right: 2em;}
 
   /* Buttons:  border, background and hovering colors */
   .button.is-link, .button.is-warning, .button.is-danger, .button.is-success {background-color: rgba(0,0,0,0);}
-
+  .button.is-link:focus:not(:active), .button.is-link.is-focused:not(:active) {box-shadow: 0 0 0 0.05em #fafafa;}
   .button.is-link {border-color: $link-color;}
-  .button.is-link:hover, .button.is-link.is-hovered {background-color: $link-hovercolor;}
+  .button.is-link:hover, .button.is-link.is-hovered {background-color: var(--btnhoverColor);}
 
   .button.is-warning {border-color: $warning-color; color: $white;}
   .button.is-warning:hover, .button.is-warning.is-hovered {background-color: $warning-color; color: black;}
+  .button.is-warning:focus, .button.is-warning.is-focused { border-color: #ffdd57; color: #fafafa;}
 
   .button.is-danger {border-color: $danger-color;}
   .button.is-danger:hover, .button.is-danger.is-hovered {background-color: $danger-color;}
@@ -779,8 +840,10 @@
   }
   ::-webkit-input-placeholder {color: #bdc3c7!important}
 
+  .boltzman_input_style {width: 7vw!important;}
+
   /* Clearning default increamental syle */
-  /* input[type="number"] {
+  input[type="number"] {
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
     appearance: textfield;
@@ -789,7 +852,7 @@
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
-  } */
+  }
 
   .locationLabel {border-radius: 20px;}
 
@@ -819,6 +882,7 @@
     margin-right: 2em;
   }
   .subtitle {color: $white;}
+  .plotSzControl {width: 5em;}
 </style>
 
 <section class="section" {id} {style}>
@@ -834,17 +898,21 @@
     <div class="column">
 
       <div class="modal {modal[filetag]} is-clipped">
+      
         <div class="modal-background"></div>
         <div class="modal-card">
+
           <header class="modal-card-head">
             <p class="modal-card-title">Error Occured while processing the data</p>
             <button class="delete" aria-label="close" on:click="{()=>modal[filetag]=''}"></button>
           </header>
+
           <section class="modal-card-body" style="color:black"> {error_msg[filetag]} </section>
 
           <footer class="modal-card-foot">
-            <button class="button" on:click="{()=>modal[filetag]=''}">Close</button>
+            <button class="button is-link hvr-glow --btnhoverColor:{btnhoverColor}" on:click="{()=>modal[filetag]=''}">Close</button>
           </footer>
+
         </div>
       </div>
 
@@ -871,7 +939,7 @@
                 data-tippy="Current Location"/>
             </div>
             <div class="control">
-              <div class="button is-link" on:click={browseFile}>Browse</div>
+              <div class="button is-link hvr-glow " on:click={browseFile}>Browse</div>
             </div>
           </div>
 
@@ -961,7 +1029,6 @@
                 </div>
 
                 <!-- Gamma -->
-
                 <div class="level-item">
 
                   <div class="field has-addons">
@@ -980,6 +1047,11 @@
                     
                   </div>
 
+                </div>
+
+                <!-- boltzman distribution -->
+                <div class="level-item">
+                  <div class="button hvr-glow is-link" id="boltzman" on:click="{()=>jq("#boltzman_row").toggle()}">Boltzman</div>
                 </div>
 
               {/if}
@@ -1007,19 +1079,18 @@
 
                     <div class="level-item">
                       <div class="control">
-                          <button class="button is-link" on:click={opentheory}>Choose file</button>
+                          <button class="button is-link hvr-glow " on:click={opentheory}>Choose file</button>
                           <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" bind:value={sigma} style="width:150px" data-tippy="Sigma (deviation) from central frequency">
                           <input class="input" type="number" on:change="{()=>runtheory({tkplot:"run"})}" step="0.001" bind:value={scale} style="width:150px" data-tippy="Scaling factor (to shift in position)">
-                          <button class="funcBtn button is-link animated" on:click={runtheory} id="appendTheory">Submit</button>
-                          <button class="funcBtn button is-link animated" on:click="{()=>runtheory({tkplot:"plot", filetype:"general"})}" id="theory_Matplotlib">Open in Matplotlib</button>
+                          <button class="funcBtn button is-link hvr-glow  animated" on:click={runtheory} id="appendTheory">Submit</button>
+                          <button class="funcBtn button is-link hvr-glow  animated" on:click="{()=>runtheory({tkplot:"plot", filetype:"general"})}" id="theory_Matplotlib">Open in Matplotlib</button>
                       </div>
                     </div>
                   </div>
               </div>
           </div>
-        {/if}
 
-        {#if filetag=="scan"}
+        {:else if filetag=="scan"}
           <div class="row" id="depletionRow" style="display:none">
               <div class="level">
                 <div class="level-left">
@@ -1075,10 +1146,8 @@
 
               
           </div>
-        {/if}
 
-        {#if filetag === "mass"}
-
+        {:else if filetag === "mass"}
           <!-- NIST find molecule row -->
           <div class="row" id="nist_row" style="display:none">
             <div class="level">
@@ -1133,7 +1202,7 @@
                   </div>
 
                   <div class="level-item">
-                      <div class="level-item button is-link hvr-glow funcBtn animated"
+                      <div class="level-item button is-link hvr-glow  hvr-glow funcBtn animated"
                         id="mass_get_peaks" on:click={find_masspec_peaks} >Get Peaks
                       </div>
                   </div>
@@ -1146,14 +1215,49 @@
               </div>
             </div>
           </div>
+        {:else if filetag === "thz"}
 
+          <div class="row" id="boltzman_row" style="display:none">
+            <div class="level">
+              <div class="level-left">
+
+                {#each thz_row as {name, id, value}}
+                  <div class="level-item">
+                    <div class="field">
+                      <label class="label" style="font-weight:400">{name}</label>
+                      <div class="control"><input type="number" class="input boltzman_input_style" {id} {value} min="0" on:change={plotBoltzman}></div>
+                    </div>
+                  </div>
+                {/each}
+
+                <div class="level-item button hvr-glow funcBtn is-link animated" id="boltzman_plot_btn" style="margin-top:auto;" on:click={plotBoltzman}>Submit</div>
+                <div class="level-item button hvr-glow funcBtn is-link animated" id="boltzman_plot_mbtn" style="margin-top:auto;" on:click="{()=>plotBoltzman('plot')}">Open in Matplotlib</div>
+
+              </div>
+            </div>
+          </div>
+
+        {:else}
         {/if}
+
 
       </div>
 
-      <div class="row box plotContainer" id="{filetag}plotMainContainer" >
+      <div class="row box plotMainContainer" id="{filetag}plotMainContainer">
         
-        <div class="container is-fluid" id="{filetag}plotContainer">
+        <div class="control plotSzControlContainer">
+          <input type="number" class="input plotSzControl" 
+            bind:value={plotlyWidth} on:change={configPlotly} data-tippy="Plot Width">
+          <input type="number" class="input plotSzControl" 
+            bind:value={plotlyHeight} on:change={configPlotly} data-tippy="Plot Height">
+          <input type="number" class="input plotSzControl" 
+            bind:value={plorContainerHeight} on:change={configPlotContainer} data-tippy="PlotContainer Height">
+          <input type="number" 
+            class="input plotSzControl" bind:value={panelHeight} on:change={configFileExplorer} data-tippy="File Explorer height">
+        </div>
+
+        <div class="container is-fluid plotContainer" id="{filetag}plotContainer">
+          
           {#each plotID as id}
 
             {#if filetag == 'scan'}

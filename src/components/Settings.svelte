@@ -8,6 +8,10 @@
 
     import { fade, fly } from 'svelte/transition';
 
+    import NewNav from "./utils/NewNav.svelte";
+    import FrontBackNav from "./utils/FrontBackNav.svelte";
+
+
     // Importing modules
     const {exec} = require("child_process")
     const https = require('https');
@@ -17,13 +21,11 @@
 
     jq(document).ready(()=>{
 
-        jq("#ConfigurationContainer").addClass("is-active")
+        jq("#PagesContainer").addClass("is-active")
         console.log(`Internet Status: ${navigator.onLine}`)
         if (navigator.onLine) updateCheck()
         else console.log("Internet is not connected.")
     })
-
-    
     let packageJSON = fs.readFileSync(path.join(__dirname, "../package.json"))
 
     packageJSON = JSON.parse(packageJSON.toString("utf-8"))
@@ -31,17 +33,49 @@
     let currentVersion = JSON.parse(versionFile.toString("utf-8")).version
 
     // Pythonpath and pythonscript files location
-    
-    if (!localStorage["pythonpath"]) localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python")
-    if (!localStorage["pythonscript"]) localStorage["pythonscript"] = path.resolve(__dirname, "python_files")
-    let pythonpath = localStorage["pythonpath"];
-    let pythonscript = localStorage["pythonscript"];
+    let pythonpath = localStorage["pythonpath"]
+    let pythonscript = localStorage["pythonscript"] || path.resolve(__dirname, "python_files")
 
     // Getting python version
     let pythonv;
-    exec(`${pythonpath} -V`, (err, stdout, stderr)=>{pythonv = stdout})
+    exec(`${pythonpath} -V`, (err, stdout, stderr)=>{
+        pythonv = stdout
+        console.log(`Python version: ${pythonv}`)
+
+        if (pythonv === "") {
+            let options = {
+                title: "Incorrect Python path",
+                message: "Python is not configured (or wrong python path is given)\nGo to 'Setting->Configuration->PythonPath'",
+                type:"warning",
+                buttons: ["Okay, I will change"],
+            }
+            showinfo(mainWindow, options)
+            jq("#Welcome").css("display", "none")
+            jq("#Welcome-nav").removeClass("is-active")
+            jq("#Settings-nav").addClass("is-active")
+            jq("#Settings").css("display", "block")
+        }
+    })
+
+    function checkPython(){
+        console.log("Python path: ", pythonpath)
+        return new Promise((resolve, reject)=>{
+
+            exec(`${pythonpath} -V`, (err, stdout, stderr)=>{
+            let options = {
+                title: "Incorrect Python path", message: `Python directory is not valid\n${pythonpath}`, type:"warning",
+            }
+            
+            if(stdout==="") {
+                showinfo(mainWindow, options)
+                reject("Invalid pythonpath: ", pythonpath)
+            } else { resolve("Valid pythonpath: ", pythonpath) }
+            })
+        })
+    }
 
     // Pages in Settings
+
     let items = ["Configuration", "Update", "About"]
 
     //////////////////////////////////////////////////// FUNCTIONS ////////////////////////////////////////////////////
@@ -49,41 +83,60 @@
     $: saveChanges = false
     const configSave = () => {
 
-        localStorage["pythonpath"] = pythonpath
-        localStorage["pythonscript"] = pythonscript
-        console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`)
-        saveChanges = true
+        checkPython().then(res=>{
+            console.log(res)
+
+            localStorage["pythonpath"] = pythonpath
+            localStorage["pythonscript"] = pythonscript
+            console.log(`Updated: \nPythonpath: ${localStorage.pythonpath}\nPython script: ${localStorage.pythonscript}`)
+            saveChanges = true
+        }).catch(err=>{console.log(err); pythonpath = localStorage["pythonpath"]})
+        
     }
+    const set_defaultConfig = () => {
 
+        pythonpath = path.resolve(__dirname, "..", "python3.7", "python")
+
+        checkPython().then(res=>{
+            console.log(res)
+            pythonpath = localStorage["pythonpath"] = path.resolve(__dirname, "..", "python3.7", "python")
+            pythonscript = localStorage["pythonscript"] = path.resolve(__dirname, "python_files")
+            saveChanges = true
+
+        }).catch(err=>{ 
+            pythonpath = localStorage["pythonpath"]
+            pythonscript = localStorage["pythonscript"] = path.resolve(__dirname, "python_files")
+            
+         })
+        
+    }
     const toggle = (event) => {
-
+        
         let target = event.target.id
         items.forEach(item=>{
             let elementID = `${item}Container`
             let $element = jq(`#${elementID}`)
-
             let targetElement = document.getElementById(item)
 
             if (elementID != target) {
                 if($element.hasClass("is-active")) {
+                    $element.css("background-color", "transparent")
                     $element.removeClass("is-active")
                     targetElement.style.display = "none"
                 }
             } else {
-
                 $element.addClass("is-active")
                 targetElement.style.display = "block"
+                $element.css("background-color", window.navbarBgColor)
             }
         })
     }
 
     $: new_version = ""
     $: updatetoggle = "none"
-
     $: checkupdateLoading = ""
     $: updateLoading = ""
     $: updateStatus = ""
-
 
     let github_username = "aravindhnivas"
     let github_repo = "FELion_GUI2.2"
@@ -94,15 +147,13 @@
     $: versionJson = `https://raw.githubusercontent.com/${github_username}/${github_repo}/${gihub_branchname}/version.json`
     $: urlzip = `https://codeload.github.com/${github_username}/${github_repo}/zip/${gihub_branchname}`
 
-
     // Local update-downloaded files
     const updateFolder = path.resolve(__dirname, "..", "update")
     const updatefilename = "update.zip"
     const zipFile = path.resolve(updateFolder, updatefilename)
 
-    // Update checking
-    const updateCheck = () => {
 
+    const updateCheck = () => {
         updatetoggle = "none"
         console.log("Checking for update")
 
@@ -183,9 +234,9 @@
             setTimeout(()=>checkupdateLoading = "", 2000)
         })
     }
+
     // Download the update file
     const download = (downloadedFile) => {
-
         return new Promise((resolve, reject)=>{
 
             let response = https.get(urlzip, (res) => {
@@ -451,14 +502,17 @@
     $: developer_mode = false
     $: developer_mode ? window.developerMode = true : window.developerMode = false
 
+    $: console.log("Developer mode: ", developer_mode)
+    $: numberOfPages = parseInt(localStorage["totalPages"]) || 5
+    $: pageName = _.range(numberOfPages+1).map(num=>`Page ${num}`)
+    $: console.log(pageName, localStorage["totalPages"])
 </script>
 
 <style>
 
-    .is-active {
-        background-color: #46307d!important;
+    /* .menu-list a.is-active {
         border-radius: 2em;
-    }
+    } */
     .menu-list a:hover {
         
         border-left: 2px solid;
@@ -488,6 +542,7 @@
 
     .box {
         overflow-y: auto;
+        overflow-x: hidden;
         max-height: 70vh;
         min-width: 20%;
         position: absolute;
@@ -507,7 +562,7 @@
                 
                 <div class="menu-label">Settings</div>
                 <ul class="menu-list">
-                    {#each items as item}
+                    {#each items as item, index}
                         <li><a class="menulist" on:click={toggle} id="{item}Container">{item}</a></li>
                     {/each}
                 </ul>
@@ -520,15 +575,46 @@
                 <div class="container is-fluid">
                     
                     <div class="is-pulled-right">{currentTime}</div>
-                    <!-- Configuration Settings -->
 
-                    <div class="container" id="Configuration">
+                    <!-- Pages -->
+                    <!-- <div class="container-fluid" id="Pages" style="display:block">
+                        <div class="container" id="Page 0" style="display:block">
+                            <div class="control">
+                                <h1 class="title">Page Configuration</h1>
+                                <FrontBackNav id={"Page 0"} {pageName}/>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">Number of Pages</label>
+                                <div class="control">
+                                    <input type="number" class="input" bind:value={numberOfPages} min="1" id="numberOfPage" style="width:20%">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        {#each pageName as id (id)}
+                            <div class="container" {id} style="display:none">
+                                <div class="control">
+                                    <h1 class="title">{id}</h1>
+                                    <FrontBackNav {id} {pageName}/>
+                                </div>
+                                <label class="label">Page Name</label>
+                                <div class="control">
+                                    <input type="text" class="input" value={localStorage[id]} id="{id}-name" style="width:20%">
+                                </div>
+                            </div>
+                        {/each}
+                    </div> -->
+
+                    <!-- Configuration Settings -->
+                    <div class="container" id="Configuration" style="display:block">
 
                         <!-- Python path -->
                         <div class="field">
                             <label class="label">PythonPath </label>
                             <div class="control">
-                                <input class="input" type="text" placeholder="Enter the default python.exe file path" bind:value={pythonpath}>
+                                <input class="input" type="text" placeholder="Enter the default python.exe file path" bind:value={pythonpath} on:change={configSave}>
                             </div>
                             <p class="help">location of python.exe file: to run python scripts</p>
                         </div>
@@ -537,22 +623,27 @@
                         <div class="field">
                             <label class="label">Python Scripts </label>
                             <div class="control">
-                                <input class="input" type="text" placeholder="Enter the default python.exe file path" bind:value={pythonscript}>
+                                <input class="input" type="text" placeholder="Enter the default python.exe file path" bind:value={pythonscript} on:change={configSave}>
                             </div>
                             <p class="help">location of python script files</p>
                         </div>
 
                         <!-- Save changes button -->
-                        <div class="control" >
-                            <button class="button is-link is-pulled-right" on:click={configSave}>Save</button>
-                            {#if saveChanges}
-                                <h1 class="subtitle" transition:fade on:introend="{()=>setTimeout(() => saveChanges=false, 2000)}">Changes saved!</h1>
-                            {/if}
+                        <div class="level">
+                            <div class="level-left">
+                                <button class="level-item button is-warning" on:click={set_defaultConfig}>Set Defaults</button>
+                                <button class="level-item button is-link" on:click={configSave}>Save</button>
+                            </div>
+                            <div class="level-right">
+                                {#if saveChanges}
+                                    <h1 class="level-item subtitle" transition:fade on:introend="{()=>setTimeout(() => saveChanges=false, 2000)}">Changes saved!</h1>
+                                {/if}
+                            </div>
                         </div>
                     
                         <div class="control">
-                            <div class="pretty p-switch p-slim" style="margin-bottom:1em;" >
-                                <input type="checkbox" checked id="developerMode" bind:checked={developer_mode}/>
+                            <div class="pretty p-switch p-slim" style="margin:1em;" >
+                                <input type="checkbox" bind:checked={developer_mode}/>
                                 <div class="state p-info p-on">
                                     <label>Developer mode</label>
                                 </div>
@@ -561,7 +652,6 @@
                     </div>
 
                     <!-- Update -->
-
                     <div class="container" style="display:none" id="Update">
                         
                         <h1 class="title">FELion GUI (Current version): {currentVersion}</h1>
@@ -619,10 +709,7 @@
                         
                     </div>
 
-                    
-
                     <!-- About -->
-
                     <div class="container" style="display:none" id="About">
                         <div class="control">
                             <h1 class="title">Software details (version)</h1>
@@ -638,8 +725,8 @@
                             <h1 class="subtitle" style="margin-bottom:0">Tippy.js: {packageJSON.dependencies["tippy.js"].split("^")[1]}</h1>
                             <hr>
                             <h1 class="title">CSS Frameworks and libraries</h1>
-                            <h1 class="subtitle" style="margin-bottom:0">Bulma: {packageJSON.devDependencies["bulma"].split("^")[1]}</h1>
-                            <h1 class="subtitle" style="margin-bottom:0">Fontawesome: {packageJSON.devDependencies["@fortawesome/fontawesome-free"].split("^")[1]}</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">Bulma: {packageJSON.dependencies["bulma"].split("^")[1]}</h1>
+                            <h1 class="subtitle" style="margin-bottom:0">Fontawesome: {packageJSON.dependencies["@fortawesome/fontawesome-free"].split("^")[1]}</h1>
                             <h1 class="subtitle" style="margin-bottom:0">pretty-checkbox: {packageJSON.dependencies["pretty-checkbox"].split("^")[1]}</h1>
                             <h1 class="subtitle" style="margin-bottom:0">hover.css: {packageJSON.dependencies["hover.css"].split("^")[1]}</h1>
                             

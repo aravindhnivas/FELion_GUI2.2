@@ -135,7 +135,7 @@ const mainPages = [
 				name: "Open in matplotlib"
 			}
 		],
-		plotID: ["thzplot_Container"],
+		plotID: ["thzplot_Container", "boltzman_plot"],
 		checkBtns: [
 			{
 				id: "thz_shell",

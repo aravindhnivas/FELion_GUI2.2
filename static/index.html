@@ -1,31 +1,27 @@
 <!doctype html>
 <html>
-
 <head>
-
     <meta charset='utf8'>
     <meta name='viewport' content='width=device-width'>
-
     <title>FELion-GUI2.2</title>
-
     <link rel='stylesheet' href='./global.css'>
     <link rel="stylesheet" href="../dist/svelte.css">
-
     <link rel="stylesheet" href="./css/animate.css" />
+    <link rel="stylesheet" href="./color_picker/dist/themes/classic.min.css" />
     <link rel="stylesheet" href="./css/mystyles.css" />
 </head>
 
 <body class="has-navbar-fixed-top has-navbar-fixed-bottom">
 
     <script>
-        window.$ = require('jquery');
-        window.jQuery = require('jquery');
-        window.Segment = require('./js/segment.min');
+
+        window.jQuery = window.$ = require('jquery');
+        window._ = require("./js/lodash.js")
     </script>
-    <script src="../dist/renderer.js"></script>
+    <script src="./color_picker/dist/pickr.min.js"></script>
     <script src="./js/plotly-latest.min.js"></script>
     <script src="./js/anime.min.js"></script>
-
+    <script src="../dist/renderer.js"></script>
 </body>
 
 </html>

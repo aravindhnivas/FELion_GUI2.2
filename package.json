@@ -2,13 +2,14 @@
     "name": "FELion_GUI2",
     "productName": "FELion_GUI2",
     "description": "To analyse FELIX data for FELion Instrument",
-    "version": "2.4.1",
+    "version": "2.5.0",
     "license": "MIT",
     "author": "A.N.Marimuthu",
     "repository": {
         "type": "git",
         "url": "https://github.com/aravindhnivas/FELion_GUI2.2.git"
     },
+    "developer": true,
     "main": "dist/main.js",
     "scripts": {
         "start": "cross-env NODE_ENV=development electron .",
@@ -16,17 +17,16 @@
         "build": "rollup -c",
         "postinstall": "electron-builder install-app-deps",
         "css-build": "node-sass --omit-source-map-url static/sass/mystyles.scss static/css/mystyles.css",
-        "css-watch": "npm run css-build -- --watch"
+        "css-watch": "npm run css-build -- --watch",
+        "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --out=D:\\github_project\\release-builds --darwinDarkModeSupport=true",
+        "package-win": "electron-packager . --overwrite --platform=win32 --arch=x64 --out=D:\\github_project\\release-builds"
     },
     "devDependencies": {
-        "@fortawesome/fontawesome-free": "^5.10.2",
-        "svelte-preprocess": "^3.2.6",
         "autoprefixer": "^9.7.3",
-        "bulma": "^0.7.5",
         "electron": "^5.0.1",
         "electron-builder": "^20.40.2",
         "electron-installer-windows": "^2.0.0",
-        "node-sass": "^4.12.0",
+        "node-sass": "^4.13.0",
         "rollup": "^1.21.0",
         "rollup-plugin-commonjs": "^9.3.4",
         "rollup-plugin-json": "^4.0.0",
@@ -34,12 +34,15 @@
         "rollup-plugin-svelte": "^5.0.3",
         "rollup-plugin-typescript": "^1.0.1",
         "svelte": "^3.3.0",
+        "svelte-preprocess": "^3.2.6",
         "tslib": "^1.9.3",
-        "typescript": "^3.4.5"
+        "typescript": "^3.4.5",
+        "chokidar": "^3.0.0"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.10.2",
+        "bulma": "^0.7.5",
         "adm-zip": "^0.4.13",
-        "chokidar": "^3.0.0",
         "cross-env": "^5.2.0",
         "directory-tree": "^2.2.4",
         "electron-packager": "^14.0.6",

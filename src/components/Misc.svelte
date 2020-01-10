@@ -31,8 +31,10 @@
   $: kelvin = (plank_constant/boltzman_constant) * hz;
   $: cm_1 = hz/(c*1e2);
   $: um = (c/hz)*1e+6;
-  const energy_list = ["hz", "um", "kelvin", "cm_1", "eV"]
-
+  $: ghz = hz*1e-9
+  $: nm = (c/hz)*1e+9
+  $: J = plank_constant * hz
+  
   $: edit_constants = false
 
   $: edit_numberDensity_constants = false
@@ -53,8 +55,16 @@
 
 </script>
 
-<style>
+<style lang="scss">
+
+  $link-color: #dbdbdb;
+  $link-hovercolor: #7a64b1;
+
+  .button.is-link {border-color: $link-color; background-color: rgba(0,0,0,0);}
+  .button.is-link:hover, .button.is-link.is-hovered {background-color: $link-hovercolor;}
+  .button.is-link:focus:not(:active), .button.is-link.is-focused:not(:active) {box-shadow: 0 0 0 0.05em #fafafa;}
   .page {height: 70vh;}
+
   .conversion_table {
     margin-right: 0.5em;
     height: 70vh;
@@ -70,8 +80,13 @@
     font-weight: 400;
   }
   input {margin-bottom: 0.5em;}
-
   .subtitle {color: white;}
+
+  .unit_converter_column {
+    overflow: auto;
+  }
+
+  .input[disabled] {background-color: #fafafa; border-color: #fafafa;}
 
 </style>
 
@@ -99,15 +114,18 @@
 
       <div class="columns is-multiline" id="unit_conversion_table">
 
-        <div class="column {table_sz}">
+        <div class="column {table_sz} unit_converter_column">
           <h1 class="title">Energy Conversion</h1>
 
           <hr>
-          <input class="input energy" type="number" bind:value={hz} target="hz">Hz
-          <input class="input energy" type="number" bind:value={um} target="um" on:change="{()=>hz=(c/um)*1e6}">&mu;m
-          <input class="input energy" type="number" bind:value={cm_1} target="cm_1" on:change="{()=>hz=cm_1*c*1e2}">cm-1
-          <input class="input energy" type="number" bind:value={kelvin} target="kelvin" on:change="{()=>hz=(boltzman_constant/plank_constant)*kelvin}">K
-          <input class="input energy" type="number" bind:value={eV} target="eV" on:change="{()=>hz=(electron_charge/plank_constant)*eV}">eV
+          <input class="input energy" type="number" bind:value={hz} >Hz
+          <input class="input energy" type="number" bind:value={ghz} on:change="{()=>hz=(ghz)*1e+9}" target="hz">GHz
+          <input class="input energy" type="number" bind:value={um} on:change="{()=>hz=(c/um)*1e6}">&mu;m
+          <input class="input energy" type="number" bind:value={cm_1} on:change="{()=>hz=cm_1*c*1e2}">cm-1
+          <input class="input energy" type="number" bind:value={kelvin} on:change="{()=>hz=(boltzman_constant/plank_constant)*kelvin}">K
+          <input class="input energy" type="number" bind:value={eV} on:change="{()=>hz=(electron_charge/plank_constant)*eV}">eV
+          <input class="input energy" type="number" bind:value={J} on:change="{()=>hz=(J/plank_constant)}">J
+          <input class="input energy" type="number" bind:value={nm} on:change="{()=>hz=(c/nm)*1e9}">nm
 
           <hr>
 
@@ -125,7 +143,7 @@
 
         </div>
 
-        <div class="column {table_sz}">
+        <div class="column {table_sz} unit_converter_column">
           
           <h1 class="title">Number Density Calculation</h1>
 

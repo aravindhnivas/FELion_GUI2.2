@@ -6,6 +6,8 @@ from pathlib import Path as pt
 import numpy as np
 from scipy.signal import find_peaks as peak
 
+from FELion_definitions import sendData
+
 def find_mass_peaks(filename, prominence, width, height):
 
     mass, counts = np.genfromtxt(filename).T
@@ -27,13 +29,11 @@ def find_mass_peaks(filename, prominence, width, height):
             "ax": -25,
             "ay": -40
         }
-        
         for x, y in zip(mass, counts)
     ]
 
     dataToSend = {"annotations":annotations}
-    dataJson = json.dumps(dataToSend)
-    print(dataJson)
+    sendData(dataToSend)
 
 if __name__ == "__main__":
 

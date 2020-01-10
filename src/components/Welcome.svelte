@@ -54,12 +54,10 @@
         easing: "easeOutExpo",
         delay: 1000
       });
-
   });
 </script>
 
 <style>
-
   #Welcome {
     margin-top: 15% !important;
     display: none;
@@ -101,7 +99,9 @@
   }
 </style>
 
+
 <section class="section" id="Welcome">
+
   <AnimateBox>
     <h1 class="ml5">
       <span class="text-wrapper">

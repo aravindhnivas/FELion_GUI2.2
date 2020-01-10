@@ -1,9 +1,10 @@
 
 # FELion tkinter figure module
 from FELion_widgets import FELion_Tk
-from tkinter.messagebox import askokcancel
+from FELion_definitions import sendData
+from tkinter.messagebox import askokcancel, showerror
 # System modules
-import sys, json, os
+import sys, json, os, traceback
 from os.path import isdir, isfile
 from pathlib import Path as pt
 
@@ -13,7 +14,6 @@ from uncertainties import unumpy as unp
 
 # from matplotlib import style
 import matplotlib.pyplot as plt
-####################################### Modules Imported #######################################
 class timescanplot:
 
     def __init__(self, scanfile, tkplot=False):
@@ -47,9 +47,8 @@ class timescanplot:
             m["SUM"] = {"x":list(time), "y":list(mean.sum(axis=0)), 
                             "name": f"SUM", "mode": 'lines+markers', "line":{"color":"black"},
                             "error_y":{"type": "data","array": list(error.sum(axis=0)),"visible": True}}
-            dataJson = json.dumps(m)
-
-            print(dataJson)
+            
+            sendData(m)
 
         self.time, self.mean, self.error = time, mean, error
 
@@ -59,16 +58,17 @@ class timescanplot:
 
         save_fname = f"{self.widget.name.get()}.{self.widget.save_fmt.get()}"
         print(f"Saving filename: {save_fname}")
-
         save_filename = self.location / save_fname
 
         if not self.widget.latex.get(): self.widget.save_fig()
-        else:
 
+        else:
             style_path = pt(__file__).parent / "matplolib_styles/styles/science.mplstyle"
+
             with plt.style.context([f"{style_path}"]):
 
                 fig, ax = plt.subplots()
+
                 time, mean, error = self.read_timescan_file(ax=ax)
                 ax.errorbar(time, mean.sum(axis=0), yerr=error.sum(axis=0), label="SUM", fmt="k.-")
 
@@ -95,12 +95,14 @@ class timescanplot:
                 ax.tick_params(axis='x', which='major', labelsize=self.widget.xlabelSz.get())
                 ax.tick_params(axis='y', which='major', labelsize=self.widget.ylabelSz.get())
 
-                fig.savefig(save_filename, dpi=self.widget.dpi_value.get()*2)
-                print(f"File saved:\n{save_filename}")
-                if askokcancel('Open savedfile?', f'File: {save_fname}\nsaved in directory: {self.location}'):
-                    print("Opening file: ", save_filename)
-                    os.system(f"{save_filename}")
-
+                try:
+                    fig.savefig(save_filename, dpi=self.widget.dpi_value.get()*2)
+                    print(f"File saved:\n{save_filename}")
+                    if askokcancel('Open savedfile?', f'File: {save_fname}\nsaved in directory: {self.location}'):
+                        print("Opening file: ", save_filename)
+                        os.system(f"{save_filename}")
+                except: showerror("Error", traceback.format_exc(5))
+                
     def read_timescan_file(self, ax=None, tkplot=True, m=None):
 
         location = self.scanfile.parent
