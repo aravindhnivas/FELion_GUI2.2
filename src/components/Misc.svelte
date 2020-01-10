@@ -86,6 +86,8 @@
     overflow: auto;
   }
 
+  .input[disabled] {background-color: #fafafa; border-color: #fafafa;}
+
 </style>
 
 <section class="section animated fadeIn" style="display:none" id="Misc">

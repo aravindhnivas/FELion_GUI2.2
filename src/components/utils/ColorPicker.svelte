@@ -75,7 +75,11 @@
             jQuery(".box, .row1").css("background-color", lighten(color, 6))
 
             jQuery("#Navbar").css("background-color", lighten(color, 2))
-            
+            jQuery(".menu-list a.is-active").css("background-color", window.navbarBgColor)
+            jQuery("hr").css("background-color", window.navbarBgColor)
+
+            // jQuery(".input[disabled]").css("background-color", "white").css("border-color", window.navbarBgColor)
+
             window.btnHoverBgColor = lighten(color, 4)
 
         }

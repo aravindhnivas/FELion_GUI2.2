@@ -31,6 +31,7 @@ $panel-heading-background-color: darken($background, 10%);
 $panel-block-active-icon-color: $white;
 $panel-block-active-color: $white;
 $panel-block-hover-background-color: $hoverBackground;
+$menu-item-active-background-color: $background;
 
 @import "./node_modules/bulma/bulma.sass";
 @import "./node_modules/pretty-checkbox/src/pretty-checkbox.scss";
@@ -49,4 +50,12 @@ body,
 html {
     background-color: $background;
 }
+
 .navbar.is-dark {background-color: #38236b;}
+
+.input:focus, .textarea:focus, .select select:focus, 
+.is-focused.input, .is-focused.textarea, .select select.is-focused, 
+.input:active, .textarea:active, .select select:active, .is-active.input, .is-active.textarea, .select select.is-active {
+    border-color: #fafafa;
+    box-shadow: 0 0 0 0.05em #fafafa;
+}

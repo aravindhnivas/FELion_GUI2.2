@@ -73,14 +73,16 @@
             })
         })
     }
+
     // Pages in Settings
 
-    let items = ["Pages", "Configuration", "Update", "About"]
+    let items = ["Configuration", "Update", "About"]
 
     //////////////////////////////////////////////////// FUNCTIONS ////////////////////////////////////////////////////
-    $: saveChanges = false
 
+    $: saveChanges = false
     const configSave = () => {
+
         checkPython().then(res=>{
             console.log(res)
 
@@ -109,21 +111,23 @@
         
     }
     const toggle = (event) => {
-
+        
         let target = event.target.id
         items.forEach(item=>{
             let elementID = `${item}Container`
             let $element = jq(`#${elementID}`)
             let targetElement = document.getElementById(item)
+
             if (elementID != target) {
                 if($element.hasClass("is-active")) {
+                    $element.css("background-color", "transparent")
                     $element.removeClass("is-active")
                     targetElement.style.display = "none"
                 }
             } else {
-
                 $element.addClass("is-active")
                 targetElement.style.display = "block"
+                $element.css("background-color", window.navbarBgColor)
             }
         })
     }
@@ -506,10 +510,9 @@
 
 <style>
 
-    .is-active {
-        background-color: #46307d!important;
+    /* .menu-list a.is-active {
         border-radius: 2em;
-    }
+    } */
     .menu-list a:hover {
         
         border-left: 2px solid;
@@ -574,7 +577,7 @@
                     <div class="is-pulled-right">{currentTime}</div>
 
                     <!-- Pages -->
-                    <div class="container-fluid" id="Pages" style="display:block">
+                    <!-- <div class="container-fluid" id="Pages" style="display:block">
                         <div class="container" id="Page 0" style="display:block">
                             <div class="control">
                                 <h1 class="title">Page Configuration</h1>
@@ -602,10 +605,10 @@
                                 </div>
                             </div>
                         {/each}
-                    </div>
+                    </div> -->
 
                     <!-- Configuration Settings -->
-                    <div class="container" id="Configuration" style="display:none">
+                    <div class="container" id="Configuration" style="display:block">
 
                         <!-- Python path -->
                         <div class="field">

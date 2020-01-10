@@ -3923,7 +3923,7 @@ a.list-item {
       background-color: #46307d;
       color: #fafafa; }
     .menu-list a.is-active {
-      background-color: #3273dc;
+      background-color: #46307d;
       color: #fff; }
   .menu-list li ul {
     border-left: 1px solid #dbdbdb;
@@ -7580,3 +7580,9 @@ html {
 
 .navbar.is-dark {
   background-color: #38236b; }
+
+.input:focus, .textarea:focus, .select select:focus,
+.is-focused.input, .is-focused.textarea, .select select.is-focused,
+.input:active, .textarea:active, .select select:active, .is-active.input, .is-active.textarea, .select select.is-active {
+  border-color: #fafafa;
+  box-shadow: 0 0 0 0.05em #fafafa; }
