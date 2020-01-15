@@ -32,39 +32,33 @@ def var_find(massfile):
 
 def massplot(massfiles, tkplot):
     os.chdir(massfiles[0].parent)
+    
     if tkplot:
-        
-        widget = FELion_Tk(title="Mass spectrum", location=massfiles[0].parent)
-
-        fig, canvas = widget.Figure()
 
         if len(massfiles) == 1: savename=massfiles[0].stem
         else: savename = "combined_masspec"
+        widget = FELion_Tk(title=f"Mass spectrum: {savename}", location=massfiles[0].parent)
+        fig, canvas = widget.Figure()
         ax = widget.make_figure_layout(title="Mass Spectrum", xaxis="Mass [u]", yaxis="Counts", yscale="log", savename=savename)
 
     else: data = {}
     for massfile in massfiles:
 
         masses_temp, counts_temp = np.genfromtxt(massfile).T
-
         res, b0, trap = var_find(massfile)
         label = f"{massfile.stem}: Res:{res}; B0: {b0}ms; trap: {trap}ms"
-
         if tkplot: ax.plot(masses_temp, counts_temp, label=label)
-        
         else: data[massfile.stem] = {
             "x": list(masses_temp), "y": list(counts_temp), "name": label, "mode": "lines", "showlegend": True
         }
 
     if not tkplot:
-        dataJson = json.dumps(data)
-        print(dataJson)
+        print("Done")
         sendData(data)
-
     else:
         widget.plot_legend = ax.legend()
         widget.mainloop()
-
+        print("Done")
 
 if __name__ == "__main__":
     args = sys.argv[1:][0].split(",")
