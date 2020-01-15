@@ -396,9 +396,6 @@ class FELion_Tk(Tk):
         self.set_minor = lambda x: self.ax.xaxis.set_minor_locator(AutoMinorLocator(x))
         self.set_minor(10)
         
-        # self.ax.tick_params(which='minor', length=4, width=2, color='C1')
-        # self.ax.tick_params(which='major', length=10, width=2)
-
         # Making axis available for modification
         self.xaxis = self.ax.xaxis
         self.yaxis = self.ax.yaxis
@@ -423,10 +420,8 @@ class FELion_Tk(Tk):
             return self.ax 
         
     def save_fig(self, event=None):
-
         save_fname = f"{self.name.get()}.{self.save_fmt.get()}"
         print(f"Saving filename: {save_fname}")
-
         save_filename = self.location / save_fname
         print(f"Saving file: {save_filename}")
 
@@ -448,8 +443,8 @@ class FELion_Tk(Tk):
                     else: self.ax2.plot(x, y, ls, ms=2, label=lg)
                 
                 self.ax2.grid()
-                # self.ax2.set(xlim=[0, 40])
-                legend = self.ax2.legend(bbox_to_anchor=[1, 1], fontsize=self.xlabelSz.get()/2)
+                self.ax2.set(xlim=self.ax.get_xlim())
+                legend = self.ax2.legend(bbox_to_anchor=[1, 1], fontsize=self.xlabelSz.get())
                 legend.set_visible(self.plotLegend.get())
 
                 # Setting title
@@ -470,7 +465,7 @@ class FELion_Tk(Tk):
                 self.ax2.tick_params(axis='x', which='major', labelsize=self.xlabelSz.get())
                 self.ax2.tick_params(axis='y', which='major', labelsize=self.ylabelSz.get())
 
-                self.fig2.savefig(save_filename, dpi=self.dpi_value.get()*2)
+                self.fig2.savefig(save_filename, dpi=self.dpi_value.get()*6)
 
         def saved():
             if self.latex.get(): savefig_latex()
