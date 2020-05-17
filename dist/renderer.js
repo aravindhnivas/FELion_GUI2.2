@@ -1623,7 +1623,7 @@ function get_each_context_1(ctx, list, i) {
 	return child_ctx;
 }
 
-// (240:8) {:else}
+// (241:8) {:else}
 function create_else_block_1(ctx) {
 	var li;
 
@@ -1648,7 +1648,7 @@ function create_else_block_1(ctx) {
 	};
 }
 
-// (172:8) {#if folderFile != undefined}
+// (173:8) {#if folderFile != undefined}
 function create_if_block$1(ctx) {
 	var li0, aside, div, span0, t0, span1, t1_value = ctx.folderFile.parentFolder + "", t1, div_id_value, t2, ul0, t3, ul0_id_value, aside_id_value, t4, li1, ul1, dispose;
 
@@ -1836,7 +1836,7 @@ function create_if_block$1(ctx) {
 	};
 }
 
-// (198:16) {:else}
+// (199:16) {:else}
 function create_else_block$1(ctx) {
 	var li, div, t0, t1, t2;
 
@@ -1873,7 +1873,7 @@ function create_else_block$1(ctx) {
 	};
 }
 
-// (185:16) {#if folderFile.files.length > 0}
+// (186:16) {#if folderFile.files.length > 0}
 function create_if_block_1(ctx) {
 	var li, div1, input, input_id_value, t, div0, dispose;
 
@@ -1918,7 +1918,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (202:16) {#each folderFile.files.sort() as filename}
+// (203:16) {#each folderFile.files.sort() as filename}
 function create_each_block_1(ctx) {
 	var li, div1, input, input_id_value, input_class_value, t0, div0, i, t1, label, t2_value = ctx.filename + "", t2, label_for_value, t3, li_class_value, dispose;
 
@@ -1992,7 +1992,7 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (224:14) {#each folderFile.folders as foldername}
+// (225:14) {#each folderFile.folders as foldername}
 function create_each_block$1(ctx) {
 	var li, aside, div, span0, t0, span1, t1_value = ctx.foldername + "", t1, span1_id_value, t2, dispose;
 
@@ -2262,6 +2262,7 @@ function instance$4($$self, $$props, $$invalidate) {
   let folderFile;
 
   const refreshFolder = event => {
+    
     jq(`#${filetag}refreshIcon`).addClass("fa-spin");
     $$invalidate('folderFile', folderFile = updateFolder(currentLocation));
   };
@@ -6082,8 +6083,8 @@ function instance$5($$self, $$props, $$invalidate) {
 
     jq(document).ready(()=>{
       let locationUpdateDiv = document.getElementById(`${filetag}locationUpdate`);
-
       locationUpdateDiv.innerHTML = status;
+      
       locationUpdateDiv.style.display = "block";
       setTimeout(()=>{
         locationUpdateDiv.innerHTML="";
@@ -7336,7 +7337,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (569:20) {#each items as item, index}
+// (573:20) {#each items as item, index}
 function create_each_block$3(ctx) {
 	var li, a, t_value = ctx.item + "", t, dispose;
 
@@ -7368,7 +7369,7 @@ function create_each_block$3(ctx) {
 	};
 }
 
-// (642:32) {#if saveChanges}
+// (646:32) {#if saveChanges}
 function create_if_block_1$2(ctx) {
 	var h1, h1_transition, current, dispose;
 
@@ -7413,7 +7414,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (709:28) {#if back_restore_display}
+// (713:28) {#if back_restore_display}
 function create_if_block$3(ctx) {
 	var p, t, p_transition, current;
 
@@ -8175,6 +8176,7 @@ function instance$7($$self, $$props, $$invalidate) {
 
     // Importing modules
     const {exec} = require("child_process");
+
     const https = require('https');
     const fs = require('fs');
     const admZip = require('adm-zip');
@@ -8219,10 +8221,12 @@ function instance$7($$self, $$props, $$invalidate) {
     });
 
     function checkPython(){
-        console.log("Python path: ", pythonpath);
-        return new Promise((resolve, reject)=>{
 
+        console.log("Python path: ", pythonpath);
+        
+        return new Promise((resolve, reject)=>{
             exec(`${pythonpath} -V`, (err, stdout, stderr)=>{
+                
             let options = {
                 title: "Incorrect Python path", message: `Python directory is not valid\n${pythonpath}`, type:"warning",
             };
@@ -8231,6 +8235,7 @@ function instance$7($$self, $$props, $$invalidate) {
                 showinfo(mainWindow, options);
                 reject("Invalid pythonpath: ", pythonpath);
             } else { resolve("Valid pythonpath: ", pythonpath); }
+        
             });
         })
     }
@@ -8290,7 +8295,7 @@ function instance$7($$self, $$props, $$invalidate) {
     };
 
     let github_username = "aravindhnivas";
-    let github_repo = "FELion_GUI2.2";
+    let github_repo = "FELion_GUI3";
 
     // Local update-downloaded files
     const updateFolder = path.resolve(__dirname, "..", "update");
@@ -12602,7 +12607,6 @@ var Popper = function () {
 Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
 Popper.placements = placements;
 Popper.Defaults = Defaults;
-//# sourceMappingURL=popper.js.map
 
 /**!
 * tippy.js v4.3.5
@@ -14542,7 +14546,6 @@ function injectCSS(css) {
 }
 
 injectCSS(css);
-//# sourceMappingURL=index.all.js.map
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -25619,7 +25622,6 @@ const app = new App({
     target: document.body,
     props: { mainPages }
 });
-//# sourceMappingURL=renderer.js.map
 
 module.exports = app;
 //# sourceMappingURL=renderer.js.map

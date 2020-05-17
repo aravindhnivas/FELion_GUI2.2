@@ -14,6 +14,7 @@
 
     // Importing modules
     const {exec} = require("child_process")
+
     const https = require('https');
     const fs = require('fs')
     const admZip = require('adm-zip');
@@ -58,10 +59,12 @@
     })
 
     function checkPython(){
-        console.log("Python path: ", pythonpath)
-        return new Promise((resolve, reject)=>{
 
+        console.log("Python path: ", pythonpath)
+        
+        return new Promise((resolve, reject)=>{
             exec(`${pythonpath} -V`, (err, stdout, stderr)=>{
+                
             let options = {
                 title: "Incorrect Python path", message: `Python directory is not valid\n${pythonpath}`, type:"warning",
             }
@@ -70,6 +73,7 @@
                 showinfo(mainWindow, options)
                 reject("Invalid pythonpath: ", pythonpath)
             } else { resolve("Valid pythonpath: ", pythonpath) }
+        
             })
         })
     }
@@ -139,7 +143,7 @@
     $: updateStatus = ""
 
     let github_username = "aravindhnivas"
-    let github_repo = "FELion_GUI2.2"
+    let github_repo = "FELion_GUI3"
 
     $: gihub_branchname = "master"
     $: console.log(`Branch changed: ${gihub_branchname}`)

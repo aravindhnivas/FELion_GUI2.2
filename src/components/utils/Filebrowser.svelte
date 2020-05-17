@@ -14,6 +14,7 @@
   }
 
   const refreshFolder = event => {
+    
     jq(`#${filetag}refreshIcon`).addClass("fa-spin");
     folderFile = updateFolder(currentLocation);
   };

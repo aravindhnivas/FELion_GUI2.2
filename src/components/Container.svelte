@@ -90,8 +90,8 @@
 
     jq(document).ready(()=>{
       let locationUpdateDiv = document.getElementById(`${filetag}locationUpdate`)
-
       locationUpdateDiv.innerHTML = status
+      
       locationUpdateDiv.style.display = "block"
       setTimeout(()=>{
         locationUpdateDiv.innerHTML=""
