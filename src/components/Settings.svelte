@@ -139,7 +139,7 @@
     $: updateStatus = ""
 
     let github_username = "aravindhnivas"
-    let github_repo = "FELion_GUI2.2"
+    let github_repo = "FELion_GUI3"
 
     $: gihub_branchname = "master"
     $: console.log(`Branch changed: ${gihub_branchname}`)
