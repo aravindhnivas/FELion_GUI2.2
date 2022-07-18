@@ -48,7 +48,7 @@
         "electron-packager": "^14.0.6",
         "hover.css": "^2.3.2",
         "jquery": "^3.4.1",
-        "jquery-ui": "^1.12.1",
+        "jquery-ui": "^1.13.2",
         "pretty-checkbox": "^3.0.3",
         "python-shell": "^1.0.8",
         "recursive-copy": "^2.0.10",
